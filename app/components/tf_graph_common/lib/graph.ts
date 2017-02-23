@@ -874,8 +874,8 @@ function addEdgeToGraph(
     v: inputName,
     w: outputNode.name,
     outputTensorIndex: input.outputTensorIndex,
-    isControlDependency: input.isControlDependency,
-    isReferenceEdge: isRefEdge
+    isControlDependency:  input.isControlDependency,
+    isReferenceEdge: true//isRefEdge
   });
 }
 
@@ -1030,7 +1030,7 @@ export function createGraph<N, E>(name: string, type, opt = {}):
   let graph = new graphlib.Graph<N, E>(opt);
   graph.setGraph({
     name: name,
-    rankdir: 'BT',  // BT,TB,LR,RL
+    rankdir: 'LR',  // BT,TB,LR,RL
     type: type
   });
   return graph;

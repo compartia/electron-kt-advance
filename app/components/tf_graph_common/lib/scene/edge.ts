@@ -153,7 +153,7 @@ export function getLabelForEdge(metaedge: Metaedge,
     renderInfo: render.RenderGraphInfo): string {
   let isMultiEdge = metaedge.baseEdgeList.length > 1;
   return isMultiEdge ?
-      metaedge.baseEdgeList.length + ' tensors' :
+      metaedge.baseEdgeList.length + ' assumptions' :
       getLabelForBaseEdge(metaedge.baseEdgeList[0], renderInfo);
 }
 

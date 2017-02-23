@@ -15,13 +15,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-<link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
-<link rel="import" href="../iron-icons/iron-icons.html">
-<link rel="import" href="../paper-button/paper-button.html">
-<link rel="import" href="../paper-input/paper-input.html">
-<link rel="import" href="../paper-toggle-button/paper-toggle-button.html">
-<link rel="import" href="../tf-graph-common/tf-graph-common.html">
 <link rel="import" href="tf-graph-scene.html">
 
 <dom-module id="tf-graph">
@@ -124,7 +117,7 @@ Polymer({
     '_buildRenderHierarchy(graphHierarchy)'
   ],
   _statsChanged: function(stats, devicesForStats) {
-    if (this.graphHierarchy) {
+    if (this.graphHierarchy && this.graphHierarchy.root) {
       if (stats && devicesForStats) {
         tf.graph.joinStatsInfoWithGraph(this.basicGraph, stats, devicesForStats);
         tf.graph.hierarchy.joinAndAggregateStats(this.graphHierarchy, stats);
@@ -135,6 +128,9 @@ Polymer({
   },
   _buildRenderHierarchy: function(graphHierarchy) {
     tf.graph.util.time('new tf.graph.render.Hierarchy', function() {
+        if(!graphHierarchy.root){
+            return;
+        }
       if (graphHierarchy.root.type !== tf.graph.NodeType.META) {
         // root must be metanode but sometimes Polymer's dom-if has not
         // remove tf-graph element yet in <tf-node-info>

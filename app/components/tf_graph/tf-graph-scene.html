@@ -16,8 +16,7 @@ limitations under the License.
 -->
 
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../tf-dashboard-common/tensorboard-color.html">
-<link rel="import" href="tf-graph-minimap.html">
+
 
 <!--
   A module that takes a render hierarchy as input and produces an SVG DOM using
@@ -27,9 +26,17 @@ limitations under the License.
 <template>
 <style>
 :host {
-  display: flex;
+  /*display: flex;*/
   width: 100%;
-  font-size: 20px;
+  font-size: 6px;
+}
+
+.po-box{
+    font-size: 12px!important;
+}
+
+::content foreignobject{
+    font-size: 12px!important;
 }
 
 ::content #svg {
@@ -587,7 +594,7 @@ limitations under the License.
   <rect fill="white" width="10000" height="10000"></rect>
   <g id="root"></g>
 </svg>
-<tf-graph-minimap id="minimap"></tf-graph-minimap>
+
 </template>
 <script>
 Polymer({
@@ -739,7 +746,7 @@ Polymer({
     }.bind(this));
     // Update the minimap again when the graph is done animating.
     setTimeout(function() {
-      this.minimap.update();
+      //this.minimap.update();
     }.bind(this), tf.graph.layout.PARAMS.animation.duration);
   },
   ready: function() {
@@ -782,7 +789,7 @@ Polymer({
                     'translate(' + d3.event.translate + ')' +
                     'scale(' + d3.event.scale + ')');
         // Notify the minimap.
-        this.minimap.zoom(d3.event.translate, d3.event.scale);
+        //this.minimap.zoom(d3.event.translate, d3.event.scale);
       }.bind(this));
     d3.select(this.$.svg).call(this._zoom)
       .on('dblclick.zoom', null);
@@ -790,12 +797,12 @@ Polymer({
       // Notify the minimap that the user's window was resized.
       // The minimap will figure out the new dimensions of the main svg
       // and will use the existing translate and scale params.
-      this.minimap.zoom();
+      //this.minimap.zoom();
     }.bind(this));
     // Initialize the minimap.
-    this.minimap = this.$.minimap.init(this.$.svg, this.$.root, this._zoom,
-        tf.graph.layout.PARAMS.minimap.size,
-        tf.graph.layout.PARAMS.subscene.meta.labelHeight);
+    //this.minimap = this.$.minimap.init(this.$.svg, this.$.root, this._zoom,
+    //    tf.graph.layout.PARAMS.minimap.size,
+    //    tf.graph.layout.PARAMS.subscene.meta.labelHeight);
   },
   _buildAndFit: function(renderHierarchy) {
     this._resetState();
@@ -848,7 +855,7 @@ Polymer({
         this._updateNodeState(nodeName);
       }, this);
       // Notify also the minimap.
-      this.minimap.update();
+      //this.minimap.update();
     }
   },
   fit: function() {
@@ -934,7 +941,7 @@ Polymer({
 
 
     // Update the minimap to reflect the highlighted (selected) node.
-    this.minimap.update();
+    //this.minimap.update();
     var node = this.renderHierarchy.hierarchy.node(selectedNode);
     var nodeParents = [];
     // Create list of all metanode parents of the selected node.

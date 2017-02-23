@@ -471,6 +471,14 @@ function labelPosition(nodeGroup, cx: number, cy: number,
       .attr('y', cy + yOffset);
 };
 
+
+function shapePosition(shape, cx: number, cy: number, yOffset: number) {
+  shape
+      .transition()
+      .attr('x', cx)
+      .attr('y', cy + yOffset);
+};
+
 /**
  * Select or append/insert shape for a node and assign renderNode
  * as the shape's data.
@@ -486,7 +494,15 @@ export function buildShape(nodeGroup, d, nodeClass: string) {
   // TODO(jimbo): DOM structure should be templated in HTML somewhere, not JS.
   switch (d.node.type) {
     case NodeType.OP:
-      scene.selectOrCreateChild(shapeGroup, 'ellipse', Class.Node.COLOR_TARGET);
+
+
+        scene.selectOrCreateChild(shapeGroup, 'rect', Class.Node.COLOR_TARGET)
+            .attr({rx: d.radius, ry: d.radius});
+
+        // scene.selectOrCreateChild(shapeGroup, 'ellipse', Class.Node.COLOR_TARGET);
+        // scene.addHtmlLabel(shapeGroup, d.node).attr({rx: d.radius, ry: d.radius});
+
+
       break;
     case NodeType.SERIES:
       // Choose the correct stamp to use to represent this series.
@@ -542,9 +558,11 @@ function position(nodeGroup, d: render.RenderNodeInfo) {
   switch (d.node.type) {
     case NodeType.OP: {
       // position shape
-      let shape = scene.selectChild(shapeGroup, 'ellipse');
-      scene.positionEllipse(shape, cx, d.y, d.coreBox.width, d.coreBox.height);
-      labelPosition(nodeGroup, cx, d.y, d.labelOffset);
+      let shape = scene.selectChild(shapeGroup, 'rect');
+      labelPosition(nodeGroup, cx, d.y, 0);
+      let labelRect = scene.selectChild(nodeGroup, 'text', Class.Node.LABEL).node().getBoundingClientRect();    
+      scene.positionRect(shape, cx, d.y, labelRect.width, d.coreBox.height);
+
       break;
     }
     case NodeType.META: {

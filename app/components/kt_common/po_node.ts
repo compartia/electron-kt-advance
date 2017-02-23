@@ -64,7 +64,16 @@ module kt.graph.po_node {
             if (this.isDischarged()){
                 state_parent=""+SPL + this.po["state"];
             }
-            let _nm= this.fixFileName(this.po["file"])+ SPL + this.functionName + state_parent + SPL + this.predicate + "-" + this.id;
+            let _nm= /*this.fixFileName(this.po["file"])+ SPL + */this.functionName + state_parent
+                + SPL + this.predicate
+                + SPL + "("+this.id +")"
+                 ;
+
+            if(this.po["symbol"] && this.po["symbol"].type=="ID"){
+                _nm+=this.po["symbol"].value;
+            }else{
+                _nm+="CONST";
+            }
             return _nm;
         }
 

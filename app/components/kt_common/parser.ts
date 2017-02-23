@@ -2,7 +2,7 @@ module kt.parser {
 
     let fs = require('fs');
     declare function require(name: string);
-     
+
 
     function mapPOsByRefId(POs, ret = {}) {
 
@@ -100,9 +100,9 @@ module kt.parser {
     export function readAndParse(): tf.graph.proto.NodeDef[] {
 
         const ppoNodesMap = readPoNodesFromJsons([
-            "/Users/artem/work/KestrelTechnology/IN/dnsmasq/kt_analysis_export_5.6.1/src/log.c.json",
-            "/Users/artem/work/KestrelTechnology/IN/dnsmasq/kt_analysis_export_5.6.1/src/util.c.json",
-            "/Users/artem/work/KestrelTechnology/IN/dnsmasq/kt_analysis_export_5.6.1/src/cache.c.json"
+            "/Users/artem/work/KestrelTechnology/IN/dnsmasq/kt_analysis_export_5.6.1/src/log.c.json"
+            // "/Users/artem/work/KestrelTechnology/IN/dnsmasq/kt_analysis_export_5.6.1/src/util.c.json",
+            // "/Users/artem/work/KestrelTechnology/IN/dnsmasq/kt_analysis_export_5.6.1/src/cache.c.json"
             // "/Users/artem/work/KestrelTechnology/IN/dnsmasq/kt_analysis_export_5.6.1/src/tftp.c.json"
         ]);
 

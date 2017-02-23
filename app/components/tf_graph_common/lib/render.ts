@@ -15,7 +15,11 @@ limitations under the License.
 /**
  * Package for the Render Hierarchy for TensorFlow graph.
  */
+
+
 module tf.graph.render {
+
+var d3=require("d3");
 
 export type Point = {x: number, y: number};
 
@@ -77,30 +81,30 @@ const PARAMS = {
   /**
    * Whether to extract high degree nodes from the core part of the graph.
    */
-  enableExtraction: true,
+  enableExtraction: false,
   /**
    * The minimum number of nodes for a graph to have in order for high in and
    * out degree nodes to be extracted in auxiliary. The aim here is to prevent
    * nodes from being extracted from small graphs.
    */
-  minNodeCountForExtraction: 15,
+  minNodeCountForExtraction: 50,
   /**
    * The minimum in or out degree a node must have in order to be possibly
    * extracted.
    */
-  minDegreeForExtraction: 5,
+  minDegreeForExtraction: 15,
   /**
    * Maximum number of control edges a node can have before they aren't
    * displayed.
    */
-  maxControlDegree: 4,
+  maxControlDegree: 40,
   /**
    * Maximum in (for outbound bridge paths) or out (for inbound bridge paths)
    * degree of a node allowed for a bridge path to be rendered to it from a
    * subhierarchy of nodes. Having a max prevents having too many nodes emanate
    * from a subhierarchy and crowding up.
    */
-  maxBridgePathDegree: 4,
+  maxBridgePathDegree: 40,
   /**
    * Types patterns for predefined out-extract nodes, which are
    * sink-like nodes that will be extracted from the main graph.
@@ -121,20 +125,20 @@ const PARAMS = {
    * the node has high in-degree, or all out-edges if the node has high
    * out-degree.
    */
-  detachAllEdgesForHighDegree: true,
+  detachAllEdgesForHighDegree: false,
 
   /**
    * After extracting high in/out degree nodes and predefined
    * source-like/sink-like, extract isolated nodes to the side
    * if this extractIsolatedNodesWithAnnotationsOnOneSide is true.
    */
-  extractIsolatedNodesWithAnnotationsOnOneSide: true,
+  extractIsolatedNodesWithAnnotationsOnOneSide: false,
 
   /**
    * Whether to add bridge nodes and edges to the core when building the
    * subhierarchy of an expanded metanode. See buildSubhierarchy().
    */
-  enableBridgegraph: true,
+  enableBridgegraph: false,
 
   /**
    * 2 colors, for the minimum and maximum value respectively, whenever we
@@ -184,7 +188,7 @@ export class RenderGraphInfo {
     this.index[hierarchy.root.name] = this.root;
     this.buildSubhierarchy(hierarchy.root.name);
     this.root.expanded = true;
-    this.traceInputs = false;
+    this.traceInputs = true;
   }
 
   computeScales() {
@@ -192,6 +196,17 @@ export class RenderGraphInfo {
         .domain(this.hierarchy.devices)
         .range(_.map(d3.range(this.hierarchy.devices.length),
                      MetanodeColors.DEVICE_PALETTE));
+
+    this.stateColorMap={};
+    this.stateColorMap["VIOLATION"]="#EF1270";
+    this.stateColorMap["OPEN"]="#F4C74D";
+    this.stateColorMap["DISCHARGED"]="#6DF0B9";
+    let _deviceColorMap=function(id){
+        return this.stateColorMap[id];
+    };
+    _deviceColorMap.domain=this.deviceColorMap.domain;
+    this.deviceColorMap=_deviceColorMap;
+
 
     let topLevelGraph = this.hierarchy.root.metagraph;
     // Find the maximum and minimum memory usage.
@@ -1224,6 +1239,7 @@ function setGroupNodeDepth(renderInfo: RenderGroupNodeInfo,
 function createShortcut(
     graph: graphlib.Graph<RenderNodeInfo, RenderMetaedgeInfo>,
     v: string, w: string) {
+
   let src = graph.node(v);
   let sink = graph.node(w);
   let edge = graph.edge(v, w);

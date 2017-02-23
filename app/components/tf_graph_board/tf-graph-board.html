@@ -15,10 +15,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-<link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../tf-graph/tf-graph.html">
-<link rel="import" href="../tf-graph-info/tf-graph-info.html">
-<link rel="import" href="../paper-progress/paper-progress.html">
+<link rel="import" href="../tf_graph/tf-graph.html">
 
 <!--
 Element for putting tf-graph and tf-graph-info side by side.
@@ -122,12 +119,7 @@ paper-progress {
   color: white;
 }
 </style>
-<template is="dom-if" if="[[_isNotComplete(progress)]]">
-  <div id="progress-bar">
-    <div id="progress-msg">[[progress.msg]]</div>
-    <paper-progress value="[[progress.value]]"></paper-progress>
-  </div>
-</template>
+
 <div class$="[[_getContainerClass(progress)]]">
   <div id="main">
     <tf-graph id="graph"
@@ -139,24 +131,12 @@ paper-progress {
               stats="[[stats]]"
               selected-node="{{_selectedNode}}"
               highlighted-node="{{_highlightedNode}}"
-              color-by="[[colorBy]]"
+              color-by="DEVICE"
               color-by-params="{{colorByParams}}"
               progress="{{progress}}"
     ></tf-graph>
   </div>
-  <div id="info">
-    <tf-graph-info id="graph-info"
-              title="selected"
-              graph-hierarchy="[[graphHierarchy]]"
-              render-hierarchy="[[renderHierarchy]]"
-              graph="[[graph]]"
-              selected-node="{{_selectedNode}}"
-              selected-node-include="{{_selectedNodeInclude}}"
-              highlighted-node="{{_highlightedNode}}"
-              color-by="[[colorBy]]"
-              color-by-params="[[colorByParams]]"
-    ></tf-graph-info>
-  </div>
+
   <div class="context-menu"></div>
 </div>
 </template>
@@ -165,6 +145,9 @@ paper-progress {
 <script>
 Polymer({
   is: 'tf-graph-board',
+
+
+
   properties: {
     // Public API.
     graphHierarchy: Object,
@@ -186,18 +169,23 @@ Polymer({
       type: Object,
       notify: true
     },
+
+
     // Private API: Data routing between child components.
     _selectedNode: String,
     // The enum value of the include property of the selected node.
     _selectedNodeInclude: Number,
     _highlightedNode: String
   },
+
   listeners: {
     'node-toggle-extract': '_nodeToggleExtract'
   },
+
   observers: [
     '_updateNodeInclude(_selectedNode)'
   ],
+
   /** True if the progress is not complete yet (< 100 %). */
   _isNotComplete: function(progress) {
     return progress.value < 100;
@@ -207,9 +195,9 @@ Polymer({
     if (progress.error) {
       result += ' error';
     }
-    if (this._isNotComplete(progress)) {
-      result += ' loading';
-    }
+    //if (this._isNotComplete(progress)) {
+    //  result += ' loading';
+    //}
     return result;
   },
   _updateNodeInclude: function(nodeName) {
@@ -220,5 +208,9 @@ Polymer({
   _nodeToggleExtract: function() {
     this._updateNodeInclude(this._selectedNode);
   }
+
+
+
+
 });
 </script>
