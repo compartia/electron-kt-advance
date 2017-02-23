@@ -560,8 +560,10 @@ function position(nodeGroup, d: render.RenderNodeInfo) {
       // position shape
       let shape = scene.selectChild(shapeGroup, 'rect');
       labelPosition(nodeGroup, cx, d.y, 0);
-      let labelRect = scene.selectChild(nodeGroup, 'text', Class.Node.LABEL).node().getBoundingClientRect();    
-      scene.positionRect(shape, cx, d.y, labelRect.width, d.coreBox.height);
+      let labelNode = scene.selectChild(nodeGroup, 'text', Class.Node.LABEL).node();
+      let labelRect = labelNode.getBoundingClientRect();
+      let lw = labelNode.getComputedTextLength();
+      scene.positionRect(shape, cx, d.y, lw+3, d.coreBox.height+3);
 
       break;
     }

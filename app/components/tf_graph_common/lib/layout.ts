@@ -14,6 +14,8 @@ limitations under the License.
 ==============================================================================*/
 module tf.graph.layout {
 
+    var dagre=require("dagre");
+
 /** Set of parameters that define the look and feel of the graph. */
 export const PARAMS = {
   animation: {
@@ -109,11 +111,11 @@ export const PARAMS = {
     },
     /** Size of op nodes. */
     op: {
-      width: 15,
+      width: 50,
       height: 6,
       radius: 3,  // for making annotation touching ellipse
       labelOffset: -8,
-      maxLabelWidth: 30
+      maxLabelWidth: 70
     },
     /** Size of series nodes. */
     series: {
