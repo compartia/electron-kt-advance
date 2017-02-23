@@ -5,3 +5,6 @@ node_modules/
 
 app.bak/
 bower_components/
+
+app/components/tf_graph_common/**/*.js
+app/components/kt_common/**/*.js
