@@ -15,17 +15,17 @@
   "main": "main.js",
   "scripts": {
     "test": "test",
-    "start": "electron ."
+    "start": "node_modules/.bin/electron ."
   },
   "devDependencies": {
+    "electron": "^1.4.15",
     "electron-packager": "^5.0.1",
-    "electron-prebuilt": "0.30.4",
-    "numeral": "^1.5.3",
     "grunt": "~0.4.5",
     "grunt-cli": "0.1.13",
     "grunt-contrib-clean": "^1.0.0",
     "grunt-contrib-sass": "^1.0.0",
     "grunt-contrib-watch": "~0.5.3",
+    "numeral": "^1.5.3",
     "typings": "1.4.0"
   },
   "dependencies": {

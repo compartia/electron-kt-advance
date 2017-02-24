@@ -101,7 +101,7 @@ export const PARAMS = {
   nodeSize: {
     /** Size of meta nodes. */
     meta: {
-      radius: 5,
+      radius: 0,
       width: 60,
       maxLabelWidth: 52,
       /** A scale for the node's height based on number of nodes inside */
@@ -113,7 +113,7 @@ export const PARAMS = {
     op: {
       width: 50,
       height: 6,
-      radius: 3,  // for making annotation touching ellipse
+      radius: 0,  // for making annotation touching ellipse
       labelOffset: -8,
       maxLabelWidth: 70
     },

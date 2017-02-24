@@ -1,40 +1,63 @@
-/*@import url("ui.css");
-@import url("toolbar.css");
-@import url("piechart.css");
-@import url("sidebar.css");
-@import url("treemap.css");*/
-
-$color-brand: #F4C74D;
 
 
-$po-discharged: #25895F;
-$po-discharged-label: #6DF0B9;
+$red: #EF2060;
+$yellow: #F4C74D;
+$green: lighten(mix($yellow, #6DF0B9, 22%), 10%);
 
-$grey: #7D889B;
 
-$po-open-base:  #F4C74D;
+$color-brand-1: $yellow;
+$color-brand-2: #662D91;
+
+$grey: lighten(desaturate($color-brand-2, 45%), 10%);
+
+$po-discharged: darken($green, 25%);
+$po-discharged-label: $green;
+
+
+
+$po-open-base:  $yellow;
 $po-open: darken($po-open-base, 20%);
-$po-violation: #EF1270;
+$po-violation: $red;
 
 $po-open-bg: lighten($po-open-base, 35%);
 $po-violation-bg: lighten($po-violation, 45%);
 $po-discharged-bg: lighten($po-discharged, 65%);
 
-$po-level-secondary:#E7EFF2;
+$po-level-secondary:lighten($grey, 35%);
 $po-level-primary:lighten($po-level-secondary,10%);
 
+:root{
+    --kt-red: $red;
+    --kt-green: $green;
+    --kt-yellow: $yellow;
 
-// svg{
-//     width: 100%;
-//     height: 1200px;
-// }
+    --kt-orange: mix($yellow, $red, 55%);
+
+    --kt-violet: $color-brand-2;
+    --kt-violet-lighter: lighten($color-brand-2, 10%);
+    --kt-node-fade: lighten(desaturate($color-brand-2, 30%), 40%);
+    --kt-node-selected-border: $color-brand-2;
+
+    --kt-grey: $grey;
+    --kt-grey-light:lighten($grey,30%);
+    --kt-grey-lighter:lighten($grey, 50%);
+
+    --kt-edge :lighten($grey,30%);
+    --kt-edge-highlight: lighten($grey,30%);
+    --kt-edge-text: darken($grey, 20%);
+
+
+    --kt-violation-bg: lighten($po-violation, 5%);
+    --kt-discharged-bg: lighten($po-discharged-label, 10%);
+    --kt-open-bg: $yellow;
+}
+
 
 html, body {
   font: 300 13px "RobotoDraft","Roboto",sans-serif;
-
   margin: 0;
   padding: 0;
-  height: 100%; 
+  height: 100%;
 }
 
 .po{

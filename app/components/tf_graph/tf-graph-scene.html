@@ -72,25 +72,25 @@ limitations under the License.
 
 ::content .meta.selected > .nodeshape > rect,
 ::content .meta.selected > .annotation-node > rect {
-  stroke: red;
+  stroke: var(--kt-node-selected-border);
   stroke-width: 2;
 }
 
 ::content .node.meta.selected.expanded > .nodeshape > rect,
 ::content .node.meta.selected.expanded > .annotation-node > rect {
-  stroke: red;
+  stroke: var(--kt-node-selected-border);
   stroke-width: 3;
 }
 
 ::content .annotation.meta.selected > .nodeshape > rect,
 ::content .annotation.meta.selected > .annotation-node > rect {
-  stroke: red;
+  stroke: var(--kt-node-selected-border);
   stroke-width: 2;
 }
 
 ::content .node.meta.selected.expanded.highlighted > .nodeshape > rect,
 ::content .node.meta.selected.expanded.highlighted > .annotation-node > rect {
-  stroke: red;
+  stroke: var(--kt-node-selected-border);
   stroke-width: 4;
 }
 
@@ -101,9 +101,9 @@ limitations under the License.
 ::content .faded use,
 ::content #rectHatch line,
 ::content #ellipseHatch line {
-  color: #e0d4b3 !important;
+  color: var(--kt-node-fade) !important;
   fill: white;
-  stroke: #e0d4b3 !important;
+  stroke: var(--kt-node-fade) !important;
 }
 
 
@@ -130,7 +130,7 @@ limitations under the License.
 ::content .input-highlight > * > use
 {
   fill: white;
-  stroke: #ff9800 !important;
+  stroke: var(--kt-orange) !important;
 }
 
 /*  - Faded non-input styling */
@@ -142,7 +142,7 @@ limitations under the License.
   .annotation-node > ellipse,
 /* For styling of annotation nodes of non-input nodes. */
 ::content .non-input > g > .annotation > .annotation-node > rect {
-  stroke: #e0d4b3 !important;
+  stroke: var(--kt-node-fade) !important;
   stroke-width: inherit;
   stroke-dasharray: inherit;
 }
@@ -185,7 +185,7 @@ limitations under the License.
 ::content .input-highlight > .in-annotations > .annotation > .annotation-edge,
 ::content .input-highlight-selected > .in-annotations > .annotation >
 .annotation-edge {
-  stroke: #999 !important;
+  stroke: var(--kt-edge-highlight) !important;
 }
 
 /* Non-input edges. */
@@ -206,7 +206,7 @@ limitations under the License.
 ::content .op > .annotation-node > ellipse {
   cursor: pointer;
   fill: #fff;
-  stroke: #ccc;
+  stroke: var(--kt-grey);
 }
 
 ::content .op.selected > .nodeshape > ellipse,
@@ -247,7 +247,7 @@ limitations under the License.
  */
 ::content .series > .nodeshape > use ,
 ::content .series > .annotation-node > use {
-  stroke: #ccc;
+  stroke: var(--kt-edge);
 }
 ::content .series.highlighted > .nodeshape > use ,
 ::content .series.highlighted > .annotation-node > use {
@@ -319,11 +319,11 @@ limitations under the License.
 }
 
 ::content .annotation.meta.highlighted > text.annotation-label {
-  fill: #50A3F7;
+  fill: var(--kt-violet-lighter);
 }
 
 ::content .annotation.meta.selected > text.annotation-label {
-  fill: #4285F4;
+  fill: var(--kt-violet);
 }
 
 /* --- Annotation --- */
@@ -343,7 +343,7 @@ limitations under the License.
 
 ::content .annotation > .annotation-edge {
   fill: none;
-  stroke: #aaa;
+  stroke: var(--kt-edge);
   stroke-width: 0.5;
   marker-end: url(#annotation-arrowhead);
 }
@@ -365,19 +365,19 @@ limitations under the License.
 }
 
 ::content #annotation-arrowhead {
-  fill: #aaa;
+  fill: var(--kt-edge);
 }
 
 ::content #annotation-arrowhead-faded {
-  fill: #e0d4b3;
+  fill: var(--kt-node-fade);
 }
 
 ::content #ref-annotation-arrowhead {
-  fill: #aaa;
+  fill: var(--kt-edge);
 }
 
 ::content #ref-annotation-arrowhead-faded {
-  fill: #e0d4b3;
+  fill: var(--kt-node-fade);
 }
 
 ::content .annotation > .annotation-label {
@@ -399,7 +399,7 @@ limitations under the License.
 ::content .constant > .annotation-node > ellipse {
   cursor: pointer;
   fill: white;
-  stroke: #848484;
+  stroke: var(--kt-edge);
 }
 
 ::content .constant.selected > .annotation-node > ellipse {
@@ -432,7 +432,7 @@ limitations under the License.
 
 ::content .edge > path.edgeline {
   fill: none;
-  stroke: #bbb;
+  stroke: var(--kt-edge);
   stroke-linecap: round;
   stroke-width: 0.75;
 }
@@ -440,11 +440,11 @@ limitations under the License.
 /* Labels showing tensor shapes on edges */
 ::content .edge > text {
   font-size: 3.5px;
-  fill: #666;
+  fill: var(--kt-edge-text);
 }
 
 ::content .ref-arrowhead {
-  fill: #bbb;
+  fill: var(--kt-edge);
 }
 
 ::content .edge .control-dep {
@@ -596,6 +596,8 @@ limitations under the License.
 </svg>
 
 </template>
+
+
 <script>
 Polymer({
   is: 'tf-graph-scene',

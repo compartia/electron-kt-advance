@@ -5,17 +5,28 @@
         <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
         <title>KT-Advance GUI</title>
 
-        <script src="ts/index.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/styles.css">
+
+        <script>
+          window.Polymer = {
+             lazyRegister: true,
+             useNativeCSSProperties: true
+          };
+        </script>
+
         <script src="components/kt_common/parser.js"></script>
         <script src="components/kt_common/po_node.js"></script>
+        <script src="components/kt_common/palette.js"></script>
 
-        <link rel="stylesheet" type="text/css" href="css/styles.css">
+        <script src="ts/index.js"></script>
+
+
 
         <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
         <link rel="import" href="../bower_components/polymer/polymer.html">
 
         <link rel="import" href="components/tf_graph_common/tf-graph-common.html">
-        <link rel="import" href="assumptions-graph.html">         
+        <link rel="import" href="assumptions-graph.html">
     </head>
 
     <body unresolved>

@@ -174,11 +174,20 @@ export class RenderGraphInfo {
   private hasSubhierarchy: {[nodeName: string]: boolean};
   root: RenderGroupNodeInfo;
   traceInputs: Boolean;
+  palette: {};
 
   constructor(hierarchy: hierarchy.Hierarchy, displayingStats: boolean) {
     this.hierarchy = hierarchy;
     this.displayingStats = displayingStats;
     this.index = {};
+
+    this.palette = kt.palette.buildPalette();
+    MetanodeColors.EXPANDED_COLOR=this.palette["grey-lighter"];
+    MetanodeColors.DEFAULT_STROKE=this.palette["grey"];
+    MetanodeColors.DEFAULT_FILL=this.palette["grey-lighter"];
+    MetanodeColors.GRADIENT_OUTLINE=this.palette["grey"];
+
+    OpNodeColors.DEFAULT_STROKE=this.palette["grey"];
 
     this.computeScales();
     // Maps node name to whether the rendering hierarchy was already
@@ -197,10 +206,12 @@ export class RenderGraphInfo {
         .range(_.map(d3.range(this.hierarchy.devices.length),
                      MetanodeColors.DEVICE_PALETTE));
 
-    this.stateColorMap={};
-    this.stateColorMap["VIOLATION"]="#EF1270";
-    this.stateColorMap["OPEN"]="#F4C74D";
-    this.stateColorMap["DISCHARGED"]="#6DF0B9";
+    this.stateColorMap={
+        "VIOLATION":this.palette["violation-bg"],
+        "OPEN":this.palette["open-bg"],
+        "DISCHARGED":this.palette["discharged-bg"]
+    };
+
     let _deviceColorMap=function(id){
         return this.stateColorMap[id];
     };
@@ -230,6 +241,7 @@ export class RenderGraphInfo {
       if (node.stats != null) {
         return node.stats.totalMicros;
       }
+
     });
     this.computeTimeScale = d3.scale.linear<string, string>()
         .domain(computeTimeExtent)
@@ -281,6 +293,7 @@ export class RenderGraphInfo {
         new RenderGroupNodeInfo(<GroupNode>node) :
         new RenderNodeInfo(node);
     this.index[nodeName] = renderInfo;
+
 
     if (node.stats) {
       renderInfo.memoryColor = this.memoryUsageScale(node.stats.totalBytes);
