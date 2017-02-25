@@ -2,20 +2,23 @@ module kt.graph.po_node {
     const SPL = "/";
 
 
+
     export class PONode {
         id: string;
         name: string;
+        state: string;
         po: any;
         predicate: string;
         functionName: string;
         message: string;
         inputs: PONode[];
         outputs: PONode[];
-        isMissing:boolean;
+        isMissing: boolean;
 
-        constructor(po, isMissing:boolean=false) {
+        constructor(po, isMissing: boolean = false) {
             this.po = po;
-            this.isMissing=isMissing;
+            this.isMissing = isMissing;
+            this.state = po["state"];
 
             this.inputs = [];
             this.outputs = [];
@@ -26,6 +29,20 @@ module kt.graph.po_node {
             this.id = this.parseId(po["referenceKey"]);
 
             this.name = this.makeName();
+        }
+
+        private getExtendedState(): string {
+            let po = this.po;
+            if (po["discharge"]) {
+                if (po["discharge"]["assumptions"].length > 0) {
+                    let type: string = po["discharge"]["assumptions"][0]["type"];
+                    return type.toUpperCase();
+                } else if (po["discharge"]["method"] == "invariants") {
+                    return "invariants";
+                }
+            }
+
+            return this.po["state"];
         }
 
         public addInput(node: PONode) {
@@ -60,19 +77,19 @@ module kt.graph.po_node {
         }
 
         private makeName(): string {
-            let state_parent:string="";
-            if (this.isDischarged()){
-                state_parent=""+SPL + this.po["state"];
-            }
-            let _nm= /*this.fixFileName(this.po["file"])+ SPL + */this.functionName + state_parent
-                + SPL + this.predicate
-                + SPL + "("+this.id +")"
-                 ;
 
-            if(this.po["symbol"] && this.po["symbol"].type=="ID"){
-                _nm+=this.po["symbol"].value;
-            }else{
-                _nm+="CONST";
+            /**
+                TODO: spaces are not yet allowed in names because of d3 queries; FIXME.
+            */
+            let _nm =
+                this.fixFileName(this.po["file"]) + SPL + this.functionName
+                + SPL + this.predicate
+                + SPL + this.level() + "(" + this.id + ")";
+
+            if (this.po["symbol"] && this.po["symbol"].type == "ID") {
+                _nm += this.po["symbol"].value;
+            } else {
+                _nm += "CONST";
             }
             return _nm;
         }
@@ -84,7 +101,7 @@ module kt.graph.po_node {
         }
 
         public isDischarged(): boolean {
-            return this.po["state"] == "DISCHARGED";
+            return this.getExtendedState() == "DISCHARGED";
         }
 
         public isTotallyDischarged(): boolean {
@@ -92,54 +109,62 @@ module kt.graph.po_node {
                 return false;
             }
 
-                for (let ref of this.inputs) {
-                    if (!ref.isDischarged()) {
-                        return false;
-                    }
+            for (let ref of this.inputs) {
+                if (!ref.isDischarged()) {
+                    return false;
                 }
+            }
 
-                for (let ref of this.outputs) {
-                    if (!ref.isDischarged()) {
-                        return false;
-                    }
+            for (let ref of this.outputs) {
+                if (!ref.isDischarged()) {
+                    return false;
                 }
+            }
 
             return true;
-        }
+         }
+
 
 
 
         public asNodeDef(): tf.graph.proto.NodeDef {
             const po = this.po;
 
-            let ret: tf.graph.proto.NodeDef = {
+            let nodeDef: tf.graph.proto.NodeDef = {
                 name: this.name,
                 input: [],
-                device: po["state"],
+                device: this.getExtendedState(),
                 op: this.functionName,
                 attr: {
                     // "html": poRef2html(po),
                     "predicate": this.predicate,
                     "level": po["level"],
-                    "state": po["state"],
+                    "state": this.state,
                     "message": this.message
                 }
             }
 
             for (let ref of this.inputs) {
-                let _nm=ref.name;
-                if(ref.isMissing)
-                    _nm="^"+_nm;
-                ret.input.push(_nm);
+                let _nm = ref.name;
+
+                let lifting = (this.getExtendedState()=="API");  
+
+                if (lifting){
+                    _nm = "^" + _nm;
+                }
+
+                nodeDef.input.push(_nm);
             }
 
-            return ret;
+            return nodeDef;
         }
-
+        private level(): string {
+            return this.po["level"] == "PRIMARY" ? "I" : "II";
+        }
         public toHtml(): string {
             var html = "<div class='po level-" + this.po["level"] + " state-" + this.po["state"] + "'>"
             // html += "<span class='func'>" + po["functionName"] + "</span><br>"
-            html += "<span class='predicate'>" + this.predicate  + " : <span class='level'> </span> </span>"
+            html += "<span class='predicate'>" + this.predicate + " : <span class='level'> </span> </span>"
             html += "<div class='message'>" + this.message + "</div>"
             html += "</div>"
 

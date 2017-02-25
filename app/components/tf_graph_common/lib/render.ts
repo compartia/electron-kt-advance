@@ -206,15 +206,11 @@ export class RenderGraphInfo {
         .range(_.map(d3.range(this.hierarchy.devices.length),
                      MetanodeColors.DEVICE_PALETTE));
 
-    this.stateColorMap={
-        "VIOLATION":this.palette["violation-bg"],
-        "OPEN":this.palette["open-bg"],
-        "DISCHARGED":this.palette["discharged-bg"]
-    };
 
-    let _deviceColorMap=function(id){
-        return this.stateColorMap[id];
+    let _deviceColorMap=function(id:string){
+        return this.palette["state-"+id.toLowerCase()+"-bg"];
     };
+    
     _deviceColorMap.domain=this.deviceColorMap.domain;
     this.deviceColorMap=_deviceColorMap;
 
