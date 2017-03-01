@@ -1,6 +1,7 @@
 module kt.palette {
 
 
+
     export function buildPalette() {
         const htmlStyles = window.getComputedStyle(document.body);
 
@@ -16,6 +17,12 @@ module kt.palette {
 
         for (let c of STATES_EXT) {
             ktColors["state-" + c + "-bg"] = htmlStyles.getPropertyValue('--kt-state-' + c + "-bg").trim();
+        }
+
+        for (var n in kt.graph.PoStatesExt) {
+            let c = kt.graph.PoStatesExt[n];
+            if (typeof c === 'string')
+                ktColors["state-" + c + "-bg"] = htmlStyles.getPropertyValue('--kt-state-' + c + "-bg").trim();
         }
 
         return ktColors;
