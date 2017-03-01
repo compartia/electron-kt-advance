@@ -264,6 +264,13 @@ export class RenderGraphInfo {
     return this.hierarchy.node(nodeName);
   }
 
+  logSumDevices(pairs){
+      let sum=0;
+      for (p of pairs){
+          sum+=Math.log(1+p[1]);
+      }
+      return sum;
+  }
   sortStates(pairs){
       return pairs.sort( (x, y) => {
            return kt.graph.po_node.PoStatesExt[x[0].toLowerCase()]-kt.graph.po_node.PoStatesExt[y[0].toLowerCase()];
@@ -312,12 +319,12 @@ export class RenderGraphInfo {
       let pairs = _.pairs((<GroupNode>node).deviceHistogram);
       if (pairs.length > 0) {
         // Compute the total # of devices.
-        let numDevices = Math.log(1+  _.sum(pairs, _.last));
+        let numDevices = this.logSumDevices (pairs);// Math.log(1 + _.sum(pairs, _.last));
         pairs=this.sortStates(pairs);
         renderInfo.deviceColors = _.map(pairs, pair => ({
               color: this.deviceColorMap(pair[0]),
               // Normalize to a proportion of total # of devices.
-              proportion: Math.log(1+pair[1]) / numDevices
+              proportion: Math.log(1 + pair[1]) / numDevices
             }));
       }
     } else {
