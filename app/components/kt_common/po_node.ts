@@ -1,6 +1,6 @@
 module kt.graph.po_node {
 
-    export enum PoStatesExt { violation, open, discharged, invariants, api, rv, global, ds };
+    export enum PoStatesExt { violation, open, discharged, global, invariants, ds, rv, api  };
     const SPL = "/";
 
 
