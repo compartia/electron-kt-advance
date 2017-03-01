@@ -210,7 +210,7 @@ export class RenderGraphInfo {
     let _deviceColorMap=function(id:string){
         return this.palette["state-"+id.toLowerCase()+"-bg"];
     };
-    
+
     _deviceColorMap.domain=this.deviceColorMap.domain;
     this.deviceColorMap=_deviceColorMap;
 
@@ -264,6 +264,11 @@ export class RenderGraphInfo {
     return this.hierarchy.node(nodeName);
   }
 
+  sortStates(pairs){
+      return pairs.sort( (x, y) => {
+           return kt.graph.po_node.PoStatesExt[x[0].toLowerCase()]-kt.graph.po_node.PoStatesExt[y[0].toLowerCase()];
+       });
+  }
   /**
    * Get a previously created RenderNodeInfo for the specified node name,
    * or create one if it hasn't been created yet.
@@ -307,11 +312,12 @@ export class RenderGraphInfo {
       let pairs = _.pairs((<GroupNode>node).deviceHistogram);
       if (pairs.length > 0) {
         // Compute the total # of devices.
-        let numDevices = _.sum(pairs, _.last);
+        let numDevices = Math.log(1+  _.sum(pairs, _.last));
+        pairs=this.sortStates(pairs);
         renderInfo.deviceColors = _.map(pairs, pair => ({
               color: this.deviceColorMap(pair[0]),
               // Normalize to a proportion of total # of devices.
-              proportion: pair[1] / numDevices
+              proportion: Math.log(1+pair[1]) / numDevices
             }));
       }
     } else {

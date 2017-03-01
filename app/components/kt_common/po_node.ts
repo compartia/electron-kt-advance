@@ -1,4 +1,6 @@
 module kt.graph.po_node {
+
+    export enum PoStatesExt { violation, open, discharged, invariants, api, rv, global, ds };
     const SPL = "/";
 
 
@@ -122,7 +124,7 @@ module kt.graph.po_node {
             }
 
             return true;
-         }
+        }
 
 
 
@@ -142,9 +144,9 @@ module kt.graph.po_node {
                     "state": this.state,
                     "stateExt": this.getExtendedState(),
                     "location": po["textRange"],
-                    "symbol":po["symbol"],
+                    "symbol": po["symbol"],
                     "message": this.message,
-                    "discharge":po["discharge"] //? po["discharge"]["comment"] : null
+                    "discharge": po["discharge"] //? po["discharge"]["comment"] : null
                 }
             }
 
