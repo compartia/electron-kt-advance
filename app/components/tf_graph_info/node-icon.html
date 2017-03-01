@@ -8,30 +8,24 @@
     </style>
 
     <template>
+
         <template is="dom-if" if="[[_isType(node, type, 'OP')]]">
             <template is="dom-if" if="[[_isRegularOp(node, const, summary)]]">
                 <svg height="100%" width="100%" preserveAspectRatio="none" viewBox="0 0 100 100">
-                    <g transform="translate(50, 50) rotate(90 0 0)">
-                        <rect x="-50" y="-50" fill$="[[_getFill(_computedFill, 'OP')]]" stroke$="none" class$="{{_fadedClass(renderInfo, 'rect')}}" height="100" width="100" rx="0" ry="0"/>
+                    <g>
+                        <rect id="rotable" x="0" y="0" fill$="[[_getFill(_computedFill, 'OP')]]" stroke$="none" class$="{{_fadedClass(renderInfo, 'rect')}}" height="100" width="100" rx="0" ry="0"/>
                     </g>
                 </svg>
             </template>
         </template>
+
         <template is="dom-if" if="[[_isType(node, type, 'META')]]">
-            <template is="dom-if" if="[[!rotate]]">
-                <svg height="100%" width="100%" preserveAspectRatio="none" viewBox="0 0 100 100">
-                    <g transform="translate(50, 50) rotate(90 0 0)">
-                        <rect x="-50" y="-50" fill$="[[_getFill(_computedFill, 'META')]]" stroke$="none" class$="{{_fadedClass(renderInfo, 'rect')}}" height="100" width="100" rx="0" ry="0"/>
-                    </g>
-                </svg>
-            </template>
+            <svg height="100%" width="100%" preserveAspectRatio="none" viewBox="0 0 100 100">
+                <g>
+                    <rect id="rotable" x="0" y="0" fill$="[[_getFill(_computedFill, 'META')]]" stroke$="none" class$="{{_fadedClass(renderInfo, 'rect')}}" height="100" width="100" rx="0" ry="0"/>
+                </g>
 
-            <template is="dom-if" if="[[rotate]]">
-                <svg height="100%" width="100%" preserveAspectRatio="none" viewBox="0 0 100 100">
-                    <rect x="0" y="0" fill$="[[_getFill(_computedFill, 'META')]]" stroke$="none" class$="{{_fadedClass(renderInfo, 'rect')}}" height="100" width="100" rx="0" ry="0"/>
-                </svg>
-            </template>
-
+            </svg>
         </template>
 
     </template>
@@ -93,12 +87,6 @@
                         type: Boolean,
                         value: false
                     },
-
-                    rotate:{
-                        type: Boolean,
-                        value: false
-                    },
-
 
                     /** Whether the op is Const (ignored for non-ops). */
                     const: {

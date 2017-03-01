@@ -15,7 +15,7 @@
     <template>
         <div>
             <div class="node-color-container">
-                <node-icon id="bg" rotate="true"
+                <node-icon id="bg"
                     node="[[_node]]" render-info="[[_getRenderInfo(nodeName, renderHierarchy)]]"
                     template-index="[[_templateIndex]]" color-by="[[colorBy]]"></node-icon>
 
@@ -210,33 +210,10 @@
                         computed: '_getNode(nodeName, graphHierarchy)',
                         observer: '_resetState'
                     },
-                    _nodeStats: {
-                        type: Object,
-                        computed: '_getNodeStats(nodeName, graphHierarchy)',
-                        observer: '_resetState'
-                    },
                     _funcLocation: {
                         type: String,
                         computed: '_getFuncLocation(_node)',
-                    }
-                    ,
-                    _hasDisplayableNodeStats: {
-                        type: Object,
-                        computed: '_getHasDisplayableNodeStats(_nodeStats)'
                     },
-                    _nodeStatsFormattedBytes: {
-                        type: String,
-                        computed: '_getNodeStatsFormattedBytes(_nodeStats)'
-                    },
-                    _nodeStatsFormattedComputeTime: {
-                        type: String,
-                        computed: '_getNodeStatsFormattedComputeTime(_nodeStats)'
-                    },
-                    _nodeStatsFormattedOutputSizes: {
-                        type: Array,
-                        computed: '_getNodeStatsFormattedOutputSizes(_nodeStats)'
-                    },
-
                     _node_class: {
                         type: String,
                         computed: '_getNodeClass(_node)'
@@ -297,42 +274,6 @@
                 },
                 _getNode: function(nodeName, graphHierarchy) {
                     return graphHierarchy.node(nodeName);
-                },
-                _getNodeStats: function(nodeName, graphHierarchy) {
-                    var node = this._getNode(nodeName, graphHierarchy);
-                    if (node) {
-                        return node.stats;
-                    }
-                    return null;
-                },
-                _getHasDisplayableNodeStats: function(stats) {
-                    return tf.graph.util.hasDisplayableNodeStats(stats);
-                },
-                _getNodeStatsFormattedBytes: function(stats) {
-                    if (!stats || !stats.totalBytes) {
-                        return;
-                    }
-
-                    return tf.graph.util.convertUnitsToHumanReadable(stats.totalBytes, tf.graph.util.MEMORY_UNITS);
-                },
-                _getNodeStatsFormattedComputeTime: function(stats) {
-                    if (!stats || !stats.totalMicros) {
-                        return;
-                    }
-
-                    return tf.graph.util.convertUnitsToHumanReadable(stats.totalMicros, tf.graph.util.TIME_UNITS);
-                },
-                _getNodeStatsFormattedOutputSizes: function(stats) {
-                    if (!stats || !stats.outputSize || !stats.outputSize.length) {
-                        return;
-                    }
-
-                    return _.map(stats.outputSize, function(shape) {
-                        if (shape.length === 0) {
-                            return "scalar";
-                        }
-                        return "[" + shape.join(", ") + "]";
-                    });
                 },
                 _getPrintableHTMLNodeName: function(nodeName) {
                     // Insert an optional line break before each slash so that long node names wrap cleanly at path boundaries.

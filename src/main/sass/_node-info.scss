@@ -195,6 +195,17 @@ tf-node-info {
     }
 }
 
+#rotable{
+    transform: rotate(0deg) translate(0%, 0%);
+    transform-origin: 50% 50%;
+}
+
+.rotated{
+    #rotable{
+        transform: rotate(90deg) translate(0%, 0%);
+    }
+}
+
 tf-node-list-item{
 
     node-icon{
@@ -204,7 +215,18 @@ tf-node-list-item{
         width: $base-padding/2;
         bottom: -0.5px;
         top: 0;
+
+        #rotable{
+            transform: rotate(90deg) translate(0, 0%);
+        }
+
+        // .rotated{
+        //     transform: translate(50%, 50%);
+        //     transform: rotate(0deg);
+        // }
     }
+
+
 
 
     #list-item {
@@ -227,6 +249,10 @@ tf-node-list-item{
             node-icon{
                 z-index: -100;
                 width: 100%
+            }
+
+            #rotable{
+                transform: rotate(0deg) translate(0, 0);
             }
         }
 
