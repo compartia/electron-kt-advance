@@ -38,7 +38,7 @@ module kt.graph.po_node {
                     let type: string = po["discharge"]["assumptions"][0]["type"];
                     return type.toUpperCase();
                 } else if (po["discharge"]["method"] == "invariants") {
-                    return "invariants";
+                    return "invariants".toUpperCase();
                 }
             }
 
@@ -140,18 +140,22 @@ module kt.graph.po_node {
                     "predicate": this.predicate,
                     "level": po["level"],
                     "state": this.state,
-                    "message": this.message
+                    "stateExt": this.getExtendedState(),
+                    "location": po["textRange"],
+                    "symbol":po["symbol"],
+                    "message": this.message,
+                    "discharge":po["discharge"] //? po["discharge"]["comment"] : null
                 }
             }
 
             for (let ref of this.inputs) {
                 let _nm = ref.name;
 
-                let lifting = (this.getExtendedState()=="API");  
-
-                if (lifting){
-                    _nm = "^" + _nm;
-                }
+                // let lifting = (this.getExtendedState()=="API");
+                //
+                // if (lifting){
+                //     _nm = "^" + _nm;
+                // }
 
                 nodeDef.input.push(_nm);
             }

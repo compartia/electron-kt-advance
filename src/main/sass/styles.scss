@@ -1,165 +1,100 @@
+@import "_colors";
+@import "_node-info";
+@import "_fonts";
 
-$color-brand-1: #F4C74D;
-$color-brand-2: #662D91;
-
-
-$red: #EF2060;
-$yellow: $color-brand-1 ;
-$green: lighten(mix($yellow, #6DF0B9, 22%), 6%);
-$ian_gillan: $color-brand-2;
-$blue: #4397CE;
-
-
-
-
-$grey: lighten(desaturate($color-brand-2, 45%), 10%);
-
-$po-discharged: darken($green, 25%);
-$po-discharged-label: $green;
-
-
-
-$po-open-base:  $yellow;
-$po-open: darken($po-open-base, 20%);
-$po-violation: $red;
-
-$po-open-bg: lighten($po-open-base, 35%);
-$po-violation-bg: lighten($po-violation, 45%);
-$po-discharged-bg: lighten($po-discharged, 65%);
-
-$po-level-secondary:lighten($grey, 35%);
-$po-level-primary:lighten($po-level-secondary,10%);
-
-:root{
-    --kt-red: $red;
-    --kt-green: $green;
-    --kt-yellow: $yellow;
-
-    --kt-orange: mix($yellow, $red, 55%);
-
-    --kt-violet: $ian_gillan;
-    --kt-violet-lighter: lighten($ian_gillan, 10%);
-    --kt-node-fade: lighten(desaturate($ian_gillan, 30%), 40%);
-    --kt-node-selected-border: $ian_gillan;
-
-    --kt-grey: $grey;
-    --kt-grey-light:lighten($grey,30%);
-    --kt-grey-lighter:lighten($grey, 50%);
-
-    --kt-edge :lighten($grey,30%);
-    --kt-edge-highlight: lighten($grey,30%);
-    --kt-edge-text: darken($grey, 20%);
-
-
-    --kt-state-violation-bg: lighten($po-violation, 5%);
-    --kt-state-discharged-bg: $green;
-    --kt-state-invariants-bg: darken(mix($green, $blue, 85%),10%);
-    --kt-state-open-bg: $yellow;
-    --kt-state-api-bg: lighten($ian_gillan, 50%);
-    --kt-state-rv-bg: lighten(mix($green, $blue, 35%),20%);
-    --kt-state-global-bg: lighten(mix($green, $blue, 75%),15%);
-    --kt-state-ds-bg: lighten(mix($yellow, $green, 35%),15%);
+body,
+html {
+    font   : 300 $font-size-base "RobotoDraft","Roboto",sans-serif;
+    margin : 0;
+    padding: 0;
+    height : 100%;
 }
 
+tf-node-info {
 
 
-html, body {
-  font: 300 13px "RobotoDraft","Roboto",sans-serif;
-  margin: 0;
-  padding: 0;
-  height: 100%;
-}
+    .po {
+        font-size: $font-size-base;
+        padding      : $base-padding/2;
 
-.po{
-    // display: block;
-    // width: 100%;
-    // height: 100%;
-    font: 300 7px 'Roboto', Helvetica;
+        .predicate {
+            font-weight   : 400;
+            text-transform: uppercase;
+            font-size     : 80%;
+        }
 
-    // border: 1px solid $grey;
-    padding: 5px;
-    border-radius:0px;
+        .func {
+            font       : 300 80% 'Liberation Mono', Courier;
+            font-weight: 500;
+        }
 
-    .predicate{
-        font-weight: 400;
-        text-transform: uppercase;
-        font-size: 80%;
+        .message {
+            color      : $grey;
+            font-size  : 90%;
+            font-weight: 300;
+            display    : block;
+        }
+
     }
 
-    .func{
-        font: 300 80% 'Liberation Mono', Courier;
-        font-weight: 500;
-    }
+    .po.level-PRIMARY {
+        background: $po-level-primary;
 
-    .message{
-        color: $grey;
-        font-size: 80%;
-        font-weight: 300;
-        display: block;
-        width: 100px;
-        // text-overflow: ellipsis;
-    }
-
-}
-
-.po.level-PRIMARY{
-    background: $po-level-primary;
-
-    .predicate{
-        &:after{
-            content: ": I";
+        .predicate {
+            &:after {
+                content: " I";
+            }
         }
     }
-}
 
-.po.level-SECONDARY{
-    background: $po-level-secondary;
-    .predicate{
-        &:after{
-            content: ": II";
+    .po.level-SECONDARY {
+        background: $po-level-secondary;
+
+        .predicate {
+            &:after {
+                content: " II";
+            }
         }
     }
-}
 
-.po.state-OPEN{
-    border-left:  5px solid $po-open-base;
-    background: $po-open-bg;
+    .po.state-OPEN {
+        background : $po-open-bg;
 
-    .predicate{
-        color: $po-open;
-    }
-}
-
-.po.state-DISCHARGED{
-    .predicate, .func{
-        color: $po-discharged;
-    }
-    background: $po-discharged-bg!important;
-}
-
-.po.state-VIOLATION{
-    border-left:  5px solid $po-violation;
-    background: $po-violation-bg;
-    .predicate, .func{
-        color: $po-violation;
+        .predicate {
+            color: $po-open;
+        }
     }
 
-    .level{
-        color: $po-violation;
+    .po.state-DISCHARGED {
+        .func,
+        .predicate {
+            color: $po-discharged;
+        }
+        background: $po-discharged-bg!important;
     }
+
+    .po.state-VIOLATION {
+        background : $po-violation-bg;
+
+        .func,
+        .predicate {
+            color: $po-violation;
+        }
+
+        .level {
+            color: $po-violation;
+        }
+    }
+
 }
-
-
-
-
 
 .node rect {
-  // stroke: #333;
-  // fill: #fff;
+    // stroke: #333;
+    // fill: #fff;
 }
 
 .edgePath path.path {
-  stroke: $grey;
-  fill: none;
-  stroke-width: 1px;
+    stroke      : $grey;
+    fill        : none;
+    stroke-width: 1px;
 }

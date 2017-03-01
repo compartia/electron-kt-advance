@@ -1,0 +1,67 @@
+
+$color-brand-1: #F4C74D;
+$color-brand-2: #662D91;
+
+
+$red: #EF2060;
+$yellow: $color-brand-1 ;
+$green: lighten(mix($yellow, #6DF0B9, 22%), 6%);
+$ian_gillan: $color-brand-2;
+$blue: #4397CE;
+
+
+
+
+$grey: lighten(desaturate($color-brand-2, 45%), 10%);
+
+$po-discharged: darken($green, 25%);
+$po-discharged-label: $green;
+
+
+
+$po-open-base:  $yellow;
+$po-open: darken($po-open-base, 20%);
+$po-violation: $red;
+
+$po-open-bg: lighten($po-open-base, 35%);
+$po-violation-bg: lighten($po-violation, 45%);
+$po-discharged-bg: lighten($po-discharged, 65%);
+
+$po-level-secondary:lighten($grey, 35%);
+$po-level-primary:lighten($po-level-secondary,10%);
+
+:root{
+    --kt-red: $red;
+    --kt-green: $green;
+    --kt-yellow: $yellow;
+
+    --kt-orange: mix($yellow, $red, 55%);
+
+
+    --kt-violet: $ian_gillan;
+    --kt-violet-lighter: lighten($ian_gillan, 10%);
+    --kt-node-fade: lighten(desaturate($ian_gillan, 30%), 40%);
+    --kt-node-selected-border: $ian_gillan;
+
+    --kt-grey: $grey;
+    --kt-grey-dark: darken($grey, 20%);
+    --kt-grey-light:lighten($grey,30%);
+    --kt-grey-lighter:lighten($grey, 50%);
+
+    --kt-edge :lighten($grey,30%);
+    --kt-edge-highlight: lighten($grey,30%);
+    --kt-edge-text: darken($grey, 20%);
+
+
+    --kt-state-violation-bg: lighten($po-violation, 5%);
+    --kt-state-discharged-bg: $green;
+    --kt-state-invariants-bg: darken(mix($green, $blue, 85%),10%);
+    --kt-state-open-bg: $yellow;
+    --kt-state-api-bg: lighten($ian_gillan, 50%);
+    --kt-state-rv-bg: lighten(mix($green, $blue, 35%),20%);
+    --kt-state-global-bg: lighten(mix($green, $blue, 75%),15%);
+    --kt-state-ds-bg: lighten(mix($yellow, $green, 35%),15%);
+
+
+    --kt-hover: lighten(desaturate($ian_gillan, 30%), 55%);
+}
