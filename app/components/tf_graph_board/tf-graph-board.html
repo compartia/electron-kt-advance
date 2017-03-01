@@ -16,6 +16,7 @@ limitations under the License.
 -->
 
 <link rel="import" href="../tf_graph/tf-graph.html">
+<link rel="import" href="../tf_graph_info/tf-graph-info.html">
 
 <!--
 Element for putting tf-graph and tf-graph-info side by side.
@@ -138,6 +139,22 @@ paper-progress {
   </div>
 
   <div class="context-menu"></div>
+
+  <div id="info">
+    <tf-graph-info id="graph-info"
+              title="selected"
+              graph-hierarchy="[[graphHierarchy]]"
+              render-hierarchy="[[renderHierarchy]]"
+              graph="[[graph]]"
+              selected-node="{{_selectedNode}}"
+              selected-node-include="{{_selectedNodeInclude}}"
+              highlighted-node="{{_highlightedNode}}"
+              color-by="DEVICE"
+              color-by-params="[[colorByParams]]"
+    ></tf-graph-info>
+  </div>
+
+
 </div>
 </template>
 </dom-module>

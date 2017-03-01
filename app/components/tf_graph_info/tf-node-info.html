@@ -1,0 +1,497 @@
+
+
+
+<link rel="import" href="../../../bower_components/iron-collapse/iron-collapse.html">
+<link rel="import" href="../../../bower_components/iron-list/iron-list.html">
+<link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../../bower_components/paper-item/all-imports.html">
+
+<link rel="import" href="node-icon.html">
+
+<link rel="import" href="tf-node-list-item.html">
+
+<dom-module id="tf-node-info">
+    <style></style>
+    <template>
+        <div>
+            <div class="node-color-container">
+                <node-icon id="bg" rotate="true"
+                    node="[[_node]]" render-info="[[_getRenderInfo(nodeName, renderHierarchy)]]"
+                    template-index="[[_templateIndex]]" color-by="[[colorBy]]"></node-icon>
+
+                <div id="caption"><b>[[_node.attr.state]]<sup class='level'></sup></b> &nbsp;[[_device]]</div>
+            </div>
+
+            <div>
+                <paper-icon-button icon="{{_getToggleIcon(_expanded)}}" on-click="_toggleExpanded" class="toggle-button"></paper-icon-button>
+                  <div class="node-name" id="nodetitle"></div>
+            </div>
+
+            <div>
+
+                <template is="dom-if" if="{{_node.op}}">
+
+                    <div class$="[[_node_class]]">
+
+                        <template is="dom-if" if="[[_attributes.symbol]]">
+                            <div class="symbol">
+                                <span class='type'>[[_attributes.symbol.type]]</span>
+                                <span class='value'>"[[_attributes.symbol.value]]"</span>
+                            </div>
+                        </template>
+
+                        <a><span class='func'>[[_node.op]] : <span class='location'>L[[_funcLocation]]</span></span> </a><br>
+                        <span class='predicate'>[[_attributes.predicate]] :
+
+                        </span>
+                        <template is="dom-if" if="{{_attributes.discharge}}">
+                            <div class='message'>[[_attributes.discharge.evidence.comment]]</div>
+                        </template>
+                    </div>
+
+                </template>
+
+                <template is="dom-if" if="{{_node.metagraph}}">
+                    <div class="subtitle">
+                        Subgraph:
+                        <span>[[_node.cardinality]]</span>
+                        nodes
+                    </div>
+                </template>
+            </div>
+
+        </div>
+
+        <iron-collapse opened="{{_expanded}}">
+            <template is="dom-if" if="{{_expanded}}" restamp="true">
+                <div class="expandedInfo">
+
+                    <!-- <template is="dom-if" if="{{_device}}">
+                        <div class="sub-list-group device">
+                            <div class="attr-left">State</div>
+                            <div class="attr-right">[[_device]]</div>
+                        </div>
+                    </template> -->
+
+                    <div class="sub-list-group predecessors">
+                        <span class="caption">Dependent PO (<span>[[_totalPredecessors]]</span>)</span>
+
+                        <iron-list class="sub-list" id="inputsList" items="[[_predecessors.regular]]">
+                            <template>
+                                <tf-node-list-item
+                                    class="non-control-list-item"
+                                    card-node="[[_node]]"
+                                    item-node="[[item.node]]"
+                                    edge-label="[[item.edgeLabel]]"
+                                    item-render-info="[[item.renderInfo]]"
+                                    name="[[item.name]]"
+                                    item-type="predecessors"
+                                    color-by="[[colorBy]]"
+                                    template-index="[[_templateIndex]]"></tf-node-list-item>
+                            </template>
+                        </iron-list>
+                        <!-- <template is="dom-if" if="[[_predecessors.control.length]]">
+                            <div class="controlDeps">
+                                <div class="controlLine">
+                                    <paper-icon-button icon="{{_getToggleIcon(_openedControlPred)}}" on-click="_toggleControlPred" class="control-toggle-button"></paper-icon-button>
+                                    Control dependencies
+                                </div>
+                                <iron-collapse opened="{{_openedControlPred}}" no-animation>
+                                    <template is="dom-if" if="{{_openedControlPred}}" restamp="true">
+                                        <iron-list class="sub-list" items="[[_predecessors.control]]">
+                                            <template>
+                                                <tf-node-list-item card-node="[[_node]]" item-node="[[item.node]]" item-render-info="[[item.renderInfo]]" name="[[item.name]]" item-type="predecessors" color-by="[[colorBy]]" template-index="[[_templateIndex]]"></tf-node-list-item>
+                                            </template>
+                                        </iron-list>
+                                    </template>
+                                </iron-collapse>
+                            </div>
+                        </template> -->
+                    </div>
+
+                    <div class="sub-list-group successors">
+                        <span class="caption">Depends on (<span>[[_totalSuccessors]]</span>)</span>
+                        <iron-list class="sub-list" id="outputsList" items="[[_successors.regular]]">
+                            <template>
+                                <tf-node-list-item
+                                    class="non-control-list-item"
+                                    card-node="[[_node]]"
+                                    item-node="[[item.node]]"
+                                    edge-label="[[item.edgeLabel]]"
+                                    item-render-info="[[item.renderInfo]]"
+                                    name="[[item.name]]"
+                                    item-type="successor"
+                                    color-by="[[colorBy]]"
+                                    template-index="[[_templateIndex]]"></tf-node-list-item>
+                            </template>
+                        </iron-list>
+                        <!-- <template is="dom-if" if="[[_successors.control.length]]">
+                            <div class="controlDeps">
+                                <div class="controlLine">
+                                    <paper-icon-button icon="{{_getToggleIcon(_openedControlSucc)}}" on-click="_toggleControlSucc" class="control-toggle-button"></paper-icon-button>
+                                    Control dependencies
+                                </div>
+                                <iron-collapse opened="{{_openedControlSucc}}" no-animation>
+                                    <template is="dom-if" if="{{_openedControlSucc}}" restamp="true">
+                                        <iron-list class="sub-list" items="[[_successors.control]]">
+                                            <template>
+                                                <tf-node-list-item card-node="[[_node]]" item-node="[[item.node]]" item-render-info="[[item.renderInfo]]" name="[[item.name]]" item-type="successors" color-by="[[colorBy]]" template-index="[[_templateIndex]]"></tf-node-list-item>
+                                            </template>
+                                        </iron-list>
+                                    </template>
+                                </iron-collapse>
+                            </div>
+                        </template> -->
+                    </div>
+                    <!-- <template is="dom-if" if="{{_hasDisplayableNodeStats}}">
+                        <div class="sub-list-group node-stats">
+                            Node Stats
+                            <div class="sub-list-table">
+                                <template is="dom-if" if="{{_nodeStats.totalBytes}}">
+                                    <div class="sub-list-table-row">
+                                        <div class="sub-list-table-cell">Memory</div>
+                                        <div class="sub-list-table-cell">[[_nodeStatsFormattedBytes]]</div>
+                                    </div>
+                                </template>
+                                <template is="dom-if" if="{{_nodeStats.totalMicros}}">
+                                    <div class="sub-list-table-row">
+                                        <div class="sub-list-table-cell">Compute Time</div>
+                                        <div class="sub-list-table-cell">[[_nodeStatsFormattedComputeTime]]</div>
+                                    </div>
+                                </template>
+                                <template is="dom-if" if="{{_nodeStats.outputSize}}">
+                                    <div class="sub-list-table-row">
+                                        <div class="sub-list-table-cell">Tensor Output Sizes</div>
+                                        <div class="sub-list-table-cell">
+                                            <template is="dom-repeat" items="{{_nodeStatsFormattedOutputSizes}}">
+                                                [[item]]
+                                                <br/>
+                                            </template>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </template> -->
+                    <!-- <div class="toggle-include-group">
+                        <paper-button raised class="toggle-include" on-click="_toggleInclude">
+                            <span>[[_auxButtonText]]</span>
+                        </paper-button>
+                    </div>
+                    <template is="dom-if" if="{{_isInSeries(_node)}}">
+                        <div class="toggle-include-group">
+                            <paper-button raised class="toggle-include" on-click="_toggleGroup">
+                                <span>[[_groupButtonText]]</span>
+                            </paper-button>
+                        </div>
+                    </template> -->
+                </div>
+            </template>
+        </iron-collapse>
+    </template>
+
+    <script>
+        (function() {
+            Polymer({
+                is: 'tf-node-info',
+
+                properties: {
+                    nodeName: String,
+                    graphHierarchy: Object,
+                    renderHierarchy: Object,
+                    /** What to color the nodes by (compute time, memory, device etc.) */
+                    colorBy: String,
+                    _templateIndex: {
+                        type: Function,
+                        computed: '_getTemplateIndex(graphHierarchy)'
+                    },
+                    _node: {
+                        type: Object,
+                        computed: '_getNode(nodeName, graphHierarchy)',
+                        observer: '_resetState'
+                    },
+                    _nodeStats: {
+                        type: Object,
+                        computed: '_getNodeStats(nodeName, graphHierarchy)',
+                        observer: '_resetState'
+                    },
+                    _funcLocation: {
+                        type: String,
+                        computed: '_getFuncLocation(_node)',
+                    }
+                    ,
+                    _hasDisplayableNodeStats: {
+                        type: Object,
+                        computed: '_getHasDisplayableNodeStats(_nodeStats)'
+                    },
+                    _nodeStatsFormattedBytes: {
+                        type: String,
+                        computed: '_getNodeStatsFormattedBytes(_nodeStats)'
+                    },
+                    _nodeStatsFormattedComputeTime: {
+                        type: String,
+                        computed: '_getNodeStatsFormattedComputeTime(_nodeStats)'
+                    },
+                    _nodeStatsFormattedOutputSizes: {
+                        type: Array,
+                        computed: '_getNodeStatsFormattedOutputSizes(_nodeStats)'
+                    },
+
+                    _node_class: {
+                        type: String,
+                        computed: '_getNodeClass(_node)'
+                    },
+                    // The enum value of the include property of the selected node.
+                    nodeInclude: {
+                        type: Number,
+                        observer: '_nodeIncludeStateChanged'
+                    },
+                    _attributes: {
+                        type: Object,
+                        computed: '_getAttributes(_node)'
+                    },
+                    _device: {
+                        type: String,
+                        computed: '_getDevice(_node)'
+                    },
+                    _successors: {
+                        type: Object,
+                        computed: '_getSuccessors(_node, graphHierarchy)'
+                    },
+                    _predecessors: {
+                        type: Object,
+                        computed: '_getPredecessors(_node, graphHierarchy)'
+                    },
+                    _subnodes: {
+                        type: Array,
+                        computed: '_getSubnodes(_node)'
+                    },
+                    _expanded: {
+                        type: Boolean,
+                        value: true
+                    },
+                    _totalPredecessors: {
+                        type: Number,
+                        computed: '_getTotalPred(_predecessors)'
+                    },
+                    _totalSuccessors: {
+                        type: Number,
+                        computed: '_getTotalSucc(_successors)'
+                    },
+                    _openedControlPred: {
+                        type: Boolean,
+                        value: false
+                    },
+                    _openedControlSucc: {
+                        type: Boolean,
+                        value: false
+                    },
+                    _auxButtonText: String,
+                    _groupButtonText: String
+                },
+                expandNode: function() {
+                    this.fire('_node.expand', this.node);
+                },
+                _getTemplateIndex: function(graphHierarchy) {
+                    return graphHierarchy.getTemplateIndex();
+                },
+                _getNode: function(nodeName, graphHierarchy) {
+                    return graphHierarchy.node(nodeName);
+                },
+                _getNodeStats: function(nodeName, graphHierarchy) {
+                    var node = this._getNode(nodeName, graphHierarchy);
+                    if (node) {
+                        return node.stats;
+                    }
+                    return null;
+                },
+                _getHasDisplayableNodeStats: function(stats) {
+                    return tf.graph.util.hasDisplayableNodeStats(stats);
+                },
+                _getNodeStatsFormattedBytes: function(stats) {
+                    if (!stats || !stats.totalBytes) {
+                        return;
+                    }
+
+                    return tf.graph.util.convertUnitsToHumanReadable(stats.totalBytes, tf.graph.util.MEMORY_UNITS);
+                },
+                _getNodeStatsFormattedComputeTime: function(stats) {
+                    if (!stats || !stats.totalMicros) {
+                        return;
+                    }
+
+                    return tf.graph.util.convertUnitsToHumanReadable(stats.totalMicros, tf.graph.util.TIME_UNITS);
+                },
+                _getNodeStatsFormattedOutputSizes: function(stats) {
+                    if (!stats || !stats.outputSize || !stats.outputSize.length) {
+                        return;
+                    }
+
+                    return _.map(stats.outputSize, function(shape) {
+                        if (shape.length === 0) {
+                            return "scalar";
+                        }
+                        return "[" + shape.join(", ") + "]";
+                    });
+                },
+                _getPrintableHTMLNodeName: function(nodeName) {
+                    // Insert an optional line break before each slash so that long node names wrap cleanly at path boundaries.
+                    return (nodeName || '').replace(/\//g, '<wbr>/');
+                },
+                _getRenderInfo: function(nodeName, renderHierarchy) {
+                    return this.renderHierarchy.getOrCreateRenderNodeByName(nodeName);
+                },
+
+                _getFuncLocation(node){
+                    if(node && node.attr && node.attr.location)
+                        return node.attr.location[0][0];
+                    return "";
+                },
+
+                _getAttributes: function(node) {
+                    this.async(this._resizeList.bind(this, "#attributesList"));
+                    if (!node || !node.attr) {
+                        return {};
+                    }
+
+                    return node.attr;
+                },
+
+                _getNodeClass: function(node) {
+                    if (node && node.attr) {
+                        return "po level-" + node.attr.level + " state-" + node.attr.state;
+                    } else {
+                        return "po";
+                    }
+                },
+                _getDevice: function(node) {
+                    return node
+                        ? node.device
+                        : null;
+                },
+                _getSuccessors: function(node, hierarchy) {
+                    this.async(this._resizeList.bind(this, "#inputsList"));
+                    if (!node) {
+                        return {regular: [], control: []}
+                    }
+                    return this._convertEdgeListToEdgeInfoList(hierarchy.getSuccessors(node.name), false, node.isGroupNode);
+                },
+                _getPredecessors: function(node, hierarchy) {
+                    this.async(this._resizeList.bind(this, "#outputsList"));
+                    if (!node) {
+                        return {regular: [], control: []}
+                    }
+                    return this._convertEdgeListToEdgeInfoList(hierarchy.getPredecessors(node.name), true, node.isGroupNode);
+                },
+                _convertEdgeListToEdgeInfoList: function(list, isPredecessor, isGroupNode) {
+
+                    /**
+           * Unpacks the metaedge into a list of base edge information
+           * that can be rendered.
+           */
+                    var unpackMetaedge = function(metaedge) {
+                        return _.map(metaedge.baseEdgeList, function(baseEdge) {
+                            name = isPredecessor
+                                ? baseEdge.v
+                                : baseEdge.w;
+                            return {
+                                name: name,
+                                node: this._getNode(name, this.graphHierarchy),
+                                edgeLabel: tf.graph.scene.edge.getLabelForBaseEdge(baseEdge, this.renderHierarchy),
+                                renderInfo: this._getRenderInfo(name, this.renderHierarchy)
+                            };
+                        }, this);
+                    }.bind(this);
+
+                    /**
+           * Converts a list of metaedges to a list of edge information
+           * that can be rendered.
+           */
+                    var toEdgeInfoList = function(edges) {
+                        var edgeInfoList = [];
+                        _.each(edges, function(metaedge) {
+                            var name = isPredecessor
+                                ? metaedge.v
+                                : metaedge.w;
+                            // Enumerate all the base edges if the node is an OpNode, or the metaedge has only 1 edge in it.
+                            if (!isGroupNode || metaedge.baseEdgeList.length == 1) {
+                                edgeInfoList = edgeInfoList.concat(unpackMetaedge(metaedge));
+                            } else {
+                                edgeInfoList.push({
+                                    name: name,
+                                    node: this._getNode(name, this.graphHierarchy),
+                                    edgeLabel: tf.graph.scene.edge.getLabelForEdge(metaedge, this.renderHierarchy),
+                                    renderInfo: this._getRenderInfo(name, this.renderHierarchy)
+                                });
+                            }
+                        }, this);
+                        return edgeInfoList;
+                    }.bind(this);
+
+                    return {
+                        regular: toEdgeInfoList(list.regular),
+                        control: toEdgeInfoList(list.control)
+                    };
+                },
+                _getSubnodes: function(node) {
+                    return node && node.metagraph
+                        ? node.metagraph.nodes()
+                        : null;
+                },
+                _getTotalPred: function(predecessors) {
+                    return predecessors.regular.length + predecessors.control.length;
+                },
+                _getTotalSucc: function(successors) {
+                    return successors.regular.length + successors.control.length;
+                },
+                _toggleControlPred: function() {
+                    this._openedControlPred = !this._openedControlPred;
+                },
+                _toggleControlSucc: function() {
+                    this._openedControlSucc = !this._openedControlSucc;
+                },
+                _toggleExpanded: function() {
+                    this._expanded = !this._expanded;
+                },
+                _getToggleIcon: function(expanded) {
+                    return expanded
+                        ? "expand-less"
+                        : "expand-more";
+                },
+                _resetState: function() {
+                    this._openedControlPred = false;
+                    this._openedControlSucc = false;
+
+                    this.set("_groupButtonText", tf.graph.scene.node.getGroupSettingLabel(this._node));
+
+                    if (this._node) {
+                        Polymer.dom(this.$.nodetitle).innerHTML = this._getPrintableHTMLNodeName(this._node.name);
+                    }
+                },
+                _resizeList: function(selector) {
+                    var list = document.querySelector(selector);
+                    if (list) {
+                        list.fire('iron-resize');
+                    }
+                },
+                _toggleInclude: function() {
+                    var graphElem = document.querySelector("#graph");
+                    graphElem.fire("node-toggle-extract", {name: this.nodeName});
+                    var graphBoardElem = document.querySelector("#graphboard");
+                    graphBoardElem.fire("node-toggle-extract");
+                },
+                _nodeIncludeStateChanged: function(include, oldInclude) {
+                    this.set("_auxButtonText", tf.graph.getIncludeNodeButtonString(include));
+                },
+                _toggleGroup: function() {
+                    var graphElem = document.querySelector("#graph");
+                    var seriesName = tf.graph.scene.node.getSeriesName(this._node);
+                    graphElem.fire("node-toggle-seriesgroup", {name: seriesName});
+                },
+                _isInSeries: function(node) {
+                    return tf.graph.scene.node.canBeInSeries(node);
+                }
+            });
+        })();
+    </script>
+</dom-module>
