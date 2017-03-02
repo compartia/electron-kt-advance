@@ -13,8 +13,8 @@ module kt.graph.po_node {
         predicate: string;
         functionName: string;
         message: string;
-        inputs: PONode[];
-        outputs: PONode[];
+        inputs: ApiNode[];
+        outputs: ApiNode[];
         isMissing: boolean;
 
         constructor(po, isMissing: boolean = false) {
@@ -35,6 +35,7 @@ module kt.graph.po_node {
 
         private getExtendedState(): string {
             let po = this.po;
+
             if (po["discharge"]) {
                 if (po["discharge"]["assumptions"].length > 0) {
                     let type: string = po["discharge"]["assumptions"][0]["type"];
@@ -47,10 +48,21 @@ module kt.graph.po_node {
             return this.po["state"];
         }
 
-        public addInput(node: PONode) {
+
+
+        private getDefaultDischargeAssumption(){
+            let po = this.po;
+            if (po["discharge"])
+                if (po["discharge"]["assumptions"].length > 0)
+                    return po["discharge"]["assumptions"][0];
+
+            return undefined;
+        }
+
+        public addInput(node: ApiNode) {
             this.inputs.push(node);
         }
-        public addOutput(node: PONode) {
+        public addOutput(node: ApiNode) {
             this.outputs.push(node);
         }
 
@@ -71,11 +83,7 @@ module kt.graph.po_node {
         }
 
         private parseId(refId: string): string {
-            let s = refId.indexOf(".");
-            let ret = refId.substring(s + 1);
-            s = ret.indexOf(".");
-            ret = ret.substring(0, s);
-            return ret;
+            return refId.substring(0, refId.indexOf("."));
         }
 
         private makeName(): string {
@@ -131,6 +139,7 @@ module kt.graph.po_node {
 
         public asNodeDef(): tf.graph.proto.NodeDef {
             const po = this.po;
+            let discharge=po["discharge"];
 
             let nodeDef: tf.graph.proto.NodeDef = {
                 name: this.name,
@@ -146,20 +155,27 @@ module kt.graph.po_node {
                     "location": po["textRange"],
                     "symbol": po["symbol"],
                     "message": this.message,
-                    "discharge": po["discharge"] //? po["discharge"]["comment"] : null
+                    "discharge": discharge //? po["discharge"]["comment"] : null
                 }
             }
 
             for (let ref of this.inputs) {
                 let _nm = ref.name;
 
-                // let lifting = (this.getExtendedState()=="API");
-                //
                 // if (lifting){
                 //     _nm = "^" + _nm;
                 // }
 
                 nodeDef.input.push(_nm);
+            }
+
+
+
+            let defaultDischargeAssumption = this.getDefaultDischargeAssumption();
+            if(defaultDischargeAssumption){
+                if(defaultDischargeAssumption["type"]==="api"){
+                    nodeDef.attr["dischargeApiId"]=defaultDischargeAssumption["apiId"];
+                }
             }
 
             return nodeDef;

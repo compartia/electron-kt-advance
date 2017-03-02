@@ -32,6 +32,13 @@
                 <template is="dom-if" if="{{_node.op}}">
 
                     <div class$="[[_node_class]]">
+                        <template is="dom-if" if="[[_attributes.discharge]]">
+                            <template is="dom-if" if="[[_attributes.dischargeApiId]]">
+                                <div class='assumptions'>Uses api-id: [[_attributes.dischargeApiId]]</div>
+                            </template>
+
+                            <div class='message'>[[_attributes.discharge.evidence.comment]]</div>
+                        </template>
 
                         <template is="dom-if" if="[[_attributes.symbol]]">
                             <div class="symbol">
@@ -44,9 +51,7 @@
                         <span class='predicate'>[[_attributes.predicate]] :
 
                         </span>
-                        <template is="dom-if" if="{{_attributes.discharge}}">
-                            <div class='message'>[[_attributes.discharge.evidence.comment]]</div>
-                        </template>
+
                     </div>
 
                 </template>
