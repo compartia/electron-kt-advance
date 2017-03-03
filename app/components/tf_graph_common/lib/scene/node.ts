@@ -342,14 +342,18 @@ export function getGroupSettingLabel(node: Node) {
  * @param renderNodeInfo The render node information for the label.
  * @param sceneElement <tf-graph-scene> polymer element.
  */
-function labelBuild(nodeGroup, renderNodeInfo: render.RenderNodeInfo,
-    sceneElement) {
+function labelBuild(nodeGroup, renderNodeInfo: render.RenderNodeInfo, sceneElement) {
   let namePath = renderNodeInfo.node.name.split('/');
-  let text = namePath[namePath.length - 1];
+
+    let text = "-";
+    if (renderNodeInfo.node.type === NodeType.OP && renderNodeInfo.node.attr.label) {
+        text=renderNodeInfo.node.attr.label;
+    } else {
+        text = namePath[namePath.length - 1];
+    }
 
   // Truncate long labels for unexpanded Metanodes.
-  let useFontScale = renderNodeInfo.node.type === NodeType.META &&
-    !renderNodeInfo.expanded;
+  let useFontScale = !renderNodeInfo.expanded;
 
   let label = scene.selectOrCreateChild(nodeGroup, 'text', Class.Node.LABEL);
 
@@ -494,16 +498,11 @@ export function buildShape(nodeGroup, d, nodeClass: string) {
   // TODO(jimbo): DOM structure should be templated in HTML somewhere, not JS.
   switch (d.node.type) {
     case NodeType.OP:
-
-
         scene.selectOrCreateChild(shapeGroup, 'rect', Class.Node.COLOR_TARGET)
             .attr({rx: d.radius, ry: d.radius});
 
-        // scene.selectOrCreateChild(shapeGroup, 'ellipse', Class.Node.COLOR_TARGET);
-        // scene.addHtmlLabel(shapeGroup, d.node).attr({rx: d.radius, ry: d.radius});
+        break;
 
-
-      break;
     case NodeType.SERIES:
       // Choose the correct stamp to use to represent this series.
       let stampType = 'annotation';
@@ -561,9 +560,9 @@ function position(nodeGroup, d: render.RenderNodeInfo) {
       let shape = scene.selectChild(shapeGroup, 'rect');
       labelPosition(nodeGroup, cx, d.y, 0);
       let labelNode = scene.selectChild(nodeGroup, 'text', Class.Node.LABEL).node();
-      let labelRect = labelNode.getBoundingClientRect();
-      let lw = labelNode.getComputedTextLength();
-      scene.positionRect(shape, cx, d.y, lw+3, d.coreBox.height+3);
+      let lw = d.coreBox.width;
+      //XXX: add h-padding
+      scene.positionRect(shape, cx, d.y, lw, d.coreBox.height+3);
 
       break;
     }

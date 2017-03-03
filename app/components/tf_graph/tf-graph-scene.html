@@ -15,7 +15,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
- 
+
 
 <!--
   A module that takes a render hierarchy as input and produces an SVG DOM using
@@ -202,22 +202,22 @@ limitations under the License.
 
 /* --- Op Node --- */
 
-::content .op > .nodeshape > ellipse,
-::content .op > .annotation-node > ellipse {
+::content .op > .nodeshape > rect,
+::content .op > .annotation-node > rect {
   cursor: pointer;
   fill: #fff;
   stroke: var(--kt-grey);
 }
 
-::content .op.selected > .nodeshape > ellipse,
-::content .op.selected > .annotation-node > ellipse {
-  stroke: red;
-  stroke-width: 2;
+::content .op.selected > .nodeshape > rect,
+::content .op.selected > .annotation-node > rect {
+  stroke: var(--kt-node-selected-border);
+  stroke-width: 1.5;
 }
 
-::content .op.highlighted > .nodeshape > ellipse,
-::content .op.highlighted > .annotation-node > ellipse {
-  stroke-width: 2;
+::content .op.highlighted > .nodeshape > rect,
+::content .op.highlighted > .annotation-node > rect {
+  stroke-width: 1.5;
 }
 
 /* --- Series Node --- */
@@ -255,17 +255,17 @@ limitations under the License.
 }
 ::content .series.selected > .nodeshape > use ,
 ::content .series.selected > .annotation-node > use {
-  stroke: red;
+  stroke: var(--kt-node-selected-border);
   stroke-width: 2;
 }
 
 ::content .series.selected > .nodeshape > rect {
-  stroke: red;
+  stroke: var(--kt-node-selected-border);
   stroke-width: 2;
 }
 
 ::content .annotation.series.selected > .annotation-node > use {
-  stroke: red;
+  stroke: var(--kt-node-selected-border);
   stroke-width: 2;
 }
 
@@ -404,7 +404,7 @@ limitations under the License.
 
 ::content .constant.selected > .annotation-node > ellipse {
   fill: white;
-  stroke: red;
+  stroke: var(--kt-node-selected-border);
 }
 
 ::content .constant.highlighted > .annotation-node > ellipse {
@@ -678,14 +678,14 @@ Polymer({
      */
     maxMetanodeLabelLengthFontSize: {
       type: Number,
-      value: 9
+      value: 10
     },
     /**
      * Min font size for metanode label strings.
      */
     minMetanodeLabelLengthFontSize: {
       type: Number,
-      value: 6
+      value: 5
     },
     /**
      * Metanode label strings longer than this are given smaller fonts.
@@ -699,7 +699,7 @@ Polymer({
      */
     maxMetanodeLabelLength: {
       type: Number,
-      value: 18
+      value: 20
     },
     progress: Object
   },
