@@ -728,7 +728,7 @@ export function getStrokeForFill(fill: string) {
  */
 export function traceInputs(renderGraphInfo: tf.graph.render.RenderGraphInfo) {
     _resetStyles();
-    _traceInputs(renderGraphInfo, (a)=>{return a.outputs}, 'input-edge-highlight out', false);
+    _traceInputs(renderGraphInfo);
 }
 
 function _resetStyles(){
@@ -737,14 +737,14 @@ function _resetStyles(){
      d3.selectAll('.non-input').classed('non-input', false);
      d3.selectAll('.input-parent').classed('input-parent', false);
      d3.selectAll('.input-child').classed('input-child', false);
-     d3.selectAll('.input-edge-highlight').classed('input-edge-highlight', false);
+     d3.selectAll('.input-edge-highlight').classed({'input-edge-highlight': false, "out":false });
      d3.selectAll('.non-input-edge-highlight')
          .classed('non-input-edge-highlight', false);
      d3.selectAll('.input-highlight-selected')
          .classed('input-highlight-selected', false);
 }
 
-function _traceInputs(renderGraphInfo: tf.graph.render.RenderGraphInfo, edgesQuery:Function, edgeHighlightClass:string, reverse:boolean) {
+function _traceInputs(renderGraphInfo: tf.graph.render.RenderGraphInfo ) {
 
 
   // Extract currently selected node. Return if input tracing disabled or no
@@ -763,8 +763,10 @@ function _traceInputs(renderGraphInfo: tf.graph.render.RenderGraphInfo, edgesQue
 
   let allTracedNodes = {};
   _.each(opNodes, function(nodeInstance) {
-    allTracedNodes =
-        traceAllInputsOfOpNode(renderGraphInfo, nodeInstance, allTracedNodes, edgesQuery, edgeHighlightClass, reverse);
+        traceAllInputsOfOpNode(renderGraphInfo, nodeInstance, allTracedNodes, (a)=>{return a.outputs}, 'input-edge-highlight out', false);
+        allTracedNodes[nodeInstance.name]=false;
+        traceAllInputsOfOpNode(renderGraphInfo, nodeInstance, allTracedNodes, (a)=>{return a.inputs}, 'input-edge-highlight', true);
+
   });
 
   d3.selectAll(selectedNodeSelectorString).classed({
@@ -843,13 +845,14 @@ interface VisibleParent {
 
 export function traceAllInputsOfOpNode(
     renderGraphInfo: tf.graph.render.RenderGraphInfo, startNode: OpNode,
-    allTracedNodes: Object, edgesQuery: Function, edgeHighlightClass:string, reverse:boolean) {
+    allTracedNodes: Object,
+    edgesQuery: Function, edgeHighlightClass:string, reverse:boolean) {
   // To prevent infinite loops due to cyclical relationships and improving
   // performance by tracing OpNode which is input to 2+ nodes only once.
-  if (allTracedNodes[startNode.name]) {
-    return allTracedNodes;
-  } else {
+  if (!allTracedNodes[startNode.name]) {
     allTracedNodes[startNode.name] = true;
+  } else {
+    return allTracedNodes;
   }
   // Extract the inputs.
   let inputs = edgesQuery(startNode);
@@ -915,7 +918,7 @@ export function traceAllInputsOfOpNode(
     // parent.
     _.each(visibleParentInfo.opNodes, function(opNode: OpNode) {
       allTracedNodes =
-          traceAllInputsOfOpNode(renderGraphInfo, opNode, allTracedNodes, edgesQuery);
+          traceAllInputsOfOpNode(renderGraphInfo, opNode, allTracedNodes, edgesQuery, edgeHighlightClass, reverse);
     });
 
     if (nodeInstance.name !== currentVisibleParent.name) {

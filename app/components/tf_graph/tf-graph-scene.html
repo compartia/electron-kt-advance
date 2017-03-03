@@ -125,11 +125,17 @@ limitations under the License.
 
 /* Rules used for input-tracing. */
 ::content .input-highlight > * > rect,
-::content .input-highlight > * > ellipse,
 ::content .input-highlight > * > use
 {
   fill: white;
-  stroke: var(--kt-orange) !important;
+  stroke: var(--kt-in-edge-highlight) !important;
+}
+
+::content .input-highlight.out > * > rect,
+::content .input-highlight.out > * > use
+{
+  fill: white;
+  stroke: var(--kt-out-edge-highlight) !important;
 }
 
 /*  - Faded non-input styling */
