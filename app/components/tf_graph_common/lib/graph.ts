@@ -51,8 +51,6 @@ const OUTPUT_SHAPES_KEY = '_output_shapes';
 export interface BaseEdge extends graphlib.EdgeObject {
   isControlDependency: boolean;
   isReferenceEdge: boolean;
-  /** The index of the output tensor of the source node. */
-  outputTensorIndex: number;
 }
 
 /**
@@ -71,8 +69,6 @@ export class SlimGraph {
 
 export interface NormalizedInput {
   name: string;
-  /** The index of the output tensor of the source node. */
-  outputTensorIndex: number;
   isControlDependency: boolean;
 }
 
@@ -331,7 +327,10 @@ export class OpNodeImpl implements OpNode {
   device: string;
   stats: NodeStats;
   attr: {key: string, value: any}[];
+
   inputs: NormalizedInput[];
+  outputs: NormalizedInput[];
+
   type: NodeType;
   isGroupNode: boolean;
   cardinality: number;
@@ -357,6 +356,8 @@ export class OpNodeImpl implements OpNode {
     // source node, whether it has a number part and whether it is a
     // control dependency.
     this.inputs = normalizeInputs(rawNode.input);
+    this.outputs = normalizeInputs(rawNode.output);
+    
     this.outputShapes = extractOutputShapes(rawNode.attr);
     // additional properties
     this.type = NodeType.OP;
@@ -851,8 +852,6 @@ function normalizeInputs(inputs: string[]): NormalizedInput[] {
       name !== normalizedInputs[normalizedInputs.length - 1].name) {
       normalizedInputs.push({
         name: name,
-        outputTensorIndex:
-            end === inputName.length ? 0 : Number(inputName.slice(colon + 1)),
         isControlDependency: start
       });
     }
@@ -873,7 +872,6 @@ function addEdgeToGraph(
   graph.edges.push({
     v: inputName,
     w: outputNode.name,
-    outputTensorIndex: input.outputTensorIndex,
     isControlDependency:  input.isControlDependency,
     isReferenceEdge: true//isRefEdge
   });

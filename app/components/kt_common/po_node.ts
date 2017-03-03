@@ -53,6 +53,7 @@ module kt.graph.po_node {
         public addInput(node: PONode) {
             this.inputs.push(node);
         }
+
         public addOutput(node: PONode) {
             this.outputs.push(node);
         }
@@ -79,9 +80,6 @@ module kt.graph.po_node {
 
         private makeName(): string {
 
-            /**
-                TODO: spaces are not yet allowed in names because of d3 queries; FIXME.
-            */
             let _nm =
                 this.fixFileName(this.po["file"]) + SPL + this.functionName
                 + SPL + this.predicate
@@ -97,7 +95,7 @@ module kt.graph.po_node {
 
 
         private makeLabel(): string {
-            let _nm = this.level() + " (" + this.id + ") " ;
+            let _nm = this.level() + " (" + this.id + ") ";
 
             if (this.po["symbol"] && this.po["symbol"].type == "ID") {
                 _nm += this.po["symbol"].value;
@@ -146,6 +144,7 @@ module kt.graph.po_node {
             let nodeDef: tf.graph.proto.NodeDef = {
                 name: this.name,
                 input: [],
+                output: [],
                 device: this.getExtendedState(),
                 op: this.functionName,
                 attr: {
@@ -166,12 +165,16 @@ module kt.graph.po_node {
                 let _nm = ref.name;
 
                 // let lifting = (this.getExtendedState()=="API");
-                //
                 // if (lifting){
                 //     _nm = "^" + _nm;
                 // }
 
                 nodeDef.input.push(_nm);
+            }
+
+
+            for (let ref of this.outputs) {
+                nodeDef.output.push(ref.name);
             }
 
             return nodeDef;

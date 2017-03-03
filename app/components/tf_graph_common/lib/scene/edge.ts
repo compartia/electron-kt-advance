@@ -123,26 +123,6 @@ export function buildGroup(sceneGroup,
   return edgeGroups;
 };
 
-/**
- * Returns the label for the given base edge.
- * The label is the shape of the underlying tensor.
- */
-export function getLabelForBaseEdge(
-    baseEdge: BaseEdge, renderInfo: render.RenderGraphInfo): string {
-  let node = <OpNode>renderInfo.getNodeByName(baseEdge.v);
-  if (node.outputShapes == null || node.outputShapes.length === 0) {
-    return null;
-  }
-  let shape = node.outputShapes[baseEdge.outputTensorIndex];
-  if (shape == null) {
-    return null;
-  }
-  if (shape.length === 0) {
-    return 'scalar';
-  }
-  return shape.map(size => { return size === -1 ? '?' : size; })
-      .join(TENSOR_SHAPE_DELIM);
-}
 
 /**
  * Creates the label for the given metaedge. If the metaedge consists
@@ -153,8 +133,7 @@ export function getLabelForEdge(metaedge: Metaedge,
     renderInfo: render.RenderGraphInfo): string {
   let isMultiEdge = metaedge.baseEdgeList.length > 1;
   return isMultiEdge ?
-      metaedge.baseEdgeList.length + ' assumptions' :
-      getLabelForBaseEdge(metaedge.baseEdgeList[0], renderInfo);
+      metaedge.baseEdgeList.length + ' assumptions' : null;
 }
 
 /**
