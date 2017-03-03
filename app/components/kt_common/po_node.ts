@@ -1,4 +1,6 @@
 module kt.graph.po_node {
+
+    export enum PoStatesExt { violation, open, discharged, global, invariants, ds, rv, api };
     const SPL = "/";
 
 
@@ -6,6 +8,7 @@ module kt.graph.po_node {
     export class PONode {
         id: string;
         name: string;
+        label: string;
         state: string;
         po: any;
         predicate: string;
@@ -26,9 +29,11 @@ module kt.graph.po_node {
             this.predicate = po["predicateType"] ? po["predicateType"] : po["predicate"];
             this.functionName = po["targetFuncName"] ? po["targetFuncName"] : po["functionName"];
             this.message = po["message"] ? po["message"] : po["shortDescription"];
+
             this.id = this.parseId(po["referenceKey"]);
 
             this.name = this.makeName();
+            this.label = this.makeLabel();
         }
 
         private getExtendedState(): string {
@@ -38,7 +43,7 @@ module kt.graph.po_node {
                     let type: string = po["discharge"]["assumptions"][0]["type"];
                     return type.toUpperCase();
                 } else if (po["discharge"]["method"] == "invariants") {
-                    return "invariants";
+                    return "invariants".toUpperCase();
                 }
             }
 
@@ -69,11 +74,7 @@ module kt.graph.po_node {
         }
 
         private parseId(refId: string): string {
-            let s = refId.indexOf(".");
-            let ret = refId.substring(s + 1);
-            s = ret.indexOf(".");
-            ret = ret.substring(0, s);
-            return ret;
+            return refId.substring(0, refId.indexOf("."));
         }
 
         private makeName(): string {
@@ -85,6 +86,18 @@ module kt.graph.po_node {
                 this.fixFileName(this.po["file"]) + SPL + this.functionName
                 + SPL + this.predicate
                 + SPL + this.level() + "(" + this.id + ")";
+
+            if (this.po["symbol"] && this.po["symbol"].type == "ID") {
+                _nm += this.po["symbol"].value;
+            } else {
+                _nm += "CONST";
+            }
+            return _nm;
+        }
+
+
+        private makeLabel(): string {
+            let _nm = this.level() + " (" + this.id + ") " ;
 
             if (this.po["symbol"] && this.po["symbol"].type == "ID") {
                 _nm += this.po["symbol"].value;
@@ -122,7 +135,7 @@ module kt.graph.po_node {
             }
 
             return true;
-         }
+        }
 
 
 
@@ -137,21 +150,26 @@ module kt.graph.po_node {
                 op: this.functionName,
                 attr: {
                     // "html": poRef2html(po),
+                    "label": this.label,
                     "predicate": this.predicate,
                     "level": po["level"],
                     "state": this.state,
-                    "message": this.message
+                    "stateExt": this.getExtendedState(),
+                    "location": po["textRange"],
+                    "symbol": po["symbol"],
+                    "message": this.message,
+                    "discharge": po["discharge"] //? po["discharge"]["comment"] : null
                 }
             }
 
             for (let ref of this.inputs) {
                 let _nm = ref.name;
 
-                let lifting = (this.getExtendedState()=="API");  
-
-                if (lifting){
-                    _nm = "^" + _nm;
-                }
+                // let lifting = (this.getExtendedState()=="API");
+                //
+                // if (lifting){
+                //     _nm = "^" + _nm;
+                // }
 
                 nodeDef.input.push(_nm);
             }
