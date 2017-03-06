@@ -38,12 +38,12 @@ export const PARAMS = {
        *
        * See https://github.com/cpettitt/dagre/wiki#configuring-the-layout
        */
-      rankSep: 25,
+      rankSep: 35,
       /**
        * Dagre's edgesep param - number of pixels that separate
        * edges horizontally in the layout.
        */
-      edgeSep: 5,
+      edgeSep: 7,
     },
     /** Graph parameter for metanode. */
     series: {
@@ -115,7 +115,7 @@ export const PARAMS = {
       height: 6,
       radius: 0,  // for making annotation touching ellipse
       labelOffset: -8,
-      maxLabelWidth: 70
+      maxLabelWidth: 52
     },
     /** Size of series nodes. */
     series: {
@@ -156,9 +156,9 @@ export const PARAMS = {
   },
   shortcutSize: {
     /** Size of shortcuts for op nodes */
-    op: {width: 10, height: 4},
+    op: {width: 12, height: 4 , radius: 0},
     /** Size of shortcuts for meta nodes */
-    meta: {width: 12, height: 4, radius: 1},
+    meta: {width: 12, height: 4, radius: 0},
     /** Size of shortcuts for series nodes */
     series: {
       width: 14,
@@ -177,7 +177,7 @@ export const PARAMS = {
     /** X-space between each annotation-node and its label. */
     labelOffset: 2,
     /** Defines the max width for annotation label */
-    maxLabelWidth: 120
+    maxLabelWidth: 60
   },
   constant: {size: {width: 4, height: 4}},
   series: {

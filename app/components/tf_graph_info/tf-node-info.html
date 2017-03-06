@@ -338,7 +338,7 @@
                             return {
                                 name: name,
                                 node: this._getNode(name, this.graphHierarchy),
-                                edgeLabel: tf.graph.scene.edge.getLabelForBaseEdge(baseEdge, this.renderHierarchy),
+                                edgeLabel: null,
                                 renderInfo: this._getRenderInfo(name, this.renderHierarchy)
                             };
                         }, this);
@@ -366,7 +366,16 @@
                                 });
                             }
                         }, this);
-                        return edgeInfoList;
+                        return edgeInfoList.sort(
+                            function(x,y){
+                                if(x.node.attr && y.node.attr){
+                                    return kt.graph.po_node.compareStates(x.node.attr.state, y.node.attr.state)
+                                }else{
+                                    return -1;
+                                }
+                            });
+
+                        // return edgeInfoList;
                     }.bind(this);
 
                     return {

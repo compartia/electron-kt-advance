@@ -49,7 +49,9 @@ $po-level-primary:lighten($po-level-secondary,10%);
     --kt-grey-lighter:lighten($grey, 50%);
 
     --kt-edge :lighten($grey,30%);
-    --kt-edge-highlight: lighten($grey,30%);
+    --kt-edge-highlight: lighten($ian_gillan, 5%);//lighten($grey,30%);
+    --kt-out-edge-highlight: lighten($red, 5%);
+    --kt-in-edge-highlight: lighten($ian_gillan, 5%);
     --kt-edge-text: darken($grey, 20%);
 
 
