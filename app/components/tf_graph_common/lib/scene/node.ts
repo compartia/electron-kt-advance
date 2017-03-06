@@ -733,7 +733,7 @@ export function traceInputs(renderGraphInfo: tf.graph.render.RenderGraphInfo) {
 
 function _resetStyles(){
      // Reset all styling.
-     d3.selectAll('.input-highlight').classed('input-highlight', false);
+     d3.selectAll('.input-highlight').classed({'input-highlight': false, "out":false});
      d3.selectAll('.non-input').classed('non-input', false);
      d3.selectAll('.input-parent').classed('input-parent', false);
      d3.selectAll('.input-child').classed('input-child', false);
@@ -772,6 +772,7 @@ function _traceInputs(renderGraphInfo: tf.graph.render.RenderGraphInfo ) {
   d3.selectAll(selectedNodeSelectorString).classed({
     // Remove the input-highlight from the selected node.
     'input-highlight': false,
+    'out': false,
     // Add input-highlight-selected class to selected node, which allows
     // treating the selected not as a special case of an input node.
     'input-highlight-selected': true
@@ -860,7 +861,7 @@ export function traceAllInputsOfOpNode(
   let currentVisibleParent = getVisibleParent(renderGraphInfo, startNode);
   // Mark as input node.
   d3.select(`.node[data-name="${currentVisibleParent.name}"]`)
-      .classed('input-highlight', true);
+      .classed({'input-highlight': true, "out":!reverse});
 
   // Find the visible parent of each input.
   let visibleInputs = {};
