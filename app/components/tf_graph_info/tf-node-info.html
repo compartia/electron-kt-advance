@@ -366,7 +366,16 @@
                                 });
                             }
                         }, this);
-                        return edgeInfoList;
+                        return edgeInfoList.sort(
+                            function(x,y){
+                                if(x.node.attr && y.node.attr){
+                                    return kt.graph.po_node.compareStates(x.node.attr.state, y.node.attr.state)
+                                }else{
+                                    return -1;
+                                }
+                            });
+
+                        // return edgeInfoList;
                     }.bind(this);
 
                     return {

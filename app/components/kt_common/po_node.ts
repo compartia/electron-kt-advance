@@ -3,7 +3,9 @@ module kt.graph.po_node {
     export enum PoStatesExt { violation, open, discharged, global, invariants, ds, rv, api };
     const SPL = "/";
 
-
+    export function compareStates(stateA: string, stateB: string): number {
+        return kt.graph.po_node.PoStatesExt[stateA.toLowerCase()] - kt.graph.po_node.PoStatesExt[stateB.toLowerCase()];
+    }
 
     export class PONode {
         id: string;
@@ -157,11 +159,12 @@ module kt.graph.po_node {
                     "location": po["textRange"],
                     "symbol": po["symbol"],
                     "message": this.message,
+                    "order": kt.graph.po_node.PoStatesExt[this.state],
                     "discharge": po["discharge"] //? po["discharge"]["comment"] : null
                 }
             }
 
-            for (let ref of this.inputs) {
+            for (let ref of this.sortRefs(this.inputs)) {
                 let _nm = ref.name;
 
                 // let lifting = (this.getExtendedState()=="API");
@@ -173,15 +176,24 @@ module kt.graph.po_node {
             }
 
 
-            for (let ref of this.outputs) {
+            for (let ref of this.sortRefs(this.outputs)) {
                 nodeDef.output.push(ref.name);
             }
 
             return nodeDef;
         }
+
+
+        private sortRefs(refs: PONode[]) {
+            return refs.sort((x, y) => {
+                return compareStates(x.state, y.state);
+            });
+        }
+
         private level(): string {
             return this.po["level"] == "PRIMARY" ? "I" : "II";
         }
+
         public toHtml(): string {
             var html = "<div class='po level-" + this.po["level"] + " state-" + this.po["state"] + "'>"
             // html += "<span class='func'>" + po["functionName"] + "</span><br>"
