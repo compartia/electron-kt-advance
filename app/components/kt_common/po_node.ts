@@ -1,10 +1,20 @@
 module kt.graph.po_node {
 
     export enum PoStatesExt { violation, open, discharged, global, invariants, ds, rv, api };
+    export enum PoStates { violation, open, discharged };
+    export enum PoDischargeTypes { global, invariants, ds, rv, api, default };
+
     const SPL = "/";
 
     export function compareStates(stateA: string, stateB: string): number {
-        return kt.graph.po_node.PoStatesExt[stateA.toLowerCase()] - kt.graph.po_node.PoStatesExt[stateB.toLowerCase()];
+        let stA: string[] = stateA.toLowerCase().split("-");
+        let stB: string[] = stateB.toLowerCase().split("-");
+
+        let delta1 = kt.graph.po_node.PoStatesExt[stA[0]] - kt.graph.po_node.PoStatesExt[stB[0]];
+        if (delta1 == 0) {
+            return kt.graph.po_node.PoStatesExt[stA[1]] - kt.graph.po_node.PoStatesExt[stB[1]];
+        } else
+            return delta1;
     }
 
     export class PONode {
@@ -19,11 +29,14 @@ module kt.graph.po_node {
         inputs: PONode[];
         outputs: PONode[];
         isMissing: boolean;
+        private _apiId: string = "-1";
+
 
         constructor(po, isMissing: boolean = false) {
             this.po = po;
             this.isMissing = isMissing;
             this.state = po["state"];
+
 
             this.inputs = [];
             this.outputs = [];
@@ -38,18 +51,38 @@ module kt.graph.po_node {
             this.label = this.makeLabel();
         }
 
-        private getExtendedState(): string {
+        private getDischargeType(): string {
             let po = this.po;
+            let dischargeType;
+
             if (po["discharge"]) {
                 if (po["discharge"]["assumptions"].length > 0) {
                     let type: string = po["discharge"]["assumptions"][0]["type"];
-                    return type.toUpperCase();
+                    dischargeType = type.toUpperCase();
                 } else if (po["discharge"]["method"] == "invariants") {
-                    return "invariants".toUpperCase();
+                    dischargeType = "invariants".toUpperCase();
                 }
             }
 
-            return this.po["state"];
+            return dischargeType;
+        }
+        private getExtendedState(): string {
+            let stateExt = this.getDischargeType();
+            if (!stateExt) {
+                stateExt = "default";
+            }
+
+            return this.po["state"] + "-" + stateExt;
+        }
+
+        private getDischargeAssumption() {
+            let po = this.po;
+            if (po["discharge"]) {
+                if (po["discharge"]["assumptions"].length > 0) {
+                    return po["discharge"]["assumptions"][0];
+                }
+            }
+            return { "type": undefined, "apiId": undefined };
         }
 
         public addInput(node: PONode) {
@@ -134,10 +167,22 @@ module kt.graph.po_node {
                 }
             }
 
+
             return true;
         }
 
+        set apiId(theApiId: string) {
+            if (this._apiId != "-1") {
+                if (this._apiId != theApiId) {
+                    console.error("had apiId = " + this._apiId + " got new one:" + theApiId);
+                }
+            }
+            this._apiId = theApiId;
+        }
 
+        get apiId(): string {
+            return this._apiId;
+        }
 
 
         public asNodeDef(): tf.graph.proto.NodeDef {
@@ -152,6 +197,7 @@ module kt.graph.po_node {
                 attr: {
                     // "html": poRef2html(po),
                     "label": this.label,
+                    "apiId": this.apiId,
                     "predicate": this.predicate,
                     "level": po["level"],
                     "state": this.state,
@@ -159,8 +205,9 @@ module kt.graph.po_node {
                     "location": po["textRange"],
                     "symbol": po["symbol"],
                     "message": this.message,
-                    "order": kt.graph.po_node.PoStatesExt[this.state],
-                    "discharge": po["discharge"] //? po["discharge"]["comment"] : null
+                    "dischargeType": this.getDischargeType(),
+                    "discharge": po["discharge"], //? po["discharge"]["comment"] : null
+                    "dischargeAssumption": this.getDischargeAssumption()
                 }
             }
 

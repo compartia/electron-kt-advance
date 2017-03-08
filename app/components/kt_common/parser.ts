@@ -67,6 +67,7 @@ module kt.parser {
 
                 }
 
+                target.apiId = ref["apiId"];
                 ppo.addInput(target);
                 target.addOutput(ppo);
             }
@@ -85,10 +86,10 @@ module kt.parser {
 
         for (var key in poByRefId) {
             var ppo: kt.graph.po_node.PONode = poByRefId[key];
-            if (ppo.isLinked()) {
-                if (!ppo.isTotallyDischarged())
+            // if (ppo.isLinked()) {
+                // if (!ppo.isTotallyDischarged())
                     g.push(ppo.asNodeDef());
-            }
+            // }
         }
 
         console.info["NUMBER of nodes: " + g.length];
@@ -101,7 +102,8 @@ module kt.parser {
 
         const ppoNodesMap = readPoNodesFromJsons([
             "/Users/artem/work/KestrelTechnology/IN/dnsmasq/kt_analysis_export_5.6.2/src/log.c.json",
-            // "/Users/artem/work/KestrelTechnology/IN/dnsmasq/kt_analysis_export_5.6.1/src/util.c.json",
+            "/Users/artem/work/KestrelTechnology/IN/dnsmasq/kt_analysis_export_5.6.2/src/dnsmasq.c.json",
+            "/Users/artem/work/KestrelTechnology/IN/dnsmasq/kt_analysis_export_5.6.2/src/option.c.json",
             "/Users/artem/work/KestrelTechnology/IN/dnsmasq/kt_analysis_export_5.6.2/src/cache.c.json"
             // "/Users/artem/work/KestrelTechnology/IN/dnsmasq/kt_analysis_export_5.6.1/src/tftp.c.json"
         ]);

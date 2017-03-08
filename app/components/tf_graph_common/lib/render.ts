@@ -207,7 +207,7 @@ export class RenderGraphInfo {
                      MetanodeColors.DEVICE_PALETTE));
 
 
-    let _deviceColorMap=function(id:string){
+    let _deviceColorMap = function(id:string){
         return this.palette["state-"+id.toLowerCase()+"-bg"];
     };
 
@@ -273,7 +273,7 @@ export class RenderGraphInfo {
   }
   sortStates(pairs){
       return pairs.sort( (x, y) => {
-           return kt.graph.po_node.PoStatesExt[x[0].toLowerCase()]-kt.graph.po_node.PoStatesExt[y[0].toLowerCase()];
+          return kt.graph.po_node.compareStates(x[0].toLowerCase(), y[0].toLowerCase());
        });
   }
   /**
