@@ -614,29 +614,10 @@ export enum ColorBy { STRUCTURE, DEVICE, COMPUTE_TIME, MEMORY };
  * Returns the fill color for the node given its state and the 'color by'
  * option.
  */
-export function getFillForNode(templateIndex, colorBy,
+export function getFillForNode(colorBy,
     renderInfo: render.RenderNodeInfo, isExpanded: boolean): string {
   let colorParams = render.MetanodeColors;
   switch (colorBy) {
-    case ColorBy.STRUCTURE:
-      if (renderInfo.node.type === NodeType.META) {
-        let tid = (<Metanode>renderInfo.node).templateId;
-        return tid === null ?
-          colorParams.UNKNOWN :
-          colorParams.STRUCTURE_PALETTE(templateIndex(tid), isExpanded);
-      } else if (renderInfo.node.type === NodeType.SERIES) {
-        // If expanded, we're showing the background rect, which we want to
-        // appear gray. Otherwise we're showing a stack of ellipses which we
-        // want to show white.
-        return isExpanded ? colorParams.EXPANDED_COLOR : 'white';
-      } else if (renderInfo.node.type === NodeType.BRIDGE) {
-        return renderInfo.structural ?
-            '#f0e' :
-            (<BridgeNode>renderInfo.node).inbound ? '#0ef' : '#fe0';
-      } else {
-        // Op nodes are white.
-        return 'white';
-      }
     case ColorBy.DEVICE:
       if (renderInfo.deviceColors == null) {
         // Return the hue for unknown device.
@@ -699,8 +680,7 @@ export function stylize(nodeGroup, renderInfo: render.RenderNodeInfo,
   // Main node always exists here and it will be reached before subscene,
   // so d3 selection is fine here.
   let node = nodeGroup.select('.' + nodeClass + ' .' + Class.Node.COLOR_TARGET);
-  let fillColor = getFillForNode(sceneElement.templateIndex,
-    ColorBy[sceneElement.colorBy.toUpperCase()],
+  let fillColor = getFillForNode(ColorBy[sceneElement.colorBy.toUpperCase()],
     renderInfo, isExpanded);
   node.style('fill', fillColor);
 
