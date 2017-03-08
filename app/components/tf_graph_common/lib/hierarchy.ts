@@ -198,7 +198,6 @@ class HierarchyImpl implements Hierarchy {
             metaedge.addBaseEdge(
                 {
                   isControlDependency: input.isControlDependency,
-                  outputTensorIndex: input.outputTensorIndex,
                   isReferenceEdge: false,
                   v: embeddedNode.name,
                   w: nodeName
@@ -237,7 +236,6 @@ class HierarchyImpl implements Hierarchy {
             metaedge.addBaseEdge(
                 {
                   isControlDependency: input.isControlDependency,
-                  outputTensorIndex: input.outputTensorIndex,
                   isReferenceEdge: false,
                   v: nodeName,
                   w: embeddedNode.name

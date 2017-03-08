@@ -26,6 +26,9 @@ limitations under the License.
                         render-info="[[itemRenderInfo]]"
                         template-index="[[templateIndex]]"></node-icon>
 
+                <template is="dom-if" if="[[itemNode.attr.apiId]]">
+                    <div>api-id: [[itemNode.attr.apiId]]</div>
+                </template>
                 <span title$="[[name]]">[[name]]</span>
                 <span class="edge-label">[[edgeLabel]]</span>
             </div>
@@ -50,6 +53,7 @@ limitations under the License.
                     itemNode: Object,
                     /** The edge label associated with this item. */
                     edgeLabel: String,
+                    apiId: String,
                     /**
            * The render node information for the item node. Used by the graph
            * icon in determining fill color.
