@@ -125,11 +125,20 @@ limitations under the License.
 
 /* Rules used for input-tracing. */
 ::content .input-highlight > * > rect,
-::content .input-highlight > * > ellipse,
 ::content .input-highlight > * > use
 {
   fill: white;
-  stroke: var(--kt-orange) !important;
+  stroke: var(--kt-in-edge-highlight) !important;
+}
+
+
+
+
+::content .input-highlight.out > * > rect,
+::content .input-highlight.out > * > use
+{
+  fill: white;
+  stroke: var(--kt-out-edge-highlight) !important;
 }
 
 /*  - Faded non-input styling */
@@ -180,11 +189,22 @@ limitations under the License.
 ::content .input-edge-highlight > text {
   fill: black !important;
 }
+
+
+
 ::content .input-edge-highlight > path,
 ::content .input-highlight > .in-annotations > .annotation > .annotation-edge,
 ::content .input-highlight-selected > .in-annotations > .annotation >
 .annotation-edge {
   stroke: var(--kt-edge-highlight) !important;
+}
+
+::content .input-edge-highlight.out > path{
+    stroke:url(#grad-edge-out) !important;
+}
+
+::content .input-edge-highlight > path{
+    stroke:url(#grad-edge-in) !important;
 }
 
 /* Non-input edges. */
@@ -512,8 +532,19 @@ limitations under the License.
 <svg id="svg">
   <defs>
 
+    <linearGradient id='grad-edge-in'>
+        <stop offset='10%' stop-color='var(--kt-edge)'/>
+        <stop offset='100%' stop-color='var(--kt-edge-highlight)'/>
+    </linearGradient>
+
+    <linearGradient id='grad-edge-out'>
+        <stop offset='10%' stop-color='var(--kt-edge)'/>
+        <stop offset='100%' stop-color='var(--kt-out-edge-highlight)'/>
+    </linearGradient>
+
     <!-- Arrow heads for edge paths of different predefined sizes. -->
     <path id="ref-arrowhead-path" d="M 10,0 L 0,5 L 10,10 C 7,7 7,3 10,0"/>
+
     <marker class="ref-arrowhead" id="ref-arrowhead-small" viewBox="0 0 10 10" markerWidth="10" markerHeight="10"
       refX="8" refY="5" orient="auto" markerUnits="userSpaceOnUse">
       <use xlink:href="#ref-arrowhead-path" />

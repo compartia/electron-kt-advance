@@ -727,16 +727,25 @@ export function getStrokeForFill(fill: string) {
  * @param renderGraphInfo Information on the rendered state of the graph.
  */
 export function traceInputs(renderGraphInfo: tf.graph.render.RenderGraphInfo) {
-  // Reset all styling.
-  d3.selectAll('.input-highlight').classed('input-highlight', false);
-  d3.selectAll('.non-input').classed('non-input', false);
-  d3.selectAll('.input-parent').classed('input-parent', false);
-  d3.selectAll('.input-child').classed('input-child', false);
-  d3.selectAll('.input-edge-highlight').classed('input-edge-highlight', false);
-  d3.selectAll('.non-input-edge-highlight')
-      .classed('non-input-edge-highlight', false);
-  d3.selectAll('.input-highlight-selected')
-      .classed('input-highlight-selected', false);
+    _resetStyles();
+    _traceInputs(renderGraphInfo);
+}
+
+function _resetStyles(){
+     // Reset all styling.
+     d3.selectAll('.input-highlight').classed({'input-highlight': false, "out":false});
+     d3.selectAll('.non-input').classed('non-input', false);
+     d3.selectAll('.input-parent').classed('input-parent', false);
+     d3.selectAll('.input-child').classed('input-child', false);
+     d3.selectAll('.input-edge-highlight').classed({'input-edge-highlight': false, "out":false });
+     d3.selectAll('.non-input-edge-highlight')
+         .classed('non-input-edge-highlight', false);
+     d3.selectAll('.input-highlight-selected')
+         .classed('input-highlight-selected', false);
+}
+
+function _traceInputs(renderGraphInfo: tf.graph.render.RenderGraphInfo ) {
+
 
   // Extract currently selected node. Return if input tracing disabled or no
   // node is selected.
@@ -751,15 +760,19 @@ export function traceInputs(renderGraphInfo: tf.graph.render.RenderGraphInfo) {
   }
   let nodeName = currentNode.getAttribute('data-name');
   let opNodes = _getAllContainedOpNodes(nodeName, renderGraphInfo);
+
   let allTracedNodes = {};
   _.each(opNodes, function(nodeInstance) {
-    allTracedNodes =
-        traceAllInputsOfOpNode(renderGraphInfo, nodeInstance, allTracedNodes);
+        traceAllInputsOfOpNode(renderGraphInfo, nodeInstance, allTracedNodes, (a)=>{return a.outputs}, 'input-edge-highlight out', false);
+        allTracedNodes[nodeInstance.name]=false;
+        traceAllInputsOfOpNode(renderGraphInfo, nodeInstance, allTracedNodes, (a)=>{return a.inputs}, 'input-edge-highlight', true);
+
   });
 
   d3.selectAll(selectedNodeSelectorString).classed({
     // Remove the input-highlight from the selected node.
     'input-highlight': false,
+    'out': false,
     // Add input-highlight-selected class to selected node, which allows
     // treating the selected not as a special case of an input node.
     'input-highlight-selected': true
@@ -833,21 +846,22 @@ interface VisibleParent {
 
 export function traceAllInputsOfOpNode(
     renderGraphInfo: tf.graph.render.RenderGraphInfo, startNode: OpNode,
-    allTracedNodes: Object) {
+    allTracedNodes: Object,
+    edgesQuery: Function, edgeHighlightClass:string, reverse:boolean) {
   // To prevent infinite loops due to cyclical relationships and improving
   // performance by tracing OpNode which is input to 2+ nodes only once.
-  if (allTracedNodes[startNode.name]) {
-    return allTracedNodes;
-  } else {
+  if (!allTracedNodes[startNode.name]) {
     allTracedNodes[startNode.name] = true;
+  } else {
+    return allTracedNodes;
   }
   // Extract the inputs.
-  let inputs = startNode.inputs;
+  let inputs = edgesQuery(startNode);
   // Get visible parent.
   let currentVisibleParent = getVisibleParent(renderGraphInfo, startNode);
   // Mark as input node.
   d3.select(`.node[data-name="${currentVisibleParent.name}"]`)
-      .classed('input-highlight', true);
+      .classed({'input-highlight': true, "out":!reverse});
 
   // Find the visible parent of each input.
   let visibleInputs = {};
@@ -905,12 +919,12 @@ export function traceAllInputsOfOpNode(
     // parent.
     _.each(visibleParentInfo.opNodes, function(opNode: OpNode) {
       allTracedNodes =
-          traceAllInputsOfOpNode(renderGraphInfo, opNode, allTracedNodes);
+          traceAllInputsOfOpNode(renderGraphInfo, opNode, allTracedNodes, edgesQuery, edgeHighlightClass, reverse);
     });
 
     if (nodeInstance.name !== currentVisibleParent.name) {
       _createVisibleTrace(
-          nodeInstance, startNodeParents, indexedStartNodeParents);
+          nodeInstance, startNodeParents, indexedStartNodeParents, edgeHighlightClass, reverse);
     }
   });
 
@@ -957,7 +971,7 @@ export function traceAllInputsOfOpNode(
  * @private
  */
 function _createVisibleTrace(
-    nodeInstance: Node, startNodeParents, indexedStartNodeParents: Node[]) {
+    nodeInstance: Node, startNodeParents, indexedStartNodeParents: Node[], edgeHlStyle:string, reverse:boolean) {
   let currentNode = nodeInstance;
   let previousNode = nodeInstance;
 
@@ -982,8 +996,14 @@ function _createVisibleTrace(
   let targetNodeTopParentName = previousNode.name;
 
   let endNodeName = previousNode.name;
-  d3.selectAll(`[data-edge="${endNodeName}--${startNodeName}"]`)
-      .classed('input-edge-highlight', true);
+
+    if (reverse) {
+        d3.selectAll(`[data-edge="${endNodeName}--${startNodeName}"]`)
+            .classed(edgeHlStyle, true);
+    } else {
+        d3.selectAll(`[data-edge="${startNodeName}--${endNodeName}"]`)
+            .classed(edgeHlStyle, true);
+    }
 
   // Trace up the parents of the input.
   _.each(destinationParentPairs, function(value) {
@@ -991,7 +1011,7 @@ function _createVisibleTrace(
     let outer = value[1];
     let edgeSelector = `[data-edge="${inner.name}--${startNodeTopParentName}` +
         `~~${outer.name}~~OUT"]`;
-    d3.selectAll(edgeSelector).classed('input-edge-highlight', true);
+    d3.selectAll(edgeSelector).classed(edgeHlStyle, true);
   });
 
   // Trace up the parents of the start node.
@@ -1000,7 +1020,7 @@ function _createVisibleTrace(
     let outer = indexedStartNodeParents[index];
     let edgeSelector = `[data-edge="${targetNodeTopParentName}~~${outer.name}` +
         `~~IN--${inner.name}"]`;
-    d3.selectAll(edgeSelector).classed('input-edge-highlight', true);
+    d3.selectAll(edgeSelector).classed(edgeHlStyle, true);
   }
 }
 

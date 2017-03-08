@@ -19,7 +19,7 @@
                     node="[[_node]]" render-info="[[_getRenderInfo(nodeName, renderHierarchy)]]"
                     template-index="[[_templateIndex]]" color-by="[[colorBy]]"></node-icon>
 
-                <div id="caption"><b>[[_node.attr.state]]<sup class='level'></sup></b> &nbsp;[[_device]]</div>
+                <div id="caption"><b>[[_node.attr.state]]<sup class='level'> </sup></b> &nbsp;[[_node.attr.dischargeType]]</div>
             </div>
 
             <div>
@@ -41,11 +41,13 @@
                         </template>
 
                         <a><span class='func'>[[_node.op]] : <span class='location'>L[[_funcLocation]]</span></span> </a><br>
-                        <span class='predicate'>[[_attributes.predicate]] :
+                        <div class='predicate'>[[_attributes.predicate]]</div>
 
-                        </span>
+                        <div id='api-id'>api-id: [[_attributes.apiId]]</div>
+
                         <template is="dom-if" if="{{_attributes.discharge}}">
-                            <div class='message'>[[_attributes.discharge.evidence.comment]]</div>
+                            <div id='discharge-comment'>[[_attributes.discharge.evidence.comment]]</div>
+                            <div id='uses-api'>uses: [[_attributes.dischargeAssumption.type]]:[[_attributes.dischargeAssumption.apiId]]</div>
                         </template>
                     </div>
 
@@ -87,6 +89,7 @@
                                     name="[[item.name]]"
                                     item-type="predecessors"
                                     color-by="[[colorBy]]"
+                                    apiId="[[item.node.attr.apiId]]"
                                     template-index="[[_templateIndex]]"></tf-node-list-item>
                             </template>
                         </iron-list>
@@ -120,6 +123,7 @@
                                     edge-label="[[item.edgeLabel]]"
                                     item-render-info="[[item.renderInfo]]"
                                     name="[[item.name]]"
+                                    apiId="[[item.node.attr.apiId]]"
                                     item-type="successor"
                                     color-by="[[colorBy]]"
                                     template-index="[[_templateIndex]]"></tf-node-list-item>
@@ -338,7 +342,7 @@
                             return {
                                 name: name,
                                 node: this._getNode(name, this.graphHierarchy),
-                                edgeLabel: tf.graph.scene.edge.getLabelForBaseEdge(baseEdge, this.renderHierarchy),
+                                edgeLabel: null,
                                 renderInfo: this._getRenderInfo(name, this.renderHierarchy)
                             };
                         }, this);
@@ -366,7 +370,16 @@
                                 });
                             }
                         }, this);
-                        return edgeInfoList;
+                        return edgeInfoList.sort(
+                            function(x,y){
+                                if(x.node.attr && y.node.attr){
+                                    return kt.graph.po_node.compareStates(x.node.attr.state, y.node.attr.state)
+                                }else{
+                                    return -1;
+                                }
+                            });
+
+                        // return edgeInfoList;
                     }.bind(this);
 
                     return {
