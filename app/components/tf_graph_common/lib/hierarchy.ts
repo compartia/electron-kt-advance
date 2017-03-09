@@ -27,7 +27,6 @@ export interface Edges {
 
 export interface Hierarchy {
   root: Metanode;
-  templates: {[templateId: string]: string[]};
   /** List of all device names */
   devices: string[];
   /** True if at least one tensor in the graph has shape information */

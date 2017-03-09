@@ -1,3 +1,6 @@
+
+
+
 /* Copyright 2015 The TensorFlow Authors. All Rights Reserved.
 
 Licensed under the Apache License, Version 2.0 (the 'License');
@@ -14,6 +17,7 @@ limitations under the License.
 ==============================================================================*/
 module tf.graph.scene.node {
   import RenderNodeInfo = tf.graph.render.RenderNodeInfo;
+
   /**
    * Select or Create a 'g.nodes' group to a given sceneGroup
    * and builds a number of 'g.node' groups inside the group.
@@ -346,8 +350,8 @@ function labelBuild(nodeGroup, renderNodeInfo: render.RenderNodeInfo, sceneEleme
   let namePath = renderNodeInfo.node.name.split('/');
 
     let text = "-";
-    if (renderNodeInfo.node.type === NodeType.OP && renderNodeInfo.node.attr.label) {
-        text=renderNodeInfo.node.attr.label;
+    if (renderNodeInfo.node.type === NodeType.OP && renderNodeInfo.node.attr["label"]) {
+        text=renderNodeInfo.node.attr["label"];
     } else {
         text = namePath[namePath.length - 1];
     }

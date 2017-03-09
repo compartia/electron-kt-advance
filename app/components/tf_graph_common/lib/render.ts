@@ -266,8 +266,8 @@ export class RenderGraphInfo {
 
   logSumDevices(pairs){
       let sum=0;
-      for (p of pairs){
-          sum+=Math.log(1+p[1]);
+      for (let p of pairs){
+          sum += Math.log(1+p[1]);
       }
       return sum;
   }
@@ -656,6 +656,7 @@ export class RenderGraphInfo {
             include: InclusionType.UNSPECIFIED,
             // BridgeNode properties.
             inbound: inbound,
+            attr: null
           };
           bridgeContainerInfo =
             new RenderNodeInfo(bridgeContainerNode);
@@ -675,6 +676,7 @@ export class RenderGraphInfo {
           include: InclusionType.UNSPECIFIED,
           // BridgeNode properties.
           inbound: inbound,
+          attr: null
         };
         bridgeNodeRenderInfo = new RenderNodeInfo(bridgeNode);
         this.index[bridgeNodeName] = bridgeNodeRenderInfo;
@@ -795,6 +797,7 @@ export class RenderGraphInfo {
             include: InclusionType.UNSPECIFIED,
             // BridgeNode properties.
             inbound: inbound,
+            attr: null,
           };
           structuralRenderInfo = new RenderNodeInfo(bridgeNode);
           structuralRenderInfo.structural = true;

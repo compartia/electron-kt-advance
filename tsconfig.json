@@ -1,7 +1,6 @@
 {
-    "outDir":"out",
     "compilerOptions": {
-        "types" : ["lodash", "d3", "graphlib"],
+        "types" : ["lodash", "node"],
         "target": "es5",
         "lib": [
             "es2016",
@@ -9,7 +8,8 @@
         ]
     },
     "include": [
-        "src/**/*.ts"
+        "app/**/*.ts"
+
     ],
     "exclude": [
         "node_modules"

@@ -116,6 +116,7 @@ export interface Node {
    *  INCLUDE or EXCLUDE manually by the user.
    */
   include: InclusionType;
+  attr:{[id: string] : any};
 }
 
 export type TensorShape = number[];
@@ -123,26 +124,14 @@ export type TensorShape = number[];
 export interface OpNode extends Node {
   op: string;
   device: string;
-  attr: {key: string, value: any}[];
+  attr:{[id: string] : any};
   inputs: NormalizedInput[];
+  outputs: NormalizedInput[];
   inEmbeddings: OpNode[];
   outEmbeddings: OpNode[];
   // The name of the SeriesNode that can contain this node in its series.
   // If there is no such node, then this is null.
   owningSeries: string;
-  /**
-   * Array of tensor shapes. Null if the number of output tensors is unknown,
-   * otherwise the length will equal the number of output tensors.
-   *
-   * Each tensor shape is an array of numbers, or null. Details:
-   * - null means unknown rank, and therefore entire shape is unknown.
-   * - [4, 2, 1] means rank-3 tensor of size 4x2x1.
-   * - [] means a scalar (rank-0 tensor).
-   * - [1] means rank-1 tensor of size 1 (not the same as scalar).
-   * - [5, -1, 3] means rank-3 tensor of shape is 5x?x3. The size
-   *       of the middle dimension is unknown (encoded as -1).
-   */
-  outputShapes: TensorShape[];
 }
 
 export interface BridgeNode extends Node {
@@ -295,6 +284,7 @@ export class EllipsisNodeImpl implements EllipsisNode {
   cardinality: number;
   parentNode: Node;
   include: InclusionType;
+  attr:{[id: string] : any};
 
   /**
    * Constructs a new ellipsis annotation node.
@@ -326,7 +316,7 @@ export class OpNodeImpl implements OpNode {
   op: string;
   device: string;
   stats: NodeStats;
-  attr: {key: string, value: any}[];
+  attr:{[id: string] : any};
 
   inputs: NormalizedInput[];
   outputs: NormalizedInput[];
@@ -339,7 +329,6 @@ export class OpNodeImpl implements OpNode {
   parentNode: Node;
   include: InclusionType;
   owningSeries: string;
-  outputShapes: TensorShape[];
 
   /**
    * Constructs a new Op node.
@@ -357,8 +346,7 @@ export class OpNodeImpl implements OpNode {
     // control dependency.
     this.inputs = normalizeInputs(rawNode.input);
     this.outputs = normalizeInputs(rawNode.output);
-    
-    this.outputShapes = extractOutputShapes(rawNode.attr);
+
     // additional properties
     this.type = NodeType.OP;
     this.isGroupNode = false;
@@ -540,6 +528,7 @@ export class MetanodeImpl implements Metanode {
   parentNode: Node;
   hasNonControlEdges: boolean;
   include: InclusionType;
+  attr:{[id: string] : any};
 
   /** A label object for meta-nodes in the graph hierarchy */
   constructor(name: string, opt = {}) {
@@ -701,32 +690,7 @@ export class MetaedgeImpl implements Metaedge {
 
   private static computeSizeOfEdge(edge: BaseEdge, h: hierarchy.Hierarchy):
       number {
-    let opNode = <OpNode> h.node(edge.v);
-    if (opNode.outputShapes == null) {
-      // No shape information. Asssume a single number. This gives
-      // a lower bound for the total size.
-      return 1;
-    }
-    h.hasShapeInfo = true;
-    // Sum the sizes of all output tensors.
-    return _(opNode.outputShapes).map(shape => {
-      // If the shape is unknown, treat it as 1 when computing
-      // total size. This gives a lower bound for the total size.
-      if (shape == null) {
-        return 1;
-      }
-      // Multiply all shapes to get the total size of the tensor.
-      // E.g. The total size of [4, 2, 1] is 4 * 2 * 1.
-      return _(shape).reduce((accumulated, currSize) => {
-        // If this particular dimension is unknown, treat
-        // it as 1 when computing total size. This gives a lower bound
-        // for the total size.
-        if (currSize === -1) {
-          currSize = 1;
-        }
-        return accumulated * currSize;
-      }, 1);
-    }).sum();
+    return 1;
   }
 }
 
@@ -763,6 +727,7 @@ class SeriesNodeImpl implements SeriesNode {
   deviceHistogram: {[op: string]: number};
   hasNonControlEdges: boolean;
   include: InclusionType;
+  attr:{[id: string] : any};
 
   constructor(prefix: string, suffix: string, parent: string,
       clusterId: number, name: string) {
@@ -786,48 +751,6 @@ class SeriesNodeImpl implements SeriesNode {
   }
 }
 
-/**
- * Extracts the shapes of the output tensors from the attr property in the
- * node proto.
- */
-function extractOutputShapes(attr: {key: string, value: any}[]): TensorShape[] {
-  let result = null;
-  // We don't know anything about the output tensors.
-  if (!attr) {
-    return null;
-  }
-  for (let i = 0; i < attr.length; i++) {
-    let {key, value} = attr[i];
-    if (key === OUTPUT_SHAPES_KEY) {
-     // Map all output tensors into array of numbers denoting their shape.
-     let result = value.list.shape.map(shape => {
-       if (shape.unknown_rank) {
-         // This output tensor is of unknown rank. We don't know if it is a
-         // scalar, or a tensor, or of what shape it is.
-         return null;
-       }
-       if (shape.dim == null ||
-           (shape.dim.length === 1 && shape.dim[0].size == null)) {
-         // This output tensor is a scalar.
-         return [];
-       }
-       // This output tensor has a known rank. Map each dimension size
-       // into a number.
-       return shape.dim.map(dim => {
-         // Size can be -1 if this particular dimension is unknown.
-         return dim.size;
-       });
-     });
-     // Since we already processed it, remove the entry from the attribute
-     // list (saves memory).
-     attr.splice(i, 1);
-     return result;
-    }
-  }
-  // We didn't find OUTPUT_SHAPES_KEY in attributes, so we don't know anything
-  // about the output tensors.
-  return null;
-}
 
 /**
  * Normalizes the inputs and extracts associated metadata:
