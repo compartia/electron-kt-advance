@@ -668,13 +668,6 @@ Polymer({
       value: 20
     },
     /**
-     * @type {d3.scale.ordinal}
-     * Scale mapping from template name to a number between 0 and N-1
-     * where N is the number of different template names. Used by
-     * tf.graph.scene.node when computing node color by structure.
-     */
-    templateIndex: Function,
-    /**
      * @type {tf.scene.Minimap}
      * A minimap object to notify for zoom events.
      */
@@ -766,7 +759,6 @@ Polymer({
   },
   /** Main method for building the scene */
   _build: function(renderHierarchy) {
-    this.templateIndex = renderHierarchy.hierarchy.getTemplateIndex();
     tf.graph.util.time('tf-graph-scene (layout):', function() {
       // layout the scene for this meta / series node
       tf.graph.layout.layoutScene(renderHierarchy.root, this);

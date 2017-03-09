@@ -1,3 +1,6 @@
+
+
+
 /* Copyright 2015 The TensorFlow Authors. All Rights Reserved.
 
 Licensed under the Apache License, Version 2.0 (the 'License');
@@ -14,6 +17,7 @@ limitations under the License.
 ==============================================================================*/
 module tf.graph.scene.node {
   import RenderNodeInfo = tf.graph.render.RenderNodeInfo;
+
   /**
    * Select or Create a 'g.nodes' group to a given sceneGroup
    * and builds a number of 'g.node' groups inside the group.
@@ -330,7 +334,7 @@ function getContainingSeries(node: Node) {
  * Returns the label for a button to toggle the group setting of the provided
  * node.
  */
-export function getGroupSettingLabel(node: Node) {
+export function getGroupSettingLabel(node: Node):string {
   return tf.graph.getGroupSeriesNodeButtonString(
     getContainingSeries(node) !== null ? tf.graph.SeriesGroupingType.GROUP :
      tf.graph.SeriesGroupingType.UNGROUP);
@@ -346,8 +350,8 @@ function labelBuild(nodeGroup, renderNodeInfo: render.RenderNodeInfo, sceneEleme
   let namePath = renderNodeInfo.node.name.split('/');
 
     let text = "-";
-    if (renderNodeInfo.node.type === NodeType.OP && renderNodeInfo.node.attr.label) {
-        text=renderNodeInfo.node.attr.label;
+    if (renderNodeInfo.node.type === NodeType.OP && renderNodeInfo.node.attr["label"]) {
+        text=renderNodeInfo.node.attr["label"];
     } else {
         text = namePath[namePath.length - 1];
     }
@@ -614,29 +618,10 @@ export enum ColorBy { STRUCTURE, DEVICE, COMPUTE_TIME, MEMORY };
  * Returns the fill color for the node given its state and the 'color by'
  * option.
  */
-export function getFillForNode(templateIndex, colorBy,
+export function getFillForNode(colorBy,
     renderInfo: render.RenderNodeInfo, isExpanded: boolean): string {
   let colorParams = render.MetanodeColors;
   switch (colorBy) {
-    case ColorBy.STRUCTURE:
-      if (renderInfo.node.type === NodeType.META) {
-        let tid = (<Metanode>renderInfo.node).templateId;
-        return tid === null ?
-          colorParams.UNKNOWN :
-          colorParams.STRUCTURE_PALETTE(templateIndex(tid), isExpanded);
-      } else if (renderInfo.node.type === NodeType.SERIES) {
-        // If expanded, we're showing the background rect, which we want to
-        // appear gray. Otherwise we're showing a stack of ellipses which we
-        // want to show white.
-        return isExpanded ? colorParams.EXPANDED_COLOR : 'white';
-      } else if (renderInfo.node.type === NodeType.BRIDGE) {
-        return renderInfo.structural ?
-            '#f0e' :
-            (<BridgeNode>renderInfo.node).inbound ? '#0ef' : '#fe0';
-      } else {
-        // Op nodes are white.
-        return 'white';
-      }
     case ColorBy.DEVICE:
       if (renderInfo.deviceColors == null) {
         // Return the hue for unknown device.
@@ -699,8 +684,7 @@ export function stylize(nodeGroup, renderInfo: render.RenderNodeInfo,
   // Main node always exists here and it will be reached before subscene,
   // so d3 selection is fine here.
   let node = nodeGroup.select('.' + nodeClass + ' .' + Class.Node.COLOR_TARGET);
-  let fillColor = getFillForNode(sceneElement.templateIndex,
-    ColorBy[sceneElement.colorBy.toUpperCase()],
+  let fillColor = getFillForNode(ColorBy[sceneElement.colorBy.toUpperCase()],
     renderInfo, isExpanded);
   node.style('fill', fillColor);
 

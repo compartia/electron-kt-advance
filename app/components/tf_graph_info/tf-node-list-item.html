@@ -23,8 +23,7 @@ limitations under the License.
             <div id="list-item-contents"  class$="{{_fadedClass(itemRenderInfo)}}">
                 <node-icon class="node-icon" height="6" color-by="[[colorBy]]"
                         color-by-params="[[colorByParams]]" node="[[itemNode]]"
-                        render-info="[[itemRenderInfo]]"
-                        template-index="[[templateIndex]]"></node-icon>
+                        render-info="[[itemRenderInfo]]"></node-icon>
 
                 <template is="dom-if" if="[[itemNode.attr.apiId]]">
                     <div>api-id: [[itemNode.attr.apiId]]</div>
@@ -65,8 +64,7 @@ limitations under the License.
                         observer: '_itemTypeChanged'
                     },
                     colorBy: String,
-                    colorByParams: Object,
-                    templateIndex: Function
+                    colorByParams: Object
                 },
 
                 _itemTypeChanged: function() {

@@ -67,15 +67,6 @@
                         value: "structural"
                     },
 
-                    /**
-           * Function used by structural coloring algorithm to determine which
-           * color to use based on the template ID of the node. Optional.
-           */
-                    templateIndex: {
-                        type: Function,
-                        value: null
-                    },
-
                     /** Type of node to draw (ignored if node is set). */
                     type: {
                         type: String,
@@ -119,7 +110,7 @@
                         /** The computed fill for the node. **/
                         _computedFill: {
                             type: String,
-                            computed: "_getComputedFill(node, renderInfo, colorBy, templateIndex, fill)"
+                            computed: "_getComputedFill(node, renderInfo, colorBy, fill)"
                         }
 
                     },
@@ -127,11 +118,11 @@
                     /**
          * Get the computed fill value for the element.
          */
-                    _getComputedFill: function(inputNode, inputRenderInfo, inputColorBy, inputTemplateIndex, inputFill) {
-                        if (inputNode && inputRenderInfo && inputColorBy && inputTemplateIndex) {
+                    _getComputedFill: function(inputNode, inputRenderInfo, inputColorBy, inputFill) {
+                        if (inputNode && inputRenderInfo && inputColorBy) {
                             var ns = tf.graph.scene.node;
                             var colorBy = ns.ColorBy[inputColorBy.toUpperCase()];
-                            return ns.getFillForNode(inputTemplateIndex, colorBy, inputRenderInfo, false);
+                            return ns.getFillForNode(colorBy, inputRenderInfo, false);
                         }
                         return inputFill;
                     },

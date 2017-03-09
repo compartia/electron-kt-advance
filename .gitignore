@@ -15,3 +15,7 @@ app/css/styles.css
 main.js
 
 app/css/styles.css.map
+
+typings/
+
+npm-debug.log

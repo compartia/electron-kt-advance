@@ -1,9 +1,3 @@
-var graphlib = require("graphlib");
-var _ = require("lodash");
-
-window["d3"] = require('d3');
-var d3 = window["d3"];
-
 
 var graph = require('./components/tf_graph_common/lib/graph');
 var proto = require('./components/tf_graph_common/lib/proto');

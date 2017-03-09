@@ -7,7 +7,6 @@ module kt.parser {
     function mapPOsByRefId(POs, ret = {}) {
 
         for (let key in POs) {
-            // console.log(key);
             let pOsByLocation = POs[key];
             for (var value of pOsByLocation) {
                 ret[value["referenceKey"]] = new kt.graph.po_node.PONode(value);
@@ -86,10 +85,10 @@ module kt.parser {
 
         for (var key in poByRefId) {
             var ppo: kt.graph.po_node.PONode = poByRefId[key];
-            // if (ppo.isLinked()) {
-                // if (!ppo.isTotallyDischarged())
+            if (ppo.isLinked()) {
+                if (!ppo.isTotallyDischarged())
                     g.push(ppo.asNodeDef());
-            // }
+            }
         }
 
         console.info["NUMBER of nodes: " + g.length];
@@ -101,11 +100,10 @@ module kt.parser {
     export function readAndParse(): tf.graph.proto.NodeDef[] {
 
         const ppoNodesMap = readPoNodesFromJsons([
-            "/Users/artem/work/KestrelTechnology/IN/dnsmasq/kt_analysis_export_5.6.2/src/log.c.json",
-            "/Users/artem/work/KestrelTechnology/IN/dnsmasq/kt_analysis_export_5.6.2/src/dnsmasq.c.json",
-            "/Users/artem/work/KestrelTechnology/IN/dnsmasq/kt_analysis_export_5.6.2/src/option.c.json",
-            "/Users/artem/work/KestrelTechnology/IN/dnsmasq/kt_analysis_export_5.6.2/src/cache.c.json"
-            // "/Users/artem/work/KestrelTechnology/IN/dnsmasq/kt_analysis_export_5.6.1/src/tftp.c.json"
+            "test/resources/dnsmasq/kt_analysis_export_5.6.2/src/log.c.json",
+            "test/resources/dnsmasq/kt_analysis_export_5.6.2/src/dnsmasq.c.json",
+            "test/resources/dnsmasq/kt_analysis_export_5.6.2/src/option.c.json",
+            "test/resources/dnsmasq/kt_analysis_export_5.6.2/src/cache.c.json"
         ]);
 
         let g: tf.graph.proto.NodeDef[] = buildGraph(ppoNodesMap)
