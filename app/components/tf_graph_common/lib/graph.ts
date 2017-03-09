@@ -1091,7 +1091,7 @@ export function getHierarchicalPath(name: string,
  * Returns the string for the node inclusion toggle button, dependant
  * on the provided current InclusionType.
  */
-export function getIncludeNodeButtonString(include: InclusionType) {
+export function getIncludeNodeButtonString(include: InclusionType):string {
   if (include === tf.graph.InclusionType.EXCLUDE) {
     return 'Add to main graph';
   } else {

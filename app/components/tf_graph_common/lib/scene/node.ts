@@ -334,7 +334,7 @@ function getContainingSeries(node: Node) {
  * Returns the label for a button to toggle the group setting of the provided
  * node.
  */
-export function getGroupSettingLabel(node: Node) {
+export function getGroupSettingLabel(node: Node):string {
   return tf.graph.getGroupSeriesNodeButtonString(
     getContainingSeries(node) !== null ? tf.graph.SeriesGroupingType.GROUP :
      tf.graph.SeriesGroupingType.UNGROUP);
