@@ -15,7 +15,7 @@
   "main": "main.js",
   "scripts": {
     "test": "test",
-    "prepublish": "npm install && bower install && typings install",
+    "prepare": "npm install && bower install && typings install",
     "start": "node_modules/.bin/electron ."
   },
   "devDependencies": {

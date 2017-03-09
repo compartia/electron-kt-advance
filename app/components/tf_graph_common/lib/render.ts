@@ -19,7 +19,7 @@ limitations under the License.
 
 module tf.graph.render {
 
-var d3=require("d3");
+//var d3=require("d3");
 
 export type Point = {x: number, y: number};
 
@@ -161,7 +161,7 @@ export class RenderGraphInfo {
   hierarchy: hierarchy.Hierarchy;
   private displayingStats: boolean;
   private index: {[nodeName: string]: RenderNodeInfo};
-  private deviceColorMap: d3.scale.Ordinal<string, string>;
+
   private memoryUsageScale: d3.scale.Linear<string, string>;
   private computeTimeScale: d3.scale.Linear<string, string>;
   /** Scale for the thickness of edges when there is no shape information. */
@@ -175,6 +175,7 @@ export class RenderGraphInfo {
   root: RenderGroupNodeInfo;
   traceInputs: Boolean;
   palette: {};
+  statesColorMap:(id: string)=>string;
 
   constructor(hierarchy: hierarchy.Hierarchy, displayingStats: boolean) {
     this.hierarchy = hierarchy;
@@ -201,18 +202,22 @@ export class RenderGraphInfo {
   }
 
   computeScales() {
-    this.deviceColorMap = d3.scale.ordinal<string>()
-        .domain(this.hierarchy.devices)
-        .range(_.map(d3.range(this.hierarchy.devices.length),
-                     MetanodeColors.DEVICE_PALETTE));
+    // this.deviceColorMap = d3.scale.ordinal<string>()
+    //     .domain(this.hierarchy.devices)
+    //     .range(_.map(d3.range(this.hierarchy.devices.length),
+    //                  MetanodeColors.DEVICE_PALETTE));
+    //
+    //
+    // let _deviceColorMap = function(id:string){
+    //     return this.palette["state-"+id.toLowerCase()+"-bg"];
+    // };
+    //
+    // _deviceColorMap.domain=this.deviceColorMap.domain;
+    // this.deviceColorMap=_deviceColorMap;
 
-
-    let _deviceColorMap = function(id:string){
+    this.statesColorMap= function(id:string){
         return this.palette["state-"+id.toLowerCase()+"-bg"];
     };
-
-    _deviceColorMap.domain=this.deviceColorMap.domain;
-    this.deviceColorMap=_deviceColorMap;
 
 
     let topLevelGraph = this.hierarchy.root.metagraph;
@@ -322,7 +327,7 @@ export class RenderGraphInfo {
         let numDevices = this.logSumDevices (pairs);// Math.log(1 + _.sum(pairs, _.last));
         pairs=this.sortStates(pairs);
         renderInfo.deviceColors = _.map(pairs, pair => ({
-              color: this.deviceColorMap(pair[0]),
+              color: this.statesColorMap(pair[0]),
               // Normalize to a proportion of total # of devices.
               proportion: Math.log(1 + pair[1]) / numDevices
             }));
@@ -331,7 +336,7 @@ export class RenderGraphInfo {
       let device = (<OpNode>renderInfo.node).device;
       if (device) {
         renderInfo.deviceColors = [{
-          color: this.deviceColorMap(device),
+          color: this.statesColorMap(device),
           proportion: 1.0
         }];
       }

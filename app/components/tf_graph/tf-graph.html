@@ -156,13 +156,7 @@ Polymer({
       this._setColorByParams({
         compute_time: getColorParamsFromScale(renderGraph.computeTimeScale),
         memory: getColorParamsFromScale(renderGraph.memoryUsageScale),
-        device: _.map(renderGraph.deviceColorMap.domain(),
-            function(deviceName) {
-          return {
-            device: deviceName,
-            color: renderGraph.deviceColorMap(deviceName)
-          };
-        })
+        device: renderGraph.statesColorMap
       });
       this._setRenderHierarchy(renderGraph);
       this.async(function() {
