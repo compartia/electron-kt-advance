@@ -29,6 +29,7 @@ install:
 - npm install electron-builder@next
 - npm install
 - npm prune
+- node_modules/.bin/typings install
 script:
 - npm run compile
 - npm run dist
