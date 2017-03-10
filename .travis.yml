@@ -11,6 +11,7 @@ matrix:
 cache:
   directories:
   - node_modules
+  - bower_components
   - app/node_modules
   - "$HOME/.electron"
   - "$HOME/.cache"
@@ -30,6 +31,7 @@ install:
 - npm install
 - npm prune
 - node_modules/.bin/typings install
+- node_modules/.bin/bower install
 script:
 - npm run compile
 - npm run dist
