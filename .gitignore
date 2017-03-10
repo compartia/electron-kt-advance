@@ -19,3 +19,5 @@ app/css/styles.css.map
 typings/
 
 npm-debug.log
+
+dist/
