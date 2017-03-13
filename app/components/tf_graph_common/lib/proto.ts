@@ -29,12 +29,13 @@ module tf.graph.proto {
     name: string;
     /** List of nodes that are inputs for this node. */
     input: string[];
+    output: string[];
     /** The name of the device where the computation will run. */
     device: string;
     /** The name of the operation associated with this node. */
     op: string;
     /** List of attributes that describe/modify the operation. */
-    attr: {key: string, value: Object}[];
+    attr:{[id: string] : any};
   }
 
   /**

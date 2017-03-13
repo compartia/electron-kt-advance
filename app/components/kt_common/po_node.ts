@@ -1,9 +1,21 @@
 module kt.graph.po_node {
 
     export enum PoStatesExt { violation, open, discharged, global, invariants, ds, rv, api };
+    export enum PoStates { violation, open, discharged };
+    export enum PoDischargeTypes { global, invariants, ds, rv, api, default };
+
     const SPL = "/";
 
+    export function compareStates(stateA: string, stateB: string): number {
+        let stA: string[] = stateA.toLowerCase().split("-");
+        let stB: string[] = stateB.toLowerCase().split("-");
 
+        let delta1 = kt.graph.po_node.PoStatesExt[stA[0]] - kt.graph.po_node.PoStatesExt[stB[0]];
+        if (delta1 == 0) {
+            return kt.graph.po_node.PoStatesExt[stA[1]] - kt.graph.po_node.PoStatesExt[stB[1]];
+        } else
+            return delta1;
+    }
 
     export class PONode {
         id: string;
@@ -17,11 +29,14 @@ module kt.graph.po_node {
         inputs: PONode[];
         outputs: PONode[];
         isMissing: boolean;
+        private _apiId: string = "-1";
+
 
         constructor(po, isMissing: boolean = false) {
             this.po = po;
             this.isMissing = isMissing;
             this.state = po["state"];
+
 
             this.inputs = [];
             this.outputs = [];
@@ -36,23 +51,44 @@ module kt.graph.po_node {
             this.label = this.makeLabel();
         }
 
-        private getExtendedState(): string {
+        private getDischargeType(): string {
             let po = this.po;
+            let dischargeType;
+
             if (po["discharge"]) {
                 if (po["discharge"]["assumptions"].length > 0) {
                     let type: string = po["discharge"]["assumptions"][0]["type"];
-                    return type.toUpperCase();
+                    dischargeType = type.toUpperCase();
                 } else if (po["discharge"]["method"] == "invariants") {
-                    return "invariants".toUpperCase();
+                    dischargeType = "invariants".toUpperCase();
                 }
             }
 
-            return this.po["state"];
+            return dischargeType;
+        }
+        private getExtendedState(): string {
+            let stateExt = this.getDischargeType();
+            if (!stateExt) {
+                stateExt = "default";
+            }
+
+            return this.po["state"] + "-" + stateExt;
+        }
+
+        private getDischargeAssumption() {
+            let po = this.po;
+            if (po["discharge"]) {
+                if (po["discharge"]["assumptions"].length > 0) {
+                    return po["discharge"]["assumptions"][0];
+                }
+            }
+            return { "type": undefined, "apiId": undefined };
         }
 
         public addInput(node: PONode) {
             this.inputs.push(node);
         }
+
         public addOutput(node: PONode) {
             this.outputs.push(node);
         }
@@ -79,9 +115,6 @@ module kt.graph.po_node {
 
         private makeName(): string {
 
-            /**
-                TODO: spaces are not yet allowed in names because of d3 queries; FIXME.
-            */
             let _nm =
                 this.fixFileName(this.po["file"]) + SPL + this.functionName
                 + SPL + this.predicate
@@ -97,7 +130,7 @@ module kt.graph.po_node {
 
 
         private makeLabel(): string {
-            let _nm = this.level() + " (" + this.id + ") " ;
+            let _nm = this.level() + " (" + this.id + ") ";
 
             if (this.po["symbol"] && this.po["symbol"].type == "ID") {
                 _nm += this.po["symbol"].value;
@@ -134,10 +167,22 @@ module kt.graph.po_node {
                 }
             }
 
+
             return true;
         }
 
+        set apiId(theApiId: string) {
+            if (this._apiId != "-1") {
+                if (this._apiId != theApiId) {
+                    console.error("had apiId = " + this._apiId + " got new one:" + theApiId);
+                }
+            }
+            this._apiId = theApiId;
+        }
 
+        get apiId(): string {
+            return this._apiId;
+        }
 
 
         public asNodeDef(): tf.graph.proto.NodeDef {
@@ -146,11 +191,13 @@ module kt.graph.po_node {
             let nodeDef: tf.graph.proto.NodeDef = {
                 name: this.name,
                 input: [],
+                output: [],
                 device: this.getExtendedState(),
                 op: this.functionName,
                 attr: {
                     // "html": poRef2html(po),
                     "label": this.label,
+                    "apiId": this.apiId,
                     "predicate": this.predicate,
                     "level": po["level"],
                     "state": this.state,
@@ -158,15 +205,16 @@ module kt.graph.po_node {
                     "location": po["textRange"],
                     "symbol": po["symbol"],
                     "message": this.message,
-                    "discharge": po["discharge"] //? po["discharge"]["comment"] : null
+                    "dischargeType": this.getDischargeType(),
+                    "discharge": po["discharge"], //? po["discharge"]["comment"] : null
+                    "dischargeAssumption": this.getDischargeAssumption()
                 }
             }
 
-            for (let ref of this.inputs) {
+            for (let ref of this.sortRefs(this.inputs)) {
                 let _nm = ref.name;
 
                 // let lifting = (this.getExtendedState()=="API");
-                //
                 // if (lifting){
                 //     _nm = "^" + _nm;
                 // }
@@ -174,11 +222,25 @@ module kt.graph.po_node {
                 nodeDef.input.push(_nm);
             }
 
+
+            for (let ref of this.sortRefs(this.outputs)) {
+                nodeDef.output.push(ref.name);
+            }
+
             return nodeDef;
         }
+
+
+        private sortRefs(refs: PONode[]) {
+            return refs.sort((x, y) => {
+                return compareStates(x.state, y.state);
+            });
+        }
+
         private level(): string {
             return this.po["level"] == "PRIMARY" ? "I" : "II";
         }
+
         public toHtml(): string {
             var html = "<div class='po level-" + this.po["level"] + " state-" + this.po["state"] + "'>"
             // html += "<span class='func'>" + po["functionName"] + "</span><br>"

@@ -1,13 +1,12 @@
 module kt.parser {
-
-    let fs = require('fs');
+    const path = require('path')
+    const fs = require('fs');
     declare function require(name: string);
 
 
     function mapPOsByRefId(POs, ret = {}) {
 
         for (let key in POs) {
-            // console.log(key);
             let pOsByLocation = POs[key];
             for (var value of pOsByLocation) {
                 ret[value["referenceKey"]] = new kt.graph.po_node.PONode(value);
@@ -32,7 +31,7 @@ module kt.parser {
         const poByRefId = {};
 
         for (let filename of filenames) {
-            let json = fs.readFileSync(filename, {
+            let json = fs.readFileSync(path.join(__dirname, filename), {
                 encoding: 'utf-8'
             });
 
@@ -67,6 +66,7 @@ module kt.parser {
 
                 }
 
+                target.apiId = ref["apiId"];
                 ppo.addInput(target);
                 target.addOutput(ppo);
             }
@@ -86,7 +86,7 @@ module kt.parser {
         for (var key in poByRefId) {
             var ppo: kt.graph.po_node.PONode = poByRefId[key];
             if (ppo.isLinked()) {
-                if (!ppo.isTotallyDischarged())
+                // if (!ppo.isTotallyDischarged())
                     g.push(ppo.asNodeDef());
             }
         }
@@ -100,10 +100,11 @@ module kt.parser {
     export function readAndParse(): tf.graph.proto.NodeDef[] {
 
         const ppoNodesMap = readPoNodesFromJsons([
-            "/Users/artem/work/KestrelTechnology/IN/dnsmasq/kt_analysis_export_5.6.2/src/log.c.json",
-            // "/Users/artem/work/KestrelTechnology/IN/dnsmasq/kt_analysis_export_5.6.1/src/util.c.json",
-            "/Users/artem/work/KestrelTechnology/IN/dnsmasq/kt_analysis_export_5.6.2/src/cache.c.json"
-            // "/Users/artem/work/KestrelTechnology/IN/dnsmasq/kt_analysis_export_5.6.1/src/tftp.c.json"
+            "static/resources/dnsmasq/kt_analysis_export_5.6.2/src/log.c.json",
+            "static/resources/dnsmasq/kt_analysis_export_5.6.2/src/dnsmasq.c.json",
+            "static/resources/dnsmasq/kt_analysis_export_5.6.2/src/option.c.json",
+            "static/resources/dnsmasq/kt_analysis_export_5.6.2/src/cache.c.json",
+            "static/resources/dnsmasq/kt_analysis_export_5.6.2/src/arp.c.json"
         ]);
 
         let g: tf.graph.proto.NodeDef[] = buildGraph(ppoNodesMap)

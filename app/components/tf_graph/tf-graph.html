@@ -14,7 +14,6 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-
 <link rel="import" href="tf-graph-scene.html">
 
 <dom-module id="tf-graph">
@@ -156,13 +155,7 @@ Polymer({
       this._setColorByParams({
         compute_time: getColorParamsFromScale(renderGraph.computeTimeScale),
         memory: getColorParamsFromScale(renderGraph.memoryUsageScale),
-        device: _.map(renderGraph.deviceColorMap.domain(),
-            function(deviceName) {
-          return {
-            device: deviceName,
-            color: renderGraph.deviceColorMap(deviceName)
-          };
-        })
+        device: renderGraph.statesColorMap
       });
       this._setRenderHierarchy(renderGraph);
       this.async(function() {
