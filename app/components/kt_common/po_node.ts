@@ -1,7 +1,7 @@
 module kt.graph.po_node {
 
     export enum PoStatesExt { violation, open, discharged, global, invariants, ds, rv, api };
-    export enum PoStates { violation, open, discharged };
+    export enum PoStates { violation, open, discharged, assumption };
     export enum PoDischargeTypes { global, invariants, ds, rv, api, default };
 
     const SPL = "/";
@@ -26,8 +26,8 @@ module kt.graph.po_node {
         predicate: string;
         functionName: string;
         message: string;
-        inputs:  kt.graph.api_node.ApiNode[];
-        outputs:  kt.graph.api_node.ApiNode[];
+        inputs: kt.graph.api_node.ApiNode[];
+        outputs: kt.graph.api_node.ApiNode[];
         isMissing: boolean;
         private _apiId: string = "-1";
 
@@ -37,13 +37,11 @@ module kt.graph.po_node {
             this.isMissing = isMissing;
             this.state = po["state"];
 
-
             this.inputs = [];
             this.outputs = [];
 
-            this.predicate = po["predicateType"] ? po["predicateType"] : po["predicate"];
-            this.functionName = po["targetFuncName"] ? po["targetFuncName"] : po["functionName"];
-            this.message = po["message"] ? po["message"] : po["shortDescription"];
+            this.predicate = po["predicateType"];
+            this.functionName = po["functionName"];
 
             this.id = this.parseId(po["referenceKey"]);
 
@@ -87,7 +85,7 @@ module kt.graph.po_node {
 
 
 
-        private getDefaultDischargeAssumption(){
+        private getDefaultDischargeAssumption() {
             let po = this.po;
             if (po["discharge"])
                 if (po["discharge"]["assumptions"].length > 0)
@@ -109,7 +107,7 @@ module kt.graph.po_node {
         }
 
         public hasAssumptions(): boolean {
-            return this.po["references"].length > 0;
+            return this.po["references"].length > 0 || this.po["inReferencesCount"] > 0;
         }
 
         public isLinked(): boolean {
@@ -242,9 +240,9 @@ module kt.graph.po_node {
             }
 
             let defaultDischargeAssumption = this.getDefaultDischargeAssumption();
-            if(defaultDischargeAssumption){
-                if(defaultDischargeAssumption["type"]==="api"){
-                    nodeDef.attr["dischargeApiId"]=defaultDischargeAssumption["apiId"];
+            if (defaultDischargeAssumption) {
+                if (defaultDischargeAssumption["type"] === "api") {
+                    nodeDef.attr["dischargeApiId"] = defaultDischargeAssumption["apiId"];
                 }
 
             }

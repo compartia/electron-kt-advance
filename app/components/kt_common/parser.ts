@@ -20,9 +20,9 @@ module kt.parser {
 
         for (var key in POsByRefIdMap) {
             var value: kt.graph.po_node.PONode = POsByRefIdMap[key];
-            // if (value.hasAssumptions()) {
+            if (value.hasAssumptions()) {
                 has_assumptions.push(value)
-            // }
+            }
         }
         return has_assumptions;
     }
@@ -46,39 +46,43 @@ module kt.parser {
 
     function bindChildren(poByRefId) {
 
-        const has_assumptions = findPOsWithAssumptions(poByRefId);
+        const has_assumptions:kt.graph.po_node.PONode[] = findPOsWithAssumptions(poByRefId);
         console.log("Number of POs with assumptions:" + has_assumptions.length);
 
-        let apisByName={}
+        let apisByName = {}
 
         let lostPoCount: number = 0;
         for (let ppo of has_assumptions) {
 
             for (let ref of ppo.references) {
-                const key2_: string = ref["referenceKey"]
-                let target: kt.graph.po_node.PONode = poByRefId[key2_];
+
+                let target: kt.graph.po_node.PONode = poByRefId[ref["referenceKey"]];
 
 
                 if (!target) {
-                    console.warn(ppo.referenceKey + " refers missing key: " + key2_);
-                    target = new kt.graph.po_node.PONode(ref, true);
-                    poByRefId[key2_] = target;
-
+                    // console.warn(ppo.referenceKey + " refers missing key: " + key2_);
+                    // target = new kt.graph.po_node.PONode(ref, true);
+                    // poByRefId[key2_] = target;
                     lostPoCount++;
-
                 }
 
 
                 let apiName = kt.graph.api_node.makeName(ref);
                 let api = apisByName[apiName];
-                if(!api){
-                    api=new kt.graph.api_node.ApiNode(ref);
-                    api.addInput(ppo);
-                    api.addOutput(target);
-                    apisByName[apiName]=api;
+                if (!api) {
+                    api = new kt.graph.api_node.ApiNode(ref);
+                    apisByName[apiName] = api;
                 }
 
                 ppo.addOutput(api);
+                api.addInput(ppo);
+
+                if(target){
+                    api.addOutput(target);
+                    target.addInput(api);
+                }
+
+
 
             }
         }
@@ -90,13 +94,13 @@ module kt.parser {
         let g: tf.graph.proto.NodeDef[] = [];
 
         const apisByName = bindChildren(poByRefId);
- 
+
         let nodesMap = {};
 
         for (var key in poByRefId) {
             var ppo: kt.graph.po_node.PONode = poByRefId[key];
             if (ppo.isLinked()) {
-                if (!ppo.isTotallyDischarged()){
+                if (!ppo.isTotallyDischarged()) {
                     g.push(ppo.asNodeDef());
                 }
             }
@@ -117,11 +121,11 @@ module kt.parser {
 
         const ppoNodesMap = readPoNodesFromJsons([
 
-            "static/resources/dnsmasq/kt_analysis_export_5.6.2/src/log.c.json",
-            "static/resources/dnsmasq/kt_analysis_export_5.6.2/src/dnsmasq.c.json",
-            "static/resources/dnsmasq/kt_analysis_export_5.6.2/src/option.c.json",
-            "static/resources/dnsmasq/kt_analysis_export_5.6.2/src/cache.c.json",
-            "static/resources/dnsmasq/kt_analysis_export_5.6.2/src/arp.c.json"
+            // "static/resources/dnsmasq/kt_analysis_export_5.6.2/src/log.c.json",
+            // "static/resources/dnsmasq/kt_analysis_export_5.6.2/src/dnsmasq.c.json",
+            // "static/resources/dnsmasq/kt_analysis_export_5.6.2/src/option.c.json",
+            "static/resources/dnsmasq/kt_analysis_export_5.6.3/src/cache.c.json"
+            // "static/resources/dnsmasq/kt_analysis_export_5.6.2/src/arp.c.json"
 
         ]);
 
