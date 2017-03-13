@@ -8,6 +8,15 @@ tf-graph-info{
     margin: 0;
 }
 
+discharge-info{
+    padding      : $base-padding/2;
+
+    #evidence{
+        color      : $grey;
+        font-size  : 90%;
+    }
+}
+
 tf-node-info {
 
     .po {
@@ -34,20 +43,16 @@ tf-node-info {
 
     }
 
-    .po.level-PRIMARY {
-        background: $po-level-primary;
-
-        .predicate {
+    .po.level-PRIMARY{
+        .level{
             &:after {
                 content: " I";
             }
         }
     }
 
-    .po.level-SECONDARY {
-        background: $po-level-secondary;
-
-        .predicate {
+    .po.level-SECONDARY{
+        .level{
             &:after {
                 content: " II";
             }

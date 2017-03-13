@@ -6,16 +6,18 @@
 <link rel="import" href="node-icon.html">
 
 <link rel="import" href="tf-node-list-item.html">
+<link rel="import" href="discharge-info.html">
 
 <dom-module id="tf-node-info">
     <style></style>
     <template>
         <div>
             <div class="node-color-container">
-                <node-icon id="bg"
-                    node="[[_node]]" render-info="[[_getRenderInfo(nodeName, renderHierarchy)]]" color-by="[[colorBy]]"></node-icon>
+                <node-icon id="bg" node="[[_node]]" render-info="[[_getRenderInfo(nodeName, renderHierarchy)]]" color-by="[[colorBy]]"></node-icon>
 
-                <div id="caption"><b>[[_node.attr.state]]<sup class='level'> </sup></b> &nbsp;[[_node.attr.dischargeType]]</div>
+                <div id="caption">
+                    <b>[[_node.attr.state]]</b>
+                         &nbsp;[[_node.attr.dischargeType]]</div>
             </div>
 
             <div>
@@ -27,6 +29,8 @@
 
                 <template is="dom-if" if="{{_node.op}}">
 
+
+
                     <div class$="[[_node_class]]">
 
                         <template is="dom-if" if="[[_attributes.symbol]]">
@@ -37,13 +41,14 @@
                         </template>
 
                         <a><span class='func'>[[_node.op]] : <span class='location'>L[[_funcLocation]]</span></span> </a><br>
-                        <div class='predicate'>[[_attributes.predicate]]</div>
+                        <div class='predicate'>[[_attributes.predicate]]
+                            <sup><span class='level'> </span></sup>
+                        </div>
 
                         <div id='api-id'>api-id: [[_attributes.apiId]]</div>
 
                         <template is="dom-if" if="{{_attributes.discharge}}">
-                            <div id='discharge-comment'>[[_attributes.discharge.evidence.comment]]</div>
-                            <div id='uses-api'>uses: [[_attributes.dischargeAssumption.type]]:[[_attributes.dischargeAssumption.apiId]]</div>
+                            <discharge-info node="[[_node]]"><discharge-info>
                         </template>
                     </div>
 

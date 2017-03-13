@@ -86,7 +86,7 @@ module kt.parser {
         for (var key in poByRefId) {
             var ppo: kt.graph.po_node.PONode = poByRefId[key];
             if (ppo.isLinked()) {
-                if (!ppo.isTotallyDischarged())
+                // if (!ppo.isTotallyDischarged())
                     g.push(ppo.asNodeDef());
             }
         }
@@ -103,7 +103,8 @@ module kt.parser {
             "static/resources/dnsmasq/kt_analysis_export_5.6.2/src/log.c.json",
             "static/resources/dnsmasq/kt_analysis_export_5.6.2/src/dnsmasq.c.json",
             "static/resources/dnsmasq/kt_analysis_export_5.6.2/src/option.c.json",
-            "static/resources/dnsmasq/kt_analysis_export_5.6.2/src/cache.c.json"
+            "static/resources/dnsmasq/kt_analysis_export_5.6.2/src/cache.c.json",
+            "static/resources/dnsmasq/kt_analysis_export_5.6.2/src/arp.c.json"
         ]);
 
         let g: tf.graph.proto.NodeDef[] = buildGraph(ppoNodesMap)
