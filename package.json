@@ -15,7 +15,7 @@
     "main": "main.js",
     "scripts": {
         "test": "test",
-        "postinstall": "install-app-deps",
+        "postinstall": "install-app-deps && node_modules/.bin/typings install && node_modules/.bin/bower install",
         "compile": "node_modules/.bin/node-sass src/main/sass/styles.scss app/css/styles.css && node_modules/.bin/tsc",
         "start": "npm install && npm run compile && node_modules/.bin/electron .",
         "pack": "npm run compile && build --dir",

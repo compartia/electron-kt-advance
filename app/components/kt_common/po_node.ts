@@ -26,8 +26,8 @@ module kt.graph.po_node {
         predicate: string;
         functionName: string;
         message: string;
-        inputs: PONode[];
-        outputs: PONode[];
+        inputs:  kt.graph.api_node.ApiNode[];
+        outputs:  kt.graph.api_node.ApiNode[];
         isMissing: boolean;
         private _apiId: string = "-1";
 
@@ -85,11 +85,22 @@ module kt.graph.po_node {
             return { "type": undefined, "apiId": undefined };
         }
 
-        public addInput(node: PONode) {
+
+
+        private getDefaultDischargeAssumption(){
+            let po = this.po;
+            if (po["discharge"])
+                if (po["discharge"]["assumptions"].length > 0)
+                    return po["discharge"]["assumptions"][0];
+
+            return undefined;
+        }
+
+        public addInput(node: kt.graph.api_node.ApiNode) {
             this.inputs.push(node);
         }
 
-        public addOutput(node: PONode) {
+        public addOutput(node: kt.graph.api_node.ApiNode) {
             this.outputs.push(node);
         }
 
@@ -188,6 +199,7 @@ module kt.graph.po_node {
         public asNodeDef(): tf.graph.proto.NodeDef {
             const po = this.po;
 
+
             let nodeDef: tf.graph.proto.NodeDef = {
                 name: this.name,
                 input: [],
@@ -208,13 +220,16 @@ module kt.graph.po_node {
                     "dischargeType": this.getDischargeType(),
                     "discharge": po["discharge"], //? po["discharge"]["comment"] : null
                     "dischargeAssumption": this.getDischargeAssumption()
+
                 }
             }
 
             for (let ref of this.sortRefs(this.inputs)) {
                 let _nm = ref.name;
 
+
                 // let lifting = (this.getExtendedState()=="API");
+
                 // if (lifting){
                 //     _nm = "^" + _nm;
                 // }
@@ -222,16 +237,23 @@ module kt.graph.po_node {
                 nodeDef.input.push(_nm);
             }
 
-
             for (let ref of this.sortRefs(this.outputs)) {
                 nodeDef.output.push(ref.name);
+            }
+
+            let defaultDischargeAssumption = this.getDefaultDischargeAssumption();
+            if(defaultDischargeAssumption){
+                if(defaultDischargeAssumption["type"]==="api"){
+                    nodeDef.attr["dischargeApiId"]=defaultDischargeAssumption["apiId"];
+                }
+
             }
 
             return nodeDef;
         }
 
 
-        private sortRefs(refs: PONode[]) {
+        private sortRefs(refs: kt.graph.api_node.ApiNode[]) {
             return refs.sort((x, y) => {
                 return compareStates(x.state, y.state);
             });

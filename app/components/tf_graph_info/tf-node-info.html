@@ -32,6 +32,13 @@
 
 
                     <div class$="[[_node_class]]">
+                        <template is="dom-if" if="[[_attributes.discharge]]">
+                            <template is="dom-if" if="[[_attributes.dischargeApiId]]">
+                                <div class='assumptions'>Uses api-id: [[_attributes.dischargeApiId]]</div>
+                            </template>
+
+                            <div class='message'>[[_attributes.discharge.evidence.comment]]</div>
+                        </template>
 
                         <template is="dom-if" if="[[_attributes.symbol]]">
                             <div class="symbol">
@@ -47,9 +54,11 @@
 
                         <div id='api-id'>api-id: [[_attributes.apiId]]</div>
 
+
                         <template is="dom-if" if="{{_attributes.discharge}}">
                             <discharge-info node="[[_node]]"><discharge-info>
                         </template>
+
                     </div>
 
                 </template>

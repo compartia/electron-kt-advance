@@ -20,9 +20,9 @@ module kt.parser {
 
         for (var key in POsByRefIdMap) {
             var value: kt.graph.po_node.PONode = POsByRefIdMap[key];
-            if (value.hasAssumptions()) {
+            // if (value.hasAssumptions()) {
                 has_assumptions.push(value)
-            }
+            // }
         }
         return has_assumptions;
     }
@@ -49,6 +49,8 @@ module kt.parser {
         const has_assumptions = findPOsWithAssumptions(poByRefId);
         console.log("Number of POs with assumptions:" + has_assumptions.length);
 
+        let apisByName={}
+
         let lostPoCount: number = 0;
         for (let ppo of has_assumptions) {
 
@@ -66,29 +68,43 @@ module kt.parser {
 
                 }
 
-                target.apiId = ref["apiId"];
-                ppo.addInput(target);
-                target.addOutput(ppo);
+
+                let apiName = kt.graph.api_node.makeName(ref);
+                let api = apisByName[apiName];
+                if(!api){
+                    api=new kt.graph.api_node.ApiNode(ref);
+                    api.addInput(ppo);
+                    api.addOutput(target);
+                    apisByName[apiName]=api;
+                }
+
+                ppo.addOutput(api);
+
             }
         }
         console.error("We have = " + lostPoCount + " missing referenceKey(s)");
-        return has_assumptions;
+        return apisByName;
     }
 
     function buildGraph(poByRefId): tf.graph.proto.NodeDef[] {
         let g: tf.graph.proto.NodeDef[] = [];
 
-        const has_assumptions = bindChildren(poByRefId);
-        console.log("Number of POs with assumptions:" + has_assumptions.length);
-
+        const apisByName = bindChildren(poByRefId);
+ 
         let nodesMap = {};
 
         for (var key in poByRefId) {
             var ppo: kt.graph.po_node.PONode = poByRefId[key];
             if (ppo.isLinked()) {
-                // if (!ppo.isTotallyDischarged())
+                if (!ppo.isTotallyDischarged()){
                     g.push(ppo.asNodeDef());
+                }
             }
+        }
+
+        for (var key in apisByName) {
+            var api: kt.graph.api_node.ApiNode = apisByName[key];
+            g.push(api.asNodeDef());
         }
 
         console.info["NUMBER of nodes: " + g.length];
@@ -100,11 +116,13 @@ module kt.parser {
     export function readAndParse(): tf.graph.proto.NodeDef[] {
 
         const ppoNodesMap = readPoNodesFromJsons([
+
             "static/resources/dnsmasq/kt_analysis_export_5.6.2/src/log.c.json",
             "static/resources/dnsmasq/kt_analysis_export_5.6.2/src/dnsmasq.c.json",
             "static/resources/dnsmasq/kt_analysis_export_5.6.2/src/option.c.json",
             "static/resources/dnsmasq/kt_analysis_export_5.6.2/src/cache.c.json",
             "static/resources/dnsmasq/kt_analysis_export_5.6.2/src/arp.c.json"
+
         ]);
 
         let g: tf.graph.proto.NodeDef[] = buildGraph(ppoNodesMap)
