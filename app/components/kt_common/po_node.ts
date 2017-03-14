@@ -29,7 +29,7 @@ module kt.graph.po_node {
         inputs: kt.graph.api_node.ApiNode[];
         outputs: kt.graph.api_node.ApiNode[];
         isMissing: boolean;
-        private _apiId: string = "-1";
+        private _apiId: string = null;
 
 
         constructor(po, isMissing: boolean = false) {
@@ -181,7 +181,7 @@ module kt.graph.po_node {
         }
 
         set apiId(theApiId: string) {
-            if (this._apiId != "-1") {
+            if (this._apiId) {
                 if (this._apiId != theApiId) {
                     console.error("had apiId = " + this._apiId + " got new one:" + theApiId);
                 }

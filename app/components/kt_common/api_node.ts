@@ -81,6 +81,7 @@ module kt.graph.api_node {
                     "stateExt": this.getExtendedState(),
                     "symbol": po["symbol"],
                     "message": this.message,
+                    "apiId":po["apiId"]
                 }
             }
 
