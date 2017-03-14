@@ -9,7 +9,12 @@ tf-graph-info{
 }
 
 discharge-info{
-    padding      : $base-padding/2;
+    display: block;
+    // border-top: 1px solid $grey-80;
+    // border-bottom: 1px solid $grey-80;
+
+    padding-left:    $base-padding/2;
+    padding-right:    $base-padding/2;
 
     #evidence{
         color      : $grey;
@@ -18,15 +23,29 @@ discharge-info{
 }
 
 tf-node-info {
+    --iron-icon-height: $font-size-base;
+    --iron-icon-width: $font-size-base;
+
+    .code-link{
+        color: $color-brand-2;
+    }
 
     .po {
         font-size: $font-size-base;
         padding      : $base-padding/2;
 
         .predicate {
-            font-weight   : 400;
-            text-transform: uppercase;
-            font-size     : 80%;
+            padding: $base-padding/2;
+
+            #predicate-arg{
+                font       : 300 80% 'Liberation Mono', Courier;
+            }
+
+            #predicate-name{
+                text-transform: uppercase;
+                font-size     : 80%;
+                font-weight   : 400;
+            }
         }
 
         .func {

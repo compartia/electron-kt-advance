@@ -17,6 +17,29 @@ module kt.graph.po_node {
             return delta1;
     }
 
+    export function getLocationPath(node: tf.graph.proto.NodeDef): string {
+        if (node) {
+            let spl = node.name.split(SPL);
+            let ret = spl[0];
+            if (spl.length > 1)
+                ret += SPL + spl[1];
+
+            return ret;
+        }
+
+        return "";
+    }
+
+
+    export function getPredicate(node: tf.graph.proto.NodeDef): string {
+        if (node) {
+            let spl = node.name.split(SPL);
+            if (spl.length > 2)
+                return spl[2];
+        }
+        return null;
+    }
+
     export class PONode {
         id: string;
         name: string;
