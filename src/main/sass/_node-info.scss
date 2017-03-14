@@ -26,13 +26,24 @@ tf-node-info {
     --iron-icon-height: $font-size-base;
     --iron-icon-width: $font-size-base;
 
+
+
     .code-link{
         color: $color-brand-2;
     }
 
     .po {
+
+
+
         font-size: $font-size-base;
         padding      : $base-padding/2;
+
+        #api-id{
+            font-size     : 80%;
+            color      : $grey;
+            padding: $base-padding/2;
+        }
 
         .predicate {
             padding: $base-padding/2;
