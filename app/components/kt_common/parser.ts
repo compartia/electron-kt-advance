@@ -121,7 +121,7 @@ module kt.parser {
 
         const ppoNodesMap = readPoNodesFromJsons([
 
-            // "static/resources/dnsmasq/kt_analysis_export_5.6.2/src/log.c.json",
+            "static/resources/dnsmasq/kt_analysis_export_5.6.3/src/log.c.json",
             // "static/resources/dnsmasq/kt_analysis_export_5.6.2/src/dnsmasq.c.json",
             // "static/resources/dnsmasq/kt_analysis_export_5.6.2/src/option.c.json",
             "static/resources/dnsmasq/kt_analysis_export_5.6.3/src/cache.c.json"

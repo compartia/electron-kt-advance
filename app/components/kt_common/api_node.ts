@@ -9,10 +9,7 @@ module kt.graph.api_node {
 
 
     export function makeName(ref): string {
-        let _nm =
-            fixFileName(ref["file"]) + SPL + ref["targetFuncName"]
-            + SPL + ref["predicate"] + SPL + ref["type"] + "_" + ref["apiId"];
-
+        let _nm = fixFileName(ref["file"]) + SPL + ref["targetFuncName"] + SPL + ref["predicate"] + SPL + ref["type"] + "_" + ref["apiId"];
         return _nm;
     }
 
