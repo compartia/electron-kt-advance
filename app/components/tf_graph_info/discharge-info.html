@@ -3,7 +3,6 @@
 <dom-module id="discharge-info">
 
     <template>
-        Discharge info:
         <template is="dom-if" if="{{node.attr.discharge}}">
             <div id='evidence'>[[node.attr.discharge.evidence.comment]]</div>
             <div id='uses-api'>uses: [[node.attr.dischargeAssumption.type]]:[[node.attr.dischargeAssumption.apiId]]</div>
