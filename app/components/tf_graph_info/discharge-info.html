@@ -3,9 +3,14 @@
 <dom-module id="discharge-info">
 
     <template>
-        <template is="dom-if" if="{{node.attr.discharge}}">
+        <b>[[node.attr.state]]</b>
+        &nbsp; [[node.attr.dischargeType]]
+
+        <template is="dom-if" if="[[node.attr.discharge]]">
             <div id='evidence'>[[node.attr.discharge.evidence.comment]]</div>
-            <div id='uses-api'>uses: [[node.attr.dischargeAssumption.type]]:[[node.attr.dischargeAssumption.apiId]]</div>
+            <template is="dom-if" if="[[node.attr.dischargeAssumption.type]]">
+                <div id='uses-api'><iron-icon icon="kt:arrow-upward"></iron-icon> uses: [[node.attr.dischargeAssumption.type]]:[[node.attr.dischargeAssumption.apiId]]</div>
+            </template>
         </template>
     </template>
 

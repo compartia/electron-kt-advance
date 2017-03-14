@@ -13,6 +13,8 @@ $blue: #4397CE;
 
 
 $grey: lighten(desaturate($color-brand-2, 45%), 10%);
+$grey-lighter: lighten($grey, 30%);
+$grey-80: lighten($grey, 40%);
 
 $po-discharged: darken($green, 25%);
 $po-discharged-label: $green;
