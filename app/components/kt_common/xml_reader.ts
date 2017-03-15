@@ -6,6 +6,70 @@ module kt.graph.kt_graph {
 
     export class XmlReader {
 
+
+        public parseCfileXml(filename: string): Promise<Array<any>> {
+
+            let strict = true;
+            let parser = sax.createStream(strict);
+            console.log("reading " + filename);
+            //////
+
+            let functionsScope: boolean;
+
+            let functions = new Array<any>();
+
+            let func;
+
+            parser.onopentag = (tag) => {
+                if (tag.name == 'functions') {
+                    functionsScope = true;
+                } else
+
+                    if (functionsScope) {
+                        if (tag.name == 'gfun') {
+
+                            func = {}
+                        }
+
+
+                        else if (tag.name == 'svar') {
+                            func = {
+                                "name": tag.attributes["vname"]
+                            }
+                        }
+
+                        else if (tag.name == 'loc') {
+                            func["file"] = tag.attributes["file"];
+                            func["line"] = tag.attributes["line"]
+                        }
+                    }
+
+
+
+            };
+
+            parser.onclosetag = (tagName: string) => {
+                if (tagName == 'gfun') {
+                    functions.push(func);
+                }
+            }
+
+
+            return new Promise((resolve, reject) => {
+                let stream = fs.createReadStream(filename);
+                stream.pipe(parser);
+
+                stream.on('end', () => {
+                    resolve(functions);
+                });
+
+            });
+
+        }
+
+
+
+
         public parsePpoXml(filename: string): Promise<Array<kt.graph.po_node.PONode>> {
 
             // let deferredResult = defer<Array<kt.graph.po_node.PONode>>();
@@ -22,7 +86,6 @@ module kt.graph.kt_graph {
             parser.onopentag = (tag) => {
                 if (tag.name == 'function') {
                     functionName = tag.attributes["name"];
-                    console.log(functionName);
                 }
 
                 else if (tag.name == 'proof-obligation') {
@@ -248,11 +311,14 @@ module kt.graph.kt_graph {
                     let ppo = ppoMap[key];
                     if (ppo) {
                         ppo.discharge = pevMap[key];
+                        if (ppo.state == "VIOLATION")
+                            console.info(ppo);
                     } else {
                         console.warn((err++) + " no PO info for the key " + key);
                     }
 
                 }
+
 
 
 
@@ -262,7 +328,40 @@ module kt.graph.kt_graph {
 
 
 
-        public readDir(dirName: string): void {
+        public readFunctionsMap(dirName: string): Promise<{[key:string]:Array<any>}> {
+            const parser = this;
+            let err: number = 0;
+            return parser.readXmls(dirName, "_cfile.xml", parser.parseCfileXml).then(funcs => {
+                let byNameMap =  _.indexBy(funcs,'name');
+                console.info("total objects: " + funcs.length + " \t\ttotal unique keys: " + Object.keys(byNameMap).length);
+                // console.info(byNameMap);
+
+                let resultingMap:{[key:string]:Array<any>}={};
+                for(let f of funcs){
+                    if(!resultingMap[f.name]){
+                        resultingMap[f.name]=[];
+                    }
+                    resultingMap[f.name].push(f);
+                }
+                return resultingMap;
+            });
+
+        }
+
+        private bindCallsiteFunctions(spos:Array<kt.graph.po_node.PONode>, functionsMap:{[key:string]:Array<any>} ){
+            for(let spo of spos){
+                let funcs = functionsMap[spo.callsiteFname];
+                if(funcs.length>1){
+                    console.error("ambigous fname");
+                    console.error(funcs);
+                }else{
+                    spo.callsiteFileName=funcs[0].file;
+                    console.info("bound CallsiteFunction:"+spo.apiKey);
+                }
+            }
+        }
+
+        public readDir(dirName: string, functionsMap:{[key:string]:Array<any>}): void {
             // this.readPPOs(dirName);
             const parser = this;
 
@@ -272,7 +371,6 @@ module kt.graph.kt_graph {
                     console.info("total objects: " + ppos.length + " \t\ttotal unique keys: " + Object.keys(ppoMap).length);
 
                     parser.readAndBindEvFiles(dirName, "_pev.xml", ppoMap);
-
                 });
 
             parser.readXmls(dirName, "_spo.xml", parser.parseSpoXml)
@@ -281,6 +379,8 @@ module kt.graph.kt_graph {
                     console.info("total objects: " + spos.length + " \t\ttotal unique keys: " + Object.keys(spoMap).length);
                     console.info(spos[0]);
                     parser.readAndBindEvFiles(dirName, "_sev.xml", spoMap);
+                    parser.bindCallsiteFunctions(spos, functionsMap);
+                    // console.info(spos[0]);
                 });
         }
 
@@ -332,6 +432,19 @@ module kt.graph.kt_graph {
         const paths = ["/Users/artem/work/KestrelTechnology/IN/dnsmasq/ch_analysis/src/cache/"];
 
         let reader: XmlReader = new XmlReader();
-        reader.readDir(paths[0]);
+        // reader.readDir(paths[0]);
+        reader.readFunctionsMap(path.dirname(paths[0])).then(
+            funcs=>{
+                for(let funcName in funcs){
+                    let func=funcs[funcName];
+
+                    if (func.length>1)
+                        console.error(func);
+                }
+
+                reader.readDir(paths[0], funcs);
+            }
+        );
+
     }
 }
