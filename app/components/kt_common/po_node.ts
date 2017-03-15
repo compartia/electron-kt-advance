@@ -66,7 +66,7 @@ module kt.graph.po_node {
             this.predicate = po["predicateType"];
             this.functionName = po["functionName"];
 
-            this.id = this.parseId(po["referenceKey"]);
+            this.id = po["id"] ? po["id"] : this.parseId(po["referenceKey"]);
 
             this.name = this.makeName();
             this.label = this.makeLabel();
@@ -283,18 +283,6 @@ module kt.graph.po_node {
         private level(): string {
             return this.po["level"] == "PRIMARY" ? "I" : "II";
         }
-
-        public toHtml(): string {
-            var html = "<div class='po level-" + this.po["level"] + " state-" + this.po["state"] + "'>"
-            // html += "<span class='func'>" + po["functionName"] + "</span><br>"
-            html += "<span class='predicate'>" + this.predicate + " : <span class='level'> </span> </span>"
-            html += "<div class='message'>" + this.message + "</div>"
-            html += "</div>"
-
-            return html;
-        }
-
-
 
     }
 }

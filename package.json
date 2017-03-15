@@ -1,6 +1,6 @@
 {
     "name": "electron-kt-advance",
-    "version": "v0.1.0",
+    "version": "v0.1.1",
     "description": "no descr. by now",
     "license": "MIT",
     "repository": {
@@ -48,7 +48,8 @@
         "dagre": "^0.7.4",
         "graphlib": "^1.0.7",
         "jquery": "^2.1.4",
-        "lodash": "^3.8.0"
+        "lodash": "^3.8.0",
+        "sax": "^1.2.2"
     },
     "build": {
         "appId": "kt.advance.gui",
