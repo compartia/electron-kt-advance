@@ -13,6 +13,8 @@ $blue: #4397CE;
 
 
 $grey: lighten(desaturate($color-brand-2, 45%), 10%);
+$grey-lighter: lighten($grey, 30%);
+$grey-80: lighten($grey, 40%);
 
 $po-discharged: darken($green, 25%);
 $po-discharged-label: $green;
@@ -65,6 +67,11 @@ $po-level-primary:lighten($po-level-secondary,10%);
     --kt-state-discharged-rv-bg: lighten(mix($green, $blue, 35%),20%);
     --kt-state-discharged-global-bg: lighten(mix($green, $blue, 75%),15%);
     --kt-state-discharged-ds-bg: lighten(mix($yellow, $green, 35%),15%);
+
+
+    --kt-state-assumption-api-bg: lighten($grey, 40%);
+    --kt-state-assumption-rv-bg: lighten($grey, 40%);
+    --kt-state-assumption-global-bg: lighten($grey, 40%);
 
 
     --kt-hover: lighten(desaturate($ian_gillan, 30%), 55%);

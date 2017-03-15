@@ -1,7 +1,7 @@
 module kt.graph.po_node {
 
     export enum PoStatesExt { violation, open, discharged, global, invariants, ds, rv, api };
-    export enum PoStates { violation, open, discharged };
+    export enum PoStates { violation, open, discharged, assumption };
     export enum PoDischargeTypes { global, invariants, ds, rv, api, default };
 
     const SPL = "/";
@@ -17,6 +17,29 @@ module kt.graph.po_node {
             return delta1;
     }
 
+    export function getLocationPath(node: tf.graph.proto.NodeDef): string {
+        if (node) {
+            let spl = node.name.split(SPL);
+            let ret = spl[0];
+            if (spl.length > 1)
+                ret += SPL + spl[1];
+
+            return ret;
+        }
+
+        return "";
+    }
+
+
+    export function getPredicate(node: tf.graph.proto.NodeDef): string {
+        if (node) {
+            let spl = node.name.split(SPL);
+            if (spl.length > 2)
+                return spl[2];
+        }
+        return null;
+    }
+
     export class PONode {
         id: string;
         name: string;
@@ -26,10 +49,10 @@ module kt.graph.po_node {
         predicate: string;
         functionName: string;
         message: string;
-        inputs: PONode[];
-        outputs: PONode[];
+        inputs: kt.graph.api_node.ApiNode[];
+        outputs: kt.graph.api_node.ApiNode[];
         isMissing: boolean;
-        private _apiId: string = "-1";
+        private _apiId: string = null;
 
 
         constructor(po, isMissing: boolean = false) {
@@ -37,13 +60,11 @@ module kt.graph.po_node {
             this.isMissing = isMissing;
             this.state = po["state"];
 
-
             this.inputs = [];
             this.outputs = [];
 
-            this.predicate = po["predicateType"] ? po["predicateType"] : po["predicate"];
-            this.functionName = po["targetFuncName"] ? po["targetFuncName"] : po["functionName"];
-            this.message = po["message"] ? po["message"] : po["shortDescription"];
+            this.predicate = po["predicateType"];
+            this.functionName = po["functionName"];
 
             this.id = this.parseId(po["referenceKey"]);
 
@@ -85,11 +106,22 @@ module kt.graph.po_node {
             return { "type": undefined, "apiId": undefined };
         }
 
-        public addInput(node: PONode) {
+
+
+        private getDefaultDischargeAssumption() {
+            let po = this.po;
+            if (po["discharge"])
+                if (po["discharge"]["assumptions"].length > 0)
+                    return po["discharge"]["assumptions"][0];
+
+            return undefined;
+        }
+
+        public addInput(node: kt.graph.api_node.ApiNode) {
             this.inputs.push(node);
         }
 
-        public addOutput(node: PONode) {
+        public addOutput(node: kt.graph.api_node.ApiNode) {
             this.outputs.push(node);
         }
 
@@ -98,7 +130,7 @@ module kt.graph.po_node {
         }
 
         public hasAssumptions(): boolean {
-            return this.po["references"].length > 0;
+            return this.po["references"].length > 0 || this.po["inReferencesCount"] > 0;
         }
 
         public isLinked(): boolean {
@@ -172,7 +204,7 @@ module kt.graph.po_node {
         }
 
         set apiId(theApiId: string) {
-            if (this._apiId != "-1") {
+            if (this._apiId) {
                 if (this._apiId != theApiId) {
                     console.error("had apiId = " + this._apiId + " got new one:" + theApiId);
                 }
@@ -187,6 +219,7 @@ module kt.graph.po_node {
 
         public asNodeDef(): tf.graph.proto.NodeDef {
             const po = this.po;
+
 
             let nodeDef: tf.graph.proto.NodeDef = {
                 name: this.name,
@@ -208,13 +241,16 @@ module kt.graph.po_node {
                     "dischargeType": this.getDischargeType(),
                     "discharge": po["discharge"], //? po["discharge"]["comment"] : null
                     "dischargeAssumption": this.getDischargeAssumption()
+
                 }
             }
 
             for (let ref of this.sortRefs(this.inputs)) {
                 let _nm = ref.name;
 
+
                 // let lifting = (this.getExtendedState()=="API");
+
                 // if (lifting){
                 //     _nm = "^" + _nm;
                 // }
@@ -222,16 +258,23 @@ module kt.graph.po_node {
                 nodeDef.input.push(_nm);
             }
 
-
             for (let ref of this.sortRefs(this.outputs)) {
                 nodeDef.output.push(ref.name);
+            }
+
+            let defaultDischargeAssumption = this.getDefaultDischargeAssumption();
+            if (defaultDischargeAssumption) {
+                if (defaultDischargeAssumption["type"] === "api") {
+                    nodeDef.attr["dischargeApiId"] = defaultDischargeAssumption["apiId"];
+                }
+
             }
 
             return nodeDef;
         }
 
 
-        private sortRefs(refs: PONode[]) {
+        private sortRefs(refs: kt.graph.api_node.ApiNode[]) {
             return refs.sort((x, y) => {
                 return compareStates(x.state, y.state);
             });
