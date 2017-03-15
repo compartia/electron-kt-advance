@@ -113,9 +113,9 @@ module kt.graph.kt_graph {
                 }
 
                 else if (tag.name == 'application') {
-                    sourceFilename=tag.attributes["file"].replace("//","/");
-                    for(let po of ppos){
-                        po.file=sourceFilename;
+                    sourceFilename = tag.attributes["file"].replace("//", "/");
+                    for (let po of ppos) {
+                        po.file = sourceFilename;
                     }
                 }
 
@@ -156,14 +156,27 @@ module kt.graph.kt_graph {
 
             parser.readXmls(dirName, "_ppo.xml", parser.parsePpoXml)
                 .then(ppos => {
-                    let map = _.indexBy(ppos, "key");
-                    console.info("total objects: " + ppos.length + " \t\ttotal unique keys: " + Object.keys(map).length);
+                    let ppoMap = _.indexBy(ppos, "key");
+                    console.info("total objects: " + ppos.length + " \t\ttotal unique keys: " + Object.keys(ppoMap).length);
 
                     parser.readXmls(dirName, "_pev.xml", parser.parsePevXml).then(pevs => {
-                        let map = _.indexBy(pevs, "key");
-                        console.info("total objects: " + pevs.length + " \t\ttotal unique keys: " + Object.keys(map).length);
-                        console.info(pevs[0]);
+                        let pevMap = _.indexBy(pevs, "key");
+                        console.info("total objects: " + pevs.length + " \t\ttotal unique keys: " + Object.keys(pevMap).length);
+
                         // parser.readXmls(dirName, "_pev.xml", parser.parsePevXml)
+
+                        for (let key in pevMap) {
+                            // console.info(key);
+                            let ppo = ppoMap[key];
+                            if (ppo) {
+                                ppo.discharge = pevMap[key];
+                            } else {
+                                console.warn("no PPO info for the key " + key);
+                            }
+
+                        }
+
+                        console.info(ppos[0]);
 
                     });
 

@@ -76,6 +76,7 @@ module kt.graph.po_node {
         inputs: kt.graph.api_node.ApiNode[];
         outputs: kt.graph.api_node.ApiNode[];
         isMissing: boolean;
+        discharge: PODischarge;
         private _apiId: string = null;
 
 
@@ -84,6 +85,7 @@ module kt.graph.po_node {
             this.po = po;
             this.isMissing = isMissing;
             this.state = po["state"];
+            this.file = po["file"];
 
             this.inputs = [];
             this.outputs = [];
