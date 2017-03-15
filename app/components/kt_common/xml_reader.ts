@@ -23,14 +23,13 @@ module kt.graph.kt_graph {
             parser.onopentag = (tag) => {
                 if (tag.name == 'functions') {
                     functionsScope = true;
-                } else
+                }
+                else {
 
                     if (functionsScope) {
                         if (tag.name == 'gfun') {
-
                             func = {}
                         }
-
 
                         else if (tag.name == 'svar') {
                             func = {
@@ -40,17 +39,22 @@ module kt.graph.kt_graph {
 
                         else if (tag.name == 'loc') {
                             func["file"] = tag.attributes["file"];
-                            func["line"] = tag.attributes["line"]
+                            func["line"] = tag.attributes["line"];
                         }
                     }
 
-
+                }
 
             };
 
             parser.onclosetag = (tagName: string) => {
                 if (tagName == 'gfun') {
                     functions.push(func);
+                    func = null;
+                }
+
+                else if (tagName == 'functions') {
+                    functionsScope = false;
                 }
             }
 
@@ -328,18 +332,18 @@ module kt.graph.kt_graph {
 
 
 
-        public readFunctionsMap(dirName: string): Promise<{[key:string]:Array<any>}> {
+        public readFunctionsMap(dirName: string): Promise<{ [key: string]: Array<any> }> {
             const parser = this;
             let err: number = 0;
             return parser.readXmls(dirName, "_cfile.xml", parser.parseCfileXml).then(funcs => {
-                let byNameMap =  _.indexBy(funcs,'name');
+                let byNameMap = _.indexBy(funcs, 'name');
                 console.info("total objects: " + funcs.length + " \t\ttotal unique keys: " + Object.keys(byNameMap).length);
                 // console.info(byNameMap);
 
-                let resultingMap:{[key:string]:Array<any>}={};
-                for(let f of funcs){
-                    if(!resultingMap[f.name]){
-                        resultingMap[f.name]=[];
+                let resultingMap: { [key: string]: Array<any> } = {};
+                for (let f of funcs) {
+                    if (!resultingMap[f.name]) {
+                        resultingMap[f.name] = [];
                     }
                     resultingMap[f.name].push(f);
                 }
@@ -348,20 +352,20 @@ module kt.graph.kt_graph {
 
         }
 
-        private bindCallsiteFunctions(spos:Array<kt.graph.po_node.PONode>, functionsMap:{[key:string]:Array<any>} ){
-            for(let spo of spos){
+        private bindCallsiteFunctions(spos: Array<kt.graph.po_node.PONode>, functionsMap: { [key: string]: Array<any> }) {
+            for (let spo of spos) {
                 let funcs = functionsMap[spo.callsiteFname];
-                if(funcs.length>1){
+                if (funcs.length > 1) {
                     console.error("ambigous fname");
                     console.error(funcs);
-                }else{
-                    spo.callsiteFileName=funcs[0].file;
-                    console.info("bound CallsiteFunction:"+spo.apiKey);
+                } else {
+                    spo.callsiteFileName = funcs[0].file;
+                    console.info("bound CallsiteFunction:" + spo.apiKey);
                 }
             }
         }
 
-        public readDir(dirName: string, functionsMap:{[key:string]:Array<any>}): void {
+        public readDir(dirName: string, functionsMap: { [key: string]: Array<any> }): void {
             // this.readPPOs(dirName);
             const parser = this;
 
@@ -434,11 +438,11 @@ module kt.graph.kt_graph {
         let reader: XmlReader = new XmlReader();
         // reader.readDir(paths[0]);
         reader.readFunctionsMap(path.dirname(paths[0])).then(
-            funcs=>{
-                for(let funcName in funcs){
-                    let func=funcs[funcName];
+            funcs => {
+                for (let funcName in funcs) {
+                    let func = funcs[funcName];
 
-                    if (func.length>1)
+                    if (func.length > 1)
                         console.error(func);
                 }
 
