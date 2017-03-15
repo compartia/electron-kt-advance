@@ -58,6 +58,7 @@ module kt.graph.po_node {
         method: string;
         type: string;
         assumptions: Array<any>;
+        violation:boolean=false;
         constructor() {
             super();
         }
@@ -76,7 +77,9 @@ module kt.graph.po_node {
         inputs: kt.graph.api_node.ApiNode[];
         outputs: kt.graph.api_node.ApiNode[];
         isMissing: boolean;
-        discharge: PODischarge;
+        callsiteFname:string;
+        _discharge: PODischarge;
+        callsiteFileName:string;
         private _apiId: string = null;
 
 
@@ -86,12 +89,15 @@ module kt.graph.po_node {
             this.isMissing = isMissing;
             this.state = po["state"];
             this.file = po["file"];
+            this._apiId = po["apiId"];
 
             this.inputs = [];
             this.outputs = [];
 
             this.predicate = po["predicateType"];
             this.functionName = po["functionName"];
+            this.callsiteFname=po["callsiteFname"];
+            this.callsiteFileName=po["callsiteFileName"];
 
             this.id = po["id"] ? po["id"] : this.parseId(po["referenceKey"]);
 
@@ -99,15 +105,33 @@ module kt.graph.po_node {
             this.label = this.makeLabel();
         }
 
+        get apiKey(): string {
+            return this._apiId + "::" + this.callsiteFname + "::" + this.callsiteFileName;
+        }
+
+        get discharge():PODischarge{
+            return this._discharge;
+        }
+        set discharge(discharge:PODischarge){
+            this._discharge=discharge;
+            if(this._discharge.violation){
+                this.state="VIOLATION";
+            }else{
+                this.state="DISCHARED";
+            }
+        }
+
         private getDischargeType(): string {
-            let po = this.po;
+
             let dischargeType;
 
-            if (po["discharge"]) {
-                if (po["discharge"]["assumptions"].length > 0) {
-                    let type: string = po["discharge"]["assumptions"][0]["type"];
+            let discharge = this.discharge ? this.discharge : this.po["discharge"];
+
+            if (discharge) {
+                if (discharge["assumptions"].length > 0) {
+                    let type: string = discharge["assumptions"][0]["type"];
                     dischargeType = type.toUpperCase();
-                } else if (po["discharge"]["method"] == "invariants") {
+                } else if (discharge["method"] == "invariants") {
                     dischargeType = "invariants".toUpperCase();
                 }
             }

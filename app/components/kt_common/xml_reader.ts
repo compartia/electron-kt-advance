@@ -72,6 +72,90 @@ module kt.graph.kt_graph {
 
 
 
+
+
+        public parseSpoXml(filename: string): Promise<Array<kt.graph.po_node.PONode>> {
+
+
+            let spos = new Array<kt.graph.po_node.PONode>();
+
+            let strict = true;
+            let parser = sax.createStream(strict);
+
+            let functionName;
+            let currentSpo = {}
+            let callsiteObligation = {}
+            let lasttag = '';
+
+
+            parser.onopentag = (tag) => {
+                if (tag.name == 'function') {
+                    functionName = tag.attributes["name"];
+                }
+
+                if (tag.name == 'callsite-obligation') {
+                    callsiteObligation = {
+                        fname: tag.attributes["fname"]
+                    }
+                }
+
+                else if (tag.name == 'obligation') {
+                    currentSpo = {
+                        "id": tag.attributes["id"],
+                        "apiId": tag.attributes["api-id"],
+                        "functionName": functionName,
+                        "file": callsiteObligation["fileName"],
+                        "callsiteFname": callsiteObligation["fname"],
+                        "callsiteFileName": callsiteObligation["callsiteFileName"],
+                        "level": "SECONDARY",
+                        "state": "OPEN",
+                        "textRange": [[callsiteObligation["line"], 0], [callsiteObligation["line"], 200]]
+                    }
+                }
+
+                else if (tag.name == 'location') {
+                    if (callsiteObligation) {
+                        callsiteObligation["fileName"] = tag.attributes["file"];
+                        callsiteObligation["line"] = parseInt(tag.attributes["line"]);
+                    } else {
+                        //post-expectation or return-site
+                        //console.error("found location tag in the scope of "+lasttag+" tag, parsing "+filename);
+                    }
+                }
+
+                else if (tag.name == 'predicate') {
+                    currentSpo["predicateType"] = tag.attributes["tag"];
+                }
+
+
+                lasttag = tag.name;
+
+            };
+
+            parser.onclosetag = (tagName: string) => {
+                if (tagName == 'obligation') {
+                    // currentPo["referenceKey"] = currentPo["id"] + "::" + currentPo["functionName"] + "::" + currentPo["file"];
+                    let ppoNode = new kt.graph.po_node.PONode(currentSpo);
+                    spos.push(ppoNode);
+                } else if (tagName == 'callsite-obligation') {
+                    callsiteObligation = null;
+                }
+            }
+
+
+            return new Promise((resolve, reject) => {
+                let stream = fs.createReadStream(filename);
+                stream.pipe(parser);
+                stream.on('end', () => {
+                    resolve(spos);
+                });
+
+            });
+
+        }
+
+
+
         public parsePevXml(filename: string): Promise<Array<kt.graph.po_node.PODischarge>> {
 
             // let deferredResult = defer<Array<kt.graph.po_node.PONode>>();
@@ -98,6 +182,7 @@ module kt.graph.kt_graph {
                     currentPo.id = tag.attributes["id"];
                     currentPo.method = tag.attributes["method"];
                     currentPo.type = tag.attributes["type"];
+                    currentPo.violation = ("true" == tag.attributes["violation"]);
                     currentPo.file = sourceFilename;
                 }
 
@@ -150,6 +235,33 @@ module kt.graph.kt_graph {
 
         }
 
+
+        private readAndBindEvFiles(dirName: string, suffix: string, ppoMap: { [id: string]: kt.graph.po_node.PONode }) {
+            const parser = this;
+            let err: number = 0;
+            parser.readXmls(dirName, suffix, parser.parsePevXml).then(pevs => {
+                let pevMap = _.indexBy(pevs, "key");
+                console.info("total objects: " + pevs.length + " \t\ttotal unique keys: " + Object.keys(pevMap).length);
+
+                for (let key in pevMap) {
+                    // console.info(key);
+                    let ppo = ppoMap[key];
+                    if (ppo) {
+                        ppo.discharge = pevMap[key];
+                    } else {
+                        console.warn((err++) + " no PO info for the key " + key);
+                    }
+
+                }
+
+
+
+            });
+
+        }
+
+
+
         public readDir(dirName: string): void {
             // this.readPPOs(dirName);
             const parser = this;
@@ -159,27 +271,16 @@ module kt.graph.kt_graph {
                     let ppoMap = _.indexBy(ppos, "key");
                     console.info("total objects: " + ppos.length + " \t\ttotal unique keys: " + Object.keys(ppoMap).length);
 
-                    parser.readXmls(dirName, "_pev.xml", parser.parsePevXml).then(pevs => {
-                        let pevMap = _.indexBy(pevs, "key");
-                        console.info("total objects: " + pevs.length + " \t\ttotal unique keys: " + Object.keys(pevMap).length);
+                    parser.readAndBindEvFiles(dirName, "_pev.xml", ppoMap);
 
-                        // parser.readXmls(dirName, "_pev.xml", parser.parsePevXml)
+                });
 
-                        for (let key in pevMap) {
-                            // console.info(key);
-                            let ppo = ppoMap[key];
-                            if (ppo) {
-                                ppo.discharge = pevMap[key];
-                            } else {
-                                console.warn("no PPO info for the key " + key);
-                            }
-
-                        }
-
-                        console.info(ppos[0]);
-
-                    });
-
+            parser.readXmls(dirName, "_spo.xml", parser.parseSpoXml)
+                .then(spos => {
+                    let spoMap = _.indexBy(spos, "key");
+                    console.info("total objects: " + spos.length + " \t\ttotal unique keys: " + Object.keys(spoMap).length);
+                    console.info(spos[0]);
+                    parser.readAndBindEvFiles(dirName, "_sev.xml", spoMap);
                 });
         }
 
