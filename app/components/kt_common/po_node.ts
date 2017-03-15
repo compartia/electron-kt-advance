@@ -40,8 +40,32 @@ module kt.graph.po_node {
         return null;
     }
 
-    export class PONode {
+    class POId {
         id: string;
+        functionName: string;
+        file: string;
+
+        get key(): string {
+            return this.id + "::" + this.functionName + "::" + this.file;
+        }
+    }
+
+    export class PODischarge extends POId {
+
+        evidence: {
+            comment: string
+        };
+        method: string;
+        type: string;
+        assumptions: Array<any>;
+        constructor() {
+            super();
+        }
+
+
+    }
+
+    export class PONode extends POId {
         name: string;
         label: string;
         state: string;
@@ -56,6 +80,7 @@ module kt.graph.po_node {
 
 
         constructor(po, isMissing: boolean = false) {
+            super();
             this.po = po;
             this.isMissing = isMissing;
             this.state = po["state"];
