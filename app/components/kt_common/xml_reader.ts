@@ -1,4 +1,4 @@
-module kt.graph.kt_graph {
+module kt.graph {
     const fs = require('fs');
     const path = require('path');
     const sax = require('sax')
@@ -73,11 +73,11 @@ module kt.graph.kt_graph {
 
 
 
-        public parsePpoXml(filename: string): Promise<Array<kt.graph.po_node.PONode>> {
+        public parsePpoXml(filename: string): Promise<Array<kt.graph.PONode>> {
 
-            // let deferredResult = defer<Array<kt.graph.po_node.PONode>>();
+            // let deferredResult = defer<Array<kt.graph.PONode>>();
 
-            let ppos = new Array<kt.graph.po_node.PONode>();
+            let ppos = new Array<kt.graph.PONode>();
 
             let strict = true;
             let parser = sax.createStream(strict);
@@ -118,7 +118,7 @@ module kt.graph.kt_graph {
             parser.onclosetag = (tagName: string) => {
                 if (tagName == 'proof-obligation') {
                     // currentPo["referenceKey"] = currentPo["id"] + "::" + currentPo["functionName"] + "::" + currentPo["file"];
-                    let ppoNode = new kt.graph.po_node.PONode(currentPo);
+                    let ppoNode = new kt.graph.PONode(currentPo);
                     ppos.push(ppoNode);
                 }
             }
@@ -138,10 +138,10 @@ module kt.graph.kt_graph {
 
 
 
-        public parseSpoXml(filename: string): Promise<Array<kt.graph.po_node.PONode>> {
+        public parseSpoXml(filename: string): Promise<Array<kt.graph.PONode>> {
 
 
-            let spos = new Array<kt.graph.po_node.PONode>();
+            let spos = new Array<kt.graph.PONode>();
 
             let strict = true;
             let parser = sax.createStream(strict);
@@ -199,7 +199,7 @@ module kt.graph.kt_graph {
             parser.onclosetag = (tagName: string) => {
                 if (tagName == 'obligation') {
                     // currentPo["referenceKey"] = currentPo["id"] + "::" + currentPo["functionName"] + "::" + currentPo["file"];
-                    let ppoNode = new kt.graph.po_node.PONode(currentSpo);
+                    let ppoNode = new kt.graph.PONode(currentSpo);
                     spos.push(ppoNode);
                 } else if (tagName == 'callsite-obligation') {
                     callsiteObligation = null;
@@ -220,18 +220,18 @@ module kt.graph.kt_graph {
 
 
 
-        public parsePevXml(filename: string): Promise<Array<kt.graph.po_node.PODischarge>> {
+        public parsePevXml(filename: string): Promise<Array<kt.graph.PODischarge>> {
 
-            // let deferredResult = defer<Array<kt.graph.po_node.PONode>>();
+            // let deferredResult = defer<Array<kt.graph.PONode>>();
 
-            let ppos = new Array<kt.graph.po_node.PODischarge>();
+            let ppos = new Array<kt.graph.PODischarge>();
 
             let strict = true;
             let parser = sax.createStream(strict);
             let functionName;
             let sourceFilename;
 
-            let currentPo: kt.graph.po_node.PODischarge;
+            let currentPo: kt.graph.PODischarge;
 
 
             parser.onopentag = (tag) => {
@@ -241,7 +241,7 @@ module kt.graph.kt_graph {
                 }
 
                 else if (tag.name == 'discharged') {
-                    currentPo = new kt.graph.po_node.PODischarge();
+                    currentPo = new kt.graph.PODischarge();
                     currentPo.functionName = functionName;
                     currentPo.id = tag.attributes["id"];
                     currentPo.method = tag.attributes["method"];
@@ -301,9 +301,9 @@ module kt.graph.kt_graph {
 
 
 
-        public parseApiXml(filename: string): Promise<Array<kt.graph.api_node.ApiNode>> {
+        public parseApiXml(filename: string): Promise<Array<kt.graph.ApiNode>> {
 
-            let ppos = new Array<kt.graph.api_node.ApiNode>();
+            let ppos = new Array<kt.graph.ApiNode>();
 
             let strict = true;
             let parser = sax.createStream(strict);
@@ -311,7 +311,7 @@ module kt.graph.kt_graph {
             let functionName;
             let sourceFilename;
 
-            let currentAssumption: kt.graph.api_node.ApiNode;
+            let currentAssumption: kt.graph.ApiNode;
             let dependentPos = [];
 
 
@@ -322,7 +322,7 @@ module kt.graph.kt_graph {
                 }
 
                 else if (tag.name == 'api-assumption' || tag.name == 'global-assumption' || tag.name == 'rv-assumption') {
-                    currentAssumption = new kt.graph.api_node.ApiNode({});
+                    currentAssumption = new kt.graph.ApiNode({});
                     currentAssumption.functionName = functionName;
                     currentAssumption.id = tag.attributes["nr"];
 
@@ -381,7 +381,7 @@ module kt.graph.kt_graph {
         }
 
 
-        private readAndBindEvFiles(dirName: string, suffix: string, ppoMap: { [id: string]: kt.graph.po_node.PONode }): Promise<any> {
+        private readAndBindEvFiles(dirName: string, suffix: string, ppoMap: { [id: string]: kt.graph.PONode }): Promise<any> {
             const parser = this;
             let err: number = 0;
             return parser.readXmls(dirName, suffix, parser.parsePevXml).then(pevs => {
@@ -427,7 +427,7 @@ module kt.graph.kt_graph {
 
         }
 
-        private bindCallsiteFunctions(spos: Array<kt.graph.po_node.PONode>, functionsMap: { [key: string]: Array<any> }) {
+        private bindCallsiteFunctions(spos: Array<kt.graph.PONode>, functionsMap: { [key: string]: Array<any> }) {
             for (let spo of spos) {
                 let funcs = functionsMap[spo.callsiteFname];
                 if (funcs.length > 1) {
@@ -470,59 +470,85 @@ module kt.graph.kt_graph {
                     /**
                         link assumptions dependencies
                     */
-                    for (let api of apis) {
-                        for (let refId of api.dependentPos) {
-                            let refKey = kt.graph.po_node.makeKey(refId, api.functionName, api.file);
-                            let po = ppoMap[refKey];
-                            if (!po) {
-                                po = spoMap[refKey];
-                            }
-                            if (!po) {
-                                console.error("api-assumption " + api.key + " refers missing(or discharged) PO " + refKey);
-                            } else {
-                                api.addOutput(po);
-                            }
-                        }
-                    }
+                    parser.linkAssumptionsDeps(ppoMap, spoMap, apis);
 
                     /**
                         link SPO apis
                     */
-                    for (let spoKey in spoMap) {
-                        let spo = spoMap[spoKey];
-                        // console.info(spoKey + " --> " + spo.apiKey);
-                        let api = apiMap[spo.apiKey];
-                        if (api) {
-                            spo.addOutput(api);
-                        } else {
-                            console.error("SPO " + spo.key + " refers missing api-assumption " + spo.apiKey);
-                        }
 
-                    }
-
+                    parser.linkSpoApis(spoMap, apiMap);
 
                     /**
                         link DISCHARGE apis
                     */
 
-                    this.bindDischargeAssumptions(spoMap, apiMap);
-                    this.bindDischargeAssumptions(ppoMap, apiMap);
+                    parser.bindDischargeAssumptions(spoMap, apiMap);
+                    parser.bindDischargeAssumptions(ppoMap, apiMap);
+
+                    return {
+                        "spoMap": spoMap,
+                        "ppoMap": ppoMap,
+                        "apiMap": apiMap
+                    }
 
 
                 });
 
             }).then(results => {
-                console.info("total SPO unique keys: " + Object.keys(spoMap).length);
-                console.info("total PPO unique keys: " + Object.keys(ppoMap).length);
-                console.info("total API unique keys: " + Object.keys(apiMap).length);
+                console.info("total SPO unique keys: " + Object.keys(results.spoMap).length);
+                console.info("total PPO unique keys: " + Object.keys(results.ppoMap).length);
+                console.info("total API unique keys: " + Object.keys(results.apiMap).length);
                 console.info("reading " + dirName + " DONE");
+
+                return results;
             });
         }
 
+        private linkAssumptionsDeps(
+            ppoMap: { [key: string]: kt.graph.PONode },
+            spoMap: { [key: string]: kt.graph.PONode },
+            apis: Array<kt.graph.ApiNode>) {
+
+            for (let api of apis) {
+                for (let refId of api.dependentPos) {
+                    let refKey = kt.graph.makeKey(refId, api.functionName, api.file);
+                    let po = ppoMap[refKey];
+                    if (!po) {
+                        po = spoMap[refKey];
+                    }
+                    if (!po) {
+                        console.error("api-assumption " + api.key + " refers missing(or discharged) PO " + refKey);
+                    } else {
+                        po.addOutput(api);
+                        api.addInput(po);
+                    }
+                }
+            }
+
+        }
+
+        private linkSpoApis(
+            spoMap: { [key: string]: kt.graph.PONode },
+            apiMap: { [key: string]: kt.graph.ApiNode }) {
+
+            for (let spoKey in spoMap) {
+                let spo = spoMap[spoKey];
+                // console.info(spoKey + " --> " + spo.apiKey);
+                let api = apiMap[spo.apiKey];
+                if (api) {
+                    spo.addOutput(api);
+                    api.addInput(spo);
+                } else {
+                    console.error("SPO " + spo.key + " refers missing api-assumption " + spo.apiKey);
+                }
+
+            }
+        }
+
         private bindDischargeAssumptions(
-                spoMap: { [key: string]: kt.graph.po_node.PONode },
-                apiMap: { [key: string]: kt.graph.api_node.ApiNode }) {
-                    
+            spoMap: { [key: string]: kt.graph.PONode },
+            apiMap: { [key: string]: kt.graph.ApiNode }) {
+
             for (let spoKey in spoMap) {
                 let spo = spoMap[spoKey];
                 let dischargeApiKey = spo.dischargeApiKey;
@@ -530,6 +556,7 @@ module kt.graph.kt_graph {
                     let api = apiMap[dischargeApiKey];
                     if (api) {
                         spo.addOutput(api);//XXX: Input? or Output?
+                        api.addInput(spo);
                     } else {
                         console.error("SPO " + spo.key + " refers missing discharge assumption " + dischargeApiKey);
                     }

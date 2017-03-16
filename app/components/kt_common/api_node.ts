@@ -1,4 +1,4 @@
-module kt.graph.api_node {
+module kt.graph {
 
     const SPL = "/";
 
@@ -7,32 +7,21 @@ module kt.graph.api_node {
         return file.substr(last + 1);
     }
 
-
-    export function makeName(ref): string {
-        let _nm = fixFileName(ref["file"]) + SPL + ref["targetFuncName"] + SPL + ref["predicate"] + SPL + ref["type"] + "_" + ref["apiId"];
-        return _nm;
-    }
-
-    export function makeKey(type: string, id: string, functionName: string, file: string): string {
+    export function makeAssumptionKey(type: string, id: string, functionName: string, file: string): string {
         return type + "::" + id + "::" + functionName + "::" + file;
     }
 
 
-    export class ApiNode {
-
-        functionName: string;
+    export class ApiNode extends kt.graph.AbstractNode {
         message: string;
-        inputs: kt.graph.po_node.PONode[];
-        outputs: kt.graph.po_node.PONode[];
         isMissing: boolean;
-        file: string;
         type: string;
-        id: string;
         predicateType: string;
         dependentPos: Array<string>;
 
         constructor(po) {
-            // this.po = po;
+            super();
+
 
             this.inputs = [];
             this.outputs = [];
@@ -51,7 +40,7 @@ module kt.graph.api_node {
         }
 
         get key(): string {
-            return makeKey(this.type , this.id , this.functionName , this.file);
+            return makeAssumptionKey(this.type, this.id, this.functionName, this.file);
         }
 
         get state(): string {
@@ -62,25 +51,30 @@ module kt.graph.api_node {
             return this.makeName();
         }
 
-        private getExtendedState(): string {
-            return this.state + "-" + this.type;
-        }
-
-        public addInput(node: kt.graph.po_node.PONode) {
-            this.inputs.push(node);
-        }
-
-        public addOutput(node: kt.graph.po_node.PONode) {
-            this.outputs.push(node);
-        }
-
-
         private makeName(): string {
             return fixFileName(this.file) + SPL + this.functionName + SPL + this.predicateType + SPL + this.type + "_" + this.id;
         }
 
+        get extendedState(): string {
+            return this.state + "-" + this.type;
+        }
+
         public isDischarged(): boolean {
-            return false;
+
+            for (let ref of this.inputs) {
+                if (!ref.isDischarged()) {
+                    return false;
+                }
+            }
+
+            for (let ref of this.outputs) {
+                if (!ref.isDischarged()) {
+                    return false;
+                }
+            }
+
+
+            return true;
         }
 
         public asNodeDef(): tf.graph.proto.NodeDef {
@@ -91,13 +85,11 @@ module kt.graph.api_node {
                 name: this.name,
                 input: [],
                 output: [],
-                device: this.getExtendedState(),
+                device: this.extendedState,
                 op: this.functionName,
                 attr: {
                     "predicate": this.predicateType,
-                    // "level": po["level"],
                     "state": this.state,
-                    // "symbol": po["symbol"],
                     "message": this.message,
                     "apiId": this.id
                 }

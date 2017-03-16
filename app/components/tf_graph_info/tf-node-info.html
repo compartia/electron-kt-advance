@@ -208,7 +208,7 @@
                     _groupButtonText: String
                 },
                 _getPredicate: function(node) {
-                    return kt.graph.po_node.getPredicate(node);
+                    return kt.graph.getPredicate(node);
                 },
                 expandNode: function() {
                     this.fire('_node.expand', this.node);
@@ -323,7 +323,7 @@
                         return edgeInfoList.sort(
                             function(x, y) {
                                 if (x.node.attr && y.node.attr) {
-                                    return kt.graph.po_node.compareStates(x.node.attr.state, y.node.attr.state)
+                                    return kt.graph.compareStates(x.node.attr.state, y.node.attr.state)
                                 } else {
                                     return -1;
                                 }
@@ -369,7 +369,7 @@
                     this.set("_groupButtonText", tf.graph.scene.node.getGroupSettingLabel(this._node));
 
                     if (this._node) {
-                        var title = kt.graph.po_node.getLocationPath(this._node);
+                        var title = kt.graph.getLocationPath(this._node);
                         Polymer.dom(this.$.nodetitle).innerHTML = this._getPrintableHTMLNodeName(title);
                     }
                 },
