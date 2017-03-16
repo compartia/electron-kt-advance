@@ -30,6 +30,9 @@ module kt.graph.po_node {
         return "";
     }
 
+    export function makeKey(id: string, functionName: string, file: string): string {
+        return id + "::" + functionName + "::" + file;
+    }
 
     export function getPredicate(node: tf.graph.proto.NodeDef): string {
         if (node) {
@@ -46,7 +49,7 @@ module kt.graph.po_node {
         file: string;
 
         get key(): string {
-            return this.id + "::" + this.functionName + "::" + this.file;
+            return makeKey(this.id, this.functionName, this.file);
         }
     }
 
@@ -58,7 +61,7 @@ module kt.graph.po_node {
         method: string;
         type: string;
         assumptions: Array<any>;
-        violation:boolean=false;
+        violation: boolean = false;
         constructor() {
             super();
         }
@@ -77,9 +80,11 @@ module kt.graph.po_node {
         inputs: kt.graph.api_node.ApiNode[];
         outputs: kt.graph.api_node.ApiNode[];
         isMissing: boolean;
-        callsiteFname:string;
+
         _discharge: PODischarge;
-        callsiteFileName:string;
+
+        callsiteFname: string;
+        callsiteFileName: string;
         private _apiId: string = null;
 
 
@@ -96,8 +101,8 @@ module kt.graph.po_node {
 
             this.predicate = po["predicateType"];
             this.functionName = po["functionName"];
-            this.callsiteFname=po["callsiteFname"];
-            this.callsiteFileName=po["callsiteFileName"];
+            this.callsiteFname = po["callsiteFname"];
+            this.callsiteFileName = po["callsiteFileName"];
 
             this.id = po["id"] ? po["id"] : this.parseId(po["referenceKey"]);
 
@@ -106,18 +111,30 @@ module kt.graph.po_node {
         }
 
         get apiKey(): string {
-            return this._apiId + "::" + this.callsiteFname + "::" + this.callsiteFileName;
+            return kt.graph.api_node.makeKey("api", this._apiId, this.callsiteFname, this.callsiteFileName);
         }
 
-        get discharge():PODischarge{
+        get dischargeApiKey(): string {
+            if(this._discharge && this._discharge.assumptions){
+                if(this._discharge.assumptions.length>0){
+                    let usedAssumption = this._discharge.assumptions[0];
+                    return kt.graph.api_node.makeKey(usedAssumption.type, usedAssumption.apiId, this.functionName, this.file);
+                }
+            }
+            return null;
+
+        }
+
+        get discharge(): PODischarge {
             return this._discharge;
         }
-        set discharge(discharge:PODischarge){
-            this._discharge=discharge;
-            if(this._discharge.violation){
-                this.state="VIOLATION";
-            }else{
-                this.state="DISCHARED";
+
+        set discharge(discharge: PODischarge) {
+            this._discharge = discharge;
+            if (this._discharge.violation) {
+                this.state = "VIOLATION";
+            } else {
+                this.state = "DISCHARED";
             }
         }
 
@@ -285,7 +302,6 @@ module kt.graph.po_node {
                     "predicate": this.predicate,
                     "level": po["level"],
                     "state": this.state,
-                    "stateExt": this.getExtendedState(),
                     "location": po["textRange"],
                     "symbol": po["symbol"],
                     "message": this.message,

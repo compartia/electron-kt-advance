@@ -300,6 +300,87 @@ module kt.graph.kt_graph {
         }
 
 
+
+        public parseApiXml(filename: string): Promise<Array<kt.graph.api_node.ApiNode>> {
+
+            let ppos = new Array<kt.graph.api_node.ApiNode>();
+
+            let strict = true;
+            let parser = sax.createStream(strict);
+
+            let functionName;
+            let sourceFilename;
+
+            let currentAssumption: kt.graph.api_node.ApiNode;
+            let dependentPos = [];
+
+
+            parser.onopentag = (tag) => {
+                if (tag.name == 'function') {
+                    functionName = tag.attributes["name"];
+                    sourceFilename = tag.attributes["cfilename"];
+                }
+
+                else if (tag.name == 'api-assumption' || tag.name == 'global-assumption' || tag.name == 'rv-assumption') {
+                    currentAssumption = new kt.graph.api_node.ApiNode({});
+                    currentAssumption.functionName = functionName;
+                    currentAssumption.id = tag.attributes["nr"];
+
+                    currentAssumption.file = sourceFilename;
+
+                    if (tag.name == 'api-assumption') {
+                        currentAssumption.type = "api";
+                    }
+                    else if (tag.name == 'rv-assumption') {
+                        currentAssumption.type = "rv";
+                    }
+                    else if (tag.name == 'global-assumption') {
+                        currentAssumption.type = "global";
+                    }
+                }
+
+                else if (tag.name == 'predicate') {
+                    currentAssumption.predicateType = tag.attributes["tag"];
+                }
+
+                else if (tag.name == 'dependent-primary-proof-obligations') {
+                    dependentPos = [];
+                }
+
+                else if (tag.name == 'po' && dependentPos) {
+                    dependentPos.push(tag.attributes["id"]);
+                }
+
+
+
+
+            };
+
+            parser.onclosetag = (tagName: string) => {
+                if (tagName == 'api-assumption' || tagName == 'global-assumption' || tagName == 'rv-assumption') {
+                    ppos.push(currentAssumption);
+                    currentAssumption = null;
+                }
+                else if (tagName == 'dependent-primary-proof-obligations') {
+                    currentAssumption.dependentPos = dependentPos;
+                    dependentPos == null;
+                }
+            }
+
+
+            return new Promise((resolve, reject) => {
+                let stream = fs.createReadStream(filename);
+                stream.pipe(parser);
+
+                stream.on('end', () => {
+                    resolve(ppos);
+                });
+
+            });
+
+        }
+
+
         private readAndBindEvFiles(dirName: string, suffix: string, ppoMap: { [id: string]: kt.graph.po_node.PONode }): Promise<any> {
             const parser = this;
             let err: number = 0;
@@ -358,30 +439,104 @@ module kt.graph.kt_graph {
             }
         }
 
-        public readDir(dirName: string, functionsMap: { [key: string]: Array<any> }): void {
+        public readDir(dirName: string, functionsMap: { [key: string]: Array<any> }): Promise<any> {
             // this.readPPOs(dirName);
             const parser = this;
             let spoMap;
             let ppoMap;
+            let apiMap;
 
-            Promise.all([
+            return Promise.all([
+                /*[0]*/
                 parser.readXmls(dirName, "_ppo.xml", parser.parsePpoXml)
                     .then(ppos => {
                         ppoMap = _.indexBy(ppos, "key");
                         return parser.readAndBindEvFiles(dirName, "_pev.xml", ppoMap);
                     }),
 
+                /*[1]*/
                 parser.readXmls(dirName, "_spo.xml", parser.parseSpoXml)
                     .then(spos => {
                         spoMap = _.indexBy(spos, "key");
                         parser.readAndBindEvFiles(dirName, "_sev.xml", spoMap);
                         parser.bindCallsiteFunctions(spos, functionsMap);
                     })
+
             ]).then(results => {
+
+                return parser.readXmls(dirName, "_api.xml", parser.parseApiXml).then(apis => {
+                    apiMap = _.indexBy(apis, "key");
+
+                    /**
+                        link assumptions dependencies
+                    */
+                    for (let api of apis) {
+                        for (let refId of api.dependentPos) {
+                            let refKey = kt.graph.po_node.makeKey(refId, api.functionName, api.file);
+                            let po = ppoMap[refKey];
+                            if (!po) {
+                                po = spoMap[refKey];
+                            }
+                            if (!po) {
+                                console.error("api-assumption " + api.key + " refers missing(or discharged) PO " + refKey);
+                            } else {
+                                api.addOutput(po);
+                            }
+                        }
+                    }
+
+                    /**
+                        link SPO apis
+                    */
+                    for (let spoKey in spoMap) {
+                        let spo = spoMap[spoKey];
+                        // console.info(spoKey + " --> " + spo.apiKey);
+                        let api = apiMap[spo.apiKey];
+                        if (api) {
+                            spo.addOutput(api);
+                        } else {
+                            console.error("SPO " + spo.key + " refers missing api-assumption " + spo.apiKey);
+                        }
+
+                    }
+
+
+                    /**
+                        link DISCHARGE apis
+                    */
+
+                    this.bindDischargeAssumptions(spoMap, apiMap);
+                    this.bindDischargeAssumptions(ppoMap, apiMap);
+
+
+                });
+
+            }).then(results => {
                 console.info("total SPO unique keys: " + Object.keys(spoMap).length);
                 console.info("total PPO unique keys: " + Object.keys(ppoMap).length);
+                console.info("total API unique keys: " + Object.keys(apiMap).length);
                 console.info("reading " + dirName + " DONE");
             });
+        }
+
+        private bindDischargeAssumptions(
+                spoMap: { [key: string]: kt.graph.po_node.PONode },
+                apiMap: { [key: string]: kt.graph.api_node.ApiNode }) {
+                    
+            for (let spoKey in spoMap) {
+                let spo = spoMap[spoKey];
+                let dischargeApiKey = spo.dischargeApiKey;
+                if (dischargeApiKey) {
+                    let api = apiMap[dischargeApiKey];
+                    if (api) {
+                        spo.addOutput(api);//XXX: Input? or Output?
+                    } else {
+                        console.error("SPO " + spo.key + " refers missing discharge assumption " + dischargeApiKey);
+                    }
+                }
+
+
+            }
         }
 
 

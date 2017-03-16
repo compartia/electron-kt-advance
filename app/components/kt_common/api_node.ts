@@ -13,34 +13,53 @@ module kt.graph.api_node {
         return _nm;
     }
 
+    export function makeKey(type: string, id: string, functionName: string, file: string): string {
+        return type + "::" + id + "::" + functionName + "::" + file;
+    }
+
 
     export class ApiNode {
-        name: string;
-        po: any;
-        predicate: string;
+
         functionName: string;
         message: string;
         inputs: kt.graph.po_node.PONode[];
         outputs: kt.graph.po_node.PONode[];
         isMissing: boolean;
-        state: string;
+        file: string;
         type: string;
+        id: string;
+        predicateType: string;
+        dependentPos: Array<string>;
 
         constructor(po) {
-            this.po = po;
+            // this.po = po;
 
             this.inputs = [];
             this.outputs = [];
-
-            this.predicate = po["predicate"];
+            this.predicateType = po["predicate"];
             this.functionName = po["targetFuncName"];
             this.message = po["message"];
-            this.state = "assumption";
-            this.type = po["type"] ? po["type"]:"unknown";
+            this.file = po["file"];
+            this.type = po["type"] ? po["type"] : "unknown";
+            this.id = po["apiId"];
 
-            console.info(this.type);
 
-            this.name = this.makeName();
+        }
+
+        get apiId(): string {
+            return this.id;
+        }
+
+        get key(): string {
+            return makeKey(this.type , this.id , this.functionName , this.file);
+        }
+
+        get state(): string {
+            return "assumption";
+        }
+
+        get name() {
+            return this.makeName();
         }
 
         private getExtendedState(): string {
@@ -57,7 +76,7 @@ module kt.graph.api_node {
 
 
         private makeName(): string {
-            return makeName(this.po);
+            return fixFileName(this.file) + SPL + this.functionName + SPL + this.predicateType + SPL + this.type + "_" + this.id;
         }
 
         public isDischarged(): boolean {
@@ -65,8 +84,8 @@ module kt.graph.api_node {
         }
 
         public asNodeDef(): tf.graph.proto.NodeDef {
-            const po = this.po;
-            let discharge = po["discharge"];
+            // const po = this.po;
+            // let discharge = po["discharge"];
 
             let nodeDef: tf.graph.proto.NodeDef = {
                 name: this.name,
@@ -75,13 +94,12 @@ module kt.graph.api_node {
                 device: this.getExtendedState(),
                 op: this.functionName,
                 attr: {
-                    "predicate": this.predicate,
-                    "level": po["level"],
+                    "predicate": this.predicateType,
+                    // "level": po["level"],
                     "state": this.state,
-                    "stateExt": this.getExtendedState(),
-                    "symbol": po["symbol"],
+                    // "symbol": po["symbol"],
                     "message": this.message,
-                    "apiId":po["apiId"]
+                    "apiId": this.id
                 }
             }
 
