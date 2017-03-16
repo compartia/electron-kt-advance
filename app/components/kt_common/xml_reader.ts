@@ -73,7 +73,6 @@ module kt.graph.kt_graph {
 
 
 
-
         public parsePpoXml(filename: string): Promise<Array<kt.graph.po_node.PONode>> {
 
             // let deferredResult = defer<Array<kt.graph.po_node.PONode>>();
@@ -136,8 +135,6 @@ module kt.graph.kt_graph {
             });
 
         }
-
-
 
 
 
@@ -303,10 +300,10 @@ module kt.graph.kt_graph {
         }
 
 
-        private readAndBindEvFiles(dirName: string, suffix: string, ppoMap: { [id: string]: kt.graph.po_node.PONode }) {
+        private readAndBindEvFiles(dirName: string, suffix: string, ppoMap: { [id: string]: kt.graph.po_node.PONode }): Promise<any> {
             const parser = this;
             let err: number = 0;
-            parser.readXmls(dirName, suffix, parser.parsePevXml).then(pevs => {
+            return parser.readXmls(dirName, suffix, parser.parsePevXml).then(pevs => {
                 let pevMap = _.indexBy(pevs, "key");
                 console.info("total objects: " + pevs.length + " \t\ttotal unique keys: " + Object.keys(pevMap).length);
 
@@ -322,9 +319,6 @@ module kt.graph.kt_graph {
                     }
 
                 }
-
-
-
 
             });
 
@@ -360,7 +354,6 @@ module kt.graph.kt_graph {
                     console.error(funcs);
                 } else {
                     spo.callsiteFileName = funcs[0].file;
-                    console.info("bound CallsiteFunction:" + spo.apiKey);
                 }
             }
         }
@@ -368,24 +361,27 @@ module kt.graph.kt_graph {
         public readDir(dirName: string, functionsMap: { [key: string]: Array<any> }): void {
             // this.readPPOs(dirName);
             const parser = this;
+            let spoMap;
+            let ppoMap;
 
-            parser.readXmls(dirName, "_ppo.xml", parser.parsePpoXml)
-                .then(ppos => {
-                    let ppoMap = _.indexBy(ppos, "key");
-                    console.info("total objects: " + ppos.length + " \t\ttotal unique keys: " + Object.keys(ppoMap).length);
+            Promise.all([
+                parser.readXmls(dirName, "_ppo.xml", parser.parsePpoXml)
+                    .then(ppos => {
+                        ppoMap = _.indexBy(ppos, "key");
+                        return parser.readAndBindEvFiles(dirName, "_pev.xml", ppoMap);
+                    }),
 
-                    parser.readAndBindEvFiles(dirName, "_pev.xml", ppoMap);
-                });
-
-            parser.readXmls(dirName, "_spo.xml", parser.parseSpoXml)
-                .then(spos => {
-                    let spoMap = _.indexBy(spos, "key");
-                    console.info("total objects: " + spos.length + " \t\ttotal unique keys: " + Object.keys(spoMap).length);
-                    console.info(spos[0]);
-                    parser.readAndBindEvFiles(dirName, "_sev.xml", spoMap);
-                    parser.bindCallsiteFunctions(spos, functionsMap);
-                    // console.info(spos[0]);
-                });
+                parser.readXmls(dirName, "_spo.xml", parser.parseSpoXml)
+                    .then(spos => {
+                        spoMap = _.indexBy(spos, "key");
+                        parser.readAndBindEvFiles(dirName, "_sev.xml", spoMap);
+                        parser.bindCallsiteFunctions(spos, functionsMap);
+                    })
+            ]).then(results => {
+                console.info("total SPO unique keys: " + Object.keys(spoMap).length);
+                console.info("total PPO unique keys: " + Object.keys(ppoMap).length);
+                console.info("reading " + dirName + " DONE");
+            });
         }
 
 
@@ -439,13 +435,6 @@ module kt.graph.kt_graph {
         // reader.readDir(paths[0]);
         reader.readFunctionsMap(path.dirname(paths[0])).then(
             funcs => {
-                for (let funcName in funcs) {
-                    let func = funcs[funcName];
-
-                    if (func.length > 1)
-                        console.error(func);
-                }
-
                 reader.readDir(paths[0], funcs);
             }
         );
