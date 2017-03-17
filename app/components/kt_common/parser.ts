@@ -9,9 +9,9 @@ module kt.parser {
         for (var key in poByRefId) {
             var ppo: kt.graph.PONode = poByRefId[key];
             if (ppo.isLinked()) {
-                if (!ppo.isTotallyDischarged()) {
+                // if (!ppo.isTotallyDischarged()) {
                     g.push(ppo.asNodeDef());
-                }
+                // }
             }
         }
 
@@ -33,7 +33,7 @@ module kt.parser {
     export function readAndParse(): Promise<Array<tf.graph.proto.NodeDef>> {
         console.info("test");
 
-        const paths = ["/Users/artem/work/KestrelTechnology/IN/dnsmasq/ch_analysis/src/option/"];
+        const paths = ["/Users/artem/work/KestrelTechnology/IN/dnsmasq/ch_analysis/src/cache/"];
 
         let reader: kt.xml.XmlReader = new kt.xml.XmlReader();
 

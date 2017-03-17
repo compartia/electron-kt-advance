@@ -140,7 +140,7 @@ module kt.graph {
 
     export class PONode extends AbstractNode {
         name: string;
-        label: string;
+
         state: string;
         po: any;
         predicate: string;
@@ -179,7 +179,7 @@ module kt.graph {
             this.id = po["id"];
 
             this.name = this.makeName();
-            this.label = this.makeLabel();
+
         }
 
         set level(level: string) {
@@ -269,7 +269,7 @@ module kt.graph {
         }
 
 
-        private makeLabel(): string {
+        get label(): string {
             let _nm = this.level + " (" + this.id + ") ";
 
             if (this.symbol) {

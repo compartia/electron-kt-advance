@@ -181,7 +181,7 @@ module kt.xml {
 
             if (this.baseExp) {
                 return this.baseExp.varName;
-            } else if (this.exp != null) {
+            } else if (this.exp) {
                 return this.exp.varName;
             } else if (this.exp1) {
                 return this.exp1.varName;

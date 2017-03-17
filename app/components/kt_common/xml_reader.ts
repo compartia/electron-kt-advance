@@ -246,8 +246,6 @@ module kt.xml {
 
         public parsePevXml(filename: string): Promise<Array<kt.graph.PODischarge>> {
 
-            // let deferredResult = defer<Array<kt.graph.PONode>>();
-
             let ppos = new Array<kt.graph.PODischarge>();
 
             let strict = true;
@@ -338,6 +336,8 @@ module kt.xml {
             let currentAssumption: kt.graph.ApiNode;
             let dependentPos = [];
 
+            let predicateXmlParser:kt.xml.PredicateXmlParser;
+
 
             parser.onopentag = (tag) => {
                 if (tag.name == 'function') {
@@ -365,6 +365,8 @@ module kt.xml {
 
                 else if (tag.name == 'predicate') {
                     currentAssumption.predicateType = tag.attributes["tag"];
+                    predicateXmlParser = new kt.xml.PredicateXmlParser();
+                    predicateXmlParser.onopentag(tag);
                 }
 
                 else if (tag.name == 'dependent-primary-proof-obligations') {
@@ -373,6 +375,10 @@ module kt.xml {
 
                 else if (tag.name == 'po' && dependentPos) {
                     dependentPos.push(tag.attributes["id"]);
+                }
+
+                else if (predicateXmlParser != null) {
+                    predicateXmlParser.onopentag(tag);
                 }
 
 
@@ -388,6 +394,14 @@ module kt.xml {
                 else if (tagName == 'dependent-primary-proof-obligations') {
                     currentAssumption.dependentPos = dependentPos;
                     dependentPos == null;
+                }
+                else if (tagName == "predicate") {
+                    predicateXmlParser.onclosetag(tagName);
+                    currentAssumption.symbol = predicateXmlParser.result.varName;
+                    predicateXmlParser = null;
+                }
+                else if (predicateXmlParser) {
+                    predicateXmlParser.onclosetag(tagName);
                 }
             }
 

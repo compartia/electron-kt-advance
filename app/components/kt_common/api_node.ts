@@ -18,6 +18,7 @@ module kt.graph {
         type: string;
         predicateType: string;
         dependentPos: Array<string>;
+        symbol: kt.xml.Symbol;
 
         constructor(po) {
             super();
@@ -55,6 +56,18 @@ module kt.graph {
             return fixFileName(this.file) + SPL + this.functionName + SPL + this.predicateType + SPL + this.type + "_" + this.id;
         }
 
+        get label(): string {
+            let _nm = this.type+  " (" + this.id + ") ";
+
+            if (this.symbol) {
+                _nm += this.symbol.pathLabel;
+            } else {
+                _nm += "-expression-";
+            }
+
+            return _nm;
+        }
+
         get extendedState(): string {
             return this.state + "-" + this.type;
         }
@@ -77,6 +90,8 @@ module kt.graph {
             return true;
         }
 
+
+
         public asNodeDef(): tf.graph.proto.NodeDef {
             // const po = this.po;
             // let discharge = po["discharge"];
@@ -88,10 +103,12 @@ module kt.graph {
                 device: this.extendedState,
                 op: this.functionName,
                 attr: {
+                    "label": this.label,
                     "predicate": this.predicateType,
                     "state": this.state,
                     "message": this.message,
-                    "apiId": this.id
+                    "apiId": this.id,
+                    "symbol": this.symbol
                 }
             }
 
