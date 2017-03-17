@@ -35,7 +35,7 @@ module kt.parser {
 
         const paths = ["/Users/artem/work/KestrelTechnology/IN/dnsmasq/ch_analysis/src/option/"];
 
-        let reader: kt.graph.XmlReader = new kt.graph.XmlReader();
+        let reader: kt.xml.XmlReader = new kt.xml.XmlReader();
 
         return reader.readFunctionsMap(path.dirname(paths[0])).then(
             funcsMap => {

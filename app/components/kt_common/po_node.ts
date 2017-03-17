@@ -1,10 +1,14 @@
-module kt.graph  {
+module kt.graph {
 
     export enum PoStatesExt { violation, open, discharged, global, invariants, ds, rv, api };
     export enum PoStates { violation, open, discharged, assumption };
     export enum PoDischargeTypes { global, invariants, ds, rv, api, default };
 
+
+
     const SPL = "/";
+
+
 
     export function compareStates(stateA: string, stateB: string): number {
         let stA: string[] = stateA.toLowerCase().split("-");
@@ -53,7 +57,7 @@ module kt.graph  {
         }
     }
 
-    export abstract class AbstractNode extends POId{
+    export abstract class AbstractNode extends POId {
         inputs: AbstractNode[];
         outputs: AbstractNode[];
 
@@ -64,12 +68,12 @@ module kt.graph  {
         }
 
         public addInput(node: kt.graph.AbstractNode) {
-            if(!_.includes(this.inputs, node))
+            if (!_.includes(this.inputs, node))
                 this.inputs.push(node);
         }
 
         public addOutput(node: kt.graph.AbstractNode) {
-            if(!_.includes(this.outputs, node))
+            if (!_.includes(this.outputs, node))
                 this.outputs.push(node);
         }
 
@@ -77,9 +81,9 @@ module kt.graph  {
             return this.inputs.length > 0 || this.outputs.length > 0;
         }
 
-        public abstract isDischarged(): boolean ;
-        public abstract get name(): string ;
-        public abstract get state(): string ;
+        public abstract isDischarged(): boolean;
+        public abstract get name(): string;
+        public abstract get state(): string;
 
 
         public isTotallyDischarged(): boolean {
@@ -142,7 +146,7 @@ module kt.graph  {
         predicate: string;
         functionName: string;
         message: string;
-        _level:string;
+        _level: string;
 
         isMissing: boolean;
 
@@ -150,6 +154,7 @@ module kt.graph  {
 
         callsiteFname: string;
         callsiteFileName: string;
+        symbol: kt.xml.Symbol;
         private _apiId: string = null;
 
 
@@ -160,7 +165,8 @@ module kt.graph  {
             this.state = po["state"];
             this.file = po["file"];
             this._apiId = po["apiId"];
-            this.level=po["level"];
+            this.level = po["level"];
+            this.symbol = po["symbol"];
 
             // this.inputs = [];
             // this.outputs = [];
@@ -176,11 +182,11 @@ module kt.graph  {
             this.label = this.makeLabel();
         }
 
-        set level(level:string){
-            this._level = ( level=="PRIMARY" ? "I" : "II" );
+        set level(level: string) {
+            this._level = (level == "PRIMARY" ? "I" : "II");
         }
 
-        get level():string{
+        get level(): string {
             return this._level;
         }
 
@@ -231,7 +237,7 @@ module kt.graph  {
 
         get dischargeAssumption() {
             let po = this.po;
-            let discharge=this._discharge?this._discharge:po["discharge"];
+            let discharge = this._discharge ? this._discharge : po["discharge"];
 
             if (discharge) {
                 if (discharge.assumptions && discharge.assumptions.length > 0) {
@@ -252,10 +258,12 @@ module kt.graph  {
                 + SPL + this.predicate
                 + SPL + this.level + "(" + this.id + ")";
 
-            if (this.po["symbol"] && this.po["symbol"].type == "ID") {
-                _nm += this.po["symbol"].value;
+
+
+            if (this.symbol) {
+                _nm += this.symbol.pathLabel;
             } else {
-                _nm += "CONST";
+                _nm += "-expression-";
             }
             return _nm;
         }
@@ -264,11 +272,12 @@ module kt.graph  {
         private makeLabel(): string {
             let _nm = this.level + " (" + this.id + ") ";
 
-            if (this.po["symbol"] && this.po["symbol"].type == "ID") {
-                _nm += this.po["symbol"].value;
+            if (this.symbol) {
+                _nm += this.symbol.pathLabel;
             } else {
-                _nm += "CONST";
+                _nm += "-expression-";
             }
+
             return _nm;
         }
 
@@ -316,7 +325,7 @@ module kt.graph  {
                     "level": this.level,
                     "state": this.state,
                     "location": po["textRange"],
-                    "symbol": po["symbol"],
+                    "symbol": this.symbol,
                     "message": this.message,
                     "dischargeType": this.dischargeType,
                     "discharge": this.discharge, //? po["discharge"]["comment"] : null

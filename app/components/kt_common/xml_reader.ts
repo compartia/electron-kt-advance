@@ -1,7 +1,8 @@
-module kt.graph {
+module kt.xml {
     const fs = require('fs');
     const path = require('path');
     const sax = require('sax')
+
 
 
     export class XmlReader {
@@ -75,14 +76,12 @@ module kt.graph {
 
         public parsePpoXml(filename: string): Promise<Array<kt.graph.PONode>> {
 
-            // let deferredResult = defer<Array<kt.graph.PONode>>();
-
             let ppos = new Array<kt.graph.PONode>();
 
             let strict = true;
             let parser = sax.createStream(strict);
             let functionName;
-
+            let predicateXmlParser: kt.xml.PredicateXmlParser = null;
             let currentPo = {}
 
 
@@ -107,11 +106,15 @@ module kt.graph {
                 }
 
                 else if (tag.name == 'predicate') {
-                    currentPo["predicateType"] = tag.attributes["tag"];
+                    predicateXmlParser = new kt.xml.PredicateXmlParser();
+                    predicateXmlParser.onopentag(tag);
+                    currentPo["predicateType"] = tag.attributes["tag"]; //XXX: remove this tag
                 }
 
 
-
+                else if (predicateXmlParser != null) {
+                    predicateXmlParser.onopentag(tag);
+                }
 
             };
 
@@ -120,6 +123,15 @@ module kt.graph {
                     // currentPo["referenceKey"] = currentPo["id"] + "::" + currentPo["functionName"] + "::" + currentPo["file"];
                     let ppoNode = new kt.graph.PONode(currentPo);
                     ppos.push(ppoNode);
+                }
+                else if (tagName == "predicate") {
+                    predicateXmlParser.onclosetag(tagName);
+                    currentPo["symbol"] = predicateXmlParser.result.varName;
+                    predicateXmlParser = null;
+                }
+
+                else if (predicateXmlParser) {
+                    predicateXmlParser.onclosetag(tagName);
                 }
             }
 
@@ -150,6 +162,8 @@ module kt.graph {
             let currentSpo = {}
             let callsiteObligation = {}
             let lasttag = '';
+
+            let predicateXmlParser: kt.xml.PredicateXmlParser = null;
 
 
             parser.onopentag = (tag) => {
@@ -188,6 +202,8 @@ module kt.graph {
                 }
 
                 else if (tag.name == 'predicate') {
+                    predicateXmlParser = new kt.xml.PredicateXmlParser();
+                    predicateXmlParser.onopentag(tag);
                     currentSpo["predicateType"] = tag.attributes["tag"];
                 }
 
@@ -203,6 +219,14 @@ module kt.graph {
                     spos.push(ppoNode);
                 } else if (tagName == 'callsite-obligation') {
                     callsiteObligation = null;
+                }
+                else if (tagName == "predicate") {
+                    predicateXmlParser.onclosetag(tagName);
+                    currentSpo["symbol"] = predicateXmlParser.result.varName;
+                    predicateXmlParser = null;
+                }
+                else if (predicateXmlParser) {
+                    predicateXmlParser.onclosetag(tagName);
                 }
             }
 
