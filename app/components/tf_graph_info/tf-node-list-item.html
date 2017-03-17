@@ -25,9 +25,16 @@ limitations under the License.
                         color-by-params="[[colorByParams]]" node="[[itemNode]]"
                         render-info="[[itemRenderInfo]]"></node-icon>
 
-                <template is="dom-if" if="[[itemNode.attr.apiId]]">
-                    <div>api-id: [[itemNode.attr.apiId]]</div>
+                <template is="dom-if" if="[[itemNode.attr]]">
+
+                    <template is="dom-if" if="[[itemNode.attr.assumptionType]]">
+                        <div>[[itemNode.attr.assumptionType]] assumption  [[itemNode.attr.apiId]]</div>
+                    </template>
+                    <!-- <template is="dom-if" if="[[itemNode.attr.apiId]]">
+                        <div>api-id: [[itemNode.attr.apiId]]</div>
+                    </template> -->
                 </template>
+
                 <span title$="[[name]]">[[name]]</span>
                 <span class="edge-label">[[edgeLabel]]</span>
             </div>

@@ -40,8 +40,8 @@ tf-node-info {
         padding      : $base-padding/2;
 
         #api-id{
-            font-size     : 80%;
-            color      : $grey;
+            font-size     :  $font-smaler;
+            color      : var(--kt-grey-dark);
             padding: $base-padding/2;
         }
 
@@ -49,27 +49,30 @@ tf-node-info {
             padding: $base-padding/2;
 
             #predicate-arg{
-                font       : 300 80% 'Liberation Mono', Courier;
+                font: $font-code;
+                font-size     : $font-smaler;
+                color: var(--kt-grey-dark);
+            }
+
+            #expression{
+                font: $font-code;
+                font-size  : $font-smaler;
+                color: var(--kt-grey);
             }
 
             #predicate-name{
                 text-transform: uppercase;
-                font-size     : 80%;
+                font-size     : $font-smaler;
                 font-weight   : 400;
             }
         }
 
         .func {
-            font       : 300 80% 'Liberation Mono', Courier;
+            font       : $font-code;
             font-weight: 500;
         }
 
-        .message {
-            color      : $grey;
-            font-size  : 90%;
-            font-weight: 300;
-            display    : block;
-        }
+
 
     }
 

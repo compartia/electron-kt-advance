@@ -127,6 +127,7 @@ module kt.xml {
                 else if (tagName == "predicate") {
                     predicateXmlParser.onclosetag(tagName);
                     currentPo["symbol"] = predicateXmlParser.result.varName;
+                    currentPo["expression"] = predicateXmlParser.result.expression;
                     predicateXmlParser = null;
                 }
 
@@ -207,6 +208,10 @@ module kt.xml {
                     currentSpo["predicateType"] = tag.attributes["tag"];
                 }
 
+                else if (predicateXmlParser != null) {
+                    predicateXmlParser.onopentag(tag);
+                }
+
 
                 lasttag = tag.name;
 
@@ -223,6 +228,7 @@ module kt.xml {
                 else if (tagName == "predicate") {
                     predicateXmlParser.onclosetag(tagName);
                     currentSpo["symbol"] = predicateXmlParser.result.varName;
+                    currentSpo["expression"] = predicateXmlParser.result.expression;
                     predicateXmlParser = null;
                 }
                 else if (predicateXmlParser) {
@@ -398,6 +404,7 @@ module kt.xml {
                 else if (tagName == "predicate") {
                     predicateXmlParser.onclosetag(tagName);
                     currentAssumption.symbol = predicateXmlParser.result.varName;
+                    currentAssumption.expression = predicateXmlParser.result.expression;
                     predicateXmlParser = null;
                 }
                 else if (predicateXmlParser) {

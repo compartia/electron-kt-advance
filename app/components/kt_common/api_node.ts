@@ -19,6 +19,7 @@ module kt.graph {
         predicateType: string;
         dependentPos: Array<string>;
         symbol: kt.xml.Symbol;
+        expression:string;
 
         constructor(po) {
             super();
@@ -105,10 +106,12 @@ module kt.graph {
                 attr: {
                     "label": this.label,
                     "predicate": this.predicateType,
+                    "expression": this.expression,
                     "state": this.state,
                     "message": this.message,
                     "apiId": this.id,
-                    "symbol": this.symbol
+                    "symbol": this.symbol,
+                    "assumptionType": this.type
                 }
             }
 

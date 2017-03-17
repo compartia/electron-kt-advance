@@ -2,6 +2,42 @@ module kt.xml {
 
     export enum SymbolType { CONST, ID };
 
+    export function formatOp(_op: string, a1: string, a2: string): string {
+        if (!_op) {
+            throw "operation unknown!";
+        }
+        let op = _op.trim();
+        if ("div" == op)
+            return a1 + " / " + a2;
+        else if ("plusa" == op)
+            return a1 + " + " + a2;
+        else if ("pluspi" == op)
+            return a1 + " + " + a2;
+        else if ("mult" == op)
+            return a1 + " * " + a2;
+        else if ("minusa" == op)
+            return a1 + " - " + a2;
+        else if ("minuspi" == op)
+            return a1 + " - " + a2;
+        else if ("minuspp" == op)
+            return a1 + " - " + a2;
+        else if ("mod" == op)
+            return a1 + " % " + a2;
+        else if ("lt" == op)
+            return a1 + " < " + a2;
+        else if ("gt" == op)
+            return a1 + " > " + a2;
+        else if ("ge" == op)
+            return a1 + " >= " + a2;
+        else if ("le" == op)
+            return a1 + " <= " + a2;
+        else if ("indexpi" == op)
+            return a1 + "[" + a2 + "]";
+
+        return op + "(" + a1 + ", " + a2 + ")";
+    }
+
+
     abstract class XmlTag {
         _tagname: string;
         parent: XmlTag;
@@ -38,6 +74,15 @@ module kt.xml {
             }
         }
 
+        get expression(): string {
+            if (this.xstr)
+                return this.xstr;
+            if (this.exp) {
+                return this.exp.expression;
+            }
+            return this._tagname;
+        }
+
         public constructor(tag) {
             super();
             this.xstr = tag.attributes["xstr"];
@@ -48,7 +93,6 @@ module kt.xml {
 
 
     export class UnsupportedTag extends XmlTag {
-
     }
 
     export class Constant extends XmlTag {
@@ -89,6 +133,9 @@ module kt.xml {
             this.parent = parent;
         }
 
+        get expression(): string {
+            return this.xstr;
+        }
 
         get varName(): Symbol {
 
@@ -140,11 +187,20 @@ module kt.xml {
             this.vid = tag.attributes["vid"];
             this.vname = tag.attributes["vname"];
         }
+
+        get expression(): string {
+            return this.vname;
+        }
     }
     export class LValue extends XmlTag {
         lhost: LHost;
+
         get varName(): Symbol {
             return this.lhost.varName;
+        }
+
+        get expression(): string {
+            return this.lhost.expression;
         }
     }
 
@@ -156,6 +212,14 @@ module kt.xml {
                 return this.mem.varName;
             } else {
                 return new Symbol(SymbolType.ID, this.var.vname);
+            }
+        }
+
+        get expression(): string {
+            if (this.mem) {
+                return this.mem.expression;
+            } else {
+                return this.var.expression;
             }
         }
     }
@@ -177,6 +241,12 @@ module kt.xml {
         size: string;
         tag: string
 
+        public constructor(_tag) {
+            super();
+            this.tag = _tag.attributes["tag"];
+            this.op = _tag.attributes["op"];
+        }
+
         get varName(): Symbol {
 
             if (this.baseExp) {
@@ -192,6 +262,30 @@ module kt.xml {
             return null;
 
         }
+
+        get expression(): string {
+            let expStr = "";
+
+            if (this.lenExp && this.baseExp) {
+                expStr = this.baseExp.expression + "," + this.lenExp.expression;
+            }
+
+            if (this.exp1 && this.exp2) {
+                /*
+                 * binary operation
+                 */
+                let op = this.op ? this.op : this.tag;
+                expStr = formatOp(op, this.exp1.expression, this.exp2.expression);
+
+            } else if (this.exp) {
+                expStr = this.exp.expression;
+            } else if (this.lval) {
+                expStr = this.lval.expression;
+            }
+
+            return expStr.trim();
+        }
+
     }
 
 
@@ -202,7 +296,7 @@ module kt.xml {
 
         public onopentag(tag) {
             if (tag.name == 'predicate') {
-                this.predicate = new Predicate();
+                this.predicate = new Predicate(tag);
                 this.predicate.tag = tag.attributes["tag"];
 
                 this.currentTag = this.predicate;

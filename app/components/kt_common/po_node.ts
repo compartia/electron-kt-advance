@@ -145,7 +145,7 @@ module kt.graph {
         po: any;
         predicate: string;
         functionName: string;
-        message: string;
+        expression: string;
         _level: string;
 
         isMissing: boolean;
@@ -167,6 +167,7 @@ module kt.graph {
             this._apiId = po["apiId"];
             this.level = po["level"];
             this.symbol = po["symbol"];
+            this.expression = po["expression"];
 
             // this.inputs = [];
             // this.outputs = [];
@@ -326,11 +327,10 @@ module kt.graph {
                     "state": this.state,
                     "location": po["textRange"],
                     "symbol": this.symbol,
-                    "message": this.message,
+                    "expression": this.expression,
                     "dischargeType": this.dischargeType,
                     "discharge": this.discharge, //? po["discharge"]["comment"] : null
                     "dischargeAssumption": this.dischargeAssumption
-
                 }
             }
 
