@@ -80,8 +80,11 @@ An element which provides a filter parsing for pbtxt to graph output.
         };
 
 
+
         this._setOutHierarchyParams(hierarchyParams);
-        var dataTracker = tf.graph.util.getSubtaskTracker(tracker, 30, 'Data');
+        var readDataTracker = tf.graph.util.getSubtaskTracker(tracker, 70, 'Reading Data');
+        var graphTracker = tf.graph.util.getSubtaskTracker(tracker, 15, 'Building graph');
+        var hierarchyTracker = tf.graph.util.getSubtaskTracker(tracker, 15, 'Namespace hierarchy');
 
         var buildParams = {
             enableEmbedding: false,
@@ -90,15 +93,10 @@ An element which provides a filter parsing for pbtxt to graph output.
             refEdges: {}
         };
 
-        var graphTracker = tf.graph.util.getTracker(
-            {
-                set: function() { return; },
-                progress: 0
-            }
-        );
 
 
-        kt.parser.readAndParse().then(
+
+        kt.parser.readAndParse(readDataTracker).then(
             function(nodes){
                 return tf.graph.build(nodes, buildParams, graphTracker);
             }
@@ -108,7 +106,7 @@ An element which provides a filter parsing for pbtxt to graph output.
         .then(
             function(graph) {
               this._setOutGraph(graph);
-              var hierarchyTracker = tf.graph.util.getSubtaskTracker(tracker, 50, 'Namespace hierarchy');
+
 
               return tf.graph.hierarchy.build(graph, hierarchyParams, hierarchyTracker);
 
