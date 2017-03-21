@@ -342,7 +342,7 @@ module kt.xml {
             let currentAssumption: kt.graph.ApiNode;
             let dependentPos = [];
 
-            let predicateXmlParser:kt.xml.PredicateXmlParser;
+            let predicateXmlParser: kt.xml.PredicateXmlParser;
 
 
             parser.onopentag = (tag) => {
@@ -426,10 +426,10 @@ module kt.xml {
         }
 
 
-        private readAndBindEvFiles(dirName: string, suffix: string, ppoMap: { [id: string]: kt.graph.PONode }): Promise<any> {
+        private readAndBindEvFiles(dirName: string, suffix: string, ppoMap: { [id: string]: kt.graph.PONode }, tracker: tf.ProgressTracker): Promise<any> {
             const parser = this;
             let err: number = 0;
-            return parser.readXmls(dirName, suffix, parser.parsePevXml).then(pevs => {
+            return parser.readXmls(dirName, suffix, parser.parsePevXml, tracker).then(pevs => {
                 let pevMap = _.indexBy(pevs, "key");
                 console.info("total objects: " + pevs.length + " \t\ttotal unique keys: " + Object.keys(pevMap).length);
 
@@ -452,20 +452,26 @@ module kt.xml {
 
 
 
-        public readFunctionsMap(dirName: string): Promise<{ [key: string]: Array<any> }> {
+        public readFunctionsMap(dirName: string, tracker: tf.ProgressTracker): Promise<{ [key: string]: Array<any> }> {
+            const bigJobTrackingAddon: number = 80;
             const parser = this;
             let err: number = 0;
-            return parser.readXmls(dirName, "_cfile.xml", parser.parseCfileXml).then(funcs => {
+            return parser.readXmls(dirName, "_cfile.xml", parser.parseCfileXml, tracker).then(funcs => {
+
+
                 let byNameMap = _.indexBy(funcs, 'name');
                 console.info("total objects: " + funcs.length + " \t\ttotal unique keys: " + Object.keys(byNameMap).length);
                 // console.info(byNameMap);
 
                 let resultingMap: { [key: string]: Array<any> } = {};
+
+
                 for (let f of funcs) {
                     if (!resultingMap[f.name]) {
                         resultingMap[f.name] = [];
                     }
                     resultingMap[f.name].push(f);
+
                 }
                 return resultingMap;
             });
@@ -484,32 +490,38 @@ module kt.xml {
             }
         }
 
-        public readDir(dirName: string, functionsMap: { [key: string]: Array<any> }): Promise<any> {
+        public readDir(dirName: string, functionsMap: { [key: string]: Array<any> }, tracker: tf.ProgressTracker): Promise<any> {
             // this.readPPOs(dirName);
             const parser = this;
             let spoMap;
             let ppoMap;
             let apiMap;
 
+            const ppoTracker = tf.graph.util.getSubtaskTracker(tracker, 20, 'reading PPOs');
+            const pevTracker = tf.graph.util.getSubtaskTracker(tracker, 20, 'reading PEVs');
+            const spoTracker = tf.graph.util.getSubtaskTracker(tracker, 20, 'reading SPOs');
+            const sevTracker = tf.graph.util.getSubtaskTracker(tracker, 20, 'reading SEVs');
+            const apiTracker = tf.graph.util.getSubtaskTracker(tracker, 20, 'reading APIs');
+
             return Promise.all([
                 /*[0]*/
-                parser.readXmls(dirName, "_ppo.xml", parser.parsePpoXml)
+                parser.readXmls(dirName, "_ppo.xml", parser.parsePpoXml, ppoTracker)
                     .then(ppos => {
                         ppoMap = _.indexBy(ppos, "key");
-                        return parser.readAndBindEvFiles(dirName, "_pev.xml", ppoMap);
+                        return parser.readAndBindEvFiles(dirName, "_pev.xml", ppoMap, pevTracker);
                     }),
 
                 /*[1]*/
-                parser.readXmls(dirName, "_spo.xml", parser.parseSpoXml)
+                parser.readXmls(dirName, "_spo.xml", parser.parseSpoXml, spoTracker)
                     .then(spos => {
                         spoMap = _.indexBy(spos, "key");
-                        parser.readAndBindEvFiles(dirName, "_sev.xml", spoMap);
+                        parser.readAndBindEvFiles(dirName, "_sev.xml", spoMap, sevTracker);
                         parser.bindCallsiteFunctions(spos, functionsMap);
                     })
 
             ]).then(results => {
 
-                return parser.readXmls(dirName, "_api.xml", parser.parseApiXml).then(apis => {
+                return parser.readXmls(dirName, "_api.xml", parser.parseApiXml, apiTracker).then(apis => {
                     apiMap = _.indexBy(apis, "key");
 
                     /**
@@ -613,13 +625,14 @@ module kt.xml {
 
 
         /**
-        reads all files ending with the given suffix inthe given direcory. Parses them with provided parsingFunc param.
+        reads all files ending with the given suffix in the given direcory. Parses them with provided parsingFunc param.
         The results are joined in the resulting array;
         TODO: might be better to return a map filename->Array<X>
         **/
-        private readXmls<X>(dirName: string, suffixFilter: string, parsingFunc: (filename: string) => Promise<Array<X>>): Promise<Array<X>> {
+        private readXmls<X>(dirName: string, suffixFilter: string, parsingFunc: (filename: string) => Promise<Array<X>>, tracker: tf.ProgressTracker): Promise<Array<X>> {
             let parser = this;
 
+            tracker.setMessage("reading *"+suffixFilter+" files");
             return new Promise((resolve, reject) => {
 
                 fs.readdir(dirName, function(err, items) {
@@ -628,7 +641,8 @@ module kt.xml {
 
                     for (let item of items) {
                         if (item.endsWith(suffixFilter)) {
-                            pposPromisesArray.push(parsingFunc(path.join(dirName, item)));
+                            let func = parsingFunc(path.join(dirName, item));
+                            pposPromisesArray.push(func);
                         }
                     }
 
@@ -636,6 +650,7 @@ module kt.xml {
                         let flat: Array<X> = _.flatten(arrayOfResults);
 
                         console.info("parsed " + arrayOfResults.length + " *" + suffixFilter + "  files, total objects: " + flat.length);
+                        tracker.updateProgress(100);
                         resolve(flat);
 
                     });
@@ -653,18 +668,4 @@ module kt.xml {
     }
 
 
-    export function test() {
-        console.info("test");
-
-        const paths = ["/Users/artem/work/KestrelTechnology/IN/dnsmasq/ch_analysis/src/cache/"];
-
-        let reader: XmlReader = new XmlReader();
-        // reader.readDir(paths[0]);
-        reader.readFunctionsMap(path.dirname(paths[0])).then(
-            funcs => {
-                reader.readDir(paths[0], funcs);
-            }
-        );
-
-    }
 }

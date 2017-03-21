@@ -376,7 +376,7 @@ export function build(graph: tf.graph.SlimGraph, params: HierarchyParams,
   let seriesNames: { [name: string]: string } = {};
   return tf.graph.util
       .runAsyncTask(
-          'Adding nodes', 20,
+          'Adding nodes', 33,
           () => {
             // Get all the possible device names.
             let deviceNames = {};
@@ -390,7 +390,7 @@ export function build(graph: tf.graph.SlimGraph, params: HierarchyParams,
           },
           tracker)
       .then(() => {
-        return tf.graph.util.runAsyncTask('Detect series', 20, () => {
+        return tf.graph.util.runAsyncTask('Detect series', 33, () => {
           if (params.seriesNodeMinSize > 0) {
             groupSeries(
                 h.root, h, seriesNames, params.seriesNodeMinSize,
@@ -399,7 +399,7 @@ export function build(graph: tf.graph.SlimGraph, params: HierarchyParams,
         }, tracker);
       })
       .then(() => {
-        return tf.graph.util.runAsyncTask('Adding edges', 30, () => {
+        return tf.graph.util.runAsyncTask('Adding edges', 34, () => {
           addEdges(h, graph, seriesNames);
         }, tracker);
       })
