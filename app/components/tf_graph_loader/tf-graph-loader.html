@@ -61,14 +61,13 @@ An element which provides a filter parsing for pbtxt to graph output.
 
       ready: function( ) {
           this.set('progress', {
-          value: 0,
-          msg: ''
-        });
+              value: 0,
+              msg: ''
+            });
 
-        var tracker = tf.graph.util.getTracker(this);
 
         var hierarchyParams = {
-          verifyTemplate: true,
+          verifyTemplate: false,
           // If a set of numbered op nodes has at least this number of nodes
           // then group them into a series node.
           seriesNodeMinSize: 6,
@@ -80,8 +79,9 @@ An element which provides a filter parsing for pbtxt to graph output.
         };
 
 
-
         this._setOutHierarchyParams(hierarchyParams);
+
+        var tracker = tf.graph.util.getTracker(this);
         var readDataTracker = tf.graph.util.getSubtaskTracker(tracker, 70, 'Reading Data');
         var graphTracker = tf.graph.util.getSubtaskTracker(tracker, 15, 'Building graph');
         var hierarchyTracker = tf.graph.util.getSubtaskTracker(tracker, 15, 'Namespace hierarchy');
@@ -94,14 +94,12 @@ An element which provides a filter parsing for pbtxt to graph output.
         };
 
 
-
-
-        kt.parser.readAndParse(readDataTracker).then(
+        kt.parser.readAndParse(readDataTracker)
+        .then(
             function(nodes){
                 return tf.graph.build(nodes, buildParams, graphTracker);
             }
         )
-
 
         .then(
             function(graph) {

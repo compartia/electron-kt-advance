@@ -8,7 +8,7 @@ module kt.xml {
     export class XmlReader {
 
 
-        public parseCfileXml(filename: string): Promise<Array<any>> {
+        public parseCfileXml(filename: string): Promise<Array<kt.xml.CFunction>> {
 
             let strict = true;
             let parser = sax.createStream(strict);
@@ -17,7 +17,7 @@ module kt.xml {
 
             let functionsScope: boolean;
 
-            let functions = new Array<any>();
+            let functions = new Array<kt.xml.CFunction>();
 
             let func;
 
@@ -29,18 +29,17 @@ module kt.xml {
 
                     if (functionsScope) {
                         if (tag.name == 'gfun') {
-                            func = {}
+                            func = new kt.xml.CFunction();
                         }
 
                         else if (tag.name == 'svar') {
-                            func = {
-                                "name": tag.attributes["vname"]
-                            }
+                            func = new kt.xml.CFunction();
+                            func.name = tag.attributes["vname"];
                         }
 
                         else if (tag.name == 'loc') {
-                            func["file"] = tag.attributes["file"];
-                            func["line"] = tag.attributes["line"];
+                            func.file = tag.attributes["file"];
+                            func.line = tag.attributes["line"];
                         }
                     }
 
@@ -452,40 +451,50 @@ module kt.xml {
 
 
 
-        public readFunctionsMap(dirName: string, tracker: tf.ProgressTracker): Promise<{ [key: string]: Array<any> }> {
+        public readFunctionsMap(dirName: string, tracker: tf.ProgressTracker): Promise<{ [key: string]: Array<kt.xml.CFunction> }> {
             const bigJobTrackingAddon: number = 80;
             const parser = this;
             let err: number = 0;
-            return parser.readXmls(dirName, "_cfile.xml", parser.parseCfileXml, tracker).then(funcs => {
+
+            return parser.readXmls(dirName, "_cfile.xml", parser.parseCfileXml, tracker)
+                .then(funcs => {
 
 
-                let byNameMap = _.indexBy(funcs, 'name');
-                console.info("total objects: " + funcs.length + " \t\ttotal unique keys: " + Object.keys(byNameMap).length);
-                // console.info(byNameMap);
+                    let byNameMap = _.indexBy(funcs, 'name');
+                    console.info("total functions: " + funcs.length + " \t\ttotal unique keys: " + Object.keys(byNameMap).length);
+                    // console.info(byNameMap);
 
-                let resultingMap: { [key: string]: Array<any> } = {};
+                    let resultingMap: { [key: string]: Array<kt.xml.CFunction> } = {};
 
 
-                for (let f of funcs) {
-                    if (!resultingMap[f.name]) {
-                        resultingMap[f.name] = [];
+                    for (let f of funcs) {
+                        if (!resultingMap[f.name]) {
+                            resultingMap[f.name] = [];
+                        }
+                        resultingMap[f.name].push(f);
+
                     }
-                    resultingMap[f.name].push(f);
 
-                }
-                return resultingMap;
-            });
+                    return resultingMap;
+
+                });
 
         }
 
-        private bindCallsiteFunctions(spos: Array<kt.graph.PONode>, functionsMap: { [key: string]: Array<any> }) {
+        private bindCallsiteFunctions(spos: Array<kt.graph.PONode>, functionsMap: { [key: string]: Array<kt.xml.CFunction> }) {
             for (let spo of spos) {
                 let funcs = functionsMap[spo.callsiteFname];
-                if (funcs.length > 1) {
-                    console.error("ambigous fname");
-                    console.error(funcs);
+                if (funcs) {
+                    if (funcs.length > 1) {
+                        console.error("ambigous fname");
+                        console.error(funcs);
+                    } else {
+                        spo.callsiteFileName = funcs[0].file;
+                    }
                 } else {
-                    spo.callsiteFileName = funcs[0].file;
+                    let m = "source file is unknow for the function name " + spo.callsiteFname;
+                    console.error(m);
+                    // throw m;
                 }
             }
         }
@@ -520,36 +529,40 @@ module kt.xml {
                     })
 
             ]).then(results => {
+                /**
+                executed after ppo,spo,sev,pev files are read.
+                */
 
-                return parser.readXmls(dirName, "_api.xml", parser.parseApiXml, apiTracker).then(apis => {
-                    apiMap = _.indexBy(apis, "key");
+                return parser.readXmls(dirName, "_api.xml", parser.parseApiXml, apiTracker)
+                    .then(apis => {
+                        apiMap = _.indexBy(apis, "key");
 
-                    /**
-                        link assumptions dependencies
-                    */
-                    parser.linkAssumptionsDeps(ppoMap, spoMap, apis);
+                        /**
+                            link assumptions dependencies
+                        */
+                        parser.linkAssumptionsDeps(ppoMap, spoMap, apis);
 
-                    /**
-                        link SPO apis
-                    */
+                        /**
+                            link SPO apis
+                        */
 
-                    parser.linkSpoApis(spoMap, apiMap);
+                        parser.linkSpoApis(spoMap, apiMap);
 
-                    /**
-                        link DISCHARGE apis
-                    */
+                        /**
+                            link DISCHARGE apis
+                        */
 
-                    parser.bindDischargeAssumptions(spoMap, apiMap);
-                    parser.bindDischargeAssumptions(ppoMap, apiMap);
+                        parser.bindDischargeAssumptions(spoMap, apiMap);
+                        parser.bindDischargeAssumptions(ppoMap, apiMap);
 
-                    return {
-                        "spoMap": spoMap,
-                        "ppoMap": ppoMap,
-                        "apiMap": apiMap
-                    }
+                        return {
+                            "spoMap": spoMap,
+                            "ppoMap": ppoMap,
+                            "apiMap": apiMap
+                        }
 
 
-                });
+                    });
 
             }).then(results => {
                 console.info("total SPO unique keys: " + Object.keys(results.spoMap).length);
@@ -629,33 +642,51 @@ module kt.xml {
         The results are joined in the resulting array;
         TODO: might be better to return a map filename->Array<X>
         **/
-        private readXmls<X>(dirName: string, suffixFilter: string, parsingFunc: (filename: string) => Promise<Array<X>>, tracker: tf.ProgressTracker): Promise<Array<X>> {
+        private readXmls<X>(
+            dirName: string,
+            suffixFilter: string,
+            parsingFunc: (filename: string) => Promise<Array<X>>,
+            tracker: tf.ProgressTracker): Promise<Array<X>> {
+
             let parser = this;
 
-            tracker.setMessage("reading *"+suffixFilter+" files");
+            tracker.setMessage("reading *" + suffixFilter + " files");
+
+            let items = fs.readdirSync(dirName);
+
+            let filesToParse = _.filter(items, (v: string) => v.endsWith(suffixFilter));
+            filesToParse = _.map(filesToParse, (x) => path.join(dirName, x));
+
+            return this.parseFiles(filesToParse, parsingFunc, tracker);
+
+        }
+
+
+
+        private parseFiles<X>(
+            items: Array<string>,
+            parsingFunc: (filename: string) => Promise<Array<X>>,
+            tracker: tf.ProgressTracker): Promise<Array<X>> {
+
             return new Promise((resolve, reject) => {
 
-                fs.readdir(dirName, function(err, items) {
+                let pposPromisesArray = new Array<Promise<X[]>>();
 
-                    let pposPromisesArray = new Array<Promise<X[]>>();
+                for (let item of items) {
+                    let obj = parsingFunc(item);
+                    pposPromisesArray.push(obj);
+                }
 
-                    for (let item of items) {
-                        if (item.endsWith(suffixFilter)) {
-                            let func = parsingFunc(path.join(dirName, item));
-                            pposPromisesArray.push(func);
-                        }
-                    }
+                Promise.all(pposPromisesArray).then((arrayOfResults) => {
+                    let flat: Array<X> = _.flatten(arrayOfResults);
 
-                    Promise.all(pposPromisesArray).then((arrayOfResults) => {
-                        let flat: Array<X> = _.flatten(arrayOfResults);
-
-                        console.info("parsed " + arrayOfResults.length + " *" + suffixFilter + "  files, total objects: " + flat.length);
-                        tracker.updateProgress(100);
-                        resolve(flat);
-
-                    });
+                    console.info("parsed " + arrayOfResults.length + "  files, total objects: " + flat.length);
+                    tracker.updateProgress(100);
+                    resolve(flat);
 
                 });
+
+
 
             });
 

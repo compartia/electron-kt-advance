@@ -37,7 +37,11 @@ module kt.xml {
         return op + "(" + a1 + ", " + a2 + ")";
     }
 
-
+    export class CFunction {
+        file: string;
+        line: number;
+        name: string;
+    }
     abstract class XmlTag {
         _tagname: string;
         parent: XmlTag;
@@ -45,7 +49,7 @@ module kt.xml {
 
     export class Symbol {
         type: SymbolType
-        value: String;
+        value: string;
 
         public constructor(type: SymbolType, value: string) {
             this.type = type;
