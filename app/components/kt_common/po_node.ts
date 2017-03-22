@@ -1,4 +1,5 @@
 module kt.graph {
+    const path = require('path');
 
     export enum PoStatesExt { violation, open, discharged, global, invariants, ds, rv, api };
     export enum PoStates { violation, open, discharged, assumption };
@@ -156,6 +157,19 @@ module kt.graph {
         callsiteFileName: string;
         symbol: kt.xml.Symbol;
         private _apiId: string = null;
+
+        get apiFileName(): string {
+            if (this.callsiteFileName && this.callsiteFname) {
+                let dir = path.dirname(this.callsiteFileName);
+                let basename = path.basename(this.callsiteFileName);
+                let ext = path.extname(basename);
+                let filenameTrunc = basename.substring(0, basename.length - ext.length);
+                return path.join(dir, path.join(filenameTrunc, filenameTrunc + "_" + this.callsiteFname));
+            } else {
+                return null;
+            }
+
+        }
 
 
         constructor(po, isMissing: boolean = false) {

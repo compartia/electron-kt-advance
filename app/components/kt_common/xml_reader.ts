@@ -1,7 +1,19 @@
 module kt.xml {
     const fs = require('fs');
     const path = require('path');
-    const sax = require('sax')
+    const sax = require('sax');
+
+    export function getBaseDir(innerDir: string): string {
+        if (!innerDir) return null;
+
+        let desiredDir = path.join(innerDir, "ch_analysis");
+        if (fs.existsSync(desiredDir)) {
+            return desiredDir;
+        } else {
+            return getBaseDir(path.dirname(innerDir));
+        }
+
+    }
 
     export function runParser<X>(parser, filename: string, resultingArray: Array<X>, tracker: tf.ProgressTracker): Promise<Array<X>> {
 
@@ -478,6 +490,21 @@ module kt.xml {
             }
         }
 
+        private listApiFiles(dirName: string, spoMap: { [key: string]: kt.graph.PONode }): Array<string> {
+            const suffixFilter = "_api.xml";
+            let apiFiles = this.listFilesInDir(dirName, suffixFilter);
+
+            let parentDir = getBaseDir(dirName);
+
+            let linkedApiFilenames = _.uniq(_.map(_.values(spoMap), (v: kt.graph.PONode) => v.apiFileName));
+            linkedApiFilenames = _.filter(linkedApiFilenames, v => v != null);
+            linkedApiFilenames = _.map(linkedApiFilenames, (v: string) => path.join(parentDir, v + suffixFilter));
+
+            apiFiles = _.uniq(_.merge(apiFiles, linkedApiFilenames));
+
+            return apiFiles;
+        }
+
         public readDir(dirName: string, functionsMap: { [key: string]: Array<any> }, tracker: tf.ProgressTracker): Promise<any> {
             // this.readPPOs(dirName);
             const parser = this;
@@ -496,7 +523,8 @@ module kt.xml {
                 parser.readXmls(dirName, "_ppo.xml", parser.parsePpoXml, ppoTracker)
                     .then(ppos => {
                         ppoMap = _.indexBy(ppos, "key");
-                        return parser.readAndBindEvFiles(dirName, "_pev.xml", ppoMap, pevTracker);
+                        parser.readAndBindEvFiles(dirName, "_pev.xml", ppoMap, pevTracker);
+                        return ppoMap;
                     }),
 
                 /*[1]*/
@@ -505,14 +533,19 @@ module kt.xml {
                         spoMap = _.indexBy(spos, "key");
                         parser.readAndBindEvFiles(dirName, "_sev.xml", spoMap, sevTracker);
                         parser.bindCallsiteFunctions(spos, functionsMap);
+                        return spoMap;
                     })
 
             ]).then(results => {
+
+
                 /**
                 executed after ppo,spo,sev,pev files are read.
                 */
+                let apiFiles = parser.listApiFiles(dirName, spoMap);
 
-                return parser.readXmls(dirName, "_api.xml", parser.parseApiXml, apiTracker)
+
+                return parser.parseFiles(apiFiles, parser.parseApiXml, apiTracker)
                     .then(apis => {
                         apiMap = _.indexBy(apis, "key");
 
