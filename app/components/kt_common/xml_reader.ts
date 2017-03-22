@@ -3,12 +3,26 @@ module kt.xml {
     const path = require('path');
     const sax = require('sax')
 
+    export function runParser<X>(parser, filename: string, resultingArray: Array<X>, tracker: tf.ProgressTracker): Promise<Array<X>> {
+
+        return new Promise((resolve, reject) => {
+            let stream = fs.createReadStream(filename);
+            stream.pipe(parser);
+
+            stream.on('end', () => {
+                tracker.updateProgress(100);
+                resolve(resultingArray);
+            });
+
+        });
+
+    }
 
 
     export class XmlReader {
 
 
-        public parseCfileXml(filename: string): Promise<Array<kt.xml.CFunction>> {
+        public parseCfileXml(filename: string, tracker: tf.ProgressTracker): Promise<Array<kt.xml.CFunction>> {
 
             let strict = true;
             let parser = sax.createStream(strict);
@@ -59,21 +73,14 @@ module kt.xml {
             }
 
 
-            return new Promise((resolve, reject) => {
-                let stream = fs.createReadStream(filename);
-                stream.pipe(parser);
 
-                stream.on('end', () => {
-                    resolve(functions);
-                });
-
-            });
+            return runParser(parser, filename, functions, tracker);
 
         }
 
 
 
-        public parsePpoXml(filename: string): Promise<Array<kt.graph.PONode>> {
+        public parsePpoXml(filename: string, tracker: tf.ProgressTracker): Promise<Array<kt.graph.PONode>> {
 
             let ppos = new Array<kt.graph.PONode>();
 
@@ -136,21 +143,13 @@ module kt.xml {
             }
 
 
-            return new Promise((resolve, reject) => {
-                let stream = fs.createReadStream(filename);
-                stream.pipe(parser);
-
-                stream.on('end', () => {
-                    resolve(ppos);
-                });
-
-            });
+            return runParser(parser, filename, ppos, tracker);
 
         }
 
 
 
-        public parseSpoXml(filename: string): Promise<Array<kt.graph.PONode>> {
+        public parseSpoXml(filename: string, tracker: tf.ProgressTracker): Promise<Array<kt.graph.PONode>> {
 
 
             let spos = new Array<kt.graph.PONode>();
@@ -236,20 +235,14 @@ module kt.xml {
             }
 
 
-            return new Promise((resolve, reject) => {
-                let stream = fs.createReadStream(filename);
-                stream.pipe(parser);
-                stream.on('end', () => {
-                    resolve(spos);
-                });
 
-            });
+            return runParser(parser, filename, spos, tracker);
 
         }
 
 
 
-        public parsePevXml(filename: string): Promise<Array<kt.graph.PODischarge>> {
+        public parsePevXml(filename: string, tracker: tf.ProgressTracker): Promise<Array<kt.graph.PODischarge>> {
 
             let ppos = new Array<kt.graph.PODischarge>();
 
@@ -314,21 +307,14 @@ module kt.xml {
             }
 
 
-            return new Promise((resolve, reject) => {
-                let stream = fs.createReadStream(filename);
-                stream.pipe(parser);
 
-                stream.on('end', () => {
-                    resolve(ppos);
-                });
-
-            });
+            return runParser(parser, filename, ppos, tracker);
 
         }
 
 
 
-        public parseApiXml(filename: string): Promise<Array<kt.graph.ApiNode>> {
+        public parseApiXml(filename: string, tracker: tf.ProgressTracker): Promise<Array<kt.graph.ApiNode>> {
 
             let ppos = new Array<kt.graph.ApiNode>();
 
@@ -411,18 +397,11 @@ module kt.xml {
                 }
             }
 
-
-            return new Promise((resolve, reject) => {
-                let stream = fs.createReadStream(filename);
-                stream.pipe(parser);
-
-                stream.on('end', () => {
-                    resolve(ppos);
-                });
-
-            });
+            return runParser(parser, filename, ppos, tracker);
 
         }
+
+
 
 
         private readAndBindEvFiles(dirName: string, suffix: string, ppoMap: { [id: string]: kt.graph.PONode }, tracker: tf.ProgressTracker): Promise<any> {
@@ -645,27 +624,31 @@ module kt.xml {
         private readXmls<X>(
             dirName: string,
             suffixFilter: string,
-            parsingFunc: (filename: string) => Promise<Array<X>>,
+            parsingFunc: (filename: string, tracker: tf.ProgressTracker) => Promise<Array<X>>,
             tracker: tf.ProgressTracker): Promise<Array<X>> {
-
-            let parser = this;
 
             tracker.setMessage("reading *" + suffixFilter + " files");
 
+            return this.parseFiles(
+                this.listFilesInDir(dirName, suffixFilter),
+                parsingFunc,
+                tracker);
+
+        }
+
+        private listFilesInDir(dirName: string,
+            suffixFilter: string): Array<string> {
             let items = fs.readdirSync(dirName);
 
             let filesToParse = _.filter(items, (v: string) => v.endsWith(suffixFilter));
-            filesToParse = _.map(filesToParse, (x) => path.join(dirName, x));
-
-            return this.parseFiles(filesToParse, parsingFunc, tracker);
-
+            return _.map(filesToParse, (x) => path.join(dirName, x));
         }
 
 
 
         private parseFiles<X>(
             items: Array<string>,
-            parsingFunc: (filename: string) => Promise<Array<X>>,
+            parsingFunc: (filename: string, tracker: tf.ProgressTracker) => Promise<Array<X>>,
             tracker: tf.ProgressTracker): Promise<Array<X>> {
 
             return new Promise((resolve, reject) => {
@@ -673,7 +656,8 @@ module kt.xml {
                 let pposPromisesArray = new Array<Promise<X[]>>();
 
                 for (let item of items) {
-                    let obj = parsingFunc(item);
+                    let subTracker = tf.graph.util.getSubtaskTracker(tracker, 100.0001 / items.length, item);
+                    let obj = parsingFunc(item, subTracker);
                     pposPromisesArray.push(obj);
                 }
 
@@ -681,7 +665,7 @@ module kt.xml {
                     let flat: Array<X> = _.flatten(arrayOfResults);
 
                     console.info("parsed " + arrayOfResults.length + "  files, total objects: " + flat.length);
-                    tracker.updateProgress(100);
+
                     resolve(flat);
 
                 });
