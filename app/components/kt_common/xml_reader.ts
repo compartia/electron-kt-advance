@@ -500,7 +500,7 @@ module kt.xml {
             linkedApiFilenames = _.filter(linkedApiFilenames, v => v != null);
             linkedApiFilenames = _.map(linkedApiFilenames, (v: string) => path.join(parentDir, v + suffixFilter));
 
-            apiFiles = _.uniq(_.merge(apiFiles, linkedApiFilenames));
+            apiFiles = _.uniq(apiFiles.concat(linkedApiFilenames));
 
             return apiFiles;
         }
@@ -599,7 +599,7 @@ module kt.xml {
                         po = spoMap[refKey];
                     }
                     if (!po) {
-                        console.error("api-assumption " + api.key + " refers missing(or discharged) PO " + refKey);
+                        console.warn("api-assumption " + api.key + " refers missing(or discharged) PO " + refKey);
                     } else {
                         po.addOutput(api);
                         api.addInput(po);
