@@ -21,6 +21,13 @@ module kt.xml {
             let stream = fs.createReadStream(filename);
             stream.pipe(parser);
 
+
+            stream.on('error', (e) => {
+                tracker.updateProgress(100);
+                console.error(e);
+                resolve([]);
+            });
+
             stream.on('end', () => {
                 tracker.updateProgress(100);
                 resolve(resultingArray);
