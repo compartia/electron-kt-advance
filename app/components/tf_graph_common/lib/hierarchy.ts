@@ -27,7 +27,6 @@ export interface Edges {
 
 export interface Hierarchy {
   root: Metanode;
-  templates: {[templateId: string]: string[]};
   /** List of all device names */
   devices: string[];
   /** True if at least one tensor in the graph has shape information */
@@ -41,7 +40,6 @@ export interface Hierarchy {
   getPredecessors(nodeName: string): Edges;
   getSuccessors(nodeName: string): Edges;
   getTopologicalOrdering(nodeName: string): { [childName: string]: number };
-  getTemplateIndex(): (string) => number;
 }
 
 /**
@@ -49,7 +47,6 @@ export interface Hierarchy {
  */
 class HierarchyImpl implements Hierarchy {
   root: Metanode;
-  templates: {[templateId: string]: string[]};
   private index: {[nodeName: string]: GroupNode|OpNode};
   devices: string[];
   hasShapeInfo = false;
@@ -58,7 +55,6 @@ class HierarchyImpl implements Hierarchy {
 
   constructor() {
     this.root = createMetanode(ROOT_NAME, {compound: true});
-    this.templates = null;
     this.devices = null;
     /**
      * @type {Object} Dictionary object that maps node name to the node
@@ -198,7 +194,6 @@ class HierarchyImpl implements Hierarchy {
             metaedge.addBaseEdge(
                 {
                   isControlDependency: input.isControlDependency,
-                  outputTensorIndex: input.outputTensorIndex,
                   isReferenceEdge: false,
                   v: embeddedNode.name,
                   w: nodeName
@@ -237,7 +232,6 @@ class HierarchyImpl implements Hierarchy {
             metaedge.addBaseEdge(
                 {
                   isControlDependency: input.isControlDependency,
-                  outputTensorIndex: input.outputTensorIndex,
                   isReferenceEdge: false,
                   v: nodeName,
                   w: embeddedNode.name
@@ -340,17 +334,6 @@ class HierarchyImpl implements Hierarchy {
     return ordering;
   }
 
-  /**
-   * Returns a d3 Ordinal function that can be used to look up the index of
-   * a node based on its template id.
-   */
-  getTemplateIndex(): (string) => number {
-    let templateNames = d3.keys(this.templates);
-    let templateIndex = d3.scale.ordinal()
-        .domain(templateNames)
-        .range(d3.range(0, templateNames.length));
-    return (templateId: string) => <number>templateIndex(templateId);
-  }
 }
 
 /**
@@ -393,7 +376,7 @@ export function build(graph: tf.graph.SlimGraph, params: HierarchyParams,
   let seriesNames: { [name: string]: string } = {};
   return tf.graph.util
       .runAsyncTask(
-          'Adding nodes', 20,
+          'Adding nodes', 33,
           () => {
             // Get all the possible device names.
             let deviceNames = {};
@@ -407,7 +390,7 @@ export function build(graph: tf.graph.SlimGraph, params: HierarchyParams,
           },
           tracker)
       .then(() => {
-        return tf.graph.util.runAsyncTask('Detect series', 20, () => {
+        return tf.graph.util.runAsyncTask('Detect series', 33, () => {
           if (params.seriesNodeMinSize > 0) {
             groupSeries(
                 h.root, h, seriesNames, params.seriesNodeMinSize,
@@ -416,15 +399,9 @@ export function build(graph: tf.graph.SlimGraph, params: HierarchyParams,
         }, tracker);
       })
       .then(() => {
-        return tf.graph.util.runAsyncTask('Adding edges', 30, () => {
+        return tf.graph.util.runAsyncTask('Adding edges', 34, () => {
           addEdges(h, graph, seriesNames);
         }, tracker);
-      })
-      .then(() => {
-        return tf.graph.util.runAsyncTask(
-            'Finding similar subgraphs', 30, () => {
-              h.templates = template.detect(h, params.verifyTemplate);
-            }, tracker);
       })
       .then(() => { return h; });
 };

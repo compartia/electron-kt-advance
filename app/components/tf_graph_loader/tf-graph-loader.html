@@ -22,107 +22,103 @@ An element which provides a filter parsing for pbtxt to graph output.
 <dom-module id="tf-graph-loader">
 </dom-module>
 
-<script>
-Polymer({
+    <script>
+    Polymer({
 
-  is: 'tf-graph-loader',
+      is: 'tf-graph-loader',
 
-  properties: {
+      properties: {
 
-    progress: {
-      type: Object,
-      notify: true,
+        progress: {
+          type: Object,
+          notify: true,
+        },
+
+        outGraphHierarchy: {
+          type: Object,
+          readOnly: true, //readonly so outsider can't change this via binding
+          notify: true
+        },
+
+        outGraph: {
+          type: Object,
+          readOnly: true, //readonly so outsider can't change this via binding
+          notify: true
+        },
+
+        outHierarchyParams: {
+          type: Object,
+          readOnly: true,
+          notify: true
+        },
+
+        outStats: {
+          type: Object,
+          readOnly: true, // This property produces data.
+          notify: true
+      }
     },
 
-    outGraphHierarchy: {
-      type: Object,
-      readOnly: true, //readonly so outsider can't change this via binding
-      notify: true
-    },
-
-    outGraph: {
-      type: Object,
-      readOnly: true, //readonly so outsider can't change this via binding
-      notify: true
-    },
-
-    outHierarchyParams: {
-      type: Object,
-      readOnly: true,
-      notify: true
-    },
-
-    outStats: {
-      type: Object,
-      readOnly: true, // This property produces data.
-      notify: true
-  }
-},
-
-  ready: function( ) {
-      this.set('progress', {
-      value: 0,
-      msg: ''
-    });
-
-    var tracker = tf.graph.util.getTracker(this);
-
-    var hierarchyParams = {
-      verifyTemplate: true,
-      // If a set of numbered op nodes has at least this number of nodes
-      // then group them into a series node.
-      seriesNodeMinSize: 6,
-      // A map of series node names to series grouping settings, to indicate
-      // if a series is to be rendered as grouped or ungrouped.
-      // Starts out empty which allows the renderer to decide which series
-      // are initially rendered grouped and which aren't.
-      seriesMap: {},
-    };
+      ready: function( ) {
+          this.set('progress', {
+              value: 0,
+              msg: ''
+            });
 
 
-    this._setOutHierarchyParams(hierarchyParams);
-    var dataTracker = tf.graph.util.getSubtaskTracker(tracker, 30, 'Data');
-    var nodes = kt.parser.readAndParse();
+        var hierarchyParams = {
+          verifyTemplate: false,
+          // If a set of numbered op nodes has at least this number of nodes
+          // then group them into a series node.
+          seriesNodeMinSize: 6,
+          // A map of series node names to series grouping settings, to indicate
+          // if a series is to be rendered as grouped or ungrouped.
+          // Starts out empty which allows the renderer to decide which series
+          // are initially rendered grouped and which aren't.
+          seriesMap: {},
+        };
 
 
-    var refEdges = {};
+        this._setOutHierarchyParams(hierarchyParams);
 
-    var buildParams = {
-        enableEmbedding: false,
-        inEmbeddingTypes: [],
-        outEmbeddingTypes: [],
-        //outEmbeddingTypes: ['^[a-zA-Z]+Summary$'],
-        refEdges: refEdges
-    };
+        var tracker = tf.graph.util.getTracker(this);
+        var readDataTracker = tf.graph.util.getSubtaskTracker(tracker, 70, 'Reading Data');
+        var graphTracker = tf.graph.util.getSubtaskTracker(tracker, 15, 'Building graph');
+        var hierarchyTracker = tf.graph.util.getSubtaskTracker(tracker, 15, 'Namespace hierarchy');
 
-    var graphTracker = tf.graph.util.getTracker(
-        {
-            set: function() { return; },
-            progress: 0
-        }
-    );
+        var buildParams = {
+            enableEmbedding: false,
+            inEmbeddingTypes: [],
+            outEmbeddingTypes: [],
+            refEdges: {}
+        };
 
-    //var graphTracker = tf.graph.util.getSubtaskTracker(tracker, 20, 'Graph');
 
-    tf.graph.build(nodes, buildParams, graphTracker)
+        kt.parser.readAndParse(readDataTracker)
         .then(
-        function(graph) {
-          this._setOutGraph(graph);
-          var hierarchyTracker = tf.graph.util.getSubtaskTracker(tracker, 50, 'Namespace hierarchy');
+            function(nodes){
+                return tf.graph.build(nodes, buildParams, graphTracker);
+            }
+        )
 
-          return tf.graph.hierarchy.build(graph, hierarchyParams, hierarchyTracker);
+        .then(
+            function(graph) {
+              this._setOutGraph(graph);
 
-        }.bind(this))
-            .then(function(graphHierarchy) {
-              // Update the properties which notify the parent with the
-              // graph hierarchy and whether the data has live stats or not.
-              this._setOutGraphHierarchy(graphHierarchy);
+
+              return tf.graph.hierarchy.build(graph, hierarchyParams, hierarchyTracker);
+
             }.bind(this))
-    .catch(function(e) {
-      // Generic error catch, for errors that happened outside
-      // asynchronous tasks.
-      tracker.reportError("Graph visualization failed: " + e, e);
+                .then(function(graphHierarchy) {
+                  // Update the properties which notify the parent with the
+                  // graph hierarchy and whether the data has live stats or not.
+                  this._setOutGraphHierarchy(graphHierarchy);
+                }.bind(this))
+        .catch(function(e) {
+          // Generic error catch, for errors that happened outside
+          // asynchronous tasks.
+          tracker.reportError("Graph visualization failed: " + e, e);
+        });
+      }
     });
-  }
-});
-</script>
+    </script>
