@@ -46,6 +46,7 @@ $side-bg-2: mix($side-bg, $base-bg, 85%);
     --kt-side-bg:$side-bg;
     --kt-side-bg-2:$side-bg-2;
     --kt-main-bg:$main-bg;
+    --kt-main-bg-t80: fade( $main-bg, 10%);
 
     --paper-tree-selected-background-color: $side-bg-2;
 

@@ -450,7 +450,6 @@ module kt.xml {
 
 
         public readFunctionsMap(dirName: string, tracker: tf.ProgressTracker): Promise<{ [key: string]: Array<kt.xml.CFunction> }> {
-            const bigJobTrackingAddon: number = 80;
             const parser = this;
             let err: number = 0;
 
@@ -685,12 +684,12 @@ module kt.xml {
 
         }
 
-        private listFilesInDir(dirName: string,
+        private listFilesInDir(
+            dirName: string,
             suffixFilter: string): Array<string> {
-            let items = fs.readdirSync(dirName);
 
-            let filesToParse = _.filter(items, (v: string) => v.endsWith(suffixFilter));
-            return _.map(filesToParse, (x) => path.join(dirName, x));
+            let filesToParse = kt.fs.listFilesRecursively(dirName, suffixFilter);
+            return filesToParse;
         }
 
 

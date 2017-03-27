@@ -1,10 +1,12 @@
 <dom-module id="functions-list">
     <template>
-        <div>
+
+        <div class="container">
             <template is="dom-repeat" items="{{functions}}">
-                <div class="item">{{item.name}}</div>
+                <div class="item" on-click="_clickListener">{{item.name}}</div>
             </template>
         </div>
+
     </template>
 </dom-module>
 
@@ -37,6 +39,11 @@
                 return [];
             }
 
+        },
+
+        _clickListener: function(row) {
+            console.log('You pressed button ' + row.model.item.name);
+            // this.toggleClass("selected", true, row);
         }
 
 

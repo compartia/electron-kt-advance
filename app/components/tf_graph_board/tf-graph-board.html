@@ -71,29 +71,6 @@ Example
           height: 100%;
         }
 
-        #progress-bar {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          width: 100%;
-          position: absolute;
-          top: 40px;
-          left: 0;
-          font-size: 12px;
-        }
-
-        #progress-msg {
-          width: 600px;
-          margin-bottom: 5px;
-        }
-
-        paper-progress {
-          width: 600px;
-          --paper-progress-height: 6px;
-          --paper-progress-active-color: var(--kt-progress);
-        }
-
         .context-menu {
           position: absolute;
           display: none;
@@ -121,12 +98,12 @@ Example
         }
     </style>
 
-<template is="dom-if" if="[[_isNotComplete(progress)]]">
+<!-- <template is="dom-if" if="[[_isNotComplete(progress)]]">
   <div id="progress-bar">
     <div id="progress-msg">[[progress.msg]]</div>
     <paper-progress value="[[progress.value]]"></paper-progress>
   </div>
-</template>
+</template> -->
 
 <div class$="[[_getContainerClass(progress)]]">
   <div id="main">
