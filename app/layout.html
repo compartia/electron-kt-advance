@@ -1,0 +1,222 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+
+<link rel="import" href="../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../bower_components/paper-toolbar/paper-toolbar.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/paper-header-panel/paper-header-panel.html">
+
+<link rel="import" href="../bower_components/vaadin-split-layout/vaadin-split-layout.html">
+
+<link rel="import" href="assumptions-graph.html">
+<link rel="import" href="components/kt_tree/paper-tree.html">
+<link rel="import" href="components/kt_tree/functions-list.html">
+
+
+<dom-module id="kt-layout">
+    <template>
+
+        <vaadin-split-layout class="splitter-1">
+
+            <div style="width:15%">
+
+
+                <paper-scroll-header-panel class="flex" condenses >
+                    <paper-toolbar >
+                        <paper-icon-button icon="menu"></paper-icon-button>
+                    </paper-toolbar>
+
+                    <paper-tree  style="width:50%" id="treeview" selected-file="{{_selectedFile}}"></paper-tree>
+
+                </paper-scroll-header-panel>
+
+            </div>
+
+            <div style="width:85%">
+
+                <vaadin-split-layout  class="splitter-2">
+                    <functions-list  style="width:20%" id="functions" selected-file="{{_selectedFile}}"></functions-list>
+
+                    <div  style="width:80%" >
+                        <!-- <app-header> -->
+                        <paper-toolbar id="toolbar">
+                            <paper-tabs selected="{{modeIndex}}" class="tabs" id="tabs">
+                                <template is="dom-repeat" items="[[tabs]]">
+                                    <template is="dom-if" if="[[_isTabEnabled(item)]]">
+                                        <paper-tab data-mode="[[item]]">[[item]]</paper-tab>
+                                    </template>
+                                </template>
+                            </paper-tabs>
+
+                            <div class="global-actions">
+                                <paper-icon-button icon="settings" on-tap="openSettings" id="settings-button"></paper-icon-button>
+                            </div>
+                        </paper-toolbar>
+
+                        <!-- </app-header> -->
+
+                        <div id="content" class="fit">
+                            <content id="injected-overview"></content>
+                            <template is="dom-if" if="[[_modeIsSource(mode)]]">
+                                <div>source</div>
+                            </template>
+
+                            <template is="dom-if" if="[[_modeIsGraphs(mode)]]">
+                                <assumptions-graph id="graphs"></assumptions-graph>
+                            </template>
+                        </div>
+                    </div>
+
+                </vaadin-split-layout >
+
+            </div>
+        </vaadin-split-layout>
+
+        <style>
+            vaadin-split-layout {
+                height: 100%;
+            }
+
+            --paper-scroll-header-panel-condensed-header: {
+                background-color: var(--paper-light-blue-600);
+            };
+            :host {
+
+                height: 100%;
+                display: block;
+                background-color: var(--kt-grey-80);
+
+                --paper-tabs-selection-bar-color: var(--kt-violet);
+                --paper-tab-ink: var(--kt-text-color);
+                --paper-toolbar-color: var(--kt-text-color, black);
+            }
+
+            #toolbar {
+                background-color: var(--kt-grey-lighter);
+                -webkit-font-smoothing: antialiased;
+            }
+
+            .toolbar-title {
+                font-size: 20px;
+                margin-left: 10px;
+                text-rendering: optimizeLegibility;
+                letter-spacing: -0.025em;
+                font-weight: 500;
+                flex-grow: 2;
+                display: var(--tb-toolbar-title-display, block);
+            }
+
+            .tabs {
+                flex-grow: 1;
+                text-transform: uppercase;
+                height: 100%;
+            }
+
+            paper-tabs {}
+
+            .splitter-1,
+            .splitter-2 {
+                --vaadin-split-layout-splitter: {
+                    min-width      : 2px;
+                    min-height     : 1px;
+                    background     : var(--paper-tree-selected-background-color);
+                    border         : solid 5px none;
+                    background-clip: content-box;
+                    fill           : var(--paper-tree-selected-background-color);
+                }
+            }
+
+            .global-actions {
+                flex-grow: 2;
+                display: inline-flex;
+                /* Ensure that icons stay aligned */
+                justify-content: flex-end;
+                text-align: right;
+                color: var(--kt-text-color);
+            }
+
+            .global-actions a {
+                color: var(--kt-text-color);
+            }
+
+            #toolbar-content {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            #content {
+                height: 100%;
+            }
+
+            [disabled] {
+                opacity: 0.2;
+                color: var(--kt-text-color);
+            }
+
+        </style>
+    </template>
+    <script>
+        Polymer({
+            is: "kt-layout",
+            properties: {
+
+                // Which tab is selected (stats, graph,  etc).
+                mode: {
+                    type: String,
+                    computed: '_getModeFromIndex(modeIndex)',
+                    notify: true
+                },
+
+                _selectedFile: Object,
+
+                tabs: {
+                    type: Array,
+                    readOnly: true,
+                    value: kt.Globals.TABS
+                },
+
+                disabledTabs: String
+            },
+
+            _isTabEnabled: function(tab) {
+                if (this.disabledTabs != null && this.disabledTabs.split(',').indexOf(tab) >= 0) {
+                    return false;
+                }
+                return true;
+            },
+
+            _getModeFromIndex: function(modeIndex) {
+                var mode = this.tabs[modeIndex];
+                return mode;
+            },
+
+            _modeIsSource: function(mode) {
+                return mode === "source";
+            },
+            _modeIsGraphs: function(mode) {
+                return mode === "graphs";
+            },
+
+            selectedDashboard: function() {
+                var dashboard = this.$$("#" + this.mode);
+                if (dashboard == null) {
+                    throw new Error(`Unable to find dashboard for mode: ${this.mode}`);
+                }
+                return dashboard;
+            },
+
+            ready: function() {
+                var treeViewContainer = this.$$("#treeview");
+                kt.treeview.build(treeViewContainer);
+
+            }
+        });
+    </script>
+
+</dom-module>

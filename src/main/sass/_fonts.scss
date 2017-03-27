@@ -6,4 +6,5 @@ $font-size-xs: $font-size-sm*0.9;
 $font-size-xl: $font-size-lg*1.2;
 
 $font-smaler: 80%;
-$font-code:  300 80% 'Liberation Mono', Courier;
+$monospaced: 'Liberation Mono', Courier;
+$font-code:  300 80% $monospaced;

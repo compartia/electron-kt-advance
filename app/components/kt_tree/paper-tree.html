@@ -1,4 +1,3 @@
-<link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="paper-tree-node.html">
 
 <!--
@@ -23,7 +22,7 @@ Example:
 
 </dom-module>
 
-<script>
+    <script>
 
     Polymer({
 
@@ -53,6 +52,13 @@ Example:
              * `selected` is the current selected `<paper-tree-node>` in the tree.
              */
             selected: {
+                type: Object,
+                value: null,
+                notify: true
+            },
+
+
+            selectedFile: {
                 type: Object,
                 value: null,
                 notify: true
@@ -105,8 +111,10 @@ Example:
             // Only selects `<paper-tree-node>`.
             if (e.detail && e.detail.tagName === 'PAPER-TREE-NODE') {
                 this.selected = e.detail;
+                this.selectedFile = e.detail.data;
                 this.toggleClass("selected", true, this.selected);
             } else {
+                this.selectedFile = null;
                 this.selected = null;
             }
         }

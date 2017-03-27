@@ -1,0 +1,27 @@
+@import "_fonts";
+@import "_colors";
+
+$paper-tree-icon-width: 16px;
+$browser-font-size: 11px;
+
+:root {
+    --paper-tree-icon-width: $paper-tree-icon-width;
+    --browser-font-size    : $browser-font-size;
+}
+
+.paper-tree {
+    .paper-tree-node {
+        font-family: $monospaced;
+        color      : var(--kt-text-color);
+        font-size  : var(--browser-font-size);
+    }
+}
+
+.functions-list {
+    .item {
+        padding  : ($paper-tree-icon-width - $browser-font-size)/2;
+        font-family: $monospaced;
+        color    : var(--kt-text-color);
+        font-size: var(--browser-font-size);
+    }
+}

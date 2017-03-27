@@ -8,6 +8,7 @@ $yellow: $color-brand-1 ;
 $green: lighten(mix($yellow, #6DF0B9, 22%), 6%);
 $ian_gillan: $color-brand-2;
 $blue: #4397CE;
+$base-bg:mix($ian_gillan, $blue, 40%);
 
 
 
@@ -32,7 +33,24 @@ $po-discharged-bg: lighten($po-discharged, 65%);
 $po-level-secondary:lighten($grey, 35%);
 $po-level-primary:lighten($po-level-secondary,10%);
 
+$selection-1: desaturate(lighten($blue, 40%), 40%);
+
+$main-bg: lighten($base-bg, 50%);
+$side-bg: mix($base-bg, $main-bg, 5%);
+$side-bg-2: mix($side-bg, $base-bg, 85%);
+
+
+
 :root{
+
+    --kt-side-bg:$side-bg;
+    --kt-side-bg-2:$side-bg-2;
+    --kt-main-bg:$main-bg;
+
+    --paper-tree-selected-background-color: $side-bg-2;
+
+    /* == = = == =  = = = = = */
+
     --kt-red: $red;
     --kt-green: $green;
     --kt-yellow: $yellow;
@@ -47,6 +65,7 @@ $po-level-primary:lighten($po-level-secondary,10%);
 
     --kt-grey: $grey;
     --kt-grey-dark: darken($grey, 20%);
+    --kt-text-color: darken($grey, 20%);
     --kt-grey-light:lighten($grey,30%);
     --kt-grey-lighter:lighten($grey, 50%);
 
@@ -76,4 +95,6 @@ $po-level-primary:lighten($po-level-secondary,10%);
 
     --kt-hover: lighten(desaturate($ian_gillan, 30%), 55%);
     --kt-progress: $color-brand-2;
+
+    /* =========== */
 }

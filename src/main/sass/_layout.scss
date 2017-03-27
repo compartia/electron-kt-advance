@@ -1,0 +1,25 @@
+@import "_fonts";
+@import "_colors";
+
+
+kt-layout {
+    background: $main-bg;
+
+    #functions,
+    #treeview {
+        width: 50%;
+    }
+
+    #treeview {
+        background: $side-bg;
+    }
+
+    #functions {
+        background: $side-bg-2;
+    }
+
+    .splitter-1 paper-toolbar{
+        background: mix($side-bg-2, $side-bg, 50%);
+    }
+
+}

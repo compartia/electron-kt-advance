@@ -1,0 +1,44 @@
+<dom-module id="functions-list">
+    <template>
+        <div>
+            <template is="dom-repeat" items="{{functions}}">
+                <div class="item">{{item.name}}</div>
+            </template>
+        </div>
+    </template>
+</dom-module>
+
+    <script>
+    Polymer({
+        is: 'functions-list',
+
+        properties: {
+            selectedFile: {
+                type: Object,
+                observer: "_selectedFileChanged"
+            },
+
+            functions: {
+                type: Array,
+                computed: '_getFunctionsByFile(selectedFile)',
+            }
+        },
+
+        _selectedFileChanged: function(e) {
+            // console.error(e);
+        },
+
+        _getFunctionsByFile: function(file) {
+            console.info(file);
+            if(file && file.relativePath){
+                return kt.Globals.project.functionByFile[file.relativePath];
+            }
+            else{
+                return [];
+            }
+
+        }
+
+
+    });
+</script>

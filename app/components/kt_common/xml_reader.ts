@@ -455,8 +455,17 @@ module kt.xml {
             let err: number = 0;
 
             return parser.readXmls(dirName, "_cfile.xml", parser.parseCfileXml, tracker)
-                .then(funcs => {
+                .then((funcs: kt.xml.CFunction[]) => {
 
+                    let functionByFile = {};
+                    for (let f of funcs) {
+                        if (!functionByFile[f.file]) {
+                            functionByFile[f.file] = [];
+                        }
+                        functionByFile[f.file].push(f);
+                    }
+
+                    kt.Globals.project.functionByFile = functionByFile;
 
                     let byNameMap = _.indexBy(funcs, 'name');
                     console.info("total functions: " + funcs.length + " \t\ttotal unique keys: " + Object.keys(byNameMap).length);
