@@ -33,7 +33,6 @@ module kt.parser {
     export function readAndParse(tracker: tf.ProgressTracker): Promise<Array<tf.graph.proto.NodeDef>> {
         console.info("test");
 
-        const paths = ["/Users/artem/work/KestrelTechnology/IN/dnsmasq/ch_analysis/src/cache/"];
 
         let reader: kt.xml.XmlReader = new kt.xml.XmlReader();
 
@@ -42,9 +41,10 @@ module kt.parser {
         const readFunctionsMapTracker = tf.graph.util.getSubtaskTracker(tracker, 10, 'reading functions map (*._cfile.xml)');
         const readDirTracker = tf.graph.util.getSubtaskTracker(tracker, 90, 'Reading Proof Oblications data');
 
-        return reader.readFunctionsMap(path.dirname(paths[0]), readFunctionsMapTracker).then(
+
+        return reader.readFunctionsMap(path.dirname(kt.Globals.project.analysisDir), readFunctionsMapTracker).then(
             funcsMap => {
-                let result = reader.readDir(paths[0], funcsMap, readDirTracker);
+                let result = reader.readDir(kt.Globals.project.analysisDir, funcsMap, readDirTracker);
                 return result;
             }
         ).then(POs => {

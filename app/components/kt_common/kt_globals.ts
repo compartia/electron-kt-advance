@@ -9,8 +9,7 @@ module kt.Globals {
         'summary', 'source', 'proof obligations', 'assumptions', 'graphs'
     ];
 
-    export var CWD: string = null;
-
+ 
     export class Project {
         functionByFile: { [key: string]: Array<kt.xml.CFunction> } = {};
         baseDir: string;
