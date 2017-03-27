@@ -6,7 +6,7 @@ module kt.treeview {
 
 
     export function build(container): void {
-        let root = tree('/Users/artem/work/KestrelTechnology/IN/dnsmasq/');
+        let root = tree(kt.Globals.project.baseDir);
 
         container.data = root;
 
