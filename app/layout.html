@@ -108,8 +108,8 @@
             --paper-scroll-header-panel-condensed-header: {
                 background-color: var(--paper-light-blue-600);
             };
-            :host {
 
+            :host {
                 height: 100%;
                 display: block;
                 background-color: var(--kt-grey-80);
@@ -145,12 +145,23 @@
             .splitter-1,
             .splitter-2 {
                 --vaadin-split-layout-splitter: {
-                    min-width: 2px;
+                    min-width: 1px;
                     min-height: 1px;
-                    background: var(--paper-tree-selected-background-color);
-                    border: solid 5px none;
+                    border: solid 4px none;
                     background-clip: content-box;
+                }
+            }
+            .splitter-1{
+                --vaadin-split-layout-splitter: {
+                    background: var(--paper-tree-selected-background-color);
                     fill: var(--paper-tree-selected-background-color);
+                }
+            }
+
+            .splitter-2{
+                --vaadin-split-layout-splitter: {
+                    fill: var(--kt-main-bg);
+                    background: var(--kt-main-bg);
                 }
             }
 

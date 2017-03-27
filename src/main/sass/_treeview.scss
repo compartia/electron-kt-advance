@@ -21,10 +21,16 @@ $browser-font-size: 11px;
     .container{
         overflow: scroll;
     }
+
     .item {
-        padding  : ($paper-tree-icon-width - $browser-font-size)/2;
+        padding  : ($paper-tree-icon-width - $browser-font-size);
+        margin-left: 6px;
         font-family: $monospaced;
         color    : var(--kt-text-color);
         font-size: var(--browser-font-size);
+    }
+
+    .item.selected{
+        background: var(--kt-main-bg);
     }
 }
