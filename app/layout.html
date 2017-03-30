@@ -27,7 +27,7 @@
 
         <template is="dom-if" if="[[_isNotComplete(progress)]]">
             <div id="progress-msg" class="toast">[[progress.msg]]</div>
-            
+
         </template>
 
         <vaadin-split-layout class="splitter-1">
@@ -76,7 +76,7 @@
                             </template>
 
                             <template is="dom-if" if="[[_modeIsGraphs(mode)]]">
-                                <assumptions-graph id="graphs" progress="{{progress}}"></assumptions-graph>
+                                <assumptions-graph id="graphs" progress="{{progress}}" current-project="[[currentProject]]"></assumptions-graph>
                             </template>
                         </div>
                     </div>
@@ -219,6 +219,11 @@
                     notify: true
                 },
 
+                currentProject: {
+                    type: Object,
+                    notify: true
+                },
+
                 disabledTabs: String
             },
 
@@ -272,6 +277,7 @@
                 if (promise) {
                     promise.then(function(x) {
                         kt.treeview.build(treeViewContainer);
+                        _self.set("currentProject", kt.Globals.project);
                         _self._selectedFile = null;
                         _self.set('modeIndex', 0);
                         _self.set('progress', {

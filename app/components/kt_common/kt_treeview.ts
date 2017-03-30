@@ -15,8 +15,6 @@ module kt.treeview {
     }
 
 
-
-
     export function tree(dir) {
         console.info("iterating " + dir);
         let tree = {
