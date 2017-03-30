@@ -7,7 +7,6 @@ var layout = require('./components/tf_graph_common/lib/layout');
 
 function initApp(): void {
     console.info("init app");
-    kt.Globals.CWD = "/Users/artem/work/KestrelTechnology/IN/dnsmasq/ch_analysis/src/cache";
 }
 
 
