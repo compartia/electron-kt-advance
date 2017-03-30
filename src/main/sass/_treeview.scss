@@ -15,6 +15,10 @@ $browser-font-size: 11px;
         color      : var(--kt-text-color);
         font-size  : var(--browser-font-size);
     }
+
+    .container{
+        overflow: scroll;
+    }
 }
 
 .functions-list {
