@@ -9,7 +9,7 @@ module kt.Globals {
         'summary', 'source', 'proof obligations', 'assumptions', 'graphs'
     ];
 
- 
+
     export class Project {
         functionByFile: { [key: string]: Array<kt.xml.CFunction> } = {};
         baseDir: string;
@@ -26,7 +26,6 @@ module kt.Globals {
             console.info("opening new project:" + baseDir);
 
 
-
             let reader: kt.xml.XmlReader = new kt.xml.XmlReader();
             tracker.setMessage("reading XML data");
 
@@ -36,6 +35,14 @@ module kt.Globals {
         }
     }
 
+    export function openNewProject(tracker: tf.ProgressTracker): Promise<{ [key: string]: Array<kt.xml.CFunction> }> {
+        let dir = kt.fs.selectDirectory();
+        if (dir && dir.length > 0) {
+            return project.open(dir[0], tracker);
+        }else{
+            return null;
+        }
+    }
 
 
     export var project: Project = new Project(null);

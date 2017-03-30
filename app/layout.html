@@ -38,18 +38,11 @@
 
             <div style="width:15%">
 
-
-
-                <paper-scroll-header-panel class="flex" condenses>
                     <paper-toolbar >
-                        <paper-icon-button icon="menu"></paper-icon-button>
-
+                        <paper-icon-button icon="menu" on-tap="openProject" ></paper-icon-button>
                     </paper-toolbar>
 
                     <paper-tree style="width:50%" id="treeview" selected-file="{{_selectedFile}}"></paper-tree>
-
-                </paper-scroll-header-panel>
-
             </div>
 
             <div style="width:85%">
@@ -96,7 +89,7 @@
 
         <style>
             vaadin-split-layout {
-                height: 100%;
+
             }
 
             paper-progress {
@@ -105,9 +98,6 @@
               --paper-progress-active-color: var(--kt-progress);
             }
 
-            --paper-scroll-header-panel-condensed-header: {
-                background-color: var(--paper-light-blue-600);
-            };
 
             :host {
                 height: 100%;
@@ -150,19 +140,29 @@
                     border: solid 4px none;
                     background-clip: content-box;
                 }
+
+
             }
             .splitter-1{
                 --vaadin-split-layout-splitter: {
                     background: var(--paper-tree-selected-background-color);
                     fill: var(--paper-tree-selected-background-color);
-                }
+                };
+
+                position: absolute;
+                top: 4px;
+                left: 0;
+                bottom: 0;
+                right: 0;
             }
 
             .splitter-2{
                 --vaadin-split-layout-splitter: {
                     fill: var(--kt-main-bg);
                     background: var(--kt-main-bg);
-                }
+                };
+
+                height:100%;
             }
 
             .global-actions {
@@ -253,7 +253,7 @@
                 return dashboard;
             },
 
-            ready: function() {
+            openProject: function () {
                 var _self=this;
                 _self.set('progress', {
                     value: 0,
@@ -262,14 +262,38 @@
 
                 var tracker = tf.graph.util.getTracker(this);
                 var treeViewContainer = this.$$("#treeview");
+                var promise = kt.Globals.openNewProject(tracker);
 
-                kt.Globals.project.open('/Users/artem/work/KestrelTechnology/IN/dnsmasq/', tracker).then(function(x) {
-                    kt.treeview.build(treeViewContainer);
-                    _self.set('progress', {
-                        value: 0,
-                        msg: ''
+                if(promise){
+                    promise.then(function(x) {
+                        kt.treeview.build(treeViewContainer);
+                        _self.set('progress', {
+                            value: 0,
+                            msg: ''
+                        });
                     });
-                })
+                }
+
+            },
+
+            ready: function() {
+                this.openProject();
+                // var _self=this;
+                // _self.set('progress', {
+                //     value: 0,
+                //     msg: ''
+                // });
+                //
+                // var tracker = tf.graph.util.getTracker(this);
+                // var treeViewContainer = this.$$("#treeview");
+                //
+                // kt.Globals.project.open('/Users/artem/work/KestrelTechnology/IN/dnsmasq/', tracker).then(function(x) {
+                //     kt.treeview.build(treeViewContainer);
+                //     _self.set('progress', {
+                //         value: 0,
+                //         msg: ''
+                //     });
+                // })
 
             }
         });
