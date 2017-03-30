@@ -14,6 +14,9 @@ module kt.Globals {
         functionByFile: { [key: string]: Array<kt.xml.CFunction> } = {};
         baseDir: string;
         analysisDir: string;
+        proofObligations:Array<kt.graph.PONode> =[];
+
+
 
         constructor(baseDir: string) {
             this.baseDir = baseDir;
@@ -32,6 +35,14 @@ module kt.Globals {
             const readFunctionsMapTracker = tf.graph.util.getSubtaskTracker(tracker, 100, 'reading functions map (*._cfile.xml)');
 
             return reader.readFunctionsMap(path.dirname(this.analysisDir), readFunctionsMapTracker);
+        }
+
+        public getPOsByFile(filename:string): Array<kt.graph.PONode>{
+
+            return _.filter(
+                this.proofObligations,
+                (x:kt.graph.PONode) => {return x.file==filename;});
+
         }
     }
 

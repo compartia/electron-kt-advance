@@ -145,7 +145,6 @@ module kt.graph {
         state: string;
         po: any;
         predicate: string;
-        functionName: string;
         expression: string;
         _level: string;
 

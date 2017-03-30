@@ -80,6 +80,10 @@
                                 <div>source</div>
                             </template>
 
+                            <template is="dom-if" if="[[_modeIsPo(mode)]]">
+                                <div>proof obligations</div>
+                            </template>
+
                             <template is="dom-if" if="[[_modeIsGraphs(mode)]]">
                                 <assumptions-graph id="graphs" progress="{{progress}}" current-project="[[currentProject]]"></assumptions-graph>
                             </template>
@@ -262,6 +266,10 @@
 
             _modeIsSource: function(mode) {
                 return mode === "source";
+            },
+
+            _modeIsPo: function(mode) {
+                return mode === "proof obligations";
             },
 
             _modeIsSummary: function(mode) {
