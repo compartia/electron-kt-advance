@@ -16,6 +16,8 @@
 <link rel="import" href="assumptions-graph.html">
 <link rel="import" href="components/kt_tree/paper-tree.html">
 <link rel="import" href="components/kt_tree/functions-list.html">
+<link rel="import" href="components/kt_tree/po-list.html">
+
 
 <dom-module id="kt-layout">
     <template>
@@ -48,7 +50,7 @@
 
                     <paper-header-panel style="width:20%" mode="waterfall" class="panel-functions">
                         <paper-toolbar></paper-toolbar>
-                        <functions-list id="functions" selected-file="{{_selectedFile}}"></functions-list>
+                        <functions-list id="functions" selected-file="{{_selectedFile}}" selected-function="{{_selectedFunction}}"></functions-list>
                     </paper-header-panel>
 
                     <paper-header-panel style="width:80%" mode="waterfall" >
@@ -81,7 +83,7 @@
                             </template>
 
                             <template is="dom-if" if="[[_modeIsPo(mode)]]">
-                                <div>proof obligations</div>
+                                <po-list current-project="[[currentProject]]" selected-file="{{_selectedFile}}" selected-function="{{_selectedFunction}}"></po-list>
                             </template>
 
                             <template is="dom-if" if="[[_modeIsGraphs(mode)]]">

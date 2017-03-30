@@ -38,10 +38,16 @@ module kt.Globals {
         }
 
         public getPOsByFile(filename:string): Array<kt.graph.PONode>{
-
             return _.filter(
                 this.proofObligations,
                 (x:kt.graph.PONode) => {return x.file==filename;});
+
+        }
+
+        public getPOsByFileFunc(filename:string, functionName:string): Array<kt.graph.PONode>{
+            return _.filter(
+                this.proofObligations,
+                (x:kt.graph.PONode) => {return x.file==filename && x.functionName==functionName;});
 
         }
     }
