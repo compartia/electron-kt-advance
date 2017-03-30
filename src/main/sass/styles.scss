@@ -1,6 +1,11 @@
 @import "_colors";
 @import "_node-info";
 @import "_fonts";
+@import "_treeview";
+@import "_layout";
+
+
+
 
 body,
 html {
@@ -10,83 +15,7 @@ html {
     height : 100%;
 }
 
-tf-node-info {
 
-
-    .po {
-        font-size: $font-size-base;
-        padding      : $base-padding/2;
-
-        .predicate {
-            font-weight   : 400;
-            text-transform: uppercase;
-            font-size     : 80%;
-        }
-
-        .func {
-            font       : 300 80% 'Liberation Mono', Courier;
-            font-weight: 500;
-        }
-
-        .message {
-            color      : $grey;
-            font-size  : 90%;
-            font-weight: 300;
-            display    : block;
-        }
-
-    }
-
-    .po.level-PRIMARY {
-        background: $po-level-primary;
-
-        .predicate {
-            &:after {
-                content: " I";
-            }
-        }
-    }
-
-    .po.level-SECONDARY {
-        background: $po-level-secondary;
-
-        .predicate {
-            &:after {
-                content: " II";
-            }
-        }
-    }
-
-    .po.state-OPEN {
-        background : $po-open-bg;
-
-        .predicate {
-            color: $po-open;
-        }
-    }
-
-    .po.state-DISCHARGED {
-        .func,
-        .predicate {
-            color: $po-discharged;
-        }
-        background: $po-discharged-bg!important;
-    }
-
-    .po.state-VIOLATION {
-        background : $po-violation-bg;
-
-        .func,
-        .predicate {
-            color: $po-violation;
-        }
-
-        .level {
-            color: $po-violation;
-        }
-    }
-
-}
 
 .node rect {
     // stroke: #333;

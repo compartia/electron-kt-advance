@@ -1,128 +1,91 @@
-<!--
-@license
-Copyright 2016 The TensorFlow Authors. All Rights Reserved.
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+<dom-module id="tf-graph-loader"></dom-module>
 
-    http://www.apache.org/licenses/LICENSE-2.0
+ <script>
+    Polymer({
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
--->
+        is: 'tf-graph-loader',
 
+        properties: {
 
-<!--
-An element which provides a filter parsing for pbtxt to graph output.
--->
-<dom-module id="tf-graph-loader">
-</dom-module>
+            progress: {
+                type: Object,
+                notify: true
+            },
 
-<script>
-Polymer({
+            outGraphHierarchy: {
+                type: Object,
+                readOnly: true, //readonly so outsider can't change this via binding
+                notify: true
+            },
 
-  is: 'tf-graph-loader',
+            outGraph: {
+                type: Object,
+                readOnly: true, //readonly so outsider can't change this via binding
+                notify: true
+            },
 
-  properties: {
+            outHierarchyParams: {
+                type: Object,
+                readOnly: true,
+                notify: true
+            },
 
-    progress: {
-      type: Object,
-      notify: true,
-    },
+            currentProject: {
+                type: Object,
+                observer: '_currentProjectChanged'
+            },
 
-    outGraphHierarchy: {
-      type: Object,
-      readOnly: true, //readonly so outsider can't change this via binding
-      notify: true
-    },
+            outStats: {
+                type: Object,
+                readOnly: true, // This property produces data.
+                notify: true
+            }
+        },
 
-    outGraph: {
-      type: Object,
-      readOnly: true, //readonly so outsider can't change this via binding
-      notify: true
-    },
+        _currentProjectChanged: function() {
+            console.info("_currentProjectChanged: "+this.currentProject.baseDir);
+            this.set('progress', {
+                value: 0,
+                msg: ''
+            });
 
-    outHierarchyParams: {
-      type: Object,
-      readOnly: true,
-      notify: true
-    },
+            var hierarchyParams = {
+                verifyTemplate: false,
+                // If a set of numbered op nodes has at least this number of nodes then group them into a series node.
+                seriesNodeMinSize: 6,
+                // A map of series node names to series grouping settings, to indicate if a series is to be rendered as grouped or ungrouped. Starts out empty which allows the renderer to decide which series are initially rendered grouped and which aren't.
+                seriesMap: {}
+            };
 
-    outStats: {
-      type: Object,
-      readOnly: true, // This property produces data.
-      notify: true
-  }
-},
+            this._setOutHierarchyParams(hierarchyParams);
 
-  ready: function( ) {
-      this.set('progress', {
-      value: 0,
-      msg: ''
-    });
+            var tracker = tf.graph.util.getTracker(this);
+            var readDataTracker = tf.graph.util.getSubtaskTracker(tracker, 70, 'Reading Data');
+            var graphTracker = tf.graph.util.getSubtaskTracker(tracker, 15, 'Building graph');
+            var hierarchyTracker = tf.graph.util.getSubtaskTracker(tracker, 15, 'Namespace hierarchy');
 
-    var tracker = tf.graph.util.getTracker(this);
+            var buildParams = {
+                enableEmbedding: false,
+                inEmbeddingTypes: [],
+                outEmbeddingTypes: [],
+                refEdges: {}
+            };
 
-    var hierarchyParams = {
-      verifyTemplate: true,
-      // If a set of numbered op nodes has at least this number of nodes
-      // then group them into a series node.
-      seriesNodeMinSize: 6,
-      // A map of series node names to series grouping settings, to indicate
-      // if a series is to be rendered as grouped or ungrouped.
-      // Starts out empty which allows the renderer to decide which series
-      // are initially rendered grouped and which aren't.
-      seriesMap: {},
-    };
+            kt.parser.readAndParse(readDataTracker).then(function(nodes) {
+                return tf.graph.build(nodes, buildParams, graphTracker);
+            }).then(function(graph) {
+                this._setOutGraph(graph);
 
+                return tf.graph.hierarchy.build(graph, hierarchyParams, hierarchyTracker);
 
-    this._setOutHierarchyParams(hierarchyParams);
-    var dataTracker = tf.graph.util.getSubtaskTracker(tracker, 30, 'Data');
-    var nodes = kt.parser.readAndParse();
-
-
-    var refEdges = {};
-
-    var buildParams = {
-        enableEmbedding: false,
-        inEmbeddingTypes: [],
-        outEmbeddingTypes: [],
-        //outEmbeddingTypes: ['^[a-zA-Z]+Summary$'],
-        refEdges: refEdges
-    };
-
-    var graphTracker = tf.graph.util.getTracker(
-        {
-            set: function() { return; },
-            progress: 0
+            }.bind(this)).then(function(graphHierarchy) {
+                // Update the properties which notify the parent with the graph hierarchy and whether the data has live stats or not.
+                this._setOutGraphHierarchy(graphHierarchy);
+            }.bind(this)).catch(function(e) {
+                // Generic error catch, for errors that happened outside asynchronous tasks.
+                tracker.reportError("Graph visualization failed: " + e, e);
+            });
         }
-    );
-
-    //var graphTracker = tf.graph.util.getSubtaskTracker(tracker, 20, 'Graph');
-
-    tf.graph.build(nodes, buildParams, graphTracker)
-        .then(
-        function(graph) {
-          this._setOutGraph(graph);
-          var hierarchyTracker = tf.graph.util.getSubtaskTracker(tracker, 50, 'Namespace hierarchy');
-
-          return tf.graph.hierarchy.build(graph, hierarchyParams, hierarchyTracker);
-
-        }.bind(this))
-            .then(function(graphHierarchy) {
-              // Update the properties which notify the parent with the
-              // graph hierarchy and whether the data has live stats or not.
-              this._setOutGraphHierarchy(graphHierarchy);
-            }.bind(this))
-    .catch(function(e) {
-      // Generic error catch, for errors that happened outside
-      // asynchronous tasks.
-      tracker.reportError("Graph visualization failed: " + e, e);
     });
-  }
-});
 </script>

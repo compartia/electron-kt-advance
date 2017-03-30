@@ -67,15 +67,6 @@
                         value: "structural"
                     },
 
-                    /**
-           * Function used by structural coloring algorithm to determine which
-           * color to use based on the template ID of the node. Optional.
-           */
-                    templateIndex: {
-                        type: Function,
-                        value: null
-                    },
-
                     /** Type of node to draw (ignored if node is set). */
                     type: {
                         type: String,
@@ -90,51 +81,51 @@
 
                     /** Whether the op is Const (ignored for non-ops). */
                     const: {
-                            type: Boolean,
-                            value: false
-                        },
+                        type: Boolean,
+                        value: false
+                    },
 
-                        /** Whether the op is a Summary (ignored for non-ops). */
-                        summary: {
-                            type: Boolean,
-                            value: false
-                        },
+                    /** Whether the op is a Summary (ignored for non-ops). */
+                    summary: {
+                        type: Boolean,
+                        value: false
+                    },
 
                         /**
            * Fill for the icon, optional. If fill is specified and node is not
            * specified, then this value will override the default for the
            * element. However, if node is specified, this value will be ignored.
            */
-                        fill: {
-                            type: String,
-                            value: null
-                        },
-
-                        /** Height of the SVG element in pixels, used for scaling. */
-                        height: {
-                            type: Number,
-                            value: 20
-                        },
-
-                        /** The computed fill for the node. **/
-                        _computedFill: {
-                            type: String,
-                            computed: "_getComputedFill(node, renderInfo, colorBy, templateIndex, fill)"
-                        }
-
+                    fill: {
+                        type: String,
+                        value: null
                     },
+
+                    /** Height of the SVG element in pixels, used for scaling. */
+                    height: {
+                        type: Number,
+                        value: 20
+                    },
+
+                    /** The computed fill for the node. **/
+                    _computedFill: {
+                        type: String,
+                        computed: "_getComputedFill(node, renderInfo, colorBy, fill)"
+                    }
+
+                },
 
                     /**
          * Get the computed fill value for the element.
          */
-                    _getComputedFill: function(inputNode, inputRenderInfo, inputColorBy, inputTemplateIndex, inputFill) {
-                        if (inputNode && inputRenderInfo && inputColorBy && inputTemplateIndex) {
-                            var ns = tf.graph.scene.node;
-                            var colorBy = ns.ColorBy[inputColorBy.toUpperCase()];
-                            return ns.getFillForNode(inputTemplateIndex, colorBy, inputRenderInfo, false);
-                        }
-                        return inputFill;
-                    },
+                _getComputedFill: function(inputNode, inputRenderInfo, inputColorBy, inputFill) {
+                    if (inputNode && inputRenderInfo && inputColorBy) {
+                        var ns = tf.graph.scene.node;
+                        var colorBy = ns.ColorBy[inputColorBy.toUpperCase()];
+                        return ns.getFillForNode(colorBy, inputRenderInfo, false);
+                    }
+                    return inputFill;
+                },
 
                     /**
          * Get the fill value for the element, or if that's not possible, return

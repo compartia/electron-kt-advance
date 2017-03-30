@@ -1,0 +1,300 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+
+<link rel="import" href="../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../bower_components/paper-progress/paper-progress.html">
+
+<link rel="import" href="../bower_components/paper-toolbar/paper-toolbar.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/paper-header-panel/paper-header-panel.html">
+
+<link rel="import" href="../bower_components/vaadin-split-layout/vaadin-split-layout.html">
+<link rel="import" href="../bower_components/paper-toast/paper-toast.html">
+
+<link rel="import" href="assumptions-graph.html">
+<link rel="import" href="components/kt_tree/paper-tree.html">
+<link rel="import" href="components/kt_tree/functions-list.html">
+
+<dom-module id="kt-layout">
+    <template>
+
+        <div id="progress-bar">
+            <paper-progress value="[[progress.value]]" style="width:100%"></paper-progress>
+        </div>
+
+
+        <template is="dom-if" if="[[_isNotComplete(progress)]]">
+            <div id="progress-msg" class="toast">[[progress.msg]]</div>
+
+        </template>
+
+        <vaadin-split-layout class="splitter-1">
+
+            <div style="width:15%">
+
+                <paper-toolbar >
+                    <paper-icon-button icon="menu" on-tap="openProject"></paper-icon-button>
+                </paper-toolbar>
+
+                <paper-tree style="width:50%" id="treeview" selected-file="{{_selectedFile}}"></paper-tree>
+            </div>
+
+            <div style="width:85%">
+
+                <vaadin-split-layout class="splitter-2">
+                    <functions-list style="width:20%" id="functions" selected-file="{{_selectedFile}}"></functions-list>
+
+                    <div style="width:80%">
+                        <!-- <app-header> -->
+                        <paper-toolbar id="toolbar">
+                            <paper-tabs selected="{{modeIndex}}" class="tabs" id="tabs">
+                                <template is="dom-repeat" items="[[tabs]]">
+                                    <template is="dom-if" if="[[_isTabEnabled(item)]]">
+                                        <paper-tab data-mode="[[item]]">[[item]]</paper-tab>
+                                    </template>
+                                </template>
+                            </paper-tabs>
+
+                            <div class="global-actions">
+                                <paper-icon-button icon="settings" on-tap="openSettings" id="settings-button"></paper-icon-button>
+                            </div>
+                        </paper-toolbar>
+
+                        <!-- </app-header> -->
+
+                        <div id="content" class="fit">
+                            <content id="injected-overview"></content>
+
+                            <template is="dom-if" if="[[_modeIsSummary(mode)]]">
+                                <div>summary</div>
+                            </template>
+
+                            <template is="dom-if" if="[[_modeIsSource(mode)]]">
+                                <div>source</div>
+                            </template>
+
+                            <template is="dom-if" if="[[_modeIsGraphs(mode)]]">
+                                <assumptions-graph id="graphs" progress="{{progress}}" current-project="[[currentProject]]"></assumptions-graph>
+                            </template>
+                        </div>
+                    </div>
+
+                </vaadin-split-layout >
+
+            </div>
+        </vaadin-split-layout>
+
+        <style>
+            vaadin-split-layout {
+                }
+
+            paper-progress {
+                width: 100%;
+                --paper-progress-height: 4px;
+                --paper-progress-active-color: var(--kt-progress);
+            }
+
+            :host {
+                height: 100%;
+                display: block;
+                background-color: var(--kt-grey-80);
+
+                --paper-tabs-selection-bar-color: var(--kt-violet);
+                --paper-tab-ink: var(--kt-text-color);
+                --paper-toolbar-color: var(--kt-text-color, black);
+            }
+
+            #toolbar {
+                background-color: var(--kt-grey-lighter);
+                -webkit-font-smoothing: antialiased;
+            }
+
+            .toolbar-title {
+                font-size: 20px;
+                margin-left: 10px;
+                text-rendering: optimizeLegibility;
+                letter-spacing: -0.025em;
+                font-weight: 500;
+                flex-grow: 2;
+                display: var(--tb-toolbar-title-display, block);
+            }
+
+            .tabs {
+                flex-grow: 1;
+                text-transform: uppercase;
+                height: 100%;
+            }
+
+            paper-tabs {}
+
+            .splitter-1,
+            .splitter-2 {
+                --vaadin-split-layout-splitter: {
+                    min-width: 1px;
+                    min-height: 1px;
+                    border: solid 4px none;
+                    background-clip: content-box;
+                }
+
+            }
+            .splitter-1 {
+                --vaadin-split-layout-splitter: {
+                    background: var(--paper-tree-selected-background-color);
+                    fill: var(--paper-tree-selected-background-color);
+                };
+
+                position: absolute;
+                top: 4px;
+                left: 0;
+                bottom: 0;
+                right: 0;
+            }
+
+            .splitter-2 {
+                --vaadin-split-layout-splitter: {
+                    fill: var(--kt-main-bg);
+                    background: var(--kt-main-bg);
+                };
+
+                height: 100%;
+            }
+
+            .global-actions {
+                flex-grow: 2;
+                display: inline-flex;
+                /* Ensure that icons stay aligned */
+                justify-content: flex-end;
+                text-align: right;
+                color: var(--kt-text-color);
+            }
+
+            .global-actions a {
+                color: var(--kt-text-color);
+            }
+
+            #toolbar-content {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            #content {
+                height: 100%;
+            }
+
+            [disabled] {
+                opacity: 0.2;
+                color: var(--kt-text-color);
+            }
+
+        </style>
+    </template>
+    <script>
+        Polymer({
+            is: "kt-layout",
+            properties: {
+
+                // Which tab is selected (stats, graph,  etc).
+                mode: {
+                    type: String,
+                    computed: '_getModeFromIndex(modeIndex)',
+                    notify: true
+                },
+
+                _selectedFile: Object,
+
+                tabs: {
+                    type: Array,
+                    readOnly: true,
+                    value: kt.Globals.TABS
+                },
+
+                progress: {
+                    type: Object,
+                    notify: true
+                },
+
+                currentProject: {
+                    type: Object,
+                    notify: true
+                },
+
+                disabledTabs: String
+            },
+
+            _isNotComplete: function(progress) {
+                return progress.value>0 && progress.value < 100;
+            },
+
+            _isTabEnabled: function(tab) {
+                if (this.disabledTabs != null && this.disabledTabs.split(',').indexOf(tab) >= 0) {
+                    return false;
+                }
+                return true;
+            },
+
+            _getModeFromIndex: function(modeIndex) {
+                var mode = this.tabs[modeIndex];
+                return mode;
+            },
+
+            _modeIsSource: function(mode) {
+                return mode === "source";
+            },
+
+            _modeIsSummary: function(mode) {
+                return mode === "summary";
+            },
+
+            _modeIsGraphs: function(mode) {
+                return mode === "graphs";
+            },
+
+            selectedDashboard: function() {
+                var dashboard = this.$$("#" + this.mode);
+                if (dashboard == null) {
+                    throw new Error(`Unable to find dashboard for mode: ${this.mode}`);
+                }
+                return dashboard;
+            },
+
+            openProject: function() {
+                var _self = this;
+                _self.set('progress', {
+                    value: 0,
+                    msg: ''
+                });
+
+                var tracker = tf.graph.util.getTracker(this);
+                var treeViewContainer = this.$$("#treeview");
+                var promise = kt.Globals.openNewProject(tracker);
+
+                if (promise) {
+                    promise.then(function(x) {
+                        kt.treeview.build(treeViewContainer);
+                        _self.set("currentProject", kt.Globals.project);
+                        _self._selectedFile = null;
+                        _self.set('modeIndex', 0);
+                        _self.set('progress', {
+                            value: 0,
+                            msg: ''
+                        });
+                    });
+                } else {
+                    console.log("cancelled");
+                }
+
+            },
+
+            ready: function() {
+                this.openProject();
+            }
+        });
+    </script>
+
+</dom-module>

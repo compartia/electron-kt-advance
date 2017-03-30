@@ -1,55 +1,56 @@
-
-
-
 <link rel="import" href="../../../bower_components/iron-collapse/iron-collapse.html">
 <link rel="import" href="../../../bower_components/iron-list/iron-list.html">
 <link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../../bower_components/paper-item/all-imports.html">
 
+<link rel="import" href="../../static/icons/icons.html">
+
 <link rel="import" href="node-icon.html">
 
 <link rel="import" href="tf-node-list-item.html">
+<link rel="import" href="discharge-info.html">
 
 <dom-module id="tf-node-info">
     <style></style>
     <template>
         <div>
+
             <div class="node-color-container">
-                <node-icon id="bg"
-                    node="[[_node]]" render-info="[[_getRenderInfo(nodeName, renderHierarchy)]]"
-                    template-index="[[_templateIndex]]" color-by="[[colorBy]]"></node-icon>
 
-                <div id="caption"><b>[[_node.attr.state]]<sup class='level'></sup></b> &nbsp;[[_device]]</div>
+                <node-icon id="bg" node="[[_node]]" render-info="[[_getRenderInfo(nodeName, renderHierarchy)]]" color-by="[[colorBy]]"></node-icon>
+
+                <div id="caption">
+                    <paper-icon-button icon="{{_getToggleIcon(_expanded)}}" on-click="_toggleExpanded" class="toggle-button"></paper-icon-button>
+                    <div ><iron-icon icon="kt:location-on"></iron-icon><span id="nodetitle"></span> <span class='location'>
+                        [[_funcLocation]]</span></div>
+                </div>
             </div>
 
-            <div>
-                <paper-icon-button icon="{{_getToggleIcon(_expanded)}}" on-click="_toggleExpanded" class="toggle-button"></paper-icon-button>
-                  <div class="node-name" id="nodetitle"></div>
-            </div>
+            <div class="po">
 
-            <div>
-
-                <template is="dom-if" if="{{_node.op}}">
-
-                    <div class$="[[_node_class]]">
-
-                        <template is="dom-if" if="[[_attributes.symbol]]">
-                            <div class="symbol">
-                                <span class='type'>[[_attributes.symbol.type]]</span>
-                                <span class='value'>"[[_attributes.symbol.value]]"</span>
-                            </div>
-                        </template>
-
-                        <a><span class='func'>[[_node.op]] : <span class='location'>L[[_funcLocation]]</span></span> </a><br>
-                        <span class='predicate'>[[_attributes.predicate]] :
-
+                <template is="dom-if" if="[[_predicate]]">
+                    <div class='predicate'>
+                        <sup>
+                            <span class='level'></span>
+                        </sup>
+                        <span id="predicate-name">
+                            [[_predicate]]
                         </span>
-                        <template is="dom-if" if="{{_attributes.discharge}}">
-                            <div class='message'>[[_attributes.discharge.evidence.comment]]</div>
+                        <template is="dom-if" if="[[_predicateArgument]]">
+                            (<span id="predicate-arg">
+                                [[_predicateArgument]]
+                            </span>)
+
                         </template>
+
+                        <div id='expression'>
+                            [[_attributes.expression]]
+                        </div>
+
                     </div>
 
                 </template>
+
 
                 <template is="dom-if" if="{{_node.metagraph}}">
                     <div class="subtitle">
@@ -58,137 +59,78 @@
                         nodes
                     </div>
                 </template>
+
             </div>
 
-        </div>
+            <div>
 
-        <iron-collapse opened="{{_expanded}}">
-            <template is="dom-if" if="{{_expanded}}" restamp="true">
-                <div class="expandedInfo">
+                <template is="dom-if" if="{{_node.op}}">
 
-                    <!-- <template is="dom-if" if="{{_device}}">
-                        <div class="sub-list-group device">
-                            <div class="attr-left">State</div>
-                            <div class="attr-right">[[_device]]</div>
-                        </div>
-                    </template> -->
+                    <div class$="[[_node_class]]">
 
-                    <div class="sub-list-group predecessors">
-                        <span class="caption">Dependent PO (<span>[[_totalPredecessors]]</span>)</span>
+                        <template is="dom-if" if="{{_attributes.apiId}}">
+                            <div id='api-id'>api-id: [[_attributes.apiId]]</div>
+                        </template>
 
-                        <iron-list class="sub-list" id="inputsList" items="[[_predecessors.regular]]">
-                            <template>
-                                <tf-node-list-item
-                                    class="non-control-list-item"
-                                    card-node="[[_node]]"
-                                    item-node="[[item.node]]"
-                                    edge-label="[[item.edgeLabel]]"
-                                    item-render-info="[[item.renderInfo]]"
-                                    name="[[item.name]]"
-                                    item-type="predecessors"
-                                    color-by="[[colorBy]]"
-                                    template-index="[[_templateIndex]]"></tf-node-list-item>
-                            </template>
-                        </iron-list>
-                        <!-- <template is="dom-if" if="[[_predecessors.control.length]]">
-                            <div class="controlDeps">
-                                <div class="controlLine">
-                                    <paper-icon-button icon="{{_getToggleIcon(_openedControlPred)}}" on-click="_toggleControlPred" class="control-toggle-button"></paper-icon-button>
-                                    Control dependencies
-                                </div>
-                                <iron-collapse opened="{{_openedControlPred}}" no-animation>
-                                    <template is="dom-if" if="{{_openedControlPred}}" restamp="true">
-                                        <iron-list class="sub-list" items="[[_predecessors.control]]">
-                                            <template>
-                                                <tf-node-list-item card-node="[[_node]]" item-node="[[item.node]]" item-render-info="[[item.renderInfo]]" name="[[item.name]]" item-type="predecessors" color-by="[[colorBy]]" template-index="[[_templateIndex]]"></tf-node-list-item>
-                                            </template>
-                                        </iron-list>
+
+                        <discharge-info node="[[_node]]">
+                        <discharge-info>
+
+
+                    </div>
+
+                </template>
+
+                <iron-collapse opened="{{_expanded}}">
+                    <template is="dom-if" if="{{_expanded}}" restamp="true">
+                        <div class="expandedInfo">
+
+                            <div class="sub-list-group predecessors">
+                                <span class="caption">Dependent PO (<span>[[_totalPredecessors]]</span>)</span>
+
+                                <iron-list class="sub-list" id="inputsList" items="[[_predecessors.regular]]">
+                                    <template>
+                                        <tf-node-list-item
+                                            class="non-control-list-item"
+                                            card-node="[[_node]]"
+                                            item-node="[[item.node]]"
+                                            edge-label="[[item.edgeLabel]]"
+                                            item-render-info="[[item.renderInfo]]"
+                                            name="[[item.name]]"
+                                            item-type="predecessors"
+                                            color-by="[[colorBy]]"
+                                            apiId="[[item.node.attr.apiId]]"></tf-node-list-item>
                                     </template>
-                                </iron-collapse>
-                            </div>
-                        </template> -->
-                    </div>
+                                </iron-list>
 
-                    <div class="sub-list-group successors">
-                        <span class="caption">Depends on (<span>[[_totalSuccessors]]</span>)</span>
-                        <iron-list class="sub-list" id="outputsList" items="[[_successors.regular]]">
-                            <template>
-                                <tf-node-list-item
-                                    class="non-control-list-item"
-                                    card-node="[[_node]]"
-                                    item-node="[[item.node]]"
-                                    edge-label="[[item.edgeLabel]]"
-                                    item-render-info="[[item.renderInfo]]"
-                                    name="[[item.name]]"
-                                    item-type="successor"
-                                    color-by="[[colorBy]]"
-                                    template-index="[[_templateIndex]]"></tf-node-list-item>
-                            </template>
-                        </iron-list>
-                        <!-- <template is="dom-if" if="[[_successors.control.length]]">
-                            <div class="controlDeps">
-                                <div class="controlLine">
-                                    <paper-icon-button icon="{{_getToggleIcon(_openedControlSucc)}}" on-click="_toggleControlSucc" class="control-toggle-button"></paper-icon-button>
-                                    Control dependencies
-                                </div>
-                                <iron-collapse opened="{{_openedControlSucc}}" no-animation>
-                                    <template is="dom-if" if="{{_openedControlSucc}}" restamp="true">
-                                        <iron-list class="sub-list" items="[[_successors.control]]">
-                                            <template>
-                                                <tf-node-list-item card-node="[[_node]]" item-node="[[item.node]]" item-render-info="[[item.renderInfo]]" name="[[item.name]]" item-type="successors" color-by="[[colorBy]]" template-index="[[_templateIndex]]"></tf-node-list-item>
-                                            </template>
-                                        </iron-list>
+                            </div>
+
+                            <div class="sub-list-group successors">
+                                <span class="caption">Depends on (<span>[[_totalSuccessors]]</span>)</span>
+                                <iron-list class="sub-list" id="outputsList" items="[[_successors.regular]]">
+                                    <template>
+                                        <tf-node-list-item
+                                            class="non-control-list-item"
+                                            card-node="[[_node]]"
+                                            item-node="[[item.node]]"
+                                            edge-label="[[item.edgeLabel]]"
+                                            item-render-info="[[item.renderInfo]]"
+                                            name="[[item.name]]"
+                                            apiId="[[item.node.attr.apiId]]"
+                                            item-type="successor"
+                                            color-by="[[colorBy]]"></tf-node-list-item>
                                     </template>
-                                </iron-collapse>
-                            </div>
-                        </template> -->
-                    </div>
-                    <!-- <template is="dom-if" if="{{_hasDisplayableNodeStats}}">
-                        <div class="sub-list-group node-stats">
-                            Node Stats
-                            <div class="sub-list-table">
-                                <template is="dom-if" if="{{_nodeStats.totalBytes}}">
-                                    <div class="sub-list-table-row">
-                                        <div class="sub-list-table-cell">Memory</div>
-                                        <div class="sub-list-table-cell">[[_nodeStatsFormattedBytes]]</div>
-                                    </div>
-                                </template>
-                                <template is="dom-if" if="{{_nodeStats.totalMicros}}">
-                                    <div class="sub-list-table-row">
-                                        <div class="sub-list-table-cell">Compute Time</div>
-                                        <div class="sub-list-table-cell">[[_nodeStatsFormattedComputeTime]]</div>
-                                    </div>
-                                </template>
-                                <template is="dom-if" if="{{_nodeStats.outputSize}}">
-                                    <div class="sub-list-table-row">
-                                        <div class="sub-list-table-cell">Tensor Output Sizes</div>
-                                        <div class="sub-list-table-cell">
-                                            <template is="dom-repeat" items="{{_nodeStatsFormattedOutputSizes}}">
-                                                [[item]]
-                                                <br/>
-                                            </template>
-                                        </div>
-                                    </div>
-                                </template>
+                                </iron-list>
+
                             </div>
                         </div>
-                    </template> -->
-                    <!-- <div class="toggle-include-group">
-                        <paper-button raised class="toggle-include" on-click="_toggleInclude">
-                            <span>[[_auxButtonText]]</span>
-                        </paper-button>
-                    </div>
-                    <template is="dom-if" if="{{_isInSeries(_node)}}">
-                        <div class="toggle-include-group">
-                            <paper-button raised class="toggle-include" on-click="_toggleGroup">
-                                <span>[[_groupButtonText]]</span>
-                            </paper-button>
-                        </div>
-                    </template> -->
-                </div>
-            </template>
-        </iron-collapse>
+                    </template>
+                </iron-collapse>
+            </div>
+
     </template>
+
+
 
     <script>
         (function() {
@@ -201,10 +143,6 @@
                     renderHierarchy: Object,
                     /** What to color the nodes by (compute time, memory, device etc.) */
                     colorBy: String,
-                    _templateIndex: {
-                        type: Function,
-                        computed: '_getTemplateIndex(graphHierarchy)'
-                    },
                     _node: {
                         type: Object,
                         computed: '_getNode(nodeName, graphHierarchy)',
@@ -212,7 +150,7 @@
                     },
                     _funcLocation: {
                         type: String,
-                        computed: '_getFuncLocation(_node)',
+                        computed: '_getFuncLocation(_node)'
                     },
                     _node_class: {
                         type: String,
@@ -227,6 +165,10 @@
                         type: Object,
                         computed: '_getAttributes(_node)'
                     },
+                    _predicate: {
+                        type: String,
+                        computed: '_getPredicate(_node)'
+                    },
                     _device: {
                         type: String,
                         computed: '_getDevice(_node)'
@@ -234,6 +176,10 @@
                     _successors: {
                         type: Object,
                         computed: '_getSuccessors(_node, graphHierarchy)'
+                    },
+                    _predicateArgument: {
+                        type: String,
+                        computed: '_getPredicateArgument(_node)'
                     },
                     _predecessors: {
                         type: Object,
@@ -266,11 +212,11 @@
                     _auxButtonText: String,
                     _groupButtonText: String
                 },
+                _getPredicate: function(node) {
+                    return kt.graph.getPredicate(node);
+                },
                 expandNode: function() {
                     this.fire('_node.expand', this.node);
-                },
-                _getTemplateIndex: function(graphHierarchy) {
-                    return graphHierarchy.getTemplateIndex();
                 },
                 _getNode: function(nodeName, graphHierarchy) {
                     return graphHierarchy.node(nodeName);
@@ -283,9 +229,9 @@
                     return this.renderHierarchy.getOrCreateRenderNodeByName(nodeName);
                 },
 
-                _getFuncLocation(node){
-                    if(node && node.attr && node.attr.location)
-                        return node.attr.location[0][0];
+                _getFuncLocation(node) {
+                    if (node && node.attr && node.attr.location)
+                        return ":"+node.attr.location[0][0];
                     return "";
                 },
 
@@ -296,6 +242,19 @@
                     }
 
                     return node.attr;
+                },
+
+                _getPredicateArgument: function(node) {
+                    symbol = this._getAttributes(node)["symbol"];
+                    if (symbol) {
+                        if (symbol.type == "ID") {
+                            return symbol.value;
+                        } else {
+                            return '"' + symbol.value + '"';
+                        }
+                    } else {
+                        return "";
+                    }
                 },
 
                 _getNodeClass: function(node) {
@@ -338,7 +297,7 @@
                             return {
                                 name: name,
                                 node: this._getNode(name, this.graphHierarchy),
-                                edgeLabel: tf.graph.scene.edge.getLabelForBaseEdge(baseEdge, this.renderHierarchy),
+                                edgeLabel: null,
                                 renderInfo: this._getRenderInfo(name, this.renderHierarchy)
                             };
                         }, this);
@@ -366,7 +325,16 @@
                                 });
                             }
                         }, this);
-                        return edgeInfoList;
+                        return edgeInfoList.sort(
+                            function(x, y) {
+                                if (x.node.attr && y.node.attr) {
+                                    return kt.graph.compareStates(x.node.attr.state, y.node.attr.state)
+                                } else {
+                                    return -1;
+                                }
+                            });
+
+                        // return edgeInfoList;
                     }.bind(this);
 
                     return {
@@ -406,7 +374,8 @@
                     this.set("_groupButtonText", tf.graph.scene.node.getGroupSettingLabel(this._node));
 
                     if (this._node) {
-                        Polymer.dom(this.$.nodetitle).innerHTML = this._getPrintableHTMLNodeName(this._node.name);
+                        var title = kt.graph.getLocationPath(this._node);
+                        Polymer.dom(this.$.nodetitle).innerHTML = this._getPrintableHTMLNodeName(title);
                     }
                 },
                 _resizeList: function(selector) {

@@ -6,6 +6,12 @@
         <title>KT-Advance GUI</title>
 
         <link rel="stylesheet" type="text/css" href="css/styles.css">
+        <script>
+            var d3 = require("d3");
+            var graphlib = require("graphlib");
+            var _ = require("lodash");
+
+        </script>
 
         <script>
             window.Polymer = {
@@ -14,20 +20,32 @@
             };
         </script>
 
-        <script src="components/kt_common/parser.js"></script>
-        <script src="components/kt_common/po_node.js"></script>
-        <script src="components/kt_common/palette.js"></script>
-
-        <script src="ts/index.js"></script>
 
         <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
         <link rel="import" href="../bower_components/polymer/polymer.html">
 
+        <script src="components/kt_common/kt_globals.js"></script>
+        <script src="components/kt_common/parser.js"></script>
+        <script src="components/kt_common/po_node.js"></script>
+        <script src="components/kt_common/api_node.js"></script>
+        <script src="components/kt_common/palette.js"></script>
+        <script src="components/kt_common/xml_reader.js"></script>
+        <script src="components/kt_common/xml_types.js"></script>
+        <script src="components/kt_common/kt_treeview.js"></script>
+        <script src="components/kt_common/kt_fs.js"></script>
+
+
+
         <link rel="import" href="components/tf_graph_common/tf-graph-common.html">
-        <link rel="import" href="assumptions-graph.html">
+        <link rel="import" href="layout.html">
+
+        <script src="ts/index.js"></script>
     </head>
 
-    <body unresolved>
-        <assumptions-graph></assumptions-graph>
+    <body unresolved  class="fullbleed layout vertical">
+
+        <kt-layout>
+        </kt-layout>
+
     </body>
 </html>

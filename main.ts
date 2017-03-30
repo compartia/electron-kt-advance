@@ -6,7 +6,7 @@ const BrowserWindow = electron.BrowserWindow
 
 const path = require('path')
 const url = require('url')
-var d3 = require('d3');
+
 
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -15,7 +15,7 @@ let mainWindow
 
 function createWindow() {
     // Create the browser window.
-    mainWindow = new BrowserWindow({ width: 800, height: 600 })
+    mainWindow = new BrowserWindow({ width: 1200, height: 800, webPreferences: { experimentalFeatures: true } })
 
     // and load the index.html of the app.
     mainWindow.loadURL(url.format({
