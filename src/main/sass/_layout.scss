@@ -4,11 +4,6 @@
 kt-layout {
     background: $main-bg;
 
-    #functions,
-    #treeview {
-        width: 50%;
-    }
-
     #treeview {
         background: $side-bg;
     }
@@ -18,7 +13,11 @@ kt-layout {
     }
 
     .splitter-1 paper-toolbar {
-        background: mix($side-bg-2, $side-bg, 50%);
+        background: $side-bg;
+    }
+
+    .splitter-2 paper-toolbar {
+        background: $side-bg-2;
     }
 
 
@@ -42,7 +41,7 @@ kt-layout {
         font-size         : 14px;
         cursor            : wait;
 
-        opacity           : 0.7;
+        opacity           : 0.5;
         vertical-align: middle;
 
         // top: 4px;
