@@ -24,25 +24,21 @@
             <paper-progress value="[[progress.value]]" style="width:100%"></paper-progress>
         </div>
 
-        <!-- <div id="progress-msg">[[progress.msg]]</div> -->
-        <style is="custom-style">
-            #progress-msg {
-                --paper-toast-background-color: var(--kt-main-bg-t80);
-                --paper-toast-color: var(--kt-grey);
-            }
 
-        </style>
-        <paper-toast id="progress-msg" class="fit-bottom" text="[[progress.msg]]" opened></paper-toast>
+        <template is="dom-if" if="[[_isNotComplete(progress)]]">
+            <div id="progress-msg" class="toast">[[progress.msg]]</div>
+            
+        </template>
 
         <vaadin-split-layout class="splitter-1">
 
             <div style="width:15%">
 
-                    <paper-toolbar >
-                        <paper-icon-button icon="menu" on-tap="openProject" ></paper-icon-button>
-                    </paper-toolbar>
+                <paper-toolbar >
+                    <paper-icon-button icon="menu" on-tap="openProject"></paper-icon-button>
+                </paper-toolbar>
 
-                    <paper-tree style="width:50%" id="treeview" selected-file="{{_selectedFile}}"></paper-tree>
+                <paper-tree style="width:50%" id="treeview" selected-file="{{_selectedFile}}"></paper-tree>
             </div>
 
             <div style="width:85%">
@@ -80,9 +76,7 @@
                             </template>
 
                             <template is="dom-if" if="[[_modeIsGraphs(mode)]]">
-                                <assumptions-graph
-                                    id="graphs"
-                                    progress="{{progress}}"></assumptions-graph>
+                                <assumptions-graph id="graphs" progress="{{progress}}"></assumptions-graph>
                             </template>
                         </div>
                     </div>
@@ -94,15 +88,13 @@
 
         <style>
             vaadin-split-layout {
-
-            }
+                }
 
             paper-progress {
-              width: 100%;
-              --paper-progress-height: 4px;
-              --paper-progress-active-color: var(--kt-progress);
+                width: 100%;
+                --paper-progress-height: 4px;
+                --paper-progress-active-color: var(--kt-progress);
             }
-
 
             :host {
                 height: 100%;
@@ -146,9 +138,8 @@
                     background-clip: content-box;
                 }
 
-
             }
-            .splitter-1{
+            .splitter-1 {
                 --vaadin-split-layout-splitter: {
                     background: var(--paper-tree-selected-background-color);
                     fill: var(--paper-tree-selected-background-color);
@@ -161,13 +152,13 @@
                 right: 0;
             }
 
-            .splitter-2{
+            .splitter-2 {
                 --vaadin-split-layout-splitter: {
                     fill: var(--kt-main-bg);
                     background: var(--kt-main-bg);
                 };
 
-                height:100%;
+                height: 100%;
             }
 
             .global-actions {
@@ -231,6 +222,10 @@
                 disabledTabs: String
             },
 
+            _isNotComplete: function(progress) {
+                return progress.value>0 && progress.value < 100;
+            },
+
             _isTabEnabled: function(tab) {
                 if (this.disabledTabs != null && this.disabledTabs.split(',').indexOf(tab) >= 0) {
                     return false;
@@ -263,8 +258,8 @@
                 return dashboard;
             },
 
-            openProject: function () {
-                var _self=this;
+            openProject: function() {
+                var _self = this;
                 _self.set('progress', {
                     value: 0,
                     msg: ''
@@ -274,7 +269,7 @@
                 var treeViewContainer = this.$$("#treeview");
                 var promise = kt.Globals.openNewProject(tracker);
 
-                if(promise){
+                if (promise) {
                     promise.then(function(x) {
                         kt.treeview.build(treeViewContainer);
                         _self._selectedFile = null;
@@ -284,7 +279,7 @@
                             msg: ''
                         });
                     });
-                }else{
+                } else {
                     console.log("cancelled");
                 }
 
