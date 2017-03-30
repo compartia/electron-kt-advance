@@ -38,6 +38,7 @@ module kt.Globals {
     export function openNewProject(tracker: tf.ProgressTracker): Promise<{ [key: string]: Array<kt.xml.CFunction> }> {
         let dir = kt.fs.selectDirectory();
         if (dir && dir.length > 0) {
+            project = new Project(dir);
             return project.open(dir[0], tracker);
         }else{
             return null;
