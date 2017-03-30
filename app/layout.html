@@ -70,6 +70,11 @@
 
                         <div id="content" class="fit">
                             <content id="injected-overview"></content>
+
+                            <template is="dom-if" if="[[_modeIsSummary(mode)]]">
+                                <div>summary</div>
+                            </template>
+
                             <template is="dom-if" if="[[_modeIsSource(mode)]]">
                                 <div>source</div>
                             </template>
@@ -241,6 +246,11 @@
             _modeIsSource: function(mode) {
                 return mode === "source";
             },
+
+            _modeIsSummary: function(mode) {
+                return mode === "summary";
+            },
+
             _modeIsGraphs: function(mode) {
                 return mode === "graphs";
             },
@@ -267,34 +277,21 @@
                 if(promise){
                     promise.then(function(x) {
                         kt.treeview.build(treeViewContainer);
+                        _self._selectedFile = null;
+                        _self.set('modeIndex', 0);
                         _self.set('progress', {
                             value: 0,
                             msg: ''
                         });
                     });
+                }else{
+                    console.log("cancelled");
                 }
 
             },
 
             ready: function() {
                 this.openProject();
-                // var _self=this;
-                // _self.set('progress', {
-                //     value: 0,
-                //     msg: ''
-                // });
-                //
-                // var tracker = tf.graph.util.getTracker(this);
-                // var treeViewContainer = this.$$("#treeview");
-                //
-                // kt.Globals.project.open('/Users/artem/work/KestrelTechnology/IN/dnsmasq/', tracker).then(function(x) {
-                //     kt.treeview.build(treeViewContainer);
-                //     _self.set('progress', {
-                //         value: 0,
-                //         msg: ''
-                //     });
-                // })
-
             }
         });
     </script>
