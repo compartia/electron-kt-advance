@@ -19,7 +19,8 @@ module kt.treeview {
         console.info("iterating " + dir);
         let tree = {
             children: [],
-            name: path.basename(dir)
+            name: path.basename(dir),
+            open:true
         }
         allFilesSync(dir, dir, tree.children);
         return tree;

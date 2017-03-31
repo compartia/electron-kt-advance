@@ -267,6 +267,18 @@ module kt.graph {
                 return -1;
         }
 
+        get predicateArgument(): string {
+            if (this.symbol) {
+                if (this.symbol.type == kt.xml.SymbolType.ID) {
+                    return this.symbol.value;
+                } else {
+                    return '"' + this.symbol.value + '"';
+                }
+            } else {
+                return null;
+            }
+        }
+
         get extendedState(): string {
             let stateExt = this.dischargeType;
             if (!stateExt) {

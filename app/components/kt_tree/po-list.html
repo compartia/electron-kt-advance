@@ -5,19 +5,47 @@
 
         <div class="container">
             <template is="dom-repeat" items="{{objects}}">
-                <div on-click="_clickListener" class="po row" style$="background-color:var([[_getFillColor(item)]])">
+                <div on-click="_clickListener" class="po row" style$="border-left:4px solid var([[_getFillColor(item)]]); background: var([[_getHoverFillColor(item)]])">
+
+                    <span class="state-color" ></span>
 
                     <span class="po-id">{{item.id}}</span>
+
                     <template is="dom-if" if="[[!selectedFunction]]">
-                        <span class="function-name">{{item.functionName}}</span>
+                        <span class="function-name">[[item.functionName]]</span>
                     </template>
 
-                    <span class="predicate">{{item.predicate}}</span>
-                    <span class="state">{{item.state}}</span>
+                    <span class="state" style$="color:var([[_getTextColor(item)]])">
+                        <sup>[[item.level]]</sup>
+                        [[item.state]]
+                        <template is="dom-if" if="[[item.dischargeType]]">
+                            :<span class="discharge">{{item.dischargeType}}</span>
+                        </template>
+                    </span>
+
+                    <span class="predicate">
+                        <span class="predicate-name">
+                            [[item.predicate]]
+                        </span>
+                        <template is="dom-if" if="[[item.predicateArgument]]">
+                            (<span class="predicate-arg">
+                                [[item.predicateArgument]]
+                            </span>)
+                        </template>
+                    </span>
+
+
+                    <span class='expression'>
+                        [[item.expression]]
+                    </span>
+
+
                     <template is="dom-if" if="[[item.discharge]]">
-                        :<span class="discharge">{{item.dischargeType}}</span>
-                        <span class="discharge-comment">{{item.discharge.message}}</span>
+                        <template is="dom-if" if="[[item.discharge.message]]">
+                            <span class="discharge-comment" style$="color:var([[_getTextColor(item)]])">{{item.discharge.message}}</span>
+                        </template>
                     </template>
+
 
                 </div>
 
@@ -44,6 +72,14 @@
 
         _getFillColor: function(node) {
             return "--kt-state-"+node.extendedState.toLowerCase()+"-bg";
+        },
+
+        _getHoverFillColor: function(node) {
+            return "--kt-state-"+node.extendedState.toLowerCase()+"-hover-bg";
+        },
+
+        _getTextColor: function(node) {
+            return "--kt-state-"+node.extendedState.toLowerCase()+"-tx";
         },
 
         _getPosBySelection: function(file, sfunction) {

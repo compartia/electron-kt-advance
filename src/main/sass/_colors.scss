@@ -2,16 +2,12 @@
 $color-brand-1: #F4C74D;
 $color-brand-2: #662D91;
 
-
 $red: #EF2060;
-$yellow: $color-brand-1 ;
+$yellow: $color-brand-1;
 $green: lighten(mix($yellow, #6DF0B9, 22%), 6%);
 $ian_gillan: $color-brand-2;
 $blue: #4397CE;
-$base-bg:mix($ian_gillan, $blue, 40%);
-
-
-
+$base-bg: mix($ian_gillan, $blue, 40%);
 
 $grey: lighten(desaturate($color-brand-2, 45%), 10%);
 $grey-lighter: lighten($grey, 30%);
@@ -20,9 +16,7 @@ $grey-80: lighten($grey, 40%);
 $po-discharged: darken($green, 25%);
 $po-discharged-label: $green;
 
-
-
-$po-open-base:  $yellow;
+$po-open-base: $yellow;
 $po-open: darken($po-open-base, 20%);
 $po-violation: $red;
 
@@ -30,8 +24,8 @@ $po-open-bg: lighten($po-open-base, 35%);
 $po-violation-bg: lighten($po-violation, 45%);
 $po-discharged-bg: lighten($po-discharged, 65%);
 
-$po-level-secondary:lighten($grey, 35%);
-$po-level-primary:lighten($po-level-secondary,10%);
+$po-level-secondary: lighten($grey, 35%);
+$po-level-primary: lighten($po-level-secondary,10%);
 
 $selection-1: desaturate(lighten($blue, 40%), 40%);
 
@@ -39,63 +33,118 @@ $main-bg: lighten($base-bg, 50%);
 $side-bg: mix($base-bg, $main-bg, 5%);
 $side-bg-2: mix($side-bg, $base-bg, 85%);
 
+// $state-open-default-bg: $yellow;
+// $state-violation-default-bg: lighten($po-violation, 5%);
+// $state-violation-invariants-bg: lighten(mix($po-violation, $blue, 85%),10%);
+// $state-violation-global-bg: lighten(mix($po-violation, $blue, 85%),10%);
+//
+// $state-discharged-default-bg: $green;
+// $state-discharged-invariants-bg: darken(mix($green, $blue, 85%),10%);
+// $state-discharged-api-bg: lighten($ian_gillan, 50%);
+// $state-discharged-rv-bg: lighten(mix($green, $blue, 35%),20%);
+// $state-discharged-global-bg: lighten(mix($green, $blue, 75%),15%);
+// $state-discharged-ds-bg: lighten(mix($yellow, $green, 35%),15%);
+//
+// $state-assumption-api-bg: lighten($grey, 40%);
+// $state-assumption-rv-bg: lighten($grey, 40%);
+// $state-assumption-global-bg: lighten($grey, 40%);
+//
+// $darken-p: 25%;
 
 
-:root{
 
-    --kt-side-bg:$side-bg;
-    --kt-side-bg-2:$side-bg-2;
-    --kt-main-bg:$main-bg;
-    --kt-main-bg-t80: fade( $main-bg, 10%);
+:root {
+
+    --kt-side-bg                          : $side-bg;
+    --kt-side-bg-2                        : $side-bg-2;
+    --kt-main-bg                          : $main-bg;
+    --kt-main-bg-t80                      : fade( $main-bg, 10%);
 
     --paper-tree-selected-background-color: $side-bg-2;
 
     /* == = = == =  = = = = = */
 
-    --kt-red: $red;
-    --kt-green: $green;
-    --kt-yellow: $yellow;
+    --kt-red                              : $red;
+    --kt-green                            : $green;
+    --kt-yellow                           : $yellow;
 
-    --kt-orange: mix($yellow, $red, 55%);
+    --kt-orange                           : mix($yellow, $red, 55%);
+
+    --kt-violet                           : $ian_gillan;
+    --kt-violet-lighter                   : lighten($ian_gillan, 10%);
+    --kt-node-fade                        : lighten(desaturate($ian_gillan, 30%), 40%);
+    --kt-node-selected-border             : $ian_gillan;
+
+    --kt-grey                             : $grey;
+    --kt-grey-dark                        : darken($grey, 20%);
+    --kt-text-color                       : darken($grey, 20%);
+    --kt-grey-light                       : lighten($grey,30%);
+    --kt-grey-lighter                     : lighten($grey, 50%);
+
+    --kt-edge                             : lighten($grey,30%);
+    --kt-edge-highlight                   : lighten($ian_gillan, 5%);
+    --kt-out-edge-highlight               : lighten($red, 5%);
+    --kt-in-edge-highlight                : lighten($ian_gillan, 5%);
+    --kt-edge-text                        : darken($grey, 20%);
+
+    /* STATES =========== */
+
+    // --kt-state-open-default-bg            : $state-open-default-bg;
+    // --kt-state-violation-default-bg       : $state-violation-default-bg;
+    // --kt-state-violation-invariants-bg    : $state-violation-invariants-bg;
+    // --kt-state-violation-global-bg        : $state-violation-global-bg;
+    //
+    // --kt-state-discharged-default-bg      : $state-discharged-default-bg;
+    // --kt-state-discharged-invariants-bg   : $state-discharged-invariants-bg;
+    // --kt-state-discharged-api-bg          : $state-discharged-rv-bg;
+    // --kt-state-discharged-rv-bg           : $state-discharged-rv-bg;
+    // --kt-state-discharged-global-bg       : $state-discharged-global-bg;
+    // --kt-state-discharged-ds-bg           : $state-discharged-ds-bg;
+    //
+    // --kt-state-assumption-api-bg          : $state-assumption-api-bg;
+    // --kt-state-assumption-rv-bg           : $state-assumption-rv-bg;
+    // --kt-state-assumption-global-bg       : $state-assumption-global-bg;
+    //
+    // /* STATES =========== */
+    //
+    // --kt-state-open-default-tx            : darken($state-open-default-bg, $darken-p);
+    // --kt-state-violation-default-tx       : darken($state-violation-default-bg, $darken-p);
+    // --kt-state-violation-invariants-tx    : darken($state-violation-invariants-bg, $darken-p);
+    // --kt-state-violation-global-tx        : darken($state-violation-global-bg, $darken-p);
+    //
+    // --kt-state-discharged-default-tx      : darken($state-discharged-default-bg, $darken-p);
+    // --kt-state-discharged-invariants-tx   : darken($state-discharged-invariants-bg, $darken-p);
+    // --kt-state-discharged-api-tx          : darken($state-discharged-rv-bg, $darken-p);
+    // --kt-state-discharged-rv-tx           : darken($state-discharged-rv-bg, $darken-p);
+    // --kt-state-discharged-global-tx       : darken($state-discharged-global-bg, $darken-p);
+    // --kt-state-discharged-ds-tx           : darken($state-discharged-ds-bg, $darken-p);
 
 
-    --kt-violet: $ian_gillan;
-    --kt-violet-lighter: lighten($ian_gillan, 10%);
-    --kt-node-fade: lighten(desaturate($ian_gillan, 30%), 40%);
-    --kt-node-selected-border: $ian_gillan;
+    $discharges: (
+        invariants: mix($green, $blue, 75%),
+        global: $blue,
+        rv: $yellow,
+        api: lighten($ian_gillan, 40%),
+        ds: mix($yellow, $green, 35%) );
 
-    --kt-grey: $grey;
-    --kt-grey-dark: darken($grey, 20%);
-    --kt-text-color: darken($grey, 20%);
-    --kt-grey-light:lighten($grey,30%);
-    --kt-grey-lighter:lighten($grey, 50%);
+    $states: (violation: $red, discharged:$green, open:$yellow, assumption: lighten($grey, 40%) );
 
-    --kt-edge :lighten($grey,30%);
-    --kt-edge-highlight: lighten($ian_gillan, 5%);//lighten($grey,30%);
-    --kt-out-edge-highlight: lighten($red, 5%);
-    --kt-in-edge-highlight: lighten($ian_gillan, 5%);
-    --kt-edge-text: darken($grey, 20%);
+    @each $state, $scolor in $states{
 
-    --kt-state-open-default-bg: $yellow;
-    --kt-state-violation-default-bg: lighten($po-violation, 5%);
-    --kt-state-violation-invariants-bg: lighten(mix($po-violation, $blue, 85%),10%);
-    --kt-state-violation-global-bg: lighten(mix($po-violation, $blue, 85%),10%);
+        --kt-state-#{$state}-default-bg : $scolor;
+        --kt-state-#{$state}-default-tx : darken( $scolor, 25%);
+        --kt-state-#{$state}-default-hover-bg : lighten( $scolor, 20%);
 
-    --kt-state-discharged-default-bg: $green;
-    --kt-state-discharged-invariants-bg: darken(mix($green, $blue, 85%),10%);
-    --kt-state-discharged-api-bg: lighten($ian_gillan, 50%);
-    --kt-state-discharged-rv-bg: lighten(mix($green, $blue, 35%),20%);
-    --kt-state-discharged-global-bg: lighten(mix($green, $blue, 75%),15%);
-    --kt-state-discharged-ds-bg: lighten(mix($yellow, $green, 35%),15%);
+        @each $discharge, $dcolor in $discharges{
+            --kt-state-#{$state}-#{$discharge}-bg : mix($scolor, $dcolor, 75%);
+            --kt-state-#{$state}-#{$discharge}-tx : darken( mix($scolor, $dcolor, 75%), 25%);
+            --kt-state-#{$state}-#{$discharge}-hover-bg : lighten( mix($scolor, $dcolor, 75%), 18%);
+        }
+    }
 
-
-    --kt-state-assumption-api-bg: lighten($grey, 40%);
-    --kt-state-assumption-rv-bg: lighten($grey, 40%);
-    --kt-state-assumption-global-bg: lighten($grey, 40%);
-
-
-    --kt-hover: lighten(desaturate($ian_gillan, 30%), 55%);
-    --kt-progress: $color-brand-2;
+    /* =========== */
+    --kt-hover                            : lighten(desaturate($ian_gillan, 30%), 55%);
+    --kt-progress                         : $color-brand-2;
 
     /* =========== */
 }
