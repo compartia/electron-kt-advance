@@ -14,7 +14,7 @@ module kt.Globals {
         functionByFile: { [key: string]: Array<kt.xml.CFunction> } = {};
         baseDir: string;
         analysisDir: string;
-        proofObligations:Array<kt.graph.PONode> =[];
+        proofObligations: Array<kt.graph.PONode> = [];
 
 
 
@@ -37,17 +37,17 @@ module kt.Globals {
             return reader.readFunctionsMap(path.dirname(this.analysisDir), readFunctionsMapTracker);
         }
 
-        public getPOsByFile(filename:string): Array<kt.graph.PONode>{
-            return _.filter(
+        public getPOsByFile(filename: string): Array<kt.graph.PONode> {
+            return kt.graph.sortPoNodes(_.filter(
                 this.proofObligations,
-                (x:kt.graph.PONode) => {return x.file==filename;});
+                (x: kt.graph.PONode) => { return x.file == filename; }));
 
         }
 
-        public getPOsByFileFunc(filename:string, functionName:string): Array<kt.graph.PONode>{
-            return _.filter(
+        public getPOsByFileFunc(filename: string, functionName: string): Array<kt.graph.PONode> {
+            return kt.graph.sortPoNodes(_.filter(
                 this.proofObligations,
-                (x:kt.graph.PONode) => {return x.file==filename && x.functionName==functionName;});
+                (x: kt.graph.PONode) => { return x.file == filename && x.functionName == functionName; }));
 
         }
     }
@@ -57,7 +57,7 @@ module kt.Globals {
         if (dir && dir.length > 0) {
             project = new Project(dir);
             return project.open(dir[0], tracker);
-        }else{
+        } else {
             return null;
         }
     }

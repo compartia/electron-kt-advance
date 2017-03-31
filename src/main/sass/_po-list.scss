@@ -1,0 +1,42 @@
+@import "_fonts";
+@import "_colors";
+
+$paper-tree-icon-width: 16px;
+$browser-font-size: 11px;
+
+
+po-list{
+    .row{
+        .po-id{
+            min-width: 3rem;
+            display: inline-block;
+        }
+
+        .predicate{
+            display: inline-block;
+            min-width: 8rem;
+        }
+
+        .discharge{
+            display: inline-block;
+            min-width: 8rem;
+        }
+
+        .state{
+            display: inline-block;
+            min-width: 8rem;
+        }
+
+        .discharge-comment{
+            font-size: $font-size-sm;
+            display: inline-block;
+        }
+
+        .function-name{
+            min-width: 8rem;
+            font-family: $monospaced;
+        }
+
+    }
+
+}

@@ -83,7 +83,8 @@
                             </template>
 
                             <template is="dom-if" if="[[_modeIsPo(mode)]]">
-                                <po-list current-project="[[currentProject]]" selected-file="{{_selectedFile}}" selected-function="{{_selectedFunction}}"></po-list>
+                                <po-list current-project="[[currentProject]]" selected-file="{{_selectedFile}}" selected-function="{{_selectedFunction}}"
+                                    render-hierarchy="[[_renderHierarchy]]"></po-list>
                             </template>
 
                             <template is="dom-if" if="[[_modeIsGraphs(mode)]]">

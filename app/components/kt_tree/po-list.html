@@ -1,14 +1,23 @@
+<link rel="import" href="po-icon.html">
+
 <dom-module id="po-list">
     <template>
 
         <div class="container">
             <template is="dom-repeat" items="{{objects}}">
-                <div on-click="_clickListener">
-                    <span>{{item.id}}</span>
-                    <span>{{item.functionName}}</span>
-                    <span>{{item.predicate}}</span>
-                    <span>{{item.dischargeType}}</span>
-                    <span>{{item.extendedState}}</span>
+                <div on-click="_clickListener" class="po row" style$="background-color:var([[_getFillColor(item)]])">
+
+                    <span class="po-id">{{item.id}}</span>
+                    <template is="dom-if" if="[[!selectedFunction]]">
+                        <span class="function-name">{{item.functionName}}</span>
+                    </template>
+
+                    <span class="predicate">{{item.predicate}}</span>
+                    <span class="state">{{item.state}}</span>
+                    <template is="dom-if" if="[[item.discharge]]">
+                        :<span class="discharge">{{item.dischargeType}}</span>
+                        <span class="discharge-comment">{{item.discharge.message}}</span>
+                    </template>
 
                 </div>
 
@@ -33,10 +42,14 @@
             }
         },
 
+        _getFillColor: function(node) {
+            return "--kt-state-"+node.extendedState.toLowerCase()+"-bg";
+        },
+
         _getPosBySelection: function(file, sfunction) {
             console.info(file);
-            if (this.currentProject) {
-                if(this.selectedFunction){
+            if (this.currentProject && file) {
+                if(sfunction){
                     return this.currentProject.getPOsByFileFunc(file.relativePath, this.selectedFunction);
                 } else {
                     return this.currentProject.getPOsByFile(file.relativePath);

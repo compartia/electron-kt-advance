@@ -49,7 +49,7 @@ module kt.parser {
                 return result;
             })
             .then((POs:kt.xml.XmlAnalysis) => {
-                project.proofObligations = POs.ppos.concat(POs.spos);
+                project.proofObligations = kt.graph.sortPoNodes( POs.ppos.concat(POs.spos));
                 let g: tf.graph.proto.NodeDef[] = buildGraph(project.proofObligations, POs.apis);
                 return g;
             });
