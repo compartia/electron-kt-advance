@@ -11,12 +11,16 @@
 <link rel="import" href="../bower_components/paper-header-panel/paper-header-panel.html">
 
 <link rel="import" href="../bower_components/vaadin-split-layout/vaadin-split-layout.html">
-<link rel="import" href="../bower_components/paper-toast/paper-toast.html">
+<link rel="import" href="../bower_components/paper-material/paper-material.html">
 
-<link rel="import" href="assumptions-graph.html">
 <link rel="import" href="components/kt_tree/paper-tree.html">
 <link rel="import" href="components/kt_tree/functions-list.html">
 <link rel="import" href="components/kt_tree/po-list.html">
+
+
+<link rel="import" href="components/tf_graph_loader/tf-graph-loader.html">
+<link rel="import" href="components/tf_graph_board/tf-graph-board.html">
+
 
 
 <dom-module id="kt-layout">
@@ -79,7 +83,7 @@
                                 out-graph="{{graph}}"
                                 out-stats="{{stats}}"
                                 progress="{{progress}}"
-                                current-project="{{currentProject}}"
+                                current-project="[[currentProject]]"
                                 out-hierarchy-params="{{_hierarchyParams}}"></tf-graph-loader>
 
                             <template is="dom-if" if="[[_modeIsSummary(mode)]]">
@@ -91,8 +95,10 @@
                             </template>
 
                             <template is="dom-if" if="[[_modeIsPo(mode)]]">
-                                <po-list progress="{{progress}}" current-project="[[currentProject]]" selected-file="{{_selectedFile}}" selected-function="{{_selectedFunction}}"
-                                    render-hierarchy="[[_renderHierarchy]]"></po-list>
+                                <po-list progress="{{progress}}"
+                                    current-project="[[currentProject]]"
+                                    selected-file="{{_selectedFile}}"
+                                    selected-function="{{_selectedFunction}}"></po-list>
                             </template>
 
                             <template is="dom-if" if="[[_modeIsGraphs(mode)]]">
@@ -249,6 +255,8 @@
                 },
 
                 _selectedFile: Object,
+
+                _renderHierarchy: Object,
 
                 tabs: {
                     type: Array,
