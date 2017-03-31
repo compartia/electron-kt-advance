@@ -74,6 +74,14 @@
                         <div id="content" class="fit">
                             <content id="injected-overview"></content>
 
+                            <tf-graph-loader id="loader"
+                                out-graph-hierarchy="{{graphHierarchy}}"
+                                out-graph="{{graph}}"
+                                out-stats="{{stats}}"
+                                progress="{{progress}}"
+                                current-project="{{currentProject}}"
+                                out-hierarchy-params="{{_hierarchyParams}}"></tf-graph-loader>
+
                             <template is="dom-if" if="[[_modeIsSummary(mode)]]">
                                 <div>summary</div>
                             </template>
@@ -88,7 +96,17 @@
                             </template>
 
                             <template is="dom-if" if="[[_modeIsGraphs(mode)]]">
-                                <assumptions-graph id="graphs" progress="{{progress}}" current-project="[[currentProject]]"></assumptions-graph>
+                                <tf-graph-board
+                                    id="graphboard"
+                                    color-by="[[colorBy]]"
+                                    color-by-params="{{colorByParams}}"
+                                    devices-for-stats="[[_devicesForStats]]"
+                                    graph-hierarchy="[[graphHierarchy]]"
+                                    graph="[[graph]]"
+                                    progress="{{progress}}"
+                                    hierarchy-params="[[_hierarchyParams]]"
+                                    render-hierarchy="{{_renderHierarchy}}"
+                                    stats="[[stats]]"></tf-graph-board>
                             </template>
                         </div>
 
