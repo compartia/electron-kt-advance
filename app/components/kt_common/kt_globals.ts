@@ -37,19 +37,38 @@ module kt.Globals {
             return reader.readFunctionsMap(path.dirname(this.analysisDir), readFunctionsMapTracker);
         }
 
-        public getPOsByFile(filename: string): Array<kt.graph.PONode> {
-            return kt.graph.sortPoNodes(_.filter(
-                this.proofObligations,
-                (x: kt.graph.PONode) => { return x.file == filename; }));
+        public getPOsByFile(filename: string, tracker: tf.ProgressTracker): Array<kt.graph.PONode> {
+            let filter = (xx) => _.filter(
+                xx,
+                (x: kt.graph.PONode) => { return x.file == filename });
 
+            return kt.graph.sortPoNodes(onBigArray(this.proofObligations, filter, tracker));
         }
 
-        public getPOsByFileFunc(filename: string, functionName: string): Array<kt.graph.PONode> {
-            return kt.graph.sortPoNodes(_.filter(
-                this.proofObligations,
-                (x: kt.graph.PONode) => { return x.file == filename && x.functionName == functionName; }));
+        public getPOsByFileFunc(filename: string, functionName: string, tracker: tf.ProgressTracker): Array<kt.graph.PONode> {
+            let filter = (xx) => _.filter(
+                xx,
+                (x: kt.graph.PONode) => { return x.file == filename && x.functionName == functionName; });
 
+            return kt.graph.sortPoNodes(onBigArray(this.proofObligations, filter, tracker));
         }
+    }
+
+    export function onBigArray<X>(array: Array<X>, op: (x: Array<X>) => Array<X>, tracker: tf.ProgressTracker): Array<X> {
+        const len = array.length;
+        const chunkSize = 1000;
+        const numberOfChunks = len / chunkSize;
+
+        var ret: Array<X> = [];
+        for (let i = 0; i <= len; i += chunkSize) {
+            let part = array.slice(i, i + chunkSize);
+            let processed = op(part);
+            ret = ret.concat(processed);
+            tracker.updateProgress(100.0001 / numberOfChunks);
+            tracker.setMessage(i + " of " + len);
+        }
+
+        return ret;
     }
 
     export function openNewProject(tracker: tf.ProgressTracker): Promise<{ [key: string]: Array<kt.xml.CFunction> }> {

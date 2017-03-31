@@ -5,9 +5,10 @@
 
         <div class="container">
             <template is="dom-repeat" items="{{objects}}">
-                <div on-click="_clickListener" class="po row" style$="border-left:4px solid var([[_getFillColor(item)]]); background: var([[_getHoverFillColor(item)]])">
+                <div on-click="_clickListener" class$="po row [[_getClass(item)]]"
+                     >
 
-                    <span class="state-color" ></span>
+                    <span class="state-color"></span>
 
                     <span class="po-id">{{item.id}}</span>
 
@@ -15,7 +16,7 @@
                         <span class="function-name">[[item.functionName]]</span>
                     </template>
 
-                    <span class="state" style$="color:var([[_getTextColor(item)]])">
+                    <span class="state"  >
                         <sup>[[item.level]]</sup>
                         [[item.state]]
                         <template is="dom-if" if="[[item.dischargeType]]">
@@ -34,18 +35,15 @@
                         </template>
                     </span>
 
-
                     <span class='expression'>
                         [[item.expression]]
                     </span>
 
-
                     <template is="dom-if" if="[[item.discharge]]">
                         <template is="dom-if" if="[[item.discharge.message]]">
-                            <span class="discharge-comment" style$="color:var([[_getTextColor(item)]])">{{item.discharge.message}}</span>
+                            <span class="discharge-comment" >{{item.discharge.message}}</span>
                         </template>
                     </template>
-
 
                 </div>
 
@@ -63,6 +61,10 @@
             selectedFile: Object,
             selectedFunction: Object,
             currentProject: Object,
+            progress: {
+                type: Object,
+                notify: true
+            },
 
             objects: {
                 type: Array,
@@ -71,24 +73,34 @@
         },
 
         _getFillColor: function(node) {
-            return "--kt-state-"+node.extendedState.toLowerCase()+"-bg";
+            return "--kt-state-" + node.extendedState.toLowerCase() + "-bg";
+        },
+
+        _getClass: function(node) {
+            return "po-" + node.extendedState.toLowerCase();
         },
 
         _getHoverFillColor: function(node) {
-            return "--kt-state-"+node.extendedState.toLowerCase()+"-hover-bg";
+            return "--kt-state-" + node.extendedState.toLowerCase() + "-hover-bg";
         },
 
         _getTextColor: function(node) {
-            return "--kt-state-"+node.extendedState.toLowerCase()+"-tx";
+            return "--kt-state-" + node.extendedState.toLowerCase() + "-tx";
         },
 
         _getPosBySelection: function(file, sfunction) {
-            console.info(file);
+            this.set('progress', {
+                value: 0,
+                msg: ''
+            });
+            // console.info(file);
+            var tracker = tf.graph.util.getTracker(this);
+            var filterTracker = tf.graph.util.getSubtaskTracker(tracker, 100, 'Filtering POs');
             if (this.currentProject && file) {
-                if(sfunction){
-                    return this.currentProject.getPOsByFileFunc(file.relativePath, this.selectedFunction);
+                if (sfunction) {
+                    return this.currentProject.getPOsByFileFunc(file.relativePath, this.selectedFunction, filterTracker);
                 } else {
-                    return this.currentProject.getPOsByFile(file.relativePath);
+                    return this.currentProject.getPOsByFile(file.relativePath, filterTracker);
                 }
 
             } else {
