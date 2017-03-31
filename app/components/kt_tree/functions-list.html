@@ -20,8 +20,13 @@
                 observer: "_selectedFileChanged"
             },
 
-            selected: {
+            _selected: {
                 type: Object,
+                value: null
+            },
+
+            selectedFunction: {
+                type: String,
                 value: null,
                 notify: true
             },
@@ -33,7 +38,8 @@
         },
 
         _selectedFileChanged: function(e) {
-            // console.error(e);
+            this.selectedFunction=null;
+            this._selected=null;
         },
 
         _getFunctionsByFile: function(file) {
@@ -47,19 +53,18 @@
         },
 
         _clickListener: function(e) {
+            this.selectedFunction = e.model.item.name;
+            console.log('You pressed button ' + e.model.item.name);
 
-            // console.log('You pressed button ' + e.model.item.name);
-
-            if (this.selected) {
-                this.toggleClass("selected", false, this.selected);
-                this.selected = null;
+            if (this._selected) {
+                this.toggleClass("selected", false, this._selected);
+                this._selected = null;
             }
 
             this.toggleClass("selected", true, e.target);
-            this.selected = e.target;
+            this._selected = e.target;
 
-            // // Only selects `<paper-tree-node>`. if (e.model) {     this.selected = e.model.item;     this.toggleClass("selected", true, this.selected); } else {     this.selected = null; }
-        }
+         }
 
     });
 </script>

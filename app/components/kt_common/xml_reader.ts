@@ -3,6 +3,14 @@ module kt.xml {
     const path = require('path');
     const sax = require('sax');
 
+
+    export class XmlAnalysis{
+        ppos: Array<kt.graph.PONode>;
+        spos: Array<kt.graph.PONode>;
+        apis: {[key:string]:kt.graph.ApiNode};
+    }
+
+
     export function getBaseDir(innerDir: string): string {
         if (!innerDir) return null;
 
@@ -520,12 +528,15 @@ module kt.xml {
             return apiFiles;
         }
 
-        public readDir(dirName: string, functionsMap: { [key: string]: Array<any> }, tracker: tf.ProgressTracker): Promise<any> {
+        public readDir(dirName: string, functionsMap: { [key: string]: Array<any> }, tracker: tf.ProgressTracker): Promise<XmlAnalysis> {
             // this.readPPOs(dirName);
             const parser = this;
             let spoMap;
             let ppoMap;
             let apiMap;
+
+            let ppoArr:Array<kt.graph.PONode>;
+            let spoArr:Array<kt.graph.PONode>;
 
             const ppoTracker = tf.graph.util.getSubtaskTracker(tracker, 20, 'reading PPOs');
             const pevTracker = tf.graph.util.getSubtaskTracker(tracker, 20, 'reading PEVs');
@@ -537,6 +548,7 @@ module kt.xml {
                 /*[0]*/
                 parser.readXmls(dirName, "_ppo.xml", parser.parsePpoXml, ppoTracker)
                     .then(ppos => {
+                        ppoArr=ppos;
                         ppoMap = _.indexBy(ppos, "key");
                         parser.readAndBindEvFiles(dirName, "_pev.xml", ppoMap, pevTracker);
                         return ppoMap;
@@ -545,6 +557,7 @@ module kt.xml {
                 /*[1]*/
                 parser.readXmls(dirName, "_spo.xml", parser.parseSpoXml, spoTracker)
                     .then(spos => {
+                        spoArr=spos;
                         spoMap = _.indexBy(spos, "key");
                         parser.readAndBindEvFiles(dirName, "_sev.xml", spoMap, sevTracker);
                         parser.bindCallsiteFunctions(spos, functionsMap);
@@ -582,19 +595,24 @@ module kt.xml {
                         parser.bindDischargeAssumptions(spoMap, apiMap);
                         parser.bindDischargeAssumptions(ppoMap, apiMap);
 
-                        return {
-                            "spoMap": spoMap,
-                            "ppoMap": ppoMap,
-                            "apiMap": apiMap
-                        }
+                        let ret=new XmlAnalysis();
+                        ret.apis=apiMap;
+                        ret.spos=spoArr;
+                        ret.ppos=ppoArr;
+                        // return {
+                        //     "spoArr": spoArr,
+                        //     "ppoArr": ppoArr,
+                        //     "apiMap": apiMap
+                        // }
+                        return ret;
 
 
                     });
 
             }).then(results => {
-                console.info("total SPO unique keys: " + Object.keys(results.spoMap).length);
-                console.info("total PPO unique keys: " + Object.keys(results.ppoMap).length);
-                console.info("total API unique keys: " + Object.keys(results.apiMap).length);
+                console.info("total SPO unique keys: " + spoArr.length);
+                console.info("total PPO unique keys: " + ppoArr.length);
+                console.info("total API unique keys: " + Object.keys(results.apis).length);
                 console.info("reading " + dirName + " DONE");
 
                 return results;
