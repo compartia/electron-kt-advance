@@ -3,7 +3,7 @@ module kt.Globals {
     const path = require('path');
     const fs = require('fs');
 
-    export const ch_dir = "ch_analysis";
+    export const CH_DIR:string = "ch_analysis";
 
     export var TABS = [
         'summary', 'source', 'proof obligations', 'assumptions', 'graphs'
@@ -24,7 +24,7 @@ module kt.Globals {
 
         public open(baseDir: string, tracker: tf.ProgressTracker): Promise<{ [key: string]: Array<kt.xml.CFunction> }> {
             this.baseDir = baseDir;
-            this.analysisDir = path.join(this.baseDir, ch_dir);
+            this.analysisDir = path.join(this.baseDir, CH_DIR);
 
             console.info("opening new project:" + baseDir);
 
@@ -74,11 +74,16 @@ module kt.Globals {
     export function openNewProject(tracker: tf.ProgressTracker): Promise<{ [key: string]: Array<kt.xml.CFunction> }> {
         let dir = kt.fs.selectDirectory();
         if (dir && dir.length > 0) {
-            project = new Project(dir);
-            return project.open(dir[0], tracker);
-        } else {
-            return null;
+
+            let projectDir=kt.fs.getChDir(dir[0]);
+            if(projectDir){
+                projectDir=path.dirname(projectDir);
+                project = new Project(projectDir);
+                return project.open(projectDir, tracker);
+            }
+
         }
+        return null;
     }
 
 
