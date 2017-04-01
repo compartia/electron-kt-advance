@@ -9,6 +9,14 @@ module kt.graph {
 
     const SPL = "/";
 
+    export function sortNodes(nodes: AbstractNode[]) {
+        return _.sortByOrder(nodes, ['file', 'functionName', 'stateIndex', 'dischargeTypeIndex', 'predicate'], ['asc', 'asc', 'asc', 'asc', 'asc']);
+    }
+
+    export function sortPoNodes(nodes: PONode[]): Array<PONode> {
+        return _.sortByOrder(nodes, ['file', 'functionName', 'stateIndex', 'dischargeTypeIndex', 'predicate'], ['asc', 'asc', 'asc', 'asc', 'asc']);
+    }
+
 
 
     export function compareStates(stateA: string, stateB: string): number {
@@ -123,6 +131,11 @@ module kt.graph {
             super();
         }
 
+        get message() {
+            if (this.evidence) return this.evidence.comment;
+            return "";
+        }
+
         get liftingType() {
             let dischargeType;
 
@@ -145,7 +158,6 @@ module kt.graph {
         state: string;
         po: any;
         predicate: string;
-        functionName: string;
         expression: string;
         _level: string;
 
@@ -209,6 +221,12 @@ module kt.graph {
             return kt.graph.makeAssumptionKey("api", this._apiId, this.callsiteFname, this.callsiteFileName);
         }
 
+        get stateIndex(): number {
+            return PoStates[this.state.toLowerCase()];
+        }
+
+
+
         get dischargeApiKey(): string {
             if (this._discharge && this._discharge.assumptions) {
                 if (this._discharge.assumptions.length > 0) {
@@ -239,6 +257,26 @@ module kt.graph {
             }
             else
                 return null;
+        }
+
+        get dischargeTypeIndex(): number {
+            let dt: string = this.dischargeType;
+            if (dt)
+                return PoDischargeTypes[dt.toLowerCase()];
+            else
+                return -1;
+        }
+
+        get predicateArgument(): string {
+            if (this.symbol) {
+                if (this.symbol.type == kt.xml.SymbolType.ID) {
+                    return this.symbol.value;
+                } else {
+                    return '"' + this.symbol.value + '"';
+                }
+            } else {
+                return null;
+            }
         }
 
         get extendedState(): string {
@@ -321,6 +359,9 @@ module kt.graph {
             return this._apiId;
         }
 
+        get nodeDef(): tf.graph.proto.NodeDef {
+            return this.asNodeDef();
+        }
 
         public asNodeDef(): tf.graph.proto.NodeDef {
             const po = this.po;
@@ -348,23 +389,17 @@ module kt.graph {
                 }
             }
 
-            for (let ref of this.sortRefs(this.inputs)) {
+            for (let ref of sortNodes(this.inputs)) {
                 nodeDef.input.push(ref.name);
             }
 
-            for (let ref of this.sortRefs(this.outputs)) {
+            for (let ref of sortNodes(this.outputs)) {
                 nodeDef.output.push(ref.name);
             }
 
             return nodeDef;
         }
 
-
-        private sortRefs(refs: AbstractNode[]) {
-            return refs.sort((x, y) => {
-                return compareStates(x.state, y.state);
-            });
-        }
 
 
     }

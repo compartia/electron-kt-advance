@@ -16,6 +16,8 @@
 <link rel="import" href="assumptions-graph.html">
 <link rel="import" href="components/kt_tree/paper-tree.html">
 <link rel="import" href="components/kt_tree/functions-list.html">
+<link rel="import" href="components/kt_tree/po-list.html">
+
 
 <dom-module id="kt-layout">
     <template>
@@ -24,7 +26,6 @@
             <paper-progress value="[[progress.value]]" style="width:100%"></paper-progress>
         </div>
 
-
         <template is="dom-if" if="[[_isNotComplete(progress)]]">
             <div id="progress-msg" class="toast">[[progress.msg]]</div>
 
@@ -32,21 +33,27 @@
 
         <vaadin-split-layout class="splitter-1">
 
-            <div style="width:15%">
 
-                <paper-toolbar >
-                    <paper-icon-button icon="menu" on-tap="openProject"></paper-icon-button>
-                </paper-toolbar>
 
-                <paper-tree style="width:50%" id="treeview" selected-file="{{_selectedFile}}"></paper-tree>
+            <div style="width:15%; position: relative; overflow:none">
+                <paper-header-panel mode="waterfall" class="panel-files">
+                    <paper-toolbar>
+                        <paper-icon-button icon="menu" on-tap="openProject"></paper-icon-button>
+                    </paper-toolbar>
+                    <paper-tree id="treeview" selected-file="{{_selectedFile}}"></paper-tree>
+                </paper-header-panel>
             </div>
 
             <div style="width:85%">
 
                 <vaadin-split-layout class="splitter-2">
-                    <functions-list style="width:20%" id="functions" selected-file="{{_selectedFile}}"></functions-list>
 
-                    <div style="width:80%">
+                    <paper-header-panel style="width:20%" mode="waterfall" class="panel-functions">
+                        <paper-toolbar></paper-toolbar>
+                        <functions-list id="functions" selected-file="{{_selectedFile}}" selected-function="{{_selectedFunction}}"></functions-list>
+                    </paper-header-panel>
+
+                    <paper-header-panel style="width:80%" mode="waterfall" >
                         <!-- <app-header> -->
                         <paper-toolbar id="toolbar">
                             <paper-tabs selected="{{modeIndex}}" class="tabs" id="tabs">
@@ -67,6 +74,14 @@
                         <div id="content" class="fit">
                             <content id="injected-overview"></content>
 
+                            <tf-graph-loader id="loader"
+                                out-graph-hierarchy="{{graphHierarchy}}"
+                                out-graph="{{graph}}"
+                                out-stats="{{stats}}"
+                                progress="{{progress}}"
+                                current-project="{{currentProject}}"
+                                out-hierarchy-params="{{_hierarchyParams}}"></tf-graph-loader>
+
                             <template is="dom-if" if="[[_modeIsSummary(mode)]]">
                                 <div>summary</div>
                             </template>
@@ -75,11 +90,27 @@
                                 <div>source</div>
                             </template>
 
+                            <template is="dom-if" if="[[_modeIsPo(mode)]]">
+                                <po-list progress="{{progress}}" current-project="[[currentProject]]" selected-file="{{_selectedFile}}" selected-function="{{_selectedFunction}}"
+                                    render-hierarchy="[[_renderHierarchy]]"></po-list>
+                            </template>
+
                             <template is="dom-if" if="[[_modeIsGraphs(mode)]]">
-                                <assumptions-graph id="graphs" progress="{{progress}}" current-project="[[currentProject]]"></assumptions-graph>
+                                <tf-graph-board
+                                    id="graphboard"
+                                    color-by="[[colorBy]]"
+                                    color-by-params="{{colorByParams}}"
+                                    devices-for-stats="[[_devicesForStats]]"
+                                    graph-hierarchy="[[graphHierarchy]]"
+                                    graph="[[graph]]"
+                                    progress="{{progress}}"
+                                    hierarchy-params="[[_hierarchyParams]]"
+                                    render-hierarchy="{{_renderHierarchy}}"
+                                    stats="[[stats]]"></tf-graph-board>
                             </template>
                         </div>
-                    </div>
+
+                    </paper-header-panel>
 
                 </vaadin-split-layout >
 
@@ -87,8 +118,19 @@
         </vaadin-split-layout>
 
         <style>
-            vaadin-split-layout {
-                }
+            vaadin-split-layout {}
+
+            paper-header-panel.panel-files {
+                --paper-header-panel-waterfall-container: {
+                    background: var(--kt-side-bg);
+                };
+            }
+
+            paper-header-panel.panel-functions {
+                --paper-header-panel-waterfall-container: {
+                    background: var(--kt-side-bg-2);
+                };
+            }
 
             paper-progress {
                 width: 100%;
@@ -228,7 +270,7 @@
             },
 
             _isNotComplete: function(progress) {
-                return progress.value>0 && progress.value < 100;
+                return progress.value > 0 && progress.value < 100;
             },
 
             _isTabEnabled: function(tab) {
@@ -245,6 +287,10 @@
 
             _modeIsSource: function(mode) {
                 return mode === "source";
+            },
+
+            _modeIsPo: function(mode) {
+                return mode === "proof obligations";
             },
 
             _modeIsSummary: function(mode) {

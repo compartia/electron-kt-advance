@@ -1,5 +1,5 @@
 @import "_fonts";
-@import "_colors";
+// @import "_colors";
 
 $paper-tree-icon-width: 16px;
 $browser-font-size: 11px;
@@ -17,6 +17,7 @@ $browser-font-size: 11px;
     }
 
     .container{
+        border: 1px solid red;
         overflow: scroll;
     }
 }
