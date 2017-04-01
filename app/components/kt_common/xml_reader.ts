@@ -11,17 +11,7 @@ module kt.xml {
     }
 
 
-    export function getBaseDir(innerDir: string): string {
-        if (!innerDir) return null;
 
-        let desiredDir = path.join(innerDir, "ch_analysis");
-        if (fs.existsSync(desiredDir)) {
-            return desiredDir;
-        } else {
-            return getBaseDir(path.dirname(innerDir));
-        }
-
-    }
 
     export function runParser<X>(parser, filename: string, resultingArray: Array<X>, tracker: tf.ProgressTracker): Promise<Array<X>> {
 
@@ -517,7 +507,7 @@ module kt.xml {
             const suffixFilter = "_api.xml";
             let apiFiles = this.listFilesInDir(dirName, suffixFilter);
 
-            let parentDir = getBaseDir(dirName);
+            let parentDir = kt.fs.getChDir(dirName);
 
             let linkedApiFilenames = _.uniq(_.map(_.values(spoMap), (v: kt.graph.PONode) => v.apiFileName));
             linkedApiFilenames = _.filter(linkedApiFilenames, v => v != null);
