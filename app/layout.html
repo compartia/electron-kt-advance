@@ -17,6 +17,8 @@
 <link rel="import" href="components/kt_tree/functions-list.html">
 <link rel="import" href="components/kt_tree/po-list.html">
 
+<link rel="import" href="components/kt_stats/kt-stats.html">
+
 <link rel="import" href="components/tf_graph_loader/tf-graph-loader.html">
 <link rel="import" href="components/tf_graph_board/tf-graph-board.html">
 
@@ -74,7 +76,12 @@
                             <tf-graph-loader id="loader" out-graph-hierarchy="{{graphHierarchy}}" out-graph="{{graph}}" out-stats="{{stats}}" progress="{{progress}}" current-project="[[currentProject]]" out-hierarchy-params="{{_hierarchyParams}}"></tf-graph-loader>
 
                             <template is="dom-if" if="[[_modeIsSummary(mode)]]">
-                                <div>summary</div>
+                                <kt-stats
+                                    progress="{{progress}}"
+                                    current-project="[[currentProject]]"
+                                    selected-file="{{_selectedFile}}"
+                                    selected-function="{{_selectedFunction}}"
+                                    stats="[[stats]]"></kt-stats>
                             </template>
 
                             <template is="dom-if" if="[[_modeIsSource(mode)]]">
@@ -257,6 +264,11 @@
                 },
 
                 currentProject: {
+                    type: Object,
+                    notify: true
+                },
+
+                stats: {
                     type: Object,
                     notify: true
                 },

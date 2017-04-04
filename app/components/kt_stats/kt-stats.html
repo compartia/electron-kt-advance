@@ -1,0 +1,44 @@
+<link rel="import" href="../../../bower_components/nvd3-elements/nvd3-multi-bar-horizontal.html">
+
+<dom-module id="kt-stats">
+    <template>
+
+        <div class="container">
+            <nvd3-multi-bar-horizontal data="[[chartData]]" height="400" width="100%" auto-resize flex-size></nvd3-multi-bar-horizontal>
+        </div>
+
+    </template>
+</dom-module>
+
+ <script>
+    Polymer({
+        is: 'kt-stats',
+
+        properties: {
+            selectedFile: Object,
+            selectedFunction: Object,
+            currentProject: Object,
+
+            chartData: {
+                type: Object,
+                computed: '_getChartData(currentProject,selectedFile,selectedFunction)'
+            },
+
+            stats: {
+                type: Object,
+                notify: true,
+                observer: '_statsChanged'
+            }
+        },
+
+        _getChartData: function(currentProject, selectedFile, selectedFunction) {
+            return  this.currentProject.stats.chartDataPredicatesByState;
+        },
+
+        _statsChanged: function() {
+            var data = this.currentProject.stats.chartDataPredicatesByState;
+            console.warn(data["not-null.OPEN.I"]);
+            console.warn(data);
+        }
+    });
+</script>

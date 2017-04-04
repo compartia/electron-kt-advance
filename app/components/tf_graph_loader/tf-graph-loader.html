@@ -44,7 +44,9 @@
         },
 
         _currentProjectChanged: function() {
-            console.info("_currentProjectChanged: "+this.currentProject.baseDir);
+            var project = this.currentProject;
+            // var _self=this;
+            console.info("_currentProjectChanged: "+project);
             this.set('progress', {
                 value: 0,
                 msg: ''
@@ -72,11 +74,15 @@
                 refEdges: {}
             };
 
-            kt.parser.readAndParse(readDataTracker).then(function(nodes) {
+            kt.parser.readAndParse(readDataTracker)
+            .then(function(nodes) {
+                project.buildStatistics();
+                // _self.set("outStats", project.stats);
+                this._setOutStats(graph);
                 return tf.graph.build(nodes, buildParams, graphTracker);
-            }).then(function(graph) {
+                
+            }.bind(this)).then(function(graph) {
                 this._setOutGraph(graph);
-
                 return tf.graph.hierarchy.build(graph, hierarchyParams, hierarchyTracker);
 
             }.bind(this)).then(function(graphHierarchy) {

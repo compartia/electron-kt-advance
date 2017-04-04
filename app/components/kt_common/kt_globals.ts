@@ -14,8 +14,9 @@ module kt.Globals {
         functionByFile: { [key: string]: Array<kt.xml.CFunction> } = {};
         baseDir: string;
         analysisDir: string;
-        proofObligations: Array<kt.graph.PONode> = [];
+        stats: kt.stats.Stats;
 
+        proofObligations: Array<kt.graph.PONode> = [];
 
 
         constructor(baseDir: string) {
@@ -28,6 +29,7 @@ module kt.Globals {
 
             console.info("opening new project:" + baseDir);
 
+            this.stats = new kt.stats.Stats();
 
             let reader: kt.xml.XmlReader = new kt.xml.XmlReader();
             tracker.setMessage("reading XML data");
@@ -35,6 +37,10 @@ module kt.Globals {
             const readFunctionsMapTracker = tf.graph.util.getSubtaskTracker(tracker, 100, 'reading functions map (*._cfile.xml)');
 
             return reader.readFunctionsMap(this.analysisDir, readFunctionsMapTracker);
+        }
+
+        public buildStatistics() {
+            this.stats.build(this);
         }
 
         public getPOsByFile(filename: string, tracker: tf.ProgressTracker): Array<kt.graph.PONode> {
@@ -79,7 +85,9 @@ module kt.Globals {
             if (projectDir) {
                 projectDir = path.dirname(projectDir);
                 project = new Project(projectDir);
+
                 return project.open(projectDir, tracker);
+
             } else {
                 const msg = kt.Globals.CH_DIR + " dir not found";
                 tracker.reportError(msg, new Error(msg));
