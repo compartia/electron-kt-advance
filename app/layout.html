@@ -17,27 +17,20 @@
 <link rel="import" href="components/kt_tree/functions-list.html">
 <link rel="import" href="components/kt_tree/po-list.html">
 
-
 <link rel="import" href="components/tf_graph_loader/tf-graph-loader.html">
 <link rel="import" href="components/tf_graph_board/tf-graph-board.html">
-
-
 
 <dom-module id="kt-layout">
     <template>
 
-        <div id="progress-bar">
-            <paper-progress value="[[progress.value]]" style="width:100%"></paper-progress>
-        </div>
-
         <template is="dom-if" if="[[_isNotComplete(progress)]]">
-            <div id="progress-msg" class="toast">[[progress.msg]]</div>
-
+            <div id="progress-bar">
+                <paper-progress value="[[progress.value]]" style="width:100%"></paper-progress>
+            </div>
+            <div id="progress-msg" class="toast" class$="[[_getToastClass(progress)]]">[[progress.msg]]</div>
         </template>
 
         <vaadin-split-layout class="splitter-1">
-
-
 
             <div style="width:15%; position: relative; overflow:none">
                 <paper-header-panel mode="waterfall" class="panel-files">
@@ -57,7 +50,7 @@
                         <functions-list id="functions" selected-file="{{_selectedFile}}" selected-function="{{_selectedFunction}}"></functions-list>
                     </paper-header-panel>
 
-                    <paper-header-panel style="width:80%" mode="waterfall" >
+                    <paper-header-panel style="width:80%" mode="waterfall">
                         <!-- <app-header> -->
                         <paper-toolbar id="toolbar">
                             <paper-tabs selected="{{modeIndex}}" class="tabs" id="tabs">
@@ -78,13 +71,7 @@
                         <div id="content" class="fit">
                             <content id="injected-overview"></content>
 
-                            <tf-graph-loader id="loader"
-                                out-graph-hierarchy="{{graphHierarchy}}"
-                                out-graph="{{graph}}"
-                                out-stats="{{stats}}"
-                                progress="{{progress}}"
-                                current-project="[[currentProject]]"
-                                out-hierarchy-params="{{_hierarchyParams}}"></tf-graph-loader>
+                            <tf-graph-loader id="loader" out-graph-hierarchy="{{graphHierarchy}}" out-graph="{{graph}}" out-stats="{{stats}}" progress="{{progress}}" current-project="[[currentProject]]" out-hierarchy-params="{{_hierarchyParams}}"></tf-graph-loader>
 
                             <template is="dom-if" if="[[_modeIsSummary(mode)]]">
                                 <div>summary</div>
@@ -95,10 +82,7 @@
                             </template>
 
                             <template is="dom-if" if="[[_modeIsPo(mode)]]">
-                                <po-list progress="{{progress}}"
-                                    current-project="[[currentProject]]"
-                                    selected-file="{{_selectedFile}}"
-                                    selected-function="{{_selectedFunction}}"></po-list>
+                                <po-list progress="{{progress}}" current-project="[[currentProject]]" selected-file="{{_selectedFile}}" selected-function="{{_selectedFunction}}"></po-list>
                             </template>
 
                             <template is="dom-if" if="[[_modeIsGraphs(mode)]]">
@@ -139,6 +123,9 @@
             }
 
             paper-progress {
+                z-index: 2000;
+                position: fixed;
+                top: 0;
                 width: 100%;
                 --paper-progress-height: 4px;
                 --paper-progress-active-color: var(--kt-progress);
@@ -278,7 +265,7 @@
             },
 
             _isNotComplete: function(progress) {
-                return progress.value > 0 && progress.value < 100;
+                return progress.value < 100;
             },
 
             _isTabEnabled: function(tab) {
@@ -317,6 +304,14 @@
                 return dashboard;
             },
 
+            _getToastClass: function(_progress) {
+                var result = 'toast';
+                if (_progress.error) {
+                    result += ' error';
+                }
+                return result;
+            },
+
             openProject: function() {
                 var _self = this;
                 _self.set('progress', {
@@ -338,6 +333,8 @@
                             value: 0,
                             msg: ''
                         });
+                    }).catch(function(err) {
+                        //console.error(err);
                     });
                 } else {
                     console.log("cancelled");
