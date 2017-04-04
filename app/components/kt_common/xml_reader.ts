@@ -4,10 +4,10 @@ module kt.xml {
     const sax = require('sax');
 
 
-    export class XmlAnalysis{
+    export class XmlAnalysis {
         ppos: Array<kt.graph.PONode>;
         spos: Array<kt.graph.PONode>;
-        apis: {[key:string]:kt.graph.ApiNode};
+        apis: { [key: string]: kt.graph.ApiNode };
     }
 
 
@@ -525,8 +525,8 @@ module kt.xml {
             let ppoMap;
             let apiMap;
 
-            let ppoArr:Array<kt.graph.PONode>;
-            let spoArr:Array<kt.graph.PONode>;
+            let ppoArr: Array<kt.graph.PONode>;
+            let spoArr: Array<kt.graph.PONode>;
 
             const ppoTracker = tf.graph.util.getSubtaskTracker(tracker, 20, 'reading PPOs');
             const pevTracker = tf.graph.util.getSubtaskTracker(tracker, 20, 'reading PEVs');
@@ -538,7 +538,7 @@ module kt.xml {
                 /*[0]*/
                 parser.readXmls(dirName, "_ppo.xml", parser.parsePpoXml, ppoTracker)
                     .then(ppos => {
-                        ppoArr=ppos;
+                        ppoArr = ppos;
                         ppoMap = _.indexBy(ppos, "key");
                         parser.readAndBindEvFiles(dirName, "_pev.xml", ppoMap, pevTracker);
                         return ppoMap;
@@ -547,7 +547,7 @@ module kt.xml {
                 /*[1]*/
                 parser.readXmls(dirName, "_spo.xml", parser.parseSpoXml, spoTracker)
                     .then(spos => {
-                        spoArr=spos;
+                        spoArr = spos;
                         spoMap = _.indexBy(spos, "key");
                         parser.readAndBindEvFiles(dirName, "_sev.xml", spoMap, sevTracker);
                         parser.bindCallsiteFunctions(spos, functionsMap);
@@ -585,10 +585,10 @@ module kt.xml {
                         parser.bindDischargeAssumptions(spoMap, apiMap);
                         parser.bindDischargeAssumptions(ppoMap, apiMap);
 
-                        let ret=new XmlAnalysis();
-                        ret.apis=apiMap;
-                        ret.spos=spoArr;
-                        ret.ppos=ppoArr;
+                        let ret = new XmlAnalysis();
+                        ret.apis = apiMap;
+                        ret.spos = spoArr;
+                        ret.ppos = ppoArr;
                         // return {
                         //     "spoArr": spoArr,
                         //     "ppoArr": ppoArr,
@@ -684,11 +684,19 @@ module kt.xml {
             tracker: tf.ProgressTracker): Promise<Array<X>> {
 
             tracker.setMessage("reading *" + suffixFilter + " files");
+            const files = this.listFilesInDir(dirName, suffixFilter);
+            if (files && files.length > 0) {
+                return this.parseFiles(
+                    files,
+                    parsingFunc,
+                    tracker);
+            } else {
+                const errmsg = "no *" + suffixFilter + " files found in " + dirName;
+                const err = new Error(errmsg);
+                tracker.reportError(errmsg, err);
+                throw err;
+            }
 
-            return this.parseFiles(
-                this.listFilesInDir(dirName, suffixFilter),
-                parsingFunc,
-                tracker);
 
         }
 

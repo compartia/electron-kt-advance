@@ -3,7 +3,7 @@ module kt.Globals {
     const path = require('path');
     const fs = require('fs');
 
-    export const CH_DIR:string = "ch_analysis";
+    export const CH_DIR: string = "ch_analysis";
 
     export var TABS = [
         'summary', 'source', 'proof obligations', 'assumptions', 'graphs'
@@ -34,7 +34,7 @@ module kt.Globals {
 
             const readFunctionsMapTracker = tf.graph.util.getSubtaskTracker(tracker, 100, 'reading functions map (*._cfile.xml)');
 
-            return reader.readFunctionsMap(path.dirname(this.analysisDir), readFunctionsMapTracker);
+            return reader.readFunctionsMap(this.analysisDir, readFunctionsMapTracker);
         }
 
         public getPOsByFile(filename: string, tracker: tf.ProgressTracker): Array<kt.graph.PONode> {
@@ -75,11 +75,14 @@ module kt.Globals {
         let dir = kt.fs.selectDirectory();
         if (dir && dir.length > 0) {
 
-            let projectDir=kt.fs.getChDir(dir[0]);
-            if(projectDir){
-                projectDir=path.dirname(projectDir);
+            let projectDir = kt.fs.getChDir(dir[0]);
+            if (projectDir) {
+                projectDir = path.dirname(projectDir);
                 project = new Project(projectDir);
                 return project.open(projectDir, tracker);
+            } else {
+                const msg = kt.Globals.CH_DIR + " dir not found";
+                tracker.reportError(msg, new Error(msg));
             }
 
         }
