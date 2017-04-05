@@ -12,7 +12,6 @@ module kt.xml {
 
 
 
-
     export function runParser<X>(parser, filename: string, resultingArray: Array<X>, tracker: tf.ProgressTracker): Promise<Array<X>> {
 
         return new Promise((resolve, reject) => {
@@ -490,14 +489,14 @@ module kt.xml {
                 let funcs = functionsMap[spo.callsiteFname];
                 if (funcs) {
                     if (funcs.length > 1) {
-                        console.error("ambigous fname");
-                        console.error(funcs);
+                        console.warn("ambigous fname");
+                        console.warn(funcs);
                     } else {
                         spo.callsiteFileName = funcs[0].file;
                     }
                 } else {
                     let m = "source file is unknow for the function name " + spo.callsiteFname;
-                    console.error(m);
+                    console.warn(m);
                     // throw m;
                 }
             }
@@ -644,7 +643,7 @@ module kt.xml {
                     spo.addOutput(api);
                     api.addInput(spo);
                 } else {
-                    console.error("SPO " + spo.key + " refers missing api-assumption " + spo.apiKey);
+                    console.warn("SPO " + spo.key + " refers missing api-assumption " + spo.apiKey);
                 }
 
             }
@@ -663,7 +662,7 @@ module kt.xml {
                         spo.addOutput(api);//XXX: Input? or Output?
                         api.addInput(spo);
                     } else {
-                        console.error("SPO " + spo.key + " refers missing discharge assumption " + dischargeApiKey);
+                        console.warn("SPO " + spo.key + " refers missing discharge assumption " + dischargeApiKey);
                     }
                 }
 
