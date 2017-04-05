@@ -13,6 +13,11 @@
                 notify: true
             },
 
+            filter: {
+                type: Object,
+                notify: true
+            },
+
             outGraphHierarchy: {
                 type: Object,
                 readOnly: true, //readonly so outsider can't change this via binding
@@ -34,12 +39,6 @@
             currentProject: {
                 type: Object,
                 observer: '_currentProjectChanged'
-            },
-
-            outStats: {
-                type: Object,
-                readOnly: true, // This property produces data.
-                notify: true
             }
         },
 
@@ -76,17 +75,15 @@
 
             kt.parser.readAndParse(readDataTracker)
             .then(function(nodes) {
-                project.buildStatistics();
-                // _self.set("outStats", project.stats);
-                this._setOutStats(graph);
+                this.set("filter", null);
                 return tf.graph.build(nodes, buildParams, graphTracker);
-                
+
             }.bind(this)).then(function(graph) {
                 this._setOutGraph(graph);
                 return tf.graph.hierarchy.build(graph, hierarchyParams, hierarchyTracker);
 
             }.bind(this)).then(function(graphHierarchy) {
-                // Update the properties which notify the parent with the graph hierarchy and whether the data has live stats or not.
+                // Update the properties which notify the parent with the graph hierarchy
                 this._setOutGraphHierarchy(graphHierarchy);
             }.bind(this)).catch(function(e) {
                 // Generic error catch, for errors that happened outside asynchronous tasks.

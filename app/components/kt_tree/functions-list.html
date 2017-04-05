@@ -8,63 +8,68 @@
         </div>
 
     </template>
-</dom-module>
 
- <script>
-    Polymer({
-        is: 'functions-list',
+    <script>
+        Polymer({
+            is: 'functions-list',
 
-        properties: {
-            selectedFile: {
-                type: Object,
-                observer: "_selectedFileChanged"
+            properties: {
+                selectedFile: {
+                    type: Object,
+                    observer: "_selectedFileChanged"
+                },
+
+                _selected: {
+                    type: Object,
+                    value: null
+                },
+
+                selectedFunction: {
+                    type: String,
+                    value: null,
+                    notify: true
+                },
+
+                functions: {
+                    type: Array,
+                    computed: '_getFunctionsByFile(selectedFile)'
+                }
             },
 
-            _selected: {
-                type: Object,
-                value: null
-            },
+            _selectedFileChanged: function(e) {
 
-            selectedFunction: {
-                type: String,
-                value: null,
-                notify: true
-            },
+                if (this._selected) {
+                    this.toggleClass("selected", false, this._selected);
+                    this._selected = null;
+                }
 
-            functions: {
-                type: Array,
-                computed: '_getFunctionsByFile(selectedFile)'
-            }
-        },
-
-        _selectedFileChanged: function(e) {
-            this.selectedFunction=null;
-            this._selected=null;
-        },
-
-        _getFunctionsByFile: function(file) {
-            console.info(file);
-            if (file && file.relativePath) {
-                return kt.Globals.project.functionByFile[file.relativePath];
-            } else {
-                return [];
-            }
-
-        },
-
-        _clickListener: function(e) {
-            this.selectedFunction = e.model.item.name;
-            console.log('You pressed button ' + e.model.item.name);
-
-            if (this._selected) {
-                this.toggleClass("selected", false, this._selected);
+                this.selectedFunction = null;
                 this._selected = null;
+            },
+
+            _getFunctionsByFile: function(file) {
+                // console.info(file);
+                if (file && file.relativePath) {
+                    return kt.Globals.project.functionByFile[file.relativePath];
+                } else {
+                    return [];
+                }
+
+            },
+
+            _clickListener: function(e) {
+                if (this._selected) {
+                    this.toggleClass("selected", false, this._selected);
+                    this._selected = null;
+                }
+
+                this.toggleClass("selected", true, e.target);
+                this._selected = e.target;
+
+                this.set("selectedFunction",  e.model.item.name);
             }
 
-            this.toggleClass("selected", true, e.target);
-            this._selected = e.target;
+        });
+    </script>
 
-         }
-
-    });
-</script>
+</dom-module>

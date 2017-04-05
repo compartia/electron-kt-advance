@@ -10,6 +10,63 @@ module kt.Globals {
     ];
 
 
+
+    export class Filter {
+
+
+        private _functionName: string;
+
+        private _file: any;
+
+        listener: any;
+
+
+        set functionName(_functionName: string) {
+            this._functionName = _functionName;
+        }
+
+        get functionName() {
+            return this._functionName;
+        }
+
+        get fileName() {
+            return this._file.relativePath;
+        }
+
+        set file(file: any) {
+            if (this._file != file) {
+                this._functionName = null;
+            }
+            this._file = file;
+        }
+
+        private acceptFile(po: kt.graph.PONode): boolean {
+            if (!this.fileName) {
+                return true;
+            } else {
+                return po.file == this.fileName;
+            }
+        }
+
+        private acceptFunction(po: kt.graph.PONode): boolean {
+            if (!this.functionName) {
+                return true;
+            } else {
+                return po.functionName == this.functionName;
+            }
+        }
+
+        public accept(po: kt.graph.PONode): boolean {
+            return this.acceptFile(po) && this.acceptFunction(po);
+        }
+
+        public setChangeListener(listener) {
+            this.listener = listener;
+        }
+    }
+
+    export const PO_FILTER: Filter = new Filter();
+
     export class Project {
         functionByFile: { [key: string]: Array<kt.xml.CFunction> } = {};
         baseDir: string;
@@ -17,10 +74,24 @@ module kt.Globals {
         stats: kt.stats.Stats;
 
         proofObligations: Array<kt.graph.PONode> = [];
+        _filteredProofObligations: Array<kt.graph.PONode> = null;
 
 
         constructor(baseDir: string) {
             this.baseDir = baseDir;
+        }
+
+
+        public onFilterChanged(filter) {
+            this._filteredProofObligations = null;
+        }
+
+        get filteredProofObligations(): Array<kt.graph.PONode> {
+            if (!this._filteredProofObligations) {
+                let filter = (x) => PO_FILTER.accept(x);
+                this._filteredProofObligations = kt.graph.sortPoNodes(_.filter(this.proofObligations, filter));
+            }
+            return this._filteredProofObligations;
         }
 
         public open(baseDir: string, tracker: tf.ProgressTracker): Promise<{ [key: string]: Array<kt.xml.CFunction> }> {
@@ -29,7 +100,7 @@ module kt.Globals {
 
             console.info("opening new project:" + baseDir);
 
-            this.stats = new kt.stats.Stats();
+
 
             let reader: kt.xml.XmlReader = new kt.xml.XmlReader();
             tracker.setMessage("reading XML data");
@@ -39,24 +110,10 @@ module kt.Globals {
             return reader.readFunctionsMap(this.analysisDir, readFunctionsMapTracker);
         }
 
-        public buildStatistics() {
+        public buildStatistics(): kt.stats.Stats {
+            this.stats = new kt.stats.Stats();
             this.stats.build(this);
-        }
-
-        public getPOsByFile(filename: string, tracker: tf.ProgressTracker): Array<kt.graph.PONode> {
-            let filter = (xx) => _.filter(
-                xx,
-                (x: kt.graph.PONode) => { return x.file == filename });
-
-            return kt.graph.sortPoNodes(onBigArray(this.proofObligations, filter, tracker));
-        }
-
-        public getPOsByFileFunc(filename: string, functionName: string, tracker: tf.ProgressTracker): Array<kt.graph.PONode> {
-            let filter = (xx) => _.filter(
-                xx,
-                (x: kt.graph.PONode) => { return x.file == filename && x.functionName == functionName; });
-
-            return kt.graph.sortPoNodes(onBigArray(this.proofObligations, filter, tracker));
+            return this.stats;
         }
     }
 
@@ -85,6 +142,7 @@ module kt.Globals {
             if (projectDir) {
                 projectDir = path.dirname(projectDir);
                 project = new Project(projectDir);
+                PO_FILTER.setChangeListener(project);
 
                 return project.open(projectDir, tracker);
 

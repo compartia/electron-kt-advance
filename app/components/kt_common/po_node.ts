@@ -6,7 +6,6 @@ module kt.graph {
     export enum PoDischargeTypes { global, invariants, ds, rv, api, default };
 
 
-
     const SPL = "/";
 
     export function sortNodes(nodes: AbstractNode[]) {
@@ -59,8 +58,17 @@ module kt.graph {
     class POId {
         id: string;
         functionName: string;
-        file: string;
+        private _file: string;
 
+        get file() {
+            return this._file;
+        }
+        set file(f: string) {
+            if (f)
+                this._file = path.normalize(f);
+            else
+                this._file = f;
+        }
         get key(): string {
             return makeKey(this.id, this.functionName, this.file);
         }
@@ -166,9 +174,19 @@ module kt.graph {
         _discharge: PODischarge;
 
         callsiteFname: string;
-        callsiteFileName: string;
+        private _callsiteFileName: string;
         symbol: kt.xml.Symbol;
         private _apiId: string = null;
+
+        get callsiteFileName() {
+            return this._callsiteFileName;
+        }
+        set callsiteFileName(f: string) {
+            if (f)
+                this._callsiteFileName = path.normalize(f);
+            else
+                this._callsiteFileName = f;
+        }
 
         get apiFileName(): string {
             if (this.callsiteFileName && this.callsiteFname) {
