@@ -1,7 +1,6 @@
 @import "_fonts";
 // @import "_colors";
 
-
 $po-id-width: 2rem;
 $po-id-padding: 0.5rem;
 
@@ -13,6 +12,11 @@ po-list {
     .row {
         padding      : 5px 1rem;
         border-bottom: 1px solid var(--kt-grey-lighter);
+
+        .po-icon {
+            width : var(--paper-tree-icon-width, 1rem);
+            height: var(--paper-tree-icon-width, 1rem);
+        }
 
         .po-id {
             color        : $grey;
@@ -44,9 +48,9 @@ po-list {
         }
 
         .discharge-comment {
-            font-size: $font-size-sm;
-            color    : $grey;
-            width: 100%;
+            font-size   : $font-size-sm;
+            color       : $grey;
+            width       : 100%;
             padding-left: $po-id-width+$po-id-padding;
         }
 

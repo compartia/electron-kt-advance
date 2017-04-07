@@ -4,24 +4,13 @@ module kt.xml {
     const sax = require('sax');
 
 
-    export class XmlAnalysis{
+    export class XmlAnalysis {
         ppos: Array<kt.graph.PONode>;
         spos: Array<kt.graph.PONode>;
-        apis: {[key:string]:kt.graph.ApiNode};
+        apis: { [key: string]: kt.graph.ApiNode };
     }
 
 
-    export function getBaseDir(innerDir: string): string {
-        if (!innerDir) return null;
-
-        let desiredDir = path.join(innerDir, "ch_analysis");
-        if (fs.existsSync(desiredDir)) {
-            return desiredDir;
-        } else {
-            return getBaseDir(path.dirname(innerDir));
-        }
-
-    }
 
     export function runParser<X>(parser, filename: string, resultingArray: Array<X>, tracker: tf.ProgressTracker): Promise<Array<X>> {
 
@@ -500,14 +489,14 @@ module kt.xml {
                 let funcs = functionsMap[spo.callsiteFname];
                 if (funcs) {
                     if (funcs.length > 1) {
-                        console.error("ambigous fname");
-                        console.error(funcs);
+                        console.warn("ambigous fname");
+                        console.warn(funcs);
                     } else {
                         spo.callsiteFileName = funcs[0].file;
                     }
                 } else {
                     let m = "source file is unknow for the function name " + spo.callsiteFname;
-                    console.error(m);
+                    console.warn(m);
                     // throw m;
                 }
             }
@@ -517,7 +506,7 @@ module kt.xml {
             const suffixFilter = "_api.xml";
             let apiFiles = this.listFilesInDir(dirName, suffixFilter);
 
-            let parentDir = getBaseDir(dirName);
+            let parentDir = kt.fs.getChDir(dirName);
 
             let linkedApiFilenames = _.uniq(_.map(_.values(spoMap), (v: kt.graph.PONode) => v.apiFileName));
             linkedApiFilenames = _.filter(linkedApiFilenames, v => v != null);
@@ -535,8 +524,8 @@ module kt.xml {
             let ppoMap;
             let apiMap;
 
-            let ppoArr:Array<kt.graph.PONode>;
-            let spoArr:Array<kt.graph.PONode>;
+            let ppoArr: Array<kt.graph.PONode>;
+            let spoArr: Array<kt.graph.PONode>;
 
             const ppoTracker = tf.graph.util.getSubtaskTracker(tracker, 20, 'reading PPOs');
             const pevTracker = tf.graph.util.getSubtaskTracker(tracker, 20, 'reading PEVs');
@@ -548,7 +537,7 @@ module kt.xml {
                 /*[0]*/
                 parser.readXmls(dirName, "_ppo.xml", parser.parsePpoXml, ppoTracker)
                     .then(ppos => {
-                        ppoArr=ppos;
+                        ppoArr = ppos;
                         ppoMap = _.indexBy(ppos, "key");
                         parser.readAndBindEvFiles(dirName, "_pev.xml", ppoMap, pevTracker);
                         return ppoMap;
@@ -557,7 +546,7 @@ module kt.xml {
                 /*[1]*/
                 parser.readXmls(dirName, "_spo.xml", parser.parseSpoXml, spoTracker)
                     .then(spos => {
-                        spoArr=spos;
+                        spoArr = spos;
                         spoMap = _.indexBy(spos, "key");
                         parser.readAndBindEvFiles(dirName, "_sev.xml", spoMap, sevTracker);
                         parser.bindCallsiteFunctions(spos, functionsMap);
@@ -595,10 +584,10 @@ module kt.xml {
                         parser.bindDischargeAssumptions(spoMap, apiMap);
                         parser.bindDischargeAssumptions(ppoMap, apiMap);
 
-                        let ret=new XmlAnalysis();
-                        ret.apis=apiMap;
-                        ret.spos=spoArr;
-                        ret.ppos=ppoArr;
+                        let ret = new XmlAnalysis();
+                        ret.apis = apiMap;
+                        ret.spos = spoArr;
+                        ret.ppos = ppoArr;
                         // return {
                         //     "spoArr": spoArr,
                         //     "ppoArr": ppoArr,
@@ -654,7 +643,7 @@ module kt.xml {
                     spo.addOutput(api);
                     api.addInput(spo);
                 } else {
-                    console.error("SPO " + spo.key + " refers missing api-assumption " + spo.apiKey);
+                    console.warn("SPO " + spo.key + " refers missing api-assumption " + spo.apiKey);
                 }
 
             }
@@ -673,7 +662,7 @@ module kt.xml {
                         spo.addOutput(api);//XXX: Input? or Output?
                         api.addInput(spo);
                     } else {
-                        console.error("SPO " + spo.key + " refers missing discharge assumption " + dischargeApiKey);
+                        console.warn("SPO " + spo.key + " refers missing discharge assumption " + dischargeApiKey);
                     }
                 }
 
@@ -694,11 +683,19 @@ module kt.xml {
             tracker: tf.ProgressTracker): Promise<Array<X>> {
 
             tracker.setMessage("reading *" + suffixFilter + " files");
+            const files = this.listFilesInDir(dirName, suffixFilter);
+            if (files && files.length > 0) {
+                return this.parseFiles(
+                    files,
+                    parsingFunc,
+                    tracker);
+            } else {
+                const errmsg = "no *" + suffixFilter + " files found in " + dirName;
+                const err = new Error(errmsg);
+                tracker.reportError(errmsg, err);
+                throw err;
+            }
 
-            return this.parseFiles(
-                this.listFilesInDir(dirName, suffixFilter),
-                parsingFunc,
-                tracker);
 
         }
 

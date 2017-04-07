@@ -3,30 +3,103 @@ module kt.Globals {
     const path = require('path');
     const fs = require('fs');
 
-    export const ch_dir = "ch_analysis";
+    export const CH_DIR: string = "ch_analysis";
 
     export var TABS = [
         'summary', 'source', 'proof obligations', 'assumptions', 'graphs'
     ];
 
 
+
+    export class Filter {
+
+
+        private _functionName: string;
+
+        private _file: any;
+
+        listener: any;
+
+
+        set functionName(_functionName: string) {
+            this._functionName = _functionName;
+        }
+
+        get functionName() {
+            return this._functionName;
+        }
+
+        get fileName() {
+            return this._file.relativePath;
+        }
+
+        set file(file: any) {
+            if (this._file != file) {
+                this._functionName = null;
+            }
+            this._file = file;
+        }
+
+        private acceptFile(po: kt.graph.PONode): boolean {
+            if (!this.fileName) {
+                return true;
+            } else {
+                return po.file == this.fileName;
+            }
+        }
+
+        private acceptFunction(po: kt.graph.PONode): boolean {
+            if (!this.functionName) {
+                return true;
+            } else {
+                return po.functionName == this.functionName;
+            }
+        }
+
+        public accept(po: kt.graph.PONode): boolean {
+            return this.acceptFile(po) && this.acceptFunction(po);
+        }
+
+        public setChangeListener(listener) {
+            this.listener = listener;
+        }
+    }
+
+    export const PO_FILTER: Filter = new Filter();
+
     export class Project {
         functionByFile: { [key: string]: Array<kt.xml.CFunction> } = {};
         baseDir: string;
         analysisDir: string;
-        proofObligations: Array<kt.graph.PONode> = [];
+        stats: kt.stats.Stats;
 
+        proofObligations: Array<kt.graph.PONode> = [];
+        _filteredProofObligations: Array<kt.graph.PONode> = null;
 
 
         constructor(baseDir: string) {
             this.baseDir = baseDir;
         }
 
+
+        public onFilterChanged(filter) {
+            this._filteredProofObligations = null;
+        }
+
+        get filteredProofObligations(): Array<kt.graph.PONode> {
+            if (!this._filteredProofObligations) {
+                let filter = (x) => PO_FILTER.accept(x);
+                this._filteredProofObligations = kt.graph.sortPoNodes(_.filter(this.proofObligations, filter));
+            }
+            return this._filteredProofObligations;
+        }
+
         public open(baseDir: string, tracker: tf.ProgressTracker): Promise<{ [key: string]: Array<kt.xml.CFunction> }> {
             this.baseDir = baseDir;
-            this.analysisDir = path.join(this.baseDir, ch_dir);
+            this.analysisDir = path.join(this.baseDir, CH_DIR);
 
             console.info("opening new project:" + baseDir);
+
 
 
             let reader: kt.xml.XmlReader = new kt.xml.XmlReader();
@@ -34,23 +107,13 @@ module kt.Globals {
 
             const readFunctionsMapTracker = tf.graph.util.getSubtaskTracker(tracker, 100, 'reading functions map (*._cfile.xml)');
 
-            return reader.readFunctionsMap(path.dirname(this.analysisDir), readFunctionsMapTracker);
+            return reader.readFunctionsMap(this.analysisDir, readFunctionsMapTracker);
         }
 
-        public getPOsByFile(filename: string, tracker: tf.ProgressTracker): Array<kt.graph.PONode> {
-            let filter = (xx) => _.filter(
-                xx,
-                (x: kt.graph.PONode) => { return x.file == filename });
-
-            return kt.graph.sortPoNodes(onBigArray(this.proofObligations, filter, tracker));
-        }
-
-        public getPOsByFileFunc(filename: string, functionName: string, tracker: tf.ProgressTracker): Array<kt.graph.PONode> {
-            let filter = (xx) => _.filter(
-                xx,
-                (x: kt.graph.PONode) => { return x.file == filename && x.functionName == functionName; });
-
-            return kt.graph.sortPoNodes(onBigArray(this.proofObligations, filter, tracker));
+        public buildStatistics(): kt.stats.Stats {
+            this.stats = new kt.stats.Stats();
+            this.stats.build(this);
+            return this.stats;
         }
     }
 
@@ -74,11 +137,22 @@ module kt.Globals {
     export function openNewProject(tracker: tf.ProgressTracker): Promise<{ [key: string]: Array<kt.xml.CFunction> }> {
         let dir = kt.fs.selectDirectory();
         if (dir && dir.length > 0) {
-            project = new Project(dir);
-            return project.open(dir[0], tracker);
-        } else {
-            return null;
+
+            let projectDir = kt.fs.getChDir(dir[0]);
+            if (projectDir) {
+                projectDir = path.dirname(projectDir);
+                project = new Project(projectDir);
+                PO_FILTER.setChangeListener(project);
+
+                return project.open(projectDir, tracker);
+
+            } else {
+                const msg = kt.Globals.CH_DIR + " dir not found";
+                tracker.reportError(msg, new Error(msg));
+            }
+
         }
+        return null;
     }
 
 

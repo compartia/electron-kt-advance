@@ -1,0 +1,64 @@
+<link rel="import" href="../../../bower_components/nvd3-elements/nvd3-multi-bar-horizontal.html">
+
+<dom-module id="kt-stats">
+    <template>
+
+        <div class="container">
+            <svg id="chartsvg" width="100%" height$="[[_height]]" preserveAspectRatio="xMinYMin" viewBox="-100 0 1050 650"></svg>
+            <nvd3-multi-bar-horizontal data="[[chartData]]" svg=[[_getSvgObj()]] show-legend></nvd3-multi-bar-horizontal>
+
+            <!--svg=[[_getSvgObj()]] <nvd3-multi-bar-horizontal data="[[chartData]]" height="600" width="100%" auto-resize show-legend></nvd3-multi-bar-horizontal> -->
+
+        </div>
+
+    </template>
+
+    <script>
+        Polymer({
+            is: 'kt-stats',
+
+            properties: {
+                selectedFile: Object,
+                selectedFunction: Object,
+
+                statistics: {
+                    type: Object,
+                    notify: true,
+                    observer: '_statisticsChanged'
+                },
+
+                chartData: {
+                    type: Object
+                },
+
+                _height: {
+                    type: Object,
+                    notify: true,
+                    computed: '_computeHeight(chartData)'
+                },
+
+                observers: ['filterChanged(filter.file, filter.functionName)']
+            },
+
+            _getSvgObj: function() {
+                return this.$.chartsvg;
+            },
+
+            _computeHeight: function(chartData) {
+                if (chartData && chartData.length > 0) {
+                    return chartData[0].values.length * 20;
+                }
+            },
+
+            _statisticsChanged: function(statistics) {
+
+                var data = statistics.chartDataPredicatesByState;
+                this.set("chartData", data);
+                this.$.chartsvg.setAttribute("viewBox", "-100 0 1400 " + this._computeHeight(data));
+                console.warn(data);
+
+            }
+        });
+    </script>
+
+</dom-module>

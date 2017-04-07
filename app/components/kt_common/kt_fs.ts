@@ -5,7 +5,18 @@ module kt.fs {
     const dialog = require('electron').remote.dialog;
 
 
+    export function getChDir(innerDir: string): string {
+        if (!innerDir || innerDir == path.dirname(innerDir)) return null;
 
+        let desiredDir = path.join(innerDir, kt.Globals.CH_DIR);
+        console.info("looking for for " + desiredDir);
+        if (fs.existsSync(desiredDir)) {
+            return desiredDir;
+        } else {
+            return getChDir(path.dirname(innerDir));
+        }
+
+    }
 
     export function selectDirectory(): any {
         let dir = dialog.showOpenDialog({

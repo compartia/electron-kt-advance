@@ -1,121 +1,93 @@
-<link rel="import" href="po-icon.html">
-
 <dom-module id="po-list">
     <template>
 
         <div class="container">
-            <template is="dom-repeat" items="{{objects}}">
-                <div on-click="_clickListener" class$="po row [[_getClass(item)]]"
-                     >
+            
+            <iron-list items="[[filteredProofObligations]]">
+                <template>
+                    <div on-click="_clickListener" class$="po row [[_getClass(item)]]">
 
-                    <span class="state-color"></span>
+                        <iron-icon class="po-icon" icon$="{{_computeIcon(item)}}" on-click="select"></iron-icon>
 
-                    <span class="po-id">{{item.id}}</span>
+                        <span class="po-id">{{item.id}}</span>
 
-                    <template is="dom-if" if="[[!selectedFunction]]">
-                        <span class="function-name">[[item.functionName]]</span>
-                    </template>
-
-                    <span class="state"  >
-                        <sup>[[item.level]]</sup>
-                        [[item.state]]
-                        <template is="dom-if" if="[[item.dischargeType]]">
-                            :<span class="discharge">{{item.dischargeType}}</span>
+                        <template is="dom-if" if="[[!functionName]]">
+                            <span class="function-name">[[item.functionName]]</span>
                         </template>
-                    </span>
 
-                    <span class="predicate">
-                        <span class="predicate-name">
-                            [[item.predicate]]
+                        <span class="state">
+                            <sup>[[item.level]]</sup>
+                            [[item.state]]
+                            <template is="dom-if" if="[[item.dischargeType]]">
+                                :<span class="discharge">{{item.dischargeType}}</span>
+                            </template>
                         </span>
-                        <template is="dom-if" if="[[item.predicateArgument]]">
-                            (<span class="predicate-arg">
-                                [[item.predicateArgument]]
-                            </span>)
+
+                        <span class="predicate">
+                            <span class="predicate-name">
+                                [[item.predicate]]
+                            </span>
+                            <template is="dom-if" if="[[item.predicateArgument]]">
+                                (<span class="predicate-arg">
+                                    [[item.predicateArgument]]
+                                </span>)
+                            </template>
+                        </span>
+
+                        <span class='expression'>
+                            [[item.expression]]
+                        </span>
+
+                        <template is="dom-if" if="[[item.discharge]]">
+                            <template is="dom-if" if="[[item.discharge.message]]">
+                                <span class="discharge-comment">{{item.discharge.message}}</span>
+                            </template>
                         </template>
-                    </span>
 
-                    <span class='expression'>
-                        [[item.expression]]
-                    </span>
-
-                    <template is="dom-if" if="[[item.discharge]]">
-                        <template is="dom-if" if="[[item.discharge.message]]">
-                            <span class="discharge-comment" >{{item.discharge.message}}</span>
-                        </template>
-                    </template>
-
-                </div>
-
-            </template>
+                    </div>
+                </template>
+            </iron-list>
         </div>
 
     </template>
-</dom-module>
 
- <script>
-    Polymer({
-        is: 'po-list',
+    <script>
+        Polymer({
+            is: 'po-list',
 
-        properties: {
-            selectedFile: Object,
-            selectedFunction: Object,
-            currentProject: Object,
-            progress: {
-                type: Object,
-                notify: true
+            properties: {
+                selectedFile: Object,
+                selectedFunction: Object,
+                currentProject: Object,
+                progress: {
+                    type: Object,
+                    notify: true
+                },
+
+                functionName: String,
+
+                filteredProofObligations: {
+                    type: Object,
+                    notify: true
+                }
             },
 
-            objects: {
-                type: Array,
-                computed: '_getPosBySelection(selectedFile,selectedFunction)'
-            }
-        },
+            _computeIcon: function(node) {
+                return "kt:state-" + node.extendedState.toLowerCase();
+                },
 
-        _getFillColor: function(node) {
-            return "--kt-state-" + node.extendedState.toLowerCase() + "-bg";
-        },
+            _getClass: function(node) {
+                return "po-" + node.extendedState.toLowerCase();
+            },
 
-        _getClass: function(node) {
-            return "po-" + node.extendedState.toLowerCase();
-        },
+            _clickListener: function(e) {
 
-        _getHoverFillColor: function(node) {
-            return "--kt-state-" + node.extendedState.toLowerCase() + "-hover-bg";
-        },
+                // if (this.selected) {     this.toggleClass("selected", false, this.selected);     this.selected = null; }
+                //
+                // this.toggleClass("selected", true, e.target); this.selected = e.target;
 
-        _getTextColor: function(node) {
-            return "--kt-state-" + node.extendedState.toLowerCase() + "-tx";
-        },
-
-        _getPosBySelection: function(file, sfunction) {
-            this.set('progress', {
-                value: 0,
-                msg: ''
-            });
-            // console.info(file);
-            var tracker = tf.graph.util.getTracker(this);
-            var filterTracker = tf.graph.util.getSubtaskTracker(tracker, 100, 'Filtering POs');
-            if (this.currentProject && file) {
-                if (sfunction) {
-                    return this.currentProject.getPOsByFileFunc(file.relativePath, this.selectedFunction, filterTracker);
-                } else {
-                    return this.currentProject.getPOsByFile(file.relativePath, filterTracker);
-                }
-
-            } else {
-                return [];
             }
 
-        },
-
-        _clickListener: function(e) {
-
-            // if (this.selected) {     this.toggleClass("selected", false, this.selected);     this.selected = null; }
-            //
-            // this.toggleClass("selected", true, e.target); this.selected = e.target;
-
-        }
-
-    });
-</script>
+        });
+    </script>
+</dom-module>
