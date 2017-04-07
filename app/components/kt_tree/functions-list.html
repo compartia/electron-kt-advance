@@ -1,12 +1,11 @@
 <dom-module id="functions-list">
+
     <template>
-
-        <div class="container">
-            <template is="dom-repeat" items="{{functions}}">
-                <div class="item" on-click="_clickListener">{{item.name}}</div>
+        <iron-list id="functionslist" items="[[functions]]" selection-enabled on-selected-item-changed="_selectedFunctionChanged" selected-item="{{selectedItem}}">
+            <template>
+                <div class$="[[_computedClass(selected)]]">{{item.name}}</div>
             </template>
-        </div>
-
+        </iron-list>
     </template>
 
     <script>
@@ -17,11 +16,6 @@
                 selectedFile: {
                     type: Object,
                     observer: "_selectedFileChanged"
-                },
-
-                _selected: {
-                    type: Object,
-                    value: null
                 },
 
                 selectedFunction: {
@@ -48,7 +42,6 @@
             },
 
             _getFunctionsByFile: function(file) {
-                // console.info(file);
                 if (file && file.relativePath) {
                     return kt.Globals.project.functionByFile[file.relativePath];
                 } else {
@@ -57,16 +50,20 @@
 
             },
 
-            _clickListener: function(e) {
-                if (this._selected) {
-                    this.toggleClass("selected", false, this._selected);
-                    this._selected = null;
+            _computedClass: function(selected) {
+                return selected
+                    ? "item selected"
+                    : "item";
+            },
+
+            _selectedFunctionChanged: function() {
+                var newval = this.$.functionslist.selectedItem;
+                if (newval) {
+                    this.set("selectedFunction", newval.name);
+                } else {
+                    this.set("selectedFunction", null);
                 }
 
-                this.toggleClass("selected", true, e.target);
-                this._selected = e.target;
-
-                this.set("selectedFunction",  e.model.item.name);
             }
 
         });
