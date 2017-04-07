@@ -3,6 +3,7 @@
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 
 <link rel="import" href="../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/paper-progress/paper-progress.html">
 
 <link rel="import" href="../bower_components/paper-toolbar/paper-toolbar.html">
@@ -55,7 +56,8 @@
                     <paper-header-panel style="width:80%" mode="waterfall">
                         <!-- <app-header> -->
                         <paper-toolbar id="toolbar">
-                            <paper-tabs selected="{{modeIndex}}" class="tabs" id="tabs">
+
+                            <paper-tabs selected="{{modeIndex}}" class="tabs" id="tabs" scrollable fit-container style="width: 80%;">
                                 <template is="dom-repeat" items="[[tabs]]">
                                     <template is="dom-if" if="[[_isTabEnabled(item)]]">
                                         <paper-tab data-mode="[[item]]">[[item]]</paper-tab>
@@ -69,37 +71,30 @@
                         </paper-toolbar>
 
                         <!-- </app-header> -->
+                        <tf-graph-loader id="loader" out-graph-hierarchy="{{graphHierarchy}}" out-graph="{{graph}}" progress="{{progress}}" current-project="[[currentProject]]" out-hierarchy-params="{{_hierarchyParams}}"></tf-graph-loader>
 
-                        <div id="content" class="fit">
-                            <content id="injected-overview"></content>
+                        <iron-pages selected="{{modeIndex}}" style="width: 100%; height: 100%">
 
-                            <tf-graph-loader id="loader" out-graph-hierarchy="{{graphHierarchy}}" out-graph="{{graph}}" progress="{{progress}}" current-project="[[currentProject]]" out-hierarchy-params="{{_hierarchyParams}}"></tf-graph-loader>
+                            <kt-stats progress="{{progress}}" statistics="[[statistics]]"></kt-stats>
 
-                            <template is="dom-if" if="[[_modeIsSummary(mode)]]">
-                                <kt-stats progress="{{progress}}"  statistics="[[statistics]]"></kt-stats>
-                            </template>
+                            <div>source</div>
 
-                            <template is="dom-if" if="[[_modeIsSource(mode)]]">
-                                <div>source</div>
-                            </template>
+                            <po-list progress="{{progress}}" filtered-proof-obligations="[[filteredProofObligations]]" function-name="[[filter.functionName]]"></po-list>
 
-                            <template is="dom-if" if="[[_modeIsPo(mode)]]">
-                                <po-list progress="{{progress}}" filtered-proof-obligations="[[filteredProofObligations]]" function-name="[[filter.functionName]]"></po-list>
-                            </template>
+                            <div>assumptions</div>
 
-                            <template is="dom-if" if="[[_modeIsGraphs(mode)]]">
-                                <tf-graph-board
-                                    id="graphboard"
-                                    color-by="[[colorBy]]"
-                                    color-by-params="{{colorByParams}}"
-                                    devices-for-stats="[[_devicesForStats]]"
-                                    graph-hierarchy="[[graphHierarchy]]"
-                                    graph="[[graph]]"
-                                    progress="{{progress}}"
-                                    hierarchy-params="[[_hierarchyParams]]"
-                                    render-hierarchy="{{_renderHierarchy}}"></tf-graph-board>
-                            </template>
-                        </div>
+                            <tf-graph-board
+                                id="graphboard"
+                                color-by="[[colorBy]]"
+                                color-by-params="{{colorByParams}}"
+                                devices-for-stats="[[_devicesForStats]]"
+                                graph-hierarchy="[[graphHierarchy]]"
+                                graph="[[graph]]"
+                                progress="{{progress}}"
+                                hierarchy-params="[[_hierarchyParams]]"
+                                render-hierarchy="{{_renderHierarchy}}"></tf-graph-board>
+
+                        </iron-pages>
 
                     </paper-header-panel>
 
@@ -281,16 +276,14 @@
             observers: ['filterChanged(filter.file, filter.functionName)'],
 
             filterChanged: function(file, functionName) {
-                console.log(this.filter.fileName +"/"+ this.filter.functionName);
+                console.log(this.filter.fileName + "/" + this.filter.functionName);
                 this.currentProject.onFilterChanged(this.filter);
-                if(file)
+                if (file)
                     this.set("filteredProofObligations", this.currentProject.filteredProofObligations);
                 else
                     this.set("filteredProofObligations", []);
 
-
                 this.set("statistics", this.currentProject.buildStatistics());
-
 
             },
 

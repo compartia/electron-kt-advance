@@ -2,49 +2,51 @@
     <template>
 
         <div class="container">
-            <template is="dom-repeat" items="{{filteredProofObligations}}">
-                <div on-click="_clickListener" class$="po row [[_getClass(item)]]">
+            
+            <iron-list items="[[filteredProofObligations]]">
+                <template>
+                    <div on-click="_clickListener" class$="po row [[_getClass(item)]]">
 
-                    <span class="state-color"></span>
+                        <iron-icon class="po-icon" icon$="{{_computeIcon(item)}}" on-click="select"></iron-icon>
 
-                    <span class="po-id">{{item.id}}</span>
+                        <span class="po-id">{{item.id}}</span>
 
-                    <template is="dom-if" if="[[!functionName]]">
-                        <span class="function-name">[[item.functionName]]</span>
-                    </template>
-
-                    <span class="state">
-                        <sup>[[item.level]]</sup>
-                        [[item.state]]
-                        <template is="dom-if" if="[[item.dischargeType]]">
-                            :<span class="discharge">{{item.dischargeType}}</span>
+                        <template is="dom-if" if="[[!functionName]]">
+                            <span class="function-name">[[item.functionName]]</span>
                         </template>
-                    </span>
 
-                    <span class="predicate">
-                        <span class="predicate-name">
-                            [[item.predicate]]
+                        <span class="state">
+                            <sup>[[item.level]]</sup>
+                            [[item.state]]
+                            <template is="dom-if" if="[[item.dischargeType]]">
+                                :<span class="discharge">{{item.dischargeType}}</span>
+                            </template>
                         </span>
-                        <template is="dom-if" if="[[item.predicateArgument]]">
-                            (<span class="predicate-arg">
-                                [[item.predicateArgument]]
-                            </span>)
+
+                        <span class="predicate">
+                            <span class="predicate-name">
+                                [[item.predicate]]
+                            </span>
+                            <template is="dom-if" if="[[item.predicateArgument]]">
+                                (<span class="predicate-arg">
+                                    [[item.predicateArgument]]
+                                </span>)
+                            </template>
+                        </span>
+
+                        <span class='expression'>
+                            [[item.expression]]
+                        </span>
+
+                        <template is="dom-if" if="[[item.discharge]]">
+                            <template is="dom-if" if="[[item.discharge.message]]">
+                                <span class="discharge-comment">{{item.discharge.message}}</span>
+                            </template>
                         </template>
-                    </span>
 
-                    <span class='expression'>
-                        [[item.expression]]
-                    </span>
-
-                    <template is="dom-if" if="[[item.discharge]]">
-                        <template is="dom-if" if="[[item.discharge.message]]">
-                            <span class="discharge-comment">{{item.discharge.message}}</span>
-                        </template>
-                    </template>
-
-                </div>
-
-            </template>
+                    </div>
+                </template>
+            </iron-list>
         </div>
 
     </template>
@@ -69,6 +71,10 @@
                     notify: true
                 }
             },
+
+            _computeIcon: function(node) {
+                return "kt:state-" + node.extendedState.toLowerCase();
+                },
 
             _getClass: function(node) {
                 return "po-" + node.extendedState.toLowerCase();
