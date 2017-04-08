@@ -1,7 +1,6 @@
 module kt.stats {
 
 
-
     const states = [
         "VIOLATION",
         "OPEN",
@@ -205,41 +204,6 @@ module kt.stats {
 
         }
 
-
-
-
-
-
-
-
-        get chartDataPredicatesByState() {
-            let ret = [];
-
-            for (let stateKey in this.byPredicate) {
-
-                let state = this.byPredicate[stateKey];
-
-                let byStateData = {
-                    key: stateKey,
-                    values: [],
-                    color: "var(--kt-state-" + stateKey.toLowerCase() + "-default-bg)"
-                };
-
-                ret.push(byStateData);
-                for (let predicateKey in state) {
-                    let predicateVal = state[predicateKey];
-                    byStateData.values.push(
-                        {
-                            label: predicateKey,
-                            value: predicateVal
-                        }
-                    );
-                }
-
-            }
-
-            return ret;
-        }
 
 
     }

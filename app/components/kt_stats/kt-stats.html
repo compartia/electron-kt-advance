@@ -4,11 +4,7 @@
     <template>
 
         <div class="container">
-            <!-- <svg id="chartsvg" width="100%" height$="[[_height]]" preserveAspectRatio="xMinYMin" viewBox="-100 0 1050 650"></svg>
-            <nvd3-multi-bar-horizontal data="[[chartData]]" svg=[[_getSvgObj()]] show-legend></nvd3-multi-bar-horizontal> -->
-
-            <div id="poByRedicate" class="kt-chart">
-            </div>
+            <div id="poByRedicate" class="kt-chart"></div>
         </div>
 
     </template>
@@ -25,45 +21,15 @@
                     type: Object,
                     notify: true,
                     observer: '_statisticsChanged'
-                },
-
-                chartData: {
-                    type: Object
-                },
-
-                _height: {
-                    type: Object,
-                    notify: true,
-                    computed: '_computeHeight(chartData)'
-                },
-
-                observers: ['filterChanged(filter.file, filter.functionName)']
-            },
-
-            _getSvgObj: function() {
-                return this.$.chartsvg;
-            },
-
-
-
-            _computeHeight: function(chartData) {
-                if (chartData && chartData.length > 0) {
-                    return chartData[0].values.length * 20;
                 }
+
             },
 
-            _statisticsChanged: function(oldVal, newVal) {
-                // var data = statistics.chartDataPredicatesByState;
-                if(this.statistics){
-                    this.statistics.updateChart(d3.select("#poByRedicate"));
+            _statisticsChanged: function(newVal, oldVal) {
+                if (newVal) {
+                    newVal.updateChart(d3.select("#poByRedicate"));
                 }
-                // }else if(oldVal){
-                //     oldVal.updateChart(d3.select("#poByRedicate"))
-                // }
-                // this.set("chartData", data);
-
             }
-
 
         });
     </script>
