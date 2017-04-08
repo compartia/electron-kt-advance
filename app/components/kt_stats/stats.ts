@@ -83,7 +83,6 @@ module kt.stats {
 
 
         public build(project: kt.Globals.Project) {
-            console.info("building statistics");
             this.byPredicate = new StatsTable();
 
             //XXX: do not do this everytime, just cache it per project
@@ -109,13 +108,12 @@ module kt.stats {
                 .duration(750);
 
             const data: Array<NamedArray> = this.byPredicate.asNamedRowsTable();
-             
+
             const summs = this.byPredicate.summs;
             const max = _.max(summs);
 
             const widthFunc = (val, col) => {
                 let ret = Math.round(10000 * (val / max)) / 100.1;
-                console.info(ret);
                 return ret;
             }
 
