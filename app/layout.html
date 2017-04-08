@@ -278,7 +278,7 @@
             filterChanged: function(file, functionName) {
                 console.log(this.filter.fileName + "/" + this.filter.functionName);
                 this.currentProject.onFilterChanged(this.filter);
-                if (file)
+                if (file && !file.dir)
                     this.set("filteredProofObligations", this.currentProject.filteredProofObligations);
                 else
                     this.set("filteredProofObligations", []);

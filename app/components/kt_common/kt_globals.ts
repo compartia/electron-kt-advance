@@ -13,12 +13,8 @@ module kt.Globals {
 
     export class Filter {
 
-
         private _functionName: string;
-
-        private _file: any;
-
-        listener: any;
+        private _file: kt.treeview.FileInfo;
 
 
         set functionName(_functionName: string) {
@@ -33,7 +29,7 @@ module kt.Globals {
             return this._file.relativePath;
         }
 
-        set file(file: any) {
+        set file(file: kt.treeview.FileInfo) {
             if (this._file != file) {
                 this._functionName = null;
             }
@@ -44,7 +40,13 @@ module kt.Globals {
             if (!this.fileName) {
                 return true;
             } else {
-                return po.file == this.fileName;
+                if(!this._file.dir){
+                    return po.file == this.fileName;
+                }else{
+                    // let relative=path.relative(this.fileName, po.file);
+                    return po.file.startsWith(this.fileName);
+                }
+
             }
         }
 
@@ -60,9 +62,6 @@ module kt.Globals {
             return this.acceptFile(po) && this.acceptFunction(po);
         }
 
-        public setChangeListener(listener) {
-            this.listener = listener;
-        }
     }
 
     export const PO_FILTER: Filter = new Filter();
@@ -142,7 +141,6 @@ module kt.Globals {
             if (projectDir) {
                 projectDir = path.dirname(projectDir);
                 project = new Project(projectDir);
-                PO_FILTER.setChangeListener(project);
 
                 return project.open(projectDir, tracker);
 

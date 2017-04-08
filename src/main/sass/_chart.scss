@@ -1,0 +1,90 @@
+$default-bg: $main-bg;
+$chart-font-size: $font-size-xs;
+
+$bar-height: $chart-font-size*2;
+$label-padding: $spacer/2;
+$label-z-index: 100;
+
+$label-width: 25%;
+$bar-width: 100%-$label-width;
+@mixin gradient-left($from-color, $to-color) {
+    background: linear-gradient(to right, $from-color 0%, $to-color 100%);
+}
+
+.kt-chart {
+    padding: $spacer;
+    font-size: $chart-font-size!important;
+    clear    : both;
+
+    .row {
+        background   : $default-bg;
+        display      : block;
+        border       : none;
+        margin-bottom: 1px;
+        clear        : both;
+        white-space  : nowrap;
+
+        overflow     : hidden;
+        width        : 100%;
+
+        label {
+            position     : relative;
+            box-sizing   : border-box;
+            float        : left;
+            line-height  : $bar-height;
+            text-align   : right;
+            width        : $label-width;
+            padding-right: $label-padding*2;
+            white-space  : nowrap;
+            z-index      : $label-z-index;
+            overflow     : hidden;
+
+            &:after {
+                position: absolute;
+                width   : 1em;
+                padding : $label-padding $label-padding/2;
+                right   : 0;
+                top     : 0;
+                bottom  : 0;
+                content : " ";
+                @include gradient-left(rgba($default-bg, 0), rgba($default-bg, 1));
+                z-index : $label-z-index + 10;
+            }
+        }
+
+        .bar-container {
+            box-sizing: border-box;
+
+            float     : left;
+            display   : block;
+            width     : $bar-width;
+            overflow  : hidden;
+
+            a {
+                cursor: pointer;
+                border: none;
+            }
+
+            .bar {
+                color     : white;
+                height    : $bar-height;
+                float     : left;
+                text-align: left;
+                min-width : 3px;
+            }
+
+            .value {
+                float       : left;
+                line-height : $bar-height;
+                text-align  : left;
+                /*min-width:5em;*/
+                padding-left: $label-padding;
+
+                &:after {
+                    clear: right;
+                }
+            }
+        }
+    }
+
+}
