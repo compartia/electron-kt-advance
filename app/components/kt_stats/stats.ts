@@ -34,23 +34,25 @@ module kt.stats {
 
         /**
         example:
-        [["row1name", 3,2,3,]
-        ["row2name", 4,2,3,]
-        ["row3name", 5,2,3,]
+        [[{name:"row1name", values:[3,2,3]]
         ]
         */
-        public asNamedRowsTable(): Array<Array<string | number>> {
+        public asNamedRowsTable(): Array<NamedArray> {
             let rows = Object.keys(this.data);
             let columns = this.columnNames;
 
-            let ret = new Array<Array<string | number>>();
+            let ret = new Array<NamedArray>();
 
             for (let rowName of rows) {
-                let row = new Array<string | number>();
-                row.push(rowName);
+                let row: NamedArray = {
+                    name: rowName,
+                    values: new Array<number>()
+                };
+
+                row.values = [];
                 ret.push(row);
                 for (let col of columns) {
-                    row.push(this.getAt(rowName, col));
+                    row["values"].push(this.getAt(rowName, col));
                 }
             }
 
@@ -61,45 +63,35 @@ module kt.stats {
             returns a vector Vi, where each value is a summ of row values
         */
         get summs(): Array<number> {
-            return _.map(this.asTable(), (x) => _.sum(x));
+            return _.map(this.asNamedRowsTable(), (x) => _.sum(x.values));
         }
 
-        public asTable(): Array<Array<number>> {
-            let rows = Object.keys(this.data);
-            let columns = this.columnNames;
-
-            let ret = new Array<Array<string | number>>();
-
-            for (let rowName of rows) {
-                let row = new Array<string | number>();
-                ret.push(row);
-                for (let col of columns) {
-                    row.push(this.getAt(rowName, col));
-                }
-            }
-
-            return ret;
-        }
 
         public getAt(row: string, column: string): number {
             return this.data[row][column];
         }
     }
 
+    interface NamedArray {
+        name: string;
+        values: Array<number>;
+    }
+
     export class Stats {
 
         byPredicate: StatsTable;
-        _predicates: Array<any>;
+
 
         public build(project: kt.Globals.Project) {
             console.info("building statistics");
             this.byPredicate = new StatsTable();
 
-            this._predicates = _.uniq(_.map(project.proofObligations, (e) => e.predicate)).sort();
+            //XXX: do not do this everytime, just cache it per project
+            let allPredicates = _.uniq(_.map(project.proofObligations, (e) => e.predicate)).sort();
 
             //popolate with zeros
             for (let state of states) {
-                for (let predicate of this._predicates) {
+                for (let predicate of allPredicates) {
                     this.byPredicate.inc(predicate, state, 0);
                 }
             }
@@ -116,13 +108,8 @@ module kt.stats {
             const t = d3.transition()
                 .duration(750);
 
-            const table = this.byPredicate.asNamedRowsTable();
-            const data = _.map(table, (x) => {
-                return {
-                    "values": x.splice(1),
-                    "name": x[0]
-                }
-            });
+            const data: Array<NamedArray> = this.byPredicate.asNamedRowsTable();
+             
             const summs = this.byPredicate.summs;
             const max = _.max(summs);
 
