@@ -14,20 +14,31 @@ module kt.treeview {
         console.info(root);
     }
 
+    export interface FileInfo {
+        name: string;
+        relativePath: string;
+        icon: string;
+        open: boolean;
+        children: Array<FileInfo>;
+        dir: boolean;
+    }
 
     export function tree(dir) {
         console.info("iterating " + dir);
-        let tree = {
-            children: [],
-            name: path.basename(dir),
-            open:true
+        let tree: FileInfo = {
+            children: new Array<FileInfo>(),
+            name: <string>path.basename(dir),
+            open: true,
+            icon: "",
+            relativePath: ".",
+            dir: true
         }
         allFilesSync(dir, dir, tree.children);
         return tree;
     }
 
 
-    export function allFilesSync(root: string, dir: string, fileList = []) {
+    export function allFilesSync(root: string, dir: string, fileList: Array<FileInfo> = []): Array<FileInfo> {
         let files = fs.readdirSync(dir);
 
         files.forEach(file => {
@@ -40,22 +51,22 @@ module kt.treeview {
             let relativePath = path.relative(root, filePath);
 
             if (isDirectory || toAdd) {
-                fileList.push(
-                    isDirectory
-                        ?
-                        {
-                            "name": file,
-                            "relativePath": relativePath,
-                            "icon": "folder-open",
-                            "children": allFilesSync(root, filePath)
-                        }
-                        :
-                        {
-                            "icon": icon,
-                            "relativePath": relativePath,
-                            "name": file
-                        }
-                );
+                let fileInfo: FileInfo = {
+                    children: new Array<FileInfo>(),
+                    name: file,
+                    open: false,
+                    relativePath: relativePath,
+                    icon: icon,
+                    dir: false
+                };
+
+                if (isDirectory) {
+                    fileInfo.icon = "folder-open";
+                    fileInfo.children = allFilesSync(root, filePath);
+                    fileInfo.dir = true
+                }
+
+                fileList.push(fileInfo);
             }
         });
 
