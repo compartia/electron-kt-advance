@@ -1,11 +1,33 @@
 <dom-module id="kt-stats">
     <template>
 
-        <div class="container">
-            <div id="poByRedicate" class="kt-chart"></div>
+        <div class="container flex" style="display:flex">
+            <paper-material elevation="1" class="card flexchild">
+                <div id="poByRedicate" class="kt-chart"></div>
+            </paper-material>
+            <paper-material elevation="1" class="card flexchild">
+                <div id="poByDischarge" class="kt-chart"></div>
+            </paper-material>
         </div>
 
     </template>
+
+    <style is="kt-stats">
+        .flex {
+            @apply(--layout-horizontal);
+        }
+
+        .flexchild {
+            @apply(--layout-flex);
+            padding: var(--spacer);
+            margin: var(--spacer);
+        }
+
+        .kt-chart {
+            width: 100%;
+        }
+
+    </style>
 
     <script>
         Polymer({
@@ -26,6 +48,7 @@
             _statisticsChanged: function(newVal, oldVal) {
                 if (newVal) {
                     newVal.updateChart(d3.select("#poByRedicate"));
+                    newVal.updatePoByDischargeChart(d3.select("#poByDischarge"));
                 }
             }
 
