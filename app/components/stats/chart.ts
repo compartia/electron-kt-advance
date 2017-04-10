@@ -5,7 +5,7 @@ module kt.charts {
     }
 
 
-    export function updateChart(container: d3.Selection<any>, chartData: ChartData) {
+    export function updateChart(scene, container: d3.Selection<any>, chartData: ChartData) {
         const data = chartData.data;
 
         const summs = _.map(data, (x) => _.sum(x.values));
@@ -17,21 +17,32 @@ module kt.charts {
         }
 
         const bgFunc = (val, index) => {
-            return chartData.colors[index]; 
+            return chartData.colors[index];
         }
 
         const ident = (d) => d;
 
         const rowname = (x) => x["name"];
-        const rowvalues = (x) => x["values"];
+        const rowvalues = (x) => {
+            let _values = x["values"];
+            let _name = x["name"];
+            return _.map(
+                _values,
+                (k) => {
+                    return {
+                        val: k,
+                        name: _name
+                    };
+                });
+        };
 
 
         const setupBar = (element, clazz) => {
             return element
                 .style("background-color", bgFunc)
-                .style("width", (val, index) => widthFunc(val, index) + "%")
-                .style("display", (val, index) => widthFunc(val, index) > 0 ? "block" : "none")
-                .attr("title", ident);
+                .style("width", (val, index) => widthFunc(val.val, index) + "%")
+                .style("display", (val, index) => widthFunc(val.val, index) > 0 ? "block" : "none")
+                .attr("title", (val, index) => val.name + ":" + val.val);
         }
 
         //=============
@@ -41,7 +52,11 @@ module kt.charts {
 
         let newRows = rows.enter()
             .append("div").attr("class", "row")
-            .style('opacity', 1.0);
+            .style('opacity', 1.0)
+            .on('click', (d, i, a) => {
+                (<Event>d3.event).stopPropagation();
+                scene.fire('chart-row-selected', { src: container.node(), data: d, index: i, a: a });
+            });
 
         newRows.append("label")
             .text(rowname)
@@ -70,11 +85,17 @@ module kt.charts {
                 bars.enter()
                     .append("a")
                     .attr("class", "bar " + clazz), clazz)
+                .on('click', (d, i, a) => {
+                    (<Event>d3.event).stopPropagation();
+                    scene.fire('chart-bar-selected', { src: container.node(), row: d.name, value: d.val, index: i, a: a });
+                });
+
 
 
             /** EXIT*/
             bars.exit().remove();
         }
+
 
         updateBars(cells_in_new_rows.selectAll("a").data(rowvalues), "enter");
         updateBars(cells.selectAll("a").data(rowvalues), "update");

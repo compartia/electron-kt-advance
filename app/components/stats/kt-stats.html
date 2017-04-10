@@ -5,6 +5,7 @@
             <paper-material elevation="1" class="card flexchild">
                 <div id="poByRedicate" class="kt-chart"></div>
             </paper-material>
+
             <paper-material elevation="1" class="card flexchild">
                 <div id="poByDischarge" class="kt-chart"></div>
             </paper-material>
@@ -21,6 +22,7 @@
             @apply(--layout-flex);
             padding: var(--spacer);
             margin: var(--spacer);
+            background-color: var(--kt-panel-bg);
         }
 
         .kt-chart {
@@ -41,15 +43,34 @@
                     type: Object,
                     notify: true,
                     observer: '_statisticsChanged'
-                }
+                },
 
+                predicate: {
+                    type: Object,
+                    notify: true
+                }
+            },
+            listeners: {
+                "chart-bar-selected": "_chartBarSelected",
+                "chart-row-selected": "_chartRowSelected"
             },
 
             _statisticsChanged: function(newVal, oldVal) {
                 if (newVal) {
-                    newVal.updateChart(d3.select("#poByRedicate"));
-                    newVal.updatePoByDischargeChart(d3.select("#poByDischarge"));
+                    newVal.updateChart(this, d3.select("#poByRedicate"));
+                    newVal.updatePoByDischargeChart(this, d3.select("#poByDischarge"));
                 }
+            },
+
+            _chartBarSelected: function(event) {
+                if (event.detail.src == this.$.poByRedicate) {
+                    console.log(event.detail.row);
+                    this.set("predicate", event.detail.row);
+                }
+            },
+
+            _chartRowSelected: function(event) {
+                console.log(event.detail);
             }
 
         });

@@ -7,6 +7,9 @@ $label-z-index: 100;
 
 $label-width: 25%;
 $bar-width: 100%-$label-width;
+
+$row-spacing:2px;
+
 @mixin gradient-left($from-color, $to-color) {
     background: linear-gradient(to right, $from-color 0%, $to-color 100%);
 }
@@ -22,7 +25,7 @@ $bar-width: 100%-$label-width;
         // background   : $default-bg;
         display      : block;
         border       : none;
-        margin-bottom: 1px;
+        margin-bottom: $row-spacing;
         clear        : both;
         white-space  : nowrap;
 
@@ -76,7 +79,8 @@ $bar-width: 100%-$label-width;
                 float     : left;
                 text-align: left;
                 min-width : 3px;
-                opacity: 0.7; 
+                opacity: 1;
+
             }
 
             .bar.enter{

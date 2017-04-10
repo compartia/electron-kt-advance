@@ -12,7 +12,7 @@ module kt.Globals {
 
 
     export class Filter {
-
+        private _predicate: string;
         private _functionName: string;
         private _file: kt.treeview.FileInfo;
 
@@ -26,7 +26,17 @@ module kt.Globals {
         }
 
         get fileName() {
-            return this._file.relativePath;
+            if(this._file)
+                return this._file.relativePath;
+            return null;
+        }
+
+        set predicate(_predicate) {
+            this._predicate = _predicate;
+        }
+
+        get predicate() {
+            return this._predicate;
         }
 
         set file(file: kt.treeview.FileInfo) {
@@ -40,9 +50,9 @@ module kt.Globals {
             if (!this.fileName) {
                 return true;
             } else {
-                if(!this._file.dir){
+                if (!this._file.dir) {
                     return po.file == this.fileName;
-                }else{
+                } else {
                     // let relative=path.relative(this.fileName, po.file);
                     return po.file.startsWith(this.fileName);
                 }
@@ -58,8 +68,17 @@ module kt.Globals {
             }
         }
 
+
+        private acceptPredicate(po: kt.graph.PONode): boolean {
+            if (!this.predicate) {
+                return true;
+            } else {
+                return po.predicate == this.predicate;
+            }
+        }
+
         public accept(po: kt.graph.PONode): boolean {
-            return this.acceptFile(po) && this.acceptFunction(po);
+            return this.acceptFile(po) && this.acceptFunction(po) && this.acceptPredicate(po);
         }
 
     }

@@ -31,6 +31,7 @@ $side-bg-2: mix($side-bg, $base-bg, 85%);
 :root {
 
     --kt-side-bg                          : $side-bg;
+    --kt-panel-bg                          : lighten($base-bg, 47%);
     --kt-side-bg-2                        : $side-bg-2;
     --kt-main-bg                          : $main-bg;
     --kt-main-bg-t80                      : fade( $main-bg, 10%);

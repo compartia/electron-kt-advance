@@ -95,7 +95,7 @@ module kt.stats {
             this.byDischargeType = new StatsTable();
 
             //XXX: do not do this everytime, just cache it per project
-            let allPredicates = _.uniq(_.map(project.proofObligations, (e) => e.predicate)).sort();
+            let allPredicates = _.uniq(_.map(project.filteredProofObligations, (e) => e.predicate)).sort();
 
             //popolate with zeros
             for (let state of states) {
@@ -119,11 +119,11 @@ module kt.stats {
 
 
 
-        public updateChart(container: d3.Selection<any>) {
+        public updateChart(scene, container: d3.Selection<any>) {
             const data: Array<NamedArray> = this.byPredicate.asNamedRowsTable();
             const colors: Array<string> = _.map(this.byPredicate.columnNames,
                 (x) => "var(--kt-state-" + x.toLowerCase() + "-default-bg)");
-            kt.charts.updateChart(container,
+            kt.charts.updateChart(scene, container,
                 {
                     data: data,
                     colors: colors
@@ -131,12 +131,12 @@ module kt.stats {
             );
         }
 
-        public updatePoByDischargeChart(container: d3.Selection<any>) {
+        public updatePoByDischargeChart(scene, container: d3.Selection<any>) {
             const data: Array<NamedArray> = this.byDischargeType.asNamedRowsTable();
 
             const colors: Array<string> = _.map(this.byDischargeType.columnNames,
                 (x) => "var(--kt-state-discharged-" + x.toLowerCase() + "-bg)");
-            kt.charts.updateChart(container,
+            kt.charts.updateChart(scene, container,
                 {
                     data: data,
                     colors: colors
