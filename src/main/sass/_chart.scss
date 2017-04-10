@@ -7,20 +7,25 @@ $label-z-index: 100;
 
 $label-width: 25%;
 $bar-width: 100%-$label-width;
+
+$row-spacing:2px;
+
 @mixin gradient-left($from-color, $to-color) {
     background: linear-gradient(to right, $from-color 0%, $to-color 100%);
 }
 
+
 .kt-chart {
-    padding: $spacer;
+    // padding: $spacer;
     font-size: $chart-font-size!important;
     clear    : both;
 
+
     .row {
-        background   : $default-bg;
+        // background   : $default-bg;
         display      : block;
         border       : none;
-        margin-bottom: 1px;
+        margin-bottom: $row-spacing;
         clear        : both;
         white-space  : nowrap;
 
@@ -38,14 +43,16 @@ $bar-width: 100%-$label-width;
             white-space  : nowrap;
             z-index      : $label-z-index;
             overflow     : hidden;
+            text-overflow: ellipsis;
 
             &:after {
                 position: absolute;
                 width   : 1em;
                 padding : $label-padding $label-padding/2;
-                right   : 0;
+
                 top     : 0;
                 bottom  : 0;
+                right: 0;
                 content : " ";
                 @include gradient-left(rgba($default-bg, 0), rgba($default-bg, 1));
                 z-index : $label-z-index + 10;
@@ -66,11 +73,20 @@ $bar-width: 100%-$label-width;
             }
 
             .bar {
+                box-sizing: border-box!important;
                 color     : white;
                 height    : $bar-height;
                 float     : left;
                 text-align: left;
                 min-width : 3px;
+                opacity: 1;
+
+            }
+
+            .bar.enter{
+            }
+
+            .bar.update{
             }
 
             .value {
