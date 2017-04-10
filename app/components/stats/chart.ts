@@ -17,7 +17,7 @@ module kt.charts {
         }
 
         const bgFunc = (val, index) => {
-            return chartData.colors[index];//"var(--kt-state-" + states[index].toLowerCase() + "-default-bg)"
+            return chartData.colors[index]; 
         }
 
         const ident = (d) => d;
@@ -82,11 +82,6 @@ module kt.charts {
 
         //
         rows.exit()
-            // .style('opacity', 1.0)
-            // .transition()
-            // .delay(10)
-            // .duration(500)
-            // .style('opacity', 0.0)
             .remove();
 
 

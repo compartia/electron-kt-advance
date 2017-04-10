@@ -6,9 +6,11 @@ node_modules/
 app.bak/
 bower_components/
 
+
 app/components/tf_graph_common/**/*.js
-app/components/kt_common/**/*.js
-app/components/kt_stats/**/*.js
+app/components/common/**/*.js
+app/components/stats/*.js
+app/components/xml/*.js
 app/ts/**/*.js
 
 app/css/styles.css
