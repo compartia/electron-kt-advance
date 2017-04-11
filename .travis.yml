@@ -38,3 +38,5 @@ script:
 branches:
   except:
   - "/^v\\d+\\.\\d+\\.\\d+$/"
+notifications:
+  slack: kestreltechnology:QcOSfR0bHUi92kqkmioIsT4H
