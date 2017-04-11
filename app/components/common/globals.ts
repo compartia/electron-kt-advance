@@ -15,7 +15,7 @@ module kt.Globals {
         private _predicate: string;
         private _functionName: string;
         private _file: kt.treeview.FileInfo;
-
+        private _state: kt.graph.PoStates = null;
 
         set functionName(_functionName: string) {
             this._functionName = _functionName;
@@ -25,8 +25,20 @@ module kt.Globals {
             return this._functionName;
         }
 
+        set state(_state: kt.graph.PoStates) {
+            this._state = _state;
+        }
+
+        get state() {
+            return this._state;
+        }
+
+        get stateName() {
+            return kt.graph.PoStates[this._state];
+        }
+
         get fileName() {
-            if(this._file)
+            if (this._file)
                 return this._file.relativePath;
             return null;
         }
@@ -68,6 +80,14 @@ module kt.Globals {
             }
         }
 
+        private acceptState(po: kt.graph.PONode): boolean {
+            if (this.state == null || this.state == undefined) {
+                return true;
+            } else {
+                return po.state.toLowerCase() == this.stateName.toLowerCase();
+            }
+        }
+
 
         private acceptPredicate(po: kt.graph.PONode): boolean {
             if (!this.predicate) {
@@ -78,7 +98,7 @@ module kt.Globals {
         }
 
         public accept(po: kt.graph.PONode): boolean {
-            return this.acceptFile(po) && this.acceptFunction(po) && this.acceptPredicate(po);
+            return this.acceptFile(po) && this.acceptFunction(po) && this.acceptPredicate(po) && this.acceptState(po);
         }
 
     }

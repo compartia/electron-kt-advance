@@ -1,0 +1,63 @@
+$filter-panel-bg: transparentize($side-bg, 0.25);
+
+po-filter-panel {
+    position : fixed;
+    right    : 0;
+    top      : var(--paper-toolbar-height);
+    z-index  : 2000;
+
+    font-size: $font-size-sm;
+ 
+    .container {
+        display    : flex;
+        align-items: center;
+        height     : var(--filter-panel-height);
+
+        .path,
+        .stats {
+            display      : flex;
+            margin-left  : $spacer/2;
+            padding      : $spacer/2 $spacer;
+            font-size    : $font-size-xs;
+            border       : 1px solid $filter-panel-bg;
+            border-radius: 20px;
+            background   : $filter-panel-bg;
+            align-items  : center;
+        }
+
+        .path {
+            text-align: left;
+
+        }
+
+        .controls {
+            padding: 0;
+        }
+
+        .stats {
+            text-align: center;
+
+            span {
+                cursor         : pointer;
+                text-decoration: underline;
+                display        : inline-block;
+                padding-left   : $spacer;
+            }
+
+            .stat-violation {
+                color: var(--kt-state-violation-default-tx);
+            }
+
+            .stat-open {
+                color: var(--kt-state-open-default-tx);
+            }
+
+            .stat-discharged {
+                color: var(--kt-state-discharged-default-tx);
+            }
+
+        }
+    }
+
+    // width: 100%;
+}

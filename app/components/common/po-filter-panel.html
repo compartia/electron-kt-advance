@@ -1,16 +1,43 @@
+<link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
+
 <dom-module id="po-filter-panel">
     <template>
+        <div class="container">
+            <div class="path">
+                file:[[_getFileName(filter.file)]] / function:[[filter.functionName]] : predicate:[[filter.predicate]] : state:[[_getStateName(filter.state)]]
 
-        file:[[filter.fileName]] / function:[[filter.functionName]] : predicate:[[filter.predicate]]
 
-        open:[[stats.countOpen]]
-        violations:[[stats.countViolations]]
-        discharged:[[stats.countDischarged]]
-        <div class="global-actions">
-            <paper-icon-button icon="icons:filter-list" on-tap="openSettings" id="filter-button"></paper-icon-button>
+            </div>
+
+            <div class="stats flexchild">
+                <span id="btnv" class="stat-violation" on-tap="_click">violations:[[statistics.countViolations]]</span>
+                <span id="btno" class="stat-open" on-tap="_click">open:[[statistics.countOpen]]</span>
+                <span id="btnd" class="stat-discharged" on-tap="_click">discharged:[[statistics.countDischarged]]</span>
+            </div>
+
+            <div class="controls">
+                <paper-icon-button icon="icons:filter-list" on-tap="openSettings" id="filter-button"></paper-icon-button>
+            </div>
+
+
         </div>
 
     </template>
+
+    <style is="po-filter-panel">
+
+        .flexchild {
+            @apply(--layout-flex);
+            /*padding: var(--spacer);
+            margin: var(--spacer);*/
+            background-color: var(--kt-panel-bg);
+        }
+
+        .kt-chart {
+            width: 100%;
+        }
+
+    </style>
 
     <script>
         Polymer({
@@ -18,7 +45,7 @@
 
             properties: {
 
-                stats: {
+                statistics: {
                     type: Object,
                     notify: true
                 },
@@ -26,7 +53,35 @@
                 filter: {
                     type: Object,
                     notify: true
+                },
+
+                _stateName: {
+                    computed: "_getStateName(filter)"
                 }
+            },
+
+            _getStateName: function(filterState) {
+                console.log(filterState);
+                return kt.graph.PoStates[filterState];
+            },
+
+            _getFileName: function(file) {
+                if (file)
+                    return file.relativePath;
+                return null;
+            },
+
+            _click: function(event) {
+                if (event.srcElement == this.$.btnv) {
+                    this.filter.state = kt.graph.PoStates.violation;
+
+                    // this.set("filter.state",  kt.graph.PoStates.violation);
+                } else if (event.srcElement == this.$.btnd) {
+                    this.set("filter.state", kt.graph.PoStates.discharged);
+                } else if (event.srcElement == this.$.btno) {
+                    this.set("filter.state", kt.graph.PoStates.open);
+                }
+                this.notifyPath("filter.state");
             }
         });
     </script>

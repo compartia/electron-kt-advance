@@ -1,13 +1,36 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 
+<link rel="import" href="../bower_components/paper-toolbar/paper-toolbar.html">
 <link rel="import" href="../bower_components/paper-material/paper-material.html">
+
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../app/components/stats/kt-stats.html">
+<link rel="import" href="../app/components/common/po-filter-panel.html">
+
 
 <dom-module id="kt-layout">
     <template>
+        <paper-toolbar id="toolbar">
+
+            <paper-tabs selected="{{modeIndex}}" class="tabs" id="tabs" scrollable fit-container style="width: 80%;">
+                <template is="dom-repeat" items="[[tabs]]">
+                    <template is="dom-if" if="[[_isTabEnabled(item)]]">
+                        <paper-tab data-mode="[[item]]">[[item]]</paper-tab>
+                    </template>
+                </template>
+            </paper-tabs>
+
+            <div class="global-actions">
+                <paper-icon-button icon="settings" on-tap="openSettings" id="settings-button"></paper-icon-button>
+            </div>
+
+        </paper-toolbar>
+
         <paper-button raised on-tap="_func">button</paper-button>
-        <kt-stats progress="{{progress}}" statistics="[[statistics]]"></kt-stats>
+
+        <po-filter-panel statistics="[[statistics]]" filter="{{_filter}}"></po-filter-panel>
+
+        <kt-stats filter="{{_filter}}" statistics="[[statistics]]"></kt-stats>
         <style></style>
     </template>
     <script>
@@ -21,7 +44,8 @@
 
                 _filter: {
                     type: Object,
-                    notify: true
+                    notify: true,
+                    value: new kt.Globals.Filter()
                 },
 
                 disabledTabs: String

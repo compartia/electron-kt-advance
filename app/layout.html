@@ -58,7 +58,7 @@
 
                     <paper-header-panel style="width:80%" mode="waterfall">
                         <!-- <app-header> -->
-                        <paper-toolbar id="toolbar" class="medium-tall">
+                        <paper-toolbar id="toolbar">
 
                             <paper-tabs selected="{{modeIndex}}" class="tabs" id="tabs" scrollable fit-container style="width: 80%;">
                                 <template is="dom-repeat" items="[[tabs]]">
@@ -72,12 +72,9 @@
                                 <paper-icon-button icon="settings" on-tap="openSettings" id="settings-button"></paper-icon-button>
                             </div>
 
-
-                            <div id="filter" class="middle fit">
-                                <po-filter-panel statistics="[[statistics]]" filter="{{filter}}"></po-filter-panel>
-                            </div>
                         </paper-toolbar>
 
+                        <po-filter-panel statistics="[[statistics]]" filter="{{filter}}"></po-filter-panel>
 
 
                         <!-- </app-header> -->
@@ -85,7 +82,7 @@
 
 
 
-                        <iron-pages selected="{{modeIndex}}" style="width: 100%; height: 100%">
+                        <iron-pages selected="{{modeIndex}}" style="width: 100%; height: 100%; padding-top:var(--filter-panel-height)"; >
 
                             <kt-stats progress="{{progress}}" statistics="[[statistics]]" predicate="{{filter.predicate}}"></kt-stats>
 
@@ -286,7 +283,7 @@
             },
 
             observers: [
-                'filterChanged(filter.file, filter.functionName)', 'predicateChanged( filter.predicate)'
+                'filterChanged(filter.file, filter.functionName)', 'predicateChanged(filter.predicate)' , 'stateChanged(filter.state)'
             ],
 
             predicateChanged: function(predicate) {
@@ -295,8 +292,14 @@
                 }
             },
 
+            stateChanged: function(state) {
+                if(this.currentProject){
+                    this.filterChanged(this.filter.fileName, this.filter.functionName, this.filter.predicate);
+                }
+            },
+
             filterChanged: function(file, functionName, predicate) {
-                console.log(this.filter.fileName + "/" + this.filter.functionName + "/" + this.filter.predicate);
+                // console.log(this.filter.fileName + "/" + this.filter.functionName + "/" + this.filter.predicate);
                 this.currentProject.onFilterChanged(this.filter);
                 if (file && !file.dir)
                     this.set("filteredProofObligations", this.currentProject.filteredProofObligations);

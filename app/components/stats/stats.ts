@@ -80,7 +80,9 @@ module kt.stats {
 
 
         public getAt(row: string, column: string): number {
-            return this.data[row][column];
+            if(this.data[row])
+                return this.data[row][column];
+            return 0;
         }
     }
 
