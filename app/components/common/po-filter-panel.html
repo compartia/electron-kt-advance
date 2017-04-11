@@ -1,0 +1,33 @@
+<dom-module id="po-filter-panel">
+    <template>
+
+        file:[[filter.fileName]] / function:[[filter.functionName]] : predicate:[[filter.predicate]]
+
+        open:[[stats.countOpen]]
+        violations:[[stats.countViolations]]
+        discharged:[[stats.countDischarged]]
+        <div class="global-actions">
+            <paper-icon-button icon="icons:filter-list" on-tap="openSettings" id="filter-button"></paper-icon-button>
+        </div>
+
+    </template>
+
+    <script>
+        Polymer({
+            is: 'po-filter-panel',
+
+            properties: {
+
+                stats: {
+                    type: Object,
+                    notify: true
+                },
+
+                filter: {
+                    type: Object,
+                    notify: true
+                }
+            }
+        });
+    </script>
+</dom-module>

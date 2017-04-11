@@ -3,6 +3,13 @@
 
 kt-layout {
     background: $main-bg;
+    #filter{
+        background: $side-bg;
+        font-size: $font-size-sm;
+        border-top: 1px solid $side-bg-2;
+        padding: $spacer;
+        // width: 100%;
+    }
 
     #treeview {
         background: $side-bg;

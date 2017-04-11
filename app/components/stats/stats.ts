@@ -9,6 +9,8 @@ module kt.stats {
         "DISCHARGED"
     ];
 
+    const DEF_COL_NAME = "count";
+
     export interface NamedArray {
         name: string;
         values: Array<number>;
@@ -88,11 +90,13 @@ module kt.stats {
 
         byPredicate: StatsTable;
         byDischargeType: StatsTable;
+        byState: StatsTable;
 
 
         public build(project: kt.Globals.Project) {
             this.byPredicate = new StatsTable();
             this.byDischargeType = new StatsTable();
+            this.byState = new StatsTable();
 
             //XXX: do not do this everytime, just cache it per project
             let allPredicates = _.uniq(_.map(project.filteredProofObligations, (e) => e.predicate)).sort();
@@ -106,6 +110,7 @@ module kt.stats {
 
             for (let po of project.filteredProofObligations) {
                 this.byPredicate.inc(po.predicate, po.state, 1);
+                this.byState.inc(po.state, DEF_COL_NAME, 1);
                 if (po.isDischarged()) {
                     let dischargeType = po.dischargeType;
                     if (!dischargeType)
@@ -115,6 +120,18 @@ module kt.stats {
                 }
             }
 
+        }
+
+        get countViolations():number{
+            return this.byState.getAt("VIOLATION", DEF_COL_NAME);
+        }
+
+        get countDischarged():number{
+            return this.byState.getAt("DISCHARGED", DEF_COL_NAME);
+        }
+
+        get countOpen():number{
+            return this.byState.getAt("OPEN", DEF_COL_NAME);
         }
 
 

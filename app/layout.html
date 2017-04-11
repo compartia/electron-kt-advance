@@ -16,6 +16,7 @@
 
 <!-- ///// -->
 
+<link rel="import" href="components/common/po-filter-panel.html">
 <link rel="import" href="components/tree/paper-tree.html">
 <link rel="import" href="components/tree/functions-list.html">
 <link rel="import" href="components/tree/po-list.html">
@@ -57,7 +58,7 @@
 
                     <paper-header-panel style="width:80%" mode="waterfall">
                         <!-- <app-header> -->
-                        <paper-toolbar id="toolbar">
+                        <paper-toolbar id="toolbar" class="medium-tall">
 
                             <paper-tabs selected="{{modeIndex}}" class="tabs" id="tabs" scrollable fit-container style="width: 80%;">
                                 <template is="dom-repeat" items="[[tabs]]">
@@ -71,12 +72,18 @@
                                 <paper-icon-button icon="settings" on-tap="openSettings" id="settings-button"></paper-icon-button>
                             </div>
 
+
+                            <div id="filter" class="middle fit">
+                                <po-filter-panel statistics="[[statistics]]" filter="{{filter}}"></po-filter-panel>
+                            </div>
                         </paper-toolbar>
+
+
 
                         <!-- </app-header> -->
                         <tf-graph-loader id="loader" out-graph-hierarchy="{{graphHierarchy}}" out-graph="{{graph}}" progress="{{progress}}" current-project="[[currentProject]]" out-hierarchy-params="{{_hierarchyParams}}"></tf-graph-loader>
 
-                        [[filter.fileName]] / [[filter.functionName]] : [[filter.predicate]]
+
 
                         <iron-pages selected="{{modeIndex}}" style="width: 100%; height: 100%">
 
@@ -373,6 +380,10 @@
                         //console.error(err);
                     });
                 } else {
+                    _self.set('progress', {
+                        value: 100,
+                        msg: ''
+                    });
                     console.log("cancelled");
                 }
 
