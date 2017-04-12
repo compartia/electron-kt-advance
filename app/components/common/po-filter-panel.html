@@ -30,7 +30,7 @@
                     <div id="states" class="card">
                         <h3>State ([[filter.states.length]])</h3>
 
-                        <iron-list items="[[_getAllStates()]]" selected-items="{{filter.states}}" selection-enabled multi-selection>
+                        <iron-list items="[[_getAllStates()]]">
                             <template>
                                 <paper-checkbox checked$="[[selected]]" style$="--paper-checkbox-label-checked-color:var(--kt-state-[[item]]-default-tx); --paper-checkbox-checked-color:var(--kt-state-[[item]]-default-bg)">
                                     [[item]]
@@ -52,11 +52,11 @@
                     </div>
 
                     <div id="predicates" class="card">
-                        <h3>Predicates ([[filter.predicates.length]])</h3>
-                        <iron-list items="[[allPredicates]]" id="predicates-list" selected-items="{{filter.predicates}}" selection-enabled multi-selection>
+                        <h3>Predicates ({{filter.predicates.length}})</h3>
+                        <iron-list items="{{project.allPredicates}}">
                             <template>
-                                <paper-checkbox checked$="[[selected]]" style="--paper-checkbox-label-checked-color:var(--kt-text-color); --paper-checkbox-checked-color:var(--kt-text-color)">
-                                    [[item]]
+                                <paper-checkbox checked$="{{isPredicateSelected(item)}}" value="{{item}}" style="--paper-checkbox-label-checked-color:var(--kt-text-color); --paper-checkbox-checked-color:var(--kt-text-color)" on-change="_predicateCheckboxChanged">
+                                    {{item}}
                                 </paper-checkbox>
                             </template>
                         </iron-list>
@@ -104,6 +104,10 @@
             is: 'po-filter-panel',
 
             properties: {
+                project: {
+                    type: Object,
+                    notify: true
+                },
 
                 statistics: {
                     type: Object,
@@ -112,25 +116,31 @@
 
                 filter: {
                     type: Object,
-                    notify: true
-                },
-
-                allPredicates: {
-                    computed: "_getAllPredicates(statistics)"
+                    notify: true,
+                    // value: new kt.Globals.Filter()
                 }
             },
 
-            observers: [
-                '_filteChanged(filter.*)'
-            ],
+            observers: ['_filteChanged(filter.*)'],
 
-            _filteChanged:function(a){
-                console.warn(a);
+            _getFilterPredicates: function(filter) {
+                if (filter) {
+                    return filter.predicates;
+                }
             },
 
-            isPredicateSelected: function(p) {
+            changeHandler: function(event) {
+                console.error(event);
+            },
+
+            _filteChanged: function(a) {
+                console.warn(a);
+                console.log(this.filter.predicates);
+            },
+
+            isPredicateSelected: function(item) {
                 if (this.filter)
-                    return this.filter.isPredicateSelected(p);
+                    return this.filter.isPredicateSelected(item);
                 return true;
             },
 
@@ -144,14 +154,6 @@
 
             _getAllStates: function() {
                 return kt.graph.PoStatesArr;
-            },
-
-            _getAllPredicates: function(statistics) {
-                if (statistics) {
-                    return statistics.allPredicates;
-                } else {
-                    return ["no data"];
-                }
             },
 
             _getStateName: function(filterState) {
@@ -179,6 +181,28 @@
                     this.set("filter.state", kt.graph.PoStates.open);
                 }
                 this.notifyPath("filter.state");
+            },
+
+            _predicateCheckboxChanged: function(event) {
+                if (event.target.checked) {
+                    kt.Globals.addToSet(this.filter.predicates, event.target.value);
+                    this.notifyPath("filter.predicates.length");
+                } else {
+                    kt.Globals.deleteFromSet(this.filter.predicates, event.target.value);
+                    this.notifyPath("filter.predicates.length");
+                }
+                this.notifyPath("filter.predicates");
+            },
+
+            _stateCheckboxChanged: function(event) {
+                if (event.target.checked) {
+                    kt.Globals.addToSet(this.filter.states, event.target.value);
+                    this.notifyPath("filter.states.length");
+                } else {
+                    kt.Globals.deleteFromSet(this.filter.states, event.target.value);
+                    this.notifyPath("filter.states.length");
+                }
+                this.notifyPath("filter.states");
             }
         });
     </script>

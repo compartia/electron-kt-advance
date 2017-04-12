@@ -9,13 +9,24 @@ module kt.Globals {
         'summary', 'source', 'proof obligations', 'assumptions', 'graphs'
     ];
 
+    export function addToSet(array: Array<any>, value: any) {
+        if (array.indexOf(value) === -1) {
+            array.push(value);
+        }
+    }
 
+    export function deleteFromSet(array: Array<any>, value: any) {
+        var index = array.indexOf(value);
+        if (index !== -1) {
+            array.splice(index, 1);
+        }
+    }
 
     export class Filter {
 
-        private _predicate: string;
+        // private _predicate: string;
 
-        predicates: Array<string> = new Array<string>();
+        _predicates: Array<string> = new Array<string>();
         states: Array<string> = new Array<string>();
         dischargeTypes: Array<string> = new Array<string>();
 
@@ -25,11 +36,31 @@ module kt.Globals {
         private _state: kt.graph.PoStates = null;
 
         public isPredicateSelected(p: string) {
-            return _.contains(this.predicates, p);
+            return _.contains(this._predicates, p);
+        }
+
+        get predicates(): Array<string> {
+            return this._predicates;
+        }
+
+        set predicates(_predicates: Array<string>) {
+            this._predicates.splice(0);
+            if (_predicates) {
+                for (let p of _predicates) {
+                    this._predicates.push(p);
+                }
+            }
+        }
+
+        set predicate(_predicate) {
+            // this._predicate = _predicate;
+            //XXX: splice!!
+            this._predicates.splice(0);
+            this._predicates.push(_predicate);
         }
 
         public reset() {
-            this._predicate = null;
+
             this._functionName = null;
             this._file = null;
             this._state = null;
@@ -46,7 +77,7 @@ module kt.Globals {
         set state(_state: kt.graph.PoStates) {
             this._state = _state;
             //XXX: splice!!
-            this.states = [_state];
+            // this.states = [_state];
         }
 
         get state() {
@@ -63,14 +94,12 @@ module kt.Globals {
             return null;
         }
 
-        set predicate(_predicate) {
-            this._predicate = _predicate;
-            //XXX: splice!!
-            this.predicates = [_predicate];
-        }
+
 
         get predicate() {
-            return this._predicate;
+            if (this._predicates.length)
+                return this._predicates[0];
+            return "";
         }
 
         set file(file: kt.treeview.FileInfo) {
@@ -103,10 +132,11 @@ module kt.Globals {
         }
 
         private acceptState(po: kt.graph.PONode): boolean {
-            if (this.states == null || _.contains(this.states, po.state.toLowerCase())) {
-                return true;
-            }
-            return false;
+            // if (this.states == null || _.contains(this.states, po.state.toLowerCase())) {
+            //     return true;
+            // }
+            // return false;
+            return true;
         }
 
         private acceptDischargeType(po: kt.graph.PONode): boolean {
@@ -139,8 +169,20 @@ module kt.Globals {
         analysisDir: string;
         stats: kt.stats.Stats;
 
-        proofObligations: Array<kt.graph.PONode> = [];
+        _proofObligations: Array<kt.graph.PONode> = [];
         _filteredProofObligations: Array<kt.graph.PONode> = null;
+
+        allPredicates: Array<string>;
+
+
+        get proofObligations(): Array<kt.graph.PONode> {
+            return this._proofObligations;
+        }
+
+        set proofObligations(_proofObligations: Array<kt.graph.PONode>) {
+            this._proofObligations = _proofObligations;
+            this.allPredicates = _.uniq(_.map(this._proofObligations, (e) => e.predicate)).sort();
+        }
 
 
         constructor(baseDir: string) {

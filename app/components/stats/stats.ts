@@ -16,6 +16,8 @@ module kt.stats {
         values: Array<number>;
     }
 
+
+
     export class StatsTable {
         data: { [key: string]: { [key: string]: number } } = {};
 
@@ -94,16 +96,11 @@ module kt.stats {
         byDischargeType: StatsTable;
         byState: StatsTable;
 
-        allPredicates: Array<string> = [];
-
-
         public build(project: kt.Globals.Project) {
             this.byPredicate = new StatsTable();
             this.byDischargeType = new StatsTable();
             this.byState = new StatsTable();
 
-            //XXX: do not do this everytime, just cache it per project
-            this.allPredicates = _.uniq(_.map(project.proofObligations, (e) => e.predicate)).sort();
             let filteredPredicates = _.uniq(_.map(project.filteredProofObligations, (e) => e.predicate)).sort();
 
             //popolate with zeros

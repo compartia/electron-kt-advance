@@ -66,21 +66,17 @@
                                         <paper-tab data-mode="[[item]]">[[item]]</paper-tab>
                                     </template>
                                 </template>
-                            </paper-tabs>
-
-                            <div class="global-actions">
-                                <paper-icon-button icon="settings" on-tap="openSettings" id="settings-button"></paper-icon-button>
-                            </div>
+                            </paper-tabs>                     
 
                         </paper-toolbar>
 
-                        <po-filter-panel statistics="[[statistics]]" filter="{{filter}}"></po-filter-panel>
+                        <po-filter-panel statistics="[[statistics]]" filter="{{filter}}" project="[[currentProject]]"></po-filter-panel>
 
                         <tf-graph-loader id="loader" out-graph-hierarchy="{{graphHierarchy}}" out-graph="{{graph}}" filter="{{filter}}" progress="{{progress}}" current-project="[[currentProject]]" out-hierarchy-params="{{_hierarchyParams}}"></tf-graph-loader>
 
                         <iron-pages selected="{{modeIndex}}" style="width: 100%; height: 100%; padding-top:var(--filter-panel-height)" ;>
 
-                            <kt-stats progress="{{progress}}" statistics="[[statistics]]" predicate="{{filter.predicate}}"></kt-stats>
+                            <kt-stats progress="{{progress}}" statistics="[[statistics]]" predicate="{{filter.predicate}}" filter="{{filter}}"></kt-stats>
 
                             <div>source</div>
 
@@ -288,8 +284,10 @@
 
 
 
-            filterChanged: function(filter) {
-                this.applyFilter(this.currentProject, filter);
+            filterChanged: function(event) {
+                console.info("filterChanged: " + event);
+                console.info( event);
+                this.applyFilter(this.currentProject, this.filter);
             },
 
             applyFilter: function(project, filter) {
@@ -297,11 +295,15 @@
                     project.onFilterChanged(filter);
                     this.set("filteredProofObligations", project.filteredProofObligations);
                     this.set("statistics", project.buildStatistics());
+
                 }
             },
 
             _onProjectLoaded(event) {
                 console.info("_onProjectLoaded: " + event);
+                this.set("filter.predicates", this.currentProject.allPredicates);
+                this.notifyPath("currentProject.allPredicates");
+
                 this.applyFilter(this.currentProject, this.filter);
             },
 

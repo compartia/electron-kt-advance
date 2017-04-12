@@ -7,7 +7,6 @@
 <link rel="import" href="../app/components/stats/kt-stats.html">
 <link rel="import" href="../app/components/common/po-filter-panel.html">
 
-
 <dom-module id="kt-layout">
     <template>
         <paper-toolbar id="toolbar">
@@ -29,7 +28,7 @@
         <paper-button raised on-tap="_func">button</paper-button>
 
         <po-filter-panel statistics="[[statistics]]" filter="{{_filter}}"></po-filter-panel>
-        <kt-stats progress="{{progress}}" statistics="[[statistics]]" predicate="{{_filter.predicate}}"></kt-stats>
+        <kt-stats progress="{{progress}}" statistics="[[statistics]]" predicate="{{_filter.predicate}}" filter="{{_filter}}"></kt-stats>
 
         <style></style>
     </template>
@@ -55,19 +54,21 @@
             },
 
             _makeStats(num) {
-                var makePo = function(_currentProject, state, predicate){
-                    _currentProject.proofObligations.push(
-                        {   isDischarged: function(){return true;},
-                            state: state,
-                            predicate: predicate}
-                    );
+                var makePo = function(_currentProject, state, predicate) {
+                    _currentProject.proofObligations.push({
+                        isDischarged: function() {
+                            return true;
+                        },
+                        state: state,
+                        predicate: predicate
+                    });
                 }
 
                 var _currentProject = new kt.Globals.Project(null);
 
                 for (var i = 0; i < num; i++) {
                     if (Math.random() > 0.5)
-                        makePo(_currentProject, "OPEN", "not-null" + Math.round( Math.random() * 10));
+                        makePo(_currentProject, "OPEN", "not-null" + Math.round(Math.random() * 10));
 
                     if (Math.random() > 0.2)
                         makePo(_currentProject, "OPEN", "initialized very long");
@@ -79,21 +80,21 @@
                         makePo(_currentProject, "DISCHARGED", "initialized very long");
 
                     if (Math.random() > 0.5)
-                        makePo(_currentProject, "DISCHARGED", "not-null" + Math.round( Math.random() * 10));
+                        makePo(_currentProject, "DISCHARGED", "not-null" + Math.round(Math.random() * 10));
                     }
 
                 _currentProject._filteredProofObligations = _currentProject.proofObligations;
                 this.set("statistics", _currentProject.buildStatistics());
+                // this.set("filter.predicates", this.statistics.allPredicates);
 
                 console.warn(this.statistics);
             },
 
             ready: function() {
                 this._makeStats(3 + Math.random() * 20);
-                kt.Globals.PO_FILTER.name="GLOBAL";
-                this.set("_filter", kt.Globals.PO_FILTER);
+                kt.Globals.PO_FILTER.name = "GLOBAL";
+                this.set("filter", kt.Globals.PO_FILTER);
             }
-
 
         });
     </script>
