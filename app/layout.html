@@ -74,7 +74,7 @@
 
                         </paper-toolbar>
 
-                        <po-filter-panel statistics="[[statistics]]" filter="{{filter}}"></po-filter-panel>
+                        <po-filter-panel statistics="[[statistics]]" filter="{{filter}}" all-predicates="[[_allPredicates]]"></po-filter-panel>
 
                         <tf-graph-loader id="loader" out-graph-hierarchy="{{graphHierarchy}}" out-graph="{{graph}}" filter="{{filter}}" progress="{{progress}}" current-project="[[currentProject]]" out-hierarchy-params="{{_hierarchyParams}}"></tf-graph-loader>
 
@@ -313,6 +313,7 @@
                     this.currentProject.onFilterChanged(filter);
                     this.set("filteredProofObligations", this.currentProject.filteredProofObligations);
                     this.set("statistics", this.currentProject.buildStatistics());
+                    this.set("_allPredicates", this.currentProject.stats.allPredicates);
                 }
             },
 

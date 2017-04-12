@@ -1,6 +1,8 @@
-$filter-panel-bg: transparentize($side-bg, 0.25);
+$filter-panel-bg: transparentize(mix($side-bg-2, $side-bg, 30%), 0.2);
 
 po-filter-panel {
+
+
     position : fixed;
     right    : 0;
     top      : var(--paper-toolbar-height);
@@ -8,20 +10,51 @@ po-filter-panel {
 
     font-size: $font-size-sm;
 
-    #po-filter-edit-panel {
-        background: $filter-panel-bg;
-        display   : flex;
-        flex-flow : row;
-        backdrop-filter: blur(2px);
+    #filtersettings{
+        position : fixed;
+        right    : 0;
+        top      : calc(var(--paper-toolbar-height)+var(--filter-panel-height));
+        z-index  : 2100;
+    }
 
-        #discharge-types,
-        #states {
-            display  : flex;
-            flex-flow: column;
-            padding  : $spacer;
+    #filtersettings-container{
+
+        background: $filter-panel-bg;
+        // backdrop-filter: blur(2px);
+        h2{
+            padding: $spacer;
         }
 
+        #filtersettings-body {
+
+            display   : flex;
+            flex-flow : row;
+
+            #predicates-list{
+
+            }
+
+            h3{
+                margin-bottom: $spacer;
+            }
+            .card{
+
+                max-height: 200px;
+                min-width: 150px;
+
+                display  : flex;
+                flex-flow: column;
+                padding  : $spacer;
+
+                paper-checkbox{
+                    padding: $spacer/2;
+                }
+            }
+
+        }
     }
+
+
 
     .container {
         display    : flex;

@@ -1,12 +1,13 @@
+<link rel="import" href="../../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../../../bower_components/iron-list/iron-list.html">
 
 <dom-module id="po-filter-panel">
     <template>
         <div class="container">
             <div class="path">
                 [[_getFileName(filter.file)]]/[[filter.functionName]] : [[filter.predicate]] : [[_getStateName(filter.state)]]
-
             </div>
 
             <div class="stats flexchild">
@@ -21,32 +22,40 @@
 
         </div>
 
-        <iron-collapse id="collapse">
-            <paper-material elevation="4" class="card">
-                <div id="po-filter-edit-panel">
+        <iron-collapse id="filtersettings">
+            <paper-material elevation="4" class="card" id="filtersettings-container">
+                <h2>Filter Proof Obligations:</h2>
+                <div id="filtersettings-body">
 
-                    Filter Proof Obligations:
 
-                    <div id="states">
-                        Proof Obligation state
-                        <template is="dom-repeat" items="[[_getAllStates()]]">
-                            <paper-checkbox checked>
-                                [[item]]
-                            </paper-checkbox>
-                        </template>
+
+                    <div id="states" class="card">
+                        <h3>Proof Obligation state</h3>
+
+                        <iron-list items="[[_getAllStates()]]">
+                            <template>
+                                <paper-checkbox checked>
+                                    [[item]]
+                                </paper-checkbox>
+                            </template>
+                        </iron-list>
                     </div>
 
-                    <div id="discharge-types">
-                        Type of discharge
-                        <template is="dom-repeat" items="[[_getDischargeTypes()]]">
-                            <paper-checkbox checked>
-                                [[item]]
-                            </paper-checkbox>
-                        </template>
+                    <div id="discharge-types" class="card">
+                        <h3>Type of discharge</h3>
+
+                        <iron-list items="[[_getDischargeTypes()]]">
+                            <template>
+                                <paper-checkbox checked>
+                                    [[item]]
+                                </paper-checkbox>
+                            </template>
+                        </iron-list>
                     </div>
 
-                    <div>
-                        <iron-list items="[[_allPredicates]]">                            
+                    <div id="predicates" class="card">
+                        <h3>Predicates</h3>
+                        <iron-list items="[[allPredicates]]"  id="predicates-list">
                             <template>
                                 <paper-checkbox checked>
                                     [[item]]
@@ -108,19 +117,13 @@
                     notify: true
                 },
 
-                _allPredicates:{
-                    type: Array,
-                    notify: true,
-                    computed:"_getAllPredicates(statistics)"
-                },
-
-                _stateName: {
-                    computed: "_getStateName(filter)"
+                allPredicates: {
+                    computed: "_getAllPredicates(statistics)"
                 }
             },
 
             toggle: function() {
-                this.$.collapse.toggle();
+                this.$.filtersettings.toggle();
             },
 
             _getDischargeTypes: function() {
@@ -132,10 +135,10 @@
             },
 
             _getAllPredicates: function(statistics) {
-                if( statistics)
+                if (statistics) {
                     return statistics.allPredicates;
-                else {
-                    return [];
+                } else {
+                    return ["no data"];
                 }
             },
 

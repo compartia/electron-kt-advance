@@ -8,3 +8,18 @@ $font-size-xl: $font-size-lg*1.2;
 $font-smaler: 80%;
 $monospaced: 'Liberation Mono', Courier;
 $font-code:  300 80% $monospaced;
+
+
+h1, h2, h3{
+    margin: 0;
+    font-weight: 300;
+}
+
+h2{
+    font-size: $font-size-m;
+}
+
+h3{
+    text-transform: uppercase;
+    font-size: $font-size-sm;
+}
