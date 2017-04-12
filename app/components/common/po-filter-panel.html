@@ -27,14 +27,12 @@
                 <h2>Filter Proof Obligations:</h2>
                 <div id="filtersettings-body">
 
-
-
                     <div id="states" class="card">
-                        <h3>Proof Obligation state</h3>
+                        <h3>State ([[filter.states.length]])</h3>
 
-                        <iron-list items="[[_getAllStates()]]">
+                        <iron-list items="[[_getAllStates()]]" selected-items="{{filter.states}}" selection-enabled multi-selection>
                             <template>
-                                <paper-checkbox checked style$="--paper-checkbox-label-checked-color:var(--kt-state-[[item]]-default-tx); --paper-checkbox-checked-color:var(--kt-state-[[item]]-default-bg)">
+                                <paper-checkbox checked$="[[selected]]" style$="--paper-checkbox-label-checked-color:var(--kt-state-[[item]]-default-tx); --paper-checkbox-checked-color:var(--kt-state-[[item]]-default-bg)">
                                     [[item]]
                                 </paper-checkbox>
                             </template>
@@ -42,11 +40,11 @@
                     </div>
 
                     <div id="discharge-types" class="card">
-                        <h3>Type of discharge</h3>
+                        <h3>Type of discharge ([[filter.dischargeTypes.length]])</h3>
 
-                        <iron-list items="[[_getDischargeTypes()]]">
+                        <iron-list items="[[_getDischargeTypes()]]" selected-items="{{filter.dischargeTypes}}" selection-enabled multi-selection>
                             <template>
-                                <paper-checkbox checked style$="--paper-checkbox-label-checked-color:var(--kt-state-discharged-[[item]]-tx); --paper-checkbox-checked-color:var(--kt-state-discharged-[[item]]-tx)">
+                                <paper-checkbox checked$="[[selected]]" style$="--paper-checkbox-label-checked-color:var(--kt-state-discharged-[[item]]-tx); --paper-checkbox-checked-color:var(--kt-state-discharged-[[item]]-tx)">
                                     [[item]]
                                 </paper-checkbox>
                             </template>
@@ -54,10 +52,10 @@
                     </div>
 
                     <div id="predicates" class="card">
-                        <h3>Predicates</h3>
-                        <iron-list items="[[allPredicates]]"  id="predicates-list">
+                        <h3>Predicates ([[filter.predicates.length]])</h3>
+                        <iron-list items="[[allPredicates]]" id="predicates-list" selected-items="{{filter.predicates}}" selection-enabled multi-selection>
                             <template>
-                                <paper-checkbox checked style="--paper-checkbox-label-checked-color:var(--kt-text-color); --paper-checkbox-checked-color:var(--kt-text-color)">
+                                <paper-checkbox checked$="[[selected]]" style="--paper-checkbox-label-checked-color:var(--kt-text-color); --paper-checkbox-checked-color:var(--kt-text-color)">
                                     [[item]]
                                 </paper-checkbox>
                             </template>
@@ -120,6 +118,20 @@
                 allPredicates: {
                     computed: "_getAllPredicates(statistics)"
                 }
+            },
+
+            observers: [
+                '_filteChanged(filter.*)'
+            ],
+
+            _filteChanged:function(a){
+                console.warn(a);
+            },
+
+            isPredicateSelected: function(p) {
+                if (this.filter)
+                    return this.filter.isPredicateSelected(p);
+                return true;
             },
 
             toggle: function() {

@@ -74,7 +74,7 @@
 
                         </paper-toolbar>
 
-                        <po-filter-panel statistics="[[statistics]]" filter="{{filter}}" all-predicates="[[_allPredicates]]"></po-filter-panel>
+                        <po-filter-panel statistics="[[statistics]]" filter="{{filter}}"></po-filter-panel>
 
                         <tf-graph-loader id="loader" out-graph-hierarchy="{{graphHierarchy}}" out-graph="{{graph}}" filter="{{filter}}" progress="{{progress}}" current-project="[[currentProject]]" out-hierarchy-params="{{_hierarchyParams}}"></tf-graph-loader>
 
@@ -283,37 +283,20 @@
             },
 
             observers: [
-                'filterChanged(filter)', '_filterFunctionChanged(filter.file, filter.functionName)', '_filterPredicateChanged(filter.predicate)', '_filterStateChanged(filter.state)'
+                'filterChanged(filter.*)'
             ],
 
-            _filterFunctionChanged: function(file, functionName) {
-                if (this.currentProject) {
-                    this.filterChanged(this.filte);
-                }
-            },
 
-            _filterPredicateChanged: function(predicate) {
-                if (this.currentProject) {
-                    this.filterChanged(this.filter);
-                }
-            },
-
-            _filterStateChanged: function(state) {
-                if (this.currentProject) {
-                    this.filterChanged(this.filter);
-                }
-            },
 
             filterChanged: function(filter) {
                 this.applyFilter(this.currentProject, filter);
             },
 
             applyFilter: function(project, filter) {
-                if (this.currentProject) {
-                    this.currentProject.onFilterChanged(filter);
-                    this.set("filteredProofObligations", this.currentProject.filteredProofObligations);
-                    this.set("statistics", this.currentProject.buildStatistics());
-                    this.set("_allPredicates", this.currentProject.stats.allPredicates);
+                if (project) {
+                    project.onFilterChanged(filter);
+                    this.set("filteredProofObligations", project.filteredProofObligations);
+                    this.set("statistics", project.buildStatistics());
                 }
             },
 

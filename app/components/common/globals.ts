@@ -12,10 +12,21 @@ module kt.Globals {
 
 
     export class Filter {
+
         private _predicate: string;
+
+        predicates: Array<string> = new Array<string>();
+        states: Array<string> = new Array<string>();
+        dischargeTypes: Array<string> = new Array<string>();
+
+
         private _functionName: string;
         private _file: kt.treeview.FileInfo;
         private _state: kt.graph.PoStates = null;
+
+        public isPredicateSelected(p: string) {
+            return _.contains(this.predicates, p);
+        }
 
         public reset() {
             this._predicate = null;
@@ -34,6 +45,8 @@ module kt.Globals {
 
         set state(_state: kt.graph.PoStates) {
             this._state = _state;
+            //XXX: splice!!
+            this.states = [_state];
         }
 
         get state() {
@@ -52,6 +65,8 @@ module kt.Globals {
 
         set predicate(_predicate) {
             this._predicate = _predicate;
+            //XXX: splice!!
+            this.predicates = [_predicate];
         }
 
         get predicate() {
@@ -88,24 +103,30 @@ module kt.Globals {
         }
 
         private acceptState(po: kt.graph.PONode): boolean {
-            if (this.state == null || this.state == undefined) {
+            if (this.states == null || _.contains(this.states, po.state.toLowerCase())) {
                 return true;
-            } else {
-                return po.state.toLowerCase() == this.stateName.toLowerCase();
             }
+            return false;
+        }
+
+        private acceptDischargeType(po: kt.graph.PONode): boolean {
+            // if(this._dischargeTypes ==null || _.contains(this._dischargeTypes,  po.state.toLowerCase())){
+            //     return true;
+            // }
+            // return false;
+            return true;
         }
 
 
         private acceptPredicate(po: kt.graph.PONode): boolean {
-            if (!this.predicate) {
+            if (this._predicates == null || _.contains(this._predicates, po.predicate)) {
                 return true;
-            } else {
-                return po.predicate == this.predicate;
             }
+            return false;
         }
 
         public accept(po: kt.graph.PONode): boolean {
-            return this.acceptFile(po) && this.acceptFunction(po) && this.acceptPredicate(po) && this.acceptState(po);
+            return this.acceptFile(po) && this.acceptFunction(po) && this.acceptPredicate(po) && this.acceptState(po) && this.acceptDischargeType(po);
         }
 
     }

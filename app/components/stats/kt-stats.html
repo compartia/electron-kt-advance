@@ -47,8 +47,7 @@
 
                 predicate: {
                     type: Object,
-                    notify: true,
-                    value: null
+                    notify: true
                 }
             },
             listeners: {
@@ -66,7 +65,9 @@
             _chartBarSelected: function(event) {
                 if (event.detail.src == this.$.poByRedicate) {
                     console.log(event.detail.row);
-                    this.set("predicate", event.detail.row);
+                    // this.set("predicate", event.detail.row);
+                    this.predicate=event.detail.row;
+                    this.notifyPath("filter.predicates");
                 }
             },
 

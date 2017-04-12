@@ -29,8 +29,8 @@
         <paper-button raised on-tap="_func">button</paper-button>
 
         <po-filter-panel statistics="[[statistics]]" filter="{{_filter}}"></po-filter-panel>
+        <kt-stats progress="{{progress}}" statistics="[[statistics]]" predicate="{{_filter.predicate}}"></kt-stats>
 
-        <kt-stats filter="{{_filter}}" statistics="[[statistics]]"></kt-stats>
         <style></style>
     </template>
     <script>
@@ -44,8 +44,7 @@
 
                 _filter: {
                     type: Object,
-                    notify: true,
-                    value: new kt.Globals.Filter()
+                    notify: true
                 },
 
                 disabledTabs: String
@@ -91,7 +90,11 @@
 
             ready: function() {
                 this._makeStats(3 + Math.random() * 20);
+                kt.Globals.PO_FILTER.name="GLOBAL";
+                this.set("_filter", kt.Globals.PO_FILTER);
             }
+
+
         });
     </script>
 

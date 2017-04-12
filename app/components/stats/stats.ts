@@ -80,7 +80,7 @@ module kt.stats {
 
 
         public getAt(row: string, column: string): number {
-            if(this.data[row])
+            if (this.data[row])
                 return this.data[row][column];
             return 0;
         }
@@ -94,7 +94,7 @@ module kt.stats {
         byDischargeType: StatsTable;
         byState: StatsTable;
 
-        allPredicates: Array<string>=[];
+        allPredicates: Array<string> = [];
 
 
         public build(project: kt.Globals.Project) {
@@ -103,11 +103,12 @@ module kt.stats {
             this.byState = new StatsTable();
 
             //XXX: do not do this everytime, just cache it per project
-            this.allPredicates = _.uniq(_.map(project.filteredProofObligations, (e) => e.predicate)).sort();
+            this.allPredicates = _.uniq(_.map(project.proofObligations, (e) => e.predicate)).sort();
+            let filteredPredicates = _.uniq(_.map(project.filteredProofObligations, (e) => e.predicate)).sort();
 
             //popolate with zeros
             for (let state of states) {
-                for (let predicate of this.allPredicates) {
+                for (let predicate of filteredPredicates) {
                     this.byPredicate.inc(predicate, state, 0);
                 }
             }
@@ -126,15 +127,15 @@ module kt.stats {
 
         }
 
-        get countViolations():number{
+        get countViolations(): number {
             return this.byState.getAt("VIOLATION", DEF_COL_NAME);
         }
 
-        get countDischarged():number{
+        get countDischarged(): number {
             return this.byState.getAt("DISCHARGED", DEF_COL_NAME);
         }
 
-        get countOpen():number{
+        get countOpen(): number {
             return this.byState.getAt("OPEN", DEF_COL_NAME);
         }
 
