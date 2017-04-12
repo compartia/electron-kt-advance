@@ -57,7 +57,7 @@
                     </paper-header-panel>
 
                     <paper-header-panel style="width:80%" mode="waterfall">
-                        <!-- <app-header> -->
+
                         <paper-toolbar id="toolbar">
 
                             <paper-tabs selected="{{modeIndex}}" class="tabs" id="tabs" scrollable fit-container style="width: 80%;">
@@ -76,13 +76,9 @@
 
                         <po-filter-panel statistics="[[statistics]]" filter="{{filter}}"></po-filter-panel>
 
+                        <tf-graph-loader id="loader" out-graph-hierarchy="{{graphHierarchy}}" out-graph="{{graph}}" filter="{{filter}}" progress="{{progress}}" current-project="[[currentProject]]" out-hierarchy-params="{{_hierarchyParams}}"></tf-graph-loader>
 
-                        <!-- </app-header> -->
-                        <tf-graph-loader id="loader" out-graph-hierarchy="{{graphHierarchy}}" out-graph="{{graph}}" progress="{{progress}}" current-project="[[currentProject]]" out-hierarchy-params="{{_hierarchyParams}}"></tf-graph-loader>
-
-
-
-                        <iron-pages selected="{{modeIndex}}" style="width: 100%; height: 100%; padding-top:var(--filter-panel-height)"; >
+                        <iron-pages selected="{{modeIndex}}" style="width: 100%; height: 100%; padding-top:var(--filter-panel-height)" ;>
 
                             <kt-stats progress="{{progress}}" statistics="[[statistics]]" predicate="{{filter.predicate}}"></kt-stats>
 
@@ -282,32 +278,47 @@
                 disabledTabs: String
             },
 
+            listeners: {
+                "project-loaded": "_onProjectLoaded"
+            },
+
             observers: [
-                'filterChanged(filter.file, filter.functionName)', 'predicateChanged(filter.predicate)' , 'stateChanged(filter.state)'
+                'filterChanged(filter)', '_filterFunctionChanged(filter.file, filter.functionName)', '_filterPredicateChanged(filter.predicate)', '_filterStateChanged(filter.state)'
             ],
 
-            predicateChanged: function(predicate) {
-                if(this.currentProject){
-                    this.filterChanged(this.filter.fileName, this.filter.functionName, this.filter.predicate);
+            _filterFunctionChanged: function(file, functionName) {
+                if (this.currentProject) {
+                    this.filterChanged(this.filte);
                 }
             },
 
-            stateChanged: function(state) {
-                if(this.currentProject){
-                    this.filterChanged(this.filter.fileName, this.filter.functionName, this.filter.predicate);
+            _filterPredicateChanged: function(predicate) {
+                if (this.currentProject) {
+                    this.filterChanged(this.filter);
                 }
             },
 
-            filterChanged: function(file, functionName, predicate) {
-                // console.log(this.filter.fileName + "/" + this.filter.functionName + "/" + this.filter.predicate);
-                this.currentProject.onFilterChanged(this.filter);
-                if (file && !file.dir)
+            _filterStateChanged: function(state) {
+                if (this.currentProject) {
+                    this.filterChanged(this.filter);
+                }
+            },
+
+            filterChanged: function(filter) {
+                this.applyFilter(this.currentProject, filter);
+            },
+
+            applyFilter: function(project, filter) {
+                if (this.currentProject) {
+                    this.currentProject.onFilterChanged(filter);
                     this.set("filteredProofObligations", this.currentProject.filteredProofObligations);
-                else
-                    this.set("filteredProofObligations", []);
+                    this.set("statistics", this.currentProject.buildStatistics());
+                }
+            },
 
-                this.set("statistics", this.currentProject.buildStatistics());
-
+            _onProjectLoaded(event) {
+                console.info("_onProjectLoaded: " + event);
+                this.applyFilter(this.currentProject, this.filter);
             },
 
             _isNotComplete: function(progress) {
@@ -373,7 +384,6 @@
                     promise.then(function(x) {
                         kt.treeview.build(treeViewContainer);
                         _self.set("currentProject", kt.Globals.project);
-                        _self._selectedFile = null;
                         _self.set('modeIndex', 0);
                         _self.set('progress', {
                             value: 0,

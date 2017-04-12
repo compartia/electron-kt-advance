@@ -1,11 +1,11 @@
 <link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../../bower_components/paper-checkbox/paper-checkbox.html">
 
 <dom-module id="po-filter-panel">
     <template>
         <div class="container">
             <div class="path">
-                file:[[_getFileName(filter.file)]] / function:[[filter.functionName]] : predicate:[[filter.predicate]] : state:[[_getStateName(filter.state)]]
-
+                [[_getFileName(filter.file)]]/[[filter.functionName]] : [[filter.predicate]] : [[_getStateName(filter.state)]]
 
             </div>
 
@@ -16,11 +16,49 @@
             </div>
 
             <div class="controls">
-                <paper-icon-button icon="icons:filter-list" on-tap="openSettings" id="filter-button"></paper-icon-button>
+                <paper-icon-button icon="icons:filter-list" on-tap="openSettings" id="filter-button" on-click="toggle"></paper-icon-button>
             </div>
 
-
         </div>
+
+        <iron-collapse id="collapse">
+            <paper-material elevation="4" class="card">
+                <div id="po-filter-edit-panel">
+
+                    Filter Proof Obligations:
+
+                    <div id="states">
+                        Proof Obligation state
+                        <template is="dom-repeat" items="[[_getAllStates()]]">
+                            <paper-checkbox checked>
+                                [[item]]
+                            </paper-checkbox>
+                        </template>
+                    </div>
+
+                    <div id="discharge-types">
+                        Type of discharge
+                        <template is="dom-repeat" items="[[_getDischargeTypes()]]">
+                            <paper-checkbox checked>
+                                [[item]]
+                            </paper-checkbox>
+                        </template>
+                    </div>
+
+                    <div>
+                        <iron-list items="[[_allPredicates]]">                            
+                            <template>
+                                <paper-checkbox checked>
+                                    [[item]]
+                                </paper-checkbox>
+                            </template>
+                        </iron-list>
+                    </div>
+
+                </div>
+            </paper-material>
+
+        </iron-collapse>
 
     </template>
 
@@ -35,6 +73,21 @@
 
         .kt-chart {
             width: 100%;
+        }
+
+        paper-checkbox.red {
+            align-self: center;
+            /*border: 1px solid var(--paper-green-200);*/
+            /*padding: 8px 16px;*/
+
+            --paper-checkbox-checked-color: var(--kt-state-violation-default-bg);
+            --paper-checkbox-checked-ink-color: var(--kt-state-violation-default-tx);
+            --paper-checkbox-unchecked-color: var(--kt-state-violation-default-tx);
+            --paper-checkbox-unchecked-ink-color: var(--kt-state-violation-default-tx);
+            --paper-checkbox-label-color: var(--kt-state-violation-default-tx);
+            --paper-checkbox-label-spacing: 0;
+            /*--paper-checkbox-margin: 8px 16px 8px 0;*/
+            /*--paper-checkbox-vertical-align: top;*/
         }
 
     </style>
@@ -55,20 +108,49 @@
                     notify: true
                 },
 
+                _allPredicates:{
+                    type: Array,
+                    notify: true,
+                    computed:"_getAllPredicates(statistics)"
+                },
+
                 _stateName: {
                     computed: "_getStateName(filter)"
                 }
             },
 
+            toggle: function() {
+                this.$.collapse.toggle();
+            },
+
+            _getDischargeTypes: function() {
+                return kt.graph.PoDischargeTypesArr;
+            },
+
+            _getAllStates: function() {
+                return kt.graph.PoStatesArr;
+            },
+
+            _getAllPredicates: function(statistics) {
+                if( statistics)
+                    return statistics.allPredicates;
+                else {
+                    return [];
+                }
+            },
+
             _getStateName: function(filterState) {
-                console.log(filterState);
-                return kt.graph.PoStates[filterState];
+                if (filterState) {
+                    return kt.graph.PoStates[filterState];
+                } else {
+                    return null;
+                }
             },
 
             _getFileName: function(file) {
                 if (file)
                     return file.relativePath;
-                return null;
+                return "no file selected";
             },
 
             _click: function(event) {

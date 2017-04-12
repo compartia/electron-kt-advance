@@ -17,6 +17,13 @@ module kt.Globals {
         private _file: kt.treeview.FileInfo;
         private _state: kt.graph.PoStates = null;
 
+        public reset() {
+            this._predicate = null;
+            this._functionName = null;
+            this._file = null;
+            this._state = null;
+        }
+
         set functionName(_functionName: string) {
             this._functionName = _functionName;
         }

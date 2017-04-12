@@ -94,6 +94,8 @@ module kt.stats {
         byDischargeType: StatsTable;
         byState: StatsTable;
 
+        allPredicates: Array<string>=[];
+
 
         public build(project: kt.Globals.Project) {
             this.byPredicate = new StatsTable();
@@ -101,11 +103,11 @@ module kt.stats {
             this.byState = new StatsTable();
 
             //XXX: do not do this everytime, just cache it per project
-            let allPredicates = _.uniq(_.map(project.filteredProofObligations, (e) => e.predicate)).sort();
+            this.allPredicates = _.uniq(_.map(project.filteredProofObligations, (e) => e.predicate)).sort();
 
             //popolate with zeros
             for (let state of states) {
-                for (let predicate of allPredicates) {
+                for (let predicate of this.allPredicates) {
                     this.byPredicate.inc(predicate, state, 0);
                 }
             }

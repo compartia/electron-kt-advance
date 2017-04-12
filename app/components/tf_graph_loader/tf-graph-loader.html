@@ -38,13 +38,14 @@
 
             currentProject: {
                 type: Object,
+                notify: true,
                 observer: '_currentProjectChanged'
             }
         },
 
-        _currentProjectChanged: function() {
-            var project = this.currentProject;
-            // var _self=this;
+        _currentProjectChanged: function(newProject,oldProject) {
+            var project = newProject;
+
             console.info("_currentProjectChanged: "+project);
             this.set('progress', {
                 value: 0,
@@ -73,9 +74,12 @@
                 refEdges: {}
             };
 
+            this.filter.reset();
+
             kt.parser.readAndParse(readDataTracker)
             .then(function(nodes) {
-                this.set("filter", null);
+                // this.set("filter", null);                
+                this.fire("project-loaded", {});
                 return tf.graph.build(nodes, buildParams, graphTracker);
 
             }.bind(this)).then(function(graph) {

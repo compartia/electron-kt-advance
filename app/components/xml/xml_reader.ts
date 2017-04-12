@@ -428,12 +428,9 @@ module kt.xml {
                 console.info("total objects: " + pevs.length + " \t\ttotal unique keys: " + Object.keys(pevMap).length);
 
                 for (let key in pevMap) {
-                    // console.info(key);
                     let ppo = ppoMap[key];
                     if (ppo) {
                         ppo.discharge = pevMap[key];
-                        if (ppo.state == "VIOLATION")
-                            console.info(ppo);
                     } else {
                         console.warn((err++) + " no PO info for the key " + key);
                     }

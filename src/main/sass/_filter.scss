@@ -7,7 +7,22 @@ po-filter-panel {
     z-index  : 2000;
 
     font-size: $font-size-sm;
- 
+
+    #po-filter-edit-panel {
+        background: $filter-panel-bg;
+        display   : flex;
+        flex-flow : row;
+        backdrop-filter: blur(2px);
+
+        #discharge-types,
+        #states {
+            display  : flex;
+            flex-flow: column;
+            padding  : $spacer;
+        }
+
+    }
+
     .container {
         display    : flex;
         align-items: center;
@@ -18,7 +33,7 @@ po-filter-panel {
             display      : flex;
             margin-left  : $spacer/2;
             padding      : $spacer/2 $spacer;
-            font-size    : $font-size-xs;
+
             border       : 1px solid $filter-panel-bg;
             border-radius: 20px;
             background   : $filter-panel-bg;
@@ -27,7 +42,7 @@ po-filter-panel {
 
         .path {
             text-align: left;
-
+            font-size : $font-size-sm;
         }
 
         .controls {
@@ -35,6 +50,7 @@ po-filter-panel {
         }
 
         .stats {
+            font-size : $font-size-xs;
             text-align: center;
 
             span {
