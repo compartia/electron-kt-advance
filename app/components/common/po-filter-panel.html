@@ -34,7 +34,7 @@
 
                         <iron-list items="[[_getAllStates()]]">
                             <template>
-                                <paper-checkbox checked>
+                                <paper-checkbox checked style$="--paper-checkbox-label-checked-color:var(--kt-state-[[item]]-default-tx); --paper-checkbox-checked-color:var(--kt-state-[[item]]-default-bg)">
                                     [[item]]
                                 </paper-checkbox>
                             </template>
@@ -46,7 +46,7 @@
 
                         <iron-list items="[[_getDischargeTypes()]]">
                             <template>
-                                <paper-checkbox checked>
+                                <paper-checkbox checked style$="--paper-checkbox-label-checked-color:var(--kt-state-discharged-[[item]]-tx); --paper-checkbox-checked-color:var(--kt-state-discharged-[[item]]-tx)">
                                     [[item]]
                                 </paper-checkbox>
                             </template>
@@ -57,7 +57,7 @@
                         <h3>Predicates</h3>
                         <iron-list items="[[allPredicates]]"  id="predicates-list">
                             <template>
-                                <paper-checkbox checked>
+                                <paper-checkbox checked style="--paper-checkbox-label-checked-color:var(--kt-text-color); --paper-checkbox-checked-color:var(--kt-text-color)">
                                     [[item]]
                                 </paper-checkbox>
                             </template>

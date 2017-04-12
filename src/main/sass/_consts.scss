@@ -1,8 +1,11 @@
-$spacer: 10px;
+@import "_colors";
 
+$spacer: 10px;
 
 :root{
     --spacer:$spacer;
     --paper-toolbar-height: 40px;
     --filter-panel-height: 40px;
+
+    --primary-color:$color-brand-2;
 }
