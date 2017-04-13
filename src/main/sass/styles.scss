@@ -30,3 +30,13 @@ html {
     fill        : none;
     stroke-width: 1px;
 }
+
+
+
+.card.panel{
+    h3{
+        // padding-bottom: $spacer/2;
+        color: var(--kt-grey);
+        font-size: $font-size-xs;
+    }
+}

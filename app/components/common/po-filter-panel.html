@@ -27,7 +27,7 @@
                 <h2>Filter Proof Obligations:</h2>
                 <div id="filtersettings-body">
 
-                    <div id="states" class="card">
+                    <div id="states" class="card panel">
                         <h3>State ([[filter.states.length]])</h3>
 
                         <iron-list items="[[_getAllStates()]]">
@@ -39,7 +39,7 @@
                         </iron-list>
                     </div>
 
-                    <div id="discharge-types" class="card">
+                    <div id="discharge-types" class="card panel">
                         <h3>Type of discharge ([[filter.dischargeTypes.length]])</h3>
 
                         <iron-list items="[[_getDischargeTypes()]]" selected-items="{{filter.dischargeTypes}}" selection-enabled multi-selection>
@@ -51,7 +51,7 @@
                         </iron-list>
                     </div>
 
-                    <div id="predicates" class="card">
+                    <div id="predicates" class="card panel">
                         <h3>Predicates ({{filter.predicates.length}})</h3>
                         <iron-list items="{{project.allPredicates}}">
                             <template>
