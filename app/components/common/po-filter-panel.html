@@ -32,7 +32,10 @@
 
                         <iron-list items="[[_getAllStates()]]">
                             <template>
-                                <paper-checkbox checked$="[[selected]]" style$="--paper-checkbox-label-checked-color:var(--kt-state-[[item]]-default-tx); --paper-checkbox-checked-color:var(--kt-state-[[item]]-default-bg)">
+                                <paper-checkbox
+                                    checked$="{{isStateSelected(item)}}" value="{{item}}"
+                                    on-change="_stateCheckboxChanged"
+                                    style$="--paper-checkbox-label-checked-color:var(--kt-state-[[item]]-default-tx); --paper-checkbox-checked-color:var(--kt-state-[[item]]-default-bg)">
                                     [[item]]
                                 </paper-checkbox>
                             </template>
@@ -44,7 +47,8 @@
 
                         <iron-list items="[[_getDischargeTypes()]]" selected-items="{{filter.dischargeTypes}}" selection-enabled multi-selection>
                             <template>
-                                <paper-checkbox checked$="[[selected]]" style$="--paper-checkbox-label-checked-color:var(--kt-state-discharged-[[item]]-tx); --paper-checkbox-checked-color:var(--kt-state-discharged-[[item]]-tx)">
+                                <paper-checkbox checked$="[[selected]]"
+                                    style$="--paper-checkbox-label-checked-color:var(--kt-state-discharged-[[item]]-tx); --paper-checkbox-checked-color:var(--kt-state-discharged-[[item]]-tx)">
                                     [[item]]
                                 </paper-checkbox>
                             </template>
@@ -55,7 +59,10 @@
                         <h3>Predicates ({{filter.predicates.length}})</h3>
                         <iron-list items="{{project.allPredicates}}">
                             <template>
-                                <paper-checkbox checked$="{{isPredicateSelected(item)}}" value="{{item}}" style="--paper-checkbox-label-checked-color:var(--kt-text-color); --paper-checkbox-checked-color:var(--kt-text-color)" on-change="_predicateCheckboxChanged">
+                                <paper-checkbox
+                                    checked$="{{isPredicateSelected(item)}}" value="{{item}}"
+                                    style="--paper-checkbox-label-checked-color:var(--kt-text-color); --paper-checkbox-checked-color:var(--kt-text-color)"
+                                    on-change="_predicateCheckboxChanged">
                                     {{item}}
                                 </paper-checkbox>
                             </template>
@@ -70,33 +77,10 @@
     </template>
 
     <style is="po-filter-panel">
-
         .flexchild {
             @apply(--layout-flex);
-            /*padding: var(--spacer);
-            margin: var(--spacer);*/
             background-color: var(--kt-panel-bg);
         }
-
-        .kt-chart {
-            width: 100%;
-        }
-
-        paper-checkbox.red {
-            align-self: center;
-            /*border: 1px solid var(--paper-green-200);*/
-            /*padding: 8px 16px;*/
-
-            --paper-checkbox-checked-color: var(--kt-state-violation-default-bg);
-            --paper-checkbox-checked-ink-color: var(--kt-state-violation-default-tx);
-            --paper-checkbox-unchecked-color: var(--kt-state-violation-default-tx);
-            --paper-checkbox-unchecked-ink-color: var(--kt-state-violation-default-tx);
-            --paper-checkbox-label-color: var(--kt-state-violation-default-tx);
-            --paper-checkbox-label-spacing: 0;
-            /*--paper-checkbox-margin: 8px 16px 8px 0;*/
-            /*--paper-checkbox-vertical-align: top;*/
-        }
-
     </style>
 
     <script>
@@ -144,6 +128,12 @@
                 return true;
             },
 
+            isStateSelected: function(item) {
+                if (this.filter)
+                    return this.filter.isStateSelected(item);
+                return true;
+            },
+
             toggle: function() {
                 this.$.filtersettings.toggle();
             },
@@ -185,10 +175,10 @@
 
             _predicateCheckboxChanged: function(event) {
                 if (event.target.checked) {
-                    kt.Globals.addToSet(this.filter.predicates, event.target.value);
+                    kt.util.addToSet(this.filter.predicates, event.target.value);
                     this.notifyPath("filter.predicates.length");
                 } else {
-                    kt.Globals.deleteFromSet(this.filter.predicates, event.target.value);
+                    kt.util.deleteFromSet(this.filter.predicates, event.target.value);
                     this.notifyPath("filter.predicates.length");
                 }
                 this.notifyPath("filter.predicates");
@@ -196,10 +186,10 @@
 
             _stateCheckboxChanged: function(event) {
                 if (event.target.checked) {
-                    kt.Globals.addToSet(this.filter.states, event.target.value);
+                    kt.util.addToSet(this.filter.states, event.target.value);
                     this.notifyPath("filter.states.length");
                 } else {
-                    kt.Globals.deleteFromSet(this.filter.states, event.target.value);
+                    kt.util.deleteFromSet(this.filter.states, event.target.value);
                     this.notifyPath("filter.states.length");
                 }
                 this.notifyPath("filter.states");

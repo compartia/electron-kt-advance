@@ -9,26 +9,11 @@ module kt.Globals {
         'summary', 'source', 'proof obligations', 'assumptions', 'graphs'
     ];
 
-    export function addToSet(array: Array<any>, value: any) {
-        if (array.indexOf(value) === -1) {
-            array.push(value);
-        }
-    }
-
-    export function deleteFromSet(array: Array<any>, value: any) {
-        var index = array.indexOf(value);
-        if (index !== -1) {
-            array.splice(index, 1);
-        }
-    }
-
     export class Filter {
 
-        // private _predicate: string;
-
-        _predicates: Array<string> = new Array<string>();
-        states: Array<string> = new Array<string>();
-        dischargeTypes: Array<string> = new Array<string>();
+        private _predicates: Array<string> = new Array<string>();
+        private _states: Array<string> = new Array<string>();
+        private _dischargeTypes: Array<string> = new Array<string>();
 
 
         private _functionName: string;
@@ -39,31 +24,51 @@ module kt.Globals {
             return _.contains(this._predicates, p);
         }
 
+        public isDischargeTypeSelected(p: string) {
+            return _.contains(this._dischargeTypes, p);
+        }
+
+        public isStateSelected(p: string) {
+            return _.contains(this.states, p);
+        }
+
         get predicates(): Array<string> {
             return this._predicates;
         }
 
         set predicates(_predicates: Array<string>) {
-            this._predicates.splice(0);
-            if (_predicates) {
-                for (let p of _predicates) {
-                    this._predicates.push(p);
-                }
-            }
+            kt.util.replaceArrayObservably(this._predicates, _predicates);
         }
 
+        set dischargeTypes(_dischargeTypes: Array<string>) {
+            kt.util.replaceArrayObservably(this._dischargeTypes, _dischargeTypes);
+        }
+
+        get dischargeTypes(): Array<string> {
+            return this._dischargeTypes;
+        }
+
+        set states(_states: Array<string>) {
+            kt.util.replaceArrayObservably(this._states, _states);            
+        }
+
+        get states(): Array<string> {
+            return this._states;
+        }
+
+
+
+
         set predicate(_predicate) {
-            // this._predicate = _predicate;
-            //XXX: splice!!
-            this._predicates.splice(0);
-            this._predicates.push(_predicate);
+            this.predicates = [_predicate];
         }
 
         public reset() {
-
             this._functionName = null;
             this._file = null;
             this._state = null;
+            this.states = kt.graph.PoStatesArr;
+            this.dischargeTypes = kt.graph.PoDischargeTypesArr;
         }
 
         set functionName(_functionName: string) {
@@ -75,14 +80,15 @@ module kt.Globals {
         }
 
         set state(_state: kt.graph.PoStates) {
-            this._state = _state;
-            //XXX: splice!!
-            // this.states = [_state];
+            this.states = [kt.graph.PoStates[_state]];
         }
 
         get state() {
-            return this._state;
+            if (this._states && this._states.length)
+                return kt.graph.PoStates[this._states[0]];
+            else return null;
         }
+
 
         get stateName() {
             return kt.graph.PoStates[this._state];
@@ -132,11 +138,10 @@ module kt.Globals {
         }
 
         private acceptState(po: kt.graph.PONode): boolean {
-            // if (this.states == null || _.contains(this.states, po.state.toLowerCase())) {
-            //     return true;
-            // }
-            // return false;
-            return true;
+            if (this.states == null || _.contains(this.states, po.state.toLowerCase())) {
+                return true;
+            }
+            return false;
         }
 
         private acceptDischargeType(po: kt.graph.PONode): boolean {
