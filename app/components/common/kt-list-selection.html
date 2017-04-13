@@ -1,0 +1,77 @@
+<link rel="import" href="../../../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../../../bower_components/iron-list/iron-list.html">
+
+<dom-module id="kt-list-selection">
+    <template>
+        <div class="list-container">
+            <iron-list items="{{allValues}}" id="checkboxlist">
+                <template>
+                    <paper-checkbox checked$="{{isSelected(item)}}" value="{{item}}" style$="{{styleOf(item)}}" on-change="_checkboxChanged">
+                        {{item}}
+                    </paper-checkbox>
+                </template>
+            </iron-list>
+        </div>
+    </template>
+
+    <style is="kt-list-selection">
+        .list-container {
+            overflow: scroll;
+            max-height: 200px;
+            min-height: 20px;
+        }
+
+    </style>
+
+    <script>
+        Polymer({
+            is: 'kt-list-selection',
+
+            properties: {
+                selectedValues: {
+                    type: Array,
+                    notify: true,
+                    observer:"selectedValuesChanged"
+                },
+
+                allValues: {
+                    type: Array,
+                    notify: true
+                },
+
+                styles: {
+                    type: Object,
+                    notify: true
+                }
+            },
+
+            selectedValuesChanged:function(newVals, oldVals){
+                console.warn(newVals);
+                // this.$.checkboxlist.update();
+            },
+
+            styleOf: function(item) {
+                if (this.styles)
+                    return this.styles[item];
+                return "";
+            },
+
+            isSelected: function(item) {
+                if (this.selectedValues)
+                    return _.contains(this.selectedValues, item);
+                return true;
+            },
+
+            _checkboxChanged: function(event) {
+                if (event.target.checked) {
+                    kt.util.addToSet(this.selectedValues, event.target.value);
+                } else {
+                    kt.util.deleteFromSet(this.selectedValues, event.target.value);
+                }
+                console.info(this.selectedValues);
+                this.notifyPath("selectedValues.length");
+                this.notifyPath("selectedValues");
+            }
+        });
+    </script>
+</dom-module>

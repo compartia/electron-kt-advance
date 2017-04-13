@@ -3,6 +3,8 @@
 <link rel="import" href="../../../bower_components/paper-checkbox/paper-checkbox.html">
 <link rel="import" href="../../../bower_components/iron-list/iron-list.html">
 
+<link rel="import" href="kt-list-selection.html">
+
 <dom-module id="po-filter-panel">
     <template>
         <div class="container">
@@ -25,48 +27,22 @@
         <iron-collapse id="filtersettings">
             <paper-material elevation="4" class="card" id="filtersettings-container">
                 <h2>Filter Proof Obligations:</h2>
+
                 <div id="filtersettings-body">
 
                     <div id="states" class="card panel">
                         <h3>State ([[filter.states.length]])</h3>
-
-                        <iron-list items="[[_getAllStates()]]">
-                            <template>
-                                <paper-checkbox
-                                    checked$="{{isStateSelected(item)}}" value="{{item}}"
-                                    on-change="_stateCheckboxChanged"
-                                    style$="--paper-checkbox-label-checked-color:var(--kt-state-[[item]]-default-tx); --paper-checkbox-checked-color:var(--kt-state-[[item]]-default-bg)">
-                                    [[item]]
-                                </paper-checkbox>
-                            </template>
-                        </iron-list>
+                        <kt-list-selection all-values="[[_getAllStates()]]" selected-values="{{filter.states}}" styles="[[_statesStyles]]"></kt-list-selection>
                     </div>
 
                     <div id="discharge-types" class="card panel">
                         <h3>Type of discharge ([[filter.dischargeTypes.length]])</h3>
-
-                        <iron-list items="[[_getDischargeTypes()]]" selected-items="{{filter.dischargeTypes}}" selection-enabled multi-selection>
-                            <template>
-                                <paper-checkbox checked$="[[selected]]"
-                                    style$="--paper-checkbox-label-checked-color:var(--kt-state-discharged-[[item]]-tx); --paper-checkbox-checked-color:var(--kt-state-discharged-[[item]]-tx)">
-                                    [[item]]
-                                </paper-checkbox>
-                            </template>
-                        </iron-list>
+                        <kt-list-selection all-values="[[_getDischargeTypes()]]" selected-values="{{filter.dischargeTypes}}" styles="[[_dischargeTypesStyles]]"></kt-list-selection>
                     </div>
 
                     <div id="predicates" class="card panel">
                         <h3>Predicates ({{filter.predicates.length}})</h3>
-                        <iron-list items="{{project.allPredicates}}">
-                            <template>
-                                <paper-checkbox
-                                    checked$="{{isPredicateSelected(item)}}" value="{{item}}"
-                                    style="--paper-checkbox-label-checked-color:var(--kt-text-color); --paper-checkbox-checked-color:var(--kt-text-color)"
-                                    on-change="_predicateCheckboxChanged">
-                                    {{item}}
-                                </paper-checkbox>
-                            </template>
-                        </iron-list>
+                        <kt-list-selection all-values="{{project.allPredicates}}" selected-values="{{filter.predicates}}"></kt-list-selection>
                     </div>
 
                 </div>
@@ -100,12 +76,21 @@
 
                 filter: {
                     type: Object,
-                    notify: true,
-                    // value: new kt.Globals.Filter()
+                    notify: true
+                },
+
+                _statesStyles: {
+                    type: Object,
+                    computed: "_getStatesStyles(filter)"
+                },
+
+                _dischargeTypesStyles: {
+                    type: Object,
+                    computed: "_getDischargeTypesStyles(filter)"
                 }
             },
 
-            observers: ['_filteChanged(filter.*)'],
+            observers: ['filterChanged(filter.*)'],
 
             _getFilterPredicates: function(filter) {
                 if (filter) {
@@ -113,25 +98,25 @@
                 }
             },
 
-            changeHandler: function(event) {
-                console.error(event);
+            _getDischargeTypesStyles: function(filter) {
+                var map = {};
+                _.forEach(kt.graph.PoDischargeTypesArr, function(x) {
+                    map[x] = "--paper-checkbox-label-checked-color:var(--kt-state-discharged-" + x + "-tx); --paper-checkbox-checked-color:var(--kt-state-discharged-" + x + "-tx)";
+                });
+                return map;
             },
 
-            _filteChanged: function(a) {
+            _getStatesStyles: function(filter) {
+                var map = {};
+                _.forEach(kt.graph.PoStatesArr, function(x) {
+                    map[x] = "--paper-checkbox-label-checked-color:var(--kt-state-" + x + "-default-tx); --paper-checkbox-checked-color:var(--kt-state-" + x + "-default-tx)";
+                });
+                return map;
+            },
+
+            filterChanged: function(a) {
                 console.warn(a);
                 console.log(this.filter.predicates);
-            },
-
-            isPredicateSelected: function(item) {
-                if (this.filter)
-                    return this.filter.isPredicateSelected(item);
-                return true;
-            },
-
-            isStateSelected: function(item) {
-                if (this.filter)
-                    return this.filter.isStateSelected(item);
-                return true;
             },
 
             toggle: function() {
@@ -171,28 +156,6 @@
                     this.set("filter.state", kt.graph.PoStates.open);
                 }
                 this.notifyPath("filter.state");
-            },
-
-            _predicateCheckboxChanged: function(event) {
-                if (event.target.checked) {
-                    kt.util.addToSet(this.filter.predicates, event.target.value);
-                    this.notifyPath("filter.predicates.length");
-                } else {
-                    kt.util.deleteFromSet(this.filter.predicates, event.target.value);
-                    this.notifyPath("filter.predicates.length");
-                }
-                this.notifyPath("filter.predicates");
-            },
-
-            _stateCheckboxChanged: function(event) {
-                if (event.target.checked) {
-                    kt.util.addToSet(this.filter.states, event.target.value);
-                    this.notifyPath("filter.states.length");
-                } else {
-                    kt.util.deleteFromSet(this.filter.states, event.target.value);
-                    this.notifyPath("filter.states.length");
-                }
-                this.notifyPath("filter.states");
             }
         });
     </script>
