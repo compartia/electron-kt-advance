@@ -96,6 +96,8 @@ module kt.stats {
         byDischargeType: StatsTable;
         byState: StatsTable;
 
+        private filteredOutCount:number;
+
         public build(project: kt.Globals.Project) {
             this.byPredicate = new StatsTable();
             this.byDischargeType = new StatsTable();
@@ -103,6 +105,7 @@ module kt.stats {
 
             let filteredPredicates = _.uniq(_.map(project.filteredProofObligations, (e) => e.predicate)).sort();
 
+            this.filteredOutCount=project.proofObligations.length - project.filteredProofObligations.length;
             //popolate with zeros
             for (let state of states) {
                 for (let predicate of filteredPredicates) {
@@ -126,6 +129,10 @@ module kt.stats {
 
         get countViolations(): number {
             return this.byState.getAt("VIOLATION", DEF_COL_NAME);
+        }
+
+        get countFilteredOut():number{
+            return this.filteredOutCount;
         }
 
         get countDischarged(): number {

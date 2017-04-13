@@ -13,6 +13,8 @@
             </div>
 
             <div class="stats flexchild">
+                <span id="btnv" class="stat-hidden" >filtered-out:[[statistics.countFilteredOut]]</span>
+
                 <span id="btnv" class="stat-violation" on-tap="_click">violations:[[statistics.countViolations]]</span>
                 <span id="btno" class="stat-open" on-tap="_click">open:[[statistics.countOpen]]</span>
                 <span id="btnd" class="stat-discharged" on-tap="_click">discharged:[[statistics.countDischarged]]</span>
@@ -31,14 +33,14 @@
                 <div id="filtersettings-body">
 
                     <div id="states" class="card panel">
-                        <h3>State ([[filter.states.length]])</h3>
-                        <kt-list-selection all-values="[[_getAllStates()]]" selected-values="{{filter.states}}" styles="[[_statesStyles]]"></kt-list-selection>
+                        <h3>State ( {{filter.states.length}})</h3>
+                        <kt-list-selection all-values="[[_allStates]]" selected-values="{{filter.states}}" styles="[[_statesStyles]]"></kt-list-selection>
                     </div>
 
-                    <!-- <div id="discharge-types" class="card panel">
+                    <div id="discharge-types" class="card panel">
                         <h3>Type of discharge ([[filter.dischargeTypes.length]])</h3>
-                        <kt-list-selection all-values="[[_getDischargeTypes()]]" selected-values="{{filter.dischargeTypes}}" styles="[[_dischargeTypesStyles]]"></kt-list-selection>
-                    </div>-->
+                        <kt-list-selection all-values="[[_allDischargeTypes]]" selected-values="{{filter.dischargeTypes}}" styles="[[_dischargeTypesStyles]]"></kt-list-selection>
+                    </div>
 
                     <div id="predicates" class="card panel">
                         <h3>Predicates ({{filter.predicates.length}})</h3>
@@ -57,6 +59,7 @@
             @apply(--layout-flex);
             background-color: var(--kt-panel-bg);
         }
+
     </style>
 
     <script>
@@ -87,6 +90,16 @@
                 _dischargeTypesStyles: {
                     type: Object,
                     computed: "_getDischargeTypesStyles(filter)"
+                },
+
+                _allStates: {
+                    type: Object,
+                    computed: "_getAllStates(statistics, filter)"
+                },
+
+                _allDischargeTypes: {
+                    type: Object,
+                    computed: "_getDischargeTypes(statistics, filter)"
                 }
             },
 
@@ -117,11 +130,11 @@
                 this.$.filtersettings.toggle();
             },
 
-            _getDischargeTypes: function() {
+            _getDischargeTypes: function(stats, filter) {
                 return kt.graph.PoDischargeTypesArr;
             },
 
-            _getAllStates: function() {
+            _getAllStates: function(stats, filter) {
                 return kt.graph.PoStatesArr;
             },
 
@@ -141,11 +154,11 @@
 
             _click: function(event) {
                 if (event.srcElement == this.$.btnv) {
-                    this.set("filter.states", new kt.util.StringSet (["violation"]));
+                    this.set("filter.states", new kt.util.StringSet(["violation"]));
                 } else if (event.srcElement == this.$.btnd) {
-                    this.set("filter.states", new kt.util.StringSet (["discharged"]));
+                    this.set("filter.states", new kt.util.StringSet(["discharged"]));
                 } else if (event.srcElement == this.$.btno) {
-                    this.set("filter.states", new kt.util.StringSet (["open"]));
+                    this.set("filter.states", new kt.util.StringSet(["open"]));
                 }
             }
         });

@@ -13,31 +13,28 @@ module kt.Globals {
 
         private _predicates: kt.util.StringSet = new kt.util.StringSet([]);
         private _states: kt.util.StringSet = new kt.util.StringSet([]);
-        private _dischargeTypes: Array<string> = new Array<string>();
+        private _dischargeTypes: kt.util.StringSet = new kt.util.StringSet([]);
 
 
         private _functionName: string;
         private _file: kt.treeview.FileInfo;
-        private _state: kt.graph.PoStates = null;
 
 
-        public isDischargeTypeSelected(p: string) {
-            return _.contains(this._dischargeTypes, p);
-        }
 
-        get predicates(): kt.util.StringSet{
+
+        get predicates(): kt.util.StringSet {
             return this._predicates;
         }
 
         set predicates(_predicates: kt.util.StringSet) {
-            this._predicates=_predicates;
+            this._predicates = _predicates;
         }
 
-        set dischargeTypes(_dischargeTypes: Array<string>) {
-            kt.util.replaceArrayObservably(this._dischargeTypes, _dischargeTypes);
+        set dischargeTypes(_dischargeTypes: kt.util.StringSet) {
+            this._dischargeTypes = _dischargeTypes;
         }
 
-        get dischargeTypes(): Array<string> {
+        get dischargeTypes(): kt.util.StringSet {
             return this._dischargeTypes;
         }
 
@@ -54,7 +51,7 @@ module kt.Globals {
             this._file = null;
             this._state = null;
             this._states.values = kt.graph.PoStatesArr;
-            this.dischargeTypes = kt.graph.PoDischargeTypesArr;
+            this._dischargeTypes.values = kt.graph.PoDischargeTypesArr;
         }
 
         set functionName(_functionName: string) {
@@ -121,11 +118,15 @@ module kt.Globals {
         }
 
         private acceptDischargeType(po: kt.graph.PONode): boolean {
-            // if(this._dischargeTypes ==null || _.contains(this._dischargeTypes,  po.state.toLowerCase())){
-            //     return true;
-            // }
-            // return false;
-            return true;
+            if(!po.dischargeType){
+                return this._dischargeTypes.contains("default");
+            }else{
+                    if (this._dischargeTypes == null  || this._dischargeTypes.contains(po.dischargeType.toLowerCase())) {
+                        return true;
+                    }
+            }
+
+            return false;
         }
 
 
