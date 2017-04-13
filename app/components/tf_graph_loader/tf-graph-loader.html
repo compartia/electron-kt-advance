@@ -39,7 +39,23 @@
                 type: Object,
                 notify: true,
                 observer: '_currentProjectChanged'
+            },
+
+            filteredProofObligations: {
+                type: Object,
+                notify: true,
+                observer: '_filteredProofObligationsChanged'
             }
+        },
+
+        _filteredProofObligationsChanged: function(newPOs, oldPOs) {
+            console.info("_filteredProofObligationsChanged: ");
+            this.set('progress', {
+                value: 0,
+                msg: ''
+            });
+            var graphTracker = tf.graph.util.getTracker(this);
+            this.rebuildGraph(this.currentProject, graphTracker)
         },
 
         _currentProjectChanged: function(newProject, oldProject) {
@@ -62,8 +78,8 @@
             this._setOutHierarchyParams(hierarchyParams);
 
             var tracker = tf.graph.util.getTracker(this);
-            var readDataTracker = tf.graph.util.getSubtaskTracker(tracker, 70, 'Reading Data');
-            var graphTracker = tf.graph.util.getSubtaskTracker(tracker, 30, 'Building graph');
+            var readDataTracker = tf.graph.util.getSubtaskTracker(tracker, 100, 'Reading Data');
+            //var graphTracker = tf.graph.util.getSubtaskTracker(tracker, 30, 'Building graph');
             // var hierarchyTracker = tf.graph.util.getSubtaskTracker(tracker, 15, 'Namespace hierarchy');
 
             var buildParams = {
@@ -78,7 +94,7 @@
             kt.parser.readAndParse(readDataTracker)
             .then(function(project) {
                 this.fire("project-loaded", {});
-                return this.rebuildGraph(project, graphTracker);
+                //return this.rebuildGraph(project, graphTracker);
 
             }.bind(this));
         },
@@ -105,9 +121,8 @@
                 refEdges: {}
             };
 
-            this.filter.reset();
 
-            var nodes = kt.parser.buildGraph(project.proofObligations, project.apis);
+            var nodes = kt.parser.buildGraph(project.filteredProofObligations, project.apis);
             // this.fire("project-loaded", {});
             tf.graph.build(nodes, buildParams, graphTracker).then(function(graph) {
                 this._setOutGraph(graph);
