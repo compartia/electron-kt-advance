@@ -64,6 +64,10 @@
                 if (event.detail.src == this.$.poByRedicate) {
                     this.set("filter.predicates", new kt.util.StringSet([event.detail.row]));
                 }
+
+                if (event.detail.src == this.$.poByDischarge) {
+                    this.set("filter.dischargeTypes", new kt.util.StringSet([event.detail.row.toLowerCase()]));
+                }
             },
 
             _chartRowSelected: function(event) {

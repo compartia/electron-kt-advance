@@ -30,8 +30,8 @@ module kt.Globals {
             this._predicates = _predicates;
         }
 
-        set dischargeTypes(_dischargeTypes: kt.util.StringSet) {
-            this._dischargeTypes = _dischargeTypes;
+        set dischargeTypes(newDischargeTypes: kt.util.StringSet) {
+            this._dischargeTypes = newDischargeTypes;
         }
 
         get dischargeTypes(): kt.util.StringSet {
@@ -118,12 +118,12 @@ module kt.Globals {
         }
 
         private acceptDischargeType(po: kt.graph.PONode): boolean {
-            if(!po.dischargeType){
+            if (!po.dischargeType) {
                 return this._dischargeTypes.contains("default");
-            }else{
-                    if (this._dischargeTypes == null  || this._dischargeTypes.contains(po.dischargeType.toLowerCase())) {
-                        return true;
-                    }
+            } else {
+                if (this._dischargeTypes == null || this._dischargeTypes.contains(po.dischargeType.toLowerCase())) {
+                    return true;
+                }
             }
 
             return false;
