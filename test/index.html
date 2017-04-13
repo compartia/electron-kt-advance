@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+        <title>KT-Advance GUI</title>
+
+        <link rel="stylesheet" type="text/css" href="../app/css/styles.css">
+
+        <script>
+            var d3 = require("d3");
+            var graphlib = require("graphlib");
+            var _ = require("lodash");
+
+
+            window.Polymer = {
+                lazyRegister: true,
+                useNativeCSSProperties: true
+            };
+        </script>
+
+        <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+        <link rel="import" href="../bower_components/polymer/polymer.html">
+
+        <script src="../app/components/common/globals.js"></script>
+        <script src="../app/components/common/po_node.js"></script>
+        <script src="../app/components/common/fs.js"></script>
+        <script src="../app/components/stats/stats.js"></script>
+        <script src="../app/components/stats/chart.js"></script>
+
+        <link rel="import" href="layout.html">
+
+    </head>
+
+    <body unresolved class="fullbleed layout vertical">
+    <kt-layout>
+    </kt-layout>
+</body>
+</html>

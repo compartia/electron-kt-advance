@@ -2,7 +2,7 @@ module kt.parser {
     const path = require('path');
 
 
-    function buildGraph(pos: Array<kt.graph.PONode>, apisByName): tf.graph.proto.NodeDef[] {
+    export function buildGraph(pos: Array<kt.graph.PONode>, apisByName): tf.graph.proto.NodeDef[] {
         let g: tf.graph.proto.NodeDef[] = [];
 
         let nodesMap = {};
@@ -30,7 +30,7 @@ module kt.parser {
 
 
 
-    export function readAndParse(tracker: tf.ProgressTracker): Promise<Array<tf.graph.proto.NodeDef>> {
+    export function readAndParse(tracker: tf.ProgressTracker): Promise<kt.Globals.Project> {
         console.info("test");
 
         const project = kt.Globals.project;
@@ -50,8 +50,12 @@ module kt.parser {
             })
             .then((POs:kt.xml.XmlAnalysis) => {
                 project.proofObligations = kt.graph.sortPoNodes( POs.ppos.concat(POs.spos));
-                let g: tf.graph.proto.NodeDef[] = buildGraph(project.proofObligations, POs.apis);
-                return g;
+                project.apis = POs.apis;
+
+                // let g: tf.graph.proto.NodeDef[] = buildGraph(project.proofObligations, project.apis);
+                // return g;
+
+                return project;
             });
 
 

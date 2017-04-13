@@ -9,13 +9,49 @@ module kt.Globals {
         'summary', 'source', 'proof obligations', 'assumptions', 'graphs'
     ];
 
-
-
     export class Filter {
+
+        private _predicates: kt.util.StringSet = new kt.util.StringSet([]);
+        private _states: kt.util.StringSet = new kt.util.StringSet([]);
+        private _dischargeTypes: kt.util.StringSet = new kt.util.StringSet([]);
+
 
         private _functionName: string;
         private _file: kt.treeview.FileInfo;
 
+
+
+
+        get predicates(): kt.util.StringSet {
+            return this._predicates;
+        }
+
+        set predicates(_predicates: kt.util.StringSet) {
+            this._predicates = _predicates;
+        }
+
+        set dischargeTypes(newDischargeTypes: kt.util.StringSet) {
+            this._dischargeTypes = newDischargeTypes;
+        }
+
+        get dischargeTypes(): kt.util.StringSet {
+            return this._dischargeTypes;
+        }
+
+        set states(_states: kt.util.StringSet) {
+            this._states = _states;
+        }
+
+        get states(): kt.util.StringSet {
+            return this._states;
+        }
+
+        public reset() {
+            this._functionName = null;
+            this._file = null;
+            this._states.values = kt.graph.PoStatesArr;
+            this._dischargeTypes.values = kt.graph.PoDischargeTypesArr;
+        }
 
         set functionName(_functionName: string) {
             this._functionName = _functionName;
@@ -25,9 +61,20 @@ module kt.Globals {
             return this._functionName;
         }
 
-        get fileName() {
-            return this._file.relativePath;
+        set state(_state: kt.graph.PoStates) {
+            this._states.values = [kt.graph.PoStates[_state]];
         }
+
+        get state(): kt.graph.PoStates {
+            return kt.graph.PoStates[this._states.first];
+        }
+
+        get fileName() {
+            if (this._file)
+                return this._file.relativePath;
+            return null;
+        }
+
 
         set file(file: kt.treeview.FileInfo) {
             if (this._file != file) {
@@ -40,9 +87,9 @@ module kt.Globals {
             if (!this.fileName) {
                 return true;
             } else {
-                if(!this._file.dir){
+                if (!this._file.dir) {
                     return po.file == this.fileName;
-                }else{
+                } else {
                     // let relative=path.relative(this.fileName, po.file);
                     return po.file.startsWith(this.fileName);
                 }
@@ -58,8 +105,35 @@ module kt.Globals {
             }
         }
 
+        private acceptState(po: kt.graph.PONode): boolean {
+            if (this.states == null || this._states.contains(po.state.toLowerCase())) {
+                return true;
+            }
+            return false;
+        }
+
+        private acceptDischargeType(po: kt.graph.PONode): boolean {
+            if (!po.dischargeType) {
+                return this._dischargeTypes.contains("default");
+            } else {
+                if (this._dischargeTypes == null || this._dischargeTypes.contains(po.dischargeType.toLowerCase())) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+
+        private acceptPredicate(po: kt.graph.PONode): boolean {
+            if (this._predicates == null || this._predicates.contains(po.predicate.toLowerCase())) {
+                return true;
+            }
+            return false;
+        }
+
         public accept(po: kt.graph.PONode): boolean {
-            return this.acceptFile(po) && this.acceptFunction(po);
+            return this.acceptFile(po) && this.acceptFunction(po) && this.acceptPredicate(po) && this.acceptState(po) && this.acceptDischargeType(po);
         }
 
     }
@@ -72,8 +146,22 @@ module kt.Globals {
         analysisDir: string;
         stats: kt.stats.Stats;
 
-        proofObligations: Array<kt.graph.PONode> = [];
+        _proofObligations: Array<kt.graph.PONode> = [];
         _filteredProofObligations: Array<kt.graph.PONode> = null;
+
+        apis: { [key: string]: kt.graph.ApiNode } = null;
+
+        allPredicates: Array<string>;
+
+
+        get proofObligations(): Array<kt.graph.PONode> {
+            return this._proofObligations;
+        }
+
+        set proofObligations(_proofObligations: Array<kt.graph.PONode>) {
+            this._proofObligations = _proofObligations;
+            this.allPredicates = _.uniq(_.map(this._proofObligations, (e) => e.predicate)).sort();
+        }
 
 
         constructor(baseDir: string) {

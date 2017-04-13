@@ -3,7 +3,7 @@
 
 kt-layout {
     background: $main-bg;
-
+    
     #treeview {
         background: $side-bg;
     }
@@ -54,7 +54,7 @@ kt-layout {
         z-index: 2000;
 
         backdrop-filter: blur(5px);
-        -webkit-backdrop-filter: blur(5spx);
+        -webkit-backdrop-filter: blur(5px);
 
     }
 

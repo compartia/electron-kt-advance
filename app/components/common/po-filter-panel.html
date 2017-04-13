@@ -1,0 +1,166 @@
+<link rel="import" href="../../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../../../bower_components/iron-list/iron-list.html">
+
+<link rel="import" href="kt-list-selection.html">
+
+<dom-module id="po-filter-panel">
+    <template>
+        <div class="container">
+            <div class="path">
+                [[_getFileName(filter.file)]]/[[filter.functionName]] : [[filter.predicate]] : [[_getStateName(filter.state)]]
+            </div>
+
+            <div class="stats flexchild">
+                <span id="btnv" class="stat-hidden" >filtered-out:[[statistics.countFilteredOut]]</span>
+
+                <span id="btnv" class="stat-violation" on-tap="_click">violations:[[statistics.countViolations]]</span>
+                <span id="btno" class="stat-open" on-tap="_click">open:[[statistics.countOpen]]</span>
+                <span id="btnd" class="stat-discharged" on-tap="_click">discharged:[[statistics.countDischarged]]</span>
+            </div>
+
+            <div class="controls">
+                <paper-icon-button icon="icons:filter-list" on-tap="openSettings" id="filter-button" on-click="toggle"></paper-icon-button>
+            </div>
+
+        </div>
+
+        <iron-collapse id="filtersettings">
+            <paper-material elevation="4" class="card" id="filtersettings-container">
+                <h2>Filter Proof Obligations:</h2>
+
+                <div id="filtersettings-body">
+
+                    <div id="states" class="card panel">
+                        <h3>State ( {{filter.states.length}})</h3>
+                        <kt-list-selection all-values="[[_allStates]]" selected-values="{{filter.states}}" styles="[[_statesStyles]]"></kt-list-selection>
+                    </div>
+
+                    <div id="discharge-types" class="card panel">
+                        <h3>Type of discharge ([[filter.dischargeTypes.length]])</h3>
+                        <kt-list-selection all-values="[[_allDischargeTypes]]" selected-values="{{filter.dischargeTypes}}" styles="[[_dischargeTypesStyles]]"></kt-list-selection>
+                    </div>
+
+                    <div id="predicates" class="card panel">
+                        <h3>Predicates ({{filter.predicates.length}})</h3>
+                        <kt-list-selection all-values="{{project.allPredicates}}" selected-values="{{filter.predicates}}"></kt-list-selection>
+                    </div>
+
+                </div>
+            </paper-material>
+
+        </iron-collapse>
+
+    </template>
+
+    <style is="po-filter-panel">
+        .flexchild {
+            @apply(--layout-flex);
+            background-color: var(--kt-panel-bg);
+        }
+
+    </style>
+
+    <script>
+        Polymer({
+            is: 'po-filter-panel',
+
+            properties: {
+                project: {
+                    type: Object,
+                    notify: true
+                },
+
+                statistics: {
+                    type: Object,
+                    notify: true
+                },
+
+                filter: {
+                    type: Object,
+                    notify: true
+                },
+
+                _statesStyles: {
+                    type: Object,
+                    computed: "_getStatesStyles(filter)"
+                },
+
+                _dischargeTypesStyles: {
+                    type: Object,
+                    computed: "_getDischargeTypesStyles(filter)"
+                },
+
+                _allStates: {
+                    type: Object,
+                    computed: "_getAllStates(statistics, filter)"
+                },
+
+                _allDischargeTypes: {
+                    type: Object,
+                    computed: "_getDischargeTypes(statistics, filter)"
+                }
+            },
+
+            observers: ['filterChanged(filter.*)'],
+
+            _getDischargeTypesStyles: function(filter) {
+                var map = {};
+                _.forEach(kt.graph.PoDischargeTypesArr, function(x) {
+                    map[x] = "--paper-checkbox-label-checked-color:var(--kt-state-discharged-" + x + "-tx); --paper-checkbox-checked-color:var(--kt-state-discharged-" + x + "-tx)";
+                });
+                return map;
+            },
+
+            _getStatesStyles: function(filter) {
+                var map = {};
+                _.forEach(kt.graph.PoStatesArr, function(x) {
+                    map[x] = "--paper-checkbox-label-checked-color:var(--kt-state-" + x + "-default-tx); --paper-checkbox-checked-color:var(--kt-state-" + x + "-default-tx)";
+                });
+                return map;
+            },
+
+            filterChanged: function(a) {
+                console.warn(a);
+                console.log(this.filter.predicates);
+            },
+
+            toggle: function() {
+                this.$.filtersettings.toggle();
+            },
+
+            _getDischargeTypes: function(stats, filter) {
+                return kt.graph.PoDischargeTypesArr;
+            },
+
+            _getAllStates: function(stats, filter) {
+                return kt.graph.PoStatesArr;
+            },
+
+            _getStateName: function(filterState) {
+                if (filterState) {
+                    return kt.graph.PoStates[filterState];
+                } else {
+                    return null;
+                }
+            },
+
+            _getFileName: function(file) {
+                if (file)
+                    return file.relativePath;
+                return "no file selected";
+            },
+
+            _click: function(event) {
+                if (event.srcElement == this.$.btnv) {
+                    this.set("filter.states", new kt.util.StringSet(["violation"]));
+                } else if (event.srcElement == this.$.btnd) {
+                    this.set("filter.states", new kt.util.StringSet(["discharged"]));
+                } else if (event.srcElement == this.$.btno) {
+                    this.set("filter.states", new kt.util.StringSet(["open"]));
+                }
+            }
+        });
+    </script>
+</dom-module>

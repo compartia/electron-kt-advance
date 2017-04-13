@@ -5,6 +5,9 @@ module kt.graph {
     export enum PoStates { violation, open, discharged, assumption };
     export enum PoDischargeTypes { global, invariants, ds, rv, api, default };
 
+    export const PoDischargeTypesArr:Array<string> =["global", "invariants", "ds", "rv", "api", "default"];
+    export const PoStatesArr:Array<string> =["violation", "open", "discharged"];
+
 
     const SPL = "/";
 

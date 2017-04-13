@@ -27,14 +27,11 @@ tf-node-info {
     --iron-icon-width: $font-size-base;
 
 
-
     .code-link{
         color: $color-brand-2;
     }
 
     .po {
-
-
 
         font-size: $font-size-base;
         padding      : $base-padding/2;
@@ -339,10 +336,6 @@ tf-node-list-item{
             transform: rotate(90deg) translate(0, 0%);
         }
 
-        // .rotated{
-        //     transform: translate(50%, 50%);
-        //     transform: rotate(0deg);
-        // }
     }
 
 
