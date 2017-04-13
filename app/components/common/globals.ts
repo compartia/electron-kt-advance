@@ -49,7 +49,6 @@ module kt.Globals {
         public reset() {
             this._functionName = null;
             this._file = null;
-            this._state = null;
             this._states.values = kt.graph.PoStatesArr;
             this._dischargeTypes.values = kt.graph.PoDischargeTypesArr;
         }
@@ -68,10 +67,6 @@ module kt.Globals {
 
         get state(): kt.graph.PoStates {
             return kt.graph.PoStates[this._states.first];
-        }
-
-        get stateName() {
-            return kt.graph.PoStates[this._state];
         }
 
         get fileName() {
@@ -153,6 +148,8 @@ module kt.Globals {
 
         _proofObligations: Array<kt.graph.PONode> = [];
         _filteredProofObligations: Array<kt.graph.PONode> = null;
+
+        apis: { [key: string]: kt.graph.ApiNode } = null;
 
         allPredicates: Array<string>;
 
