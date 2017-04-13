@@ -35,10 +35,10 @@
                         <kt-list-selection all-values="[[_getAllStates()]]" selected-values="{{filter.states}}" styles="[[_statesStyles]]"></kt-list-selection>
                     </div>
 
-                    <div id="discharge-types" class="card panel">
+                    <!-- <div id="discharge-types" class="card panel">
                         <h3>Type of discharge ([[filter.dischargeTypes.length]])</h3>
                         <kt-list-selection all-values="[[_getDischargeTypes()]]" selected-values="{{filter.dischargeTypes}}" styles="[[_dischargeTypesStyles]]"></kt-list-selection>
-                    </div>
+                    </div>-->
 
                     <div id="predicates" class="card panel">
                         <h3>Predicates ({{filter.predicates.length}})</h3>
@@ -92,12 +92,6 @@
 
             observers: ['filterChanged(filter.*)'],
 
-            _getFilterPredicates: function(filter) {
-                if (filter) {
-                    return filter.predicates;
-                }
-            },
-
             _getDischargeTypesStyles: function(filter) {
                 var map = {};
                 _.forEach(kt.graph.PoDischargeTypesArr, function(x) {
@@ -147,15 +141,12 @@
 
             _click: function(event) {
                 if (event.srcElement == this.$.btnv) {
-                    this.filter.state = kt.graph.PoStates.violation;
-
-                    // this.set("filter.state",  kt.graph.PoStates.violation);
+                    this.set("filter.states", new kt.util.StringSet (["violation"]));
                 } else if (event.srcElement == this.$.btnd) {
-                    this.set("filter.state", kt.graph.PoStates.discharged);
+                    this.set("filter.states", new kt.util.StringSet (["discharged"]));
                 } else if (event.srcElement == this.$.btno) {
-                    this.set("filter.state", kt.graph.PoStates.open);
+                    this.set("filter.states", new kt.util.StringSet (["open"]));
                 }
-                this.notifyPath("filter.state");
             }
         });
     </script>

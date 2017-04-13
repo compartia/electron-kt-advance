@@ -66,7 +66,7 @@
                                         <paper-tab data-mode="[[item]]">[[item]]</paper-tab>
                                     </template>
                                 </template>
-                            </paper-tabs>                     
+                            </paper-tabs>
 
                         </paper-toolbar>
 
@@ -301,7 +301,7 @@
 
             _onProjectLoaded(event) {
                 console.info("_onProjectLoaded: " + event);
-                this.set("filter.predicates", this.currentProject.allPredicates);
+                this.set("filter.predicates", new kt.util.StringSet(this.currentProject.allPredicates));
                 this.notifyPath("currentProject.allPredicates");
 
                 this.applyFilter(this.currentProject, this.filter);

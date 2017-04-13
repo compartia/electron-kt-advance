@@ -23,4 +23,55 @@ module kt.util {
         }
     }
 
+    /**
+        maintains uniq values;
+    */
+    export class StringSet {
+        private array: Array<string> = [];
+
+
+
+        constructor(array: Array<string>) {
+            this.array = _.uniq(array);
+        }
+        
+        get length(): number {
+            return this.array.length;
+        }
+
+        get first(): string {
+            if (this.array.length) return this.array[0];
+            return undefined;
+        }
+
+
+        public contains(val: string): boolean {
+            return _.contains(this.array, val);
+        }
+
+        public add(value: any): void {
+            if (this.array.indexOf(value) === -1) {
+                this.array.push(value);
+            }
+        }
+
+        public delete(value: any) {
+            var index = this.array.indexOf(value);
+            if (index !== -1) {
+                this.array.splice(index, 1);
+            }
+        }
+
+        set values(newArr: Array<any>) {
+            this.array.splice(0);
+            if (newArr) {
+                for (let p of newArr) {
+                    this.add(p);
+                }
+            } else {
+                this.array.splice(0);
+            }
+        }
+    }
+
 }

@@ -11,8 +11,8 @@ module kt.Globals {
 
     export class Filter {
 
-        private _predicates: Array<string> = new Array<string>();
-        private _states: Array<string> = new Array<string>();
+        private _predicates: kt.util.StringSet = new kt.util.StringSet([]);
+        private _states: kt.util.StringSet = new kt.util.StringSet([]);
         private _dischargeTypes: Array<string> = new Array<string>();
 
 
@@ -20,24 +20,17 @@ module kt.Globals {
         private _file: kt.treeview.FileInfo;
         private _state: kt.graph.PoStates = null;
 
-        public isPredicateSelected(p: string) {
-            return _.contains(this._predicates, p);
-        }
 
         public isDischargeTypeSelected(p: string) {
             return _.contains(this._dischargeTypes, p);
         }
 
-        public isStateSelected(p: string) {
-            return _.contains(this.states, p);
-        }
-
-        get predicates(): Array<string> {
+        get predicates(): kt.util.StringSet{
             return this._predicates;
         }
 
-        set predicates(_predicates: Array<string>) {
-            kt.util.replaceArrayObservably(this._predicates, _predicates);
+        set predicates(_predicates: kt.util.StringSet) {
+            this._predicates=_predicates;
         }
 
         set dischargeTypes(_dischargeTypes: Array<string>) {
@@ -48,26 +41,19 @@ module kt.Globals {
             return this._dischargeTypes;
         }
 
-        set states(_states: Array<string>) {
-            kt.util.replaceArrayObservably(this._states, _states);            
+        set states(_states: kt.util.StringSet) {
+            this._states = _states;
         }
 
-        get states(): Array<string> {
+        get states(): kt.util.StringSet {
             return this._states;
-        }
-
-
-
-
-        set predicate(_predicate) {
-            this.predicates = [_predicate];
         }
 
         public reset() {
             this._functionName = null;
             this._file = null;
             this._state = null;
-            this.states = kt.graph.PoStatesArr;
+            this._states.values = kt.graph.PoStatesArr;
             this.dischargeTypes = kt.graph.PoDischargeTypesArr;
         }
 
@@ -80,15 +66,12 @@ module kt.Globals {
         }
 
         set state(_state: kt.graph.PoStates) {
-            this.states = [kt.graph.PoStates[_state]];
+            this._states.values = [kt.graph.PoStates[_state]];
         }
 
-        get state() {
-            if (this._states && this._states.length)
-                return kt.graph.PoStates[this._states[0]];
-            else return null;
+        get state(): kt.graph.PoStates {
+            return kt.graph.PoStates[this._states.first];
         }
-
 
         get stateName() {
             return kt.graph.PoStates[this._state];
@@ -100,13 +83,6 @@ module kt.Globals {
             return null;
         }
 
-
-
-        get predicate() {
-            if (this._predicates.length)
-                return this._predicates[0];
-            return "";
-        }
 
         set file(file: kt.treeview.FileInfo) {
             if (this._file != file) {
@@ -138,7 +114,7 @@ module kt.Globals {
         }
 
         private acceptState(po: kt.graph.PONode): boolean {
-            if (this.states == null || _.contains(this.states, po.state.toLowerCase())) {
+            if (this.states == null || this._states.contains(po.state.toLowerCase())) {
                 return true;
             }
             return false;
@@ -154,7 +130,7 @@ module kt.Globals {
 
 
         private acceptPredicate(po: kt.graph.PONode): boolean {
-            if (this._predicates == null || _.contains(this._predicates, po.predicate)) {
+            if (this._predicates == null || this._predicates.contains(po.predicate.toLowerCase())) {
                 return true;
             }
             return false;

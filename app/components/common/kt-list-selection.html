@@ -4,13 +4,11 @@
 <dom-module id="kt-list-selection">
     <template>
         <div class="list-container">
-            <iron-list items="{{allValues}}" id="checkboxlist">
-                <template>
-                    <paper-checkbox checked$="{{isSelected(item)}}" value="{{item}}" style$="{{styleOf(item)}}" on-change="_checkboxChanged">
-                        {{item}}
-                    </paper-checkbox>
-                </template>
-            </iron-list>
+            <template items="[[_items]]" is="dom-repeat">
+                <paper-checkbox checked$="[[item.selected]]" value="{{item.name}}" style$="{{styleOf(item.name)}}" on-change="_checkboxChanged">
+                    [[item.name]]
+                </paper-checkbox>
+            </template>
         </div>
     </template>
 
@@ -21,6 +19,10 @@
             min-height: 20px;
         }
 
+        paper-checkbox {
+            display: block;
+        }
+
     </style>
 
     <script>
@@ -29,13 +31,19 @@
 
             properties: {
                 selectedValues: {
+                    type: Object,
+                    notify: true,
+                    observer: "selectedValuesChanged"
+                },
+
+                _items: {
                     type: Array,
                     notify: true,
-                    observer:"selectedValuesChanged"
+                    computed: "makeItems(allValues, selectedValues)"
                 },
 
                 allValues: {
-                    type: Array,
+                    type: Object,
                     notify: true
                 },
 
@@ -45,9 +53,19 @@
                 }
             },
 
-            selectedValuesChanged:function(newVals, oldVals){
-                console.warn(newVals);
-                // this.$.checkboxlist.update();
+            makeItems: function(allValues, selectedValues) {
+                var ret = [];
+                for (var i = 0; i < allValues.length; i++) {
+                    ret.push({
+                        name: allValues[i],
+                        selected: selectedValues.contains(allValues[i])
+                    });
+                }
+                return ret;
+            },
+
+            selectedValuesChanged: function(newVals, oldVals) {
+                // console.warn(newVals);
             },
 
             styleOf: function(item) {
@@ -56,22 +74,16 @@
                 return "";
             },
 
-            isSelected: function(item) {
-                if (this.selectedValues)
-                    return _.contains(this.selectedValues, item);
-                return true;
-            },
-
             _checkboxChanged: function(event) {
                 if (event.target.checked) {
-                    kt.util.addToSet(this.selectedValues, event.target.value);
+                    this.selectedValues.add(event.target.value);
                 } else {
-                    kt.util.deleteFromSet(this.selectedValues, event.target.value);
+                    this.selectedValues.delete(event.target.value);
                 }
-                console.info(this.selectedValues);
+
                 this.notifyPath("selectedValues.length");
-                this.notifyPath("selectedValues");
             }
+
         });
     </script>
 </dom-module>
