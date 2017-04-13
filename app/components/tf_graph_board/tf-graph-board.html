@@ -56,14 +56,18 @@ Example
         }
 
         #info {
-          position: absolute;
+          position: fixed;
           right: 5px;
-          top: 5px;
+
           padding: 0px;
           max-width: 380px;
           min-width: 320px;
           background-color: rgba(255,255,255,0.9);
+
           @apply(--shadow-elevation-2dp);
+
+          z-index: var(--graph-info-z-index);
+          top: var(--graph-info-top );
         }
 
         #main {

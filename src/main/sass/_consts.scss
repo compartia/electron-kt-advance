@@ -1,11 +1,20 @@
 @import "_colors";
 
 $spacer: 10px;
+$paper-toolbar-height: 40px;
+$filter-panel-z-index: 2000;
+$filter-panel-height: 40px;
+$graph-info-top: $paper-toolbar-height+$filter-panel-height;
 
-:root{
-    --spacer:$spacer;
-    --paper-toolbar-height: 40px;
-    --filter-panel-height: 40px;
+:root {
+    --spacer              : $spacer;
+    --paper-toolbar-height: $paper-toolbar-height;
+    --filter-panel-height : $filter-panel-height;
 
-    --primary-color:$color-brand-2;
+    --primary-color       : $color-brand-2;
+
+    --filter-panel-z-index: $filter-panel-z-index;
+    --graph-info-z-index  : $filter-panel-z-index - 10;
+
+    --graph-info-top      : $graph-info-top;
 }
