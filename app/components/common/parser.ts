@@ -19,6 +19,14 @@ module kt.parser {
                         if (nodename.startsWith(filter.functionName)) {
                             nodename = nodename.substring(filter.functionName.length + 1);//1 fro slash
                         }
+
+                        let singlePredicate = filter.singlePredicate;
+                        if (singlePredicate) {
+                            if (nodename.startsWith(singlePredicate)) {
+                                nodename = nodename.substring(singlePredicate.length + 1);//1 fro slash
+                            }
+                        }
+
                     }
 
                     nodename = ".." + nodename;

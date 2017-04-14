@@ -28,6 +28,15 @@ module kt.Globals {
             return this._predicates;
         }
 
+        get singlePredicate(): string {
+            if (this._predicates) {
+                if (this._predicates.length == 1) {
+                    return this._predicates.first;
+                }
+            }
+            return undefined;
+        }
+
         set predicates(_predicates: kt.util.StringSet) {
             this._predicates = _predicates;
         }
