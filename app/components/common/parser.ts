@@ -7,77 +7,30 @@ module kt.parser {
 
         let nodesMap = {};
 
-        let namefilter = (_nodename) => {
-            let nodename = _nodename;
-            if (filter.file) {
-                let len = filter.file.name.length;
 
-                if (nodename.startsWith(filter.file.name)) {
-                    nodename = nodename.substring(len + 1); //1 fro slash
-
-                    if (filter.functionName) {
-                        if (nodename.startsWith(filter.functionName)) {
-                            nodename = nodename.substring(filter.functionName.length + 1);//1 fro slash
-                        }
-
-                        let singlePredicate = filter.singlePredicate;
-                        if (singlePredicate) {
-                            if (nodename.startsWith(singlePredicate)) {
-                                nodename = nodename.substring(singlePredicate.length + 1);//1 fro slash
-                            }
-                        }
-
-                    }
-
-                    nodename = ".." + nodename;
-                }
-            }
-
-            return nodename;
-        }
 
         for (let ppo of pos) {
             if (ppo.isLinked()) {
                 if (!ppo.isTotallyDischarged()) {
-                    let node: tf.graph.proto.NodeDef = ppo.asNodeDef(namefilter);
+                    let node: tf.graph.proto.NodeDef = ppo.asNodeDef(filter);
                     g.push(node);
                 }
             }
         }
 
         for (var api of apis) {
-            // var api: kt.graph.ApiNode = apisByName[key];
             if (api.isLinked()) {
                 if (!api.isTotallyDischarged()) {
-                    let node: tf.graph.proto.NodeDef = api.asNodeDef(namefilter);
+                    let node: tf.graph.proto.NodeDef = api.asNodeDef(filter);
                     g.push(node);
                 }
             }
         }
 
-        if (filter.file) {
-            _.forEach(g, (x) => adjustNodeNameAccordingToFilter(x, filter));
-        }
 
 
         console.info["NUMBER of nodes: " + g.length];
         return g;
-    }
-
-    function adjustNodeNameAccordingToFilter(node: tf.graph.proto.NodeDef, filter: kt.Globals.Filter) {
-        let len = filter.file.name.length;
-
-        if (node.name.startsWith(filter.file.name)) {
-            node.name = node.name.substring(len + 1); //1 fro slash
-
-            if (filter.functionName) {
-                if (node.name.startsWith(filter.functionName)) {
-                    node.name = node.name.substring(filter.functionName.length + 1);//1 fro slash
-                }
-            }
-
-            node.name = ".." + node.name;
-        }
     }
 
 

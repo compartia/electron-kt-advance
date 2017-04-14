@@ -165,10 +165,13 @@ module kt.Globals {
         _filteredProofObligations: Array<kt.graph.PONode> = null;
         _filteredAssumptions: Array<kt.graph.ApiNode> = null;
 
-        apis: { [key: string]: kt.graph.ApiNode } = null;
+        _apis: { [key: string]: kt.graph.ApiNode } = null;
 
         allPredicates: Array<string>;
 
+        set apis(_apis){
+            this._apis=_apis;
+        }
 
         get proofObligations(): Array<kt.graph.PONode> {
             return this._proofObligations;
@@ -204,8 +207,8 @@ module kt.Globals {
             if (!this._filteredAssumptions) {
                 let _filteredAssumptions = [];
 
-                for (let apiKey in this.apis) {
-                    let api = this.apis[apiKey];
+                for (let apiKey in this._apis) {
+                    let api = this._apis[apiKey];
                     if (this.hasIntersection(api.inputs, this.filteredProofObligations) ||
                         this.hasIntersection(api.outputs, this.filteredProofObligations)) {
                         _filteredAssumptions.push(api);
@@ -241,6 +244,8 @@ module kt.Globals {
         public open(baseDir: string, tracker: tf.ProgressTracker): Promise<{ [key: string]: Array<kt.xml.CFunction> }> {
             this.baseDir = baseDir;
             this.analysisDir = path.join(this.baseDir, CH_DIR);
+            this._filteredAssumptions=null;
+            this._filteredProofObligations=null;
 
             console.info("opening new project:" + baseDir);
 
