@@ -23,6 +23,11 @@ module kt.stats {
 
         columnNames: Array<string> = new Array();
 
+        set columns(columnNames) {
+            this.columnNames = columnNames;
+        }
+
+
         public inc(row: string, column: string, increment: number) {
 
             let data = this.data;
@@ -73,6 +78,12 @@ module kt.stats {
             return ret;
         }
 
+        public getTopRows(count: number): Array<NamedArray> {
+            let allrows = this.asNamedRowsTable();
+            let arr = _.sortBy(allrows, (x) => -_.sum(x["values"]));
+            return arr.splice(0, count);
+        }
+
         /**
             returns a vector Vi, where each value is a summ of row values
         */
@@ -95,17 +106,25 @@ module kt.stats {
         byPredicate: StatsTable;
         byDischargeType: StatsTable;
         byState: StatsTable;
+        byFunction: StatsTable;
+        byFile: StatsTable;
 
-        private filteredOutCount:number;
+        private filteredOutCount: number;
 
         public build(project: kt.Globals.Project) {
             this.byPredicate = new StatsTable();
             this.byDischargeType = new StatsTable();
             this.byState = new StatsTable();
+            this.byFunction = new StatsTable();
+            this.byFile = new StatsTable();
+
+            this.byFile.columns = states;
+            this.byFunction.columns = states;
+            this.byPredicate.columns = states;
 
             let filteredPredicates = _.uniq(_.map(project.filteredProofObligations, (e) => e.predicate)).sort();
 
-            this.filteredOutCount=project.proofObligations.length - project.filteredProofObligations.length;
+            this.filteredOutCount = project.proofObligations.length - project.filteredProofObligations.length;
             //popolate with zeros
             for (let state of states) {
                 for (let predicate of filteredPredicates) {
@@ -115,6 +134,10 @@ module kt.stats {
 
             for (let po of project.filteredProofObligations) {
                 this.byPredicate.inc(po.predicate, po.state, 1);
+                this.byFunction.inc(po.functionName, po.state, 1);
+                this.byFile.inc(po.file, po.state, 1);
+                // this.byFunction.inc(po.functionName, DEF_COL_NAME, 1);
+
                 this.byState.inc(po.state, DEF_COL_NAME, 1);
                 if (po.isDischarged()) {
                     let dischargeType = po.dischargeType;
@@ -131,7 +154,7 @@ module kt.stats {
             return this.byState.getAt("VIOLATION", DEF_COL_NAME);
         }
 
-        get countFilteredOut():number{
+        get countFilteredOut(): number {
             return this.filteredOutCount;
         }
 
@@ -169,6 +192,34 @@ module kt.stats {
                 }
             );
         }
+
+
+        public updatePoByFunctionChart(scene, container: d3.Selection<any>) {
+            const data: Array<NamedArray> = this.byFunction.getTopRows(20);
+            const colors: Array<string> = _.map(this.byPredicate.columnNames,
+                (x) => "var(--kt-state-" + x.toLowerCase() + "-default-bg)");
+            kt.charts.updateChart(scene, container,
+                {
+                    data: data,
+                    colors: colors
+                }
+            );
+        }
+
+        public updatePoByFileChart(scene, container: d3.Selection<any>) {
+            const data: Array<NamedArray> = this.byFile.getTopRows(20);
+
+            const colors: Array<string> = _.map(this.byPredicate.columnNames,
+                (x) => "var(--kt-state-" + x.toLowerCase() + "-default-bg)");
+
+            kt.charts.updateChart(scene, container,
+                {
+                    data: data,
+                    colors: colors
+                }
+            );
+        }
+
 
 
 

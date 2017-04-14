@@ -41,11 +41,14 @@ module kt.charts {
             return element
                 .style("background-color", bgFunc)
                 .style("width", (val, index) => widthFunc(val.val, index) + "%")
-                .style("display", (val, index) => widthFunc(val.val, index) > 0 ? "block" : "none")
+                .style("display", (val, index) => widthFunc(val.val, index) > 0 ? "inline-block" : "none")
                 .attr("title", (val, index) => val.name + ":" + val.val);
         }
 
         //=============
+
+        container.selectAll(".row").remove();//to keep sorting
+
 
         let rows = container.selectAll(".row").data(data, (d) => d.name);
 

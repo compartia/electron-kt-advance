@@ -65,29 +65,28 @@ $row-spacing:2px;
             float     : left;
             display   : block;
             width     : $bar-width;
-            overflow  : hidden;
+            overflow  : visible;
+            height    : $bar-height;
+            white-space: nowrap;
 
             a {
                 cursor: pointer;
                 border: none;
+                display: inline-block;
             }
 
             .bar {
                 box-sizing: border-box!important;
                 color     : white;
                 height    : $bar-height;
-                float     : left;
+                // float     : left;
+
                 text-align: left;
                 min-width : 3px;
                 opacity: 1;
 
             }
 
-            .bar.enter{
-            }
-
-            .bar.update{
-            }
 
             .value {
                 float       : left;
