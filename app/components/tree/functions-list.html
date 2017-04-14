@@ -43,7 +43,12 @@
 
             _getFunctionsByFile: function(file) {
                 if (file && file.relativePath) {
-                    return kt.Globals.project.functionByFile[file.relativePath];
+                    var list =  kt.Globals.project.functionByFile[file.relativePath];
+                    if(list){
+                        return _.sortBy(list, 'name');
+                    }else{
+                        return [];
+                    }
                 } else {
                     return [];
                 }

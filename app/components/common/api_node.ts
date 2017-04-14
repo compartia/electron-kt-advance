@@ -16,6 +16,8 @@ module kt.graph {
         symbol: kt.xml.Symbol;
         expression: string;
 
+        dependentPos: Array<string>;//used during parsing
+
         constructor(po) {
             super();
 
@@ -42,12 +44,27 @@ module kt.graph {
             return "assumption";
         }
 
-        get name() {
-            return this.makeName();
-        }
 
-        private makeName(): string {
-            return kt.util.stripSlash(this.file) + SPL + this.functionName + SPL + this.predicateType + SPL + this.type + "_" + this.id;
+
+
+        public makeName(filter: kt.Globals.Filter): string {
+            let nm = "";
+
+            if (!filter.file || kt.util.stripSlash(this.file) != filter.file.name) {
+                nm += kt.util.stripSlash(this.file) + SPL;
+            }
+
+            if (this.functionName != filter.functionName) {
+                nm += this.functionName + SPL;
+            }
+
+            if (this.predicateType != filter.singlePredicate) {
+                nm += this.predicateType + SPL;
+            }
+
+            nm += this.type + "_" + this.id;
+
+            return nm;
         }
 
         get label(): string {
@@ -86,12 +103,12 @@ module kt.graph {
 
 
 
-        public asNodeDef(nameFilter): tf.graph.proto.NodeDef {
+        public asNodeDef(filter: kt.Globals.Filter): tf.graph.proto.NodeDef {
             // const po = this.po;
             // let discharge = po["discharge"];
 
             let nodeDef: tf.graph.proto.NodeDef = {
-                name: nameFilter(this.name),
+                name: this.makeName(filter),
                 input: [],
                 output: [],
                 device: this.extendedState,
@@ -104,16 +121,17 @@ module kt.graph {
                     "message": this.message,
                     "apiId": this.id,
                     "symbol": this.symbol,
-                    "assumptionType": this.type
+                    "assumptionType": this.type,
+                    "locationPath": this.file + SPL + this.functionName
                 }
             }
 
             for (let ref of this.inputs) {
-                nodeDef.input.push(nameFilter(ref.name));
+                nodeDef.input.push(ref.makeName(filter));
             }
 
             for (let ref of this.outputs) {
-                nodeDef.output.push(nameFilter(ref.name));
+                nodeDef.output.push(ref.makeName(filter));
             }
 
 
