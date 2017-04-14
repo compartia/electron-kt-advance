@@ -2,10 +2,6 @@ module kt.graph {
 
     const SPL = "/";
 
-    export function fixFileName(file: string): string {
-        let last = file.lastIndexOf("/");
-        return file.substr(last + 1);
-    }
 
     export function makeAssumptionKey(type: string, id: string, functionName: string, file: string): string {
         return type + "::" + id + "::" + functionName + "::" + file;
@@ -17,13 +13,11 @@ module kt.graph {
         isMissing: boolean;
         type: string;
         predicateType: string;
-        dependentPos: Array<string>;
         symbol: kt.xml.Symbol;
-        expression:string;
+        expression: string;
 
         constructor(po) {
             super();
-
 
             this.inputs = [];
             this.outputs = [];
@@ -33,7 +27,6 @@ module kt.graph {
             this.file = po["file"];
             this.type = po["type"] ? po["type"] : "unknown";
             this.id = po["apiId"];
-
 
         }
 
@@ -54,11 +47,11 @@ module kt.graph {
         }
 
         private makeName(): string {
-            return fixFileName(this.file) + SPL + this.functionName + SPL + this.predicateType + SPL + this.type + "_" + this.id;
+            return kt.util.stripSlash(this.file) + SPL + this.functionName + SPL + this.predicateType + SPL + this.type + "_" + this.id;
         }
 
         get label(): string {
-            let _nm = this.type+  " (" + this.id + ") ";
+            let _nm = this.type + " (" + this.id + ") ";
 
             if (this.symbol) {
                 _nm += this.symbol.pathLabel;
@@ -93,12 +86,12 @@ module kt.graph {
 
 
 
-        public asNodeDef(): tf.graph.proto.NodeDef {
+        public asNodeDef(nameFilter): tf.graph.proto.NodeDef {
             // const po = this.po;
             // let discharge = po["discharge"];
 
             let nodeDef: tf.graph.proto.NodeDef = {
-                name: this.name,
+                name: nameFilter(this.name),
                 input: [],
                 output: [],
                 device: this.extendedState,
@@ -116,12 +109,11 @@ module kt.graph {
             }
 
             for (let ref of this.inputs) {
-                let _nm = ref.name;
-                nodeDef.input.push(_nm);
+                nodeDef.input.push(nameFilter(ref.name));
             }
 
             for (let ref of this.outputs) {
-                nodeDef.output.push(ref.name);
+                nodeDef.output.push(nameFilter(ref.name));
             }
 
 

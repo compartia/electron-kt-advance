@@ -5,8 +5,8 @@ module kt.graph {
     export enum PoStates { violation, open, discharged, assumption };
     export enum PoDischargeTypes { global, invariants, ds, rv, api, default };
 
-    export const PoDischargeTypesArr:Array<string> =["global", "invariants", "ds", "rv", "api", "default"];
-    export const PoStatesArr:Array<string> =["violation", "open", "discharged"];
+    export const PoDischargeTypesArr: Array<string> = ["global", "invariants", "ds", "rv", "api", "default"];
+    export const PoStatesArr: Array<string> = ["violation", "open", "discharged"];
 
 
     const SPL = "/";
@@ -18,6 +18,7 @@ module kt.graph {
     export function sortPoNodes(nodes: PONode[]): Array<PONode> {
         return _.sortByOrder(nodes, ['file', 'functionName', 'stateIndex', 'dischargeTypeIndex', 'predicate'], ['asc', 'asc', 'asc', 'asc', 'asc']);
     }
+
 
 
 
@@ -328,11 +329,10 @@ module kt.graph {
 
         private makeName(): string {
             let _nm =
-                this.fixFileName(this.file) + SPL + this.functionName
+                kt.util.stripSlash (this.file)
+                + SPL + this.functionName
                 + SPL + this.predicate
                 + SPL + this.level + "(" + this.id + ")";
-
-
 
             if (this.symbol) {
                 _nm += this.symbol.pathLabel;
@@ -356,10 +356,7 @@ module kt.graph {
         }
 
 
-        public fixFileName(file: string): string {
-            let last = file.lastIndexOf("/");
-            return file.substr(last + 1);
-        }
+
 
         public isDischarged(): boolean {
             return this.discharge && !this.discharge.violation;
@@ -384,12 +381,12 @@ module kt.graph {
             return this.asNodeDef();
         }
 
-        public asNodeDef(): tf.graph.proto.NodeDef {
+        public asNodeDef(nameFilter): tf.graph.proto.NodeDef {
             const po = this.po;
 
 
             let nodeDef: tf.graph.proto.NodeDef = {
-                name: this.name,
+                name: nameFilter(this.name),
                 input: [],
                 output: [],
                 device: this.extendedState,
@@ -411,11 +408,11 @@ module kt.graph {
             }
 
             for (let ref of sortNodes(this.inputs)) {
-                nodeDef.input.push(ref.name);
+                nodeDef.input.push(nameFilter(ref.name));
             }
 
             for (let ref of sortNodes(this.outputs)) {
-                nodeDef.output.push(ref.name);
+                nodeDef.output.push(nameFilter(ref.name));
             }
 
             return nodeDef;
