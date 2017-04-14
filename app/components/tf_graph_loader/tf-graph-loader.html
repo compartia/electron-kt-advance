@@ -122,7 +122,7 @@
             };
 
 
-            var nodes = kt.parser.buildGraph(project.filteredProofObligations, project.apis);
+            var nodes = kt.parser.buildGraph(project.filteredProofObligations, project.filteredAssumptions, this.filter);
             // this.fire("project-loaded", {});
             tf.graph.build(nodes, buildParams, graphTracker).then(function(graph) {
                 this._setOutGraph(graph);

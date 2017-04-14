@@ -2,27 +2,32 @@ module kt.parser {
     const path = require('path');
 
 
-    export function buildGraph(pos: Array<kt.graph.PONode>, apisByName): tf.graph.proto.NodeDef[] {
+    export function buildGraph(pos: Array<kt.graph.PONode>, apis: Array<kt.graph.ApiNode>, filter: kt.Globals.Filter): tf.graph.proto.NodeDef[] {
         let g: tf.graph.proto.NodeDef[] = [];
 
         let nodesMap = {};
 
+
+
         for (let ppo of pos) {
             if (ppo.isLinked()) {
                 if (!ppo.isTotallyDischarged()) {
-                    g.push(ppo.asNodeDef());
+                    let node: tf.graph.proto.NodeDef = ppo.asNodeDef(filter);
+                    g.push(node);
                 }
             }
         }
 
-        for (var key in apisByName) {
-            var api: kt.graph.ApiNode = apisByName[key];
+        for (var api of apis) {
             if (api.isLinked()) {
                 if (!api.isTotallyDischarged()) {
-                    g.push(api.asNodeDef());
+                    let node: tf.graph.proto.NodeDef = api.asNodeDef(filter);
+                    g.push(node);
                 }
             }
         }
+
+
 
         console.info["NUMBER of nodes: " + g.length];
         return g;
@@ -45,11 +50,11 @@ module kt.parser {
 
         return reader.readFunctionsMap(path.dirname(project.analysisDir), readFunctionsMapTracker)
             .then(funcsMap => {
-                let result:Promise<kt.xml.XmlAnalysis> = reader.readDir(project.analysisDir, funcsMap, readDirTracker);
+                let result: Promise<kt.xml.XmlAnalysis> = reader.readDir(project.analysisDir, funcsMap, readDirTracker);
                 return result;
             })
-            .then((POs:kt.xml.XmlAnalysis) => {
-                project.proofObligations = kt.graph.sortPoNodes( POs.ppos.concat(POs.spos));
+            .then((POs: kt.xml.XmlAnalysis) => {
+                project.proofObligations = kt.graph.sortPoNodes(POs.ppos.concat(POs.spos));
                 project.apis = POs.apis;
 
                 // let g: tf.graph.proto.NodeDef[] = buildGraph(project.proofObligations, project.apis);

@@ -5,8 +5,8 @@ module kt.graph {
     export enum PoStates { violation, open, discharged, assumption };
     export enum PoDischargeTypes { global, invariants, ds, rv, api, default };
 
-    export const PoDischargeTypesArr:Array<string> =["global", "invariants", "ds", "rv", "api", "default"];
-    export const PoStatesArr:Array<string> =["violation", "open", "discharged"];
+    export const PoDischargeTypesArr: Array<string> = ["global", "invariants", "ds", "rv", "api", "default"];
+    export const PoStatesArr: Array<string> = ["violation", "open", "discharged"];
 
 
     const SPL = "/";
@@ -18,6 +18,7 @@ module kt.graph {
     export function sortPoNodes(nodes: PONode[]): Array<PONode> {
         return _.sortByOrder(nodes, ['file', 'functionName', 'stateIndex', 'dischargeTypeIndex', 'predicate'], ['asc', 'asc', 'asc', 'asc', 'asc']);
     }
+
 
 
 
@@ -34,14 +35,19 @@ module kt.graph {
 
     export function getLocationPath(node: tf.graph.proto.NodeDef): string {
         if (node) {
-            let spl = node.name.split(SPL);
-            let ret = spl[0];
-            if (spl.length > 1)
-                ret += SPL + spl[1];
-
-            return ret;
+            if (node.attr) {
+                //leaf node
+                return node.attr["locationPath"];
+            } else {
+                let ret = node.name;
+                if ((<any>node).parentNode) {
+                    let parent = (<any>node).parentNode;
+                    if (parent.parentNode != null) //do not addd _root_
+                        ret = parent.name + "/" + ret;
+                }
+                return ret;
+            }
         }
-
         return "";
     }
 
@@ -50,10 +56,15 @@ module kt.graph {
     }
 
     export function getPredicate(node: tf.graph.proto.NodeDef): string {
+
         if (node) {
-            let spl = node.name.split(SPL);
-            if (spl.length > 2)
-                return spl[2];
+            if (node.attr) {
+                //leaf node
+                return node.attr["predicate"];
+            } else {
+                //XXX:
+                //group node
+            }
         }
         return null;
     }
@@ -102,8 +113,8 @@ module kt.graph {
         }
 
         public abstract isDischarged(): boolean;
-        public abstract get name(): string;
         public abstract get state(): string;
+        public abstract makeName(filter: kt.Globals.Filter): string;
 
 
         public isTotallyDischarged(): boolean {
@@ -226,8 +237,6 @@ module kt.graph {
 
             this.id = po["id"];
 
-            this.name = this.makeName();
-
         }
 
         set level(level: string) {
@@ -326,20 +335,28 @@ module kt.graph {
             return this.inputs.length > 0 || this.outputs.length > 0;
         }
 
-        private makeName(): string {
-            let _nm =
-                this.fixFileName(this.file) + SPL + this.functionName
-                + SPL + this.predicate
-                + SPL + this.level + "(" + this.id + ")";
+        public makeName(filter: kt.Globals.Filter): string {
+            let nm = "";
+            if (!filter.file || kt.util.stripSlash(this.file) != filter.file.name) {
+                nm += kt.util.stripSlash(this.file) + SPL;
+            }
 
+            if (this.functionName != filter.functionName) {
+                nm += this.functionName + SPL;
+            }
 
+            if (this.predicate != filter.singlePredicate) {
+                nm += this.predicate + SPL;
+            }
+
+            nm += this.level + "(" + this.id + ")";
 
             if (this.symbol) {
-                _nm += this.symbol.pathLabel;
+                nm += this.symbol.pathLabel;
             } else {
-                _nm += "-expression-";
+                nm += "-expression-";
             }
-            return _nm;
+            return nm;
         }
 
 
@@ -356,10 +373,7 @@ module kt.graph {
         }
 
 
-        public fixFileName(file: string): string {
-            let last = file.lastIndexOf("/");
-            return file.substr(last + 1);
-        }
+
 
         public isDischarged(): boolean {
             return this.discharge && !this.discharge.violation;
@@ -380,16 +394,12 @@ module kt.graph {
             return this._apiId;
         }
 
-        get nodeDef(): tf.graph.proto.NodeDef {
-            return this.asNodeDef();
-        }
-
-        public asNodeDef(): tf.graph.proto.NodeDef {
+        public asNodeDef(filter: kt.Globals.Filter): tf.graph.proto.NodeDef {
             const po = this.po;
 
 
             let nodeDef: tf.graph.proto.NodeDef = {
-                name: this.name,
+                name: this.makeName(filter),
                 input: [],
                 output: [],
                 device: this.extendedState,
@@ -406,16 +416,17 @@ module kt.graph {
                     "expression": this.expression,
                     "dischargeType": this.dischargeType,
                     "discharge": this.discharge, //? po["discharge"]["comment"] : null
-                    "dischargeAssumption": this.dischargeAssumption
+                    "dischargeAssumption": this.dischargeAssumption,
+                    "locationPath": this.file + SPL + this.functionName
                 }
             }
 
             for (let ref of sortNodes(this.inputs)) {
-                nodeDef.input.push(ref.name);
+                nodeDef.input.push(ref.makeName(filter));
             }
 
             for (let ref of sortNodes(this.outputs)) {
-                nodeDef.output.push(ref.name);
+                nodeDef.output.push(ref.makeName(filter));
             }
 
             return nodeDef;

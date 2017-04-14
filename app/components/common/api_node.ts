@@ -2,10 +2,6 @@ module kt.graph {
 
     const SPL = "/";
 
-    export function fixFileName(file: string): string {
-        let last = file.lastIndexOf("/");
-        return file.substr(last + 1);
-    }
 
     export function makeAssumptionKey(type: string, id: string, functionName: string, file: string): string {
         return type + "::" + id + "::" + functionName + "::" + file;
@@ -17,13 +13,13 @@ module kt.graph {
         isMissing: boolean;
         type: string;
         predicateType: string;
-        dependentPos: Array<string>;
         symbol: kt.xml.Symbol;
-        expression:string;
+        expression: string;
+
+        dependentPos: Array<string>;//used during parsing
 
         constructor(po) {
             super();
-
 
             this.inputs = [];
             this.outputs = [];
@@ -33,7 +29,6 @@ module kt.graph {
             this.file = po["file"];
             this.type = po["type"] ? po["type"] : "unknown";
             this.id = po["apiId"];
-
 
         }
 
@@ -49,16 +44,31 @@ module kt.graph {
             return "assumption";
         }
 
-        get name() {
-            return this.makeName();
-        }
 
-        private makeName(): string {
-            return fixFileName(this.file) + SPL + this.functionName + SPL + this.predicateType + SPL + this.type + "_" + this.id;
+
+
+        public makeName(filter: kt.Globals.Filter): string {
+            let nm = "";
+
+            if (!filter.file || kt.util.stripSlash(this.file) != filter.file.name) {
+                nm += kt.util.stripSlash(this.file) + SPL;
+            }
+
+            if (this.functionName != filter.functionName) {
+                nm += this.functionName + SPL;
+            }
+
+            if (this.predicateType != filter.singlePredicate) {
+                nm += this.predicateType + SPL;
+            }
+
+            nm += this.type + "_" + this.id;
+
+            return nm;
         }
 
         get label(): string {
-            let _nm = this.type+  " (" + this.id + ") ";
+            let _nm = this.type + " (" + this.id + ") ";
 
             if (this.symbol) {
                 _nm += this.symbol.pathLabel;
@@ -93,12 +103,12 @@ module kt.graph {
 
 
 
-        public asNodeDef(): tf.graph.proto.NodeDef {
+        public asNodeDef(filter: kt.Globals.Filter): tf.graph.proto.NodeDef {
             // const po = this.po;
             // let discharge = po["discharge"];
 
             let nodeDef: tf.graph.proto.NodeDef = {
-                name: this.name,
+                name: this.makeName(filter),
                 input: [],
                 output: [],
                 device: this.extendedState,
@@ -111,17 +121,17 @@ module kt.graph {
                     "message": this.message,
                     "apiId": this.id,
                     "symbol": this.symbol,
-                    "assumptionType": this.type
+                    "assumptionType": this.type,
+                    "locationPath": this.file + SPL + this.functionName
                 }
             }
 
             for (let ref of this.inputs) {
-                let _nm = ref.name;
-                nodeDef.input.push(_nm);
+                nodeDef.input.push(ref.makeName(filter));
             }
 
             for (let ref of this.outputs) {
-                nodeDef.output.push(ref.name);
+                nodeDef.output.push(ref.makeName(filter));
             }
 
 
