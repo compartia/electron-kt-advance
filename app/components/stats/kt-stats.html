@@ -2,11 +2,13 @@
     <template>
 
         <div class="container flex" style="display:flex">
-            <paper-material elevation="1" class="card flexchild">
+            <paper-material elevation="1" class="card panel flexchild">
+                <h3>Proof obligations by predicate</h3>
                 <div id="poByRedicate" class="kt-chart"></div>
             </paper-material>
 
-            <paper-material elevation="1" class="card flexchild">
+            <paper-material elevation="1" class="card panel flexchild">
+                <h3>Proof obligations by type of discharge</h3>
                 <div id="poByDischarge" class="kt-chart"></div>
             </paper-material>
         </div>
@@ -38,17 +40,12 @@
             properties: {
                 selectedFile: Object,
                 selectedFunction: Object,
+                filter: Object,
 
                 statistics: {
                     type: Object,
                     notify: true,
                     observer: '_statisticsChanged'
-                },
-
-                predicate: {
-                    type: Object,
-                    notify: true,
-                    value: null
                 }
             },
             listeners: {
@@ -65,8 +62,11 @@
 
             _chartBarSelected: function(event) {
                 if (event.detail.src == this.$.poByRedicate) {
-                    console.log(event.detail.row);
-                    this.set("predicate", event.detail.row);
+                    this.set("filter.predicates", new kt.util.StringSet([event.detail.row]));
+                }
+
+                if (event.detail.src == this.$.poByDischarge) {
+                    this.set("filter.dischargeTypes", new kt.util.StringSet([event.detail.row.toLowerCase()]));
                 }
             },
 

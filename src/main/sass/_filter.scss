@@ -1,0 +1,111 @@
+$filter-panel-bg: transparentize(mix($side-bg-2, $side-bg, 30%), 0.2);
+
+po-filter-panel {
+
+    position : fixed;
+    right    : 0;
+    top      : var(--paper-toolbar-height);
+    z-index  : 2000;
+
+    font-size: $font-size-sm;
+
+    #filtersettings{
+        position : fixed;
+        right    : 0;
+        top      : calc(var(--paper-toolbar-height)+var(--filter-panel-height));
+        z-index  : 2100;
+    }
+
+    #filtersettings-container{
+
+        background: $side-bg;
+        // backdrop-filter: blur(2px);
+        h2{
+            padding: $spacer;
+        }
+
+        #filtersettings-body {
+
+            display   : flex;
+            flex-flow : row;
+
+            #predicates-list{
+            }
+
+            h3{
+                margin-bottom: $spacer;
+            }
+
+            .card{
+
+                // max-height: 200px;
+                min-width: 170px;
+
+                display  : flex;
+                flex-flow: column;
+                padding  : $spacer;
+
+                paper-checkbox{
+                    padding: $spacer/2;
+                }
+            }
+
+        }
+    }
+
+
+
+    .container {
+        display    : flex;
+        align-items: center;
+        height     : var(--filter-panel-height);
+
+        .path,
+        .stats {
+            display      : flex;
+            margin-left  : $spacer/2;
+            padding      : $spacer/2 $spacer;
+
+            border       : 1px solid $filter-panel-bg;
+            border-radius: 20px;
+            background   : $filter-panel-bg;
+            align-items  : center;
+        }
+
+        .path {
+            text-align: left;
+            font-size : $font-size-sm;
+        }
+
+        .controls {
+            padding: 0;
+        }
+
+        .stats {
+            font-size : $font-size-xs;
+            text-align: center;
+
+            span {
+                cursor         : pointer;
+                text-decoration: underline;
+                display        : inline-block;
+                padding-left   : $spacer;
+            }
+
+            .stat-violation {
+                color: var(--kt-state-violation-default-tx);
+            }
+
+            .stat-open {
+                color: var(--kt-state-open-default-tx);
+            }
+
+            .stat-discharged {
+                color: var(--kt-state-discharged-default-tx);
+            }
+
+        }
+    }
+
+    // width: 100%;
+}

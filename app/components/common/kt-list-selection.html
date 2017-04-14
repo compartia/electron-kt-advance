@@ -1,0 +1,89 @@
+<link rel="import" href="../../../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../../../bower_components/iron-list/iron-list.html">
+
+<dom-module id="kt-list-selection">
+    <template>
+        <div class="list-container">
+            <template items="[[_items]]" is="dom-repeat">
+                <paper-checkbox checked$="[[item.selected]]" value="{{item.name}}" style$="{{styleOf(item.name)}}" on-change="_checkboxChanged">
+                    [[item.name]]
+                </paper-checkbox>
+            </template>
+        </div>
+    </template>
+
+    <style is="kt-list-selection">
+        .list-container {
+            overflow: scroll;
+            max-height: 200px;
+            min-height: 20px;
+        }
+
+        paper-checkbox {
+            display: block;
+        }
+
+    </style>
+
+    <script>
+        Polymer({
+            is: 'kt-list-selection',
+
+            properties: {
+                selectedValues: {
+                    type: Object,
+                    notify: true,
+                    observer: "selectedValuesChanged"
+                },
+
+                _items: {
+                    type: Array,
+                    notify: true,
+                    computed: "makeItems(allValues, selectedValues)"
+                },
+
+                allValues: {
+                    type: Object,
+                    notify: true
+                },
+
+                styles: {
+                    type: Object,
+                    notify: true
+                }
+            },
+
+            makeItems: function(allValues, selectedValues) {
+                var ret = [];
+                for (var i = 0; i < allValues.length; i++) {
+                    ret.push({
+                        name: allValues[i],
+                        selected: selectedValues.contains(allValues[i])
+                    });
+                }
+                return ret;
+            },
+
+            selectedValuesChanged: function(newVals, oldVals) {
+                // console.warn(newVals);
+            },
+
+            styleOf: function(item) {
+                if (this.styles)
+                    return this.styles[item];
+                return "";
+            },
+
+            _checkboxChanged: function(event) {
+                if (event.target.checked) {
+                    this.selectedValues.add(event.target.value);
+                } else {
+                    this.selectedValues.delete(event.target.value);
+                }
+
+                this.notifyPath("selectedValues.length");
+            }
+
+        });
+    </script>
+</dom-module>

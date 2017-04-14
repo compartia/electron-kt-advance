@@ -1,11 +1,11 @@
 @import "_consts";
-@import "_colors";
 @import "_node-info";
 @import "_fonts";
 @import "_treeview";
 @import "_layout";
 @import "_po-list";
 @import "_chart";
+@import "_filter";
 
 
 
@@ -29,4 +29,14 @@ html {
     stroke      : $grey;
     fill        : none;
     stroke-width: 1px;
+}
+
+
+
+.card.panel{
+    h3{
+        // padding-bottom: $spacer/2;
+        color: var(--kt-grey);
+        font-size: $font-size-xs;
+    }
 }
