@@ -8,6 +8,20 @@
             </paper-material>
 
             <paper-material elevation="1" class="card panel flexchild">
+                <h3>Proof obligations by function (top 20)</h3>
+                <div id="poByFunction" class="kt-chart"></div>
+            </paper-material>
+
+        </div>
+
+        <div class="container flex" style="display:flex">
+
+            <paper-material elevation="1" class="card panel flexchild">
+                <h3>Proof obligations by file (top 10)</h3>
+                <div id="poByFile" class="kt-chart"></div>
+            </paper-material>
+
+            <paper-material elevation="1" class="card panel flexchild">
                 <h3>Proof obligations by type of discharge</h3>
                 <div id="poByDischarge" class="kt-chart"></div>
             </paper-material>
@@ -38,8 +52,6 @@
             is: 'kt-stats',
 
             properties: {
-                selectedFile: Object,
-                selectedFunction: Object,
                 filter: Object,
 
                 statistics: {
@@ -48,6 +60,7 @@
                     observer: '_statisticsChanged'
                 }
             },
+
             listeners: {
                 "chart-bar-selected": "_chartBarSelected",
                 "chart-row-selected": "_chartRowSelected"
@@ -57,6 +70,8 @@
                 if (newVal) {
                     newVal.updateChart(this, d3.select("#poByRedicate"));
                     newVal.updatePoByDischargeChart(this, d3.select("#poByDischarge"));
+                    newVal.updatePoByFunctionChart(this, d3.select("#poByFunction"));
+                    newVal.updatePoByFileChart(this, d3.select("#poByFile"));
                 }
             },
 
@@ -67,6 +82,18 @@
 
                 if (event.detail.src == this.$.poByDischarge) {
                     this.set("filter.dischargeTypes", new kt.util.StringSet([event.detail.row.toLowerCase()]));
+                }
+
+                if (event.detail.src == this.$.poByFunction) {
+                    console.log(event.detail);
+                    this.filter.file = event.detail.row.fileInfo;
+                    this.filter.functionName = event.detail.row.name;
+                    this.notifyPath("filter.functionName");
+                }
+
+                if (event.detail.src == this.$.poByFile) {
+                    console.log(event.detail);
+                    this.set("filter.file", event.detail.row);
                 }
             },
 

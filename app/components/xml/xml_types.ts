@@ -38,9 +38,28 @@ module kt.xml {
     }
 
     export class CFunction {
-        file: string;
+        private _file: kt.treeview.FileInfo = {
+            name: null,
+            relativePath: null,
+            icon: null,
+            open: null,
+            children: null,
+            dir: false
+        }
         line: number;
         name: string;
+
+        get file() {
+            return this._file.relativePath;
+        }
+
+        get fileInfo() {
+            return this._file;
+        }
+
+        set file(file: string) {
+            this._file.relativePath = file;
+        }
     }
     abstract class XmlTag {
         _tagname: string;

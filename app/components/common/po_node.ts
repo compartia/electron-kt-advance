@@ -71,17 +71,29 @@ module kt.graph {
 
     class POId {
         id: string;
-        functionName: string;
-        private _file: string;
+        private _сfunction: kt.xml.CFunction = new kt.xml.CFunction();
+
+        get cfunction() {
+            return this._сfunction;
+        }
 
         get file() {
-            return this._file;
+            return this._сfunction.file;
         }
+
+        get functionName() {
+            return this._сfunction.name;
+        }
+
+        set functionName(functionName: string) {
+            this._сfunction.name = functionName;
+        }
+
         set file(f: string) {
             if (f)
-                this._file = path.normalize(f);
+                this._сfunction.file = path.normalize(f);
             else
-                this._file = f;
+                this._сfunction.file = f;
         }
         get key(): string {
             return makeKey(this.id, this.functionName, this.file);

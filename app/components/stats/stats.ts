@@ -13,6 +13,7 @@ module kt.stats {
 
     export interface NamedArray {
         name: string;
+        object: any;
         values: Array<number>;
     }
 
@@ -20,8 +21,16 @@ module kt.stats {
 
     export class StatsTable {
         data: { [key: string]: { [key: string]: number } } = {};
-
+        bindings: { [key: string]: any } = {};
         columnNames: Array<string> = new Array();
+
+        set columns(columnNames) {
+            this.columnNames = columnNames;
+        }
+
+        public bind(rowname: string, object: any) {
+            this.bindings[rowname] = object;
+        }
 
         public inc(row: string, column: string, increment: number) {
 
@@ -60,7 +69,8 @@ module kt.stats {
             for (let rowName of rows) {
                 let row: NamedArray = {
                     name: rowName,
-                    values: new Array<number>()
+                    values: new Array<number>(),
+                    object: this.bindings[rowName]
                 };
 
                 row.values = [];
@@ -71,6 +81,12 @@ module kt.stats {
             }
 
             return ret;
+        }
+
+        public getTopRows(count: number): Array<NamedArray> {
+            let allrows = this.asNamedRowsTable();
+            let arr = _.sortBy(allrows, (x) => -_.sum(x["values"]));
+            return arr.splice(0, count);
         }
 
         /**
@@ -95,17 +111,25 @@ module kt.stats {
         byPredicate: StatsTable;
         byDischargeType: StatsTable;
         byState: StatsTable;
+        byFunction: StatsTable;
+        byFile: StatsTable;
 
-        private filteredOutCount:number;
+        private filteredOutCount: number;
 
         public build(project: kt.Globals.Project) {
             this.byPredicate = new StatsTable();
             this.byDischargeType = new StatsTable();
             this.byState = new StatsTable();
+            this.byFunction = new StatsTable();
+            this.byFile = new StatsTable();
+
+            this.byFile.columns = states;
+            this.byFunction.columns = states;
+            this.byPredicate.columns = states;
 
             let filteredPredicates = _.uniq(_.map(project.filteredProofObligations, (e) => e.predicate)).sort();
 
-            this.filteredOutCount=project.proofObligations.length - project.filteredProofObligations.length;
+            this.filteredOutCount = project.proofObligations.length - project.filteredProofObligations.length;
             //popolate with zeros
             for (let state of states) {
                 for (let predicate of filteredPredicates) {
@@ -115,13 +139,25 @@ module kt.stats {
 
             for (let po of project.filteredProofObligations) {
                 this.byPredicate.inc(po.predicate, po.state, 1);
+                this.byPredicate.bind(po.predicate, po.predicate);
+                //------------
+                let functionKey = po.file + "/" + po.functionName;
+                this.byFunction.inc(functionKey, po.state, 1);
+                this.byFunction.bind(functionKey, po.cfunction);
+                //------------
+                this.byFile.inc(po.file, po.state, 1);
+                this.byFile.bind(po.file, po.cfunction.fileInfo);
+                //------------
                 this.byState.inc(po.state, DEF_COL_NAME, 1);
+                this.byState.bind(po.state, po.state);
+                //-----------
                 if (po.isDischarged()) {
                     let dischargeType = po.dischargeType;
                     if (!dischargeType)
                         dischargeType = "default";
 
                     this.byDischargeType.inc(dischargeType, dischargeType, 1);
+                    this.byDischargeType.bind(dischargeType, dischargeType);
                 }
             }
 
@@ -131,7 +167,7 @@ module kt.stats {
             return this.byState.getAt("VIOLATION", DEF_COL_NAME);
         }
 
-        get countFilteredOut():number{
+        get countFilteredOut(): number {
             return this.filteredOutCount;
         }
 
@@ -146,29 +182,70 @@ module kt.stats {
 
 
         public updateChart(scene, container: d3.Selection<any>) {
-            const data: Array<NamedArray> = this.byPredicate.asNamedRowsTable();
-            const colors: Array<string> = _.map(this.byPredicate.columnNames,
+            const table = this.byPredicate;
+            const columnNames = table.columnNames;
+            const data: Array<NamedArray> = table.asNamedRowsTable();
+            const colors: Array<string> = _.map(columnNames,
                 (x) => "var(--kt-state-" + x.toLowerCase() + "-default-bg)");
             kt.charts.updateChart(scene, container,
                 {
                     data: data,
-                    colors: colors
+                    colors: colors,
+                    columnNames: columnNames
                 }
             );
         }
 
         public updatePoByDischargeChart(scene, container: d3.Selection<any>) {
-            const data: Array<NamedArray> = this.byDischargeType.asNamedRowsTable();
+            const table = this.byDischargeType;
+            const columnNames = table.columnNames;
+            const data: Array<NamedArray> = table.asNamedRowsTable();
 
-            const colors: Array<string> = _.map(this.byDischargeType.columnNames,
+            const colors: Array<string> = _.map(columnNames,
                 (x) => "var(--kt-state-discharged-" + x.toLowerCase() + "-bg)");
             kt.charts.updateChart(scene, container,
                 {
                     data: data,
-                    colors: colors
+                    colors: colors,
+                    columnNames: columnNames
                 }
             );
         }
+
+
+        public updatePoByFunctionChart(scene, container: d3.Selection<any>) {
+            const table = this.byFunction;
+            const columnNames = table.columnNames;
+            const data: Array<NamedArray> = table.getTopRows(20);
+
+            const colors: Array<string> = _.map(columnNames,
+                (x) => "var(--kt-state-" + x.toLowerCase() + "-default-bg)");
+            kt.charts.updateChart(scene, container,
+                {
+                    data: data,
+                    colors: colors,
+                    columnNames: columnNames
+                }
+            );
+        }
+
+        public updatePoByFileChart(scene, container: d3.Selection<any>) {
+            const table = this.byFile;
+            const columnNames = table.columnNames;
+            const data: Array<NamedArray> = table.getTopRows(20);
+
+            const colors: Array<string> = _.map(columnNames,
+                (x) => "var(--kt-state-" + x.toLowerCase() + "-default-bg)");
+
+            kt.charts.updateChart(scene, container,
+                {
+                    data: data,
+                    colors: colors,
+                    columnNames: columnNames
+                }
+            );
+        }
+
 
 
 
