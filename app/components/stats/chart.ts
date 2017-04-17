@@ -28,6 +28,10 @@ module kt.charts {
         const ident = (d) => d;
 
         const rowname = (x) => x["name"];
+        const rowSum = (x) => {
+            return _.sum(x["values"]);
+        }
+
         const rowvalues = (x) => {
             let _values = x["values"];
             let _name = x["name"];
@@ -72,6 +76,10 @@ module kt.charts {
         newRows.append("label")
             .text(rowname)
             .attr("title", rowname);
+
+        newRows.append("div")
+            .text(rowSum)
+            .attr("class", "value");
 
 
 

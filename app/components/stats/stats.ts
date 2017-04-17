@@ -149,6 +149,7 @@ module kt.stats {
                 this.byFile.bind(po.file, po.cfunction.fileInfo);
                 //------------
                 this.byState.inc(po.state, DEF_COL_NAME, 1);
+                this.byState.bind(po.state, po.state);
                 //-----------
                 if (po.isDischarged()) {
                     let dischargeType = po.dischargeType;
@@ -156,6 +157,7 @@ module kt.stats {
                         dischargeType = "default";
 
                     this.byDischargeType.inc(dischargeType, dischargeType, 1);
+                    this.byDischargeType.bind(dischargeType, dischargeType);
                 }
             }
 
