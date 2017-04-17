@@ -2,6 +2,7 @@ module kt.charts {
     export interface ChartData {
         data: Array<kt.stats.NamedArray>;
         colors: Array<string>;
+        columnNames: Array<string>;
     }
 
 
@@ -20,18 +21,29 @@ module kt.charts {
             return chartData.colors[index];
         }
 
+        const colName = (index) => {
+            return chartData.columnNames[index];
+        }
+
         const ident = (d) => d;
 
         const rowname = (x) => x["name"];
+        const rowSum = (x) => {
+            return _.sum(x["values"]);
+        }
+
         const rowvalues = (x) => {
             let _values = x["values"];
             let _name = x["name"];
+            let _obj = x["object"];
             return _.map(
                 _values,
                 (k) => {
                     return {
                         val: k,
-                        name: _name
+                        name: _name,
+                        object: _obj
+
                     };
                 });
         };
@@ -41,11 +53,14 @@ module kt.charts {
             return element
                 .style("background-color", bgFunc)
                 .style("width", (val, index) => widthFunc(val.val, index) + "%")
-                .style("display", (val, index) => widthFunc(val.val, index) > 0 ? "block" : "none")
-                .attr("title", (val, index) => val.name + ":" + val.val);
+                .style("display", (val, index) => widthFunc(val.val, index) > 0 ? "inline-block" : "none")
+                .attr("title", (val, index) => colName(index) + ":" + val.val);
         }
 
         //=============
+
+        container.selectAll(".row").remove();//to keep sorting
+
 
         let rows = container.selectAll(".row").data(data, (d) => d.name);
 
@@ -61,6 +76,10 @@ module kt.charts {
         newRows.append("label")
             .text(rowname)
             .attr("title", rowname);
+
+        newRows.append("div")
+            .text(rowSum)
+            .attr("class", "value");
 
 
 
@@ -87,7 +106,7 @@ module kt.charts {
                     .attr("class", "bar " + clazz), clazz)
                 .on('click', (d, i, a) => {
                     (<Event>d3.event).stopPropagation();
-                    scene.fire('chart-bar-selected', { src: container.node(), row: d.name, value: d.val, index: i, a: a });
+                    scene.fire('chart-bar-selected', { src: container.node(), row: d.object, value: d.val, index: i, a: a });
                 });
 
 

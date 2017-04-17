@@ -20,10 +20,21 @@ module kt.Globals {
         private _file: kt.treeview.FileInfo;
 
 
-
+        get file(): kt.treeview.FileInfo {
+            return this._file;
+        }
 
         get predicates(): kt.util.StringSet {
             return this._predicates;
+        }
+
+        get singlePredicate(): string {
+            if (this._predicates) {
+                if (this._predicates.length == 1) {
+                    return this._predicates.first;
+                }
+            }
+            return undefined;
         }
 
         set predicates(_predicates: kt.util.StringSet) {
@@ -83,21 +94,20 @@ module kt.Globals {
             this._file = file;
         }
 
-        private acceptFile(po: kt.graph.PONode): boolean {
+        private acceptFile(po: kt.graph.AbstractNode): boolean {
             if (!this.fileName) {
                 return true;
             } else {
                 if (!this._file.dir) {
                     return po.file == this.fileName;
                 } else {
-                    // let relative=path.relative(this.fileName, po.file);
-                    return po.file.startsWith(this.fileName);
+                    return po.file.startsWith(this.fileName) || this.fileName == ".";
                 }
 
             }
         }
 
-        private acceptFunction(po: kt.graph.PONode): boolean {
+        private acceptFunction(po: kt.graph.AbstractNode): boolean {
             if (!this.functionName) {
                 return true;
             } else {
@@ -136,6 +146,10 @@ module kt.Globals {
             return this.acceptFile(po) && this.acceptFunction(po) && this.acceptPredicate(po) && this.acceptState(po) && this.acceptDischargeType(po);
         }
 
+        public acceptApi(po: kt.graph.ApiNode): boolean {
+            return this.acceptFile(po) && this.acceptFunction(po);// && this.acceptPredicate(po) && this.acceptState(po) && this.acceptDischargeType(po);
+        }
+
     }
 
     export const PO_FILTER: Filter = new Filter();
@@ -148,11 +162,15 @@ module kt.Globals {
 
         _proofObligations: Array<kt.graph.PONode> = [];
         _filteredProofObligations: Array<kt.graph.PONode> = null;
+        _filteredAssumptions: Array<kt.graph.ApiNode> = null;
 
-        apis: { [key: string]: kt.graph.ApiNode } = null;
+        _apis: { [key: string]: kt.graph.ApiNode } = null;
 
         allPredicates: Array<string>;
 
+        set apis(_apis) {
+            this._apis = _apis;
+        }
 
         get proofObligations(): Array<kt.graph.PONode> {
             return this._proofObligations;
@@ -171,6 +189,47 @@ module kt.Globals {
 
         public onFilterChanged(filter) {
             this._filteredProofObligations = null;
+            this._filteredAssumptions = null;
+        }
+
+        private hasIntersection(inputs: kt.graph.AbstractNode[], base: kt.graph.AbstractNode[]): boolean {
+            for (let input of inputs) {
+                if (_.contains(base, input)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
+        get filteredAssumptions(): Array<kt.graph.ApiNode> {
+            if (!this._filteredAssumptions) {
+                let _filteredAssumptions = [];
+
+                for (let apiKey in this._apis) {
+                    let api = this._apis[apiKey];
+                    if (this.hasIntersection(api.inputs, this.filteredProofObligations) ||
+                        this.hasIntersection(api.outputs, this.filteredProofObligations)) {
+                        _filteredAssumptions.push(api);
+                    }
+
+                }
+
+                for (let po of this.filteredProofObligations) {
+                    for (let input of po.inputs) {
+                        _filteredAssumptions.push(<kt.graph.ApiNode>input);
+                    }
+
+                    for (let output of po.outputs) {
+                        _filteredAssumptions.push(<kt.graph.ApiNode>output);
+                    }
+                }
+
+                _filteredAssumptions = _.uniq(_filteredAssumptions);
+                this._filteredAssumptions = _filteredAssumptions;
+
+            }
+            return this._filteredAssumptions;
         }
 
         get filteredProofObligations(): Array<kt.graph.PONode> {
@@ -184,6 +243,8 @@ module kt.Globals {
         public open(baseDir: string, tracker: tf.ProgressTracker): Promise<{ [key: string]: Array<kt.xml.CFunction> }> {
             this.baseDir = baseDir;
             this.analysisDir = path.join(this.baseDir, CH_DIR);
+            this._filteredAssumptions = null;
+            this._filteredProofObligations = null;
 
             console.info("opening new project:" + baseDir);
 

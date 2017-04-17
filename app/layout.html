@@ -78,11 +78,11 @@
 
                         <iron-pages selected="{{modeIndex}}" style="width: 100%; height: 100%; padding-top:var(--filter-panel-height)" ;>
 
-                            <kt-stats progress="{{progress}}" statistics="[[statistics]]" predicate="{{filter.predicate}}" filter="{{filter}}"></kt-stats>
+                            <kt-stats progress="{{progress}}" statistics="[[statistics]]" filter="{{filter}}"></kt-stats>
 
                             <div>source</div>
 
-                            <po-list progress="{{progress}}" filtered-proof-obligations="[[filteredProofObligations]]" function-name="[[filter.functionName]]"></po-list>
+                            <po-list progress="{{progress}}" filtered-proof-obligations="[[filteredProofObligations]]" filter="[[filter]]"></po-list>
 
                             <div>assumptions</div>
 
