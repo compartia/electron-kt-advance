@@ -180,55 +180,66 @@ module kt.stats {
 
 
         public updateChart(scene, container: d3.Selection<any>) {
-            const data: Array<NamedArray> = this.byPredicate.asNamedRowsTable();
-            const colors: Array<string> = _.map(this.byPredicate.columnNames,
+            const table = this.byPredicate;
+            const columnNames = table.columnNames;
+            const data: Array<NamedArray> = table.asNamedRowsTable();
+            const colors: Array<string> = _.map(columnNames,
                 (x) => "var(--kt-state-" + x.toLowerCase() + "-default-bg)");
             kt.charts.updateChart(scene, container,
                 {
                     data: data,
-                    colors: colors
+                    colors: colors,
+                    columnNames: columnNames
                 }
             );
         }
 
         public updatePoByDischargeChart(scene, container: d3.Selection<any>) {
-            const data: Array<NamedArray> = this.byDischargeType.asNamedRowsTable();
+            const table = this.byDischargeType;
+            const columnNames = table.columnNames;
+            const data: Array<NamedArray> = table.asNamedRowsTable();
 
-            const colors: Array<string> = _.map(this.byDischargeType.columnNames,
+            const colors: Array<string> = _.map(columnNames,
                 (x) => "var(--kt-state-discharged-" + x.toLowerCase() + "-bg)");
             kt.charts.updateChart(scene, container,
                 {
                     data: data,
-                    colors: colors
+                    colors: colors,
+                    columnNames: columnNames
                 }
             );
         }
 
 
         public updatePoByFunctionChart(scene, container: d3.Selection<any>) {
+            const table = this.byFunction;
+            const columnNames = table.columnNames;
+            const data: Array<NamedArray> = table.getTopRows(20);
 
-            const data: Array<NamedArray> = this.byFunction.getTopRows(20);
-
-            const colors: Array<string> = _.map(this.byPredicate.columnNames,
+            const colors: Array<string> = _.map(columnNames,
                 (x) => "var(--kt-state-" + x.toLowerCase() + "-default-bg)");
             kt.charts.updateChart(scene, container,
                 {
                     data: data,
-                    colors: colors
+                    colors: colors,
+                    columnNames: columnNames
                 }
             );
         }
 
         public updatePoByFileChart(scene, container: d3.Selection<any>) {
-            const data: Array<NamedArray> = this.byFile.getTopRows(20);
+            const table = this.byFile;
+            const columnNames = table.columnNames;
+            const data: Array<NamedArray> = table.getTopRows(20);
 
-            const colors: Array<string> = _.map(this.byPredicate.columnNames,
+            const colors: Array<string> = _.map(columnNames,
                 (x) => "var(--kt-state-" + x.toLowerCase() + "-default-bg)");
 
             kt.charts.updateChart(scene, container,
                 {
                     data: data,
-                    colors: colors
+                    colors: colors,
+                    columnNames: columnNames
                 }
             );
         }

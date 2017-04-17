@@ -2,6 +2,7 @@ module kt.charts {
     export interface ChartData {
         data: Array<kt.stats.NamedArray>;
         colors: Array<string>;
+        columnNames: Array<string>;
     }
 
 
@@ -18,6 +19,10 @@ module kt.charts {
 
         const bgFunc = (val, index) => {
             return chartData.colors[index];
+        }
+
+        const colName = (index) => {
+            return chartData.columnNames[index];
         }
 
         const ident = (d) => d;
@@ -45,7 +50,7 @@ module kt.charts {
                 .style("background-color", bgFunc)
                 .style("width", (val, index) => widthFunc(val.val, index) + "%")
                 .style("display", (val, index) => widthFunc(val.val, index) > 0 ? "inline-block" : "none")
-                .attr("title", (val, index) => val.name + ":" + val.val);
+                .attr("title", (val, index) => colName(index) + ":" + val.val);
         }
 
         //=============
