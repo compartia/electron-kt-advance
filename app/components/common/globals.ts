@@ -101,8 +101,7 @@ module kt.Globals {
                 if (!this._file.dir) {
                     return po.file == this.fileName;
                 } else {
-                    // let relative=path.relative(this.fileName, po.file);
-                    return po.file.startsWith(this.fileName);
+                    return po.file.startsWith(this.fileName) || this.fileName == ".";
                 }
 
             }
@@ -169,8 +168,8 @@ module kt.Globals {
 
         allPredicates: Array<string>;
 
-        set apis(_apis){
-            this._apis=_apis;
+        set apis(_apis) {
+            this._apis = _apis;
         }
 
         get proofObligations(): Array<kt.graph.PONode> {
@@ -244,8 +243,8 @@ module kt.Globals {
         public open(baseDir: string, tracker: tf.ProgressTracker): Promise<{ [key: string]: Array<kt.xml.CFunction> }> {
             this.baseDir = baseDir;
             this.analysisDir = path.join(this.baseDir, CH_DIR);
-            this._filteredAssumptions=null;
-            this._filteredProofObligations=null;
+            this._filteredAssumptions = null;
+            this._filteredProofObligations = null;
 
             console.info("opening new project:" + baseDir);
 

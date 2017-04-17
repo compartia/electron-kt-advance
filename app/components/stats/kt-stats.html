@@ -27,7 +27,6 @@
             </paper-material>
         </div>
 
-
     </template>
 
     <style is="kt-stats">
@@ -53,8 +52,6 @@
             is: 'kt-stats',
 
             properties: {
-                selectedFile: Object,
-                selectedFunction: Object,
                 filter: Object,
 
                 statistics: {
@@ -63,6 +60,7 @@
                     observer: '_statisticsChanged'
                 }
             },
+
             listeners: {
                 "chart-bar-selected": "_chartBarSelected",
                 "chart-row-selected": "_chartRowSelected"
@@ -84,6 +82,18 @@
 
                 if (event.detail.src == this.$.poByDischarge) {
                     this.set("filter.dischargeTypes", new kt.util.StringSet([event.detail.row.toLowerCase()]));
+                }
+
+                if (event.detail.src == this.$.poByFunction) {
+                    console.log(event.detail);
+                    this.filter.file = event.detail.row.fileInfo;
+                    this.filter.functionName = event.detail.row.name;
+                    this.notifyPath("filter.functionName");
+                }
+
+                if (event.detail.src == this.$.poByFile) {
+                    console.log(event.detail);
+                    this.set("filter.file", event.detail.row);
                 }
             },
 

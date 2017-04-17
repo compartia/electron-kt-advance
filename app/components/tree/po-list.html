@@ -11,7 +11,7 @@
 
                     <span class="po-id">{{item.id}}</span>
 
-                    <template is="dom-if" if="[[!functionName]]">
+                    <template is="dom-if" if="[[_showFunctionName(item.functionName)]]">
                         <span class="function-name">[[item.functionName]]</span>
                     </template>
 
@@ -55,20 +55,25 @@
             is: 'po-list',
 
             properties: {
-                selectedFile: Object,
-                selectedFunction: Object,
-                currentProject: Object,
+ 
+                filter: {
+                    type: Object,
+                    notify: true
+                },
+
                 progress: {
                     type: Object,
                     notify: true
                 },
 
-                functionName: String,
-
                 filteredProofObligations: {
                     type: Object,
                     notify: true
                 }
+            },
+
+            _showFunctionName:function(fname){
+                return this.filter.functionName!=fname;
             },
 
             _computeIcon: function(node) {

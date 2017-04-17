@@ -26,12 +26,15 @@ module kt.charts {
         const rowvalues = (x) => {
             let _values = x["values"];
             let _name = x["name"];
+            let _obj = x["object"];
             return _.map(
                 _values,
                 (k) => {
                     return {
                         val: k,
-                        name: _name
+                        name: _name,
+                        object: _obj
+
                     };
                 });
         };
@@ -90,7 +93,7 @@ module kt.charts {
                     .attr("class", "bar " + clazz), clazz)
                 .on('click', (d, i, a) => {
                     (<Event>d3.event).stopPropagation();
-                    scene.fire('chart-bar-selected', { src: container.node(), row: d.name, value: d.val, index: i, a: a });
+                    scene.fire('chart-bar-selected', { src: container.node(), row: d.object, value: d.val, index: i, a: a });
                 });
 
 

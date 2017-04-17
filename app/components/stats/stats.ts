@@ -13,6 +13,7 @@ module kt.stats {
 
     export interface NamedArray {
         name: string;
+        object: any;
         values: Array<number>;
     }
 
@@ -20,13 +21,16 @@ module kt.stats {
 
     export class StatsTable {
         data: { [key: string]: { [key: string]: number } } = {};
-
+        bindings: { [key: string]: any } = {};
         columnNames: Array<string> = new Array();
 
         set columns(columnNames) {
             this.columnNames = columnNames;
         }
 
+        public bind(rowname: string, object: any) {
+            this.bindings[rowname] = object;
+        }
 
         public inc(row: string, column: string, increment: number) {
 
@@ -65,7 +69,8 @@ module kt.stats {
             for (let rowName of rows) {
                 let row: NamedArray = {
                     name: rowName,
-                    values: new Array<number>()
+                    values: new Array<number>(),
+                    object: this.bindings[rowName]
                 };
 
                 row.values = [];
@@ -134,11 +139,17 @@ module kt.stats {
 
             for (let po of project.filteredProofObligations) {
                 this.byPredicate.inc(po.predicate, po.state, 1);
-                this.byFunction.inc(po.functionName, po.state, 1);
+                this.byPredicate.bind(po.predicate, po.predicate);
+                //------------
+                let functionKey = po.file + "/" + po.functionName;
+                this.byFunction.inc(functionKey, po.state, 1);
+                this.byFunction.bind(functionKey, po.cfunction);
+                //------------
                 this.byFile.inc(po.file, po.state, 1);
-                // this.byFunction.inc(po.functionName, DEF_COL_NAME, 1);
-
+                this.byFile.bind(po.file, po.cfunction.fileInfo);
+                //------------
                 this.byState.inc(po.state, DEF_COL_NAME, 1);
+                //-----------
                 if (po.isDischarged()) {
                     let dischargeType = po.dischargeType;
                     if (!dischargeType)
@@ -195,7 +206,9 @@ module kt.stats {
 
 
         public updatePoByFunctionChart(scene, container: d3.Selection<any>) {
+
             const data: Array<NamedArray> = this.byFunction.getTopRows(20);
+
             const colors: Array<string> = _.map(this.byPredicate.columnNames,
                 (x) => "var(--kt-state-" + x.toLowerCase() + "-default-bg)");
             kt.charts.updateChart(scene, container,
