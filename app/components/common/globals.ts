@@ -37,6 +37,15 @@ module kt.Globals {
             return undefined;
         }
 
+        get singleState(): kt.graph.PoStates {
+            if (this._states) {
+                if (this._states.length == 1) {
+                    return kt.graph.PoStates[this._states.first];
+                }
+            }
+            return undefined;
+        }
+
         set predicates(_predicates: kt.util.StringSet) {
             this._predicates = _predicates;
         }
@@ -74,10 +83,6 @@ module kt.Globals {
 
         set state(_state: kt.graph.PoStates) {
             this._states.values = [kt.graph.PoStates[_state]];
-        }
-
-        get state(): kt.graph.PoStates {
-            return kt.graph.PoStates[this._states.first];
         }
 
         get fileName() {

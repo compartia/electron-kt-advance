@@ -18,8 +18,8 @@
                     <span id="predicate"> <br>[[filter.singlePredicate]]</span>
                 </template>
 
-                <template is="dom-if" if="[[_getStateName(filter.state)]]">
-                    <span id="state"><br>[[_getStateName(filter.state)]]</span>
+                <template is="dom-if" if="[[_getStateName(filter.singleState)]]">
+                    <span id="state"><br>[[_getStateName(filter.singleState)]]</span>
                 </template>
             </div>
 
@@ -140,7 +140,7 @@
             },
 
             _statesChanged: function(a, b) {
-                this.notifyPath("filter.state");
+                this.notifyPath("filter.singleState");
             },
 
             toggle: function() {
