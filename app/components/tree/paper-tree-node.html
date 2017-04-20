@@ -254,7 +254,6 @@ Custom property | Description | Default
             openChildren: function() {
                 this.set("data.open", true);
                 setTimeout(this.fire.bind(this, "toggle", this));
-                // this.fire.bind(this, "toggle", this)
             },
 
             selectPath: function(split) {
@@ -262,14 +261,13 @@ Custom property | Description | Default
                     if (this.data.name == split[0]) {
                         if (this.data.children && this.data.children.length) {
                             var subpath = split.splice(1);
-                            if(subpath.length){
+                            if (subpath.length) {
                                 this._pathToOpen = subpath;
                                 this.openChildren();
                             }
-                            
+
                         } else {
-                            // setTimeout(this.fire.bind(this, "innserSelect", this));
-                            this.fire.bind(this, "innserSelect", this);
+                            setTimeout(this.fire.bind(this, "innserSelect", this));
                         }
 
                     }
@@ -281,7 +279,6 @@ Custom property | Description | Default
             _onNodeToggle: function(event) {
 
                 if (event.detail.data === this.data && this.data.open) {
-                    //console.log(event);
                     if (this._pathToOpen) {
                         var subpath = this._pathToOpen;
                         this._pathToOpen = null;
