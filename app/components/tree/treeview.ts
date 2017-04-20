@@ -4,6 +4,10 @@ module kt.treeview {
     const path = require('path');
     const fs = require('fs');
 
+    export function splitPath(filePath:string):string[] {
+        return filePath.split(path.sep);
+    }
+
 
     export function build(container): void {
         let root = tree(kt.Globals.project.baseDir);

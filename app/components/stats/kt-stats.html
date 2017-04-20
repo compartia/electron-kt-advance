@@ -88,6 +88,8 @@
                     console.log(event.detail);
                     this.filter.file = event.detail.row.fileInfo;
                     this.filter.functionName = event.detail.row.name;
+                    // this.notifyPath("filter.*")
+                    this.notifyPath("filter.file");
                     this.notifyPath("filter.functionName");
                 }
 
