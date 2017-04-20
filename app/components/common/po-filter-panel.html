@@ -10,13 +10,14 @@
     <template>
         <div class="container">
             <div class="path">
-                [[_getFileName(filter.file)]] <br>
+                [[_getFileName(filter.file)]]
+                <br>
 
                 <span id="function-name">[[_getFunctionName(filter.functionName)]]</span>
 
-                <template is="dom-if" if="[[filter.singlePredicate]]">
-                    <span id="predicate"> <br>[[filter.singlePredicate]]</span>
-                </template>
+
+                <span id="predicate">
+                    <br>[[_getPredicatePathChunk(filter.singlePredicate)]]</span>
 
 
                 <span id="state"><br>[[_getStateName(filter.singleState)]]</span>
@@ -24,7 +25,8 @@
             </div>
 
             <div class="stats flexchild">
-                <span id="btnv" class="stat-hidden" title$="not included: [[statistics.countFilteredOut]]"><iron-icon icon="icons:visibility-off"></iron-icon>
+                <span id="btnv" class="stat-hidden" title$="not included: [[statistics.countFilteredOut]]">
+                    <iron-icon icon="icons:visibility-off"></iron-icon>
                     <!-- not included: -->
                     [[statistics.countFilteredOut]]</span>
 
@@ -158,14 +160,22 @@
             },
 
             _getStateName: function(filterState) {
-                if(filterState==null){
+                if (filterState === null) {
                     return "*"
-                }else
-                if(filterState==undefined){
+                } else if (filterState === undefined) {
                     return "..."
-                }
-                else{
+                } else {
                     return kt.graph.PoStates[filterState];
+                }
+            },
+
+            _getPredicatePathChunk: function(p) {
+                if (p === null) {
+                    return "*"
+                } else if (p === undefined) {
+                    return "..."
+                } else {
+                    return p;
                 }
             },
 

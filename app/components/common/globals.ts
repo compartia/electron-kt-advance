@@ -33,7 +33,7 @@ module kt.Globals {
                 if (this._predicates.length == 1) {
                     return this._predicates.first;
                 }
-                else if(this._predicates.length >1){
+                else if (this._predicates.length > 1) {
                     return undefined;
                 }
             }
@@ -45,7 +45,7 @@ module kt.Globals {
                 if (this._states.length == 1) {
                     return kt.graph.PoStates[this._states.first];
                 }
-                else if(this._predicates.length >1){
+                else if (this._predicates.length > 1) {
                     return undefined;
                 }
             }
