@@ -33,8 +33,11 @@ module kt.Globals {
                 if (this._predicates.length == 1) {
                     return this._predicates.first;
                 }
+                else if(this._predicates.length >1){
+                    return undefined;
+                }
             }
-            return undefined;
+            return null;
         }
 
         get singleState(): kt.graph.PoStates {
@@ -42,8 +45,11 @@ module kt.Globals {
                 if (this._states.length == 1) {
                     return kt.graph.PoStates[this._states.first];
                 }
+                else if(this._predicates.length >1){
+                    return undefined;
+                }
             }
-            return undefined;
+            return null;
         }
 
         set predicates(_predicates: kt.util.StringSet) {

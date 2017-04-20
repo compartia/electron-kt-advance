@@ -18,13 +18,15 @@
                     <span id="predicate"> <br>[[filter.singlePredicate]]</span>
                 </template>
 
-                <template is="dom-if" if="[[_getStateName(filter.singleState)]]">
-                    <span id="state"><br>[[_getStateName(filter.singleState)]]</span>
-                </template>
+
+                <span id="state"><br>[[_getStateName(filter.singleState)]]</span>
+
             </div>
 
             <div class="stats flexchild">
-                <span id="btnv" class="stat-hidden">filtered-out:[[statistics.countFilteredOut]]</span>
+                <span id="btnv" class="stat-hidden" title$="not included: [[statistics.countFilteredOut]]"><iron-icon icon="icons:visibility-off"></iron-icon>
+                    <!-- not included: -->
+                    [[statistics.countFilteredOut]]</span>
 
                 <span id="btnv" class="stat-violation" on-tap="_click">violations:[[statistics.countViolations]]</span>
                 <span id="btno" class="stat-open" on-tap="_click">open:[[statistics.countOpen]]</span>
@@ -39,7 +41,7 @@
 
         <iron-collapse id="filtersettings">
             <paper-material elevation="4" class="card" id="filtersettings-container">
-                <h2>Filter Proof Obligations:</h2>
+                <h2>Include Proof Obligations</h2>
 
                 <div id="filtersettings-body">
 
@@ -156,10 +158,14 @@
             },
 
             _getStateName: function(filterState) {
-                if (filterState!=null && filterState!=undefined) {
+                if(filterState==null){
+                    return "*"
+                }else
+                if(filterState==undefined){
+                    return "..."
+                }
+                else{
                     return kt.graph.PoStates[filterState];
-                } else {
-                    return null;
                 }
             },
 
