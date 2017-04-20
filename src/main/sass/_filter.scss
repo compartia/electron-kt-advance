@@ -60,6 +60,35 @@ po-filter-panel {
         align-items: center;
         height     : var(--filter-panel-height);
 
+        .path {
+            text-align: left;
+            font-size : $font-size-sm;
+
+            #predicate{
+                font-weight: 400;
+                text-transform: uppercase;
+            }
+
+            #function-name{}
+
+            #state{
+                font-weight: 400;
+            }
+
+            separator, .separator, br{
+                display: inline-block;
+                min-width: 1.2em;
+
+                content: "";
+                text-align: center;
+                color: var(--kt-grey);
+
+                &:after{
+                    content: " / ";
+                }
+            }
+        }
+
         .path,
         .stats {
             display      : flex;
@@ -72,10 +101,7 @@ po-filter-panel {
             align-items  : center;
         }
 
-        .path {
-            text-align: left;
-            font-size : $font-size-sm;
-        }
+
 
         .controls {
             padding: 0;
