@@ -12,14 +12,8 @@
             <div class="path">
                 [[_getFileName(filter.file)]]
                 <br>
-
                 <span id="function-name">[[_getFunctionName(filter.functionName)]]</span>
-
-
-                <span id="predicate">
-                    <br>[[_getPredicatePathChunk(filter.singlePredicate)]]</span>
-
-
+                <span id="predicate"><br>[[_getPredicatePathChunk(filter.singlePredicate)]]</span>
                 <span id="state"><br>[[_getStateName(filter.singleState)]]</span>
 
             </div>
@@ -161,9 +155,9 @@
 
             _getStateName: function(filterState) {
                 if (filterState === null) {
-                    return "*"
+                    return "*";
                 } else if (filterState === undefined) {
-                    return "..."
+                    return "?";
                 } else {
                     return kt.graph.PoStates[filterState];
                 }
@@ -171,9 +165,9 @@
 
             _getPredicatePathChunk: function(p) {
                 if (p === null) {
-                    return "*"
+                    return "*";
                 } else if (p === undefined) {
-                    return "..."
+                    return "?";
                 } else {
                     return p;
                 }
