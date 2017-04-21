@@ -54,7 +54,7 @@ module kt.graph {
                 nm += kt.util.stripSlash(this.file) + SPL;
             }
 
-            if (this.functionName != filter.functionName) {
+            if (!filter.cfunction || this.functionName != filter.cfunction.name) {
                 nm += this.functionName + SPL;
             }
 

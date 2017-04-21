@@ -16,7 +16,7 @@ module kt.Globals {
         private _dischargeTypes: kt.util.StringSet = new kt.util.StringSet([]);
 
 
-        private _functionName: string;
+        private _cfunction: kt.xml.CFunction;
         private _file: kt.treeview.FileInfo;
 
 
@@ -73,18 +73,18 @@ module kt.Globals {
         }
 
         public reset() {
-            this._functionName = null;
+            this._cfunction = null;
             this._file = null;
             this._states.values = kt.graph.PoStatesArr;
             this._dischargeTypes.values = kt.graph.PoDischargeTypesArr;
         }
 
-        set functionName(_functionName: string) {
-            this._functionName = _functionName;
+        set cfunction(_cfunction: kt.xml.CFunction) {
+            this._cfunction = _cfunction;
         }
 
-        get functionName() {
-            return this._functionName;
+        get cfunction() {
+            return this._cfunction;
         }
 
         set state(_state: kt.graph.PoStates) {
@@ -100,7 +100,7 @@ module kt.Globals {
 
         set file(file: kt.treeview.FileInfo) {
             if (this._file != file) {
-                this._functionName = null;
+                this._cfunction = null;
             }
             this._file = file;
         }
@@ -119,10 +119,10 @@ module kt.Globals {
         }
 
         private acceptFunction(po: kt.graph.AbstractNode): boolean {
-            if (!this.functionName) {
+            if (!this.cfunction) {
                 return true;
             } else {
-                return po.functionName == this.functionName;
+                return po.functionName == this.cfunction.name;//XXX: compare file
             }
         }
 

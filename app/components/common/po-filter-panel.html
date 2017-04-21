@@ -12,7 +12,7 @@
             <div class="path">
                 [[_getFileName(filter.file)]]
                 <br>
-                <span id="function-name">[[_getFunctionName(filter.functionName)]]</span>
+                <span id="function-name">[[_getFunctionName(filter.cfunction)]]</span>
                 <span id="predicate"><br>[[_getPredicatePathChunk(filter.singlePredicate)]]</span>
                 <span id="state"><br>[[_getStateName(filter.singleState)]]</span>
 
@@ -179,9 +179,9 @@
                 return "*";
             },
 
-            _getFunctionName: function(functionName) {
-                if (functionName)
-                    return functionName;
+            _getFunctionName: function(cfunction) {
+                if (cfunction)
+                    return cfunction.name;
                 return "*";
             },
 

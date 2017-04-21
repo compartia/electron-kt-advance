@@ -87,10 +87,10 @@
                 if (event.detail.src == this.$.poByFunction) {
                     console.log(event.detail);
                     this.filter.file = event.detail.row.fileInfo;
-                    this.filter.functionName = event.detail.row.name;
+                    this.filter.cfunction = event.detail.row;
                     // this.notifyPath("filter.*")
                     this.notifyPath("filter.file");
-                    this.notifyPath("filter.functionName");
+                    this.notifyPath("filter.cfunction");
                 }
 
                 if (event.detail.src == this.$.poByFile) {

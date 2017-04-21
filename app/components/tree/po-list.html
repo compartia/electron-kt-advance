@@ -55,7 +55,7 @@
             is: 'po-list',
 
             properties: {
- 
+
                 filter: {
                     type: Object,
                     notify: true
@@ -73,7 +73,8 @@
             },
 
             _showFunctionName:function(fname){
-                return this.filter.functionName!=fname;
+                return true;
+                //return this.filter.functionName!=fname;
             },
 
             _computeIcon: function(node) {
