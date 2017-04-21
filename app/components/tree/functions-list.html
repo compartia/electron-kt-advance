@@ -1,7 +1,7 @@
 <dom-module id="functions-list">
 
     <template>
-        <iron-list id="functionslist" items="[[functions]]" selection-enabled on-selected-item-changed="_selectedFunctionChanged" selected-item="{{selectedItem}}">
+        <iron-list id="functionslist" items="[[functions]]" index-as="name" selection-enabled on-selected-item-changed="_selectedFunctionChanged" selected-item="{{_selectedItem}}">
             <template>
                 <div class$="[[_computedClass(selected)]]">{{item.name}}</div>
             </template>
@@ -13,21 +13,28 @@
             is: 'functions-list',
 
             properties: {
+
                 selectedFile: {
                     type: Object,
                     observer: "_selectedFileChanged"
                 },
 
                 selectedFunction: {
-                    type: String,
-                    value: null,
-                    notify: true
+                    type: Object,
+                    notify: true,
+                    observer: "_selectedFunctionChangedOutside"
                 },
 
                 functions: {
                     type: Array,
                     computed: '_getFunctionsByFile(selectedFile)'
-                }
+                },
+
+
+            },
+
+            isEmpty:function(){
+                    return !this.functions || !this.functions.length;
             },
 
             _selectedFileChanged: function(e) {
@@ -42,10 +49,10 @@
 
             _getFunctionsByFile: function(file) {
                 if (file && file.relativePath) {
-                    var list =  kt.Globals.project.functionByFile[file.relativePath];
-                    if(list){
+                    var list = kt.Globals.project.functionByFile[file.relativePath];
+                    if (list) {
                         return _.sortBy(list, 'name');
-                    }else{
+                    } else {
                         return [];
                     }
                 } else {
@@ -60,12 +67,43 @@
                     : "item";
             },
 
-            _selectedFunctionChanged: function() {
-                var newval = this.$.functionslist.selectedItem;
+            _selectedFunctionChanged: function(event) {
+                console.log(event);
+                this.ignoreOutsideEvent = true;
+                this.set("selectedFunction", event.detail.value);
+                this.ignoreOutsideEvent = false;
+            },
+
+            indexOf: function(itemName) {
+                if (!this.functions) {
+                    return -1;
+                }
+                for (var i = 0; i < this.functions.length; i++) {
+                    if (this.functions[i].name === itemName) {
+                        return i;
+                    }
+                }
+                return -1;
+            },
+
+            _selectedFunctionChangedOutside: function(newval, oldFunc) {
+                if (this.ignoreOutsideEvent) {
+                    return;
+                }
+
+                console.log(newval);
+
+                var index = -1;
                 if (newval) {
-                    this.set("selectedFunction", newval.name);
+                    if (newval.name) {
+                        index = this.indexOf(newval.name);
+                    }
+                }
+
+                if (index >= 0) {
+                    this.$.functionslist.selectItem(index);
                 } else {
-                    this.set("selectedFunction", null);
+                    this.$.functionslist.clearSelection();
                 }
 
             }

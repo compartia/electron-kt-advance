@@ -58,7 +58,8 @@ Example:
                 selectedFile: {
                     type: Object,
                     value: null,
-                    notify: true
+                    notify: true,
+                    observer: "_selectedFileChanged"
                 },
 
                 /**
@@ -78,7 +79,26 @@ Example:
             },
 
             listeners: {
-                "select": "_selectNode"
+                "select": "_onNodeSelect",
+                "innserSelect": "_onInnerSelect"
+            },
+
+            _selectedFileChanged: function(newFile, oldFile) {
+                if (this.ignoreChange) {
+                    return;
+                }
+                if (newFile) {
+                    var split = kt.treeview.splitPath(newFile.relativePath);
+                    var root = this.$.root;
+                    root.openChildren();
+                    var child = root.findChild(split[0]);
+                    if (child) {
+                        child.selectPath(split);
+                    } else {
+                        throw split[0] + " not found";
+                    }
+
+                }
             },
 
             /**
@@ -93,15 +113,33 @@ Example:
              *
              * @param {object} e An event object.
              */
-            _selectNode: function(e) {
+            _onNodeSelect: function(e) {
+                this._selectNode(e.detail);
+            },
+
+            _onInnerSelect: function(e) {
+                if (e.detail.data != this.selected) {
+                    this._clearSelection();
+                    this.selected = e.detail;
+                    this.toggleClass("selected", true, this.selected);
+                }
+            },
+
+            _clearSelection: function() {
                 if (this.selected) {
                     this.toggleClass("selected", false, this.selected);
                 }
+            },
+
+            _selectNode: function(detail) {
+                this._clearSelection();
 
                 // Only selects `<paper-tree-node>`.
-                if (e.detail && e.detail.tagName === 'PAPER-TREE-NODE') {
-                    this.selected = e.detail;
-                    this.selectedFile = e.detail.data;
+                if (detail && detail.tagName === 'PAPER-TREE-NODE') {
+                    this.selected = detail;
+                    this.ignoreChange = true;
+                    this.selectedFile = detail.data;
+                    this.ignoreChange = false;
                     this.toggleClass("selected", true, this.selected);
                 } else {
                     this.selectedFile = null;

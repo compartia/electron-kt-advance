@@ -1,3 +1,4 @@
+<link rel="import" href="../../../bower_components/iron-collapse/iron-collapse.html">
 <link rel="import" href="../../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../../bower_components/paper-checkbox/paper-checkbox.html">
@@ -9,11 +10,19 @@
     <template>
         <div class="container">
             <div class="path">
-                [[_getFileName(filter.file)]]/[[filter.functionName]] : [[filter.predicate]] : [[_getStateName(filter.state)]]
+                [[_getFileName(filter.file)]]
+                <br>
+                <span id="function-name">[[_getFunctionName(filter.cfunction)]]</span>
+                <span id="predicate"><br>[[_getPredicatePathChunk(filter.singlePredicate)]]</span>
+                <span id="state"><br>[[_getStateName(filter.singleState)]]</span>
+
             </div>
 
             <div class="stats flexchild">
-                <span id="btnv" class="stat-hidden" >filtered-out:[[statistics.countFilteredOut]]</span>
+                <span id="btnv" class="stat-hidden" title$="not included: [[statistics.countFilteredOut]]">
+                    <iron-icon icon="icons:visibility-off"></iron-icon>
+                    <!-- not included: -->
+                    [[statistics.countFilteredOut]]</span>
 
                 <span id="btnv" class="stat-violation" on-tap="_click">violations:[[statistics.countViolations]]</span>
                 <span id="btno" class="stat-open" on-tap="_click">open:[[statistics.countOpen]]</span>
@@ -28,12 +37,13 @@
 
         <iron-collapse id="filtersettings">
             <paper-material elevation="4" class="card" id="filtersettings-container">
-                <h2>Filter Proof Obligations:</h2>
+                <h2>Include Proof Obligations</h2>
 
                 <div id="filtersettings-body">
 
                     <div id="states" class="card panel">
-                        <h3>State ( {{filter.states.length}})</h3>
+                        <h3>State (
+                            {{filter.states.length}})</h3>
                         <kt-list-selection all-values="[[_allStates]]" selected-values="{{filter.states}}" styles="[[_statesStyles]]"></kt-list-selection>
                     </div>
 
@@ -103,7 +113,9 @@
                 }
             },
 
-            observers: ['filterChanged(filter.*)'],
+            observers: [
+                '_predicatesChanged(filter.predicates.*)', '_statesChanged(filter.states.*)'
+            ],
 
             _getDischargeTypesStyles: function(filter) {
                 var map = {};
@@ -121,8 +133,12 @@
                 return map;
             },
 
-            filterChanged: function(a) {
-                //NOTHING
+            _predicatesChanged: function(a, b) {
+                this.notifyPath("filter.singlePredicate");
+            },
+
+            _statesChanged: function(a, b) {
+                this.notifyPath("filter.singleState");
             },
 
             toggle: function() {
@@ -138,17 +154,35 @@
             },
 
             _getStateName: function(filterState) {
-                if (filterState) {
-                    return kt.graph.PoStates[filterState];
+                if (filterState === null) {
+                    return "*";
+                } else if (filterState === undefined) {
+                    return "?";
                 } else {
-                    return null;
+                    return kt.graph.PoStates[filterState];
+                }
+            },
+
+            _getPredicatePathChunk: function(p) {
+                if (p === null) {
+                    return "*";
+                } else if (p === undefined) {
+                    return "?";
+                } else {
+                    return p;
                 }
             },
 
             _getFileName: function(file) {
                 if (file)
                     return file.relativePath;
-                return "no file selected";
+                return "*";
+            },
+
+            _getFunctionName: function(cfunction) {
+                if (cfunction)
+                    return cfunction.name;
+                return "*";
             },
 
             _click: function(event) {

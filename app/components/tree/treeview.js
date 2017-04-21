@@ -4,6 +4,10 @@ var kt;
     (function (treeview) {
         var path = require('path');
         var fs = require('fs');
+        function splitPath(filePath) {
+            return filePath.split(path.sep);
+        }
+        treeview.splitPath = splitPath;
         function build(container) {
             var root = tree(kt.Globals.project.baseDir);
             container.data = root;

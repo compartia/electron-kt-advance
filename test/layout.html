@@ -27,8 +27,9 @@
 
         <paper-button raised on-tap="_func">button</paper-button>
 
-        <po-filter-panel statistics="[[statistics]]" filter="{{_filter}}"></po-filter-panel>
-        <kt-stats progress="{{progress}}" statistics="[[statistics]]" predicate="{{_filter.predicate}}" filter="{{_filter}}"></kt-stats>
+        <po-filter-panel statistics="[[statistics]]" filter="{{filter}}" project="[[currentProject]]"></po-filter-panel>
+        <kt-stats progress="{{progress}}" statistics="[[statistics]]" filter="{{filter}}"></kt-stats>
+
 
         <style></style>
     </template>
@@ -41,7 +42,7 @@
                     notify: true
                 },
 
-                _filter: {
+                filter: {
                     type: Object,
                     notify: true
                 },
@@ -54,14 +55,18 @@
             },
 
             _makeStats(num) {
+                var poNum=0;
                 var makePo = function(_currentProject, state, predicate) {
-                    _currentProject.proofObligations.push({
-                        isDischarged: function() {
-                            return true;
-                        },
-                        state: state,
-                        predicate: predicate
-                    });
+                    poNum++;
+
+                    var po=new kt.graph.PONode({
+                        "state":state,
+                        "predicateType":predicate,
+                    "file":poNum%2==1 ? "fakeA.c":"fakeB.c",
+                    "functionName":poNum%3==1 ? "funcA":"functionB",
+                });
+                    // po.state = stateError: source does not appear to be markup.
+                    _currentProject.proofObligations.push(po);
                 }
 
                 var _currentProject = new kt.Globals.Project(null);
@@ -84,6 +89,7 @@
                     }
 
                 _currentProject._filteredProofObligations = _currentProject.proofObligations;
+                this.set("currentProject", _currentProject);
                 this.set("statistics", _currentProject.buildStatistics());
                 // this.set("filter.predicates", this.statistics.allPredicates);
 
