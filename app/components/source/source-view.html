@@ -1,7 +1,14 @@
 <dom-module id="source-view">
     <template>
 
-        source view [[file.relativePath]]
+        <!-- source view [[file.relativePath]]
+        data: [[lines]] -->
+
+        <iron-list id="functionslist" items="[[lines]]" selection-enabled on-selected-item-changed="_onLineSelected">
+            <template>
+                <pre class="code-line">[[item.text]]</pre>
+            </template>
+        </iron-list>
 
     </template>
 
@@ -18,11 +25,23 @@
                     type: Object,
                     notify: true,
                     observer: '_fileChanged'
+                },
+
+                lines: {
+                    type: String
                 }
+
             },
 
             _fileChanged: function(newFile, oldFile) {
-                this.currentProject.loadFile(this.file.relativePath);
+                if (this.file && !this.file.dir) {
+                    this.currentProject.loadFile(this.file.relativePath).then(function(fileContents) {
+
+                        this.set("lines", fileContents.lines);
+
+                    }.bind(this));
+                }
+
             }
 
         });

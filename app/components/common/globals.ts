@@ -164,7 +164,9 @@ module kt.Globals {
     }
 
     export const PO_FILTER: Filter = new Filter();
-
+    export interface FileContents {
+        src: string;
+    }
     export class Project {
         functionByFile: { [key: string]: Array<kt.xml.CFunction> } = {};
         baseDir: string;
@@ -179,8 +181,48 @@ module kt.Globals {
 
         allPredicates: Array<string>;
 
-        public loadFile(relativePath: string) {
-            console.error(path.join(this.baseDir, relativePath));
+        public loadFile(relativePath: string): Promise<FileContents> {
+            let self=this;
+            let filename = path.join(this.baseDir, relativePath);
+            console.error("reading " + filename);
+
+            return new Promise((resolve, reject) => {
+
+
+                fs.readFile(filename, 'utf8', (err, data: string) => {
+                    if (err) {
+                        console.log(err);
+                        reject(null);
+                    } else {
+                        let fileContents = {
+                            lines: self.parseSourceFile(data)
+                        }
+                        resolve(fileContents);
+                    }
+                    // data is the contents of the text file we just read
+                } );
+
+
+
+            });
+
+        }
+
+        private parseSourceFile(contents: string) {
+            let lines = contents.split(/\r\n|\r|\n/g);
+            let ret = [];
+            for (let line of lines) {
+                ret.push({
+                    text: line,
+                    stats: {
+                        violations: 34,
+                        open: 34,
+                    }
+                }
+
+                );
+            }
+            return ret;
         }
 
         set apis(_apis) {
