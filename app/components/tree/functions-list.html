@@ -28,7 +28,13 @@
                 functions: {
                     type: Array,
                     computed: '_getFunctionsByFile(selectedFile)'
-                }
+                },
+
+
+            },
+
+            isEmpty:function(){
+                    return !this.functions || !this.functions.length;
             },
 
             _selectedFileChanged: function(e) {

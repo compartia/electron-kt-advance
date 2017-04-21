@@ -51,7 +51,7 @@
 
                 <vaadin-split-layout class="splitter-2">
 
-                    <paper-header-panel style="width:20%" mode="waterfall" class="panel-functions">
+                    <paper-header-panel style$="[[_computeFunctionListStyle(filter.file)]]" mode="waterfall" class="panel-functions">
                         <paper-toolbar></paper-toolbar>
                         <functions-list id="functions" selected-file="[[filter.file]]" selected-function="{{filter.cfunction}}"></functions-list>
                     </paper-header-panel>
@@ -72,9 +72,15 @@
 
                         <po-filter-panel statistics="[[statistics]]" filter="{{filter}}" project="[[currentProject]]"></po-filter-panel>
 
-                        <tf-graph-loader id="loader"
+                        <tf-graph-loader
+                            id="loader"
                             filtered-proof-obligations="[[filteredProofObligations]]"
-                            out-graph-hierarchy="{{graphHierarchy}}" out-graph="{{graph}}" filter="{{filter}}" progress="{{progress}}" current-project="[[currentProject]]" out-hierarchy-params="{{_hierarchyParams}}"></tf-graph-loader>
+                            out-graph-hierarchy="{{graphHierarchy}}"
+                            out-graph="{{graph}}"
+                            filter="{{filter}}"
+                            progress="{{progress}}"
+                            current-project="[[currentProject]]"
+                            out-hierarchy-params="{{_hierarchyParams}}"></tf-graph-loader>
 
                         <iron-pages selected="{{modeIndex}}" style="width: 100%; height: 100%; padding-top:var(--filter-panel-height)" ;>
 
@@ -273,8 +279,6 @@
                     notify: true
                 },
 
-
-
                 disabledTabs: String
             },
 
@@ -282,31 +286,27 @@
                 "project-loaded": "_onProjectLoaded"
             },
 
-            observers: [
-                'filterChanged(filter.*)'
-            ],
-
-
+            observers: ['filterChanged(filter.*)'],
 
             filterChanged: function(event) {
 
                 console.info("filterChanged: " + event);
-                console.info( event);
+                console.info(event);
 
-                if(!this.pendingFilterChanges){
-                    var task = function(){
+                if (!this.pendingFilterChanges) {
+                    var task = function() {
                         this.applyFilter(this.currentProject, this.filter);
                     }
                     setTimeout(task.bind(this));
                 }
                 // this.applyFilter(this.currentProject, this.filter);
 
-                this.pendingFilterChanges=true;
+                this.pendingFilterChanges = true;
             },
 
             applyFilter: function(project, filter) {
-                console.info("applying filter.." );
-                this.pendingFilterChanges=false;
+                console.info("applying filter..");
+                this.pendingFilterChanges = false;
 
                 if (project) {
                     project.onFilterChanged(filter);
@@ -403,6 +403,14 @@
                     console.log("cancelled");
                 }
 
+            },
+
+            _computeFunctionListStyle: function(filterFile) {
+                if (this.$.functions.isEmpty()) {
+                    return "display:none";
+                } else {
+                    return "width:20%";
+                }
             },
 
             ready: function() {
