@@ -179,6 +179,10 @@ module kt.Globals {
 
         allPredicates: Array<string>;
 
+        public loadFile(relativePath: string) {
+            console.error(path.join(this.baseDir, relativePath));
+        }
+
         set apis(_apis) {
             this._apis = _apis;
         }

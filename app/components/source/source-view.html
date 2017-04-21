@@ -1,0 +1,31 @@
+<dom-module id="source-view">
+    <template>
+
+        source view [[file.relativePath]]
+
+    </template>
+
+    <style is="source-view"></style>
+
+    <script>
+        Polymer({
+            is: 'source-view',
+
+            properties: {
+                currentProject: Object,
+
+                file: {
+                    type: Object,
+                    notify: true,
+                    observer: '_fileChanged'
+                }
+            },
+
+            _fileChanged: function(newFile, oldFile) {
+                this.currentProject.loadFile(this.file.relativePath);
+            }
+
+        });
+    </script>
+
+</dom-module>
