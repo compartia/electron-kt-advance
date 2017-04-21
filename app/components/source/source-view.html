@@ -6,13 +6,18 @@
 
         <iron-list id="functionslist" items="[[lines]]" selection-enabled on-selected-item-changed="_onLineSelected">
             <template>
-                <pre class="code-line">[[item.text]]</pre>
+                <div class="code-line"><span class="violation"></span>
+                    <!-- <span class="info"></span> -->
+                    <span class="info">[[index]]</span>
+
+                    <pre class="text">[[item.text]]</pre>
+                </div>
             </template>
         </iron-list>
 
     </template>
 
-    <style is="source-view"></style>
+
 
     <script>
         Polymer({

@@ -1,4 +1,41 @@
+source-view {
+    pre {
+        margin     : 0 !important;
+        padding    : 0 !important;
+        line-height: 1;
+        line-height: 2em;
+        margin-left: $spacer !important;
+    }
 
-.code-line{
-    font-family: $monospaced;
+    .code-line {
+        display       : flex;
+        flex-direction: row;
+        align-items   : stretch;
+        align-content : stretch;
+
+        vertical-align: middle;
+
+        .info {
+            text-align    : right;
+            min-width     : 2em;
+            font-size     : 8px;
+            color         : var(--kt-grey);
+            vertical-align: middle;
+            background    : var(--kt-grey-lighter);
+            padding       : $spacer/2;
+
+        }
+
+        .violation {
+            border-right: 4px solid var(--kt-state-violation-default-bg);
+        }
+
+        pre.text {
+            font-size     : $font-size-xs;
+            vertical-align: middle;
+            font-family   : $monospaced;
+
+        }
+
+    }
 }
