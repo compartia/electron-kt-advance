@@ -4,9 +4,13 @@
         <!-- source view [[file.relativePath]]
         data: [[lines]] -->
 
-        <iron-list id="functionslist" items="[[lines]]" selection-enabled on-selected-item-changed="_onLineSelected">
+        <iron-list id="listOfLines" items="[[lines]]" selection-enabled on-selected-item-changed="_onLineSelected">
             <template>
-                <div class="code-line"><span class="violation"></span>
+                <div class="code-line">
+                    <span class="info">[[_getPoNumber(_loadedFile, index)]]</span>
+
+                    <span class$="[[_getClass(_loadedFile, index)]]"></span>
+
                     <!-- <span class="info"></span> -->
                     <span class="info">[[index]]</span>
 
@@ -17,36 +21,102 @@
 
     </template>
 
-
-
     <script>
         Polymer({
             is: 'source-view',
 
             properties: {
                 currentProject: Object,
+                _loadedFile: String,
 
                 file: {
                     type: Object,
-                    notify: true,
-                    observer: '_fileChanged'
+                    notify: true
                 },
 
                 lines: {
                     type: String
+                },
+
+                statistics: {
+                    type: Object,
+                    notify: true
+                }
+            },
+
+            listeners: {
+                'filter-applied': '_onFilterApplied'
+            },
+
+            _getPoNumber: function(file, index) {
+                if (file) {
+                    var stats = this.statistics.getStatsByFileLine(file.relativePath, index);
+                    if (stats) {
+                        return stats["sum"];
+                    } else {
+                        return "";
+                    }
+
+                } else {
+                    return "-";
                 }
 
             },
 
-            _fileChanged: function(newFile, oldFile) {
-                if (this.file && !this.file.dir) {
-                    this.currentProject.loadFile(this.file.relativePath).then(function(fileContents) {
+            _getClass: function(file, index) {
+                var clazz = "state-marker";
+                if (file) {
+                    var stats = this.statistics.getStatsByFileLine(file.relativePath, index);
+                    if (stats) {
+                        if (stats["VIOLATION"] > 0) {
+                            clazz += " violation";
+                        }
 
-                        this.set("lines", fileContents.lines);
+                        if (stats["OPEN"] > 0) {
+                            clazz += " open";
+                        }
 
-                    }.bind(this));
+                        if (stats["DISCHARGED"] > 0) {
+                            clazz += " discharged";
+                        }
+
+                    }
+
                 }
+                return clazz;
+            },
 
+            // _hasViolations: function(file, index) {     if (file) {         var stats = this.statistics.getStatsByFileLine(file.relativePath, index);         if (stats) {             return stats["VIOLATION"] > 0;         } else {             return false;
+            //      }
+            //
+            //     } else {         return false;     }
+            //
+            // },
+
+            _onFilterApplied: function(event) {
+                var newFile = event.detail.file;
+
+                /**
+                make sure it is called AFTER statistics is ready.
+                **/
+                if (newFile && !newFile.dir ) {
+                    if(this._loadedFile != newFile){
+                        this._loadedFile = newFile;
+                        this.currentProject.loadFile(newFile.relativePath).then(function(fileContents) {
+
+                            this.set("lines", fileContents.lines);
+
+                        }.bind(this));
+                    }
+                    else{
+                        var lines=this.get("lines");
+                        this.set("lines", []);
+                        this.set("lines", lines);
+                    }
+
+
+
+                }
             }
 
         });

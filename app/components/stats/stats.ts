@@ -102,6 +102,10 @@ module kt.stats {
                 return this.data[row][column];
             return 0;
         }
+
+        public getRow(row: string): { [key: string]: number } {
+            return this.data[row];
+        }
     }
 
 
@@ -113,8 +117,13 @@ module kt.stats {
         byState: StatsTable;
         byFunction: StatsTable;
         byFile: StatsTable;
+        byFileLine: StatsTable;
 
         private filteredOutCount: number;
+
+        public getStatsByFileLine(file: string, line: number): { [key: string]: number } {
+            return this.byFileLine.getRow(file + "//" + (line + 1));
+        }
 
         public build(project: kt.Globals.Project) {
             this.byPredicate = new StatsTable();
@@ -122,6 +131,8 @@ module kt.stats {
             this.byState = new StatsTable();
             this.byFunction = new StatsTable();
             this.byFile = new StatsTable();
+
+            this.byFileLine = new StatsTable();
 
             this.byFile.columns = states;
             this.byFunction.columns = states;
@@ -138,6 +149,11 @@ module kt.stats {
             }
 
             for (let po of project.filteredProofObligations) {
+                let fileLineKey = po.file + "//" + po.location.line;
+                this.byFileLine.inc(fileLineKey, po.state, 1);
+                this.byFileLine.inc(fileLineKey, "sum", 1);
+
+
                 this.byPredicate.inc(po.predicate, po.state, 1);
                 this.byPredicate.bind(po.predicate, po.predicate);
                 //------------

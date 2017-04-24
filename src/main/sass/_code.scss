@@ -1,4 +1,6 @@
+$marker-line-width:3px;
 source-view {
+
     pre {
         margin     : 0 !important;
         padding    : 0 !important;
@@ -26,8 +28,36 @@ source-view {
 
         }
 
+        .state-marker{
+            content: "";
+            width: $marker-line-width;
+            border-left: $marker-line-width solid $main-bg;
+            border-right: $marker-line-width solid $main-bg;
+            background-color: $main-bg;
+        }
+
         .violation {
-            border-right: 4px solid var(--kt-state-violation-default-bg);
+            border-left: $marker-line-width solid var(--kt-state-violation-default-bg);
+            // &:before{
+            //     border-right: 4px solid var(--kt-state-violation-default-bg);
+            //     content: "";
+            // }
+        }
+
+        .open {
+            background-color: var(--kt-state-open-default-bg);
+
+            // &:after{
+            //     border-right: 4px solid var(--kt-state-open-default-bg);
+            //     content: "";
+            // }
+        }
+
+        .discharged{
+            border-right: $marker-line-width solid var(--kt-state-discharged-default-bg);
+            // border-right: 4px solid var(--kt-state-discharged-default-bg);
+            // content: "";
+
         }
 
         pre.text {

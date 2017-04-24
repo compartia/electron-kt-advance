@@ -86,7 +86,7 @@
 
                             <kt-stats progress="{{progress}}" statistics="[[statistics]]" filter="{{filter}}"></kt-stats>
 
-                            <source-view file="[[filter.file]]" current-project="[[currentProject]]"></source-view>
+                            <source-view id="sourceview" file="[[filter.file]]" current-project="[[currentProject]]" statistics="[[statistics]]"></source-view>
 
                             <po-list progress="{{progress}}" filtered-proof-obligations="[[filteredProofObligations]]" filter="[[filter]]"></po-list>
 
@@ -296,10 +296,10 @@
                 if (!this.pendingFilterChanges) {
                     var task = function() {
                         this.applyFilter(this.currentProject, this.filter);
+                        this.$.sourceview.fire("filter-applied", this.filter);
                     }
                     setTimeout(task.bind(this));
                 }
-                // this.applyFilter(this.currentProject, this.filter);
 
                 this.pendingFilterChanges = true;
             },
