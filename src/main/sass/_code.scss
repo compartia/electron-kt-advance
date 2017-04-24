@@ -1,4 +1,5 @@
 $marker-line-width:3px;
+$code-line-info-bg:var(--kt-grey-lighter);
 source-view {
 
     pre {
@@ -8,6 +9,38 @@ source-view {
         line-height: 2em;
         margin-left: $spacer !important;
     }
+
+
+    .code-line.violation {
+        background: var(--kt-state-violation-default-hover-bg);
+
+        .info{
+            background: var(--kt-state-violation-default-hover-bg)!important;
+            color:  var(--kt-state-violation-default-tx);
+        }
+
+        .state-marker{
+            border-left: $marker-line-width solid var(--kt-state-violation-default-bg);
+        }
+    }
+
+    .code-line.open {
+        .info{
+            // background: var(--kt-state-open-default-hover-bg);
+        }
+
+        .state-marker{
+            background-color: var(--kt-state-open-default-bg);
+        }
+    }
+
+    .code-line.discharged{
+        .state-marker{
+            border-right: $marker-line-width solid var(--kt-state-discharged-default-bg);
+        }
+
+    }
+
 
     .code-line {
         display       : flex;
@@ -19,46 +52,34 @@ source-view {
 
         .info {
             text-align    : right;
-            min-width     : 2em;
-            font-size     : 8px;
-            color         : var(--kt-grey);
-            vertical-align: middle;
-            background    : var(--kt-grey-lighter);
-            padding       : $spacer/2;
 
+            font-size     : 8px;
+            vertical-align: middle;
+            background    : $code-line-info-bg;
+            padding       : $spacer/2;
+        }
+
+        #line-number{
+            min-width     : 2em;
+            color         : $grey-lighter;
+        }
+
+        #po-count{
+            min-width     : 1.5em;
+            color         : var(--kt-grey);
         }
 
         .state-marker{
             content: "";
             width: $marker-line-width;
-            border-left: $marker-line-width solid $main-bg;
-            border-right: $marker-line-width solid $main-bg;
-            background-color: $main-bg;
+            border-left: $marker-line-width solid $code-line-info-bg;
+            border-right: $marker-line-width solid $code-line-info-bg;
+            background-color: $code-line-info-bg;
         }
 
-        .violation {
-            border-left: $marker-line-width solid var(--kt-state-violation-default-bg);
-            // &:before{
-            //     border-right: 4px solid var(--kt-state-violation-default-bg);
-            //     content: "";
-            // }
-        }
 
-        .open {
-            background-color: var(--kt-state-open-default-bg);
 
-            // &:after{
-            //     border-right: 4px solid var(--kt-state-open-default-bg);
-            //     content: "";
-            // }
-        }
 
-        .discharged{
-            border-right: $marker-line-width solid var(--kt-state-discharged-default-bg);
-            // border-right: 4px solid var(--kt-state-discharged-default-bg);
-            // content: "";
-
-        }
 
         pre.text {
             font-size     : $font-size-xs;

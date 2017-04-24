@@ -4,12 +4,12 @@
         <!-- source view [[file.relativePath]]
         data: [[lines]] -->
 
-        <iron-list id="listOfLines" items="[[lines]]" selection-enabled on-selected-item-changed="_onLineSelected">
+        <iron-list id="listOfLines" items="[[lines]]" max-physical-count="[[lines.length]]" selection-enabled on-selected-item-changed="_onLineSelected">
             <template>
-                <div class="code-line">
-                    <span class="info">[[index]]</span>
-                    <span class$="[[_getClass(_loadedFile, index, lines)]]"></span>
-                    <span class="info">[[_getPoNumber(_loadedFile, index, lines)]]</span>
+                <div class$="code-line [[_getClass(_loadedFile, index, lines)]]">
+                    <span class="info" id="line-number">[[index]]</span>
+                    <span class="state-marker"></span>
+                    <span class="info" id="po-count">[[_getPoNumber(_loadedFile, index, lines)]]</span>
                     <pre class="text">[[item.text]]</pre>
                 </div>
             </template>
@@ -60,7 +60,7 @@
             },
 
             _getClass: function(file, index, lines) {
-                var clazz = "state-marker";
+                var clazz = "";
                 if (file) {
                     var stats = this.statistics.getStatsByFileLine(file.relativePath, index);
                     if (stats) {
