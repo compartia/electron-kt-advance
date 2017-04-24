@@ -100,9 +100,17 @@ module kt.graph {
         }
     }
 
+    export class POLocation{
+        textRange: number[][];
+
+        get line(){
+            return this.textRange[0][0];
+        }
+    }
     export abstract class AbstractNode extends POId {
         inputs: AbstractNode[];
         outputs: AbstractNode[];
+        location: POLocation = new POLocation();
 
         constructor() {
             super();
@@ -246,6 +254,8 @@ module kt.graph {
             this.functionName = po["functionName"];
             this.callsiteFname = po["callsiteFname"];
             this.callsiteFileName = po["callsiteFileName"];
+
+            this.location.textRange=po["textRange"];
 
             this.id = po["id"];
 
@@ -423,7 +433,7 @@ module kt.graph {
                     "predicate": this.predicate,
                     "level": this.level,
                     "state": this.state,
-                    "location": po["textRange"],
+                    "location": this.location,
                     "symbol": this.symbol,
                     "expression": this.expression,
                     "dischargeType": this.dischargeType,
