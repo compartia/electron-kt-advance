@@ -4,7 +4,7 @@
 
         <iron-list scroll-target="[[container]]" id="listOfLines" items="[[lines]]" max-physical-count="[[lines.length]]" selection-enabled on-selected-item-changed="_onLineSelected">
             <template>
-                <div class$="code-line [[_getClass(_loadedFile, index, lines)]]">
+                <div class$="code-line [[_getClass(_loadedFile, index, lines, statistics)]]">
                     <span class="info" id="line-number">[[index]]</span>
                     <span class="state-marker"></span>
                     <span class="info" id="po-count">[[_getPoNumber(_loadedFile, index, lines)]]</span>
@@ -23,12 +23,6 @@
                 container: Object,
                 currentProject: Object,
                 _loadedFile: String,
-
-                cfunction: {
-                    type: Object,
-                    notify: true,
-                    observer: '_functionChanged'
-                },
 
                 lines: {
                     type: String
@@ -59,13 +53,9 @@
 
             },
 
-            _functionChanged: function(newFunc, oldFunc) {
-                // if(newFunc)     this.$.listOfLines.scrollToIndex(newFunc.line-1);
-            },
-
-            _getClass: function(file, index, lines) {
+            _getClass: function(file, index, lines, statistics) {
                 var clazz = "";
-                if (file) {
+                if (file && statistics.getStatsByFileLine) {
                     var stats = this.statistics.getStatsByFileLine(file.relativePath, index);
                     if (stats) {
                         if (stats["VIOLATION"] > 0) {
@@ -101,11 +91,6 @@
                         }.bind(this));
 
                     } else {
-                        var lines = this.get("lines");
-                        this.set("lines", []);
-                        this.set("lines", lines);
-
-                        // this.notifyPath("lines");
 
                         if (event.detail.cfunction) {
                             var task = function() {
@@ -118,7 +103,6 @@
 
                 }
             }
-
         });
     </script>
 
