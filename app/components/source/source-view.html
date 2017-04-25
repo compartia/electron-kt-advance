@@ -5,10 +5,16 @@
         <iron-list scroll-target="[[container]]" id="listOfLines" items="[[lines]]" max-physical-count="[[lines.length]]" selection-enabled on-selected-item-changed="_onLineSelected">
             <template>
                 <div class$="code-line [[_getClass(_loadedFile, index, statistics)]]">
-                    <span class="info" id="line-number">[[index]]</span>
-                    <span class="state-marker"></span>
-                    <span class="info" id="po-count">[[_getPoNumber(_loadedFile, index, statistics)]]</span>
+
+                    <span class="info">
+                        <span id="line-number">[[index]]</span>
+                        <span class="state-marker"></span>
+                        <span id="po-count">[[_getPoNumber(_loadedFile, index, statistics)]]</span>
+                    </span>
+
+
                     <pre class="text">[[item.text]]</pre>
+                    
                 </div>
             </template>
         </iron-list>

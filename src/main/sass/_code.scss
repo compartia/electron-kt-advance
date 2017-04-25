@@ -26,6 +26,7 @@ source-view {
 
         .state-marker{
             border-left: $marker-line-width solid var(--kt-state-violation-default-bg);
+            background: var(--kt-state-violation-default-hover-bg);
         }
     }
 
@@ -35,7 +36,7 @@ source-view {
         }
 
         .state-marker{
-            background-color: var(--kt-state-open-default-bg);
+            background-color: var(--kt-state-open-default-bg)!important;
         }
     }
 
@@ -48,38 +49,53 @@ source-view {
 
 
     .code-line {
+
         display       : flex;
         flex-direction: row;
         align-items   : stretch;
         align-content : stretch;
 
-        vertical-align: middle;
+        //vertical-align: middle;
 
         .info {
+            display: flex;
+            flex-direction: row;
+            align-items: stretch;
             text-align    : right;
 
             font-size     : 8px;
             vertical-align: middle;
             background    : $code-line-info-bg;
-            padding       : $spacer/2;
+
         }
 
         #line-number{
+            padding       : $spacer/2;
+            display: flex;
+            align-items: center;
+
+
             min-width     : 2em;
             color         : $grey-lighter;
         }
 
         #po-count{
+            padding       : $spacer/2;
+            display: flex;
+            align-items: center;
+
             min-width     : 1.5em;
             color         : var(--kt-grey);
         }
 
         .state-marker{
+            background-clip: content-box;
+            box-sizing: border-box;
             content: "";
-            width: $marker-line-width;
-            border-left: $marker-line-width solid $code-line-info-bg;
-            border-right: $marker-line-width solid $code-line-info-bg;
-            background-color: $code-line-info-bg;
+            width: 3* $marker-line-width;
+            border-left: $marker-line-width solid  $transparent;//$code-line-info-bg;
+            border-right: $marker-line-width solid  $transparent;//$code-line-info-bg;
+            background-color: $transparent;//$code-line-info-bg;
         }
 
 
