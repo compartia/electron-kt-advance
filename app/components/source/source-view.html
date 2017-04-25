@@ -1,19 +1,20 @@
 <dom-module id="source-view">
+
     <template>
 
-        <!-- source view [[file.relativePath]]
-        data: [[lines]] -->
+        <div id="scrollable-element">
 
-        <iron-list id="listOfLines" items="[[lines]]" max-physical-count="[[lines.length]]" selection-enabled on-selected-item-changed="_onLineSelected">
-            <template>
-                <div class$="code-line [[_getClass(_loadedFile, index, lines)]]">
-                    <span class="info" id="line-number">[[index]]</span>
-                    <span class="state-marker"></span>
-                    <span class="info" id="po-count">[[_getPoNumber(_loadedFile, index, lines)]]</span>
-                    <pre class="text">[[item.text]]</pre>
-                </div>
-            </template>
-        </iron-list>
+            <iron-list scroll-target="scrollable-element" id="listOfLines" items="[[lines]]" max-physical-count="[[lines.length]]" selection-enabled on-selected-item-changed="_onLineSelected">
+                <template>
+                    <div class$="code-line [[_getClass(_loadedFile, index, lines)]]">
+                        <span class="info" id="line-number">[[index]]</span>
+                        <span class="state-marker"></span>
+                        <span class="info" id="po-count">[[_getPoNumber(_loadedFile, index, lines)]]</span>
+                        <pre class="text">[[item.text]]</pre>
+                    </div>
+                </template>
+            </iron-list>
+        </div>
 
     </template>
 
@@ -22,12 +23,14 @@
             is: 'source-view',
 
             properties: {
+
                 currentProject: Object,
                 _loadedFile: String,
 
-                file: {
+                cfunction: {
                     type: Object,
-                    notify: true
+                    notify: true,
+                    observer: '_functionChanged'
                 },
 
                 lines: {
@@ -59,6 +62,10 @@
 
             },
 
+            _functionChanged: function(newFunc, oldFunc) {
+                // if(newFunc)     this.$.listOfLines.scrollToIndex(newFunc.line-1);
+            },
+
             _getClass: function(file, index, lines) {
                 var clazz = "";
                 if (file) {
@@ -82,13 +89,6 @@
                 return clazz;
             },
 
-            // _hasViolations: function(file, index) {     if (file) {         var stats = this.statistics.getStatsByFileLine(file.relativePath, index);         if (stats) {             return stats["VIOLATION"] > 0;         } else {             return false;
-            //   }
-            //
-            //     } else {         return false;     }
-            //
-            // },
-
             _onFilterApplied: function(event) {
                 var newFile = event.detail.file;
 
@@ -97,16 +97,26 @@
                 **/
                 if (newFile && !newFile.dir) {
                     if (this._loadedFile != newFile) {
+
                         this._loadedFile = newFile;
                         this.currentProject.loadFile(newFile.relativePath).then(function(fileContents) {
-
                             this.set("lines", fileContents.lines);
-
                         }.bind(this));
+
                     } else {
                         var lines = this.get("lines");
                         this.set("lines", []);
                         this.set("lines", lines);
+
+                        // this.notifyPath("lines");
+
+                        if (event.detail.cfunction) {
+                            var task = function() {
+                                this.$.listOfLines.scrollToIndex(event.detail.cfunction.line - 1);
+                            }
+                            setTimeout(task.bind(this));
+                        }
+
                     }
 
                 }

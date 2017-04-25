@@ -82,11 +82,12 @@
                             current-project="[[currentProject]]"
                             out-hierarchy-params="{{_hierarchyParams}}"></tf-graph-loader>
 
-                        <iron-pages selected="{{modeIndex}}" style="width: 100%; height: 100%; padding-top:var(--filter-panel-height)" ;>
+
+                        <iron-pages id="contents" selected="{{modeIndex}}" >
 
                             <kt-stats progress="{{progress}}" statistics="[[statistics]]" filter="{{filter}}"></kt-stats>
 
-                            <source-view id="sourceview" file="[[filter.file]]" current-project="[[currentProject]]" statistics="[[statistics]]"></source-view>
+                            <source-view container="main-content"  id="sourceview" current-project="[[currentProject]]" statistics="[[statistics]]"></source-view>
 
                             <po-list progress="{{progress}}" filtered-proof-obligations="[[filteredProofObligations]]" filter="[[filter]]"></po-list>
 

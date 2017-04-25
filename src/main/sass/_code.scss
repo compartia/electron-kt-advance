@@ -2,6 +2,14 @@ $marker-line-width:3px;
 $code-line-info-bg:var(--kt-grey-lighter);
 source-view {
 
+    #scrollable-element{
+        overflow: auto;
+        height: 100vh;
+        // padding: 20px;
+        // border: 1px solid yellow;
+        // background: #9999ff;
+    }
+
     pre {
         margin     : 0 !important;
         padding    : 0 !important;
