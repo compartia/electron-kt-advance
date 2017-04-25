@@ -1,0 +1,115 @@
+<dom-module id="source-view">
+
+    <template>
+
+        <iron-list scroll-target="[[container]]" id="listOfLines" items="[[lines]]" max-physical-count="[[lines.length]]" selection-enabled on-selected-item-changed="_onLineSelected">
+            <template>
+                <div class$="code-line [[_getClass(_loadedFile, index, statistics)]]">
+
+                    <span class="info">
+                        <span id="line-number">[[index]]</span>
+                        <span class="state-marker"></span>
+                        <span id="po-count">[[_getPoNumber(_loadedFile, index, statistics)]]</span>
+                    </span>
+
+
+                    <pre class="text">[[item.text]]</pre>
+                    
+                </div>
+            </template>
+        </iron-list>
+
+    </template>
+
+    <script>
+        Polymer({
+            is: 'source-view',
+
+            properties: {
+                container: Object,
+                currentProject: Object,
+                _loadedFile: String,
+
+                lines: {
+                    type: String
+                },
+
+                statistics: {
+                    type: Object,
+                    notify: true
+                }
+            },
+
+            listeners: {
+                'filter-applied': '_onFilterApplied'
+            },
+
+            _getPoNumber: function(file, index, statistics) {
+                if (file) {
+                    var stats = statistics.getStatsByFileLine(file.relativePath, index);
+                    if (stats) {
+                        return stats["sum"];
+                    } else {
+                        return "";
+                    }
+
+                } else {
+                    return "-";
+                }
+
+            },
+
+            _getClass: function(file, index, statistics) {
+                var clazz = "";
+                if (file && statistics.getStatsByFileLine) {
+                    var stats = statistics.getStatsByFileLine(file.relativePath, index);
+                    if (stats) {
+                        if (stats["VIOLATION"] > 0) {
+                            clazz += " violation";
+                        }
+
+                        if (stats["OPEN"] > 0) {
+                            clazz += " open";
+                        }
+
+                        if (stats["DISCHARGED"] > 0) {
+                            clazz += " discharged";
+                        }
+
+                    }
+
+                }
+                return clazz;
+            },
+
+            _onFilterApplied: function(event) {
+                var newFile = event.detail.file;
+
+                /**
+                make sure it is called AFTER statistics is ready.
+                **/
+                if (newFile && !newFile.dir) {
+                    if (this._loadedFile != newFile) {
+
+                        this._loadedFile = newFile;
+                        this.currentProject.loadFile(newFile.relativePath).then(function(fileContents) {
+                            this.set("lines", fileContents.lines);
+                        }.bind(this));
+
+                    } else {
+
+                        if (event.detail.cfunction) {
+                            var task = function() {
+                                this.$.listOfLines.scrollToIndex(event.detail.cfunction.line - 1);
+                            }
+                            setTimeout(task.bind(this));
+                        }
+
+                    }
+
+                }
+            }
+        });
+    </script>
+
+</dom-module>

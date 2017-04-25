@@ -30,6 +30,8 @@ module kt.graph {
             this.type = po["type"] ? po["type"] : "unknown";
             this.id = po["apiId"];
 
+            this.location.textRange=po["textRange"];
+
         }
 
         get apiId(): string {
@@ -122,7 +124,8 @@ module kt.graph {
                     "apiId": this.id,
                     "symbol": this.symbol,
                     "assumptionType": this.type,
-                    "locationPath": this.file + SPL + this.functionName
+                    "locationPath": this.file + SPL + this.functionName,
+                    "location":this.location
                 }
             }
 
