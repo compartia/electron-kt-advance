@@ -56,7 +56,9 @@
                         <functions-list id="functions" selected-file="[[filter.file]]" selected-function="{{filter.cfunction}}"></functions-list>
                     </paper-header-panel>
 
-                    <paper-header-panel style="width:80%" mode="waterfall">
+
+
+                    <paper-header-panel style="width:80%" mode="standard">
 
                         <paper-toolbar id="toolbar">
 
@@ -83,11 +85,11 @@
                             out-hierarchy-params="{{_hierarchyParams}}"></tf-graph-loader>
 
 
-                        <iron-pages id="contents" selected="{{modeIndex}}" >
+                        <iron-pages class="content fit" id="contents" selected="{{modeIndex}}" >
 
                             <kt-stats progress="{{progress}}" statistics="[[statistics]]" filter="{{filter}}"></kt-stats>
 
-                            <source-view container="main-content"  id="sourceview" current-project="[[currentProject]]" statistics="[[statistics]]"></source-view>
+                            <source-view container="[[_getScrollTarget()]]"  id="sourceview" current-project="[[currentProject]]" statistics="[[statistics]]"></source-view>
 
                             <po-list progress="{{progress}}" filtered-proof-obligations="[[filteredProofObligations]]" filter="[[filter]]"></po-list>
 
@@ -288,6 +290,10 @@
             },
 
             observers: ['filterChanged(filter.*)'],
+
+            _getScrollTarget:function(){
+                return this.$.contents;
+            },
 
             filterChanged: function(event) {
 
