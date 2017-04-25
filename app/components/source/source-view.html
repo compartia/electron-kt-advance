@@ -4,10 +4,10 @@
 
         <iron-list scroll-target="[[container]]" id="listOfLines" items="[[lines]]" max-physical-count="[[lines.length]]" selection-enabled on-selected-item-changed="_onLineSelected">
             <template>
-                <div class$="code-line [[_getClass(_loadedFile, index, lines, statistics)]]">
+                <div class$="code-line [[_getClass(_loadedFile, index, statistics)]]">
                     <span class="info" id="line-number">[[index]]</span>
                     <span class="state-marker"></span>
-                    <span class="info" id="po-count">[[_getPoNumber(_loadedFile, index, lines)]]</span>
+                    <span class="info" id="po-count">[[_getPoNumber(_loadedFile, index, statistics)]]</span>
                     <pre class="text">[[item.text]]</pre>
                 </div>
             </template>
@@ -38,9 +38,9 @@
                 'filter-applied': '_onFilterApplied'
             },
 
-            _getPoNumber: function(file, index, lines) {
+            _getPoNumber: function(file, index, statistics) {
                 if (file) {
-                    var stats = this.statistics.getStatsByFileLine(file.relativePath, index);
+                    var stats = statistics.getStatsByFileLine(file.relativePath, index);
                     if (stats) {
                         return stats["sum"];
                     } else {
@@ -53,10 +53,10 @@
 
             },
 
-            _getClass: function(file, index, lines, statistics) {
+            _getClass: function(file, index, statistics) {
                 var clazz = "";
                 if (file && statistics.getStatsByFileLine) {
-                    var stats = this.statistics.getStatsByFileLine(file.relativePath, index);
+                    var stats = statistics.getStatsByFileLine(file.relativePath, index);
                     if (stats) {
                         if (stats["VIOLATION"] > 0) {
                             clazz += " violation";
