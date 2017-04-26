@@ -12,9 +12,8 @@
                         <span id="po-count">[[_getPoNumber(_loadedFile, index, statistics)]]</span>
                     </span>
 
-
                     <pre class="text">[[item.text]]</pre>
-                    
+
                 </div>
             </template>
         </iron-list>
@@ -64,16 +63,16 @@
                 if (file && statistics.getStatsByFileLine) {
                     var stats = statistics.getStatsByFileLine(file.relativePath, index);
                     if (stats) {
-                        if (stats["VIOLATION"] > 0) {
-                            clazz += " violation";
+                        if (stats[kt.graph.PoStates[kt.graph.PoStates.violation]] > 0) {
+                            clazz += " " + kt.graph.PoStates[kt.graph.PoStates.violation];
                         }
 
-                        if (stats["OPEN"] > 0) {
-                            clazz += " open";
+                        if (stats[kt.graph.PoStates[kt.graph.PoStates.open]] > 0) {
+                            clazz += " " + kt.graph.PoStates[kt.graph.PoStates.open];
                         }
 
-                        if (stats["DISCHARGED"] > 0) {
-                            clazz += " discharged";
+                        if (stats[kt.graph.PoStates[kt.graph.PoStates.discharged]] > 0) {
+                            clazz += " " + kt.graph.PoStates[kt.graph.PoStates.discharged];
                         }
 
                     }

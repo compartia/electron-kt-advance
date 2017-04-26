@@ -35,10 +35,7 @@ module kt.parser {
 
 
 
-    export function readAndParse(tracker: tf.ProgressTracker): Promise<kt.Globals.Project> {
-        console.info("test");
-
-        const project = kt.Globals.project;
+    export function readAndParse(project: kt.Globals.Project, tracker: tf.ProgressTracker): Promise<kt.Globals.Project> {
 
         let reader: kt.xml.XmlReader = new kt.xml.XmlReader();
 
@@ -49,8 +46,25 @@ module kt.parser {
 
 
         return reader.readFunctionsMap(path.dirname(project.analysisDir), readFunctionsMapTracker)
-            .then(funcsMap => {
-                let result: Promise<kt.xml.XmlAnalysis> = reader.readDir(project.analysisDir, funcsMap, readDirTracker);
+            .then(functions => {
+
+                // let byNameMap = _.indexBy(funcs, 'name');
+                // console.info("total functions: " + funcs.length + " \t\ttotal unique keys: " + Object.keys(byNameMap).length);
+                // // console.info(byNameMap);
+
+                let resultingMap: { [key: string]: Array<kt.xml.CFunction> } = {};
+
+
+                for (let f of functions) {
+                    if (!resultingMap[f.name]) {
+                        resultingMap[f.name] = [];
+                    }
+                    resultingMap[f.name].push(f);
+
+                }
+
+                project.functionByFile = reader.buildFunctionsByFileMap(functions);
+                let result: Promise<kt.xml.XmlAnalysis> = reader.readDir(project.analysisDir, resultingMap, readDirTracker);
                 return result;
             })
             .then((POs: kt.xml.XmlAnalysis) => {

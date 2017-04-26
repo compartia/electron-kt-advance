@@ -9,8 +9,8 @@ module kt.treeview {
     }
 
 
-    export function build(container): void {
-        let root = tree(kt.Globals.project.baseDir);
+    export function build(container, project:kt.Globals.Project): void {
+        let root = tree(project.baseDir);
 
         container.data = root;
 

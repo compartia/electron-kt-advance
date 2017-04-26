@@ -17,7 +17,7 @@
 
                     <span class="state">
                         <sup>[[item.level]]</sup>
-                        [[item.state]]
+                        [[item.stateName]]
                         <template is="dom-if" if="[[item.dischargeType]]">
                             :<span class="discharge">{{item.dischargeType}}</span>
                         </template>
@@ -65,6 +65,10 @@
                     type: Object,
                     notify: true
                 }
+            },
+
+            _getStateName:function(item){
+                return kt.graph.PoStates[item.state];
             },
 
             _showFunctionName: function(fname) {

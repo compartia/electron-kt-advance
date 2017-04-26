@@ -8,8 +8,8 @@ var kt;
             return filePath.split(path.sep);
         }
         treeview.splitPath = splitPath;
-        function build(container) {
-            var root = tree(kt.Globals.project.baseDir);
+        function build(container, project) {
+            var root = tree(project.baseDir);
             container.data = root;
             console.info(container);
             console.info(root);

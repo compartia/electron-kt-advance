@@ -128,7 +128,7 @@
             _getStatesStyles: function(filter) {
                 var map = {};
                 _.forEach(kt.graph.PoStatesArr, function(x) {
-                    map[x] = "--paper-checkbox-label-checked-color:var(--kt-state-" + x + "-default-tx); --paper-checkbox-checked-color:var(--kt-state-" + x + "-default-tx)";
+                    map[x] = "--paper-checkbox-label-checked-color:var(--kt-state-" + kt.graph.PoStates[x] + "-default-tx); --paper-checkbox-checked-color:var(--kt-state-" + kt.graph.PoStates[x] + "-default-tx)";
                 });
                 return map;
             },
@@ -187,11 +187,11 @@
 
             _click: function(event) {
                 if (event.srcElement == this.$.btnv) {
-                    this.set("filter.states", new kt.util.StringSet(["violation"]));
+                    this.set("filter.states", new kt.util.StringSet([kt.graph.PoStates.violation]));
                 } else if (event.srcElement == this.$.btnd) {
-                    this.set("filter.states", new kt.util.StringSet(["discharged"]));
+                    this.set("filter.states", new kt.util.StringSet([kt.graph.PoStates.discharged]));
                 } else if (event.srcElement == this.$.btno) {
-                    this.set("filter.states", new kt.util.StringSet(["open"]));
+                    this.set("filter.states", new kt.util.StringSet([kt.graph.PoStates.open]));
                 }
             }
         });
