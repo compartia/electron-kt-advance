@@ -30,7 +30,6 @@
         <po-filter-panel statistics="[[statistics]]" filter="{{filter}}" project="[[currentProject]]"></po-filter-panel>
         <kt-stats progress="{{progress}}" statistics="[[statistics]]" filter="{{filter}}"></kt-stats>
 
-
         <style></style>
     </template>
     <script>
@@ -55,17 +54,21 @@
             },
 
             _makeStats(num) {
-                var poNum=0;
+                var poNum = 0;
                 var makePo = function(_currentProject, state, predicate) {
                     poNum++;
 
-                    var po=new kt.graph.PONode({
-                        "state":state,
-                        "predicateType":predicate,
-                    "file":poNum%2==1 ? "fakeA.c":"fakeB.c",
-                    "functionName":poNum%3==1 ? "funcA":"functionB",
-                });
-                    // po.state = stateError: source does not appear to be markup.
+                    var po = new kt.graph.PONode({
+                        "state": state,
+                        "predicateType": predicate,
+                        "file": poNum % 2 == 1
+                            ? "fakeA.c"
+                            : "fakeB.c",
+                        "functionName": poNum % 3 == 1
+                            ? "funcA"
+                            : "functionB"
+                    });
+
                     _currentProject.proofObligations.push(po);
                 }
 

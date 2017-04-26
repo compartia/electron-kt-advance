@@ -116,8 +116,7 @@ module kt.xml {
                     currentPo = {
                         "id": tag.attributes["id"],
                         "functionName": functionName,
-                        "level": "PRIMARY",
-                        "state": "OPEN"
+                        "level": "PRIMARY"
                     }
                 }
 

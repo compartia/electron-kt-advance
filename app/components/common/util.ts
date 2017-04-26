@@ -29,15 +29,16 @@ module kt.util {
         }
     }
 
+
     /**
         maintains uniq values;
     */
-    export class StringSet {
-        private array: Array<string> = [];
+    export class AnySet<T> {
+        private array: Array<T> = [];
 
 
 
-        constructor(array: Array<string>) {
+        constructor(array: Array<T>) {
             this.array = _.uniq(array);
         }
 
@@ -45,30 +46,30 @@ module kt.util {
             return this.array.length;
         }
 
-        get first(): string {
+        get first(): T {
             if (this.array.length) return this.array[0];
             return undefined;
         }
 
 
-        public contains(val: string): boolean {
+        public contains(val: T): boolean {
             return _.contains(this.array, val);
         }
 
-        public add(value: any): void {
+        public add(value: T): void {
             if (this.array.indexOf(value) === -1) {
                 this.array.push(value);
             }
         }
 
-        public delete(value: any) {
+        public delete(value: T) {
             var index = this.array.indexOf(value);
             if (index !== -1) {
                 this.array.splice(index, 1);
             }
         }
 
-        set values(newArr: Array<any>) {
+        set values(newArr: Array<T>) {
             this.array.splice(0);
             if (newArr) {
                 for (let p of newArr) {
@@ -78,6 +79,11 @@ module kt.util {
                 this.array.splice(0);
             }
         }
+
+    }
+
+    export class StringSet extends AnySet<string>{
+
     }
 
 }

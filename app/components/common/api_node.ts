@@ -42,8 +42,8 @@ module kt.graph {
             return makeAssumptionKey(this.type, this.id, this.functionName, this.file);
         }
 
-        get state(): string {
-            return "assumption";
+        get state(): kt.graph.PoStates {
+            return kt.graph.PoStates.assumption;
         }
 
 
@@ -82,7 +82,7 @@ module kt.graph {
         }
 
         get extendedState(): string {
-            return this.state + "-" + this.type;
+            return kt.graph.PoStates[this.state] + "-" + this.type;
         }
 
         public isDischarged(): boolean {
@@ -119,7 +119,7 @@ module kt.graph {
                     "label": this.label,
                     "predicate": this.predicateType,
                     "expression": this.expression,
-                    "state": this.state,
+                    "state": kt.graph.PoStates[this.state],
                     "message": this.message,
                     "apiId": this.id,
                     "symbol": this.symbol,

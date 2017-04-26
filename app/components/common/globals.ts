@@ -12,7 +12,7 @@ module kt.Globals {
     export class Filter {
 
         private _predicates: kt.util.StringSet = new kt.util.StringSet([]);
-        private _states: kt.util.StringSet = new kt.util.StringSet([]);
+        private _states: kt.util.AnySet<kt.graph.PoStates>  = new kt.util.AnySet<kt.graph.PoStates> ([]);
         private _dischargeTypes: kt.util.StringSet = new kt.util.StringSet([]);
 
 
@@ -43,7 +43,7 @@ module kt.Globals {
         get singleState(): kt.graph.PoStates {
             if (this._states) {
                 if (this._states.length == 1) {
-                    return kt.graph.PoStates[this._states.first];
+                    return  this._states.first;
                 }
                 else if (this._predicates.length > 1) {
                     return undefined;
@@ -64,11 +64,11 @@ module kt.Globals {
             return this._dischargeTypes;
         }
 
-        set states(_states: kt.util.StringSet) {
+        set states(_states: kt.util.AnySet<kt.graph.PoStates>) {
             this._states = _states;
         }
 
-        get states(): kt.util.StringSet {
+        get states(): kt.util.AnySet<kt.graph.PoStates> {
             return this._states;
         }
 
@@ -88,7 +88,7 @@ module kt.Globals {
         }
 
         set state(_state: kt.graph.PoStates) {
-            this._states.values = [kt.graph.PoStates[_state]];
+            this._states.values = [_state];
         }
 
         get fileName() {
@@ -127,7 +127,7 @@ module kt.Globals {
         }
 
         private acceptState(po: kt.graph.PONode): boolean {
-            if (this.states == null || this._states.contains(po.state.toLowerCase())) {
+            if (this.states == null || this._states.contains(po.state )) {
                 return true;
             }
             return false;

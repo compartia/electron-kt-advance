@@ -6,17 +6,17 @@ module kt.graph {
     export enum PoDischargeTypes { global, invariants, ds, rv, api, default };
 
     export const PoDischargeTypesArr: Array<string> = ["global", "invariants", "ds", "rv", "api", "default"];
-    export const PoStatesArr: Array<string> = ["violation", "open", "discharged"];
+    export const PoStatesArr: Array<PoStates> = [PoStates.violation, PoStates.open, PoStates.discharged];
 
 
     const SPL = "/";
 
     export function sortNodes(nodes: AbstractNode[]) {
-        return _.sortByOrder(nodes, ['file', 'functionName', 'stateIndex', 'dischargeTypeIndex', 'predicate'], ['asc', 'asc', 'asc', 'asc', 'asc']);
+        return _.sortByOrder(nodes, ['file', 'functionName', 'state', 'dischargeTypeIndex', 'predicate'], ['asc', 'asc', 'asc', 'asc', 'asc']);
     }
 
     export function sortPoNodes(nodes: PONode[]): Array<PONode> {
-        return _.sortByOrder(nodes, ['file', 'functionName', 'stateIndex', 'dischargeTypeIndex', 'predicate'], ['asc', 'asc', 'asc', 'asc', 'asc']);
+        return _.sortByOrder(nodes, ['file', 'functionName', 'state', 'dischargeTypeIndex', 'predicate'], ['asc', 'asc', 'asc', 'asc', 'asc']);
     }
 
 
@@ -133,7 +133,12 @@ module kt.graph {
         }
 
         public abstract isDischarged(): boolean;
-        public abstract get state(): string;
+        public abstract get state(): kt.graph.PoStates;
+
+        get stateName(){
+            return kt.graph.PoStates[this.state];
+        }
+
         public abstract makeName(filter: kt.Globals.Filter): string;
 
 
@@ -196,8 +201,6 @@ module kt.graph {
 
     export class PONode extends AbstractNode {
         name: string;
-
-        state: string;
         po: any;
         predicate: string;
         expression: string;
@@ -215,6 +218,7 @@ module kt.graph {
         get callsiteFileName() {
             return this._callsiteFileName;
         }
+
         set callsiteFileName(f: string) {
             if (f)
                 this._callsiteFileName = path.normalize(f);
@@ -240,7 +244,6 @@ module kt.graph {
             super();
             this.po = po;
             this.isMissing = isMissing;
-            this.state = po["state"];
             this.file = po["file"];
             this._apiId = po["apiId"];
             this.level = po["level"];
@@ -273,12 +276,6 @@ module kt.graph {
             return kt.graph.makeAssumptionKey("api", this._apiId, this.callsiteFname, this.callsiteFileName);
         }
 
-        get stateIndex(): number {
-            return PoStates[this.state.toLowerCase()];
-        }
-
-
-
         get dischargeApiKey(): string {
             if (this._discharge && this._discharge.assumptions) {
                 if (this._discharge.assumptions.length > 0) {
@@ -296,10 +293,17 @@ module kt.graph {
 
         set discharge(discharge: PODischarge) {
             this._discharge = discharge;
-            if (this._discharge.violation) {
-                this.state = "VIOLATION";
-            } else {
-                this.state = "DISCHARGED";
+        }
+
+        get state(): PoStates{
+            if(this._discharge){
+                if (this._discharge.violation) {
+                    return PoStates.violation;
+                }else{
+                    return PoStates.discharged;
+                }
+            }else{
+                return PoStates.open;
             }
         }
 
@@ -337,7 +341,7 @@ module kt.graph {
                 stateExt = "default";
             }
 
-            return this.state + "-" + stateExt;
+            return kt.graph.PoStates[this.state] + "-" + stateExt;
         }
 
         get dischargeAssumption() {
@@ -432,7 +436,7 @@ module kt.graph {
                     "apiId": this.apiId,
                     "predicate": this.predicate,
                     "level": this.level,
-                    "state": this.state,
+                    "state": kt.graph.PoStates[this.state],
                     "location": this.location,
                     "symbol": this.symbol,
                     "expression": this.expression,

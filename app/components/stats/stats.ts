@@ -141,7 +141,8 @@ module kt.stats {
             let filteredPredicates = _.uniq(_.map(project.filteredProofObligations, (e) => e.predicate)).sort();
 
             this.filteredOutCount = project.proofObligations.length - project.filteredProofObligations.length;
-            //popolate with zeros
+
+            //populate with zeros
             for (let state of states) {
                 for (let predicate of filteredPredicates) {
                     this.byPredicate.inc(predicate, state, 0);
@@ -149,23 +150,25 @@ module kt.stats {
             }
 
             for (let po of project.filteredProofObligations) {
+                let state: string = kt.graph.PoStates[po.state];
+
                 let fileLineKey = po.file + "//" + po.location.line;
-                this.byFileLine.inc(fileLineKey, po.state, 1);
+                this.byFileLine.inc(fileLineKey, state, 1);
                 this.byFileLine.inc(fileLineKey, "sum", 1);
 
 
-                this.byPredicate.inc(po.predicate, po.state, 1);
+                this.byPredicate.inc(po.predicate, state, 1);
                 this.byPredicate.bind(po.predicate, po.predicate);
                 //------------
                 let functionKey = po.file + "/" + po.functionName;
-                this.byFunction.inc(functionKey, po.state, 1);
+                this.byFunction.inc(functionKey, state, 1);
                 this.byFunction.bind(functionKey, po.cfunction);
                 //------------
-                this.byFile.inc(po.file, po.state, 1);
+                this.byFile.inc(po.file, state, 1);
                 this.byFile.bind(po.file, po.cfunction.fileInfo);
                 //------------
-                this.byState.inc(po.state, DEF_COL_NAME, 1);
-                this.byState.bind(po.state, po.state);
+                this.byState.inc(state, DEF_COL_NAME, 1);
+                this.byState.bind(state, state);
                 //-----------
                 if (po.isDischarged()) {
                     let dischargeType = po.dischargeType;
@@ -180,7 +183,7 @@ module kt.stats {
         }
 
         get countViolations(): number {
-            return this.byState.getAt("VIOLATION", DEF_COL_NAME);
+            return this.byState.getAt(kt.graph.PoStates[kt.graph.PoStates.violation], DEF_COL_NAME);
         }
 
         get countFilteredOut(): number {
@@ -188,11 +191,11 @@ module kt.stats {
         }
 
         get countDischarged(): number {
-            return this.byState.getAt("DISCHARGED", DEF_COL_NAME);
+            return this.byState.getAt(kt.graph.PoStates[kt.graph.PoStates.discharged], DEF_COL_NAME);
         }
 
         get countOpen(): number {
-            return this.byState.getAt("OPEN", DEF_COL_NAME);
+            return this.byState.getAt(kt.graph.PoStates[kt.graph.PoStates.open], DEF_COL_NAME);
         }
 
 
