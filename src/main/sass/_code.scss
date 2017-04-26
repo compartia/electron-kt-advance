@@ -6,6 +6,16 @@ source-view {
         padding-top: var(--filter-panel-height);
     }
 
+    #scrollable {
+        height  : 100vh;
+        width   : 100%;
+
+        overflow: auto;
+        position: absolute;
+        top     : 0;
+        bottom  : 0;
+    }
+
 
     pre {
         margin     : 0 !important;

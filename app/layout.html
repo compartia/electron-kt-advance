@@ -86,7 +86,7 @@
 
                             <kt-stats progress="{{progress}}" statistics="[[statistics]]" filter="{{filter}}"></kt-stats>
 
-                            <source-view container="[[_getScrollTarget()]]" id="sourceview" current-project="[[currentProject]]" statistics="[[statistics]]"></source-view>
+                            <source-view id="sourceview" current-project="[[currentProject]]" statistics="[[statistics]]"></source-view>
 
                             <po-list progress="{{progress}}" filtered-proof-obligations="[[filteredProofObligations]]" filter="[[filter]]"></po-list>
 
@@ -289,9 +289,6 @@
 
             observers: ['filterChanged(filter.*)'],
 
-            _getScrollTarget: function() {
-                return this.$.contents;
-            },
 
             filterChanged: function(event) {
                 if (this.currentProject) {
