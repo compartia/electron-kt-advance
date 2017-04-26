@@ -36,6 +36,11 @@ module kt.xml {
 
 
     export class XmlReader {
+        private project:kt.Globals.Project;
+
+        constructor( project:kt.Globals.Project){
+            this.project=project;
+        }
 
 
         public parseCfileXml(filename: string, tracker: tf.ProgressTracker): Promise<Array<kt.xml.CFunction>> {
@@ -422,6 +427,7 @@ module kt.xml {
         private readAndBindEvFiles(dirName: string, suffix: string, ppoMap: { [id: string]: kt.graph.PONode }, tracker: tf.ProgressTracker): Promise<any> {
             const parser = this;
             let err: number = 0;
+
             return parser.readXmls(dirName, suffix, parser.parsePevXml, tracker).then(pevs => {
                 let pevMap = _.indexBy(pevs, "key");
                 console.info("total objects: " + pevs.length + " \t\ttotal unique keys: " + Object.keys(pevMap).length);
@@ -457,7 +463,7 @@ module kt.xml {
                         functionByFile[f.file].push(f);
                     }
 
-                    kt.Globals.project.functionByFile = functionByFile;
+                    this.project.functionByFile = functionByFile;
 
                     let byNameMap = _.indexBy(funcs, 'name');
                     console.info("total functions: " + funcs.length + " \t\ttotal unique keys: " + Object.keys(byNameMap).length);
@@ -535,8 +541,7 @@ module kt.xml {
                     .then(ppos => {
                         ppoArr = ppos;
                         ppoMap = _.indexBy(ppos, "key");
-                        parser.readAndBindEvFiles(dirName, "_pev.xml", ppoMap, pevTracker);
-                        return ppoMap;
+                        return parser.readAndBindEvFiles(dirName, "_pev.xml", ppoMap, pevTracker);
                     }),
 
                 /*[1]*/
@@ -544,9 +549,8 @@ module kt.xml {
                     .then(spos => {
                         spoArr = spos;
                         spoMap = _.indexBy(spos, "key");
-                        parser.readAndBindEvFiles(dirName, "_sev.xml", spoMap, sevTracker);
                         parser.bindCallsiteFunctions(spos, functionsMap);
-                        return spoMap;
+                        return parser.readAndBindEvFiles(dirName, "_sev.xml", spoMap, sevTracker);
                     })
 
             ]).then(results => {

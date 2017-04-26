@@ -297,22 +297,12 @@ module kt.Globals {
             return this._filteredProofObligations;
         }
 
-        public open(baseDir: string, tracker: tf.ProgressTracker): Promise<{ [key: string]: Array<kt.xml.CFunction> }> {
+        public open(baseDir: string, tracker: tf.ProgressTracker): void{
             this.baseDir = baseDir;
             this.analysisDir = path.join(this.baseDir, CH_DIR);
             this._filteredAssumptions = null;
             this._filteredProofObligations = null;
-
-            console.info("opening new project:" + baseDir);
-
-
-
-            let reader: kt.xml.XmlReader = new kt.xml.XmlReader();
-            tracker.setMessage("reading XML data");
-
-            const readFunctionsMapTracker = tf.graph.util.getSubtaskTracker(tracker, 100, 'reading functions map (*._cfile.xml)');
-
-            return reader.readFunctionsMap(this.analysisDir, readFunctionsMapTracker);
+            //XXX: reset all data
         }
 
         public buildStatistics(): kt.stats.Stats {
@@ -339,16 +329,16 @@ module kt.Globals {
         return ret;
     }
 
-    export function openNewProject(tracker: tf.ProgressTracker): Promise<{ [key: string]: Array<kt.xml.CFunction> }> {
+    export function openNewProject(tracker: tf.ProgressTracker): Project {
         let dir = kt.fs.selectDirectory();
         if (dir && dir.length > 0) {
 
             let projectDir = kt.fs.getChDir(dir[0]);
             if (projectDir) {
                 projectDir = path.dirname(projectDir);
-                project = new Project(projectDir);
-
-                return project.open(projectDir, tracker);
+                let project = new Project(projectDir);
+                project.open(projectDir, tracker);
+                return project;
 
             } else {
                 const msg = kt.Globals.CH_DIR + " dir not found";
@@ -360,6 +350,6 @@ module kt.Globals {
     }
 
 
-    export var project: Project = new Project(null);
+    // export var project: Project = new Project(null);
 
 }

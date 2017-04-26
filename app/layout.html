@@ -53,10 +53,8 @@
 
                     <paper-header-panel style$="[[_computeFunctionListStyle(filter.file)]]" mode="waterfall" class="panel-functions">
                         <paper-toolbar></paper-toolbar>
-                        <functions-list id="functions" selected-file="[[filter.file]]" selected-function="{{filter.cfunction}}"></functions-list>
+                        <functions-list id="functions" selected-file="[[filter.file]]" selected-function="{{filter.cfunction}}" project="[[currentProject]]"></functions-list>
                     </paper-header-panel>
-
-
 
                     <paper-header-panel style="width:80%" mode="standard">
 
@@ -84,12 +82,11 @@
                             current-project="[[currentProject]]"
                             out-hierarchy-params="{{_hierarchyParams}}"></tf-graph-loader>
 
-
-                        <iron-pages class="content fit" id="contents" selected="{{modeIndex}}" >
+                        <iron-pages class="content fit" id="contents" selected="{{modeIndex}}">
 
                             <kt-stats progress="{{progress}}" statistics="[[statistics]]" filter="{{filter}}"></kt-stats>
 
-                            <source-view container="[[_getScrollTarget()]]"  id="sourceview" current-project="[[currentProject]]" statistics="[[statistics]]"></source-view>
+                            <source-view container="[[_getScrollTarget()]]" id="sourceview" current-project="[[currentProject]]" statistics="[[statistics]]"></source-view>
 
                             <po-list progress="{{progress}}" filtered-proof-obligations="[[filteredProofObligations]]" filter="[[filter]]"></po-list>
 
@@ -274,6 +271,7 @@
 
                 filter: {
                     type: Object,
+                    value: kt.Globals.PO_FILTER,
                     notify: true
                 },
 
@@ -291,44 +289,47 @@
 
             observers: ['filterChanged(filter.*)'],
 
-            _getScrollTarget:function(){
+            _getScrollTarget: function() {
                 return this.$.contents;
             },
 
             filterChanged: function(event) {
+                if (this.currentProject) {
+                    console.info("filterChanged: " + event);
+                    console.info(event);
 
-                console.info("filterChanged: " + event);
-                console.info(event);
-
-                if (!this.pendingFilterChanges) {
-                    var task = function() {
-                        this.applyFilter(this.currentProject, this.filter);
-                        this.$.sourceview.fire("filter-applied", this.filter);
+                    if (!this.pendingFilterChanges) {
+                        var task = function() {
+                            this._applyFilterAsync(this.currentProject, this.filter);
+                        }
+                        setTimeout(task.bind(this));
                     }
-                    setTimeout(task.bind(this));
+
+                    this.pendingFilterChanges = true;
                 }
 
-                this.pendingFilterChanges = true;
             },
 
-            applyFilter: function(project, filter) {
+            _applyFilterAsync: function(project, filter) {
                 console.info("applying filter..");
                 this.pendingFilterChanges = false;
 
                 if (project) {
-                    project.onFilterChanged(filter);
-                    this.set("filteredProofObligations", project.filteredProofObligations);
-                    this.set("statistics", project.buildStatistics());
 
+                    project.onFilterChanged(filter);
+                    this.set("statistics", project.buildStatistics());
+                    this.set("filteredProofObligations", project.filteredProofObligations);
+                    this.$.sourceview.fire("filter-applied", this.filter);
                 }
             },
 
             _onProjectLoaded(event) {
+
                 console.info("_onProjectLoaded: " + event);
+                kt.treeview.build(this.$$("#treeview"), this.currentProject);
                 this.set("filter.predicates", new kt.util.StringSet(this.currentProject.allPredicates));
                 this.notifyPath("currentProject.allPredicates");
 
-                //this.applyFilter(this.currentProject, this.filter);
             },
 
             _isNotComplete: function(progress) {
@@ -387,21 +388,17 @@
                 });
 
                 var tracker = tf.graph.util.getTracker(this);
-                var treeViewContainer = this.$$("#treeview");
-                var promise = kt.Globals.openNewProject(tracker);
 
-                if (promise) {
-                    promise.then(function(x) {
-                        kt.treeview.build(treeViewContainer);
-                        _self.set("currentProject", kt.Globals.project);
-                        _self.set('modeIndex', 0);
-                        _self.set('progress', {
-                            value: 0,
-                            msg: ''
-                        });
-                    }).catch(function(err) {
-                        //console.error(err);
+                var newProject = kt.Globals.openNewProject(tracker);
+
+                if (newProject) {
+                    _self.set("currentProject", newProject);
+                    _self.set('modeIndex', 0);
+                    _self.set('progress', {
+                        value: 0,
+                        msg: ''
                     });
+
                 } else {
                     _self.set('progress', {
                         value: 100,
@@ -421,7 +418,7 @@
             },
 
             ready: function() {
-                this.set("filter", kt.Globals.PO_FILTER);
+                // this.filter = kt.Globals.PO_FILTER; this.set("filter", kt.Globals.PO_FILTER);
                 this.openProject();
             }
         });

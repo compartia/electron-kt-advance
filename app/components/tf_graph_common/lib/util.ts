@@ -43,6 +43,7 @@ module tf.graph.util {
   export function getTracker(polymerComponent: any) {
     return {
       setMessage: function(msg) {
+        console.error(polymerComponent.progress.value + " = "+msg);
         polymerComponent.set(
             'progress', {value: polymerComponent.progress.value, msg: msg});
       },

@@ -35,12 +35,9 @@ module kt.parser {
 
 
 
-    export function readAndParse(tracker: tf.ProgressTracker): Promise<kt.Globals.Project> {
-        console.info("test");
+    export function readAndParse(project: kt.Globals.Project, tracker: tf.ProgressTracker): Promise<kt.Globals.Project> {
 
-        const project = kt.Globals.project;
-
-        let reader: kt.xml.XmlReader = new kt.xml.XmlReader();
+        let reader: kt.xml.XmlReader = new kt.xml.XmlReader(project);
 
         tracker.setMessage("reading XML data");
 
