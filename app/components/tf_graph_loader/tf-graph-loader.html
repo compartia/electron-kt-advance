@@ -79,8 +79,7 @@
 
             var tracker = tf.graph.util.getTracker(this);
             var readDataTracker = tf.graph.util.getSubtaskTracker(tracker, 100, 'Reading Data');
-            //var graphTracker = tf.graph.util.getSubtaskTracker(tracker, 30, 'Building graph');
-            // var hierarchyTracker = tf.graph.util.getSubtaskTracker(tracker, 15, 'Namespace hierarchy');
+
 
             var buildParams = {
                 enableEmbedding: false,
@@ -91,7 +90,7 @@
 
             this.filter.reset();
 
-            kt.parser.readAndParse(readDataTracker)
+            kt.parser.readAndParse(newProject, readDataTracker)
             .then(function(project) {
                 this.fire("project-loaded", {});
                 //return this.rebuildGraph(project, graphTracker);

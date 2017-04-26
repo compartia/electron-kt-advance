@@ -19,16 +19,16 @@ module kt.stats {
 
 
 
-    export class StatsTable {
+    export class StatsTable<T> {
         data: { [key: string]: { [key: string]: number } } = {};
-        bindings: { [key: string]: any } = {};
+        bindings: { [key: string]: T } = {};
         columnNames: Array<string> = new Array();
 
         set columns(columnNames) {
             this.columnNames = columnNames;
         }
 
-        public bind(rowname: string, object: any) {
+        public bind(rowname: string, object: T) {
             this.bindings[rowname] = object;
         }
 
@@ -76,7 +76,7 @@ module kt.stats {
                 row.values = [];
                 ret.push(row);
                 for (let col of columns) {
-                    row["values"].push(this.getAt(rowName, col));
+                    row.values.push(this.getAt(rowName, col));
                 }
             }
 
@@ -112,12 +112,12 @@ module kt.stats {
 
     export class Stats {
 
-        byPredicate: StatsTable;
-        byDischargeType: StatsTable;
-        byState: StatsTable;
-        byFunction: StatsTable;
-        byFile: StatsTable;
-        byFileLine: StatsTable;
+        byPredicate: StatsTable<string>;
+        byDischargeType: StatsTable<string>;
+        byState: StatsTable<string>;
+        byFunction: StatsTable<kt.xml.CFunction>;
+        byFile: StatsTable<kt.treeview.FileInfo>;
+        byFileLine: StatsTable<string>;
 
         private filteredOutCount: number;
 
@@ -126,13 +126,15 @@ module kt.stats {
         }
 
         public build(project: kt.Globals.Project) {
-            this.byPredicate = new StatsTable();
-            this.byDischargeType = new StatsTable();
-            this.byState = new StatsTable();
-            this.byFunction = new StatsTable();
-            this.byFile = new StatsTable();
 
-            this.byFileLine = new StatsTable();
+
+            this.byPredicate = new StatsTable<string>();
+            this.byDischargeType = new StatsTable<string>();
+            this.byState = new StatsTable<string>();
+            this.byFunction = new StatsTable<kt.xml.CFunction>();
+            this.byFile = new StatsTable<kt.treeview.FileInfo>();
+
+            this.byFileLine = new StatsTable<string>();
 
             this.byFile.columns = states;
             this.byFunction.columns = states;
@@ -179,6 +181,8 @@ module kt.stats {
                     this.byDischargeType.bind(dischargeType, dischargeType);
                 }
             }
+
+            console.info("stats build o:" + this.countOpen + " v:" + this.countViolations + " d:" + this.countDischarged);
 
         }
 

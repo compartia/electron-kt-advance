@@ -14,6 +14,8 @@
 
             properties: {
 
+                project: Object,
+
                 selectedFile: {
                     type: Object,
                     observer: "_selectedFileChanged"
@@ -27,7 +29,7 @@
 
                 functions: {
                     type: Array,
-                    computed: '_getFunctionsByFile(selectedFile)'
+                    computed: '_getFunctionsByFile(project, selectedFile)'
                 },
 
 
@@ -47,9 +49,9 @@
                 this._selected = null;
             },
 
-            _getFunctionsByFile: function(file) {
+            _getFunctionsByFile: function(project, file) {
                 if (file && file.relativePath) {
-                    var list = kt.Globals.project.functionByFile[file.relativePath];
+                    var list = project.functionByFile[file.relativePath];
                     if (list) {
                         return _.sortBy(list, 'name');
                     } else {

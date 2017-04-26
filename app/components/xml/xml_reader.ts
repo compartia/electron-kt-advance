@@ -422,6 +422,7 @@ module kt.xml {
         private readAndBindEvFiles(dirName: string, suffix: string, ppoMap: { [id: string]: kt.graph.PONode }, tracker: tf.ProgressTracker): Promise<any> {
             const parser = this;
             let err: number = 0;
+
             return parser.readXmls(dirName, suffix, parser.parsePevXml, tracker).then(pevs => {
                 let pevMap = _.indexBy(pevs, "key");
                 console.info("total objects: " + pevs.length + " \t\ttotal unique keys: " + Object.keys(pevMap).length);
@@ -440,42 +441,26 @@ module kt.xml {
 
         }
 
+        public buildFunctionsByFileMap(funcs: kt.xml.CFunction[]): { [key: string]: Array<kt.xml.CFunction> } {
+            let functionByFile: { [key: string]: Array<kt.xml.CFunction> } = {};
+            for (let f of funcs) {
+                if (!functionByFile[f.file]) {
+                    functionByFile[f.file] = [];
+                }
+                functionByFile[f.file].push(f);
+            }
+
+            return functionByFile;
+        }
 
 
-        public readFunctionsMap(dirName: string, tracker: tf.ProgressTracker): Promise<{ [key: string]: Array<kt.xml.CFunction> }> {
+        public readFunctionsMap(dirName: string, tracker: tf.ProgressTracker): Promise<kt.xml.CFunction[]> {
             const parser = this;
             let err: number = 0;
 
             return parser.readXmls(dirName, "_cfile.xml", parser.parseCfileXml, tracker)
                 .then((funcs: kt.xml.CFunction[]) => {
-
-                    let functionByFile = {};
-                    for (let f of funcs) {
-                        if (!functionByFile[f.file]) {
-                            functionByFile[f.file] = [];
-                        }
-                        functionByFile[f.file].push(f);
-                    }
-
-                    kt.Globals.project.functionByFile = functionByFile;
-
-                    let byNameMap = _.indexBy(funcs, 'name');
-                    console.info("total functions: " + funcs.length + " \t\ttotal unique keys: " + Object.keys(byNameMap).length);
-                    // console.info(byNameMap);
-
-                    let resultingMap: { [key: string]: Array<kt.xml.CFunction> } = {};
-
-
-                    for (let f of funcs) {
-                        if (!resultingMap[f.name]) {
-                            resultingMap[f.name] = [];
-                        }
-                        resultingMap[f.name].push(f);
-
-                    }
-
-                    return resultingMap;
-
+                    return funcs;//resultingMap;
                 });
 
         }
@@ -535,8 +520,7 @@ module kt.xml {
                     .then(ppos => {
                         ppoArr = ppos;
                         ppoMap = _.indexBy(ppos, "key");
-                        parser.readAndBindEvFiles(dirName, "_pev.xml", ppoMap, pevTracker);
-                        return ppoMap;
+                        return parser.readAndBindEvFiles(dirName, "_pev.xml", ppoMap, pevTracker);
                     }),
 
                 /*[1]*/
@@ -544,9 +528,8 @@ module kt.xml {
                     .then(spos => {
                         spoArr = spos;
                         spoMap = _.indexBy(spos, "key");
-                        parser.readAndBindEvFiles(dirName, "_sev.xml", spoMap, sevTracker);
                         parser.bindCallsiteFunctions(spos, functionsMap);
-                        return spoMap;
+                        return parser.readAndBindEvFiles(dirName, "_sev.xml", spoMap, sevTracker);
                     })
 
             ]).then(results => {
