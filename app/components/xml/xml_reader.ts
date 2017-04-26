@@ -36,11 +36,6 @@ module kt.xml {
 
 
     export class XmlReader {
-        private project:kt.Globals.Project;
-
-        constructor( project:kt.Globals.Project){
-            this.project=project;
-        }
 
 
         public parseCfileXml(filename: string, tracker: tf.ProgressTracker): Promise<Array<kt.xml.CFunction>> {
@@ -446,42 +441,26 @@ module kt.xml {
 
         }
 
+        public buildFunctionsByFileMap(funcs: kt.xml.CFunction[]): { [key: string]: Array<kt.xml.CFunction> } {
+            let functionByFile: { [key: string]: Array<kt.xml.CFunction> } = {};
+            for (let f of funcs) {
+                if (!functionByFile[f.file]) {
+                    functionByFile[f.file] = [];
+                }
+                functionByFile[f.file].push(f);
+            }
+
+            return functionByFile;
+        }
 
 
-        public readFunctionsMap(dirName: string, tracker: tf.ProgressTracker): Promise<{ [key: string]: Array<kt.xml.CFunction> }> {
+        public readFunctionsMap(dirName: string, tracker: tf.ProgressTracker): Promise<kt.xml.CFunction[]> {
             const parser = this;
             let err: number = 0;
 
             return parser.readXmls(dirName, "_cfile.xml", parser.parseCfileXml, tracker)
                 .then((funcs: kt.xml.CFunction[]) => {
-
-                    let functionByFile = {};
-                    for (let f of funcs) {
-                        if (!functionByFile[f.file]) {
-                            functionByFile[f.file] = [];
-                        }
-                        functionByFile[f.file].push(f);
-                    }
-
-                    this.project.functionByFile = functionByFile;
-
-                    let byNameMap = _.indexBy(funcs, 'name');
-                    console.info("total functions: " + funcs.length + " \t\ttotal unique keys: " + Object.keys(byNameMap).length);
-                    // console.info(byNameMap);
-
-                    let resultingMap: { [key: string]: Array<kt.xml.CFunction> } = {};
-
-
-                    for (let f of funcs) {
-                        if (!resultingMap[f.name]) {
-                            resultingMap[f.name] = [];
-                        }
-                        resultingMap[f.name].push(f);
-
-                    }
-
-                    return resultingMap;
-
+                    return funcs;//resultingMap;
                 });
 
         }
