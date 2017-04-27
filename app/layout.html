@@ -43,7 +43,10 @@
                     <paper-toolbar>
                         <paper-icon-button icon="menu" on-tap="openProject"></paper-icon-button>
                     </paper-toolbar>
-                    <paper-tree id="treeview" selected-file="{{filter.file}}"></paper-tree>
+                    <paper-tree
+                        id="treeview"
+                        selected-file="{{filter.file}}"
+                        statistics = "[[statistics]]"></paper-tree>
                 </paper-header-panel>
             </div>
 

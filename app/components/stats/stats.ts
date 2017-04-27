@@ -125,6 +125,10 @@ module kt.stats {
             return this.byFileLine.getRow(file + "//" + (line + 1));
         }
 
+        public getStatsByFile(file: kt.treeview.FileInfo): { [key: string]: number } {
+            return this.byFile.getRow(file.relativePath);
+        }
+
         public getStatsByFunction(func: kt.xml.CFunction): { [key: string]: number } {
             let functionKey = func.file + "/" + func.name;
             return this.byFunction.getRow(functionKey);

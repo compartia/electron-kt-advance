@@ -184,7 +184,7 @@ module kt.Globals {
         public loadFile(relativePath: string): Promise<FileContents> {
             let self=this;
             let filename = path.join(this.baseDir, relativePath);
-            console.error("reading " + filename);
+            console.info("reading " + filename);
 
             return new Promise((resolve, reject) => {
 

@@ -3,6 +3,8 @@
 <link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../../bower_components/paper-item/paper-item.html">
 
+<link rel="import" href="../common/node-decorator.html">
+
 <!--
 `<paper-tree-node>` display a tree node with expandable/collapsible capabilities and actions menu.
 
@@ -43,8 +45,14 @@ Custom property | Description | Default
             white-space: nowrap;
         }
 
+        /*.node-label{
+            display: flex;
+            align-items: center;
+        }*/
         .node-row {
-            padding: 3px 4px;
+            display: flex;
+            align-items: stretch;
+            --po-count-min-width: 3em;
         }
 
         .node-preicon.collapsed,
@@ -71,7 +79,13 @@ Custom property | Description | Default
             cursor: pointer;
         }
 
+        .node-name{
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
         .node-icon {
+            margin: 4px;
             cursor: pointer;
             width: var(--paper-tree-icon-width);
             height: var(--paper-tree-icon-width);
@@ -104,15 +118,26 @@ Custom property | Description | Default
     <template>
         <div class="node-container">
             <div class="node-row">
-                <span class$="{{_computeClass(data.*)}}" on-click="toggleChildren"></span>
-                <iron-icon class="node-icon" icon$="{{_computeIcon(data.icon)}}" on-click="select"></iron-icon>
-                <span class="node-name" on-click="select">{{data.name}}</span>
+                <template is="dom-if" if="{{_showIcon(data)}}">
+                    <span class$="{{_computeClass(data.*)}}" on-click="toggleChildren"></span>
+                </template>
+                <!-- <span class="node-label"> -->
+                    <template is="dom-if" if="{{!_showIcon(data)}}">
+                        <node-decorator show-count="true" statistics="[[_getStatsByFile(data, statistics)]]"></node-decorator>
+                    </template>
+
+                    <template is="dom-if" if="{{_showIcon(data)}}">
+                        <iron-icon class="node-icon" icon$="{{_computeIcon(data.icon)}}" on-click="select"></iron-icon>
+                    </template>
+
+                    <span class="node-name" on-click="select">{{data.name}}</span>
+                <!-- </span> -->
             </div>
             <template is="dom-if" if="{{data.open}}">
                 <ul>
                     <template is="dom-repeat" items="{{data.children}}">
                         <li>
-                            <paper-tree-node data="{{item}}" actions="{{actions}}"></paper-tree-node>
+                            <paper-tree-node data="{{item}}" actions="{{actions}}" statistics="[[statistics]]"></paper-tree-node>
                         </li>
                     </template>
                 </ul>
@@ -127,6 +152,7 @@ Custom property | Description | Default
             is: 'paper-tree-node',
 
             properties: {
+                statistics: Object,
 
                 /**
              * Data hold by this node (contains the children).
@@ -192,6 +218,17 @@ Custom property | Description | Default
                     : children && children.length
                         ? 'collapsed'
                         : '');
+            },
+
+            _showIcon: function(data){
+                if(data)
+                    return data.dir;
+                return false;
+            },
+
+            _getStatsByFile: function(dataitem, statistics){
+                var stats = statistics.getStatsByFile(dataitem);
+                return stats;
             },
 
             /**
