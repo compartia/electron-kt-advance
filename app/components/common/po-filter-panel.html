@@ -42,9 +42,8 @@
                 <div id="filtersettings-body">
 
                     <div id="states" class="card panel">
-                        <h3>State (
-                            {{filter.states.length}})</h3>
-                        <kt-list-selection all-values="[[_allStates]]" selected-values="{{filter.states}}" styles="[[_statesStyles]]"></kt-list-selection>
+                        <h3>State ([[filter.states.length]])</h3>
+                        <kt-list-selection all-values="[[_allStates]]" item-names="[[_statesNames()]]" selected-values="{{filter.states}}" styles="[[_statesStyles]]"></kt-list-selection>
                     </div>
 
                     <div id="discharge-types" class="card panel">
@@ -53,7 +52,7 @@
                     </div>
 
                     <div id="predicates" class="card panel">
-                        <h3>Predicates ({{filter.predicates.length}})</h3>
+                        <h3>Predicates ([[filter.predicates.length]])</h3>
                         <kt-list-selection all-values="{{project.allPredicates}}" selected-values="{{filter.predicates}}"></kt-list-selection>
                     </div>
 
@@ -116,6 +115,10 @@
             observers: [
                 '_predicatesChanged(filter.predicates.*)', '_statesChanged(filter.states.*)'
             ],
+
+            _statesNames:function(){
+                    return kt.graph.PoStates;
+            },
 
             _getDischargeTypesStyles: function(filter) {
                 var map = {};
