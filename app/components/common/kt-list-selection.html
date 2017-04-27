@@ -5,7 +5,7 @@
     <template>
         <div class="list-container">
             <template items="[[_items]]" is="dom-repeat">
-                <paper-checkbox checked$="[[item.selected]]" value="{{item.name}}" style$="{{styleOf(item.name)}}" on-change="_checkboxChanged">
+                <paper-checkbox checked$="[[item.selected]]" value="{{item.id}}" style$="{{styleOf(item.id)}}" on-change="_checkboxChanged">
                     [[item.name]]
                 </paper-checkbox>
             </template>
@@ -32,19 +32,24 @@
             properties: {
                 selectedValues: {
                     type: Object,
-                    notify: true,
-                    observer: "selectedValuesChanged"
+                    notify: true
                 },
 
                 _items: {
                     type: Array,
                     notify: true,
-                    computed: "makeItems(allValues, selectedValues)"
+                    computed: "makeItems(allValues, selectedValues, itemNames)"
                 },
 
                 allValues: {
                     type: Object,
                     notify: true
+                },
+
+                itemNames: {
+                    type: Object,
+                    notify: true,
+                    value: null
                 },
 
                 styles: {
@@ -53,20 +58,18 @@
                 }
             },
 
-            makeItems: function(allValues, selectedValues) {
+            makeItems: function(allValues, selectedValues, itemNames) {
                 var ret = [];
                 for (var i = 0; i < allValues.length; i++) {
                     ret.push({
-                        name: allValues[i],
+                        id: allValues[i],
+                        name: itemNames? itemNames[allValues[i]]:allValues[i],
                         selected: selectedValues.contains(allValues[i])
                     });
                 }
                 return ret;
             },
 
-            selectedValuesChanged: function(newVals, oldVals) {
-                // console.warn(newVals);
-            },
 
             styleOf: function(item) {
                 if (this.styles)

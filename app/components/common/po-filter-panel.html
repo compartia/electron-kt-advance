@@ -42,9 +42,8 @@
                 <div id="filtersettings-body">
 
                     <div id="states" class="card panel">
-                        <h3>State (
-                            {{filter.states.length}})</h3>
-                        <kt-list-selection all-values="[[_allStates]]" selected-values="{{filter.states}}" styles="[[_statesStyles]]"></kt-list-selection>
+                        <h3>State ([[filter.states.length]])</h3>
+                        <kt-list-selection all-values="[[_allStates]]" item-names="[[_statesNames()]]" selected-values="{{filter.states}}" styles="[[_statesStyles]]"></kt-list-selection>
                     </div>
 
                     <div id="discharge-types" class="card panel">
@@ -53,7 +52,7 @@
                     </div>
 
                     <div id="predicates" class="card panel">
-                        <h3>Predicates ({{filter.predicates.length}})</h3>
+                        <h3>Predicates ([[filter.predicates.length]])</h3>
                         <kt-list-selection all-values="{{project.allPredicates}}" selected-values="{{filter.predicates}}"></kt-list-selection>
                     </div>
 
@@ -117,6 +116,10 @@
                 '_predicatesChanged(filter.predicates.*)', '_statesChanged(filter.states.*)'
             ],
 
+            _statesNames:function(){
+                    return kt.graph.PoStates;
+            },
+
             _getDischargeTypesStyles: function(filter) {
                 var map = {};
                 _.forEach(kt.graph.PoDischargeTypesArr, function(x) {
@@ -128,7 +131,7 @@
             _getStatesStyles: function(filter) {
                 var map = {};
                 _.forEach(kt.graph.PoStatesArr, function(x) {
-                    map[x] = "--paper-checkbox-label-checked-color:var(--kt-state-" + x + "-default-tx); --paper-checkbox-checked-color:var(--kt-state-" + x + "-default-tx)";
+                    map[x] = "--paper-checkbox-label-checked-color:var(--kt-state-" + kt.graph.PoStates[x] + "-default-tx); --paper-checkbox-checked-color:var(--kt-state-" + kt.graph.PoStates[x] + "-default-tx)";
                 });
                 return map;
             },
@@ -187,11 +190,11 @@
 
             _click: function(event) {
                 if (event.srcElement == this.$.btnv) {
-                    this.set("filter.states", new kt.util.StringSet(["violation"]));
+                    this.set("filter.states", new kt.util.StringSet([kt.graph.PoStates.violation]));
                 } else if (event.srcElement == this.$.btnd) {
-                    this.set("filter.states", new kt.util.StringSet(["discharged"]));
+                    this.set("filter.states", new kt.util.StringSet([kt.graph.PoStates.discharged]));
                 } else if (event.srcElement == this.$.btno) {
-                    this.set("filter.states", new kt.util.StringSet(["open"]));
+                    this.set("filter.states", new kt.util.StringSet([kt.graph.PoStates.open]));
                 }
             }
         });

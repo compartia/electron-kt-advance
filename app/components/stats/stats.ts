@@ -19,16 +19,16 @@ module kt.stats {
 
 
 
-    export class StatsTable {
+    export class StatsTable<T> {
         data: { [key: string]: { [key: string]: number } } = {};
-        bindings: { [key: string]: any } = {};
+        bindings: { [key: string]: T } = {};
         columnNames: Array<string> = new Array();
 
         set columns(columnNames) {
             this.columnNames = columnNames;
         }
 
-        public bind(rowname: string, object: any) {
+        public bind(rowname: string, object: T) {
             this.bindings[rowname] = object;
         }
 
@@ -76,7 +76,7 @@ module kt.stats {
                 row.values = [];
                 ret.push(row);
                 for (let col of columns) {
-                    row["values"].push(this.getAt(rowName, col));
+                    row.values.push(this.getAt(rowName, col));
                 }
             }
 
@@ -112,12 +112,12 @@ module kt.stats {
 
     export class Stats {
 
-        byPredicate: StatsTable;
-        byDischargeType: StatsTable;
-        byState: StatsTable;
-        byFunction: StatsTable;
-        byFile: StatsTable;
-        byFileLine: StatsTable;
+        byPredicate: StatsTable<string>;
+        byDischargeType: StatsTable<string>;
+        byState: StatsTable<string>;
+        byFunction: StatsTable<kt.xml.CFunction>;
+        byFile: StatsTable<kt.treeview.FileInfo>;
+        byFileLine: StatsTable<string>;
 
         private filteredOutCount: number;
 
@@ -126,13 +126,15 @@ module kt.stats {
         }
 
         public build(project: kt.Globals.Project) {
-            this.byPredicate = new StatsTable();
-            this.byDischargeType = new StatsTable();
-            this.byState = new StatsTable();
-            this.byFunction = new StatsTable();
-            this.byFile = new StatsTable();
 
-            this.byFileLine = new StatsTable();
+
+            this.byPredicate = new StatsTable<string>();
+            this.byDischargeType = new StatsTable<string>();
+            this.byState = new StatsTable<string>();
+            this.byFunction = new StatsTable<kt.xml.CFunction>();
+            this.byFile = new StatsTable<kt.treeview.FileInfo>();
+
+            this.byFileLine = new StatsTable<string>();
 
             this.byFile.columns = states;
             this.byFunction.columns = states;
@@ -141,7 +143,8 @@ module kt.stats {
             let filteredPredicates = _.uniq(_.map(project.filteredProofObligations, (e) => e.predicate)).sort();
 
             this.filteredOutCount = project.proofObligations.length - project.filteredProofObligations.length;
-            //popolate with zeros
+
+            //populate with zeros
             for (let state of states) {
                 for (let predicate of filteredPredicates) {
                     this.byPredicate.inc(predicate, state, 0);
@@ -149,23 +152,25 @@ module kt.stats {
             }
 
             for (let po of project.filteredProofObligations) {
+                let state: string = kt.graph.PoStates[po.state];
+
                 let fileLineKey = po.file + "//" + po.location.line;
-                this.byFileLine.inc(fileLineKey, po.state, 1);
+                this.byFileLine.inc(fileLineKey, state, 1);
                 this.byFileLine.inc(fileLineKey, "sum", 1);
 
 
-                this.byPredicate.inc(po.predicate, po.state, 1);
+                this.byPredicate.inc(po.predicate, state, 1);
                 this.byPredicate.bind(po.predicate, po.predicate);
                 //------------
                 let functionKey = po.file + "/" + po.functionName;
-                this.byFunction.inc(functionKey, po.state, 1);
+                this.byFunction.inc(functionKey, state, 1);
                 this.byFunction.bind(functionKey, po.cfunction);
                 //------------
-                this.byFile.inc(po.file, po.state, 1);
+                this.byFile.inc(po.file, state, 1);
                 this.byFile.bind(po.file, po.cfunction.fileInfo);
                 //------------
-                this.byState.inc(po.state, DEF_COL_NAME, 1);
-                this.byState.bind(po.state, po.state);
+                this.byState.inc(state, DEF_COL_NAME, 1);
+                this.byState.bind(state, state);
                 //-----------
                 if (po.isDischarged()) {
                     let dischargeType = po.dischargeType;
@@ -177,10 +182,12 @@ module kt.stats {
                 }
             }
 
+            console.info("stats build o:" + this.countOpen + " v:" + this.countViolations + " d:" + this.countDischarged);
+
         }
 
         get countViolations(): number {
-            return this.byState.getAt("VIOLATION", DEF_COL_NAME);
+            return this.byState.getAt(kt.graph.PoStates[kt.graph.PoStates.violation], DEF_COL_NAME);
         }
 
         get countFilteredOut(): number {
@@ -188,11 +195,11 @@ module kt.stats {
         }
 
         get countDischarged(): number {
-            return this.byState.getAt("DISCHARGED", DEF_COL_NAME);
+            return this.byState.getAt(kt.graph.PoStates[kt.graph.PoStates.discharged], DEF_COL_NAME);
         }
 
         get countOpen(): number {
-            return this.byState.getAt("OPEN", DEF_COL_NAME);
+            return this.byState.getAt(kt.graph.PoStates[kt.graph.PoStates.open], DEF_COL_NAME);
         }
 
 

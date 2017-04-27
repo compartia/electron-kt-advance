@@ -2,22 +2,23 @@
 
     <template>
 
-        <iron-list scroll-target="[[container]]" id="listOfLines" items="[[lines]]" max-physical-count="[[lines.length]]" selection-enabled on-selected-item-changed="_onLineSelected">
-            <template>
-                <div class$="code-line [[_getClass(_loadedFile, index, statistics)]]">
+        <div id="scrollable">
+            <iron-list scroll-target="scrollable" id="listOfLines" items="[[lines]]" max-physical-count="[[lines.length]]" selection-enabled on-selected-item-changed="_onLineSelected">
+                <template>
+                    <div class$="code-line [[_getClass(_loadedFile, index, statistics)]]">
 
-                    <span class="info">
-                        <span id="line-number">[[index]]</span>
-                        <span class="state-marker"></span>
-                        <span id="po-count">[[_getPoNumber(_loadedFile, index, statistics)]]</span>
-                    </span>
+                        <span class="info">
+                            <span id="line-number">[[index]]</span>
+                            <span class="state-marker"></span>
+                            <span id="po-count">[[_getPoNumber(_loadedFile, index, statistics)]]</span>
+                        </span>
 
+                        <pre class="text">[[item.text]]</pre>
 
-                    <pre class="text">[[item.text]]</pre>
-                    
-                </div>
-            </template>
-        </iron-list>
+                    </div>
+                </template>
+            </iron-list>
+        </div>
 
     </template>
 
@@ -64,16 +65,16 @@
                 if (file && statistics.getStatsByFileLine) {
                     var stats = statistics.getStatsByFileLine(file.relativePath, index);
                     if (stats) {
-                        if (stats["VIOLATION"] > 0) {
-                            clazz += " violation";
+                        if (stats[kt.graph.PoStates[kt.graph.PoStates.violation]] > 0) {
+                            clazz += " " + kt.graph.PoStates[kt.graph.PoStates.violation];
                         }
 
-                        if (stats["OPEN"] > 0) {
-                            clazz += " open";
+                        if (stats[kt.graph.PoStates[kt.graph.PoStates.open]] > 0) {
+                            clazz += " " + kt.graph.PoStates[kt.graph.PoStates.open];
                         }
 
-                        if (stats["DISCHARGED"] > 0) {
-                            clazz += " discharged";
+                        if (stats[kt.graph.PoStates[kt.graph.PoStates.discharged]] > 0) {
+                            clazz += " " + kt.graph.PoStates[kt.graph.PoStates.discharged];
                         }
 
                     }
