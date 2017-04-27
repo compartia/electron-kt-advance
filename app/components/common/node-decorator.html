@@ -1,0 +1,67 @@
+<dom-module id="node-decorator">
+
+    <template>
+
+        <div class$="stats [[_getClass(statistics)]]">
+
+
+
+            <span class="state-marker"></span>
+
+            <template is="dom-if" if="[[showCount]]">
+                <span id="po-count">[[_getSum(statistics)]]</span>
+            </template>
+
+
+
+        </div>
+
+    </template>
+
+    <script>
+        Polymer({
+            is: 'node-decorator',
+
+            properties: {
+                showCount: Boolean,
+
+                statistics: {
+                    type: Object,
+                    notify: true
+                }
+            },
+
+
+            _getSum: function(stats) {
+                if (stats) {
+                    if (stats) {
+                        return stats["sum"];
+                    }
+                }
+
+            },
+
+            _getClass: function(stats) {
+                var clazz = "";
+
+                if (stats) {
+                    if (stats[kt.graph.PoStates[kt.graph.PoStates.violation]] > 0) {
+                        clazz += " " + kt.graph.PoStates[kt.graph.PoStates.violation];
+                    }
+
+                    if (stats[kt.graph.PoStates[kt.graph.PoStates.open]] > 0) {
+                        clazz += " " + kt.graph.PoStates[kt.graph.PoStates.open];
+                    }
+
+                    if (stats[kt.graph.PoStates[kt.graph.PoStates.discharged]] > 0) {
+                        clazz += " " + kt.graph.PoStates[kt.graph.PoStates.discharged];
+                    }
+
+                }
+
+                return clazz;
+            }
+        });
+    </script>
+
+</dom-module>

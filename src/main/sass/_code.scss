@@ -1,8 +1,58 @@
-$marker-line-width:3px;
-$code-line-info-bg:var(--kt-grey-lighter);
-source-view {
+$marker-line-width: 3px;
+$code-line-info-bg: var(--kt-grey-lighter);
 
-    #listOfLines{
+node-decorator {
+    .stats {
+        display       : flex;
+        flex-direction: row;
+        align-items   : stretch;
+        text-align    : right;
+
+        font-size     : 8px;
+        vertical-align: middle;
+
+        .state-marker {
+            background-clip : content-box;
+            box-sizing      : border-box;
+            content         : "";
+            width           : 3* $marker-line-width;
+            border-left     : $marker-line-width solid $transparent;
+            border-right    : $marker-line-width solid $transparent;
+            background-color: $transparent;
+        }
+    }
+
+    #po-count {
+        padding    : $spacer/2;
+        display    : flex;
+        align-items: center;
+
+        min-width  : 1.5em;
+        color      : var(--kt-grey);
+    }
+
+    .stats.violation {
+        .state-marker {
+            border-left: $marker-line-width solid var(--kt-state-violation-default-bg);
+        }
+    }
+
+    .stats.open {
+        .state-marker {
+            background-color: var(--kt-state-open-default-bg)!important;
+        }
+    }
+
+    .stats.discharged {
+        .state-marker {
+            border-right: $marker-line-width solid var(--kt-state-discharged-default-bg);
+        }
+
+    }
+}
+
+source-view {
+    #listOfLines {
         padding-top: var(--filter-panel-height);
     }
 
@@ -16,7 +66,6 @@ source-view {
         bottom  : 0;
     }
 
-
     pre {
         margin     : 0 !important;
         padding    : 0 !important;
@@ -25,38 +74,21 @@ source-view {
         margin-left: $spacer !important;
     }
 
-
     .code-line.violation {
         background: var(--kt-state-violation-default-hover-bg);
 
-        .info{
+        node-decorator {
             background: var(--kt-state-violation-default-hover-bg)!important;
-            color:  var(--kt-state-violation-default-tx);
-        }
-
-        .state-marker{
-            border-left: $marker-line-width solid var(--kt-state-violation-default-bg);
-            background: var(--kt-state-violation-default-hover-bg);
-        }
-    }
-
-    .code-line.open {
-        .info{
-            // background: var(--kt-state-open-default-hover-bg);
-        }
-
-        .state-marker{
-            background-color: var(--kt-state-open-default-bg)!important;
-        }
-    }
-
-    .code-line.discharged{
-        .state-marker{
-            border-right: $marker-line-width solid var(--kt-state-discharged-default-bg);
+            color     : var(--kt-state-violation-default-tx);
         }
 
     }
 
+    // .code-line.open {
+    //     node-decorator {
+    //         background-color: var(--kt-state-open-default-bg)!important;
+    //     }
+    // }
 
     .code-line {
 
@@ -68,9 +100,9 @@ source-view {
         //vertical-align: middle;
 
         .info {
-            display: flex;
+            display       : flex;
             flex-direction: row;
-            align-items: stretch;
+            align-items   : stretch;
             text-align    : right;
 
             font-size     : 8px;
@@ -79,38 +111,33 @@ source-view {
 
         }
 
-        #line-number{
-            padding       : $spacer/2;
-            display: flex;
+        #line-number {
+            padding    : $spacer/2;
+            display    : flex;
             align-items: center;
 
-
-            min-width     : 2em;
-            color         : $grey-lighter;
+            min-width  : 2em;
+            color      : $grey-lighter;
         }
 
-        #po-count{
-            padding       : $spacer/2;
-            display: flex;
+        #po-count {
+            padding    : $spacer/2;
+            display    : flex;
             align-items: center;
 
-            min-width     : 1.5em;
-            color         : var(--kt-grey);
+            min-width  : 1.5em;
+            color      : var(--kt-grey);
         }
 
-        .state-marker{
-            background-clip: content-box;
-            box-sizing: border-box;
-            content: "";
-            width: 3* $marker-line-width;
-            border-left: $marker-line-width solid  $transparent;//$code-line-info-bg;
-            border-right: $marker-line-width solid  $transparent;//$code-line-info-bg;
-            background-color: $transparent;//$code-line-info-bg;
+        .state-marker {
+            background-clip : content-box;
+            box-sizing      : border-box;
+            content         : "";
+            width           : 3* $marker-line-width;
+            border-left     : $marker-line-width solid $transparent; //$code-line-info-bg;
+            border-right    : $marker-line-width solid $transparent; //$code-line-info-bg;
+            background-color: $transparent; //$code-line-info-bg;
         }
-
-
-
-
 
         pre.text {
             font-size     : $font-size-xs;
