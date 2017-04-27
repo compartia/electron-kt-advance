@@ -28,11 +28,20 @@ $browser-font-size: 11px;
     }
 
     .item {
-        padding  : ($paper-tree-icon-width - $browser-font-size);
-        margin-left: 6px;
-        font-family: $monospaced;
-        color    : var(--kt-text-color);
-        font-size: var(--browser-font-size);
+        display       : flex;
+        flex-direction: row;
+        align-items   : stretch;
+        align-content : stretch;
+
+
+
+        #fname{
+            padding  : ($paper-tree-icon-width - $browser-font-size);
+            margin-left: 6px;
+            font-family: $monospaced;
+            color    : var(--kt-text-color);
+            font-size: var(--browser-font-size);
+        }
     }
 
     .item.selected{

@@ -4,15 +4,11 @@
 
         <div class$="stats [[_getClass(statistics)]]">
 
-
-
             <span class="state-marker"></span>
 
             <template is="dom-if" if="[[showCount]]">
                 <span id="po-count">[[_getSum(statistics)]]</span>
             </template>
-
-
 
         </div>
 
@@ -31,13 +27,25 @@
                 }
             },
 
-
             _getSum: function(stats) {
+                var sum = 0;
                 if (stats) {
-                    if (stats) {
-                        return stats["sum"];
+                    if (stats[kt.graph.PoStates[kt.graph.PoStates.violation]] > 0) {
+                        sum += stats[kt.graph.PoStates[kt.graph.PoStates.violation]];
+                    }
+
+                    if (stats[kt.graph.PoStates[kt.graph.PoStates.open]] > 0) {
+                        sum += stats[kt.graph.PoStates[kt.graph.PoStates.open]];
+                    }
+
+                    if (stats[kt.graph.PoStates[kt.graph.PoStates.discharged]] > 0) {
+                        sum += stats[kt.graph.PoStates[kt.graph.PoStates.discharged]];
                     }
                 }
+                
+                return sum > 0
+                    ? sum
+                    : null;
 
             },
 

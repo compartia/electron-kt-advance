@@ -53,7 +53,11 @@
 
                     <paper-header-panel style$="[[_computeFunctionListStyle(filter.file)]]" mode="waterfall" class="panel-functions">
                         <paper-toolbar></paper-toolbar>
-                        <functions-list id="functions" selected-file="[[filter.file]]" selected-function="{{filter.cfunction}}" project="[[currentProject]]"></functions-list>
+                        <functions-list id="functions"
+                            selected-file="[[filter.file]]"
+                            statistics = "[[statistics]]"
+                            selected-function="{{filter.cfunction}}"
+                            project="[[currentProject]]"></functions-list>
                     </paper-header-panel>
 
                     <paper-header-panel style="width:80%" mode="standard">

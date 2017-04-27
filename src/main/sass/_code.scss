@@ -2,6 +2,8 @@ $marker-line-width: 3px;
 $code-line-info-bg: var(--kt-grey-lighter);
 
 node-decorator {
+    display: flex;
+
     .stats {
         display       : flex;
         flex-direction: row;
@@ -15,7 +17,7 @@ node-decorator {
             background-clip : content-box;
             box-sizing      : border-box;
             content         : "";
-            width           : 3* $marker-line-width;
+            width           : 3.05* $marker-line-width;
             border-left     : $marker-line-width solid $transparent;
             border-right    : $marker-line-width solid $transparent;
             background-color: $transparent;
@@ -33,7 +35,7 @@ node-decorator {
 
     .stats.violation {
         .state-marker {
-            border-left: $marker-line-width solid var(--kt-state-violation-default-bg);
+            border-left-color: var(--kt-state-violation-default-bg);
         }
     }
 
@@ -45,7 +47,7 @@ node-decorator {
 
     .stats.discharged {
         .state-marker {
-            border-right: $marker-line-width solid var(--kt-state-discharged-default-bg);
+            border-right-color: var(--kt-state-discharged-default-bg);
         }
 
     }
@@ -84,20 +86,12 @@ source-view {
 
     }
 
-    // .code-line.open {
-    //     node-decorator {
-    //         background-color: var(--kt-state-open-default-bg)!important;
-    //     }
-    // }
-
     .code-line {
 
         display       : flex;
         flex-direction: row;
         align-items   : stretch;
         align-content : stretch;
-
-        //vertical-align: middle;
 
         .info {
             display       : flex;
@@ -118,25 +112,6 @@ source-view {
 
             min-width  : 2em;
             color      : $grey-lighter;
-        }
-
-        #po-count {
-            padding    : $spacer/2;
-            display    : flex;
-            align-items: center;
-
-            min-width  : 1.5em;
-            color      : var(--kt-grey);
-        }
-
-        .state-marker {
-            background-clip : content-box;
-            box-sizing      : border-box;
-            content         : "";
-            width           : 3* $marker-line-width;
-            border-left     : $marker-line-width solid $transparent; //$code-line-info-bg;
-            border-right    : $marker-line-width solid $transparent; //$code-line-info-bg;
-            background-color: $transparent; //$code-line-info-bg;
         }
 
         pre.text {
