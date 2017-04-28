@@ -129,6 +129,12 @@ module kt.stats {
             return arr.splice(0, count);
         }
 
+        public getRowsSorted(): Array<NamedArray> {
+            let allrows = this.asNamedRowsTable();
+            let arr = _.sortBy(allrows, (x) => -_.sum(x["values"]));
+            return arr;
+        }
+
         /**
             returns a vector Vi, where each value is a summ of row values
         */
@@ -334,7 +340,7 @@ module kt.stats {
         public updatePredicateByComplexityChart(scene, container: d3.Selection<any>) {
             const table = this.predicateByComplexity;
             const columnNames = table.columnNames;
-            const data: Array<NamedArray> = table.asNamedRowsTable();
+            const data: Array<NamedArray> = table.getRowsSorted();
 
             const colors: Array<string> = _.map(columnNames,
                 (x) => "var(--kt-complexity-" + x.toLowerCase() + "-bg)");

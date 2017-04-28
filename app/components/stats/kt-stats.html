@@ -30,7 +30,7 @@
 
                 <paper-material elevation="1" class="card panel flexchild">
                     <h3>Average complexity by predicate</h3>
-                    <h5>Total complexity divided by number of predicates</h5>
+                    <h4>Total complexity divided by the number of predicates</h4>
                     <div id="complexityByPredicate" class="kt-chart"></div>
                 </paper-material>
             </div>
@@ -51,6 +51,10 @@
 
         .flexchild {
             @apply(--layout-flex);
+
+        }
+
+        .panel{
             padding: var(--spacer);
             margin: var(--spacer);
             background-color: var(--kt-panel-bg);
