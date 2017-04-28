@@ -6,7 +6,7 @@ module kt.charts {
     }
 
 
-    export function updateChart(scene, container: d3.Selection<any>, chartData: ChartData) {
+    export function updateChart(scene, container: d3.Selection<any>, chartData: ChartData, format = d3.format(",.0f")) {
         const data = chartData.data;
 
         const summs = _.map(data, (x) => _.sum(x.values));
@@ -29,7 +29,7 @@ module kt.charts {
 
         const rowname = (x) => x["name"];
         const rowSum = (x) => {
-            return _.sum(x["values"]);
+            return format(_.sum(x["values"]));
         }
 
         const rowvalues = (x) => {
@@ -54,7 +54,7 @@ module kt.charts {
                 .style("background-color", bgFunc)
                 .style("width", (val, index) => widthFunc(val.val, index) + "%")
                 .style("display", (val, index) => widthFunc(val.val, index) > 0 ? "inline-block" : "none")
-                .attr("title", (val, index) => colName(index) + ":" + val.val);
+                .attr("title", (val, index) => colName(index) + ":" + format(val.val));
         }
 
         //=============
@@ -89,11 +89,6 @@ module kt.charts {
 
         let cells = rows.select(".bar-container");
 
-        let styleTween = function(transition, name, value) {
-            transition.styleTween(name, function() {
-                return d3.interpolate(this.style[name], value);
-            });
-        };
 
         let updateBars = (bars, clazz) => {
             /** UPDATE*/

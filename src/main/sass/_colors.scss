@@ -109,5 +109,8 @@ $side-bg-2: mix($side-bg, $base-bg, 85%);
     --kt-hover                            : lighten(desaturate($ian_gillan, 30%), 55%);
     --kt-progress                         : $color-brand-2;
 
+    --kt-complexity-c-bg: lighten($red, 30%);
+    --kt-complexity-p-bg: $blue;
+    --kt-complexity-g-bg: $yellow;
     /* =========== */
 }

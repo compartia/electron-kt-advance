@@ -1,38 +1,52 @@
 <dom-module id="kt-stats">
     <template>
 
-        <div class="container flex" style="display:flex">
-            <paper-material elevation="1" class="card panel flexchild">
-                <h3>Proof obligations by predicate</h3>
-                <div id="poByRedicate" class="kt-chart"></div>
-            </paper-material>
+        <div class="container flex-hor" style="display:flex">
+            <div class="container flex-ver flexchild">
+                <paper-material elevation="1" class="card panel flexchild">
+                    <h3>Proof obligations by predicate</h3>
+                    <div id="poByRedicate" class="kt-chart"></div>
+                </paper-material>
 
-            <paper-material elevation="1" class="card panel flexchild">
-                <h3>Proof obligations by function (top 20)</h3>
-                <div id="poByFunction" class="kt-chart"></div>
-            </paper-material>
+                <paper-material elevation="1" class="card panel flexchild">
+                    <h3>Proof obligations by function (top 20)</h3>
+                    <div id="poByFunction" class="kt-chart"></div>
+                </paper-material>
 
-        </div>
+            </div>
 
-        <div class="container flex" style="display:flex">
+            <div class="container flex-ver flexchild">
 
-            <paper-material elevation="1" class="card panel flexchild">
-                <h3>Proof obligations by file (top 10)</h3>
-                <div id="poByFile" class="kt-chart"></div>
-            </paper-material>
+                <paper-material elevation="1" class="card panel flexchild">
+                    <h3>Proof obligations by file (top 10)</h3>
+                    <div id="poByFile" class="kt-chart"></div>
+                </paper-material>
 
-            <paper-material elevation="1" class="card panel flexchild">
-                <h3>Proof obligations by type of discharge</h3>
-                <div id="poByDischarge" class="kt-chart"></div>
-            </paper-material>
+                <paper-material elevation="1" class="card panel flexchild">
+                    <h3>Proof obligations by type of discharge</h3>
+                    <div id="poByDischarge" class="kt-chart"></div>
+                </paper-material>
+
+
+                <paper-material elevation="1" class="card panel flexchild">
+                    <h3>Average complexity by predicate</h3>
+                    <h5>Total complexity divided by number of predicates</h5>
+                    <div id="complexityByPredicate" class="kt-chart"></div>
+                </paper-material>
+            </div>
         </div>
 
     </template>
 
     <style is="kt-stats">
-        .flex {
-            padding-top: var(--filter-panel-height);            
+        .flex-hor {
+            padding-top: var(--filter-panel-height);
             @apply(--layout-horizontal);
+        }
+
+        .flex-ver {
+            padding-top: var(--filter-panel-height);
+            @apply(--layout-vertical);
         }
 
         .flexchild {
@@ -73,6 +87,8 @@
                     newVal.updatePoByDischargeChart(this, d3.select("#poByDischarge"));
                     newVal.updatePoByFunctionChart(this, d3.select("#poByFunction"));
                     newVal.updatePoByFileChart(this, d3.select("#poByFile"));
+                    newVal.updatePredicateByComplexityChart(this, d3.select("#complexityByPredicate"));
+
                 }
             },
 
