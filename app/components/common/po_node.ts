@@ -1,6 +1,8 @@
 module kt.graph {
     const path = require('path');
 
+    export enum Complexitiy { P, C, G };
+
     export enum PoStatesExt { violation, open, discharged, global, invariants, ds, rv, api };
     export enum PoStates { violation, open, discharged, assumption };
     export enum PoDischargeTypes { global, invariants, ds, rv, api, default };
@@ -100,10 +102,10 @@ module kt.graph {
         }
     }
 
-    export class POLocation{
+    export class POLocation {
         textRange: number[][];
 
-        get line(){
+        get line() {
             return this.textRange[0][0];
         }
     }
@@ -135,7 +137,7 @@ module kt.graph {
         public abstract isDischarged(): boolean;
         public abstract get state(): kt.graph.PoStates;
 
-        get stateName(){
+        get stateName() {
             return kt.graph.PoStates[this.state];
         }
 
@@ -215,6 +217,8 @@ module kt.graph {
         symbol: kt.xml.Symbol;
         private _apiId: string = null;
 
+        complexity: number[] = [0, 0, 0];
+
         get callsiteFileName() {
             return this._callsiteFileName;
         }
@@ -258,9 +262,14 @@ module kt.graph {
             this.callsiteFname = po["callsiteFname"];
             this.callsiteFileName = po["callsiteFileName"];
 
-            this.location.textRange=po["textRange"];
+            this.location.textRange = po["textRange"];
 
             this.id = po["id"];
+
+
+            this.complexity[Complexitiy.C] = kt.util.zeroIfNull(po["complexityC"]);
+            this.complexity[Complexitiy.P] = kt.util.zeroIfNull(po["complexityP"]);
+            this.complexity[Complexitiy.G] = kt.util.zeroIfNull(po["complexityG"]);
 
         }
 
@@ -295,14 +304,14 @@ module kt.graph {
             this._discharge = discharge;
         }
 
-        get state(): PoStates{
-            if(this._discharge){
+        get state(): PoStates {
+            if (this._discharge) {
                 if (this._discharge.violation) {
                     return PoStates.violation;
-                }else{
+                } else {
                     return PoStates.discharged;
                 }
-            }else{
+            } else {
                 return PoStates.open;
             }
         }

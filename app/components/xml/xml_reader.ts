@@ -116,7 +116,10 @@ module kt.xml {
                     currentPo = {
                         "id": tag.attributes["id"],
                         "functionName": functionName,
-                        "level": "PRIMARY"
+                        "level": "PRIMARY",
+                        "complexityP": tag.attributes["p-complexity"],
+                        "complexityC": tag.attributes["c-complexity"],
+                        "complexityG": tag.attributes["g-complexity"]
                     }
                 }
 
@@ -141,7 +144,6 @@ module kt.xml {
 
             parser.onclosetag = (tagName: string) => {
                 if (tagName == 'proof-obligation') {
-                    // currentPo["referenceKey"] = currentPo["id"] + "::" + currentPo["functionName"] + "::" + currentPo["file"];
                     let ppoNode = new kt.graph.PONode(currentPo);
                     ppos.push(ppoNode);
                 }

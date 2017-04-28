@@ -24,6 +24,43 @@ module kt.stats {
         bindings: { [key: string]: T } = {};
         columnNames: Array<string> = new Array();
 
+
+        public foreach(func: (row: string, col: string, val: number) => void):void {
+            for (let rowName in this.data) {
+                let row = this.data[rowName];
+
+                for (let colKey in row) {
+                    var val = row[colKey];
+                    func(rowName, colKey, val);
+                }
+            }
+        }
+
+        public divideBy(m:StatsTable<string>): void {
+            let rows = Object.keys(this.data);
+            let columns = this.columnNames;
+
+            for (let row of rows) {
+                for (let col of columns) {
+
+                    let a = this.getAt(row, col);
+                    let b = m.getAt(row, col);
+
+                    let result = b != 0 ? a / b : 0;
+
+                    this.inc(row, col, 0);
+                    this.data[row][col] = result;
+                }
+            }
+
+        }
+
+        public getAt(row: string, column: string): number {
+            if (this.data[row])
+                return this.data[row][column];
+            return 0;
+        }
+
         set columns(columnNames) {
             this.columnNames = columnNames;
         }
@@ -83,10 +120,19 @@ module kt.stats {
             return ret;
         }
 
+
+
+
         public getTopRows(count: number): Array<NamedArray> {
             let allrows = this.asNamedRowsTable();
             let arr = _.sortBy(allrows, (x) => -_.sum(x["values"]));
             return arr.splice(0, count);
+        }
+
+        public getRowsSorted(): Array<NamedArray> {
+            let allrows = this.asNamedRowsTable();
+            let arr = _.sortBy(allrows, (x) => -_.sum(x["values"]));
+            return arr;
         }
 
         /**
@@ -97,11 +143,7 @@ module kt.stats {
         }
 
 
-        public getAt(row: string, column: string): number {
-            if (this.data[row])
-                return this.data[row][column];
-            return 0;
-        }
+
 
         public getRow(row: string): { [key: string]: number } {
             return this.data[row];
@@ -118,6 +160,10 @@ module kt.stats {
         byFunction: StatsTable<kt.xml.CFunction>;
         byFile: StatsTable<kt.treeview.FileInfo>;
         byFileLine: StatsTable<string>;
+
+        predicateByComplexity: StatsTable<string>;
+
+        private _primaryPredicatesCount: StatsTable<string>;
 
         private filteredOutCount: number;
 
@@ -136,6 +182,7 @@ module kt.stats {
 
         public build(project: kt.Globals.Project) {
 
+            this._primaryPredicatesCount = new StatsTable<string>();
 
             this.byPredicate = new StatsTable<string>();
             this.byDischargeType = new StatsTable<string>();
@@ -144,10 +191,13 @@ module kt.stats {
             this.byFile = new StatsTable<kt.treeview.FileInfo>();
 
             this.byFileLine = new StatsTable<string>();
+            this.predicateByComplexity = new StatsTable<string>();
+            //
 
             this.byFile.columns = states;
             this.byFunction.columns = states;
             this.byPredicate.columns = states;
+
 
             let filteredPredicates = _.uniq(_.map(project.filteredProofObligations, (e) => e.predicate)).sort();
 
@@ -167,6 +217,11 @@ module kt.stats {
                 this.byFileLine.inc(fileLineKey, state, 1);
                 this.byFileLine.inc(fileLineKey, DEF_COL_NAME, 1);
 
+                this.predicateByComplexity.inc(po.predicate, kt.graph.Complexitiy[kt.graph.Complexitiy.P], po.complexity[kt.graph.Complexitiy.P]);
+                this.predicateByComplexity.inc(po.predicate, kt.graph.Complexitiy[kt.graph.Complexitiy.C], po.complexity[kt.graph.Complexitiy.C]);
+                this.predicateByComplexity.inc(po.predicate, kt.graph.Complexitiy[kt.graph.Complexitiy.G], po.complexity[kt.graph.Complexitiy.G]);
+
+                this._primaryPredicatesCount.inc(po.predicate, po.level, 1);
 
                 this.byPredicate.inc(po.predicate, state, 1);
                 this.byPredicate.bind(po.predicate, po.predicate);
@@ -192,8 +247,20 @@ module kt.stats {
                 }
             }
 
+            this.predicateByComplexity.foreach(this.divideByNumberOfPredicates.bind(this));
+
+
             console.info("stats build o:" + this.countOpen + " v:" + this.countViolations + " d:" + this.countDischarged);
 
+        }
+
+        private divideByNumberOfPredicates(row: string, col: string, val: number) {
+            let divider: number = this._primaryPredicatesCount.getAt(row, "I");
+            if (divider) {
+                this.predicateByComplexity.data[row][col] = val / divider;
+            } else {
+                this.predicateByComplexity.data[row][col] = 0;
+            }
         }
 
         get countViolations(): number {
@@ -276,6 +343,25 @@ module kt.stats {
                     colors: colors,
                     columnNames: columnNames
                 }
+            );
+        }
+
+
+        public updatePredicateByComplexityChart(scene, container: d3.Selection<any>) {
+            const table = this.predicateByComplexity;
+            const columnNames = table.columnNames;
+            const data: Array<NamedArray> = table.getRowsSorted();
+
+            const colors: Array<string> = _.map(columnNames,
+                (x) => "var(--kt-complexity-" + x.toLowerCase() + "-bg)");
+
+            kt.charts.updateChart(scene, container,
+                {
+                    data: data,
+                    colors: colors,
+                    columnNames: columnNames
+                },
+                d3.format(".2f")
             );
         }
 
