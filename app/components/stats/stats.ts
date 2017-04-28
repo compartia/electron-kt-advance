@@ -163,7 +163,7 @@ module kt.stats {
 
         predicateByComplexity: StatsTable<string>;
 
-        private _predicatesCount: StatsTable<string>;
+        private _primaryPredicatesCount: StatsTable<string>;
 
         private filteredOutCount: number;
 
@@ -173,7 +173,7 @@ module kt.stats {
 
         public build(project: kt.Globals.Project) {
 
-            this._predicatesCount = new StatsTable<string>();
+            this._primaryPredicatesCount = new StatsTable<string>();
 
             this.byPredicate = new StatsTable<string>();
             this.byDischargeType = new StatsTable<string>();
@@ -212,7 +212,7 @@ module kt.stats {
                 this.predicateByComplexity.inc(po.predicate, kt.graph.Complexitiy[kt.graph.Complexitiy.C], po.complexity[kt.graph.Complexitiy.C]);
                 this.predicateByComplexity.inc(po.predicate, kt.graph.Complexitiy[kt.graph.Complexitiy.G], po.complexity[kt.graph.Complexitiy.G]);
 
-                this._predicatesCount.inc(po.predicate, DEF_COL_NAME, 1);
+                this._primaryPredicatesCount.inc(po.predicate, po.level, 1);
 
                 this.byPredicate.inc(po.predicate, state, 1);
                 this.byPredicate.bind(po.predicate, po.predicate);
@@ -245,7 +245,7 @@ module kt.stats {
         }
 
         private divideByNumberOfPredicates(row: string, col: string, val: number) {
-            let divider: number = this._predicatesCount.getAt(row, DEF_COL_NAME);
+            let divider: number = this._primaryPredicatesCount.getAt(row, "I");
             if (divider) {
                 this.predicateByComplexity.data[row][col] = val / divider;
             } else {
