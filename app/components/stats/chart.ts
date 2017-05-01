@@ -1,16 +1,24 @@
 module kt.charts {
-    export interface ChartData {
-        data: Array<kt.stats.NamedArray>;
-        colors: Array<string>;
+
+    export interface ChartData<X> {
+        data: Array<kt.stats.NamedArray<X>>;
+        colors: (x: kt.stats.NamedArray<X>, index: number) => string;
         columnNames: Array<string>;
+        label: (x: kt.stats.NamedArray<X>) => string;
+        max: number;
     }
 
 
-    export function updateChart(scene, container: d3.Selection<any>, chartData: ChartData, format = d3.format(",.0f")) {
+    export function updateChart <X> (scene, container: d3.Selection<any>, chartData: ChartData<X>, format = d3.format(",.0f")) {
         const data = chartData.data;
 
-        const summs = _.map(data, (x) => _.sum(x.values));
-        const max: number = _.max(summs);
+
+        var max:number = chartData.max;
+        if(!max){
+            var summs = _.map(data, (x) => _.sum(x.values));
+            max = _.max(summs);
+        }
+
 
         const widthFunc = (val, col) => {
             let ret = Math.round(10000 * (val / max)) / 100.1;
@@ -18,7 +26,7 @@ module kt.charts {
         }
 
         const bgFunc = (val, index) => {
-            return chartData.colors[index];
+            return chartData.colors(val, index);
         }
 
         const colName = (index) => {
@@ -27,7 +35,19 @@ module kt.charts {
 
         const ident = (d) => d;
 
-        const rowname = (x) => x["name"];
+        const rowname = (x) =>{
+            // x["name"]
+            if(chartData.label){
+                return chartData.label(x);
+            }else{
+                return x["name"];
+            }
+        };
+
+        const rowtitle = (x) =>{
+            return x["name"];
+        };
+
         const rowSum = (x) => {
             return format(_.sum(x["values"]));
         }
@@ -75,7 +95,7 @@ module kt.charts {
 
         newRows.append("label")
             .text(rowname)
-            .attr("title", rowname);
+            .attr("title", rowtitle);
 
         newRows.append("div")
             .text(rowSum)
