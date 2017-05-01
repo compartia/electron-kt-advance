@@ -250,7 +250,7 @@ module kt.stats {
                 this.byState.inc(state, DEF_COL_NAME, 1);
                 this.byState.bind(state, state);
                 //-----------
-                if (po.isDischarged()) {
+                if (po.isDischarged() || po.isViolation()) {
                     let dischargeType = po.dischargeType;
                     if (!dischargeType)
                         dischargeType = "default";

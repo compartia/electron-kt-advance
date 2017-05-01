@@ -316,6 +316,15 @@ module kt.graph {
             }
         }
 
+        public isDischarged(): boolean {
+            return this.discharge && !this.discharge.violation;
+        }
+
+        public isViolation(): boolean {
+            return this.state === PoStates.violation;
+        }
+
+
         get dischargeType(): string {
             if (this.discharge) {
                 return this.discharge.liftingType;
@@ -410,9 +419,6 @@ module kt.graph {
 
 
 
-        public isDischarged(): boolean {
-            return this.discharge && !this.discharge.violation;
-        }
 
 
 
