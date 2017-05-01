@@ -1,39 +1,37 @@
 <dom-module id="kt-stats">
     <template>
 
+        <!-- ROW -->
         <div class="container flex-hor" style="display:flex">
+
+            <!-- COL -->
             <div class="container flex-ver flexchild">
                 <paper-material elevation="1" class="card panel flexchild">
                     <h3>Proof obligations by predicate</h3>
                     <div id="poByRedicate" class="kt-chart"></div>
                 </paper-material>
 
-                <paper-material elevation="1" class="card panel flexchild">
-                    <h3>Proof obligations by function (top [[poByFunctionMaxRows]])</h3>
-                    <div id="poByFunction" class="kt-chart"></div>
-                </paper-material>
+            </div>
 
-
-                <paper-material elevation="1" class="card panel flexchild">
-                    <h3>Functions by predicate (P-) complexity (top [[functionsByComplexityBMaxRows]])</h3>
-                    <h4>Total <b>predicate</b>-complexity of function-related  <b>primary</b> proof obligations (PPO) divided by the number of PPO</h4>
-                    <div id="pComplexityByFunction" class="kt-chart"></div>
-                </paper-material>
+            <!-- COL -->
+            <div class="container flex-ver flexchild">
 
                 <paper-material elevation="1" class="card panel flexchild">
-                    <h3>Functions by (C-) complexity (top [[functionsByComplexityBMaxRows]])</h3>
-                    <h4>Total <b>cyclomatic</b>-complexity of function-related  <b>primary</b> proof obligations (PPO) divided by the number of PPO</h4>
-                    <div id="cComplexityByFunction" class="kt-chart"></div>
+                    <h3>Average complexity by predicate</h3>
+                    <h4>Total complexity divided by the number of <b>primary</b> proof obligations</h4>
+                    <div id="complexityByPredicate" class="kt-chart"></div>
                 </paper-material>
 
             </div>
 
+        </div>
+
+
+        <div class="container flex-hor" style="display:flex">
             <div class="container flex-ver flexchild">
 
-                <paper-material elevation="1" class="card panel flexchild">
-                    <h3>Proof obligations by file (top 10)</h3>
-                    <div id="poByFile" class="kt-chart"></div>
-                </paper-material>
+
+
 
                 <paper-material elevation="1" class="card panel flexchild">
                     <h3>Proof obligations by type of discharge</h3>
@@ -42,12 +40,64 @@
 
 
                 <paper-material elevation="1" class="card panel flexchild">
-                    <h3>Average complexity by predicate</h3>
-                    <h4>Total complexity divided by the number of <b>primary</b> proof obligations</h4>
-                    <div id="complexityByPredicate" class="kt-chart"></div>
+                    <h3>Proof obligations by file (top 10)</h3>
+                    <div id="poByFile" class="kt-chart"></div>
                 </paper-material>
+
+
+            </div>
+
+            <div class="container flex-ver flexchild">
+                <paper-material elevation="1" class="card panel flexchild">
+                    <h3>Proof obligations by function (top [[poByFunctionMaxRows]])</h3>
+                    <div id="poByFunction" class="kt-chart"></div>
+                </paper-material>
+
+
+
             </div>
         </div>
+
+
+        <div class="container flex-hor" style="display:flex">
+            <!-- C -->
+
+            <div class="container flex-ver flexchild">
+                <paper-material elevation="1" class="card panel flexchild">
+                    <h3>Functions by (C-) complexity (top [[functionsByComplexityBMaxRows]])</h3>
+                    <h4>Total <b>cyclomatic</b>-complexity of function-related  <b>primary</b> proof obligations (PPO) divided by the number of PPO</h4>
+                    <div id="cComplexityByFunction" class="kt-chart"></div>
+                </paper-material>
+
+                <paper-material elevation="1" class="card panel flexchild">
+                    <h3>Source files by (C-) complexity (top [[functionsByComplexityBMaxRows]])</h3>
+                    <h4>Total <b>cyclomatic</b>-complexity of source file-related  <b>primary</b> proof obligations (PPO) divided by the number of PPO</h4>
+                    <div id="cComplexityByFile" class="kt-chart"></div>
+                </paper-material>
+
+            </div>
+
+            <!-- P -->
+            <div class="container flex-ver flexchild">
+
+                <paper-material elevation="1" class="card panel flexchild">
+                    <h3>Functions by predicate (P-) complexity (top [[functionsByComplexityBMaxRows]])</h3>
+                    <h4>Total <b>predicate</b>-complexity of function-related  <b>primary</b> proof obligations (PPO) divided by the number of PPO</h4>
+                    <div id="pComplexityByFunction" class="kt-chart"></div>
+                </paper-material>
+
+                <paper-material elevation="1" class="card panel flexchild">
+                    <h3>Source files by predicate (P-) complexity (top [[functionsByComplexityBMaxRows]])</h3>
+                    <h4>Total <b>predicate</b>-complexity of source file-related  <b>primary</b> proof obligations (PPO) divided by the number of PPO</h4>
+                    <div id="pComplexityByFile" class="kt-chart"></div>
+                </paper-material>
+
+            </div>
+
+        </div>
+
+
+
 
     </template>
 
@@ -120,7 +170,10 @@
                     newVal.updatePredicateByComplexityChart(this, d3.select("#complexityByPredicate"));
 
                     newVal.updatComplexityByFunctionChart(["P"], this.functionsByComplexityBMaxRows, this, d3.select("#pComplexityByFunction"));
-                    newVal.updatComplexityByFunctionChart(["C"], this.functionsByComplexityBMaxRows, this, d3.select("#cComplexityByFunction"))
+                    newVal.updatComplexityByFunctionChart(["C"], this.functionsByComplexityBMaxRows, this, d3.select("#cComplexityByFunction"));
+
+                    newVal.updatComplexityByFileChart(["P"], this.functionsByComplexityBMaxRows, this, d3.select("#pComplexityByFile"));
+                    newVal.updatComplexityByFileChart(["C"], this.functionsByComplexityBMaxRows, this, d3.select("#cComplexityByFile"));
 
                 }
             },

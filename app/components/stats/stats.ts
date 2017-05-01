@@ -25,6 +25,27 @@ module kt.stats {
         columnNames: Array<string> = new Array();
 
 
+        public divideColumnsByColumn(columns: string[], dividerTable: StatsTable<any>, dividerColumn: string) {
+
+            for (let rowName in this.data) {
+                let row = this.data[rowName];
+                let divider: number = dividerTable.getAt(rowName, dividerColumn);
+
+                for (let colKey in row) {
+                    if (_.contains(columns, colKey))
+                        var val = row[colKey];
+
+                    if (divider) {
+                        row[colKey] = val / divider;
+                    } else {
+                        row[colKey] = 0;
+                    }
+                }
+            }
+        }
+
+
+
         public foreach(func: (row: string, col: string, val: number) => void, columns?: string[]): void {
 
             for (let rowName in this.data) {
@@ -142,6 +163,7 @@ module kt.stats {
         byFileLine: StatsTable<string>;
 
         predicateByComplexity: StatsTable<string>;
+        complexityByFile: StatsTable<kt.treeview.FileInfo>;
 
 
         private _primaryPredicatesCount: StatsTable<string>;
@@ -164,6 +186,7 @@ module kt.stats {
             this.byState = new StatsTable<string>();
             this.byFunction = new StatsTable<kt.xml.CFunction>();
             this.byFile = new StatsTable<kt.treeview.FileInfo>();
+            this.complexityByFile = new StatsTable<kt.treeview.FileInfo>();
 
             this.byFileLine = new StatsTable<string>();
             this.predicateByComplexity = new StatsTable<string>();
@@ -213,6 +236,12 @@ module kt.stats {
                 this.complexityByFunction.inc(functionKey, kt.graph.Complexitiy[kt.graph.Complexitiy.C], po.complexity[kt.graph.Complexitiy.C]);
                 this.complexityByFunction.inc(functionKey, kt.graph.Complexitiy[kt.graph.Complexitiy.G], po.complexity[kt.graph.Complexitiy.G]);
 
+                this.complexityByFile.inc(po.file, kt.graph.Complexitiy[kt.graph.Complexitiy.P], po.complexity[kt.graph.Complexitiy.P]);
+                this.complexityByFile.inc(po.file, kt.graph.Complexitiy[kt.graph.Complexitiy.C], po.complexity[kt.graph.Complexitiy.C]);
+                this.complexityByFile.inc(po.file, kt.graph.Complexitiy[kt.graph.Complexitiy.G], po.complexity[kt.graph.Complexitiy.G]);
+                this.complexityByFile.inc(po.file, po.level, 1);
+                this.complexityByFile.bind(po.file, po.cfunction.fileInfo);
+
                 this.complexityByFunction.inc(functionKey, po.level, 1);
                 this.complexityByFunction.bind(functionKey, po.cfunction);
                 //------------
@@ -232,8 +261,13 @@ module kt.stats {
                 }
             }
 
-            this.predicateByComplexity.foreach(this.divideByNumberOfPredicates.bind(this), ["C", "P", "G"]);
-            this.complexityByFunction.foreach(this.divideFunctionCmplxByNumberOfPredicates.bind(this), ["C", "P", "G"]);
+            this.complexityByFile.divideColumnsByColumn(["C", "P", "G"] , this.complexityByFile , "I");
+            this.predicateByComplexity.divideColumnsByColumn(["C", "P", "G"] , this._primaryPredicatesCount , "I");
+            this.complexityByFunction.divideColumnsByColumn(["C", "P", "G"] , this.complexityByFunction , "I");
+            //
+            // this.complexityByFile.foreach(this.divideFileCmplxByNumberOfPredicates.bind(this), ["C", "P", "G"]);
+            // this.predicateByComplexity.foreach(this.divideByNumberOfPredicates.bind(this), ["C", "P", "G"]);
+            // this.complexityByFunction.foreach(this.divideFunctionCmplxByNumberOfPredicates.bind(this), ["C", "P", "G"]);
 
 
             console.info("stats build o:" + this.countOpen + " v:" + this.countViolations + " d:" + this.countDischarged);
@@ -364,7 +398,7 @@ module kt.stats {
                     colors: colors,
                     columnNames: columnNames,
                     label: x => x.name,
-                    max: 10
+                    max: null
                 },
                 d3.format(".2f")
             );
@@ -385,28 +419,30 @@ module kt.stats {
                     colors: colors,
                     columnNames: columnNames,
                     label: (x: NamedArray<kt.xml.CFunction>) => x.object.name,
-                    max: 10
+                    max: null
                 },
                 d3.format(".2f")
             );
         }
 
-        // public updatComplexityByFileChart(columnNames: string[], maxRows: number, scene, container: d3.Selection<any>) {
-        //     const table = this.complexityByFile;
-        //     const data: Array<NamedArray> = table.getTopRows(maxRows, columnNames);
-        //
-        //     const colors: Array<string> = _.map(columnNames,
-        //         (x) => "var(--kt-complexity-" + x.toLowerCase() + "-bg)");
-        //
-        //     kt.charts.updateChart(scene, container,
-        //         {
-        //             data: data,
-        //             colors: colors,
-        //             columnNames: columnNames
-        //         },
-        //         d3.format(".2f")
-        //     );
-        // }
+        public updatComplexityByFileChart(columnNames: string[], maxRows: number, scene, container: d3.Selection<any>) {
+            const table = this.complexityByFile;
+            const data: Array<NamedArray<kt.treeview.FileInfo>> = table.getTopRows(maxRows, columnNames);
+
+            const colors: Array<string> = _.map(columnNames,
+                (x) => "var(--kt-complexity-" + x.toLowerCase() + "-bg)");
+
+            kt.charts.updateChart(scene, container,
+                {
+                    data: data,
+                    colors: colors,
+                    columnNames: columnNames,
+                    label: (x: NamedArray<kt.treeview.FileInfo>) => x.object.name,
+                    max: null
+                },
+                d3.format(".2f")
+            );
+        }
 
 
 
