@@ -197,6 +197,7 @@ module kt.stats {
                 this.predicateByComplexity.inc(po.predicate, kt.graph.Complexitiy[kt.graph.Complexitiy.P], po.complexity[kt.graph.Complexitiy.P]);
                 this.predicateByComplexity.inc(po.predicate, kt.graph.Complexitiy[kt.graph.Complexitiy.C], po.complexity[kt.graph.Complexitiy.C]);
                 this.predicateByComplexity.inc(po.predicate, kt.graph.Complexitiy[kt.graph.Complexitiy.G], po.complexity[kt.graph.Complexitiy.G]);
+                this.predicateByComplexity.bind(po.predicate, po.predicate);
 
                 this._primaryPredicatesCount.inc(po.predicate, po.level, 1);
 
@@ -286,7 +287,8 @@ module kt.stats {
                     data: data,
                     colors: colors,
                     columnNames: columnNames,
-                    label: x => x.name
+                    label: x => x.name,
+                    max: null
                 }
             );
         }
@@ -303,7 +305,8 @@ module kt.stats {
                     data: data,
                     colors: colors,
                     columnNames: columnNames,
-                    label: x => x.name
+                    label: x => x.name,
+                    max: null
                 }
             );
         }
@@ -321,7 +324,8 @@ module kt.stats {
                     data: data,
                     colors: colors,
                     columnNames: columnNames,
-                    label: x => x.object.name
+                    label: x => x.object.name,
+                    max: null
                 }
             );
         }
@@ -339,7 +343,8 @@ module kt.stats {
                     data: data,
                     colors: colors,
                     columnNames: columnNames,
-                    label: (x: NamedArray<kt.treeview.FileInfo>) => x.object.name
+                    label: (x: NamedArray<kt.treeview.FileInfo>) => x.object.name,
+                    max: null
                 }
             );
         }
@@ -358,7 +363,8 @@ module kt.stats {
                     data: data,
                     colors: colors,
                     columnNames: columnNames,
-                    label: x => x.name
+                    label: x => x.name,
+                    max: 10
                 },
                 d3.format(".2f")
             );
@@ -378,7 +384,8 @@ module kt.stats {
                     data: data,
                     colors: colors,
                     columnNames: columnNames,
-                    label: (x: NamedArray<kt.xml.CFunction>) => x.object.name
+                    label: (x: NamedArray<kt.xml.CFunction>) => x.object.name,
+                    max: 10
                 },
                 d3.format(".2f")
             );

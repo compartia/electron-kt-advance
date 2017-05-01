@@ -116,6 +116,7 @@
                     newVal.updatePoByDischargeChart(this, d3.select("#poByDischarge"));
                     newVal.updatePoByFunctionChart(this.poByFunctionMaxRows, this, d3.select("#poByFunction"));
                     newVal.updatePoByFileChart(this, d3.select("#poByFile"));
+
                     newVal.updatePredicateByComplexityChart(this, d3.select("#complexityByPredicate"));
 
                     newVal.updatComplexityByFunctionChart(["P"], this.functionsByComplexityBMaxRows, this, d3.select("#pComplexityByFunction"));
@@ -125,15 +126,16 @@
             },
 
             _chartBarSelected: function(event) {
-                if (event.detail.src == this.$.poByRedicate) {
+                var src = event.detail.src;
+                if (src == this.$.poByRedicate || src == this.$.complexityByPredicate) {
                     this.set("filter.predicates", new kt.util.StringSet([event.detail.row]));
                 }
 
-                if (event.detail.src == this.$.poByDischarge) {
+                if (src == this.$.poByDischarge) {
                     this.set("filter.dischargeTypes", new kt.util.StringSet([event.detail.row.toLowerCase()]));
                 }
 
-                if (event.detail.src == this.$.poByFunction) {
+                if (src == this.$.poByFunction ||  src == this.$.cComplexityByFunction ||  src == this.$.pComplexityByFunction) {
                     console.log(event.detail);
                     this.filter.file = event.detail.row.fileInfo;
                     this.filter.cfunction = event.detail.row;

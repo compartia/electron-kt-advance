@@ -5,14 +5,20 @@ module kt.charts {
         colors: Array<string>;
         columnNames: Array<string>;
         label: (x: kt.stats.NamedArray<X>) => string;
+        max: number;
     }
 
 
     export function updateChart <X> (scene, container: d3.Selection<any>, chartData: ChartData<X>, format = d3.format(",.0f")) {
         const data = chartData.data;
 
-        const summs = _.map(data, (x) => _.sum(x.values));
-        const max: number = _.max(summs);
+
+        var max:number = chartData.max;
+        if(!max){
+            var summs = _.map(data, (x) => _.sum(x.values));
+            max = _.max(summs);
+        }
+
 
         const widthFunc = (val, col) => {
             let ret = Math.round(10000 * (val / max)) / 100.1;
@@ -36,9 +42,12 @@ module kt.charts {
             }else{
                 return x["name"];
             }
-
-
         };
+
+        const rowtitle = (x) =>{
+            return x["name"];
+        };
+
         const rowSum = (x) => {
             return format(_.sum(x["values"]));
         }
@@ -86,7 +95,7 @@ module kt.charts {
 
         newRows.append("label")
             .text(rowname)
-            .attr("title", rowname);
+            .attr("title", rowtitle);
 
         newRows.append("div")
             .text(rowSum)
