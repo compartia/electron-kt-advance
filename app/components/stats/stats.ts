@@ -158,6 +158,8 @@ module kt.stats {
         byDischargeType: StatsTable<string>;
         byState: StatsTable<string>;
         byFunction: StatsTable<kt.xml.CFunction>;
+
+        complexityByFunction: StatsTable<kt.xml.CFunction>;
         byFile: StatsTable<kt.treeview.FileInfo>;
         byFileLine: StatsTable<string>;
 
@@ -183,6 +185,7 @@ module kt.stats {
 
             this.byFileLine = new StatsTable<string>();
             this.predicateByComplexity = new StatsTable<string>();
+            this.complexityByFunction = new StatsTable<string>();
             //
 
             this.byFile.columns = states;
@@ -209,8 +212,9 @@ module kt.stats {
                 this.byFileLine.inc(fileLineKey, "sum", 1);
 
                 this.predicateByComplexity.inc(po.predicate, kt.graph.Complexitiy[kt.graph.Complexitiy.P], po.complexity[kt.graph.Complexitiy.P]);
-                this.predicateByComplexity.inc(po.predicate, kt.graph.Complexitiy[kt.graph.Complexitiy.C], po.complexity[kt.graph.Complexitiy.C]);
-                this.predicateByComplexity.inc(po.predicate, kt.graph.Complexitiy[kt.graph.Complexitiy.G], po.complexity[kt.graph.Complexitiy.G]);
+                //XXX: C and P complexities are not comparable. Do not show them together.
+                // this.predicateByComplexity.inc(po.predicate, kt.graph.Complexitiy[kt.graph.Complexitiy.C], po.complexity[kt.graph.Complexitiy.C]);
+                // this.predicateByComplexity.inc(po.predicate, kt.graph.Complexitiy[kt.graph.Complexitiy.G], po.complexity[kt.graph.Complexitiy.G]);
 
                 this._primaryPredicatesCount.inc(po.predicate, po.level, 1);
 
@@ -220,6 +224,8 @@ module kt.stats {
                 let functionKey = po.file + "/" + po.functionName;
                 this.byFunction.inc(functionKey, state, 1);
                 this.byFunction.bind(functionKey, po.cfunction);
+                this.complexityByFunction.inc(functionKey, kt.graph.Complexitiy[kt.graph.Complexitiy.P], po.complexity[kt.graph.Complexitiy.P]);
+                this.complexityByFunction.bind(functionKey, po.cfunction);
                 //------------
                 this.byFile.inc(po.file, state, 1);
                 this.byFile.bind(po.file, po.cfunction.fileInfo);
@@ -303,10 +309,10 @@ module kt.stats {
         }
 
 
-        public updatePoByFunctionChart(scene, container: d3.Selection<any>) {
+        public updatePoByFunctionChart(maxRows: number, scene, container: d3.Selection<any>) {
             const table = this.byFunction;
             const columnNames = table.columnNames;
-            const data: Array<NamedArray> = table.getTopRows(20);
+            const data: Array<NamedArray> = table.getTopRows(maxRows);
 
             const colors: Array<string> = _.map(columnNames,
                 (x) => "var(--kt-state-" + x.toLowerCase() + "-default-bg)");
@@ -341,6 +347,25 @@ module kt.stats {
             const table = this.predicateByComplexity;
             const columnNames = table.columnNames;
             const data: Array<NamedArray> = table.getRowsSorted();
+
+            const colors: Array<string> = _.map(columnNames,
+                (x) => "var(--kt-complexity-" + x.toLowerCase() + "-bg)");
+
+            kt.charts.updateChart(scene, container,
+                {
+                    data: data,
+                    colors: colors,
+                    columnNames: columnNames
+                },
+                d3.format(".2f")
+            );
+        }
+
+
+        public updatComplexityByFunctionChart(maxRows: number, scene, container: d3.Selection<any>) {
+            const table = this.complexityByFunction;
+            const columnNames = table.columnNames;
+            const data: Array<NamedArray> = table.getTopRows(maxRows);
 
             const colors: Array<string> = _.map(columnNames,
                 (x) => "var(--kt-complexity-" + x.toLowerCase() + "-bg)");
