@@ -83,8 +83,24 @@
                 return clazz;
             },
 
+            jumpToLine: function(line) {
+                if (line) {
+                    var task = function() {
+                        this.$.listOfLines.scrollToIndex(line - 1);
+                        this.pendingLine = null;
+                    }
+                    setTimeout(task.bind(this));
+                }
+
+            },
+
             _onFilterApplied: function(event) {
-                var newFile = event.detail.file;
+                var _filter = event.detail;
+                var newFile = _filter.file;
+
+                if (_filter.cfunction) {
+                    this.pendingLine = _filter.cfunction.line;
+                }
 
                 /**
                 make sure it is called AFTER statistics is ready.
@@ -95,17 +111,15 @@
                         this._loadedFile = newFile;
                         this.currentProject.loadFile(newFile.relativePath).then(function(fileContents) {
                             this.set("lines", fileContents.lines);
+
+                            if (this.pendingLine) {
+                                this.jumpToLine(this.pendingLine);
+                            }
+
                         }.bind(this));
 
                     } else {
-
-                        if (event.detail.cfunction) {
-                            var task = function() {
-                                this.$.listOfLines.scrollToIndex(event.detail.cfunction.line - 1);
-                            }
-                            setTimeout(task.bind(this));
-                        }
-
+                        this.jumpToLine(this.pendingLine);
                     }
 
                 }

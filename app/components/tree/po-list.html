@@ -11,9 +11,18 @@
 
                     <span class="po-id">{{item.id}}</span>
 
-                    <template is="dom-if" if="[[_showFunctionName(item.functionName)]]">
-                        <span class="function-name">[[item.functionName]]</span>
-                    </template>
+
+
+                    <span class="location" on-tap="jumpToSource" data=[[item]]>
+                        <!-- <template is="dom-if" if="[[_showFunctionName(item.functionName)]]"> -->
+                            <span class="function-name">[[item.functionName]]</span>
+                        <!-- </template> -->
+                        <template is="dom-if" if="[[_showFunctionName(item.functionName)]]">
+                            <span class="function-name">[[item.functionName]]</span>
+                        </template>
+                        <span id="line">:[[item.location.line]]</span>
+
+                    </span>
 
                     <span class="state">
                         <sup>[[item.level]]</sup>
@@ -64,7 +73,15 @@
                 filteredProofObligations: {
                     type: Object,
                     notify: true
-                }
+                },
+
+
+            },
+
+            jumpToSource:function(event){
+                var item = event.currentTarget.data;
+                this.fire("jump-to-src", item);
+                // console.error("jump to source file "+item.file);            
             },
 
             _getStateName:function(item){

@@ -284,11 +284,21 @@
             },
 
             listeners: {
-                "project-loaded": "_onProjectLoaded"
+                "project-loaded": "_onProjectLoaded",
+                "jump-to-src": "_onJumpToSrc"
             },
 
             observers: ['filterChanged(filter.*)'],
 
+            _onJumpToSrc:function(event){
+                var po=event.detail;
+                this.modeIndex=1;
+
+
+                this.set("filter.file", po.cfunction.fileInfo);
+                this.set("filter.cfunction", po.cfunction);
+                // this.$.sourceview.jumpToLine(po.location.line);
+            },
 
             filterChanged: function(event) {
                 if (this.currentProject) {
