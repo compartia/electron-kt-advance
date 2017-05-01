@@ -15,6 +15,19 @@ var kt;
             console.info(root);
         }
         treeview.build = build;
+        var FileInfoImpl = (function () {
+            function FileInfoImpl() {
+            }
+            Object.defineProperty(FileInfoImpl.prototype, "name", {
+                get: function () {
+                    return path.basename(this.relativePath);
+                },
+                enumerable: true,
+                configurable: true
+            });
+            return FileInfoImpl;
+        }());
+        treeview.FileInfoImpl = FileInfoImpl;
         function tree(dir) {
             console.info("iterating " + dir);
             var tree = {

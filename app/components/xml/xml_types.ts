@@ -38,14 +38,7 @@ module kt.xml {
     }
 
     export class CFunction {
-        private _file: kt.treeview.FileInfo = {
-            name: null,
-            relativePath: null,
-            icon: null,
-            open: null,
-            children: null,
-            dir: false
-        }
+        private _file: kt.treeview.FileInfo = new  kt.treeview.FileInfoImpl();
         line: number;
         name: string;
 

@@ -1,12 +1,14 @@
 module kt.charts {
-    export interface ChartData {
-        data: Array<kt.stats.NamedArray>;
+
+    export interface ChartData<X> {
+        data: Array<kt.stats.NamedArray<X>>;
         colors: Array<string>;
         columnNames: Array<string>;
+        label: (x: kt.stats.NamedArray<X>) => string;
     }
 
 
-    export function updateChart(scene, container: d3.Selection<any>, chartData: ChartData, format = d3.format(",.0f")) {
+    export function updateChart <X> (scene, container: d3.Selection<any>, chartData: ChartData<X>, format = d3.format(",.0f")) {
         const data = chartData.data;
 
         const summs = _.map(data, (x) => _.sum(x.values));
@@ -27,7 +29,16 @@ module kt.charts {
 
         const ident = (d) => d;
 
-        const rowname = (x) => x["name"];
+        const rowname = (x) =>{
+            // x["name"]
+            if(chartData.label){
+                return chartData.label(x);
+            }else{
+                return x["name"];
+            }
+
+
+        };
         const rowSum = (x) => {
             return format(_.sum(x["values"]));
         }

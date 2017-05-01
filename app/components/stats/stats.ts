@@ -11,9 +11,9 @@ module kt.stats {
 
     const DEF_COL_NAME = "count";
 
-    export interface NamedArray {
+    export interface NamedArray<X> {
         name: string;
-        object: any;
+        object: X;
         values: Array<number>;
     }
 
@@ -25,7 +25,7 @@ module kt.stats {
         columnNames: Array<string> = new Array();
 
 
-        public foreach(columns?: string[], func: (row: string, col: string, val: number) => void): void {
+        public foreach(func: (row: string, col: string, val: number) => void, columns?: string[]): void {
 
             for (let rowName in this.data) {
                 let row = this.data[rowName];
@@ -82,15 +82,15 @@ module kt.stats {
         [[{name:"row1name", values:[3,2,3]]
         ]
         */
-        public asNamedRowsTable(columns?: string[]): Array<NamedArray> {
+        public asNamedRowsTable(columns?: string[]): Array<NamedArray<T>> {
             let rows = Object.keys(this.data);
             if (!columns)
                 columns = this.columnNames;
 
-            let ret = new Array<NamedArray>();
+            let ret = new Array<NamedArray<T>>();
 
             for (let rowName of rows) {
-                let row: NamedArray = {
+                let row: NamedArray<T> = {
                     name: rowName,
                     values: new Array<number>(),
                     object: this.bindings[rowName]
@@ -109,13 +109,13 @@ module kt.stats {
 
 
 
-        public getTopRows(count: number, columns?: string[]): Array<NamedArray> {
+        public getTopRows(count: number, columns?: string[]): Array<NamedArray<T>> {
             let allrows = this.asNamedRowsTable(columns);
             let arr = _.sortBy(allrows, (x) => -_.sum(x["values"]));
             return arr.splice(0, count);
         }
 
-        public getRowsSorted(columns?: string[]): Array<NamedArray> {
+        public getRowsSorted(columns?: string[]): Array<NamedArray<T>> {
             let allrows = this.asNamedRowsTable(columns);
             let arr = _.sortBy(allrows, (x) => -_.sum(x["values"]));
             return arr;
@@ -231,8 +231,8 @@ module kt.stats {
                 }
             }
 
-            this.predicateByComplexity.foreach(["C", "P", "G"], this.divideByNumberOfPredicates.bind(this));
-            this.complexityByFunction.foreach(["C", "P", "G"], this.divideFunctionCmplxByNumberOfPredicates.bind(this));
+            this.predicateByComplexity.foreach(this.divideByNumberOfPredicates.bind(this), ["C", "P", "G"]);
+            this.complexityByFunction.foreach(this.divideFunctionCmplxByNumberOfPredicates.bind(this), ["C", "P", "G"]);
 
 
             console.info("stats build o:" + this.countOpen + " v:" + this.countViolations + " d:" + this.countDischarged);
@@ -278,14 +278,15 @@ module kt.stats {
         public updateChart(scene, container: d3.Selection<any>) {
             const table = this.byPredicate;
             const columnNames = table.columnNames;
-            const data: Array<NamedArray> = table.asNamedRowsTable();
+            const data: Array<NamedArray<string>> = table.asNamedRowsTable();
             const colors: Array<string> = _.map(columnNames,
                 (x) => "var(--kt-state-" + x.toLowerCase() + "-default-bg)");
             kt.charts.updateChart(scene, container,
                 {
                     data: data,
                     colors: colors,
-                    columnNames: columnNames
+                    columnNames: columnNames,
+                    label: x => x.name
                 }
             );
         }
@@ -293,7 +294,7 @@ module kt.stats {
         public updatePoByDischargeChart(scene, container: d3.Selection<any>) {
             const table = this.byDischargeType;
             const columnNames = table.columnNames;
-            const data: Array<NamedArray> = table.asNamedRowsTable();
+            const data: Array<NamedArray<string>> = table.asNamedRowsTable();
 
             const colors: Array<string> = _.map(columnNames,
                 (x) => "var(--kt-state-discharged-" + x.toLowerCase() + "-bg)");
@@ -301,7 +302,8 @@ module kt.stats {
                 {
                     data: data,
                     colors: colors,
-                    columnNames: columnNames
+                    columnNames: columnNames,
+                    label: x => x.name
                 }
             );
         }
@@ -310,7 +312,7 @@ module kt.stats {
         public updatePoByFunctionChart(maxRows: number, scene, container: d3.Selection<any>) {
             const table = this.byFunction;
             const columnNames = table.columnNames;
-            const data: Array<NamedArray> = table.getTopRows(maxRows);
+            const data: Array<NamedArray<kt.xml.CFunction>> = table.getTopRows(maxRows);
 
             const colors: Array<string> = _.map(columnNames,
                 (x) => "var(--kt-state-" + x.toLowerCase() + "-default-bg)");
@@ -318,7 +320,8 @@ module kt.stats {
                 {
                     data: data,
                     colors: colors,
-                    columnNames: columnNames
+                    columnNames: columnNames,
+                    label: x => x.object.name
                 }
             );
         }
@@ -326,7 +329,7 @@ module kt.stats {
         public updatePoByFileChart(scene, container: d3.Selection<any>) {
             const table = this.byFile;
             const columnNames = table.columnNames;
-            const data: Array<NamedArray> = table.getTopRows(20);
+            const data: Array<NamedArray<kt.treeview.FileInfo>> = table.getTopRows(20);
 
             const colors: Array<string> = _.map(columnNames,
                 (x) => "var(--kt-state-" + x.toLowerCase() + "-default-bg)");
@@ -335,7 +338,8 @@ module kt.stats {
                 {
                     data: data,
                     colors: colors,
-                    columnNames: columnNames
+                    columnNames: columnNames,
+                    label: (x: NamedArray<kt.treeview.FileInfo>) => x.object.name
                 }
             );
         }
@@ -344,7 +348,7 @@ module kt.stats {
         public updatePredicateByComplexityChart(scene, container: d3.Selection<any>) {
             const table = this.predicateByComplexity;
             const columnNames = ["P"];
-            const data: Array<NamedArray> = table.getRowsSorted(columnNames);
+            const data: Array<NamedArray<string>> = table.getRowsSorted(columnNames);
 
             const colors: Array<string> = _.map(columnNames,
                 (x) => "var(--kt-complexity-" + x.toLowerCase() + "-bg)");
@@ -353,7 +357,8 @@ module kt.stats {
                 {
                     data: data,
                     colors: colors,
-                    columnNames: columnNames
+                    columnNames: columnNames,
+                    label: x => x.name
                 },
                 d3.format(".2f")
             );
@@ -363,7 +368,7 @@ module kt.stats {
         public updatComplexityByFunctionChart(showColumns: string[], maxRows: number, scene, container: d3.Selection<any>) {
             const table = this.complexityByFunction;
             const columnNames = showColumns;
-            const data: Array<NamedArray> = table.getTopRows(maxRows, columnNames);
+            const data: Array<NamedArray<kt.xml.CFunction>> = table.getTopRows(maxRows, columnNames);
 
             const colors: Array<string> = _.map(columnNames,
                 (x) => "var(--kt-complexity-" + x.toLowerCase() + "-bg)");
@@ -372,11 +377,29 @@ module kt.stats {
                 {
                     data: data,
                     colors: colors,
-                    columnNames: columnNames
+                    columnNames: columnNames,
+                    label: (x: NamedArray<kt.xml.CFunction>) => x.object.name
                 },
                 d3.format(".2f")
             );
         }
+
+        // public updatComplexityByFileChart(columnNames: string[], maxRows: number, scene, container: d3.Selection<any>) {
+        //     const table = this.complexityByFile;
+        //     const data: Array<NamedArray> = table.getTopRows(maxRows, columnNames);
+        //
+        //     const colors: Array<string> = _.map(columnNames,
+        //         (x) => "var(--kt-complexity-" + x.toLowerCase() + "-bg)");
+        //
+        //     kt.charts.updateChart(scene, container,
+        //         {
+        //             data: data,
+        //             colors: colors,
+        //             columnNames: columnNames
+        //         },
+        //         d3.format(".2f")
+        //     );
+        // }
 
 
 
