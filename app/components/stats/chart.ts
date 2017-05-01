@@ -2,7 +2,7 @@ module kt.charts {
 
     export interface ChartData<X> {
         data: Array<kt.stats.NamedArray<X>>;
-        colors: Array<string>;
+        colors: (x: kt.stats.NamedArray<X>, index: number) => string;
         columnNames: Array<string>;
         label: (x: kt.stats.NamedArray<X>) => string;
         max: number;
@@ -26,7 +26,7 @@ module kt.charts {
         }
 
         const bgFunc = (val, index) => {
-            return chartData.colors[index];
+            return chartData.colors(val, index);
         }
 
         const colName = (index) => {

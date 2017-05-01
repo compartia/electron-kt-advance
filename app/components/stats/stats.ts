@@ -9,6 +9,9 @@ module kt.stats {
         "DISCHARGED"
     ];
 
+    const CPG = ["C", "P", "G"];
+
+
     const DEF_COL_NAME = "count";
 
     export interface NamedArray<X> {
@@ -167,7 +170,6 @@ module kt.stats {
 
 
         private _primaryPredicatesCount: StatsTable<string>;
-        // private _predicatesByFunctionCount: StatsTable<string>;
 
 
         private filteredOutCount: number;
@@ -179,7 +181,6 @@ module kt.stats {
         public build(project: kt.Globals.Project) {
 
             this._primaryPredicatesCount = new StatsTable<string>();
-            // this._predicatesByFunctionCount = new StatsTable<string>();
 
             this.byPredicate = new StatsTable<string>();
             this.byDischargeType = new StatsTable<string>();
@@ -217,9 +218,7 @@ module kt.stats {
                 this.byFileLine.inc(fileLineKey, state, 1);
                 this.byFileLine.inc(fileLineKey, "sum", 1);
 
-                this.predicateByComplexity.inc(po.predicate, kt.graph.Complexitiy[kt.graph.Complexitiy.P], po.complexity[kt.graph.Complexitiy.P]);
-                this.predicateByComplexity.inc(po.predicate, kt.graph.Complexitiy[kt.graph.Complexitiy.C], po.complexity[kt.graph.Complexitiy.C]);
-                this.predicateByComplexity.inc(po.predicate, kt.graph.Complexitiy[kt.graph.Complexitiy.G], po.complexity[kt.graph.Complexitiy.G]);
+
                 this.predicateByComplexity.bind(po.predicate, po.predicate);
 
                 this._primaryPredicatesCount.inc(po.predicate, po.level, 1);
@@ -232,13 +231,13 @@ module kt.stats {
                 this.byFunction.inc(functionKey, state, 1);
                 this.byFunction.bind(functionKey, po.cfunction);
 
-                this.complexityByFunction.inc(functionKey, kt.graph.Complexitiy[kt.graph.Complexitiy.P], po.complexity[kt.graph.Complexitiy.P]);
-                this.complexityByFunction.inc(functionKey, kt.graph.Complexitiy[kt.graph.Complexitiy.C], po.complexity[kt.graph.Complexitiy.C]);
-                this.complexityByFunction.inc(functionKey, kt.graph.Complexitiy[kt.graph.Complexitiy.G], po.complexity[kt.graph.Complexitiy.G]);
+                for (let cCode of CPG) {
+                    this.complexityByFunction.inc(functionKey, kt.graph.Complexitiy[kt.graph.Complexitiy[cCode]], po.complexity[kt.graph.Complexitiy[cCode]]);
+                    this.complexityByFile.inc(po.file, kt.graph.Complexitiy[kt.graph.Complexitiy[cCode]], po.complexity[kt.graph.Complexitiy[cCode]]);
+                    this.predicateByComplexity.inc(po.predicate, kt.graph.Complexitiy[kt.graph.Complexitiy[cCode]], po.complexity[kt.graph.Complexitiy[cCode]]);
+                }
 
-                this.complexityByFile.inc(po.file, kt.graph.Complexitiy[kt.graph.Complexitiy.P], po.complexity[kt.graph.Complexitiy.P]);
-                this.complexityByFile.inc(po.file, kt.graph.Complexitiy[kt.graph.Complexitiy.C], po.complexity[kt.graph.Complexitiy.C]);
-                this.complexityByFile.inc(po.file, kt.graph.Complexitiy[kt.graph.Complexitiy.G], po.complexity[kt.graph.Complexitiy.G]);
+
                 this.complexityByFile.inc(po.file, po.level, 1);
                 this.complexityByFile.bind(po.file, po.cfunction.fileInfo);
 
@@ -256,41 +255,21 @@ module kt.stats {
                     if (!dischargeType)
                         dischargeType = "default";
 
-                    this.byDischargeType.inc(dischargeType, dischargeType, 1);
+                    this.byDischargeType.inc(dischargeType, dischargeType, 1);//XXX: unstead of diagonal matrix, use one column, please
                     this.byDischargeType.bind(dischargeType, dischargeType);
                 }
             }
 
-            this.complexityByFile.divideColumnsByColumn(["C", "P", "G"] , this.complexityByFile , "I");
-            this.predicateByComplexity.divideColumnsByColumn(["C", "P", "G"] , this._primaryPredicatesCount , "I");
-            this.complexityByFunction.divideColumnsByColumn(["C", "P", "G"] , this.complexityByFunction , "I");
-            //
-            // this.complexityByFile.foreach(this.divideFileCmplxByNumberOfPredicates.bind(this), ["C", "P", "G"]);
-            // this.predicateByComplexity.foreach(this.divideByNumberOfPredicates.bind(this), ["C", "P", "G"]);
-            // this.complexityByFunction.foreach(this.divideFunctionCmplxByNumberOfPredicates.bind(this), ["C", "P", "G"]);
+
+            this.complexityByFile.divideColumnsByColumn(CPG, this.complexityByFile, "I");
+            this.predicateByComplexity.divideColumnsByColumn(CPG, this._primaryPredicatesCount, "I");
+            this.complexityByFunction.divideColumnsByColumn(CPG, this.complexityByFunction, "I");
 
 
             console.info("stats build o:" + this.countOpen + " v:" + this.countViolations + " d:" + this.countDischarged);
 
         }
 
-        private divideByNumberOfPredicates(row: string, col: string, val: number) {
-            let divider: number = this._primaryPredicatesCount.getAt(row, "I");
-            if (divider) {
-                this.predicateByComplexity.data[row][col] = val / divider;
-            } else {
-                this.predicateByComplexity.data[row][col] = 0;
-            }
-        }
-
-        private divideFunctionCmplxByNumberOfPredicates(row: string, col: string, val: number) {
-            let divider: number = this.complexityByFunction.getAt(row, "I");
-            if (divider) {
-                this.complexityByFunction.data[row][col] = val / divider;
-            } else {
-                this.complexityByFunction.data[row][col] = 0;
-            }
-        }
 
         get countViolations(): number {
             return this.byState.getAt(kt.graph.PoStates[kt.graph.PoStates.violation], DEF_COL_NAME);
@@ -314,12 +293,11 @@ module kt.stats {
             const table = this.byPredicate;
             const columnNames = table.columnNames;
             const data: Array<NamedArray<string>> = table.asNamedRowsTable();
-            const colors: Array<string> = _.map(columnNames,
-                (x) => "var(--kt-state-" + x.toLowerCase() + "-default-bg)");
+
             kt.charts.updateChart(scene, container,
                 {
                     data: data,
-                    colors: colors,
+                    colors: (x, index) => "var(--kt-state-" + columnNames[index] + "-default-bg)",
                     columnNames: columnNames,
                     label: x => x.name,
                     max: null
@@ -332,12 +310,12 @@ module kt.stats {
             const columnNames = table.columnNames;
             const data: Array<NamedArray<string>> = table.asNamedRowsTable();
 
-            const colors: Array<string> = _.map(columnNames,
-                (x) => "var(--kt-state-discharged-" + x.toLowerCase() + "-bg)");
+            // const colors: Array<string> = _.map(columnNames,
+            //     (x) => "var(--kt-state-discharged-" + x.toLowerCase() + "-bg)");
             kt.charts.updateChart(scene, container,
                 {
                     data: data,
-                    colors: colors,
+                    colors: (x, index) => "var(--kt-state-discharged-" + x.name.toLowerCase() + "-bg)",
                     columnNames: columnNames,
                     label: x => x.name,
                     max: null
@@ -351,12 +329,12 @@ module kt.stats {
             const columnNames = table.columnNames;
             const data: Array<NamedArray<kt.xml.CFunction>> = table.getTopRows(maxRows);
 
-            const colors: Array<string> = _.map(columnNames,
-                (x) => "var(--kt-state-" + x.toLowerCase() + "-default-bg)");
+            // const colors: Array<string> = _.map(columnNames,
+            //     (x) => "var(--kt-state-" + x.toLowerCase() + "-default-bg)");
             kt.charts.updateChart(scene, container,
                 {
                     data: data,
-                    colors: colors,
+                    colors: (x, index) => "var(--kt-state-" + columnNames[index] + "-default-bg)",
                     columnNames: columnNames,
                     label: x => x.object.name,
                     max: null
@@ -369,13 +347,13 @@ module kt.stats {
             const columnNames = table.columnNames;
             const data: Array<NamedArray<kt.treeview.FileInfo>> = table.getTopRows(20);
 
-            const colors: Array<string> = _.map(columnNames,
-                (x) => "var(--kt-state-" + x.toLowerCase() + "-default-bg)");
+            // const colors: Array<string> = _.map(columnNames,
+            //     (x) => "var(--kt-state-" + x.toLowerCase() + "-default-bg)");
 
             kt.charts.updateChart(scene, container,
                 {
                     data: data,
-                    colors: colors,
+                    colors: (x, index) => "var(--kt-state-" + columnNames[index] + "-default-bg)",
                     columnNames: columnNames,
                     label: (x: NamedArray<kt.treeview.FileInfo>) => x.object.name,
                     max: null
@@ -389,13 +367,11 @@ module kt.stats {
             const columnNames = ["P"];
             const data: Array<NamedArray<string>> = table.getRowsSorted(columnNames);
 
-            const colors: Array<string> = _.map(columnNames,
-                (x) => "var(--kt-complexity-" + x.toLowerCase() + "-bg)");
 
             kt.charts.updateChart(scene, container,
                 {
                     data: data,
-                    colors: colors,
+                    colors: (x, i) => "var(--kt-complexity-" + columnNames[i].toLowerCase() + "-bg)",
                     columnNames: columnNames,
                     label: x => x.name,
                     max: null
@@ -410,13 +386,11 @@ module kt.stats {
             const columnNames = showColumns;
             const data: Array<NamedArray<kt.xml.CFunction>> = table.getTopRows(maxRows, columnNames);
 
-            const colors: Array<string> = _.map(columnNames,
-                (x) => "var(--kt-complexity-" + x.toLowerCase() + "-bg)");
 
             kt.charts.updateChart(scene, container,
                 {
                     data: data,
-                    colors: colors,
+                    colors: (x, i) => "var(--kt-complexity-" + columnNames[i].toLowerCase() + "-bg)",
                     columnNames: columnNames,
                     label: (x: NamedArray<kt.xml.CFunction>) => x.object.name,
                     max: null
@@ -429,13 +403,11 @@ module kt.stats {
             const table = this.complexityByFile;
             const data: Array<NamedArray<kt.treeview.FileInfo>> = table.getTopRows(maxRows, columnNames);
 
-            const colors: Array<string> = _.map(columnNames,
-                (x) => "var(--kt-complexity-" + x.toLowerCase() + "-bg)");
 
             kt.charts.updateChart(scene, container,
                 {
                     data: data,
-                    colors: colors,
+                    colors: (x, i) => "var(--kt-complexity-" + columnNames[i].toLowerCase() + "-bg)",
                     columnNames: columnNames,
                     label: (x: NamedArray<kt.treeview.FileInfo>) => x.object.name,
                     max: null
