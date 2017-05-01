@@ -25,35 +25,20 @@ module kt.stats {
         columnNames: Array<string> = new Array();
 
 
-        public foreach(func: (row: string, col: string, val: number) => void):void {
+        public foreach(columns?: string[], func: (row: string, col: string, val: number) => void): void {
+
             for (let rowName in this.data) {
                 let row = this.data[rowName];
 
                 for (let colKey in row) {
-                    var val = row[colKey];
+                    if (_.contains(columns, colKey))
+                        var val = row[colKey];
                     func(rowName, colKey, val);
                 }
             }
         }
 
-        public divideBy(m:StatsTable<string>): void {
-            let rows = Object.keys(this.data);
-            let columns = this.columnNames;
 
-            for (let row of rows) {
-                for (let col of columns) {
-
-                    let a = this.getAt(row, col);
-                    let b = m.getAt(row, col);
-
-                    let result = b != 0 ? a / b : 0;
-
-                    this.inc(row, col, 0);
-                    this.data[row][col] = result;
-                }
-            }
-
-        }
 
         public getAt(row: string, column: string): number {
             if (this.data[row])
@@ -97,9 +82,10 @@ module kt.stats {
         [[{name:"row1name", values:[3,2,3]]
         ]
         */
-        public asNamedRowsTable(): Array<NamedArray> {
+        public asNamedRowsTable(columns?: string[]): Array<NamedArray> {
             let rows = Object.keys(this.data);
-            let columns = this.columnNames;
+            if (!columns)
+                columns = this.columnNames;
 
             let ret = new Array<NamedArray>();
 
@@ -123,25 +109,17 @@ module kt.stats {
 
 
 
-        public getTopRows(count: number): Array<NamedArray> {
-            let allrows = this.asNamedRowsTable();
+        public getTopRows(count: number, columns?: string[]): Array<NamedArray> {
+            let allrows = this.asNamedRowsTable(columns);
             let arr = _.sortBy(allrows, (x) => -_.sum(x["values"]));
             return arr.splice(0, count);
         }
 
-        public getRowsSorted(): Array<NamedArray> {
-            let allrows = this.asNamedRowsTable();
+        public getRowsSorted(columns?: string[]): Array<NamedArray> {
+            let allrows = this.asNamedRowsTable(columns);
             let arr = _.sortBy(allrows, (x) => -_.sum(x["values"]));
             return arr;
         }
-
-        /**
-            returns a vector Vi, where each value is a summ of row values
-        */
-        get summs(): Array<number> {
-            return _.map(this.asNamedRowsTable(), (x) => _.sum(x.values));
-        }
-
 
 
 
@@ -165,7 +143,10 @@ module kt.stats {
 
         predicateByComplexity: StatsTable<string>;
 
+
         private _primaryPredicatesCount: StatsTable<string>;
+        // private _predicatesByFunctionCount: StatsTable<string>;
+
 
         private filteredOutCount: number;
 
@@ -176,6 +157,7 @@ module kt.stats {
         public build(project: kt.Globals.Project) {
 
             this._primaryPredicatesCount = new StatsTable<string>();
+            // this._predicatesByFunctionCount = new StatsTable<string>();
 
             this.byPredicate = new StatsTable<string>();
             this.byDischargeType = new StatsTable<string>();
@@ -185,7 +167,7 @@ module kt.stats {
 
             this.byFileLine = new StatsTable<string>();
             this.predicateByComplexity = new StatsTable<string>();
-            this.complexityByFunction = new StatsTable<string>();
+            this.complexityByFunction = new StatsTable<kt.xml.CFunction>();
             //
 
             this.byFile.columns = states;
@@ -205,6 +187,7 @@ module kt.stats {
             }
 
             for (let po of project.filteredProofObligations) {
+                let functionKey = po.file + "/" + po.functionName;
                 let state: string = kt.graph.PoStates[po.state];
 
                 let fileLineKey = po.file + "//" + po.location.line;
@@ -212,19 +195,24 @@ module kt.stats {
                 this.byFileLine.inc(fileLineKey, "sum", 1);
 
                 this.predicateByComplexity.inc(po.predicate, kt.graph.Complexitiy[kt.graph.Complexitiy.P], po.complexity[kt.graph.Complexitiy.P]);
-                //XXX: C and P complexities are not comparable. Do not show them together.
-                // this.predicateByComplexity.inc(po.predicate, kt.graph.Complexitiy[kt.graph.Complexitiy.C], po.complexity[kt.graph.Complexitiy.C]);
-                // this.predicateByComplexity.inc(po.predicate, kt.graph.Complexitiy[kt.graph.Complexitiy.G], po.complexity[kt.graph.Complexitiy.G]);
+                this.predicateByComplexity.inc(po.predicate, kt.graph.Complexitiy[kt.graph.Complexitiy.C], po.complexity[kt.graph.Complexitiy.C]);
+                this.predicateByComplexity.inc(po.predicate, kt.graph.Complexitiy[kt.graph.Complexitiy.G], po.complexity[kt.graph.Complexitiy.G]);
 
                 this._primaryPredicatesCount.inc(po.predicate, po.level, 1);
+
 
                 this.byPredicate.inc(po.predicate, state, 1);
                 this.byPredicate.bind(po.predicate, po.predicate);
                 //------------
-                let functionKey = po.file + "/" + po.functionName;
+
                 this.byFunction.inc(functionKey, state, 1);
                 this.byFunction.bind(functionKey, po.cfunction);
+
                 this.complexityByFunction.inc(functionKey, kt.graph.Complexitiy[kt.graph.Complexitiy.P], po.complexity[kt.graph.Complexitiy.P]);
+                this.complexityByFunction.inc(functionKey, kt.graph.Complexitiy[kt.graph.Complexitiy.C], po.complexity[kt.graph.Complexitiy.C]);
+                this.complexityByFunction.inc(functionKey, kt.graph.Complexitiy[kt.graph.Complexitiy.G], po.complexity[kt.graph.Complexitiy.G]);
+
+                this.complexityByFunction.inc(functionKey, po.level, 1);
                 this.complexityByFunction.bind(functionKey, po.cfunction);
                 //------------
                 this.byFile.inc(po.file, state, 1);
@@ -243,7 +231,8 @@ module kt.stats {
                 }
             }
 
-            this.predicateByComplexity.foreach(this.divideByNumberOfPredicates.bind(this));
+            this.predicateByComplexity.foreach(["C", "P", "G"], this.divideByNumberOfPredicates.bind(this));
+            this.complexityByFunction.foreach(["C", "P", "G"], this.divideFunctionCmplxByNumberOfPredicates.bind(this));
 
 
             console.info("stats build o:" + this.countOpen + " v:" + this.countViolations + " d:" + this.countDischarged);
@@ -256,6 +245,15 @@ module kt.stats {
                 this.predicateByComplexity.data[row][col] = val / divider;
             } else {
                 this.predicateByComplexity.data[row][col] = 0;
+            }
+        }
+
+        private divideFunctionCmplxByNumberOfPredicates(row: string, col: string, val: number) {
+            let divider: number = this.complexityByFunction.getAt(row, "I");
+            if (divider) {
+                this.complexityByFunction.data[row][col] = val / divider;
+            } else {
+                this.complexityByFunction.data[row][col] = 0;
             }
         }
 
@@ -345,8 +343,8 @@ module kt.stats {
 
         public updatePredicateByComplexityChart(scene, container: d3.Selection<any>) {
             const table = this.predicateByComplexity;
-            const columnNames = table.columnNames;
-            const data: Array<NamedArray> = table.getRowsSorted();
+            const columnNames = ["P"];
+            const data: Array<NamedArray> = table.getRowsSorted(columnNames);
 
             const colors: Array<string> = _.map(columnNames,
                 (x) => "var(--kt-complexity-" + x.toLowerCase() + "-bg)");
@@ -362,10 +360,10 @@ module kt.stats {
         }
 
 
-        public updatComplexityByFunctionChart(maxRows: number, scene, container: d3.Selection<any>) {
+        public updatComplexityByFunctionChart(showColumns: string[], maxRows: number, scene, container: d3.Selection<any>) {
             const table = this.complexityByFunction;
-            const columnNames = table.columnNames;
-            const data: Array<NamedArray> = table.getTopRows(maxRows);
+            const columnNames = showColumns;
+            const data: Array<NamedArray> = table.getTopRows(maxRows, columnNames);
 
             const colors: Array<string> = _.map(columnNames,
                 (x) => "var(--kt-complexity-" + x.toLowerCase() + "-bg)");

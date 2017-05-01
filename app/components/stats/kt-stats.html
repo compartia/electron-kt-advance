@@ -15,9 +15,15 @@
 
 
                 <paper-material elevation="1" class="card panel flexchild">
-                    <h3>Functions by complexity (top [[functionsByComplexityBMaxRows]])</h3>
+                    <h3>Functions by predicate (P-) complexity (top [[functionsByComplexityBMaxRows]])</h3>
                     <h4>Total <b>predicate</b>-complexity of function-related  <b>primary</b> proof obligations (PPO) divided by the number of PPO</h4>
-                    <div id="complexityByFunction" class="kt-chart"></div>
+                    <div id="pComplexityByFunction" class="kt-chart"></div>
+                </paper-material>
+
+                <paper-material elevation="1" class="card panel flexchild">
+                    <h3>Functions by (C-) complexity (top [[functionsByComplexityBMaxRows]])</h3>
+                    <h4>Total <b>cyclomatic</b>-complexity of function-related  <b>primary</b> proof obligations (PPO) divided by the number of PPO</h4>
+                    <div id="cComplexityByFunction" class="kt-chart"></div>
                 </paper-material>
 
             </div>
@@ -92,7 +98,6 @@
                 },
 
 
-
                 statistics: {
                     type: Object,
                     notify: true,
@@ -112,7 +117,9 @@
                     newVal.updatePoByFunctionChart(this.poByFunctionMaxRows, this, d3.select("#poByFunction"));
                     newVal.updatePoByFileChart(this, d3.select("#poByFile"));
                     newVal.updatePredicateByComplexityChart(this, d3.select("#complexityByPredicate"));
-                    newVal.updatComplexityByFunctionChart(this.functionsByComplexityBMaxRows, this, d3.select("#complexityByFunction"))
+
+                    newVal.updatComplexityByFunctionChart(["P"], this.functionsByComplexityBMaxRows, this, d3.select("#pComplexityByFunction"));
+                    newVal.updatComplexityByFunctionChart(["C"], this.functionsByComplexityBMaxRows, this, d3.select("#cComplexityByFunction"))
 
                 }
             },
