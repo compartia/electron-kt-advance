@@ -255,7 +255,7 @@ module kt.stats {
                     if (!dischargeType)
                         dischargeType = "default";
 
-                    this.byDischargeType.inc(dischargeType, dischargeType, 1);//XXX: unstead of diagonal matrix, use one column, please
+                    this.byDischargeType.inc(dischargeType, dischargeType, 1);//XXX: instead of diagonal matrix, use one column, please
                     this.byDischargeType.bind(dischargeType, dischargeType);
                 }
             }
@@ -310,8 +310,7 @@ module kt.stats {
             const columnNames = table.columnNames;
             const data: Array<NamedArray<string>> = table.asNamedRowsTable();
 
-            // const colors: Array<string> = _.map(columnNames,
-            //     (x) => "var(--kt-state-discharged-" + x.toLowerCase() + "-bg)");
+
             kt.charts.updateChart(scene, container,
                 {
                     data: data,
@@ -329,8 +328,7 @@ module kt.stats {
             const columnNames = table.columnNames;
             const data: Array<NamedArray<kt.xml.CFunction>> = table.getTopRows(maxRows);
 
-            // const colors: Array<string> = _.map(columnNames,
-            //     (x) => "var(--kt-state-" + x.toLowerCase() + "-default-bg)");
+
             kt.charts.updateChart(scene, container,
                 {
                     data: data,
@@ -347,8 +345,7 @@ module kt.stats {
             const columnNames = table.columnNames;
             const data: Array<NamedArray<kt.treeview.FileInfo>> = table.getTopRows(20);
 
-            // const colors: Array<string> = _.map(columnNames,
-            //     (x) => "var(--kt-state-" + x.toLowerCase() + "-default-bg)");
+
 
             kt.charts.updateChart(scene, container,
                 {
