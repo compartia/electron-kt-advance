@@ -8,7 +8,7 @@
                     <div class$="code-line [[_getClass(_loadedFile, index, statistics)]]">
 
                         <span class="info">
-                            <span id="line-number">[[index]]</span>
+                            <span id="line-number">[[_lineNumber(index)]]</span>
                             <span class="state-marker"></span>
                             <span id="po-count">[[_getPoNumber(_loadedFile, index, statistics)]]</span>
                         </span>
@@ -80,16 +80,26 @@
             },
 
             jumpToLine: function(line) {
-                if (line) {
-                    var task = function() {
-                        this.$.listOfLines.scrollToIndex(line - 1);
-                    }
-                    setTimeout(task.bind(this));
+                if (!line) {
+                    line = 0;
                 }
+                if (line > 4)
+                    line = line - 4;
+
+                var task = function() {
+                    if(this.$.listOfLines.items)
+                        this.$.listOfLines.scrollToIndex(line);
+                }
+                setTimeout(task.bind(this), 100);
 
             },
 
+            _lineNumber: function(index) {
+                return index + 1;
+            },
+
             maybeLoadFile: function(newFile, aftereffect) {
+                // console.error("maybeLoadFile:"+this._shouldLoad(newFile));
                 if (this._shouldLoad(newFile)) {
                     this._loadedFile = newFile;
                     //XXX: handle errors;

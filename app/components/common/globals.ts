@@ -21,7 +21,7 @@ module kt.Globals {
 
         private _line: number = null;
 
-        set line(line : number) {
+        set line(line: number) {
             this._line = line;
         }
 
@@ -97,7 +97,7 @@ module kt.Globals {
         }
 
         set cfunction(_cfunction: kt.xml.CFunction) {
-            this._line = null;            
+            this._line = null;
             if (_cfunction) {
                 this.file = _cfunction.fileInfo;
             }
@@ -120,8 +120,8 @@ module kt.Globals {
 
 
         set file(file: kt.treeview.FileInfo) {
-            if((file && this._file) || (!file)){
-                if (file.relativePath!=this._file.relativePath){
+            if ((file && this._file) || (!file)) {
+                if (file.relativePath != this._file.relativePath) {
                     this._cfunction = null;
                     this._line = null;
                 }
@@ -208,7 +208,7 @@ module kt.Globals {
         public loadFile(relativePath: string): Promise<FileContents> {
             let self = this;
             let filename = path.join(this.baseDir, relativePath);
-            console.error("reading " + filename);
+            console.info("reading " + filename);
 
             return new Promise((resolve, reject) => {
 
