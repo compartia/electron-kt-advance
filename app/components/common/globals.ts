@@ -9,6 +9,45 @@ module kt.Globals {
         'summary', 'source', 'proof obligations', 'assumptions', 'graphs'
     ];
 
+    export function groupProofObligationsByFileFunctions(pos: kt.graph.AbstractNode[]): { [key: string]: { [key: string]: kt.graph.AbstractNode[] } } {
+        let byfile = _.groupBy(pos, "file");
+        let byFileFunc = {};
+        for (let filename in byfile) {
+            let subgroup = _.groupBy(byfile[filename], "functionName");
+            byFileFunc[filename] = subgroup;
+        }
+
+        return byFileFunc;
+    }
+
+    export function unzipPoGroup(byFileFuncGroup: { [key: string]: { [key: string]: kt.graph.AbstractNode[] } }) {
+        let ret = [];
+        for (let filename in byFileFuncGroup) {
+            ret.push({
+                value: filename,
+                type: "file",
+                group: true,
+            });
+            for (let funcname in byFileFuncGroup[filename]) {
+
+                ret.push({
+                    value: funcname,
+                    type: "function",
+                    group: true,
+                });
+
+                for (let po of byFileFuncGroup[filename][funcname]) {
+                    ret.push({
+                        value: po,
+                        type: "po"
+                    });
+                }
+            }
+        }
+        return ret;
+
+    }
+
     export class Filter {
 
         private _predicates: kt.util.StringSet = new kt.util.StringSet([]);

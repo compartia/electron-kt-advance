@@ -44,14 +44,16 @@ module kt.util {
     export class AnySet<T> {
         private array: Array<T> = [];
 
-
-
         constructor(array: Array<T>) {
             this.array = _.uniq(array);
         }
 
         get length(): number {
             return this.array.length;
+        }
+
+        get values(): Array<T> {
+            return this.array;
         }
 
         get first(): T {

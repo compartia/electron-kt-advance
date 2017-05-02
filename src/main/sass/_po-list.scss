@@ -3,8 +3,12 @@
 
 $po-id-width: 2rem;
 $po-id-padding: 0.5rem;
-
-po-list {
+po-list{
+    h3{
+        height: 2em;
+    }
+}
+po-line {
     .row > span {
         display: inline-block;
     }
