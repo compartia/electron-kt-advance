@@ -11,11 +11,9 @@
 
                     <span class="po-id">{{item.id}}</span>
 
-
-
                     <span class="location" on-tap="jumpToSource" data=[[item]]>
                         <!-- <template is="dom-if" if="[[_showFunctionName(item.functionName)]]"> -->
-                            <span class="function-name">[[item.functionName]]</span>
+                        <span class="function-name">[[item.functionName]]</span>
                         <!-- </template> -->
                         <template is="dom-if" if="[[_showFunctionName(item.functionName)]]">
                             <span class="function-name">[[item.functionName]]</span>
@@ -73,18 +71,15 @@
                 filteredProofObligations: {
                     type: Object,
                     notify: true
-                },
-
-
+                }
             },
 
-            jumpToSource:function(event){
+            jumpToSource: function(event) {
                 var item = event.currentTarget.data;
                 this.fire("jump-to-src", item);
-                // console.error("jump to source file "+item.file);            
             },
 
-            _getStateName:function(item){
+            _getStateName: function(item) {
                 return kt.graph.PoStates[item.state];
             },
 
@@ -101,13 +96,7 @@
                 return "po-" + node.extendedState.toLowerCase();
             },
 
-            _clickListener: function(e) {
-
-                // if (this.selected) {     this.toggleClass("selected", false, this.selected);     this.selected = null; }
-                //
-                // this.toggleClass("selected", true, e.target); this.selected = e.target;
-
-            }
+            _clickListener: function(e) {}
 
         });
     </script>

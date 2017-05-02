@@ -12,12 +12,29 @@ module kt.Globals {
     export class Filter {
 
         private _predicates: kt.util.StringSet = new kt.util.StringSet([]);
-        private _states: kt.util.AnySet<kt.graph.PoStates>  = new kt.util.AnySet<kt.graph.PoStates> ([]);
+        private _states: kt.util.AnySet<kt.graph.PoStates> = new kt.util.AnySet<kt.graph.PoStates>([]);
         private _dischargeTypes: kt.util.StringSet = new kt.util.StringSet([]);
 
 
         private _cfunction: kt.xml.CFunction;
         private _file: kt.treeview.FileInfo;
+
+        private _line: number = null;
+
+        set line(line : number) {
+            this._line = line;
+        }
+
+        get line(): number {
+            if (this._line != null && this._line >= 0) {
+                return this._line;
+            } else {
+                if (this.cfunction) {
+                    return this.cfunction.line;
+                }
+            }
+            return 0;
+        }
 
 
         get file(): kt.treeview.FileInfo {
@@ -43,7 +60,7 @@ module kt.Globals {
         get singleState(): kt.graph.PoStates {
             if (this._states) {
                 if (this._states.length == 1) {
-                    return  this._states.first;
+                    return this._states.first;
                 }
                 else if (this._predicates.length > 1) {
                     return undefined;
@@ -80,6 +97,10 @@ module kt.Globals {
         }
 
         set cfunction(_cfunction: kt.xml.CFunction) {
+            this._line = null;            
+            if (_cfunction) {
+                this.file = _cfunction.fileInfo;
+            }
             this._cfunction = _cfunction;
         }
 
@@ -99,8 +120,11 @@ module kt.Globals {
 
 
         set file(file: kt.treeview.FileInfo) {
-            if (this._file != file) {
-                this._cfunction = null;
+            if((file && this._file) || (!file)){
+                if (file.relativePath!=this._file.relativePath){
+                    this._cfunction = null;
+                    this._line = null;
+                }
             }
             this._file = file;
         }
@@ -127,7 +151,7 @@ module kt.Globals {
         }
 
         private acceptState(po: kt.graph.PONode): boolean {
-            if (this.states == null || this._states.contains(po.state )) {
+            if (this.states == null || this._states.contains(po.state)) {
                 return true;
             }
             return false;
@@ -182,7 +206,7 @@ module kt.Globals {
         allPredicates: Array<string>;
 
         public loadFile(relativePath: string): Promise<FileContents> {
-            let self=this;
+            let self = this;
             let filename = path.join(this.baseDir, relativePath);
             console.error("reading " + filename);
 
@@ -200,7 +224,7 @@ module kt.Globals {
                         resolve(fileContents);
                     }
                     // data is the contents of the text file we just read
-                } );
+                });
 
 
 
@@ -297,7 +321,7 @@ module kt.Globals {
             return this._filteredProofObligations;
         }
 
-        public open(baseDir: string, tracker: tf.ProgressTracker): void{
+        public open(baseDir: string, tracker: tf.ProgressTracker): void {
             this.baseDir = baseDir;
             this.analysisDir = path.join(this.baseDir, CH_DIR);
             this._filteredAssumptions = null;
