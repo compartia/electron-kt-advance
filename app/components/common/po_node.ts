@@ -75,15 +75,15 @@ module kt.graph {
         id: string;
         private _сfunction: kt.xml.CFunction = new kt.xml.CFunction();
 
-        get cfunction() {
+        get cfunction() : xml.CFunction{
             return this._сfunction;
         }
 
-        get file() {
+        get file():string {
             return this._сfunction.file;
         }
 
-        get functionName() {
+        get functionName() :string {
             return this._сfunction.name;
         }
 
@@ -316,6 +316,15 @@ module kt.graph {
             }
         }
 
+        public isDischarged(): boolean {
+            return this.discharge && !this.discharge.violation;
+        }
+
+        public isViolation(): boolean {
+            return this.state === PoStates.violation;
+        }
+
+
         get dischargeType(): string {
             if (this.discharge) {
                 return this.discharge.liftingType;
@@ -410,9 +419,6 @@ module kt.graph {
 
 
 
-        public isDischarged(): boolean {
-            return this.discharge && !this.discharge.violation;
-        }
 
 
 

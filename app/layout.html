@@ -291,11 +291,33 @@
             },
 
             listeners: {
-                "project-loaded": "_onProjectLoaded"
+                "project-loaded": "_onProjectLoaded",
+                "jump-to-src": "_onJumpToSrc"
             },
 
             observers: ['filterChanged(filter.*)'],
 
+            _onJumpToSrc: function(event) {
+                var po = event.detail;
+                this.modeIndex = 1;
+
+                this.set("filter.file", po.cfunction.fileInfo);
+                //this.set("filter.cfunction", po.cfunction);
+                this.set("filter.line", po.location.line);
+
+
+
+                var aftereffect = () => {
+                    this.$.sourceview.jumpToLine(po.location.line)
+                };
+                sourceview.maybeLoadFile(this.filter.file, aftereffect.bind(this));
+            },
+
+
+            openLocation: function(po) {
+
+                this.maybeLoadFile(po.cfunction.fileInfo, aftereffect.bind(this));
+            },
 
             filterChanged: function(event) {
                 if (this.currentProject) {
@@ -323,8 +345,14 @@
                     project.onFilterChanged(filter);
                     this.set("statistics", project.buildStatistics());
                     this.set("filteredProofObligations", project.filteredProofObligations);
-                    this.$.sourceview.fire("filter-applied", this.filter);
-                }
+
+                    var sourceview = this.$.sourceview;
+                    var aftereffect = () => {
+                        sourceview.jumpToLine(this.filter.line)
+                    };
+
+                    sourceview.maybeLoadFile(filter.file, aftereffect.bind(this));
+                 }
             },
 
             _onProjectLoaded(event) {

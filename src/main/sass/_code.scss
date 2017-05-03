@@ -1,6 +1,7 @@
 $marker-line-width: 3px;
 $code-line-info-bg: var(--kt-grey-lighter);
 
+
 node-decorator {
     display: flex;
 
@@ -55,20 +56,12 @@ node-decorator {
     }
 }
 
+
 source-view {
     #listOfLines {
         padding-top: var(--filter-panel-height);
     }
 
-    #scrollable {
-        height  : 100vh;
-        width   : 100%;
-
-        overflow: auto;
-        position: absolute;
-        top     : 0;
-        bottom  : 0;
-    }
 
     pre {
         margin     : 0 !important;
@@ -80,12 +73,6 @@ source-view {
 
     .code-line.violation {
         background: var(--kt-state-violation-default-hover-bg);
-
-        node-decorator {
-            background: var(--kt-state-violation-default-hover-bg)!important;
-            color     : var(--kt-state-violation-default-tx);
-        }
-
     }
 
     .code-line {
@@ -111,10 +98,20 @@ source-view {
             padding    : $spacer/2;
             display    : flex;
             align-items: center;
-
             min-width  : 2em;
             color      : $grey-lighter;
         }
+
+        #po-count {
+            padding    : $spacer/2;
+            display    : flex;
+            align-items: center;
+
+            min-width  : 1.5em;
+            color      : var(--kt-grey);
+        }
+
+
 
         pre.text {
             font-size     : $font-size-xs;

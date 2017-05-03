@@ -27,8 +27,20 @@ module kt.treeview {
         dir: boolean;
     }
 
+    export class FileInfoImpl implements FileInfo{
+        relativePath: string;
+        icon: string;
+        open: boolean;
+        children: Array<FileInfo>;
+        dir: boolean;
+
+        get name():string{
+            return path.basename(this.relativePath);
+        }
+    }
+
     export function tree(dir) {
-        console.info("iterating " + dir);
+        console.info("iterating  " + dir);
         let tree: FileInfo = {
             children: new Array<FileInfo>(),
             name: <string>path.basename(dir),
@@ -89,9 +101,6 @@ module kt.treeview {
 
         return fileList
     }
-
-
-
 
 
 
