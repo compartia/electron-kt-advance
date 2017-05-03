@@ -23,15 +23,16 @@ module kt.Globals {
     export function unzipPoGroup(byFileFuncGroup: { [key: string]: { [key: string]: kt.graph.AbstractNode[] } }) {
         let ret = [];
         for (let filename in byFileFuncGroup) {
-            ret.push({
-                value: filename,
-                type: "file",
-                group: true,
-            });
+            // ret.push({
+            //     value: filename,
+            //     type: "file",
+            //     group: true,
+            // });
             for (let funcname in byFileFuncGroup[filename]) {
 
                 ret.push({
                     value: funcname,
+                    parent: filename,
                     type: "function",
                     group: true,
                 });

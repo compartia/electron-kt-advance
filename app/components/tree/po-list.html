@@ -3,21 +3,21 @@
 
 <dom-module id="po-list">
     <template>
+        <div class="scrollable">
+            <iron-list scroll-target="scrollable" items="[[groupPOs(filteredProofObligations)]]" as="line">
+                <template>
+                    <div>
+                        <template is="dom-if" if="[[line.group]]">
+                            <div class="headline"><span class="file">[[line.parent]]</span> / <span class="function">[[line.value]]</span> </div>
+                        </template>
 
-        <iron-list items="[[groupPOs(filteredProofObligations)]]" as="line">
-            <template>
-                <div>
+                        <template is="dom-if" if="[[!line.group]]">
+                            <po-line item="[[line.value]]"></po-line>
+                        </template>
+                    </div>
 
-                    <template is="dom-if" if="[[line.group]]">
-                        <h3>[[line.value]]</h3>
-                    </template>
-
-                    <template is="dom-if" if="[[!line.group]]">
-                        <po-line item="[[line.value]]"></po-line>
-                    </template>
-                </div>
-
-            </template>
+                </template>
+            </div>
         </iron-list>
 
     </template>
