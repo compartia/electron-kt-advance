@@ -1,114 +1,122 @@
 <dom-module id="kt-stats">
     <template>
+        <div class="summary-container">
 
-        <!-- ROW -->
-        <div class="container flex-hor" style="display:flex">
+            <div class="container flex-hor">
+                <div class="container flex-ver flexchild">
 
-            <!-- COL -->
-            <div class="container flex-ver flexchild">
-                <paper-material elevation="1" class="card panel flexchild">
-                    <h3>Proof obligations by predicate</h3>
-                    <div id="poByRedicate" class="kt-chart"></div>
-                </paper-material>
+                    <paper-material elevation="1" class="card panel flexchild">
+                        <h3>Proof obligations by type of discharge</h3>
+                        <div id="poByDischarge" class="kt-chart"></div>
+                    </paper-material>
+
+                    <paper-material elevation="1" class="card panel flexchild">
+                        <h3>Proof obligations by file (top 10)</h3>
+                        <div id="poByFile" class="kt-chart"></div>
+                    </paper-material>
+
+                </div>
+
+                <div class="container flex-ver flexchild">
+                    <paper-material elevation="1" class="card panel flexchild">
+                        <h3>Proof obligations by function (top [[poByFunctionMaxRows]])</h3>
+                        <div id="poByFunction" class="kt-chart"></div>
+                    </paper-material>
+                </div>
 
             </div>
 
-            <!-- COL -->
-            <div class="container flex-ver flexchild">
+            <div class="container flex-hor">
+                <!-- C -->
 
-                <paper-material elevation="1" class="card panel flexchild">
-                    <h3>Average complexity by predicate</h3>
-                    <h4>Total complexity divided by the number of <b>primary</b> proof obligations</h4>
-                    <div id="complexityByPredicate" class="kt-chart"></div>
-                </paper-material>
+                <div class="container flex-ver flexchild">
+                    <paper-material elevation="1" class="card panel flexchild">
+                        <h3>Functions by (C-) complexity (top [[functionsByComplexityBMaxRows]])</h3>
+                        <h4>Total
+                            <b>cyclomatic</b>-complexity of function-related
+                            <b>primary</b>
+                            proof obligations (PPO) divided by the number of PPO</h4>
+                        <div id="cComplexityByFunction" class="kt-chart"></div>
+                    </paper-material>
+
+                    <paper-material elevation="1" class="card panel flexchild">
+                        <h3>Source files by (C-) complexity (top [[functionsByComplexityBMaxRows]])</h3>
+                        <h4>Total
+                            <b>cyclomatic</b>-complexity of source file-related
+                            <b>primary</b>
+                            proof obligations (PPO) divided by the number of PPO</h4>
+                        <div id="cComplexityByFile" class="kt-chart"></div>
+                    </paper-material>
+
+                </div>
+
+                <!-- P -->
+                <div class="container flex-ver flexchild">
+
+                    <paper-material elevation="1" class="card panel flexchild">
+                        <h3>Functions by predicate (P-) complexity (top [[functionsByComplexityBMaxRows]])</h3>
+                        <h4>Total
+                            <b>predicate</b>-complexity of function-related
+                            <b>primary</b>
+                            proof obligations (PPO) divided by the number of PPO</h4>
+                        <div id="pComplexityByFunction" class="kt-chart"></div>
+                    </paper-material>
+
+                    <paper-material elevation="1" class="card panel flexchild">
+                        <h3>Source files by predicate (P-) complexity (top [[functionsByComplexityBMaxRows]])</h3>
+                        <h4>Total
+                            <b>predicate</b>-complexity of source file-related
+                            <b>primary</b>
+                            proof obligations (PPO) divided by the number of PPO</h4>
+                        <div id="pComplexityByFile" class="kt-chart"></div>
+                    </paper-material>
+
+                </div>
 
             </div>
 
+            <!-- ROW -->
+            <div class="container flex-hor">
+
+                <!-- COL -->
+                <div class="container flex-ver flexchild">
+                    <paper-material elevation="1" class="card panel flexchild">
+                        <h3>Proof obligations by predicate</h3>
+                        <div id="poByRedicate" class="kt-chart"></div>
+                    </paper-material>
+
+                </div>
+
+                <!-- COL -->
+                <div class="container flex-ver flexchild">
+
+                    <paper-material elevation="1" class="card panel flexchild">
+                        <h3>Average complexity by predicate</h3>
+                        <h4>Total complexity divided by the number of
+                            <b>primary</b>
+                            proof obligations</h4>
+                        <div id="complexityByPredicate" class="kt-chart"></div>
+                    </paper-material>
+
+                </div>
+
+            </div>
         </div>
-
-
-        <div class="container flex-hor" style="display:flex">
-            <div class="container flex-ver flexchild">
-
-
-
-
-                <paper-material elevation="1" class="card panel flexchild">
-                    <h3>Proof obligations by type of discharge</h3>
-                    <div id="poByDischarge" class="kt-chart"></div>
-                </paper-material>
-
-
-                <paper-material elevation="1" class="card panel flexchild">
-                    <h3>Proof obligations by file (top 10)</h3>
-                    <div id="poByFile" class="kt-chart"></div>
-                </paper-material>
-
-
-            </div>
-
-            <div class="container flex-ver flexchild">
-                <paper-material elevation="1" class="card panel flexchild">
-                    <h3>Proof obligations by function (top [[poByFunctionMaxRows]])</h3>
-                    <div id="poByFunction" class="kt-chart"></div>
-                </paper-material>
-
-
-
-            </div>
-        </div>
-
-
-        <div class="container flex-hor" style="display:flex">
-            <!-- C -->
-
-            <div class="container flex-ver flexchild">
-                <paper-material elevation="1" class="card panel flexchild">
-                    <h3>Functions by (C-) complexity (top [[functionsByComplexityBMaxRows]])</h3>
-                    <h4>Total <b>cyclomatic</b>-complexity of function-related  <b>primary</b> proof obligations (PPO) divided by the number of PPO</h4>
-                    <div id="cComplexityByFunction" class="kt-chart"></div>
-                </paper-material>
-
-                <paper-material elevation="1" class="card panel flexchild">
-                    <h3>Source files by (C-) complexity (top [[functionsByComplexityBMaxRows]])</h3>
-                    <h4>Total <b>cyclomatic</b>-complexity of source file-related  <b>primary</b> proof obligations (PPO) divided by the number of PPO</h4>
-                    <div id="cComplexityByFile" class="kt-chart"></div>
-                </paper-material>
-
-            </div>
-
-            <!-- P -->
-            <div class="container flex-ver flexchild">
-
-                <paper-material elevation="1" class="card panel flexchild">
-                    <h3>Functions by predicate (P-) complexity (top [[functionsByComplexityBMaxRows]])</h3>
-                    <h4>Total <b>predicate</b>-complexity of function-related  <b>primary</b> proof obligations (PPO) divided by the number of PPO</h4>
-                    <div id="pComplexityByFunction" class="kt-chart"></div>
-                </paper-material>
-
-                <paper-material elevation="1" class="card panel flexchild">
-                    <h3>Source files by predicate (P-) complexity (top [[functionsByComplexityBMaxRows]])</h3>
-                    <h4>Total <b>predicate</b>-complexity of source file-related  <b>primary</b> proof obligations (PPO) divided by the number of PPO</h4>
-                    <div id="pComplexityByFile" class="kt-chart"></div>
-                </paper-material>
-
-            </div>
-
-        </div>
-
-
-
 
     </template>
 
     <style is="kt-stats">
-        .flex-hor {
+        .summary-container {
             padding-top: var(--filter-panel-height);
+        }
+
+        .flex-hor {
+            /*padding-top: var(--filter-panel-height);*/
             @apply(--layout-horizontal);
         }
 
         .flex-ver {
-            padding-top: var(--filter-panel-height);
+            /*padding-top: var(--filter-panel-height);*/
             @apply(--layout-vertical);
         }
 
@@ -117,7 +125,7 @@
 
         }
 
-        .panel{
+        .panel {
             padding: var(--spacer);
             margin: var(--spacer);
             background-color: var(--kt-panel-bg);
@@ -136,17 +144,15 @@
             properties: {
                 filter: Object,
 
-                functionsByComplexityBMaxRows:{
+                functionsByComplexityBMaxRows: {
                     type: Number,
                     value: 10
                 },
 
-
-                poByFunctionMaxRows:{
+                poByFunctionMaxRows: {
                     type: Number,
                     value: 20
                 },
-
 
                 statistics: {
                     type: Object,
@@ -188,7 +194,7 @@
                     this.set("filter.dischargeTypes", new kt.util.StringSet([event.detail.row.toLowerCase()]));
                 }
 
-                if (src == this.$.poByFunction ||  src == this.$.cComplexityByFunction ||  src == this.$.pComplexityByFunction) {
+                if (src == this.$.poByFunction || src == this.$.cComplexityByFunction || src == this.$.pComplexityByFunction) {
                     console.log(event.detail);
                     this.filter.file = event.detail.row.fileInfo;
                     this.filter.cfunction = event.detail.row;
