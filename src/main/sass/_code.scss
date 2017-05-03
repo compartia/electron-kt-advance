@@ -1,21 +1,20 @@
 $marker-line-width: 3px;
 $code-line-info-bg: var(--kt-grey-lighter);
 
-
 node-decorator {
     display: flex;
-
+ 
     .stats {
         display       : flex;
         flex-direction: row;
         align-items   : stretch;
         text-align    : right;
 
-
         vertical-align: middle;
 
+
         .state-marker {
-            min-height: 1.5em;
+            min-height      : 1.5em;
             background-clip : content-box;
             box-sizing      : border-box;
             content         : "";
@@ -28,11 +27,11 @@ node-decorator {
 
     #po-count {
         font-size  : 8px;
-        padding    : $spacer/2;
+        padding    : 0 $spacer/2;
         display    : flex;
         align-items: center;
 
-        min-width  : var(--po-count-min-width,1.5em);
+        width  : var(--po-count-min-width, 1.5em);
         color      : var(--kt-grey);
     }
 
@@ -56,12 +55,10 @@ node-decorator {
     }
 }
 
-
 source-view {
     #listOfLines {
         padding-top: var(--filter-panel-height);
     }
-
 
     pre {
         margin     : 0 !important;
@@ -102,16 +99,14 @@ source-view {
             color      : $grey-lighter;
         }
 
-        #po-count {
-            padding    : $spacer/2;
-            display    : flex;
-            align-items: center;
-
-            min-width  : 1.5em;
-            color      : var(--kt-grey);
-        }
-
-
+        // #po-count {
+        //     padding    : $spacer/2;
+        //     display    : flex;
+        //     align-items: center;
+        //
+        //     min-width  : 1.5em;
+        //     color      : var(--kt-grey);
+        // }
 
         pre.text {
             font-size     : $font-size-xs;
