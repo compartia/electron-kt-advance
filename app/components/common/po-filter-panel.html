@@ -1,6 +1,7 @@
 <link rel="import" href="../../../bower_components/iron-collapse/iron-collapse.html">
 <link rel="import" href="../../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../../bower_components/paper-checkbox/paper-checkbox.html">
 <link rel="import" href="../../../bower_components/iron-list/iron-list.html">
 
@@ -35,11 +36,15 @@
 
         </div>
 
+        <!-- PANEL -->
+
         <iron-collapse id="filtersettings">
             <paper-material elevation="4" class="card" id="filtersettings-container">
                 <h2>Include Proof Obligations</h2>
 
                 <div id="filtersettings-body">
+
+
 
                     <div id="states" class="card panel">
                         <h3>State ([[filter.states.length]])</h3>
@@ -52,7 +57,9 @@
                     </div>
 
                     <div id="predicates" class="card panel">
+
                         <h3>Predicates ([[filter.predicates.length]])</h3>
+                        <paper-button on-tap="selectAllPredicates">Select all</paper-button>
                         <kt-list-selection all-values="{{project.allPredicates}}" selected-values="{{filter.predicates}}"></kt-list-selection>
                     </div>
 
@@ -115,6 +122,11 @@
             observers: [
                 '_predicatesChanged(filter.predicates.*)', '_statesChanged(filter.states.*)'
             ],
+
+            selectAllPredicates: function(){
+                console.info("select all");
+                this.set("filter.predicates", new kt.util.StringSet(this.project.allPredicates));
+            },
 
             _statesNames:function(){
                     return kt.graph.PoStates;
