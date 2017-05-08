@@ -38,7 +38,7 @@ module kt.xml {
     export class XmlReader {
 
 
-        public parseCfileXml(filename: string, tracker: tf.ProgressTracker): Promise<Array<xml.CFunction>> {
+        public parseCfileXml(filename: string, tracker: tf.ProgressTracker): Promise<Array<CFunction>> {
 
             let strict = true;
             let parser = sax.createStream(strict);
@@ -47,7 +47,7 @@ module kt.xml {
 
             let functionsScope: boolean;
 
-            let functions = new Array<xml.CFunction>();
+            let functions = new Array<CFunction>();
 
             let func;
 
@@ -59,11 +59,11 @@ module kt.xml {
 
                     if (functionsScope) {
                         if (tag.name == 'gfun') {
-                            func = new xml.CFunction();
+                            func = new CFunction();
                         }
 
                         else if (tag.name == 'svar') {
-                            func = new xml.CFunction();
+                            func = new CFunction();
                             func.name = tag.attributes["vname"];
                         }
 
@@ -103,7 +103,7 @@ module kt.xml {
             let strict = true;
             let parser = sax.createStream(strict);
             let functionName;
-            let predicateXmlParser: xml.PredicateXmlParser = null;
+            let predicateXmlParser: PredicateXmlParser = null;
             let currentPo = {}
 
 
@@ -130,7 +130,7 @@ module kt.xml {
                 }
 
                 else if (tag.name == 'predicate') {
-                    predicateXmlParser = new xml.PredicateXmlParser();
+                    predicateXmlParser = new PredicateXmlParser();
                     predicateXmlParser.onopentag(tag);
                     currentPo["predicateType"] = tag.attributes["tag"]; //XXX: remove this tag
                 }
@@ -179,7 +179,7 @@ module kt.xml {
             let callsiteObligation = {}
             let lasttag = '';
 
-            let predicateXmlParser: xml.PredicateXmlParser = null;
+            let predicateXmlParser: PredicateXmlParser = null;
 
 
             parser.onopentag = (tag) => {
@@ -218,7 +218,7 @@ module kt.xml {
                 }
 
                 else if (tag.name == 'predicate') {
-                    predicateXmlParser = new xml.PredicateXmlParser();
+                    predicateXmlParser = new PredicateXmlParser();
                     predicateXmlParser.onopentag(tag);
                     currentSpo["predicateType"] = tag.attributes["tag"];
                 }
@@ -344,7 +344,7 @@ module kt.xml {
             let currentAssumption: model.ApiNode;
             let dependentPos = [];
 
-            let predicateXmlParser: xml.PredicateXmlParser;
+            let predicateXmlParser: PredicateXmlParser;
 
 
             parser.onopentag = (tag) => {
@@ -373,7 +373,7 @@ module kt.xml {
 
                 else if (tag.name == 'predicate') {
                     currentAssumption.predicateType = tag.attributes["tag"];
-                    predicateXmlParser = new xml.PredicateXmlParser();
+                    predicateXmlParser = new PredicateXmlParser();
                     predicateXmlParser.onopentag(tag);
                 }
 
@@ -443,8 +443,8 @@ module kt.xml {
 
         }
 
-        public buildFunctionsByFileMap(funcs: xml.CFunction[]): { [key: string]: Array<xml.CFunction> } {
-            let functionByFile: { [key: string]: Array<xml.CFunction> } = {};
+        public buildFunctionsByFileMap(funcs: CFunction[]): { [key: string]: Array<CFunction> } {
+            let functionByFile: { [key: string]: Array<CFunction> } = {};
             for (let f of funcs) {
                 if (!functionByFile[f.file]) {
                     functionByFile[f.file] = [];
@@ -456,18 +456,18 @@ module kt.xml {
         }
 
 
-        public readFunctionsMap(dirName: string, tracker: tf.ProgressTracker): Promise<xml.CFunction[]> {
+        public readFunctionsMap(dirName: string, tracker: tf.ProgressTracker): Promise<CFunction[]> {
             const parser = this;
             let err: number = 0;
 
             return parser.readXmls(dirName, "_cfile.xml", parser.parseCfileXml, tracker)
-                .then((funcs: xml.CFunction[]) => {
+                .then((funcs: CFunction[]) => {
                     return funcs;//resultingMap;
                 });
 
         }
 
-        private bindCallsiteFunctions(spos: Array<model.ProofObligation>, functionsMap: { [key: string]: Array<xml.CFunction> }) {
+        private bindCallsiteFunctions(spos: Array<model.ProofObligation>, functionsMap: { [key: string]: Array<CFunction> }) {
             for (let spo of spos) {
                 let funcs = functionsMap[spo.callsiteFname];
                 if (funcs) {
