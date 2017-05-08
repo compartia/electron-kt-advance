@@ -1,0 +1,88 @@
+<dom-module id="po-line">
+    <template>
+
+        <div on-click="_clickListener" class$="po row [[_getClass(item)]]" title$="[[item.id]] [[item.file]]/[[item.functionName]]:[[item.location.line]]">
+
+            <iron-icon class="po-icon" icon$="{{_computeIcon(item)}}" on-click="select"></iron-icon>
+
+            <!-- <span class="po-id">{{item.id}}</span> -->
+
+            <span class="location" on-tap="jumpToSource" data=[[item]]>
+                <span id="line" title$="[[item.file]]/[[item.functionName]]">L [[item.location.line]]</span>
+            </span>
+
+            <span class="state">
+                <span class$="level-[[item.level]]">[[item.level]]</span>
+                [[item.stateName]]
+                <template is="dom-if" if="[[item.dischargeType]]">
+                    :<span class="discharge">{{item.dischargeType}}</span>
+                </template>
+            </span>
+
+            <span class="predicate">
+                <span class="predicate-name">
+                    [[item.predicate]]
+                </span>
+                <template is="dom-if" if="[[item.predicateArgument]]">
+                    (<span class="predicate-arg">
+                        [[item.predicateArgument]]
+                    </span>)
+                </template>
+            </span>
+
+            <span class='expression'>
+                [[item.expression]]
+            </span>
+
+            <template is="dom-if" if="[[item.discharge]]">
+                <template is="dom-if" if="[[item.discharge.message]]">
+                    <span class="discharge-comment">{{item.discharge.message}}</span>
+                </template>
+            </template>
+
+        </div>
+
+    </template>
+
+    <script>
+        Polymer({
+            is: 'po-line',
+
+            properties: {
+                item: Object
+            },
+
+            jumpToSource: function(event) {
+                var item = event.currentTarget.data;
+                this.fire("jump-to-src", item);
+            },
+
+            _getStateName: function(item) {
+                return kt.graph.PoStates[item.state];
+            },
+
+            _computeIcon: function(node) {
+                if (node.extendedState) {
+                    return "kt:state-" + node.extendedState.toLowerCase();
+                } else {
+                    return "";
+                }
+
+            },
+
+            _getClass: function(node) {
+
+                if (node.extendedState) {
+                    return "po-" + node.extendedState.toLowerCase();
+                } else {
+                    return "";
+                }
+                console.error(node);
+
+            },
+
+            _clickListener: function(e) {}
+
+        });
+    </script>
+</dom-module>
