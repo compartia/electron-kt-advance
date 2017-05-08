@@ -85,8 +85,8 @@ po-line {
             .discharge {}
         }
 
-        .level-I,
-        .level-II {
+        .level-primary,
+        .level-secondary {
             font-weight  : 400;
             // font-size    : 8px;
             border-radius: 15px;
@@ -97,12 +97,12 @@ po-line {
             margin       : 0 $spacer/2;
         }
 
-        .level-II {
+        .level-secondary {
             color     : white;
             background: var(--kt-po-primary-bg);
         }
 
-        .level-I {
+        .level-primary {
             background: var(--kt-po-secondary-bg);
         }
 

@@ -44,20 +44,32 @@
 
                 <div id="filtersettings-body">
 
-
+                    <div id="levels" class="card panel">
+                        <h3>
+                            <paper-icon-button icon="done-all" raised on-tap="selectAllLevels" title="Select all"></paper-icon-button>
+                            Level</h3>
+                        <kt-list-selection all-values="[[_allLevels]]" selected-values="{{filter.levels}}" styles="[[_getLevelStyles(filter)]]"></kt-list-selection>
+                    </div>
 
                     <div id="states" class="card panel">
-                        <h3><paper-icon-button icon="done-all" raised on-tap="selectAllStates" title="Select all"></paper-icon-button> State ([[filter.states.length]])</h3>
+                        <h3>
+                            <paper-icon-button icon="done-all" raised on-tap="selectAllStates" title="Select all"></paper-icon-button>
+                            State ([[filter.states.length]])</h3>
                         <kt-list-selection all-values="[[_allStates]]" item-names="[[_statesNames()]]" selected-values="{{filter.states}}" styles="[[_statesStyles]]"></kt-list-selection>
                     </div>
 
                     <div id="discharge-types" class="card panel">
-                        <h3><paper-icon-button icon="done-all" raised on-tap="selectAllDischarges" title="Select all"></paper-icon-button>  Type of discharge ([[filter.dischargeTypes.length]])</h3>
+                        <h3>
+                            <paper-icon-button icon="done-all" raised on-tap="selectAllDischarges" title="Select all"></paper-icon-button>
+                            Type of discharge ([[filter.dischargeTypes.length]])</h3>
                         <kt-list-selection all-values="[[_allDischargeTypes]]" selected-values="{{filter.dischargeTypes}}" styles="[[_dischargeTypesStyles]]"></kt-list-selection>
                     </div>
 
                     <div id="predicates" class="card panel">
-                        <h3><paper-icon-button icon="done-all" raised on-tap="selectAllPredicates" title="Select all"></paper-icon-button>  Predicates ([[filter.predicates.length]]) </h3>
+                        <h3>
+                            <paper-icon-button icon="done-all" raised on-tap="selectAllPredicates" title="Select all"></paper-icon-button>
+                            Predicates ([[filter.predicates.length]])
+                        </h3>
                         <kt-list-selection grid="true" all-values="{{project.allPredicates}}" selected-values="{{filter.predicates}}"></kt-list-selection>
                     </div>
 
@@ -111,6 +123,11 @@
                     computed: "_getAllStates(statistics, filter)"
                 },
 
+                _allLevels: {
+                    type: Object,
+                    computed: "_getAllLevels(filter)"
+                },
+
                 _allDischargeTypes: {
                     type: Object,
                     computed: "_getDischargeTypes(statistics, filter)"
@@ -121,21 +138,24 @@
                 '_predicatesChanged(filter.predicates.*)', '_statesChanged(filter.states.*)'
             ],
 
-            selectAllPredicates: function(){
+            selectAllPredicates: function() {
                 this.set("filter.predicates", new kt.util.StringSet(this.project.allPredicates));
             },
 
-            selectAllStates: function(){
+            selectAllLevels: function() {
+                this.set("filter.levels", new kt.util.StringSet(this._allLevels));
+            },
+
+            selectAllStates: function() {
                 this.set("filter.states", new kt.util.StringSet(this._allStates));
             },
 
-            selectAllDischarges: function(){
+            selectAllDischarges: function() {
                 this.set("filter.dischargeTypes", new kt.util.StringSet(this._allDischargeTypes));
             },
 
-
-            _statesNames:function(){
-                    return kt.graph.PoStates;
+            _statesNames: function() {
+                return kt.graph.PoStates;
             },
 
             _getDischargeTypesStyles: function(filter) {
@@ -150,6 +170,14 @@
                 var map = {};
                 _.forEach(kt.graph.PoStatesArr, function(x) {
                     map[x] = "--paper-checkbox-label-checked-color:var(--kt-state-" + kt.graph.PoStates[x] + "-default-tx); --paper-checkbox-checked-color:var(--kt-state-" + kt.graph.PoStates[x] + "-default-tx)";
+                });
+                return map;
+            },
+
+            _getLevelStyles: function(filter) {
+                var map = {};
+                _.forEach(kt.graph.PoLevels, function(x) {
+                    map[x] = "--paper-checkbox-label-checked-color:var(--kt-po-" + x + "-tx); --paper-checkbox-checked-color:var(--kt-po-" + x + "-tx)";
                 });
                 return map;
             },
@@ -172,6 +200,10 @@
 
             _getAllStates: function(stats, filter) {
                 return kt.graph.PoStatesArr;
+            },
+
+            _getAllLevels: function(filter) {
+                return kt.graph.PoLevels;
             },
 
             _getStateName: function(filterState) {

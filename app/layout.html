@@ -299,7 +299,6 @@
                 this.set("filter.line", po.location.line);
 
 
-
                 var aftereffect = () => {
                     this.$.sourceview.jumpToLine(po.location.line)
                 };
@@ -353,6 +352,7 @@
                 console.info("_onProjectLoaded: " + event);
                 kt.treeview.build(this.$$("#treeview"), this.currentProject);
                 this.set("filter.predicates", new kt.util.StringSet(this.currentProject.allPredicates));
+                this.set("filter.levels", new kt.util.StringSet(kt.graph.PoLevels));
                 this.notifyPath("currentProject.allPredicates");
 
             },
@@ -443,7 +443,6 @@
             },
 
             ready: function() {
-                // this.filter = kt.Globals.PO_FILTER; this.set("filter", kt.Globals.PO_FILTER);
                 this.openProject();
             }
         });
