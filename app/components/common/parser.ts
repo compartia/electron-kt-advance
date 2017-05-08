@@ -2,7 +2,7 @@ module kt.parser {
     const path = require('path');
 
 
-    export function buildGraph(pos: Array<kt.graph.PONode>, apis: Array<kt.graph.ApiNode>, filter: kt.Globals.Filter): tf.graph.proto.NodeDef[] {
+    export function buildGraph(pos: Array<kt.model.PONode>, apis: Array<kt.model.ApiNode>, filter: Globals.Filter): tf.graph.proto.NodeDef[] {
         let g: tf.graph.proto.NodeDef[] = [];
 
         let nodesMap = {};
@@ -35,9 +35,9 @@ module kt.parser {
 
 
 
-    export function readAndParse(project: kt.Globals.Project, tracker: tf.ProgressTracker): Promise<kt.Globals.Project> {
+    export function readAndParse(project: Globals.Project, tracker: tf.ProgressTracker): Promise<kt.Globals.Project> {
 
-        let reader: kt.xml.XmlReader = new kt.xml.XmlReader();
+        let reader: xml.XmlReader = new xml.XmlReader();
 
         tracker.setMessage("reading XML data");
 
@@ -52,7 +52,7 @@ module kt.parser {
                 // console.info("total functions: " + funcs.length + " \t\ttotal unique keys: " + Object.keys(byNameMap).length);
                 // // console.info(byNameMap);
 
-                let resultingMap: { [key: string]: Array<kt.xml.CFunction> } = {};
+                let resultingMap: { [key: string]: Array<xml.CFunction> } = {};
 
 
                 for (let f of functions) {
@@ -64,11 +64,11 @@ module kt.parser {
                 }
 
                 project.functionByFile = reader.buildFunctionsByFileMap(functions);
-                let result: Promise<kt.xml.XmlAnalysis> = reader.readDir(project.analysisDir, resultingMap, readDirTracker);
+                let result: Promise<xml.XmlAnalysis> = reader.readDir(project.analysisDir, resultingMap, readDirTracker);
                 return result;
             })
-            .then((POs: kt.xml.XmlAnalysis) => {
-                project.proofObligations = kt.graph.sortPoNodes(POs.ppos.concat(POs.spos));
+            .then((POs: xml.XmlAnalysis) => {
+                project.proofObligations = model.sortPoNodes(POs.ppos.concat(POs.spos));
                 project.apis = POs.apis;
 
                 // let g: tf.graph.proto.NodeDef[] = buildGraph(project.proofObligations, project.apis);

@@ -1,4 +1,4 @@
-module kt.graph {
+module kt.model {
 
     const SPL = "/";
 
@@ -8,7 +8,7 @@ module kt.graph {
     }
 
 
-    export class ApiNode extends kt.graph.AbstractNode {
+    export class ApiNode extends kt.model.AbstractNode {
         message: string;
         isMissing: boolean;
         type: string;
@@ -42,8 +42,8 @@ module kt.graph {
             return makeAssumptionKey(this.type, this.id, this.functionName, this.file);
         }
 
-        get state(): kt.graph.PoStates {
-            return kt.graph.PoStates.assumption;
+        get state(): kt.model.PoStates {
+            return kt.model.PoStates.assumption;
         }
 
 
@@ -82,7 +82,7 @@ module kt.graph {
         }
 
         get extendedState(): string {
-            return kt.graph.PoStates[this.state] + "-" + this.type;
+            return kt.model.PoStates[this.state] + "-" + this.type;
         }
 
         public isDischarged(): boolean {
@@ -119,7 +119,7 @@ module kt.graph {
                     "label": this.label,
                     "predicate": this.predicateType,
                     "expression": this.expression,
-                    "state": kt.graph.PoStates[this.state],
+                    "state": kt.model.PoStates[this.state],
                     "message": this.message,
                     "apiId": this.id,
                     "symbol": this.symbol,

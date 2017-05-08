@@ -5,9 +5,9 @@ module kt.xml {
 
 
     export class XmlAnalysis {
-        ppos: Array<kt.graph.PONode>;
-        spos: Array<kt.graph.PONode>;
-        apis: { [key: string]: kt.graph.ApiNode };
+        ppos: Array<kt.model.PONode>;
+        spos: Array<kt.model.PONode>;
+        apis: { [key: string]: kt.model.ApiNode };
     }
 
 
@@ -96,9 +96,9 @@ module kt.xml {
 
 
 
-        public parsePpoXml(filename: string, tracker: tf.ProgressTracker): Promise<Array<kt.graph.PONode>> {
+        public parsePpoXml(filename: string, tracker: tf.ProgressTracker): Promise<Array<kt.model.PONode>> {
 
-            let ppos = new Array<kt.graph.PONode>();
+            let ppos = new Array<kt.model.PONode>();
 
             let strict = true;
             let parser = sax.createStream(strict);
@@ -144,7 +144,7 @@ module kt.xml {
 
             parser.onclosetag = (tagName: string) => {
                 if (tagName == 'proof-obligation') {
-                    let ppoNode = new kt.graph.PONode(currentPo);
+                    let ppoNode = new kt.model.PONode(currentPo);
                     ppos.push(ppoNode);
                 }
                 else if (tagName == "predicate") {
@@ -166,10 +166,10 @@ module kt.xml {
 
 
 
-        public parseSpoXml(filename: string, tracker: tf.ProgressTracker): Promise<Array<kt.graph.PONode>> {
+        public parseSpoXml(filename: string, tracker: tf.ProgressTracker): Promise<Array<kt.model.PONode>> {
 
 
-            let spos = new Array<kt.graph.PONode>();
+            let spos = new Array<kt.model.PONode>();
 
             let strict = true;
             let parser = sax.createStream(strict);
@@ -235,7 +235,7 @@ module kt.xml {
             parser.onclosetag = (tagName: string) => {
                 if (tagName == 'obligation') {
                     // currentPo["referenceKey"] = currentPo["id"] + "::" + currentPo["functionName"] + "::" + currentPo["file"];
-                    let ppoNode = new kt.graph.PONode(currentSpo);
+                    let ppoNode = new kt.model.PONode(currentSpo);
                     spos.push(ppoNode);
                 } else if (tagName == 'callsite-obligation') {
                     callsiteObligation = null;
@@ -259,16 +259,16 @@ module kt.xml {
 
 
 
-        public parsePevXml(filename: string, tracker: tf.ProgressTracker): Promise<Array<kt.graph.PODischarge>> {
+        public parsePevXml(filename: string, tracker: tf.ProgressTracker): Promise<Array<kt.model.PODischarge>> {
 
-            let ppos = new Array<kt.graph.PODischarge>();
+            let ppos = new Array<kt.model.PODischarge>();
 
             let strict = true;
             let parser = sax.createStream(strict);
             let functionName;
             let sourceFilename;
 
-            let currentPo: kt.graph.PODischarge;
+            let currentPo: kt.model.PODischarge;
 
 
             parser.onopentag = (tag) => {
@@ -278,7 +278,7 @@ module kt.xml {
                 }
 
                 else if (tag.name == 'discharged') {
-                    currentPo = new kt.graph.PODischarge();
+                    currentPo = new kt.model.PODischarge();
                     currentPo.functionName = functionName;
                     currentPo.id = tag.attributes["id"];
                     currentPo.method = tag.attributes["method"];
@@ -331,9 +331,9 @@ module kt.xml {
 
 
 
-        public parseApiXml(filename: string, tracker: tf.ProgressTracker): Promise<Array<kt.graph.ApiNode>> {
+        public parseApiXml(filename: string, tracker: tf.ProgressTracker): Promise<Array<kt.model.ApiNode>> {
 
-            let ppos = new Array<kt.graph.ApiNode>();
+            let ppos = new Array<kt.model.ApiNode>();
 
             let strict = true;
             let parser = sax.createStream(strict);
@@ -341,7 +341,7 @@ module kt.xml {
             let functionName;
             let sourceFilename;
 
-            let currentAssumption: kt.graph.ApiNode;
+            let currentAssumption: kt.model.ApiNode;
             let dependentPos = [];
 
             let predicateXmlParser: kt.xml.PredicateXmlParser;
@@ -354,7 +354,7 @@ module kt.xml {
                 }
 
                 else if (tag.name == 'api-assumption' || tag.name == 'global-assumption' || tag.name == 'rv-assumption') {
-                    currentAssumption = new kt.graph.ApiNode({});
+                    currentAssumption = new kt.model.ApiNode({});
                     currentAssumption.functionName = functionName;
                     currentAssumption.id = tag.attributes["nr"];
 
@@ -421,7 +421,7 @@ module kt.xml {
 
 
 
-        private readAndBindEvFiles(dirName: string, suffix: string, ppoMap: { [id: string]: kt.graph.PONode }, tracker: tf.ProgressTracker): Promise<any> {
+        private readAndBindEvFiles(dirName: string, suffix: string, ppoMap: { [id: string]: kt.model.PONode }, tracker: tf.ProgressTracker): Promise<any> {
             const parser = this;
             let err: number = 0;
 
@@ -467,7 +467,7 @@ module kt.xml {
 
         }
 
-        private bindCallsiteFunctions(spos: Array<kt.graph.PONode>, functionsMap: { [key: string]: Array<kt.xml.CFunction> }) {
+        private bindCallsiteFunctions(spos: Array<kt.model.PONode>, functionsMap: { [key: string]: Array<kt.xml.CFunction> }) {
             for (let spo of spos) {
                 let funcs = functionsMap[spo.callsiteFname];
                 if (funcs) {
@@ -485,13 +485,13 @@ module kt.xml {
             }
         }
 
-        private listApiFiles(dirName: string, spoMap: { [key: string]: kt.graph.PONode }): Array<string> {
+        private listApiFiles(dirName: string, spoMap: { [key: string]: kt.model.PONode }): Array<string> {
             const suffixFilter = "_api.xml";
             let apiFiles = this.listFilesInDir(dirName, suffixFilter);
 
             let parentDir = kt.fs.getChDir(dirName);
 
-            let linkedApiFilenames = _.uniq(_.map(_.values(spoMap), (v: kt.graph.PONode) => v.apiFileName));
+            let linkedApiFilenames = _.uniq(_.map(_.values(spoMap), (v: kt.model.PONode) => v.apiFileName));
             linkedApiFilenames = _.filter(linkedApiFilenames, v => v != null);
             linkedApiFilenames = _.map(linkedApiFilenames, (v: string) => path.join(parentDir, v + suffixFilter));
 
@@ -507,8 +507,8 @@ module kt.xml {
             let ppoMap;
             let apiMap;
 
-            let ppoArr: Array<kt.graph.PONode>;
-            let spoArr: Array<kt.graph.PONode>;
+            let ppoArr: Array<kt.model.PONode>;
+            let spoArr: Array<kt.model.PONode>;
 
             const ppoTracker = tf.graph.util.getSubtaskTracker(tracker, 20, 'reading PPOs');
             const pevTracker = tf.graph.util.getSubtaskTracker(tracker, 20, 'reading PEVs');
@@ -590,13 +590,13 @@ module kt.xml {
         }
 
         private linkAssumptionsDeps(
-            ppoMap: { [key: string]: kt.graph.PONode },
-            spoMap: { [key: string]: kt.graph.PONode },
-            apis: Array<kt.graph.ApiNode>) {
+            ppoMap: { [key: string]: kt.model.PONode },
+            spoMap: { [key: string]: kt.model.PONode },
+            apis: Array<kt.model.ApiNode>) {
 
             for (let api of apis) {
                 for (let refId of api.dependentPos) {
-                    let refKey = kt.graph.makeKey(refId, api.functionName, api.file);
+                    let refKey = kt.model.makeKey(refId, api.functionName, api.file);
                     let po = ppoMap[refKey];
                     if (!po) {
                         po = spoMap[refKey];
@@ -613,8 +613,8 @@ module kt.xml {
         }
 
         private linkSpoApis(
-            spoMap: { [key: string]: kt.graph.PONode },
-            apiMap: { [key: string]: kt.graph.ApiNode }) {
+            spoMap: { [key: string]: kt.model.PONode },
+            apiMap: { [key: string]: kt.model.ApiNode }) {
 
             for (let spoKey in spoMap) {
                 let spo = spoMap[spoKey];
@@ -631,8 +631,8 @@ module kt.xml {
         }
 
         private bindDischargeAssumptions(
-            spoMap: { [key: string]: kt.graph.PONode },
-            apiMap: { [key: string]: kt.graph.ApiNode }) {
+            spoMap: { [key: string]: kt.model.PONode },
+            apiMap: { [key: string]: kt.model.ApiNode }) {
 
             for (let spoKey in spoMap) {
                 let spo = spoMap[spoKey];

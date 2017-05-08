@@ -155,12 +155,12 @@
             },
 
             _statesNames: function() {
-                return kt.graph.PoStates;
+                return kt.model.PoStates;
             },
 
             _getDischargeTypesStyles: function(filter) {
                 var map = {};
-                _.forEach(kt.graph.PoDischargeTypesArr, function(x) {
+                _.forEach(kt.model.PoDischargeTypesArr, function(x) {
                     map[x] = "--paper-checkbox-label-checked-color:var(--kt-state-discharged-" + x + "-tx); --paper-checkbox-checked-color:var(--kt-state-discharged-" + x + "-tx)";
                 });
                 return map;
@@ -168,15 +168,15 @@
 
             _getStatesStyles: function(filter) {
                 var map = {};
-                _.forEach(kt.graph.PoStatesArr, function(x) {
-                    map[x] = "--paper-checkbox-label-checked-color:var(--kt-state-" + kt.graph.PoStates[x] + "-default-tx); --paper-checkbox-checked-color:var(--kt-state-" + kt.graph.PoStates[x] + "-default-tx)";
+                _.forEach(kt.model.PoStatesArr, function(x) {
+                    map[x] = "--paper-checkbox-label-checked-color:var(--kt-state-" + kt.model.PoStates[x] + "-default-tx); --paper-checkbox-checked-color:var(--kt-state-" + kt.model.PoStates[x] + "-default-tx)";
                 });
                 return map;
             },
 
             _getLevelStyles: function(filter) {
                 var map = {};
-                _.forEach(kt.graph.PoLevels, function(x) {
+                _.forEach(kt.model.PoLevels, function(x) {
                     map[x] = "--paper-checkbox-label-checked-color:var(--kt-po-" + x + "-tx); --paper-checkbox-checked-color:var(--kt-po-" + x + "-tx)";
                 });
                 return map;
@@ -195,15 +195,15 @@
             },
 
             _getDischargeTypes: function(stats, filter) {
-                return kt.graph.PoDischargeTypesArr;
+                return kt.model.PoDischargeTypesArr;
             },
 
             _getAllStates: function(stats, filter) {
-                return kt.graph.PoStatesArr;
+                return kt.model.PoStatesArr;
             },
 
             _getAllLevels: function(filter) {
-                return kt.graph.PoLevels;
+                return kt.model.PoLevels;
             },
 
             _getStateName: function(filterState) {
@@ -212,7 +212,7 @@
                 } else if (filterState === undefined) {
                     return "?";
                 } else {
-                    return kt.graph.PoStates[filterState];
+                    return kt.model.PoStates[filterState];
                 }
             },
 
@@ -240,11 +240,11 @@
 
             _click: function(event) {
                 if (event.srcElement == this.$.btnv) {
-                    this.set("filter.states", new kt.util.StringSet([kt.graph.PoStates.violation]));
+                    this.set("filter.states", new kt.util.StringSet([kt.model.PoStates.violation]));
                 } else if (event.srcElement == this.$.btnd) {
-                    this.set("filter.states", new kt.util.StringSet([kt.graph.PoStates.discharged]));
+                    this.set("filter.states", new kt.util.StringSet([kt.model.PoStates.discharged]));
                 } else if (event.srcElement == this.$.btno) {
-                    this.set("filter.states", new kt.util.StringSet([kt.graph.PoStates.open]));
+                    this.set("filter.states", new kt.util.StringSet([kt.model.PoStates.open]));
                 }
             }
         });

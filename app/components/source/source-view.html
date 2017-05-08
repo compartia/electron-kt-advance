@@ -53,16 +53,16 @@
                 if (file && statistics.getStatsByFileLine) {
                     var stats = statistics.getStatsByFileLine(file.relativePath, index);
                     if (stats) {
-                        if (stats[kt.graph.PoStates[kt.graph.PoStates.violation]] > 0) {
-                            clazz += " " + kt.graph.PoStates[kt.graph.PoStates.violation];
+                        if (stats[kt.model.PoStates[kt.model.PoStates.violation]] > 0) {
+                            clazz += " " + kt.model.PoStates[kt.model.PoStates.violation];
                         }
 
-                        if (stats[kt.graph.PoStates[kt.graph.PoStates.open]] > 0) {
-                            clazz += " " + kt.graph.PoStates[kt.graph.PoStates.open];
+                        if (stats[kt.model.PoStates[kt.model.PoStates.open]] > 0) {
+                            clazz += " " + kt.model.PoStates[kt.model.PoStates.open];
                         }
 
-                        if (stats[kt.graph.PoStates[kt.graph.PoStates.discharged]] > 0) {
-                            clazz += " " + kt.graph.PoStates[kt.graph.PoStates.discharged];
+                        if (stats[kt.model.PoStates[kt.model.PoStates.discharged]] > 0) {
+                            clazz += " " + kt.model.PoStates[kt.model.PoStates.discharged];
                         }
 
                     }
