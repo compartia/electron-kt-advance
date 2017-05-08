@@ -1,5 +1,5 @@
 $filter-panel-bg: transparentize(mix($side-bg-2, $side-bg, 30%), 0.2);
-
+$filter-item-width: 120px;
 po-filter-panel {
 
     position : fixed;
@@ -29,7 +29,19 @@ po-filter-panel {
             display   : flex;
             flex-flow : row;
 
-            #predicates-list{
+            #predicates{
+                flex-shrink: 1;
+                flex-grow: 1;
+
+
+                .grid-container {
+                    max-height: 300px;
+                    min-height: 20px;
+                    display: flex;
+                    flex-direction: column;
+                    flex-wrap: wrap;
+                    min-width: 3*$filter-item-width +  2*$spacer;
+                }
             }
 
             h3{
@@ -39,7 +51,7 @@ po-filter-panel {
             .card{
 
                 // max-height: 200px;
-                min-width: 170px;
+                min-width: $filter-item-width;
 
                 display  : flex;
                 flex-flow: column;

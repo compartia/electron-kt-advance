@@ -3,8 +3,8 @@
 
 <dom-module id="kt-list-selection">
     <template>
-        <div class="list-container">
-            <template items="[[_items]]" is="dom-repeat">
+        <div class$="[[getListClass(grid)]]">
+            <template is="dom-repeat" items="[[_items]]">
                 <paper-checkbox checked$="[[item.selected]]" value="{{item.id}}" style$="{{styleOf(item.id)}}" on-change="_checkboxChanged">
                     [[item.name]]
                 </paper-checkbox>
@@ -19,8 +19,20 @@
             min-height: 20px;
         }
 
-        paper-checkbox {
+        .grid-container {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+        }
+
+        .list-container paper-checkbox {
             display: block;
+        }
+
+        .grid-container paper-checkbox {
+            flex-basis: 0.25;
+            display: inline-block;
+            width: 100px;
         }
 
     </style>
@@ -33,6 +45,12 @@
                 selectedValues: {
                     type: Object,
                     notify: true
+                },
+
+                grid: {
+                    type: Boolean,
+                    notify: true,
+                    value: false
                 },
 
                 _items: {
@@ -58,18 +76,27 @@
                 }
             },
 
+            getListClass: function(grid) {
+                if (!grid) {
+                    return "list-container";
+                } else {
+                    return "grid-container";
+                }
+
+            },
             makeItems: function(allValues, selectedValues, itemNames) {
                 var ret = [];
                 for (var i = 0; i < allValues.length; i++) {
                     ret.push({
                         id: allValues[i],
-                        name: itemNames? itemNames[allValues[i]]:allValues[i],
+                        name: itemNames
+                            ? itemNames[allValues[i]]
+                            : allValues[i],
                         selected: selectedValues.contains(allValues[i])
                     });
                 }
                 return ret;
             },
-
 
             styleOf: function(item) {
                 if (this.styles)
