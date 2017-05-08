@@ -1,29 +1,57 @@
 @import "_fonts";
 // @import "_colors";
 
-$po-id-width: 2rem;
-$po-id-padding: 0.5rem;
+$po-id-width: $spacer*5;
+$po-id-padding: $spacer/2;
+
+$po-loc-width: $spacer*5;
+$po-loc-padding: $spacer/2;
+
+$po-icon-width: 16px;
 
 po-list {
+    .headline {
+        background: $side-bg;
+        padding   : $spacer;
+        color     : $grey-lighter;
+
+        .function {
+            display    : inline-block;
+            color      : $grey;
+            font-family: $monospaced;
+            font-weight: 400;
+        }
+
+        .file {
+            display: inline-block;
+            color  : $grey-lighter;
+        }
+
+    }
+
+}
+
+po-line {
     .row > span {
         display: inline-block;
     }
 
     .row {
-        padding      : 5px 1rem;
+        padding      : $spacer/2 $spacer;
         border-bottom: 1px solid var(--kt-grey-lighter);
+        box-sizing: border-box;
 
         .po-icon {
-            width : var(--paper-tree-icon-width, 1rem);
-            height: var(--paper-tree-icon-width, 1rem);
+            width : $po-icon-width;
+            height: $po-icon-width;
         }
 
         .po-id {
             color        : $grey;
             font-size    : $font-size-xs;
             font-family  : $monospaced;
-            min-width    : 2rem;
-            padding-right: 0.5rem;
+            min-width    : $po-id-width;
+            padding-right: $po-id-padding;
             text-align   : right;
         }
 
@@ -41,17 +69,41 @@ po-list {
 
         }
 
+        .location {
+            float          : right;
+            font-family    : $monospaced;
+            text-decoration: underline;
+            cursor         : pointer;
+            min-width      : $po-loc-width;
+            padding        : 0 $po-loc-padding;
+            text-align     : right;
+        }
+
         .state {
             min-width: 8rem;
 
             .discharge {}
         }
 
-        .discharge-comment {
-            font-size   : $font-size-sm;
-            color       : $grey;
-            width       : 100%;
-            padding-left: $po-id-width+$po-id-padding;
+        .level-I,
+        .level-II {
+            font-weight  : 400;
+            // font-size    : 8px;
+            border-radius: 15px;
+            min-width    : 1.3em;
+            display      : inline-block;
+            padding      : $spacer/8;
+            text-align   : center;
+            margin       : 0 $spacer/2;
+        }
+
+        .level-II {
+            color     : white;
+            background: var(--kt-po-primary-bg);
+        }
+
+        .level-I {
+            background: var(--kt-po-secondary-bg);
         }
 
         .function-name {
@@ -65,8 +117,16 @@ po-list {
             font-family  : $monospaced;
 
             background   : var(--kt-grey-lighter);
-            padding      : 2px 1rem;
+            padding      : $spacer/8 $spacer/2;
+            margin-left  : $spacer/2;
             border-radius: 10px;
+        }
+
+        .discharge-comment {
+            font-size   : $font-size-sm;
+            color       : $grey;
+            width       : 100%;
+            padding-left: $po-icon-width+$spacer;
         }
 
     }

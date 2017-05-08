@@ -1,6 +1,19 @@
 @import "_fonts";
 // @import "_colors";
 
+
+#scrollable, scrollable {
+    height  : 100vh;
+    width   : 100%;
+
+    overflow: auto;
+    position: absolute;
+    top     : 0;
+    bottom  : 0;
+}
+
+
+
 kt-layout {
     background: $main-bg;
 
@@ -8,7 +21,8 @@ kt-layout {
         height  : 100vh;
         width   : 100%;
 
-        overflow: auto;
+        // overflow: auto;
+        box-sizing: border-box;
         position: absolute;
         top     : 0;
         bottom  : 0;

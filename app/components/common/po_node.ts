@@ -75,15 +75,15 @@ module kt.graph {
         id: string;
         private _сfunction: kt.xml.CFunction = new kt.xml.CFunction();
 
-        get cfunction() {
+        get cfunction() : xml.CFunction{
             return this._сfunction;
         }
 
-        get file() {
+        get file():string {
             return this._сfunction.file;
         }
 
-        get functionName() {
+        get functionName() :string {
             return this._сfunction.name;
         }
 

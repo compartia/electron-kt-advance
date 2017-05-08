@@ -8,7 +8,7 @@
                     <div class$="code-line [[_getClass(_loadedFile, index, statistics)]]">
 
                         <span class="info">
-                            <span id="line-number">[[index]]</span>
+                            <span id="line-number">[[_lineNumber(index)]]</span>
                             <span class="state-marker"></span>
                             <span id="po-count">[[_getPoNumber(_loadedFile, index, statistics)]]</span>
                         </span>
@@ -39,10 +39,6 @@
                     type: Object,
                     notify: true
                 }
-            },
-
-            listeners: {
-                'filter-applied': '_onFilterApplied'
             },
 
             _getPoNumber: function(file, index, statistics) {
@@ -83,32 +79,50 @@
                 return clazz;
             },
 
-            _onFilterApplied: function(event) {
-                var newFile = event.detail.file;
-
-                /**
-                make sure it is called AFTER statistics is ready.
-                **/
-                if (newFile && !newFile.dir) {
-                    if (this._loadedFile != newFile) {
-
-                        this._loadedFile = newFile;
-                        this.currentProject.loadFile(newFile.relativePath).then(function(fileContents) {
-                            this.set("lines", fileContents.lines);
-                        }.bind(this));
-
-                    } else {
-
-                        if (event.detail.cfunction) {
-                            var task = function() {
-                                this.$.listOfLines.scrollToIndex(event.detail.cfunction.line - 1);
-                            }
-                            setTimeout(task.bind(this));
-                        }
-
-                    }
-
+            jumpToLine: function(line) {
+                if (!line) {
+                    line = 0;
                 }
+                if (line > 4)
+                    line = line - 4;
+
+                var task = function() {
+                    if(this.$.listOfLines.items)
+                        this.$.listOfLines.scrollToIndex(line);
+                }
+                setTimeout(task.bind(this), 100);
+
+            },
+
+            _lineNumber: function(index) {
+                return index + 1;
+            },
+
+            maybeLoadFile: function(newFile, aftereffect) {
+                // console.error("maybeLoadFile:"+this._shouldLoad(newFile));
+                if (this._shouldLoad(newFile)) {
+                    this._loadedFile = newFile;
+                    //XXX: handle errors;
+                    this.currentProject.loadFile(newFile.relativePath).then(function(fileContents) {
+                        this.set("lines", fileContents.lines);
+                        aftereffect();
+                    }.bind(this));
+
+                } else {
+                    aftereffect();
+                }
+
+            },
+
+            _shouldLoad: function(newFile) {
+                if (newFile && !newFile.dir) {
+                    if (this._loadedFile) {
+                        return this._loadedFile.relativePath != newFile.relativePath;
+                    } else {
+                        return true;
+                    }
+                }
+                return false;
             }
         });
     </script>

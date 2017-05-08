@@ -1,51 +1,23 @@
 <link rel="import" href="../../../bower_components/iron-list/iron-list.html">
+<link rel="import" href="po-line.html">
 
 <dom-module id="po-list">
     <template>
-
-        <iron-list items="[[filteredProofObligations]]">
-            <template>
-                <div on-click="_clickListener" class$="po row [[_getClass(item)]]">
-
-                    <iron-icon class="po-icon" icon$="{{_computeIcon(item)}}" on-click="select"></iron-icon>
-
-                    <span class="po-id">{{item.id}}</span>
-
-                    <template is="dom-if" if="[[_showFunctionName(item.functionName)]]">
-                        <span class="function-name">[[item.functionName]]</span>
-                    </template>
-
-                    <span class="state">
-                        <sup>[[item.level]]</sup>
-                        [[item.stateName]]
-                        <template is="dom-if" if="[[item.dischargeType]]">
-                            :<span class="discharge">{{item.dischargeType}}</span>
+        <div class="scrollable">
+            <iron-list scroll-target="scrollable" items="[[groupPOs(filteredProofObligations)]]" as="line">
+                <template>
+                    <div>
+                        <template is="dom-if" if="[[line.group]]">
+                            <div class="headline"><span class="file">[[line.parent]]</span> / <span class="function">[[line.value]]</span> </div>
                         </template>
-                    </span>
 
-                    <span class="predicate">
-                        <span class="predicate-name">
-                            [[item.predicate]]
-                        </span>
-                        <template is="dom-if" if="[[item.predicateArgument]]">
-                            (<span class="predicate-arg">
-                                [[item.predicateArgument]]
-                            </span>)
+                        <template is="dom-if" if="[[!line.group]]">
+                            <po-line item="[[line.value]]"></po-line>
                         </template>
-                    </span>
+                    </div>
 
-                    <span class='expression'>
-                        [[item.expression]]
-                    </span>
-
-                    <template is="dom-if" if="[[item.discharge]]">
-                        <template is="dom-if" if="[[item.discharge.message]]">
-                            <span class="discharge-comment">{{item.discharge.message}}</span>
-                        </template>
-                    </template>
-
-                </div>
-            </template>
+                </template>
+            </div>
         </iron-list>
 
     </template>
@@ -67,30 +39,24 @@
                 }
             },
 
-            _getStateName:function(item){
-                return kt.graph.PoStates[item.state];
+            _isGroup: function(item) {
+                return item.type != "po";
             },
+
+            groupPOs: function(pos) {
+                var groups = kt.Globals.groupProofObligationsByFileFunctions(pos);
+                var unzipped = kt.Globals.unzipPoGroup(groups);
+                return unzipped;
+            },
+
+            // jumpToSource: function(event) {     var item = event.currentTarget.data;     this.fire("jump-to-src", item); },
 
             _showFunctionName: function(fname) {
                 return true;
                 //return this.filter.functionName!=fname;
             },
 
-            _computeIcon: function(node) {
-                return "kt:state-" + node.extendedState.toLowerCase();
-            },
-
-            _getClass: function(node) {
-                return "po-" + node.extendedState.toLowerCase();
-            },
-
-            _clickListener: function(e) {
-
-                // if (this.selected) {     this.toggleClass("selected", false, this.selected);     this.selected = null; }
-                //
-                // this.toggleClass("selected", true, e.target); this.selected = e.target;
-
-            }
+            _clickListener: function(e) {}
 
         });
     </script>
