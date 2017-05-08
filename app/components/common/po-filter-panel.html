@@ -44,6 +44,10 @@
 
                 <div id="filtersettings-body">
 
+                    <div id="levels" class="card panel">
+                        <h3>Level</h3>
+                        <kt-list-selection all-values="[[_allLevels]]" selected-values="{{filter.levels}}" styles="[[_getLevelStyles(filter)]]"></kt-list-selection>
+                    </div>
 
 
                     <div id="states" class="card panel">
@@ -111,6 +115,11 @@
                     computed: "_getAllStates(statistics, filter)"
                 },
 
+                _allLevels:{
+                    type: Object,
+                    computed: "_getAllLevels(filter)"
+                },
+
                 _allDischargeTypes: {
                     type: Object,
                     computed: "_getDischargeTypes(statistics, filter)"
@@ -135,7 +144,7 @@
 
 
             _statesNames:function(){
-                    return kt.graph.PoStates;
+                return kt.graph.PoStates;
             },
 
             _getDischargeTypesStyles: function(filter) {
@@ -150,6 +159,14 @@
                 var map = {};
                 _.forEach(kt.graph.PoStatesArr, function(x) {
                     map[x] = "--paper-checkbox-label-checked-color:var(--kt-state-" + kt.graph.PoStates[x] + "-default-tx); --paper-checkbox-checked-color:var(--kt-state-" + kt.graph.PoStates[x] + "-default-tx)";
+                });
+                return map;
+            },
+
+            _getLevelStyles: function(filter) {
+                var map = {};
+                _.forEach(kt.graph.PoLevels, function(x) {
+                    map[x] = "--paper-checkbox-label-checked-color:var(--kt-po-" + x + "-tx); --paper-checkbox-checked-color:var(--kt-po-" + x + "-tx)";
                 });
                 return map;
             },
@@ -172,6 +189,10 @@
 
             _getAllStates: function(stats, filter) {
                 return kt.graph.PoStatesArr;
+            },
+
+            _getAllLevels: function(filter) {
+                return kt.graph.PoLevels;
             },
 
             _getStateName: function(filterState) {

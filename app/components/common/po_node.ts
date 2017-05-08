@@ -1,10 +1,13 @@
 module kt.graph {
     const path = require('path');
 
+    export const PoLevels = ["primary", "secondary"];
     export enum Complexitiy { P, C, G };
 
+    // export enum PoLevels {primary, secondary};
     export enum PoStatesExt { violation, open, discharged, global, invariants, ds, rv, api };
     export enum PoStates { violation, open, discharged, assumption };
+
     export enum PoDischargeTypes { global, invariants, ds, rv, api, default };
 
     export const PoDischargeTypesArr: Array<string> = ["global", "invariants", "ds", "rv", "api", "default"];
@@ -75,15 +78,15 @@ module kt.graph {
         id: string;
         private _сfunction: kt.xml.CFunction = new kt.xml.CFunction();
 
-        get cfunction() : xml.CFunction{
+        get cfunction(): xml.CFunction {
             return this._сfunction;
         }
 
-        get file():string {
+        get file(): string {
             return this._сfunction.file;
         }
 
-        get functionName() :string {
+        get functionName(): string {
             return this._сfunction.name;
         }
 

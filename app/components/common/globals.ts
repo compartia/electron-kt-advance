@@ -53,6 +53,7 @@ module kt.Globals {
 
         private _predicates: kt.util.StringSet = new kt.util.StringSet([]);
         private _states: kt.util.AnySet<kt.graph.PoStates> = new kt.util.AnySet<kt.graph.PoStates>([]);
+        private _levels: kt.util.AnySet<kt.graph.PoLevels> = new kt.util.AnySet<kt.graph.PoLevels>([]);
         private _dischargeTypes: kt.util.StringSet = new kt.util.StringSet([]);
 
 
@@ -129,6 +130,15 @@ module kt.Globals {
             return this._states;
         }
 
+
+        set levels(_levels: kt.util.AnySet<kt.graph.PoLevels>) {
+            this._levels = _levels;
+        }
+
+        get levels(): kt.util.AnySet<kt.graph.PoLevels> {
+            return this._levels;
+        }
+
         public reset() {
             this._cfunction = null;
             this._file = null;
@@ -180,6 +190,12 @@ module kt.Globals {
                 }
 
             }
+        }
+
+
+        private acceptLevel(po: kt.graph.AbstractNode): boolean {
+            // po.level
+            return true;
         }
 
         private acceptFunction(po: kt.graph.AbstractNode): boolean {
