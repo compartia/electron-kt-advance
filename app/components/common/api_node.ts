@@ -8,7 +8,7 @@ module kt.model {
     }
 
 
-    export class ApiNode extends kt.model.AbstractNode {
+    export class ApiNode extends model.AbstractNode {
         message: string;
         isMissing: boolean;
         type: string;
@@ -42,8 +42,8 @@ module kt.model {
             return makeAssumptionKey(this.type, this.id, this.functionName, this.file);
         }
 
-        get state(): kt.model.PoStates {
-            return kt.model.PoStates.assumption;
+        get state(): model.PoStates {
+            return model.PoStates.assumption;
         }
 
 
@@ -82,7 +82,7 @@ module kt.model {
         }
 
         get extendedState(): string {
-            return kt.model.PoStates[this.state] + "-" + this.type;
+            return model.PoStates[this.state] + "-" + this.type;
         }
 
         public isDischarged(): boolean {
@@ -119,7 +119,7 @@ module kt.model {
                     "label": this.label,
                     "predicate": this.predicateType,
                     "expression": this.expression,
-                    "state": kt.model.PoStates[this.state],
+                    "state": model.PoStates[this.state],
                     "message": this.message,
                     "apiId": this.id,
                     "symbol": this.symbol,

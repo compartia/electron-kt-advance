@@ -284,10 +284,10 @@ module kt.model {
             return this._level;
         }
 
-        get levelLabel():string{
-            if("secondary"==this._level){
+        get levelLabel(): string {
+            if ("secondary" == this._level) {
                 return "II";
-            }else{
+            } else {
                 return "I";
             }
         }
