@@ -37,8 +37,6 @@ Custom property | Description | Default
             color: var(--paper-tree-selected-color, inherit);
         }
 
-
-
         [hidden] {
             display: none;
         }
@@ -49,10 +47,7 @@ Custom property | Description | Default
         <div class="node-container">
             <div class="node-row">
 
-                <!-- <template is="dom-if" if="{{_showIcon(data)}}"> -->
-                    <!-- <span class$="{{_computeClass(data.*)}}" on-click="toggleChildren"></span> -->
-                    <iron-icon class="node-icon" icon$="{{_computeCollapseIcon(data.*)}}" on-click="toggleChildren"></iron-icon>
-                <!-- </template> -->
+                <iron-icon class="node-icon" icon$="{{_computeCollapseIcon(data.*)}}" on-click="toggleChildren"></iron-icon>
 
                 <template is="dom-if" if="{{!_showIcon(data)}}">
                     <node-decorator show-count="true" statistics="[[_getStatsByFile(data, statistics)]]"></node-decorator>
@@ -123,7 +118,6 @@ Custom property | Description | Default
             listeners: {
                 "toggle": "_onNodeToggle"
             },
-
 
             _computeCollapseIcon: function(change) {
                 var open = change && change.base && change.base.open;
