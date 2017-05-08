@@ -53,12 +53,12 @@ module kt.Globals {
 
         private _predicates: kt.util.StringSet = new kt.util.StringSet([]);
         private _states: kt.util.AnySet<kt.graph.PoStates> = new kt.util.AnySet<kt.graph.PoStates>([]);
+        private _levels: kt.util.StringSet = new kt.util.StringSet([]);
         private _dischargeTypes: kt.util.StringSet = new kt.util.StringSet([]);
 
 
         private _cfunction: kt.xml.CFunction;
         private _file: kt.treeview.FileInfo;
-
         private _line: number = null;
 
         set line(line: number) {
@@ -129,6 +129,17 @@ module kt.Globals {
             return this._states;
         }
 
+
+        set levels(_levels: kt.util.StringSet) {
+            this._levels = _levels;
+        }
+
+        get levels(): kt.util.StringSet {
+            return this._levels;
+        }
+
+
+
         public reset() {
             this._cfunction = null;
             this._file = null;
@@ -169,6 +180,9 @@ module kt.Globals {
             this._file = file;
         }
 
+
+
+
         private acceptFile(po: kt.graph.AbstractNode): boolean {
             if (!this.fileName) {
                 return true;
@@ -181,6 +195,8 @@ module kt.Globals {
 
             }
         }
+
+
 
         private acceptFunction(po: kt.graph.AbstractNode): boolean {
             if (!this.cfunction) {
@@ -195,6 +211,10 @@ module kt.Globals {
                 return true;
             }
             return false;
+        }
+
+        private acceptLevel(po: kt.graph.AbstractNode): boolean {
+            return this.levels.contains((<kt.graph.PONode>po).level);
         }
 
         private acceptDischargeType(po: kt.graph.PONode): boolean {
@@ -218,7 +238,7 @@ module kt.Globals {
         }
 
         public accept(po: kt.graph.PONode): boolean {
-            return this.acceptFile(po) && this.acceptFunction(po) && this.acceptPredicate(po) && this.acceptState(po) && this.acceptDischargeType(po);
+            return this.acceptState(po) && this.acceptLevel(po) && this.acceptFile(po) && this.acceptFunction(po) && this.acceptPredicate(po) && this.acceptDischargeType(po);
         }
 
         public acceptApi(po: kt.graph.ApiNode): boolean {
@@ -227,6 +247,9 @@ module kt.Globals {
 
     }
 
+    /**
+    @deprecated;
+    */
     export const PO_FILTER: Filter = new Filter();
     export interface FileContents {
         src: string;
@@ -244,6 +267,10 @@ module kt.Globals {
         _apis: { [key: string]: kt.graph.ApiNode } = null;
 
         allPredicates: Array<string>;
+
+        constructor(baseDir: string) {
+            this.baseDir = baseDir;
+        }
 
         public loadFile(relativePath: string): Promise<FileContents> {
             let self = this;
@@ -303,9 +330,7 @@ module kt.Globals {
         }
 
 
-        constructor(baseDir: string) {
-            this.baseDir = baseDir;
-        }
+
 
 
         public onFilterChanged(filter) {

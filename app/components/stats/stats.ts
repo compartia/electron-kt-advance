@@ -9,8 +9,12 @@ module kt.stats {
         "DISCHARGED"
     ];
 
- 
+
     const CPG = ["C", "P", "G"];
+
+
+    const COL_PRIMARY = "primary";
+
     const DEF_COL_NAME = "count";
 
 
@@ -271,9 +275,9 @@ module kt.stats {
             }
 
 
-            this.complexityByFile.divideColumnsByColumn(CPG, this.complexityByFile, "I");
-            this.predicateByComplexity.divideColumnsByColumn(CPG, this._primaryPredicatesCount, "I");
-            this.complexityByFunction.divideColumnsByColumn(CPG, this.complexityByFunction, "I");
+            this.complexityByFile.divideColumnsByColumn(CPG, this.complexityByFile, COL_PRIMARY);
+            this.predicateByComplexity.divideColumnsByColumn(CPG, this._primaryPredicatesCount, COL_PRIMARY);
+            this.complexityByFunction.divideColumnsByColumn(CPG, this.complexityByFunction, COL_PRIMARY);
 
 
             console.info("stats build o:" + this.countOpen + " v:" + this.countViolations + " d:" + this.countDischarged);

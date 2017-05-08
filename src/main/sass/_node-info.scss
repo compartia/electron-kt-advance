@@ -73,7 +73,7 @@ tf-node-info {
 
     }
 
-    .po.level-PRIMARY{
+    .po.level-primary{
         .level{
             &:after {
                 content: " I";
@@ -81,7 +81,7 @@ tf-node-info {
         }
     }
 
-    .po.level-SECONDARY{
+    .po.level-secondary{
         .level{
             &:after {
                 content: " II";
