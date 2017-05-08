@@ -246,9 +246,9 @@ module kt.stats {
                 this.byFunction.bind(functionKey, po.cfunction);
 
                 for (let cCode of CPG) {
-                    this.complexityByFunction.inc(functionKey, model.Complexitiy[kt.model.Complexitiy[cCode]], po.complexity[kt.model.Complexitiy[cCode]]);
-                    this.complexityByFile.inc(po.file, model.Complexitiy[kt.model.Complexitiy[cCode]], po.complexity[kt.model.Complexitiy[cCode]]);
-                    this.predicateByComplexity.inc(po.predicate, model.Complexitiy[kt.model.Complexitiy[cCode]], po.complexity[kt.model.Complexitiy[cCode]]);
+                    this.complexityByFunction.inc(functionKey, model.Complexitiy[model.Complexitiy[cCode]], po.complexity[model.Complexitiy[cCode]]);
+                    this.complexityByFile.inc(po.file, model.Complexitiy[model.Complexitiy[cCode]], po.complexity[model.Complexitiy[cCode]]);
+                    this.predicateByComplexity.inc(po.predicate, model.Complexitiy[model.Complexitiy[cCode]], po.complexity[model.Complexitiy[cCode]]);
                 }
 
 
@@ -286,7 +286,7 @@ module kt.stats {
 
 
         get countViolations(): number {
-            return this.byState.getAt(kt.model.PoStates[kt.model.PoStates.violation], DEF_COL_NAME);
+            return this.byState.getAt(model.PoStates[model.PoStates.violation], DEF_COL_NAME);
         }
 
         get countFilteredOut(): number {
@@ -294,11 +294,11 @@ module kt.stats {
         }
 
         get countDischarged(): number {
-            return this.byState.getAt(kt.model.PoStates[kt.model.PoStates.discharged], DEF_COL_NAME);
+            return this.byState.getAt(model.PoStates[model.PoStates.discharged], DEF_COL_NAME);
         }
 
         get countOpen(): number {
-            return this.byState.getAt(kt.model.PoStates[kt.model.PoStates.open], DEF_COL_NAME);
+            return this.byState.getAt(model.PoStates[model.PoStates.open], DEF_COL_NAME);
         }
 
 

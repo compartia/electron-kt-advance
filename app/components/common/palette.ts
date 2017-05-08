@@ -33,13 +33,13 @@ module kt.palette {
         }
 
 
-        for (let n in kt.model.PoStates) {
-            let c = kt.model.PoStates[n];
+        for (let n in model.PoStates) {
+            let c = model.PoStates[n];
             if (typeof c === 'string') {
 
 
-                for (let m in kt.model.PoDischargeTypes) {
-                    let d = kt.model.PoDischargeTypes[m];
+                for (let m in model.PoDischargeTypes) {
+                    let d = model.PoDischargeTypes[m];
                     if (typeof d === 'string')
                         ktColors["state-" + c + "-" + d + "-bg"] = htmlStyles.getPropertyValue('--kt-state-' + c + "-" + d + "-bg").trim();
                 }

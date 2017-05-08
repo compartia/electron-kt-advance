@@ -121,11 +121,11 @@ module kt.Globals {
             return this._dischargeTypes;
         }
 
-        set states(_states: util.AnySet<kt.model.PoStates>) {
+        set states(_states: util.AnySet<model.PoStates>) {
             this._states = _states;
         }
 
-        get states(): util.AnySet<kt.model.PoStates> {
+        get states(): util.AnySet<model.PoStates> {
             return this._states;
         }
 
@@ -214,7 +214,7 @@ module kt.Globals {
         }
 
         private acceptLevel(po: model.AbstractNode): boolean {
-            return this.levels.contains((<kt.model.ProofObligation>po).level);
+            return this.levels.contains((<model.ProofObligation>po).level);
         }
 
         private acceptDischargeType(po: model.ProofObligation): boolean {
@@ -260,9 +260,9 @@ module kt.Globals {
         analysisDir: string;
         stats: stats.Stats;
 
-        _proofObligations: Array<kt.model.ProofObligation> = [];
-        _filteredProofObligations: Array<kt.model.ProofObligation> = null;
-        _filteredAssumptions: Array<kt.model.ApiNode> = null;
+        _proofObligations: Array<model.ProofObligation> = [];
+        _filteredProofObligations: Array<model.ProofObligation> = null;
+        _filteredAssumptions: Array<model.ApiNode> = null;
 
         _apis: { [key: string]: model.ApiNode } = null;
 
@@ -320,11 +320,11 @@ module kt.Globals {
             this._apis = _apis;
         }
 
-        get proofObligations(): Array<kt.model.ProofObligation> {
+        get proofObligations(): Array<model.ProofObligation> {
             return this._proofObligations;
         }
 
-        set proofObligations(_proofObligations: Array<kt.model.ProofObligation>) {
+        set proofObligations(_proofObligations: Array<model.ProofObligation>) {
             this._proofObligations = _proofObligations;
             this.allPredicates = _.uniq(_.map(this._proofObligations, (e) => e.predicate)).sort();
         }
@@ -348,7 +348,7 @@ module kt.Globals {
         }
 
 
-        get filteredAssumptions(): Array<kt.model.ApiNode> {
+        get filteredAssumptions(): Array<model.ApiNode> {
             if (!this._filteredAssumptions) {
                 let _filteredAssumptions = [];
 
@@ -363,11 +363,11 @@ module kt.Globals {
 
                 for (let po of this.filteredProofObligations) {
                     for (let input of po.inputs) {
-                        _filteredAssumptions.push(<kt.model.ApiNode>input);
+                        _filteredAssumptions.push(<model.ApiNode>input);
                     }
 
                     for (let output of po.outputs) {
-                        _filteredAssumptions.push(<kt.model.ApiNode>output);
+                        _filteredAssumptions.push(<model.ApiNode>output);
                     }
                 }
 
@@ -378,7 +378,7 @@ module kt.Globals {
             return this._filteredAssumptions;
         }
 
-        get filteredProofObligations(): Array<kt.model.ProofObligation> {
+        get filteredProofObligations(): Array<model.ProofObligation> {
             if (!this._filteredProofObligations) {
                 let filter = (x) => PO_FILTER.accept(x);
                 this._filteredProofObligations = model.sortPoNodes(_.filter(this.proofObligations, filter));
