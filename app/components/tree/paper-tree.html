@@ -16,7 +16,7 @@ Example:
 
     <template>
         <div class="container">
-            <paper-tree-node id="root" data="[[data]]" actions="[[actions]]"></paper-tree-node>
+            <paper-tree-node id="root" data="[[data]]" actions="[[actions]]" statistics = "[[statistics]]"></paper-tree-node>
         </div>
     </template>
 
@@ -27,6 +27,7 @@ Example:
             is: 'paper-tree',
 
             properties: {
+                statistics: Object,
 
                 /**
                  * Data hold by the root node (contains the children).

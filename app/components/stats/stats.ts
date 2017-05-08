@@ -9,12 +9,14 @@ module kt.stats {
         "DISCHARGED"
     ];
 
+
     const CPG = ["C", "P", "G"];
+
 
     const COL_PRIMARY = "primary";
 
-
     const DEF_COL_NAME = "count";
+
 
     export interface NamedArray<X> {
         name: string;
@@ -180,6 +182,15 @@ module kt.stats {
             return this.byFileLine.getRow(file + "//" + (line + 1));
         }
 
+        public getStatsByFile(file: kt.treeview.FileInfo): { [key: string]: number } {
+            return this.byFile.getRow(file.relativePath);
+        }
+
+        public getStatsByFunction(func: kt.xml.CFunction): { [key: string]: number } {
+            let functionKey = func.file + "/" + func.name;
+            return this.byFunction.getRow(functionKey);
+        }
+
         public build(project: kt.Globals.Project) {
 
             this._primaryPredicatesCount = new StatsTable<string>();
@@ -218,7 +229,7 @@ module kt.stats {
 
                 let fileLineKey = po.file + "//" + po.location.line;
                 this.byFileLine.inc(fileLineKey, state, 1);
-                this.byFileLine.inc(fileLineKey, "sum", 1);
+                this.byFileLine.inc(fileLineKey, DEF_COL_NAME, 1);
 
 
                 this.predicateByComplexity.bind(po.predicate, po.predicate);
@@ -231,6 +242,7 @@ module kt.stats {
                 //------------
 
                 this.byFunction.inc(functionKey, state, 1);
+                // this.byFunction.inc(functionKey, DEF_COL_NAME, 1);
                 this.byFunction.bind(functionKey, po.cfunction);
 
                 for (let cCode of CPG) {
