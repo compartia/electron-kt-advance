@@ -277,7 +277,7 @@ module kt.graph {
         }
 
         set level(level: string) {
-            this._level = (level == "PRIMARY" ? "I" : "II");
+            this._level = level;
         }
 
         get level(): string {

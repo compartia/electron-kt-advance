@@ -116,7 +116,7 @@ module kt.xml {
                     currentPo = {
                         "id": tag.attributes["id"],
                         "functionName": functionName,
-                        "level": "PRIMARY",
+                        "level": "primary",
                         "complexityP": tag.attributes["p-complexity"],
                         "complexityC": tag.attributes["c-complexity"],
                         "complexityG": tag.attributes["g-complexity"]
@@ -201,7 +201,7 @@ module kt.xml {
                         "file": callsiteObligation["fileName"],
                         "callsiteFname": callsiteObligation["fname"],
                         "callsiteFileName": callsiteObligation["callsiteFileName"],
-                        "level": "SECONDARY",
+                        "level": "secondary",
                         "state": "OPEN",
                         "textRange": [[callsiteObligation["line"], 0], [callsiteObligation["line"], 200]]
                     }
