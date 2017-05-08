@@ -47,20 +47,18 @@
 
 
                     <div id="states" class="card panel">
-                        <h3>State ([[filter.states.length]])</h3>
+                        <h3><paper-icon-button icon="done-all" raised on-tap="selectAllStates" title="Select all"></paper-icon-button> State ([[filter.states.length]])</h3>
                         <kt-list-selection all-values="[[_allStates]]" item-names="[[_statesNames()]]" selected-values="{{filter.states}}" styles="[[_statesStyles]]"></kt-list-selection>
                     </div>
 
                     <div id="discharge-types" class="card panel">
-                        <h3>Type of discharge ([[filter.dischargeTypes.length]])</h3>
+                        <h3><paper-icon-button icon="done-all" raised on-tap="selectAllDischarges" title="Select all"></paper-icon-button>  Type of discharge ([[filter.dischargeTypes.length]])</h3>
                         <kt-list-selection all-values="[[_allDischargeTypes]]" selected-values="{{filter.dischargeTypes}}" styles="[[_dischargeTypesStyles]]"></kt-list-selection>
                     </div>
 
                     <div id="predicates" class="card panel">
-
-                        <h3>Predicates ([[filter.predicates.length]])</h3>
-                        <paper-button on-tap="selectAllPredicates">Select all</paper-button>
-                        <kt-list-selection all-values="{{project.allPredicates}}" selected-values="{{filter.predicates}}"></kt-list-selection>
+                        <h3><paper-icon-button icon="done-all" raised on-tap="selectAllPredicates" title="Select all"></paper-icon-button>  Predicates ([[filter.predicates.length]]) </h3>
+                        <kt-list-selection grid="true" all-values="{{project.allPredicates}}" selected-values="{{filter.predicates}}"></kt-list-selection>
                     </div>
 
                 </div>
@@ -124,9 +122,17 @@
             ],
 
             selectAllPredicates: function(){
-                console.info("select all");
                 this.set("filter.predicates", new kt.util.StringSet(this.project.allPredicates));
             },
+
+            selectAllStates: function(){
+                this.set("filter.states", new kt.util.StringSet(this._allStates));
+            },
+
+            selectAllDischarges: function(){
+                this.set("filter.dischargeTypes", new kt.util.StringSet(this._allDischargeTypes));
+            },
+
 
             _statesNames:function(){
                     return kt.graph.PoStates;
