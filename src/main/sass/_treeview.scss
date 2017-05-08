@@ -1,41 +1,84 @@
 @import "_fonts";
-// @import "_colors";
+
+$paper-tree-font-size: 11px;
 
 $paper-tree-icon-width: 16px;
-$browser-font-size: 11px;
+$paper-tree-icon-space: $spacer/4;
+
 
 :root {
     --paper-tree-icon-width: $paper-tree-icon-width;
-    --browser-font-size    : $browser-font-size;
+    --paper-tree-font-size : $paper-tree-font-size;
 }
 
 .paper-tree {
     .paper-tree-node {
         font-family: $monospaced;
         color      : var(--kt-text-color);
-        font-size  : var(--browser-font-size);
+        font-size  : var(--paper-tree-font-size);
+
+        .node-container {
+            white-space: nowrap;
+        }
+
+        .node-row {
+            display             : flex;
+            align-items         : stretch;
+            --po-count-min-width: 3em;
+        }
+
+        .node-name {
+            cursor: pointer;
+            margin: $spacer/2 0;
+        }
+
+        .node-icon {
+            margin: $paper-tree-icon-space;
+            cursor: pointer;
+            width : var(--paper-tree-icon-width);
+            height: var(--paper-tree-icon-width);
+
+            min-width : var(--paper-tree-icon-width);
+            min-height: var(--paper-tree-icon-width);
+        }
+
+        ul {
+            margin      : 0;
+            padding-left: $paper-tree-icon-width + $spacer/2;
+        }
+
+        li {
+            list-style-type: none;
+        }
+
     }
 
-    .container{
-        border: 1px solid red;
+    .container {
         overflow: scroll;
     }
 }
 
 .functions-list {
-    .container{
+    .container {
         overflow: scroll;
     }
 
     .item {
-        padding  : ($paper-tree-icon-width - $browser-font-size);
-        margin-left: 6px;
-        font-family: $monospaced;
-        color    : var(--kt-text-color);
-        font-size: var(--browser-font-size);
+        display       : flex;
+        flex-direction: row;
+        align-items   : stretch;
+        align-content : stretch;
+
+        #fname {
+            padding    : ($paper-tree-icon-width - $paper-tree-font-size);
+            margin-left: $spacer/2;
+            font-family: $monospaced;
+            color      : var(--kt-text-color);
+            font-size  : var(--paper-tree-font-size);
+        }
     }
 
-    .item.selected{
+    .item.selected {
         background: var(--kt-main-bg);
     }
 }

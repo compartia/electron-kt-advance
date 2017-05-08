@@ -1,6 +1,60 @@
 $marker-line-width: 3px;
 $code-line-info-bg: var(--kt-grey-lighter);
 
+node-decorator {
+    display: flex;
+ 
+    .stats {
+        display       : flex;
+        flex-direction: row;
+        align-items   : stretch;
+        text-align    : right;
+
+        vertical-align: middle;
+
+
+        .state-marker {
+            min-height      : 1.5em;
+            background-clip : content-box;
+            box-sizing      : border-box;
+            content         : "";
+            width           : 3.05* $marker-line-width;
+            border-left     : $marker-line-width solid $transparent;
+            border-right    : $marker-line-width solid $transparent;
+            background-color: $transparent;
+        }
+    }
+
+    #po-count {
+        font-size  : 8px;
+        padding    : 0 $spacer/2;
+        display    : flex;
+        align-items: center;
+
+        width  : var(--po-count-min-width, 1.5em);
+        color      : var(--kt-grey);
+    }
+
+    .stats.violation {
+        .state-marker {
+            border-left-color: var(--kt-state-violation-default-bg);
+        }
+    }
+
+    .stats.open {
+        .state-marker {
+            background-color: var(--kt-state-open-default-bg)!important;
+        }
+    }
+
+    .stats.discharged {
+        .state-marker {
+            border-right-color: var(--kt-state-discharged-default-bg);
+        }
+
+    }
+}
+
 source-view {
     #listOfLines {
         padding-top: var(--filter-panel-height);
@@ -16,33 +70,6 @@ source-view {
 
     .code-line.violation {
         background: var(--kt-state-violation-default-hover-bg);
-
-        .info {
-            background: var(--kt-state-violation-default-hover-bg)!important;
-            color     : var(--kt-state-violation-default-tx);
-        }
-
-        .state-marker {
-            border-left: $marker-line-width solid var(--kt-state-violation-default-bg);
-            background : var(--kt-state-violation-default-hover-bg);
-        }
-    }
-
-    .code-line.open {
-        .info {
-            // background: var(--kt-state-open-default-hover-bg);
-        }
-
-        .state-marker {
-            background-color: var(--kt-state-open-default-bg)!important;
-        }
-    }
-
-    .code-line.discharged {
-        .state-marker {
-            border-right: $marker-line-width solid var(--kt-state-discharged-default-bg);
-        }
-
     }
 
     .code-line {
@@ -51,8 +78,6 @@ source-view {
         flex-direction: row;
         align-items   : stretch;
         align-content : stretch;
-
-        //vertical-align: middle;
 
         .info {
             display       : flex;
@@ -70,29 +95,18 @@ source-view {
             padding    : $spacer/2;
             display    : flex;
             align-items: center;
-
             min-width  : 2em;
             color      : $grey-lighter;
         }
 
-        #po-count {
-            padding    : $spacer/2;
-            display    : flex;
-            align-items: center;
-
-            min-width  : 1.5em;
-            color      : var(--kt-grey);
-        }
-
-        .state-marker {
-            background-clip : content-box;
-            box-sizing      : border-box;
-            content         : "";
-            width           : 3* $marker-line-width;
-            border-left     : $marker-line-width solid $transparent; //$code-line-info-bg;
-            border-right    : $marker-line-width solid $transparent; //$code-line-info-bg;
-            background-color: $transparent; //$code-line-info-bg;
-        }
+        // #po-count {
+        //     padding    : $spacer/2;
+        //     display    : flex;
+        //     align-items: center;
+        //
+        //     min-width  : 1.5em;
+        //     color      : var(--kt-grey);
+        // }
 
         pre.text {
             font-size     : $font-size-xs;

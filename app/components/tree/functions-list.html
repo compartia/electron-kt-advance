@@ -1,9 +1,13 @@
+<link rel="import" href="../common/node-decorator.html">
 <dom-module id="functions-list">
 
     <template>
         <iron-list id="functionslist" items="[[functions]]" index-as="name" selection-enabled on-selected-item-changed="_selectedFunctionChanged" selected-item="{{_selectedItem}}">
             <template>
-                <div class$="[[_computedClass(selected)]]">{{item.name}}</div>
+                <div class$="[[_computedClass(selected)]]">
+                    <node-decorator show-count="true" statistics="[[_getStatsByFunction(item, statistics)]]"></node-decorator>
+                    <span id="fname">{{item.name}}</span>
+                </div>
             </template>
         </iron-list>
     </template>
@@ -15,6 +19,7 @@
             properties: {
 
                 project: Object,
+                statistics: Object,
 
                 selectedFile: {
                     type: Object,
@@ -47,6 +52,11 @@
 
                 this.selectedFunction = null;
                 this._selected = null;
+            },
+
+            _getStatsByFunction: function(item, statistics){
+                var stats = statistics.getStatsByFunction(item);
+                return stats;
             },
 
             _getFunctionsByFile: function(project, file) {
