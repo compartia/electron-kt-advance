@@ -284,6 +284,14 @@ module kt.graph {
             return this._level;
         }
 
+        get levelLabel():string{
+            if("secondary"==this._level){
+                return "II";
+            }else{
+                return "I";
+            }
+        }
+
         get apiKey(): string {
             return kt.graph.makeAssumptionKey("api", this._apiId, this.callsiteFname, this.callsiteFileName);
         }
