@@ -2,7 +2,7 @@ module kt.parser {
     const path = require('path');
 
 
-    export function buildGraph(pos: Array<kt.model.PONode>, apis: Array<kt.model.ApiNode>, filter: Globals.Filter): tf.graph.proto.NodeDef[] {
+    export function buildGraph(pos: Array<kt.model.ProofObligation>, apis: Array<kt.model.ApiNode>, filter: Globals.Filter): tf.graph.proto.NodeDef[] {
         let g: tf.graph.proto.NodeDef[] = [];
 
         let nodesMap = {};

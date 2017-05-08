@@ -20,7 +20,7 @@ module kt.model {
         return _.sortByOrder(nodes, ['file', 'functionName', 'state', 'dischargeTypeIndex', 'predicate'], ['asc', 'asc', 'asc', 'asc', 'asc']);
     }
 
-    export function sortPoNodes(nodes: PONode[]): Array<PONode> {
+    export function sortPoNodes(nodes: ProofObligation[]): Array<ProofObligation> {
         return _.sortByOrder(nodes, ['file', 'functionName', 'state', 'dischargeTypeIndex', 'predicate'], ['asc', 'asc', 'asc', 'asc', 'asc']);
     }
 
@@ -204,7 +204,7 @@ module kt.model {
 
     }
 
-    export class PONode extends AbstractNode {
+    export class ProofObligation extends AbstractNode {
         name: string;
         po: any;
         predicate: string;

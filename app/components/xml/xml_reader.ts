@@ -5,8 +5,8 @@ module kt.xml {
 
 
     export class XmlAnalysis {
-        ppos: Array<model.PONode>;
-        spos: Array<model.PONode>;
+        ppos: Array<model.ProofObligation>;
+        spos: Array<model.ProofObligation>;
         apis: { [key: string]: model.ApiNode };
     }
 
@@ -96,9 +96,9 @@ module kt.xml {
 
 
 
-        public parsePpoXml(filename: string, tracker: tf.ProgressTracker): Promise<Array<model.PONode>> {
+        public parsePpoXml(filename: string, tracker: tf.ProgressTracker): Promise<Array<model.ProofObligation>> {
 
-            let ppos = new Array<model.PONode>();
+            let ppos = new Array<model.ProofObligation>();
 
             let strict = true;
             let parser = sax.createStream(strict);
@@ -144,7 +144,7 @@ module kt.xml {
 
             parser.onclosetag = (tagName: string) => {
                 if (tagName == 'proof-obligation') {
-                    let ppoNode = new model.PONode(currentPo);
+                    let ppoNode = new model.ProofObligation(currentPo);
                     ppos.push(ppoNode);
                 }
                 else if (tagName == "predicate") {
@@ -166,10 +166,10 @@ module kt.xml {
 
 
 
-        public parseSpoXml(filename: string, tracker: tf.ProgressTracker): Promise<Array<model.PONode>> {
+        public parseSpoXml(filename: string, tracker: tf.ProgressTracker): Promise<Array<model.ProofObligation>> {
 
 
-            let spos = new Array<model.PONode>();
+            let spos = new Array<model.ProofObligation>();
 
             let strict = true;
             let parser = sax.createStream(strict);
@@ -235,7 +235,7 @@ module kt.xml {
             parser.onclosetag = (tagName: string) => {
                 if (tagName == 'obligation') {
                     // currentPo["referenceKey"] = currentPo["id"] + "::" + currentPo["functionName"] + "::" + currentPo["file"];
-                    let ppoNode = new model.PONode(currentSpo);
+                    let ppoNode = new model.ProofObligation(currentSpo);
                     spos.push(ppoNode);
                 } else if (tagName == 'callsite-obligation') {
                     callsiteObligation = null;
@@ -421,7 +421,7 @@ module kt.xml {
 
 
 
-        private readAndBindEvFiles(dirName: string, suffix: string, ppoMap: { [id: string]: model.PONode }, tracker: tf.ProgressTracker): Promise<any> {
+        private readAndBindEvFiles(dirName: string, suffix: string, ppoMap: { [id: string]: model.ProofObligation }, tracker: tf.ProgressTracker): Promise<any> {
             const parser = this;
             let err: number = 0;
 
@@ -467,7 +467,7 @@ module kt.xml {
 
         }
 
-        private bindCallsiteFunctions(spos: Array<model.PONode>, functionsMap: { [key: string]: Array<xml.CFunction> }) {
+        private bindCallsiteFunctions(spos: Array<model.ProofObligation>, functionsMap: { [key: string]: Array<xml.CFunction> }) {
             for (let spo of spos) {
                 let funcs = functionsMap[spo.callsiteFname];
                 if (funcs) {
@@ -485,13 +485,13 @@ module kt.xml {
             }
         }
 
-        private listApiFiles(dirName: string, spoMap: { [key: string]: model.PONode }): Array<string> {
+        private listApiFiles(dirName: string, spoMap: { [key: string]: model.ProofObligation }): Array<string> {
             const suffixFilter = "_api.xml";
             let apiFiles = this.listFilesInDir(dirName, suffixFilter);
 
             let parentDir = kt.fs.getChDir(dirName);
 
-            let linkedApiFilenames = _.uniq(_.map(_.values(spoMap), (v: model.PONode) => v.apiFileName));
+            let linkedApiFilenames = _.uniq(_.map(_.values(spoMap), (v: model.ProofObligation) => v.apiFileName));
             linkedApiFilenames = _.filter(linkedApiFilenames, v => v != null);
             linkedApiFilenames = _.map(linkedApiFilenames, (v: string) => path.join(parentDir, v + suffixFilter));
 
@@ -507,8 +507,8 @@ module kt.xml {
             let ppoMap;
             let apiMap;
 
-            let ppoArr: Array<model.PONode>;
-            let spoArr: Array<model.PONode>;
+            let ppoArr: Array<model.ProofObligation>;
+            let spoArr: Array<model.ProofObligation>;
 
             const ppoTracker = tf.graph.util.getSubtaskTracker(tracker, 20, 'reading PPOs');
             const pevTracker = tf.graph.util.getSubtaskTracker(tracker, 20, 'reading PEVs');
@@ -590,8 +590,8 @@ module kt.xml {
         }
 
         private linkAssumptionsDeps(
-            ppoMap: { [key: string]: model.PONode },
-            spoMap: { [key: string]: model.PONode },
+            ppoMap: { [key: string]: model.ProofObligation },
+            spoMap: { [key: string]: model.ProofObligation },
             apis: Array<model.ApiNode>) {
 
             for (let api of apis) {
@@ -613,7 +613,7 @@ module kt.xml {
         }
 
         private linkSpoApis(
-            spoMap: { [key: string]: model.PONode },
+            spoMap: { [key: string]: model.ProofObligation },
             apiMap: { [key: string]: model.ApiNode }) {
 
             for (let spoKey in spoMap) {
@@ -631,7 +631,7 @@ module kt.xml {
         }
 
         private bindDischargeAssumptions(
-            spoMap: { [key: string]: model.PONode },
+            spoMap: { [key: string]: model.ProofObligation },
             apiMap: { [key: string]: model.ApiNode }) {
 
             for (let spoKey in spoMap) {
