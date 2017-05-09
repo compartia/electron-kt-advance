@@ -1,4 +1,4 @@
-module kt.graph {
+module kt.model {
     const path = require('path');
 
     export const PoLevels = ["primary", "secondary"];
@@ -20,7 +20,7 @@ module kt.graph {
         return _.sortByOrder(nodes, ['file', 'functionName', 'state', 'dischargeTypeIndex', 'predicate'], ['asc', 'asc', 'asc', 'asc', 'asc']);
     }
 
-    export function sortPoNodes(nodes: PONode[]): Array<PONode> {
+    export function sortPoNodes(nodes: ProofObligation[]): Array<ProofObligation> {
         return _.sortByOrder(nodes, ['file', 'functionName', 'state', 'dischargeTypeIndex', 'predicate'], ['asc', 'asc', 'asc', 'asc', 'asc']);
     }
 
@@ -31,9 +31,9 @@ module kt.graph {
         let stA: string[] = stateA.toLowerCase().split("-");
         let stB: string[] = stateB.toLowerCase().split("-");
 
-        let delta1 = kt.graph.PoStatesExt[stA[0]] - kt.graph.PoStatesExt[stB[0]];
+        let delta1 = PoStatesExt[stA[0]] - PoStatesExt[stB[0]];
         if (delta1 == 0) {
-            return kt.graph.PoStatesExt[stA[1]] - kt.graph.PoStatesExt[stB[1]];
+            return PoStatesExt[stA[1]] - PoStatesExt[stB[1]];
         } else
             return delta1;
     }
@@ -76,7 +76,7 @@ module kt.graph {
 
     class POId {
         id: string;
-        private _сfunction: kt.xml.CFunction = new kt.xml.CFunction();
+        private _сfunction: xml.CFunction = new xml.CFunction();
 
         get cfunction(): xml.CFunction {
             return this._сfunction;
@@ -123,12 +123,12 @@ module kt.graph {
             this.outputs = [];
         }
 
-        public addInput(node: kt.graph.AbstractNode) {
+        public addInput(node: AbstractNode) {
             if (!_.includes(this.inputs, node))
                 this.inputs.push(node);
         }
 
-        public addOutput(node: kt.graph.AbstractNode) {
+        public addOutput(node: AbstractNode) {
             if (!_.includes(this.outputs, node))
                 this.outputs.push(node);
         }
@@ -138,13 +138,13 @@ module kt.graph {
         }
 
         public abstract isDischarged(): boolean;
-        public abstract get state(): kt.graph.PoStates;
+        public abstract get state(): PoStates;
 
         get stateName() {
-            return kt.graph.PoStates[this.state];
+            return PoStates[this.state];
         }
 
-        public abstract makeName(filter: kt.Globals.Filter): string;
+        public abstract makeName(filter: Globals.Filter): string;
 
 
         public isTotallyDischarged(): boolean {
@@ -204,7 +204,7 @@ module kt.graph {
 
     }
 
-    export class PONode extends AbstractNode {
+    export class ProofObligation extends AbstractNode {
         name: string;
         po: any;
         predicate: string;
@@ -217,7 +217,7 @@ module kt.graph {
 
         callsiteFname: string;
         private _callsiteFileName: string;
-        symbol: kt.xml.Symbol;
+        symbol: xml.Symbol;
         private _apiId: string = null;
 
         complexity: number[] = [0, 0, 0];
@@ -270,9 +270,9 @@ module kt.graph {
             this.id = po["id"];
 
 
-            this.complexity[Complexitiy.C] = kt.util.zeroIfNull(po["complexityC"]);
-            this.complexity[Complexitiy.P] = kt.util.zeroIfNull(po["complexityP"]);
-            this.complexity[Complexitiy.G] = kt.util.zeroIfNull(po["complexityG"]);
+            this.complexity[Complexitiy.C] = util.zeroIfNull(po["complexityC"]);
+            this.complexity[Complexitiy.P] = util.zeroIfNull(po["complexityP"]);
+            this.complexity[Complexitiy.G] = util.zeroIfNull(po["complexityG"]);
 
         }
 
@@ -284,23 +284,23 @@ module kt.graph {
             return this._level;
         }
 
-        get levelLabel():string{
-            if("secondary"==this._level){
+        get levelLabel(): string {
+            if ("secondary" == this._level) {
                 return "II";
-            }else{
+            } else {
                 return "I";
             }
         }
 
         get apiKey(): string {
-            return kt.graph.makeAssumptionKey("api", this._apiId, this.callsiteFname, this.callsiteFileName);
+            return model.makeAssumptionKey("api", this._apiId, this.callsiteFname, this.callsiteFileName);
         }
 
         get dischargeApiKey(): string {
             if (this._discharge && this._discharge.assumptions) {
                 if (this._discharge.assumptions.length > 0) {
                     let usedAssumption = this._discharge.assumptions[0];
-                    return kt.graph.makeAssumptionKey(usedAssumption.type, usedAssumption.apiId, this.functionName, this.file);
+                    return model.makeAssumptionKey(usedAssumption.type, usedAssumption.apiId, this.functionName, this.file);
                 }
             }
             return null;
@@ -354,7 +354,7 @@ module kt.graph {
 
         get predicateArgument(): string {
             if (this.symbol) {
-                if (this.symbol.type == kt.xml.SymbolType.ID) {
+                if (this.symbol.type == xml.SymbolType.ID) {
                     return this.symbol.value;
                 } else {
                     return '"' + this.symbol.value + '"';
@@ -370,7 +370,7 @@ module kt.graph {
                 stateExt = "default";
             }
 
-            return kt.graph.PoStates[this.state] + "-" + stateExt;
+            return PoStates[this.state] + "-" + stateExt;
         }
 
         get dischargeAssumption() {
@@ -390,10 +390,10 @@ module kt.graph {
             return this.inputs.length > 0 || this.outputs.length > 0;
         }
 
-        public makeName(filter: kt.Globals.Filter): string {
+        public makeName(filter: Globals.Filter): string {
             let nm = "";
-            if (!filter.file || kt.util.stripSlash(this.file) != filter.file.name) {
-                nm += kt.util.stripSlash(this.file) + SPL;
+            if (!filter.file || util.stripSlash(this.file) != filter.file.name) {
+                nm += util.stripSlash(this.file) + SPL;
             }
 
             if (!filter.cfunction || this.functionName != filter.cfunction.name) {
@@ -446,7 +446,7 @@ module kt.graph {
             return this._apiId;
         }
 
-        public asNodeDef(filter: kt.Globals.Filter): tf.graph.proto.NodeDef {
+        public asNodeDef(filter: Globals.Filter): tf.graph.proto.NodeDef {
             const po = this.po;
 
 
@@ -462,7 +462,7 @@ module kt.graph {
                     "apiId": this.apiId,
                     "predicate": this.predicate,
                     "level": this.level,
-                    "state": kt.graph.PoStates[this.state],
+                    "state": PoStates[this.state],
                     "location": this.location,
                     "symbol": this.symbol,
                     "expression": this.expression,

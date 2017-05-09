@@ -11,7 +11,7 @@ app/components/tf_graph_common/**/*.js
 app/components/common/**/*.js
 app/components/stats/*.js
 app/components/xml/*.js
-app/components/tree/*.js
+app/components/treeview/*.js
 app/ts/**/*.js
 
 app/css/styles.css

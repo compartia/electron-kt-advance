@@ -278,7 +278,7 @@ export class RenderGraphInfo {
   }
   sortStates(pairs){
       return pairs.sort( (x, y) => {
-          return kt.graph.compareStates(x[0].toLowerCase(), y[0].toLowerCase());
+          return kt.model.compareStates(x[0].toLowerCase(), y[0].toLowerCase());
        });
   }
   /**

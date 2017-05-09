@@ -182,16 +182,16 @@ module kt.stats {
             return this.byFileLine.getRow(file + "//" + (line + 1));
         }
 
-        public getStatsByFile(file: kt.treeview.FileInfo): { [key: string]: number } {
+        public getStatsByFile(file: treeview.FileInfo): { [key: string]: number } {
             return this.byFile.getRow(file.relativePath);
         }
 
-        public getStatsByFunction(func: kt.xml.CFunction): { [key: string]: number } {
+        public getStatsByFunction(func: xml.CFunction): { [key: string]: number } {
             let functionKey = func.file + "/" + func.name;
             return this.byFunction.getRow(functionKey);
         }
 
-        public build(project: kt.Globals.Project) {
+        public build(project: Globals.Project) {
 
             this._primaryPredicatesCount = new StatsTable<string>();
 
@@ -225,7 +225,7 @@ module kt.stats {
 
             for (let po of project.filteredProofObligations) {
                 let functionKey = po.file + "/" + po.functionName;
-                let state: string = kt.graph.PoStates[po.state];
+                let state: string = model.PoStates[po.state];
 
                 let fileLineKey = po.file + "//" + po.location.line;
                 this.byFileLine.inc(fileLineKey, state, 1);
@@ -246,9 +246,9 @@ module kt.stats {
                 this.byFunction.bind(functionKey, po.cfunction);
 
                 for (let cCode of CPG) {
-                    this.complexityByFunction.inc(functionKey, kt.graph.Complexitiy[kt.graph.Complexitiy[cCode]], po.complexity[kt.graph.Complexitiy[cCode]]);
-                    this.complexityByFile.inc(po.file, kt.graph.Complexitiy[kt.graph.Complexitiy[cCode]], po.complexity[kt.graph.Complexitiy[cCode]]);
-                    this.predicateByComplexity.inc(po.predicate, kt.graph.Complexitiy[kt.graph.Complexitiy[cCode]], po.complexity[kt.graph.Complexitiy[cCode]]);
+                    this.complexityByFunction.inc(functionKey, model.Complexitiy[model.Complexitiy[cCode]], po.complexity[model.Complexitiy[cCode]]);
+                    this.complexityByFile.inc(po.file, model.Complexitiy[model.Complexitiy[cCode]], po.complexity[model.Complexitiy[cCode]]);
+                    this.predicateByComplexity.inc(po.predicate, model.Complexitiy[model.Complexitiy[cCode]], po.complexity[model.Complexitiy[cCode]]);
                 }
 
 
@@ -286,7 +286,7 @@ module kt.stats {
 
 
         get countViolations(): number {
-            return this.byState.getAt(kt.graph.PoStates[kt.graph.PoStates.violation], DEF_COL_NAME);
+            return this.byState.getAt(model.PoStates[model.PoStates.violation], DEF_COL_NAME);
         }
 
         get countFilteredOut(): number {
@@ -294,11 +294,11 @@ module kt.stats {
         }
 
         get countDischarged(): number {
-            return this.byState.getAt(kt.graph.PoStates[kt.graph.PoStates.discharged], DEF_COL_NAME);
+            return this.byState.getAt(model.PoStates[model.PoStates.discharged], DEF_COL_NAME);
         }
 
         get countOpen(): number {
-            return this.byState.getAt(kt.graph.PoStates[kt.graph.PoStates.open], DEF_COL_NAME);
+            return this.byState.getAt(model.PoStates[model.PoStates.open], DEF_COL_NAME);
         }
 
 
@@ -308,7 +308,7 @@ module kt.stats {
             const columnNames = table.columnNames;
             const data: Array<NamedArray<string>> = table.asNamedRowsTable();
 
-            kt.charts.updateChart(scene, container,
+            charts.updateChart(scene, container,
                 {
                     data: data,
                     colors: (x, index) => "var(--kt-state-" + columnNames[index] + "-default-bg)",
@@ -325,7 +325,7 @@ module kt.stats {
             const data: Array<NamedArray<string>> = table.asNamedRowsTable();
 
 
-            kt.charts.updateChart(scene, container,
+            charts.updateChart(scene, container,
                 {
                     data: data,
                     colors: (x, index) => "var(--kt-state-discharged-" + x.name.toLowerCase() + "-bg)",
@@ -343,7 +343,7 @@ module kt.stats {
             const data: Array<NamedArray<kt.xml.CFunction>> = table.getTopRows(maxRows);
 
 
-            kt.charts.updateChart(scene, container,
+            charts.updateChart(scene, container,
                 {
                     data: data,
                     colors: (x, index) => "var(--kt-state-" + columnNames[index] + "-default-bg)",
@@ -361,7 +361,7 @@ module kt.stats {
 
 
 
-            kt.charts.updateChart(scene, container,
+            charts.updateChart(scene, container,
                 {
                     data: data,
                     colors: (x, index) => "var(--kt-state-" + columnNames[index] + "-default-bg)",
@@ -379,7 +379,7 @@ module kt.stats {
             const data: Array<NamedArray<string>> = table.getRowsSorted(columnNames);
 
 
-            kt.charts.updateChart(scene, container,
+            charts.updateChart(scene, container,
                 {
                     data: data,
                     colors: (x, i) => "var(--kt-complexity-" + columnNames[i].toLowerCase() + "-bg)",
@@ -398,7 +398,7 @@ module kt.stats {
             const data: Array<NamedArray<kt.xml.CFunction>> = table.getTopRows(maxRows, columnNames);
 
 
-            kt.charts.updateChart(scene, container,
+            charts.updateChart(scene, container,
                 {
                     data: data,
                     colors: (x, i) => "var(--kt-complexity-" + columnNames[i].toLowerCase() + "-bg)",
@@ -415,7 +415,7 @@ module kt.stats {
             const data: Array<NamedArray<kt.treeview.FileInfo>> = table.getTopRows(maxRows, columnNames);
 
 
-            kt.charts.updateChart(scene, container,
+            charts.updateChart(scene, container,
                 {
                     data: data,
                     colors: (x, i) => "var(--kt-complexity-" + columnNames[i].toLowerCase() + "-bg)",

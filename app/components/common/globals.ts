@@ -1,5 +1,5 @@
-
 module kt.Globals {
+
     const path = require('path');
     const fs = require('fs');
 
@@ -9,7 +9,7 @@ module kt.Globals {
         'summary', 'source', 'proof obligations', 'assumptions', 'graphs'
     ];
 
-    export function groupProofObligationsByFileFunctions(pos: kt.graph.AbstractNode[]): { [key: string]: { [key: string]: kt.graph.AbstractNode[] } } {
+    export function groupProofObligationsByFileFunctions(pos: model.AbstractNode[]): { [key: string]: { [key: string]: model.AbstractNode[] } } {
         let byfile = _.groupBy(pos, "file");
         let byFileFunc = {};
         for (let filename in byfile) {
@@ -20,7 +20,7 @@ module kt.Globals {
         return byFileFunc;
     }
 
-    export function unzipPoGroup(byFileFuncGroup: { [key: string]: { [key: string]: kt.graph.AbstractNode[] } }) {
+    export function unzipPoGroup(byFileFuncGroup: { [key: string]: { [key: string]: model.AbstractNode[] } }) {
         let ret = [];
         for (let filename in byFileFuncGroup) {
             // ret.push({
@@ -51,14 +51,14 @@ module kt.Globals {
 
     export class Filter {
 
-        private _predicates: kt.util.StringSet = new kt.util.StringSet([]);
-        private _states: kt.util.AnySet<kt.graph.PoStates> = new kt.util.AnySet<kt.graph.PoStates>([]);
-        private _levels: kt.util.StringSet = new kt.util.StringSet([]);
-        private _dischargeTypes: kt.util.StringSet = new kt.util.StringSet([]);
+        private _predicates: util.StringSet = new util.StringSet([]);
+        private _states: util.AnySet<model.PoStates> = new util.AnySet<model.PoStates>([]);
+        private _levels: util.StringSet = new util.StringSet([]);
+        private _dischargeTypes: util.StringSet = new util.StringSet([]);
 
 
-        private _cfunction: kt.xml.CFunction;
-        private _file: kt.treeview.FileInfo;
+        private _cfunction: xml.CFunction;
+        private _file: treeview.FileInfo;
         private _line: number = null;
 
         set line(line: number) {
@@ -77,11 +77,11 @@ module kt.Globals {
         }
 
 
-        get file(): kt.treeview.FileInfo {
+        get file(): treeview.FileInfo {
             return this._file;
         }
 
-        get predicates(): kt.util.StringSet {
+        get predicates(): util.StringSet {
             return this._predicates;
         }
 
@@ -97,7 +97,7 @@ module kt.Globals {
             return null;
         }
 
-        get singleState(): kt.graph.PoStates {
+        get singleState(): model.PoStates {
             if (this._states) {
                 if (this._states.length == 1) {
                     return this._states.first;
@@ -109,32 +109,32 @@ module kt.Globals {
             return null;
         }
 
-        set predicates(_predicates: kt.util.StringSet) {
+        set predicates(_predicates: util.StringSet) {
             this._predicates = _predicates;
         }
 
-        set dischargeTypes(newDischargeTypes: kt.util.StringSet) {
+        set dischargeTypes(newDischargeTypes: util.StringSet) {
             this._dischargeTypes = newDischargeTypes;
         }
 
-        get dischargeTypes(): kt.util.StringSet {
+        get dischargeTypes(): util.StringSet {
             return this._dischargeTypes;
         }
 
-        set states(_states: kt.util.AnySet<kt.graph.PoStates>) {
+        set states(_states: util.AnySet<model.PoStates>) {
             this._states = _states;
         }
 
-        get states(): kt.util.AnySet<kt.graph.PoStates> {
+        get states(): util.AnySet<model.PoStates> {
             return this._states;
         }
 
 
-        set levels(_levels: kt.util.StringSet) {
+        set levels(_levels: util.StringSet) {
             this._levels = _levels;
         }
 
-        get levels(): kt.util.StringSet {
+        get levels(): util.StringSet {
             return this._levels;
         }
 
@@ -143,11 +143,11 @@ module kt.Globals {
         public reset() {
             this._cfunction = null;
             this._file = null;
-            this._states.values = kt.graph.PoStatesArr;
-            this._dischargeTypes.values = kt.graph.PoDischargeTypesArr;
+            this._states.values = model.PoStatesArr;
+            this._dischargeTypes.values = model.PoDischargeTypesArr;
         }
 
-        set cfunction(_cfunction: kt.xml.CFunction) {
+        set cfunction(_cfunction: xml.CFunction) {
             this._line = null;
             if (_cfunction) {
                 this.file = _cfunction.fileInfo;
@@ -159,7 +159,7 @@ module kt.Globals {
             return this._cfunction;
         }
 
-        set state(_state: kt.graph.PoStates) {
+        set state(_state: model.PoStates) {
             this._states.values = [_state];
         }
 
@@ -170,7 +170,7 @@ module kt.Globals {
         }
 
 
-        set file(file: kt.treeview.FileInfo) {
+        set file(file: treeview.FileInfo) {
             if ((file && this._file) || (!file)) {
                 if (file.relativePath != this._file.relativePath) {
                     this._cfunction = null;
@@ -183,7 +183,7 @@ module kt.Globals {
 
 
 
-        private acceptFile(po: kt.graph.AbstractNode): boolean {
+        private acceptFile(po: model.AbstractNode): boolean {
             if (!this.fileName) {
                 return true;
             } else {
@@ -198,7 +198,7 @@ module kt.Globals {
 
 
 
-        private acceptFunction(po: kt.graph.AbstractNode): boolean {
+        private acceptFunction(po: model.AbstractNode): boolean {
             if (!this.cfunction) {
                 return true;
             } else {
@@ -206,18 +206,18 @@ module kt.Globals {
             }
         }
 
-        private acceptState(po: kt.graph.PONode): boolean {
+        private acceptState(po: model.ProofObligation): boolean {
             if (this.states == null || this._states.contains(po.state)) {
                 return true;
             }
             return false;
         }
 
-        private acceptLevel(po: kt.graph.AbstractNode): boolean {
-            return this.levels.contains((<kt.graph.PONode>po).level);
+        private acceptLevel(po: model.AbstractNode): boolean {
+            return this.levels.contains((<model.ProofObligation>po).level);
         }
 
-        private acceptDischargeType(po: kt.graph.PONode): boolean {
+        private acceptDischargeType(po: model.ProofObligation): boolean {
             if (!po.dischargeType) {
                 return this._dischargeTypes.contains("default");
             } else {
@@ -230,18 +230,18 @@ module kt.Globals {
         }
 
 
-        private acceptPredicate(po: kt.graph.PONode): boolean {
+        private acceptPredicate(po: model.ProofObligation): boolean {
             if (this._predicates == null || this._predicates.contains(po.predicate.toLowerCase())) {
                 return true;
             }
             return false;
         }
 
-        public accept(po: kt.graph.PONode): boolean {
+        public accept(po: model.ProofObligation): boolean {
             return this.acceptState(po) && this.acceptLevel(po) && this.acceptFile(po) && this.acceptFunction(po) && this.acceptPredicate(po) && this.acceptDischargeType(po);
         }
 
-        public acceptApi(po: kt.graph.ApiNode): boolean {
+        public acceptApi(po: model.ApiNode): boolean {
             return this.acceptFile(po) && this.acceptFunction(po);// && this.acceptPredicate(po) && this.acceptState(po) && this.acceptDischargeType(po);
         }
 
@@ -258,13 +258,13 @@ module kt.Globals {
         functionByFile: { [key: string]: Array<kt.xml.CFunction> } = {};
         baseDir: string;
         analysisDir: string;
-        stats: kt.stats.Stats;
+        stats: stats.Stats;
 
-        _proofObligations: Array<kt.graph.PONode> = [];
-        _filteredProofObligations: Array<kt.graph.PONode> = null;
-        _filteredAssumptions: Array<kt.graph.ApiNode> = null;
+        _proofObligations: Array<model.ProofObligation> = [];
+        _filteredProofObligations: Array<model.ProofObligation> = null;
+        _filteredAssumptions: Array<model.ApiNode> = null;
 
-        _apis: { [key: string]: kt.graph.ApiNode } = null;
+        _apis: { [key: string]: model.ApiNode } = null;
 
         allPredicates: Array<string>;
 
@@ -320,11 +320,11 @@ module kt.Globals {
             this._apis = _apis;
         }
 
-        get proofObligations(): Array<kt.graph.PONode> {
+        get proofObligations(): Array<model.ProofObligation> {
             return this._proofObligations;
         }
 
-        set proofObligations(_proofObligations: Array<kt.graph.PONode>) {
+        set proofObligations(_proofObligations: Array<model.ProofObligation>) {
             this._proofObligations = _proofObligations;
             this.allPredicates = _.uniq(_.map(this._proofObligations, (e) => e.predicate)).sort();
         }
@@ -338,7 +338,7 @@ module kt.Globals {
             this._filteredAssumptions = null;
         }
 
-        private hasIntersection(inputs: kt.graph.AbstractNode[], base: kt.graph.AbstractNode[]): boolean {
+        private hasIntersection(inputs: model.AbstractNode[], base: model.AbstractNode[]): boolean {
             for (let input of inputs) {
                 if (_.contains(base, input)) {
                     return true;
@@ -348,7 +348,7 @@ module kt.Globals {
         }
 
 
-        get filteredAssumptions(): Array<kt.graph.ApiNode> {
+        get filteredAssumptions(): Array<model.ApiNode> {
             if (!this._filteredAssumptions) {
                 let _filteredAssumptions = [];
 
@@ -363,11 +363,11 @@ module kt.Globals {
 
                 for (let po of this.filteredProofObligations) {
                     for (let input of po.inputs) {
-                        _filteredAssumptions.push(<kt.graph.ApiNode>input);
+                        _filteredAssumptions.push(<model.ApiNode>input);
                     }
 
                     for (let output of po.outputs) {
-                        _filteredAssumptions.push(<kt.graph.ApiNode>output);
+                        _filteredAssumptions.push(<model.ApiNode>output);
                     }
                 }
 
@@ -378,10 +378,10 @@ module kt.Globals {
             return this._filteredAssumptions;
         }
 
-        get filteredProofObligations(): Array<kt.graph.PONode> {
+        get filteredProofObligations(): Array<model.ProofObligation> {
             if (!this._filteredProofObligations) {
                 let filter = (x) => PO_FILTER.accept(x);
-                this._filteredProofObligations = kt.graph.sortPoNodes(_.filter(this.proofObligations, filter));
+                this._filteredProofObligations = model.sortPoNodes(_.filter(this.proofObligations, filter));
             }
             return this._filteredProofObligations;
         }
@@ -394,8 +394,8 @@ module kt.Globals {
             //XXX: reset all data
         }
 
-        public buildStatistics(): kt.stats.Stats {
-            this.stats = new kt.stats.Stats();
+        public buildStatistics(): stats.Stats {
+            this.stats = new stats.Stats();
             this.stats.build(this);
             return this.stats;
         }
@@ -430,7 +430,7 @@ module kt.Globals {
                 return project;
 
             } else {
-                const msg = kt.Globals.CH_DIR + " dir not found";
+                const msg = Globals.CH_DIR + " dir not found";
                 tracker.reportError(msg, new Error(msg));
             }
 
