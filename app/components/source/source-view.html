@@ -5,19 +5,25 @@
     <template>
 
         <div id="scrollable">
-            <iron-list scroll-target="scrollable" id="listOfLines" items="[[lines]]" max-physical-count="[[lines.length]]" selection-enabled on-selected-item-changed="_onLineSelected">
+            <iron-list scroll-target="scrollable" id="listOfLines" items="[[lines]]" max-physical-count="[[lines.length]]" selection-enabled as="item">
                 <template>
-                    <div class$="code-line [[_getClass(_loadedFile, index, statistics)]]">
+                    <div>
+                        <div class$="code-line [[_getClass(_loadedFile, index, statistics)]]">
 
-                        <span class="info">
-                            <span id="line-number">[[_lineNumber(index)]]</span>
-                            <node-decorator show-count="true" statistics="[[_getStatsByLine(_loadedFile, index, statistics)]]"></node-decorator>
+                            <span class="info">
+                                <span id="line-number">[[_lineNumber(index)]]</span>
+                                <node-decorator show-count="true" statistics="[[_getStatsByLine(_loadedFile, index, statistics)]]"></node-decorator>
 
-                        </span>
+                            </span>
 
-                        <pre class="text">[[item.text]]</pre>
+                            <pre class="text">[[item.text]]</pre>
 
+                        </div>
+                        <template is="dom-if" if="[[showAtLinePos(item, selected)]]">
+                            <po-list filtered-proof-obligations="[[getPosAtLine(_loadedFile, index, statistics)]]"></po-list>
+                        </template>
                     </div>
+
                 </template>
             </iron-list>
         </div>
@@ -30,7 +36,7 @@
 
             properties: {
                 currentProject: Object,
-                _loadedFile: String,
+                _loadedFile: Object,
 
                 lines: {
                     type: String
@@ -42,11 +48,17 @@
                 }
             },
 
-
-            _getStatsByLine: function(file, index, statistics){
-                return statistics.getStatsByFileLine(file.relativePath, index);
+            showAtLinePos: function(item, selected){
+                return selected ? true : false;
             },
 
+            getPosAtLine: function(file, index, statistics) {
+                return this.currentProject.getPosAtLine(file.relativePath, index + 1);
+            },
+
+            _getStatsByLine: function(file, index, statistics) {
+                return statistics.getStatsByFileLine(file.relativePath, index);
+            },
 
             _getClass: function(file, index, statistics) {
                 var clazz = "";
@@ -79,9 +91,9 @@
                     line = line - 4;
 
                 var task = function() {
-                    if(this.$.listOfLines.items)
+                    if (this.$.listOfLines.items)
                         this.$.listOfLines.scrollToIndex(line);
-                }
+                    }
                 setTimeout(task.bind(this), 100);
 
             },

@@ -95,7 +95,7 @@
 
                             <source-view id="sourceview" current-project="[[currentProject]]" statistics="[[statistics]]"></source-view>
 
-                            <po-list progress="{{progress}}" filtered-proof-obligations="[[filteredProofObligations]]" filter="[[filter]]"></po-list>
+                            <po-list filtered-proof-obligations="[[filteredProofObligations]]"></po-list>
 
                             <div>assumptions</div>
 
@@ -312,11 +312,6 @@
                 sourceview.maybeLoadFile(this.filter.file, aftereffect.bind(this));
             },
 
-
-            openLocation: function(po) {
-
-                this.maybeLoadFile(po.cfunction.fileInfo, aftereffect.bind(this));
-            },
 
             filterChanged: function(event) {
                 if (this.currentProject) {
