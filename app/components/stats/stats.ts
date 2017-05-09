@@ -212,7 +212,8 @@ module kt.stats {
             this.byPredicate.columns = states;
 
 
-            let filteredPredicates = _.uniq(_.map(project.filteredProofObligations, (e) => e.predicate)).sort();
+            let filteredPredicates: string[] = _.uniq(_.map(project.filteredProofObligations, (e) => e.predicate)).sort();
+            let filteredDiscahergeTypes: string[] = _.uniq(_.map(project.filteredProofObligations, (e) => e.dischargeType)).sort();
 
             this.filteredOutCount = project.proofObligations.length - project.filteredProofObligations.length;
 
@@ -222,6 +223,21 @@ module kt.stats {
                     this.byPredicate.inc(predicate, state, 0);
                 }
             }
+
+            //populate with zeros
+            for (let dischargeType of filteredDiscahergeTypes) {
+                if (!dischargeType) {
+                    dischargeType = "default";
+                }
+                dischargeType = dischargeType.toLowerCase();
+                for (let state of states) {
+                    for (let level of model.PoLevels) {
+                        this.byDischargeType.inc(dischargeType, state + "-" + dischargeType + "-" + level, 0);
+                    }
+                }
+            }
+
+
 
             for (let po of project.filteredProofObligations) {
                 let functionKey = po.file + "/" + po.functionName;
@@ -265,11 +281,14 @@ module kt.stats {
                 this.byState.bind(state, state);
                 //-----------
                 if (po.isDischarged() || po.isViolation()) {
-                    let dischargeType:string = po.dischargeType;
+                    let dischargeType: string = po.dischargeType;
                     if (!dischargeType)
                         dischargeType = "default";
 
-                    this.byDischargeType.inc(dischargeType, po.level, 1);
+                    dischargeType = dischargeType.toLowerCase();
+
+                    //-violation-ds-primary-
+                    this.byDischargeType.inc(dischargeType, state + "-" + dischargeType + "-" + po.level, 1);
                     this.byDischargeType.bind(dischargeType, dischargeType);
                 }
             }
@@ -328,7 +347,8 @@ module kt.stats {
             charts.updateChart(scene, container,
                 {
                     data: data,
-                    colors: (x, index) => "var(--kt-state-discharged-" + x.name.toLowerCase()+"-"+columnNames[index] + "-bg)",
+                    // colors: (x, index) => "var(--kt-state-discharged-" + x.name.toLowerCase()+"-"+columnNames[index] + "-bg)",
+                    colors: (x, index) => "var(--kt-state-" + columnNames[index] + "-bg)",
                     columnNames: columnNames,
                     label: x => x.name,
                     max: null
@@ -357,7 +377,7 @@ module kt.stats {
         public updatePoByFileChart(scene, container: d3.Selection<any>) {
             const table = this.byFile;
             const columnNames = table.columnNames;
-            const data: Array<NamedArray<kt.treeview.FileInfo>> = table.getTopRows(20);
+            const data: Array<NamedArray<kt.treeview.FileInfo>> = table.getTopRows(10);
 
 
 
