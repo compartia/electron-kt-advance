@@ -31,6 +31,8 @@ po-list {
 
 }
 
+
+
 po-line {
     .row > span {
         display: inline-block;
@@ -38,8 +40,9 @@ po-line {
 
     .row {
         padding      : $spacer/2 $spacer;
-        border-bottom: 1px solid var(--kt-grey-lighter);
+        //border-bottom: 1px solid var(--kt-grey-lighter);
         box-sizing: border-box;
+        border-left: 3px solid $transparent;
 
         .po-icon {
             width : $po-icon-width;
@@ -88,7 +91,6 @@ po-line {
         .level-primary,
         .level-secondary {
             font-weight  : 400;
-            // font-size    : 8px;
             border-radius: 15px;
             min-width    : 1.3em;
             display      : inline-block;
@@ -98,12 +100,12 @@ po-line {
         }
 
         .level-secondary {
-            color     : white;
-            background: var(--kt-po-primary-bg);
+            background: var(--kt-po-secondary-bg);
         }
 
         .level-primary {
-            background: var(--kt-po-secondary-bg);
+            color     : white;
+            background: var(--kt-po-primary-bg);
         }
 
         .function-name {
