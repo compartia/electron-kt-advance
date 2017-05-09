@@ -265,11 +265,11 @@ module kt.stats {
                 this.byState.bind(state, state);
                 //-----------
                 if (po.isDischarged() || po.isViolation()) {
-                    let dischargeType = po.dischargeType;
+                    let dischargeType:string = po.dischargeType;
                     if (!dischargeType)
                         dischargeType = "default";
 
-                    this.byDischargeType.inc(dischargeType, dischargeType, 1);//XXX: instead of diagonal matrix, use one column, please
+                    this.byDischargeType.inc(dischargeType, po.level, 1);
                     this.byDischargeType.bind(dischargeType, dischargeType);
                 }
             }
@@ -328,7 +328,7 @@ module kt.stats {
             charts.updateChart(scene, container,
                 {
                     data: data,
-                    colors: (x, index) => "var(--kt-state-discharged-" + x.name.toLowerCase() + "-bg)",
+                    colors: (x, index) => "var(--kt-state-discharged-" + x.name.toLowerCase()+"-"+columnNames[index] + "-bg)",
                     columnNames: columnNames,
                     label: x => x.name,
                     max: null
