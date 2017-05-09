@@ -7,12 +7,12 @@
             <iron-list scroll-target="scrollable" items="[[groupPOs(filteredProofObligations)]]" as="line">
                 <template>
                     <div>
-                        <template is="dom-if" if="[[line.group]]">
+                        <template is="dom-if" if="[[_showGroup(line, showgroups)]]">
                             <div class="headline"><span class="file">[[line.parent]]</span> / <span class="function">[[line.value]]</span> </div>
                         </template>
 
                         <template is="dom-if" if="[[!line.group]]">
-                            <po-line item="[[line.value]]"></po-line>
+                            <po-line item="[[line.value]]" linktosource="[[linktosource]]"></po-line>
                         </template>
                     </div>
 
@@ -27,11 +27,18 @@
             is: 'po-list',
 
             properties: {
+                linktosource:Boolean,
+                showgroups:Boolean,
 
                 filteredProofObligations: {
                     type: Object,
                     notify: true
                 }
+            },
+
+            _showGroup:function(line, showgroups){
+                var show=line.group && showgroups;
+                return show ;
             },
 
             _isGroup: function(item) {

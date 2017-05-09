@@ -7,9 +7,11 @@
 
             <!-- <span class="po-id">{{item.id}}</span> -->
 
-            <span class="location" on-tap="jumpToSource" data=[[item]]>
-                <span id="line" title$="[[item.file]]/[[item.functionName]]">L [[item.location.line]]</span>
-            </span>
+            <template is="dom-if" if="[[linktosource]]">
+                <span class="location" on-tap="jumpToSource" data=[[item]]>
+                    <span id="line" title$="[[item.file]]/[[item.functionName]]">L [[item.location.line]]</span>
+                </span>
+            </template>
 
             <span class="state">
                 <span class$="level-[[item.level]]">[[item.levelLabel]]</span>
@@ -49,7 +51,10 @@
             is: 'po-line',
 
             properties: {
-                item: Object
+                item: Object,
+
+                linktosource:Boolean
+
             },
 
             jumpToSource: function(event) {
