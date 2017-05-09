@@ -1,9 +1,9 @@
 $marker-line-width: 3px;
 $code-line-info-bg: var(--kt-grey-lighter);
-
+$line-number-width: 2em;
 node-decorator {
     display: flex;
- 
+
     .stats {
         display       : flex;
         flex-direction: row;
@@ -60,6 +60,13 @@ source-view {
         padding-top: var(--filter-panel-height);
     }
 
+
+    po-list .scrollable{
+        background: $selection-lt-bg;
+        margin-left: $line-number-width;
+    }
+
+
     pre {
         margin     : 0 !important;
         padding    : 0 !important;
@@ -72,12 +79,28 @@ source-view {
         background: var(--kt-state-violation-default-hover-bg);
     }
 
-    .code-line {
+    .code-line.selected{
+        background: $selection-bg!important;
 
+        .info{
+            background: $selection-bg!important;
+
+            node-decorator{
+                visibility: hidden;
+            }
+        }
+    }
+
+    .code-line {
+        cursor: pointer;
         display       : flex;
         flex-direction: row;
         align-items   : stretch;
         align-content : stretch;
+
+        &:hover{
+            background: $selection-lt-bg;
+        }
 
         .info {
             display       : flex;
@@ -95,7 +118,7 @@ source-view {
             padding    : $spacer/2;
             display    : flex;
             align-items: center;
-            min-width  : 2em;
+            min-width  : $line-number-width;
             color      : $grey-lighter;
         }
 
