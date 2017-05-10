@@ -30,13 +30,19 @@ module kt.model {
             this.type = po["type"] ? po["type"] : "unknown";
             this.id = po["apiId"];
 
-            this.location.textRange=po["textRange"];
+            this.location.textRange = po["textRange"];
 
         }
 
         get apiId(): string {
             return this.id;
         }
+
+        get predicate(): string {
+            return this.predicateType;
+        }
+
+        
 
         get key(): string {
             return makeAssumptionKey(this.type, this.id, this.functionName, this.file);
@@ -45,9 +51,6 @@ module kt.model {
         get state(): model.PoStates {
             return model.PoStates.assumption;
         }
-
-
-
 
         public makeName(filter: kt.Globals.Filter): string {
             let nm = "";
@@ -105,9 +108,7 @@ module kt.model {
 
 
 
-        public asNodeDef(filter: kt.Globals.Filter): tf.graph.proto.NodeDef {
-            // const po = this.po;
-            // let discharge = po["discharge"];
+        public asNodeDef(filter: Globals.Filter): tf.graph.proto.NodeDef {
 
             let nodeDef: tf.graph.proto.NodeDef = {
                 name: this.makeName(filter),
@@ -125,7 +126,7 @@ module kt.model {
                     "symbol": this.symbol,
                     "assumptionType": this.type,
                     "locationPath": this.file + SPL + this.functionName,
-                    "location":this.location
+                    "location": this.location
                 }
             }
 

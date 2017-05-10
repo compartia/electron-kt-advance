@@ -3,8 +3,6 @@ module kt.model {
 
     export const PoLevels = ["primary", "secondary"];
     export enum Complexitiy { P, C, G };
-
-    // export enum PoLevels {primary, secondary};
     export enum PoStatesExt { violation, open, discharged, global, invariants, ds, rv, api };
     export enum PoStates { violation, open, discharged, assumption };
 
@@ -23,7 +21,6 @@ module kt.model {
     export function sortPoNodes(nodes: ProofObligation[]): Array<ProofObligation> {
         return _.sortByOrder(nodes, ['file', 'functionName', 'state', 'dischargeTypeIndex', 'predicate'], ['asc', 'asc', 'asc', 'asc', 'asc']);
     }
-
 
 
 
@@ -121,11 +118,24 @@ module kt.model {
         inputs: AbstractNode[];
         outputs: AbstractNode[];
         location: POLocation = new POLocation();
+        symbol: xml.Symbol;
 
         constructor() {
             super();
             this.inputs = [];
             this.outputs = [];
+        }
+
+        get predicateArgument(): string {
+            if (this.symbol) {
+                if (this.symbol.type == xml.SymbolType.ID) {
+                    return this.symbol.value;
+                } else {
+                    return '"' + this.symbol.value + '"';
+                }
+            } else {
+                return null;
+            }
         }
 
         public addInput(node: AbstractNode) {
@@ -222,7 +232,7 @@ module kt.model {
 
         callsiteFname: string;
         private _callsiteFileName: string;
-        symbol: xml.Symbol;
+
         private _apiId: string = null;
 
         complexity: number[] = [0, 0, 0];
@@ -357,17 +367,6 @@ module kt.model {
                 return -1;
         }
 
-        get predicateArgument(): string {
-            if (this.symbol) {
-                if (this.symbol.type == xml.SymbolType.ID) {
-                    return this.symbol.value;
-                } else {
-                    return '"' + this.symbol.value + '"';
-                }
-            } else {
-                return null;
-            }
-        }
 
         get extendedState(): string {
             let stateExt = this.dischargeType;

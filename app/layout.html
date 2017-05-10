@@ -20,6 +20,7 @@
 <link rel="import" href="components/treeview/paper-tree.html">
 <link rel="import" href="components/treeview/functions-list.html">
 <link rel="import" href="components/po_list/po-list.html">
+<link rel="import" href="components/po_list/assumptions-list.html">
 
 <link rel="import" href="components/stats/kt-stats.html">
 
@@ -90,7 +91,8 @@
 
                             <po-list filtered-proof-obligations="[[filteredProofObligations]]" linktosource showgroups></po-list>
 
-                            <div>assumptions</div>
+                            <!-- <div>assumptions</div> -->
+                            <assumptions-list filtered-assumptions="[[filteredAssumptions]]"></assumptions-list>
 
                             <tf-graph-board
                                 id="graphboard"
@@ -269,6 +271,11 @@
                     notify: true
                 },
 
+                filteredAssumptions: {
+                    type: Object,
+                    notify: true
+                },
+
                 filter: {
                     type: Object,
                     value: kt.Globals.PO_FILTER,
@@ -330,6 +337,7 @@
                     project.onFilterChanged(filter);
                     this.set("statistics", project.buildStatistics());
                     this.set("filteredProofObligations", project.filteredProofObligations);
+                    this.set("filteredAssumptions", project.filteredAssumptions);
 
                     var sourceview = this.$.sourceview;
                     var aftereffect = () => {

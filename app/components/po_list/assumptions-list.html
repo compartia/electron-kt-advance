@@ -1,0 +1,31 @@
+<link rel="import" href="../../../bower_components/iron-list/iron-list.html">
+<link rel="import" href="assumption-line.html">
+
+<dom-module id="assumptions-list">
+    <template>
+        <div class="scrollable">
+            <iron-list scroll-target="scrollable" items="[[filteredAssumptions]]" as="line">
+                <template>
+                    <div>
+                        <assumption-line item="[[line]]"></assumption-line>
+                    </div>
+                </template>
+            </div>
+        </iron-list>
+
+    </template>
+
+    <script>
+        Polymer({
+            is: 'assumptions-list',
+
+            properties: {
+
+                filteredAssumptions: {
+                    type: Object,
+                    notify: true
+                }
+            }
+        });
+    </script>
+</dom-module>

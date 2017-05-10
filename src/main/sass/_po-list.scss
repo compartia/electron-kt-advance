@@ -33,7 +33,7 @@ po-list {
 
 
 
-po-line {
+po-line, assumption-line {
     .row > span {
         display: inline-block;
     }
@@ -79,6 +79,11 @@ po-line {
             cursor         : pointer;
             min-width      : $po-loc-width;
             padding        : 0 $po-loc-padding;
+            text-align     : right;
+        }
+
+        .assumptions{
+            float          : right;
             text-align     : right;
         }
 

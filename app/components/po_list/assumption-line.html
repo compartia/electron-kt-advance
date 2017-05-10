@@ -1,16 +1,7 @@
-<dom-module id="po-line">
+<dom-module id="assumption-line">
     <template>
 
-        <div on-click="_clickListener" class$="po row [[_getClass(item)]]" title$="[[item.id]] [[item.file]]/[[item.functionName]]:[[item.location.line]]">
-
-            <template is="dom-if" if="[[item.outputs.length]]">
-                <iron-icon class="po-icon" icon="chevron-right" on-click="expandOutAssumptions"></iron-icon>
-            </template>
-
-            <template is="dom-if" if="[[item.inputs.length]]">
-                <iron-icon class="po-icon" icon="chevron-left" on-click="expandInAssumptions"></iron-icon>                
-            </template>
-
+        <div class$="po row [[_getClass(item)]]" title$="[[item.id]] [[item.file]]/[[item.functionName]]:[[item.location.line]]">
 
             <iron-icon class="po-icon" icon$="{{_computeIcon(item)}}" on-click="select"></iron-icon>
 
@@ -51,26 +42,17 @@
                 </template>
             </template>
 
-            <!-- <template is="dom-if" if="[[item.inputs.length]]"> -->
-                <span class='assumptions'>
-                    <iron-icon class="po-icon" icon="chevron-right" on-click="expandAssumptions"></iron-icon>
-                    Assumptions: [[item.inputs.length]]
-                </span>
-            <!-- </template> -->
-
         </div>
 
     </template>
 
     <script>
         Polymer({
-            is: 'po-line',
+            is: 'assumption-line',
 
             properties: {
                 item: Object,
-
                 linktosource:Boolean
-
             },
 
             jumpToSource: function(event) {
