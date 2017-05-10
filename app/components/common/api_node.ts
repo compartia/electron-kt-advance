@@ -30,7 +30,7 @@ module kt.model {
             this.type = po["type"] ? po["type"] : "unknown";
             this.id = po["apiId"];
 
-            this.location.textRange=po["textRange"];
+            this.location.textRange = po["textRange"];
 
         }
 
@@ -106,8 +106,7 @@ module kt.model {
 
 
         public asNodeDef(filter: kt.Globals.Filter): tf.graph.proto.NodeDef {
-            // const po = this.po;
-            // let discharge = po["discharge"];
+
 
             let nodeDef: tf.graph.proto.NodeDef = {
                 name: this.makeName(filter),
@@ -125,7 +124,7 @@ module kt.model {
                     "symbol": this.symbol,
                     "assumptionType": this.type,
                     "locationPath": this.file + SPL + this.functionName,
-                    "location":this.location
+                    "location": this.location
                 }
             }
 

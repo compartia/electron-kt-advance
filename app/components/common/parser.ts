@@ -7,8 +7,6 @@ module kt.parser {
 
         let nodesMap = {};
 
-
-
         for (let ppo of pos) {
             if (ppo.isLinked()) {
                 if (!ppo.isTotallyDischarged()) {
@@ -28,14 +26,13 @@ module kt.parser {
         }
 
 
-
         console.info["NUMBER of nodes: " + g.length];
         return g;
     }
 
 
 
-    export function readAndParse(project: Globals.Project, tracker: tf.ProgressTracker): Promise<kt.Globals.Project> {
+    export function readAndParse(project: Globals.Project, tracker: tf.ProgressTracker): Promise<Globals.Project> {
 
         let reader: xml.XmlReader = new xml.XmlReader();
 
@@ -48,19 +45,13 @@ module kt.parser {
         return reader.readFunctionsMap(path.dirname(project.analysisDir), readFunctionsMapTracker)
             .then(functions => {
 
-                // let byNameMap = _.indexBy(funcs, 'name');
-                // console.info("total functions: " + funcs.length + " \t\ttotal unique keys: " + Object.keys(byNameMap).length);
-                // // console.info(byNameMap);
-
                 let resultingMap: { [key: string]: Array<xml.CFunction> } = {};
-
 
                 for (let f of functions) {
                     if (!resultingMap[f.name]) {
                         resultingMap[f.name] = [];
                     }
                     resultingMap[f.name].push(f);
-
                 }
 
                 project.functionByFile = reader.buildFunctionsByFileMap(functions);
@@ -70,9 +61,6 @@ module kt.parser {
             .then((POs: xml.XmlAnalysis) => {
                 project.proofObligations = model.sortPoNodes(POs.ppos.concat(POs.spos));
                 project.apis = POs.apis;
-
-                // let g: tf.graph.proto.NodeDef[] = buildGraph(project.proofObligations, project.apis);
-                // return g;
 
                 return project;
             });
