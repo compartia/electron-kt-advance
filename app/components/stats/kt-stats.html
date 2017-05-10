@@ -5,7 +5,7 @@
             <div class="container flex-hor">
                 <div class="container flex-ver flexchild">
 
-                    <paper-material elevation="1" class="card panel flexchild">
+                    <paper-material elevation="1" class$="card panel flexchild [[_hiddenIfNoDischarged]]">
                         <h3>Proof obligations by type of discharge</h3>
                         <div id="poByDischarge" class="kt-chart"></div>
                     </paper-material>
@@ -40,7 +40,7 @@
                     </paper-material>
 
                     <paper-material elevation="1" class="card panel flexchild">
-                        <h3>Source files by (C-) complexity (top [[functionsByComplexityBMaxRows]])</h3>
+                        <h3>Files by (C-) complexity (top [[functionsByComplexityBMaxRows]])</h3>
                         <h4>Total
                             <b>control-flow-graph</b>-complexity of source file-related
                             <b>primary</b>
@@ -63,7 +63,7 @@
                     </paper-material>
 
                     <paper-material elevation="1" class="card panel flexchild">
-                        <h3>Source files by predicate (P-) complexity (top [[functionsByComplexityBMaxRows]])</h3>
+                        <h3>Files by predicate (P-) complexity (top [[functionsByComplexityBMaxRows]])</h3>
                         <h4>Total
                             <b>predicate</b>-complexity of source file-related
                             <b>primary</b>
@@ -74,7 +74,6 @@
                 </div>
 
             </div>
-
 
             <!-- ROW -->
             <div class="container flex-hor">
@@ -173,7 +172,6 @@
                 "chart-row-selected": "_chartRowSelected"
             },
 
-
             _statisticsChanged: function(newVal, oldVal) {
                 if (newVal) {
                     newVal.updateChart(this, d3.select("#poByRedicate"));
@@ -193,6 +191,10 @@
                         this._hiddenIfNoPrimaries = this.filter.levels.contains("primary")
                             ? ""
                             : "hidden";
+
+                        this._hiddenIfNoDischarged = (this.filter.states.length == 1 && this.filter.states.contains(kt.model.PoStates.open))
+                            ? "hidden"
+                            : "";
                     }
 
                 }
