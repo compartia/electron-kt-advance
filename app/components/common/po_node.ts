@@ -109,7 +109,12 @@ module kt.model {
         textRange: number[][];
 
         get line() {
-            return this.textRange[0][0];
+            if(this.textRange){
+                return this.textRange[0][0];
+            }else{
+                return 0;
+            }
+
         }
     }
     export abstract class AbstractNode extends POId {
