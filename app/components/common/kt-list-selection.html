@@ -6,7 +6,7 @@
         <div class$="[[getListClass(grid)]]">
             <template is="dom-if" if="[[showSelectAllBox]]">
                 <h3>
-                    <paper-checkbox on-change="selectAllNoValues" title="Select all/none" checked$="[[allSelected(allValues.length, selectedValues.length)]]">
+                    <paper-checkbox class="select-all-checkbox" on-change="selectAllNoValues" title="Select all/none" checked$="[[allSelected(allValues.length, selectedValues.length)]]">
                         [[caption]]
                     </paper-checkbox>
                 </h3>
