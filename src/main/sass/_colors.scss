@@ -78,7 +78,7 @@ $side-bg-2: mix($side-bg, $base-bg, 85%);
     $discharged_base                      : hsl(140, 60, 80);
     $discharges                           : ( rv: hsl(40, $po-saturation, $po-brightness), ds: hsl(20, $po-saturation, $po-brightness), invariants: hsl(240, $po-saturation, $po-brightness), api: hsl(210, $po-saturation, $po-brightness), global: hsl(270, $po-saturation, $po-brightness), default: $grey-80);
     $states                               : ( violation: $red, discharged:$discharged_base, open: $yellow, assumption: $grey-80 );
-    $levels                               : ( primary: lighten($red, 45%), secondary:lighten($ian_gillan, 50%));
+    $levels                               : ( primary: lighten($blue, 35%), secondary:lighten($ian_gillan, 50%));
     @each $level, $lcolor in $levels {
         --kt-po-#{$level}-bg: $lcolor;
         --kt-po-#{$level}-tx: hsl( hue($lcolor), saturation($lcolor), 40);
