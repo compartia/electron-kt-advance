@@ -132,7 +132,7 @@
             _getDischargeTypesStyles: function(filter) {
                 var map = {};
                 _.forEach(kt.model.PoDischargeTypesArr, function(x) {
-                    map[x] = "--paper-checkbox-label-checked-color:var(--kt-state-discharged-" + x + "-tx); --paper-checkbox-checked-color:var(--kt-state-discharged-" + x + "-tx)";
+                    map[x] = "--paper-checkbox-label-checked-color:var(--kt-state-discharged-" + x + "-tx); --paper-checkbox-checked-color:var(--kt-state-discharged-" + x + "-bg)";
                 });
                 return map;
             },
@@ -140,7 +140,7 @@
             _getStatesStyles: function(filter) {
                 var map = {};
                 _.forEach(kt.model.PoStatesArr, function(x) {
-                    map[x] = "--paper-checkbox-label-checked-color:var(--kt-state-" + kt.model.PoStates[x] + "-default-tx); --paper-checkbox-checked-color:var(--kt-state-" + kt.model.PoStates[x] + "-default-tx)";
+                    map[x] = "--paper-checkbox-label-checked-color:var(--kt-state-" + kt.model.PoStates[x] + "-default-tx); --paper-checkbox-checked-color:var(--kt-state-" + kt.model.PoStates[x] + "-default-bg)";
                 });
                 return map;
             },
@@ -148,7 +148,7 @@
             _getLevelStyles: function(filter) {
                 var map = {};
                 _.forEach(kt.model.PoLevels, function(x) {
-                    map[x] = "--paper-checkbox-label-checked-color:var(--kt-po-" + x + "-tx); --paper-checkbox-checked-color:var(--kt-po-" + x + "-tx)";
+                    map[x] = "--paper-checkbox-label-checked-color:var(--kt-po-" + x + "-tx); --paper-checkbox-checked-color:var(--kt-po-" + x + "-bg)";
                 });
                 return map;
             },
