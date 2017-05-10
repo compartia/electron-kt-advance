@@ -4,6 +4,14 @@
 <dom-module id="kt-list-selection">
     <template>
         <div class$="[[getListClass(grid)]]">
+            <template is="dom-if" if="[[showSelectAllBox]]">
+                <h3>
+                    <paper-checkbox on-change="selectAllNoValues" title="Select all/none" checked$="[[allSelected(allValues.length, selectedValues.length)]]">
+                        [[caption]]
+                    </paper-checkbox>
+                </h3>
+            </template>
+
             <template is="dom-repeat" items="[[_items]]">
                 <paper-checkbox checked$="[[item.selected]]" value="{{item.id}}" style$="{{styleOf(item.id)}}" on-change="_checkboxChanged">
                     [[item.name]]
@@ -42,6 +50,8 @@
             is: 'kt-list-selection',
 
             properties: {
+                caption: String,
+                showSelectAllBox: Boolean,
                 selectedValues: {
                     type: Object,
                     notify: true
@@ -102,6 +112,20 @@
                 if (this.styles)
                     return this.styles[item];
                 return "";
+            },
+
+            selectAllNoValues: function(event) {
+                if (this.allSelected(this.allValues.length, this.selectedValues.length)) {
+                    this.set("selectedValues", new kt.util.StringSet([]));
+                } else {
+                    this.set("selectedValues", new kt.util.StringSet(this.allValues));
+                }
+
+                this.notifyPath("selectedValues.length");
+            },
+
+            allSelected: function(len1, len2) {
+                return len1 == len2;
             },
 
             _checkboxChanged: function(event) {
