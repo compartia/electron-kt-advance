@@ -31,8 +31,8 @@ $side-bg-2: mix($side-bg, $base-bg, 85%);
 
 :root {
 
-    --kt-po-primary-bg                    : lighten($ian_gillan, 50%);
-    --kt-po-secondary-bg                  : $side-bg;
+    // --kt-po-primary-bg                    : lighten($ian_gillan, 50%);
+    // --kt-po-secondary-bg                  : $side-bg;
 
     --kt-po-primary-tx                    : darken($ian_gillan, 1%);
     --kt-po-secondary-tx                  : darken($side-bg,50%);
@@ -75,9 +75,14 @@ $side-bg-2: mix($side-bg, $base-bg, 85%);
     $po-saturation                        : 75;
     $po-brightness                        : 60;
 
-    $discharges                           : ( rv: hsl(40, $po-saturation, $po-brightness), ds: hsl(20, $po-saturation, $po-brightness), invariants: hsl(240, $po-saturation, $po-brightness), api: hsl(210, $po-saturation, $po-brightness), global: hsl(270, $po-saturation, $po-brightness), );
-
-    $states                               : ( violation: $red, discharged:hsl(140, 60, 80), open: $yellow, assumption: $grey-80 );
+    $discharged_base                      : hsl(140, 60, 80);
+    $discharges                           : ( rv: hsl(40, $po-saturation, $po-brightness), ds: hsl(20, $po-saturation, $po-brightness), invariants: hsl(240, $po-saturation, $po-brightness), api: hsl(210, $po-saturation, $po-brightness), global: hsl(270, $po-saturation, $po-brightness), default: $grey-80);
+    $states                               : ( violation: $red, discharged:$discharged_base, open: $yellow, assumption: $grey-80 );
+    $levels                               : ( primary: lighten($blue, 35%), secondary:lighten($ian_gillan, 50%));
+    @each $level, $lcolor in $levels {
+        --kt-po-#{$level}-bg: $lcolor;
+        --kt-po-#{$level}-tx: hsl( hue($lcolor), saturation($lcolor), 40);
+    }
     @each $state, $scolor in $states {
 
         --kt-state-#{$state}-default-bg      : $scolor;
@@ -95,10 +100,13 @@ $side-bg-2: mix($side-bg, $base-bg, 85%);
         }
         @each $discharge, $dcolor in $discharges {
             $_c                                        : mix($scolor, $dcolor, 70%);
+            $_bg                                       : hsl( hue($_c), saturation($scolor), lightness($scolor));
+            $_tx                                       : hsl( hue($_c), saturation($scolor), 40);
+            $_hover                                    : hsl( hue($_c), saturation($scolor), 90);
 
-            --kt-state-#{$state}-#{$discharge}-bg      : hsl( hue($_c), saturation($scolor), lightness($scolor));
-            --kt-state-#{$state}-#{$discharge}-tx      : hsl( hue($_c), saturation($scolor), 40);
-            --kt-state-#{$state}-#{$discharge}-hover-bg: hsl( hue($_c), saturation($scolor), 90);
+            --kt-state-#{$state}-#{$discharge}-bg      : $_bg;
+            --kt-state-#{$state}-#{$discharge}-tx      : $_tx;
+            --kt-state-#{$state}-#{$discharge}-hover-bg: $_hover;
 
             .po-#{$state}-#{$discharge} {
                 border-left: 5px solid var(--kt-state-#{$state}-#{$discharge}-bg);
@@ -108,6 +116,18 @@ $side-bg-2: mix($side-bg, $base-bg, 85%);
                     background: var(--kt-state-#{$state}-#{$discharge}-hover-bg);
                 }
             }
+            @each $level, $lcolor in $levels {
+
+                $_lbg                                                : mix($_bg, $lcolor, 70%);
+                $_ltx                                                : mix($_tx, $lcolor, 70%);
+                $_lhv                                                : mix($_hover, $lcolor, 70%);
+
+                --kt-state-#{$state}-#{$discharge}-#{$level}-bg      : $_lbg;
+                --kt-state-#{$state}-#{$discharge}-#{$level}-tx      : hsl( hue($_ltx), saturation($_ltx), 40);
+                --kt-state-#{$state}-#{$discharge}-#{$level}-hover-bg: hsl( hue($_lhv), saturation($_lhv), 90);
+
+            }
+
         }
     }
 
