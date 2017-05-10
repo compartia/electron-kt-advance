@@ -231,7 +231,7 @@
 
                 _getFuncLocation(node) {
                     if (node && node.attr && node.attr.location)
-                        return ":"+node.attr.location[0][0];
+                        return ":"+node.attr.location.line;
                     return "";
                 },
 

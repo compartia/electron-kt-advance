@@ -1,5 +1,6 @@
 $filter-panel-bg: transparentize(mix($side-bg-2, $side-bg, 30%), 0.2);
 $filter-item-width: 120px;
+
 po-filter-panel {
 
     position : fixed;
@@ -9,63 +10,65 @@ po-filter-panel {
 
     font-size: $font-size-sm;
 
-    #filtersettings{
-        position : fixed;
-        right    : 0;
-        top      : calc(var(--paper-toolbar-height)+var(--filter-panel-height));
-        z-index  : 2100;
+    .select-all-checkbox {
+        --paper-checkbox-checked-color  : $side-bg-2;
+        --paper-checkbox-checkmark-color: $base-bg;
+        --paper-checkbox-label-color    : $base-bg;
+        --paper-checkbox-unchecked-color: $base-bg;
     }
 
-    #filtersettings-container{
+    #filtersettings {
+        position: fixed;
+        right   : 0;
+        top     : calc(var(--paper-toolbar-height)+var(--filter-panel-height));
+        z-index : 2100;
+    }
+
+    #filtersettings-container {
 
         background: $side-bg;
         // backdrop-filter: blur(2px);
-        h2{
+        h2 {
             padding: $spacer;
+            color: $grey!important;
         }
 
         #filtersettings-body {
 
-            display   : flex;
-            flex-flow : row;
+            display  : flex;
+            flex-flow: row;
 
-            #predicates{
+            #predicates {
                 flex-shrink: 1;
-                flex-grow: 1;
-
+                flex-grow  : 1;
 
                 .grid-container {
-                    max-height: 300px;
-                    min-height: 20px;
-                    display: flex;
+                    max-height    : 340px;
+                    display       : flex;
                     flex-direction: column;
-                    flex-wrap: wrap;
-                    min-width: 3*$filter-item-width +  2*$spacer;
+                    flex-wrap     : wrap;
+                    min-width     : 3*$filter-item-width + 2*$spacer;
                 }
             }
 
-            h3{
-                margin-bottom: $spacer;
+            h3 {
+                margin-bottom: $spacer/2;
             }
 
-            .card{
-
-                // max-height: 200px;
-                min-width: $filter-item-width;
+            .card {
+                min-width: $filter-item-width/2;
 
                 display  : flex;
                 flex-flow: column;
                 padding  : $spacer;
 
-                paper-checkbox{
+                paper-checkbox {
                     padding: $spacer/2;
                 }
             }
 
         }
     }
-
-
 
     .container {
         display    : flex;
@@ -76,26 +79,28 @@ po-filter-panel {
             text-align: left;
             font-size : $font-size-sm;
 
-            #predicate{
-                font-weight: 400;
+            #predicate {
+                font-weight   : 400;
                 text-transform: uppercase;
             }
 
-            #function-name{}
+            #function-name {}
 
-            #state{
+            #state {
                 font-weight: 400;
             }
 
-            separator, .separator, br{
-                display: inline-block;
-                min-width: 1.2em;
+            .separator,
+            br,
+            separator {
+                display   : inline-block;
+                min-width : 1.2em;
 
-                content: "";
+                content   : "";
                 text-align: center;
-                color: var(--kt-grey);
+                color     : var(--kt-grey);
 
-                &:after{
+                &:after {
                     content: " / ";
                 }
             }
@@ -114,19 +119,17 @@ po-filter-panel {
             align-items  : center;
         }
 
-
-
         .controls {
             padding: 0;
         }
 
         .stats {
-            font-size : $font-size-xs;
-            text-align: center;
+            font-size             : $font-size-xs;
+            text-align            : center;
 
-            --iron-icon-width: 14px;
-            --iron-icon-height: 14px;
-            --iron-icon-fill-color:  var(--kt-grey);
+            --iron-icon-width     : 14px;
+            --iron-icon-height    : 14px;
+            --iron-icon-fill-color: var(--kt-grey);
 
             // iron-icon:{
             //     width: $font-size-xs;
@@ -134,10 +137,10 @@ po-filter-panel {
             // }
 
             span {
-                cursor         : pointer;
+                cursor      : pointer;
                 // text-decoration: underline;
-                display        : inline-block;
-                padding-left   : $spacer;
+                display     : inline-block;
+                padding-left: $spacer;
             }
 
             .stat-violation {

@@ -8,9 +8,6 @@
 @import "_filter";
 @import "_code";
 
-
-
-
 body,
 html {
     font   : 300 $font-size-base "RobotoDraft","Roboto",sans-serif;
@@ -19,24 +16,21 @@ html {
     height : 100%;
 }
 
-
-
-.node rect {
-    // stroke: #333;
-    // fill: #fff;
-}
-
 .edgePath path.path {
     stroke      : $grey;
     fill        : none;
     stroke-width: 1px;
 }
 
-
-
-.card.panel{
-    h3, h4{
+.card.panel {
+    h1,
+    h2,
+    h3,
+    h4 {
         color: var(--kt-grey);
+    }
+
+    h4 {
         font-size: $font-size-xs;
     }
 }
