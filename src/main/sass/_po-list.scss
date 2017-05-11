@@ -94,16 +94,26 @@ po-line {
             display: flex;
         }
 
+        .left{
+            padding-right: $spacer;
+            align-items: center;
+            flex-flow  : row;
+        }
 
         .mid {
             flex     : 1;
+            align-items: center;
             flex-flow: wrap;
+
+            span {
+                margin  : $spacer/4;
+            }
         }
 
         .right {
             margin-left: auto;
             align-items: center;
-            flex-flow  : row;
+            flex-flow  : column;
 
             .location {
                 float          : right;
@@ -160,7 +170,6 @@ po-line {
 
             background   : var(--kt-grey-lighter);
             padding      : $spacer/8 $spacer/2;
-            margin-left  : $spacer/2;
             border-radius: 10px;
         }
 
@@ -168,7 +177,7 @@ po-line {
             font-size   : $font-size-sm;
             color       : $grey;
             width       : 100%;
-            padding-left: $po-icon-width+$spacer;
+            // padding-left: $po-icon-width+$spacer;
         }
 
     }
