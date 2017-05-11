@@ -48,14 +48,14 @@ module kt.parser {
                 // console.info("total functions: " + funcs.length + " \t\ttotal unique keys: " + Object.keys(byNameMap).length);
                 // // console.info(byNameMap);
 
-                let resultingMap: { [key: string]: Array<xml.CFunction> } = {};
+                let resultingMap: { [key: string]: Array<treeview.FileInfo> } = {};
 
 
                 for (let f of functions) {
                     if (!resultingMap[f.name]) {
                         resultingMap[f.name] = [];
                     }
-                    resultingMap[f.name].push(f);
+                    resultingMap[f.name].push(f.fileInfo);
 
                 }
 
