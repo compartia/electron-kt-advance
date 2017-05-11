@@ -163,14 +163,17 @@ module kt.stats {
         byPredicate: StatsTable<string>;
         byDischargeType: StatsTable<string>;
         byState: StatsTable<string>;
-        byFunction: StatsTable<kt.xml.CFunction>;
+        byFunction: StatsTable<xml.CFunction>;
 
         complexityByFunction: StatsTable<kt.xml.CFunction>;
-        byFile: StatsTable<kt.treeview.FileInfo>;
+        byFile: StatsTable<treeview.FileInfo>;
         byFileLine: StatsTable<string>;
 
         predicateByComplexity: StatsTable<string>;
-        complexityByFile: StatsTable<kt.treeview.FileInfo>;
+        complexityByFile: StatsTable<treeview.FileInfo>;
+
+        assumptionsByFunction: StatsTable<xml.CFunction>;
+        inAssumptionsByFunction: StatsTable<xml.CFunction>;
 
 
         private _primaryPredicatesCount: StatsTable<string>;
@@ -204,6 +207,8 @@ module kt.stats {
 
             this.byFileLine = new StatsTable<string>();
             this.predicateByComplexity = new StatsTable<string>();
+            this.assumptionsByFunction= new StatsTable<xml.CFunction>();
+            this.inAssumptionsByFunction= new StatsTable<xml.CFunction>();
             this.complexityByFunction = new StatsTable<kt.xml.CFunction>();
             //
 
@@ -260,6 +265,14 @@ module kt.stats {
                 this.byFunction.inc(functionKey, state, 1);
                 // this.byFunction.inc(functionKey, DEF_COL_NAME, 1);
                 this.byFunction.bind(functionKey, po.cfunction);
+                for(let linked of po.outputs){
+                    this.assumptionsByFunction.inc(functionKey, (<model.ApiNode>linked).type, 1);
+                }
+                for(let linked of po.inputs){
+                    this.inAssumptionsByFunction.inc(functionKey, (<model.ApiNode>linked).type, 1);
+                }
+
+                this.assumptionsByFunction.bind(functionKey, po.cfunction);
 
                 for (let cCode of CPG) {
                     this.complexityByFunction.inc(functionKey, model.Complexitiy[model.Complexitiy[cCode]], po.complexity[model.Complexitiy[cCode]]);
@@ -373,6 +386,40 @@ module kt.stats {
                 }
             );
         }
+
+        public updateAssumptionsByFunctionChart(maxRows: number, scene, container: d3.Selection<any>) {
+            const table = this.assumptionsByFunction;
+            const columnNames = table.columnNames;
+            const data: Array<NamedArray<kt.xml.CFunction>> = table.getTopRows(maxRows);
+
+            charts.updateChart(scene, container,
+                {
+                    data: data,
+                    colors: (x, index) => "var(--kt-state-assumption-"+columnNames[index] +"-bg)",
+                    columnNames: columnNames,
+                    label: x => x.object.name,
+                    max: null
+                }
+            );
+        }
+
+        public updateInAssumptionsByFunctionChart(maxRows: number, scene, container: d3.Selection<any>) {
+            const table = this.inAssumptionsByFunction;
+            const columnNames = table.columnNames;
+            const data: Array<NamedArray<kt.xml.CFunction>> = table.getTopRows(maxRows);
+
+            charts.updateChart(scene, container,
+                {
+                    data: data,
+                    colors: (x, index) => "var(--kt-state-assumption-"+columnNames[index] +"-bg)",
+                    columnNames: columnNames,
+                    label: x => x.object.name,
+                    max: null
+                }
+            );
+        }
+
+
 
         public updatePoByFileChart(scene, container: d3.Selection<any>) {
             const table = this.byFile;
