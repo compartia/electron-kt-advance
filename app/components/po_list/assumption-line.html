@@ -2,37 +2,40 @@
     <template>
 
         <div class$="po row [[_getClass(item)]]" title$="[[item.id]] [[item.file]]/[[item.functionName]]:[[item.location.line]]">
-
-            <iron-icon class="po-icon" icon$="{{_computeIcon(item)}}" title$="{{item.type}}"></iron-icon>
-
-            <!-- <span class="po-id">{{item.id}}</span> -->
-
-            <template is="dom-if" if="[[linktosource]]">
-                <span class="location" on-tap="jumpToSource" data=[[item]]>
-                    <span id="line" title$="[[item.file]]/[[item.functionName]]">L [[item.location.line]]</span>
-                </span>
-            </template>
-
-            <span class="predicate">
-                <span class="predicate-name">
-                    [[item.predicate]]
-                </span>
-                <template is="dom-if" if="[[item.predicateArgument]]">
-                    (<span class="predicate-arg">
-                        [[item.predicateArgument]]
-                    </span>)
-                </template>
+            <span class="left">
+                <iron-icon class="po-icon" icon$="{{_computeIcon(item)}}" title$="{{item.type}}"></iron-icon>
             </span>
 
-            <span class='expression'>
-                [[item.expression]]
-            </span>
+            <span class="mid">
+                <!-- <span class="po-id">{{item.id}}</span> -->
 
-            <template is="dom-if" if="[[item.discharge]]">
-                <template is="dom-if" if="[[item.discharge.message]]">
-                    <span class="discharge-comment">{{item.discharge.message}}</span>
+                <template is="dom-if" if="[[linktosource]]">
+                    <span class="location" on-tap="jumpToSource" data=[[item]]>
+                        <span id="line" title$="[[item.file]]/[[item.functionName]]">L [[item.location.line]]</span>
+                    </span>
                 </template>
-            </template>
+
+                <span class="predicate">
+                    <span class="predicate-name">
+                        [[item.predicate]]
+                    </span>
+                    <template is="dom-if" if="[[item.predicateArgument]]">
+                        (<span class="predicate-arg">
+                            [[item.predicateArgument]]
+                        </span>)
+                    </template>
+                </span>
+
+                <span class='expression'>
+                    [[item.expression]]
+                </span>
+
+                <template is="dom-if" if="[[item.discharge]]">
+                    <template is="dom-if" if="[[item.discharge.message]]">
+                        <span class="discharge-comment">{{item.discharge.message}}</span>
+                    </template>
+                </template>
+            </span>
 
         </div>
 
@@ -44,7 +47,7 @@
 
             properties: {
                 item: Object,
-                linktosource:Boolean
+                linktosource: Boolean
             },
 
             jumpToSource: function(event) {
