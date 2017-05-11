@@ -7,7 +7,7 @@ module kt.Globals {
         private _levels: util.StringSet = new util.StringSet([]);
         private _dischargeTypes: util.StringSet = new util.StringSet([]);
 
- 
+
         private _cfunction: xml.CFunction;
         private _file: treeview.FileInfo;
         private _line: number = null;
@@ -199,5 +199,8 @@ module kt.Globals {
     }
 
 
-
+    /**
+    @deprecated;
+    */
+    export const PO_FILTER: Filter = new Filter();
 }

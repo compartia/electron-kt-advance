@@ -31,22 +31,38 @@ po-list {
 
 }
 
+.po-wrapper {
+    padding: 0;
+    margin : 0;
+    // &:hover{
+    //     background: $selection-lt-bg;
+    // }
+}
 
+.po-wrapper.selected {
+    background: $selection-bg;
+}
 
-po-line, assumption-line {
+assumption-line,
+po-line {
     .row > span {
         display: inline-block;
     }
 
     .row {
-        padding      : $spacer/2 $spacer;
+        padding    : $spacer/2 $spacer;
         //border-bottom: 1px solid var(--kt-grey-lighter);
-        box-sizing: border-box;
+        box-sizing : border-box;
         border-left: 3px solid $transparent;
+        display    : flex;
+        align-items: center;
+        flex-flow  : row;
 
         .po-icon {
             width : $po-icon-width;
             height: $po-icon-width;
+            min-width : $po-icon-width;
+            min-height: $po-icon-width;
         }
 
         .po-id {
@@ -72,19 +88,38 @@ po-line, assumption-line {
 
         }
 
-        .location {
-            float          : right;
-            font-family    : $monospaced;
-            text-decoration: underline;
-            cursor         : pointer;
-            min-width      : $po-loc-width;
-            padding        : 0 $po-loc-padding;
-            text-align     : right;
+        .left,
+        .mid,
+        .right {
+            display: flex;
         }
 
-        .assumptions{
-            float          : right;
-            text-align     : right;
+
+        .mid {
+            flex     : 1;
+            flex-flow: wrap;
+        }
+
+        .right {
+            margin-left: auto;
+            align-items: center;
+            flex-flow  : row;
+
+            .location {
+                float          : right;
+                font-family    : $monospaced;
+                text-decoration: underline;
+                cursor         : pointer;
+                min-width      : $po-loc-width;
+                padding        : 0 $po-loc-padding;
+                text-align     : right;
+            }
+
+            .assumptions {
+                // float          : right;
+                text-align: right;
+
+            }
         }
 
         .state {

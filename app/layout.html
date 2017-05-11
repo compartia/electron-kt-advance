@@ -89,10 +89,22 @@
 
                             <source-view id="sourceview" current-project="[[currentProject]]" statistics="[[statistics]]"></source-view>
 
-                            <po-list filtered-proof-obligations="[[filteredProofObligations]]" linktosource showgroups></po-list>
 
-                            <!-- <div>assumptions</div> -->
-                            <assumptions-list filtered-assumptions="[[filteredAssumptions]]"></assumptions-list>
+
+                            <vaadin-split-layout class="splitter-3">
+                                <po-list filtered-proof-obligations="[[filteredProofObligations]]" linktosource showgroups selected-po="{{selectedPo}}"></po-list>
+                                <div id="right-panel">
+                                    <assumptions-list filtered-assumptions="[[selectedAssumptions]]" linktosource></assumptions-list>
+                                </div>
+                            </vaadin-split-layout>
+
+
+                            <vaadin-split-layout class="splitter-3">
+                                <assumptions-list filtered-assumptions="[[filteredAssumptions]]" linktosource></assumptions-list>
+                                <div id="right-panel">
+                                    Dependent POs
+                                </div>
+                            </vaadin-split-layout>
 
                             <tf-graph-board
                                 id="graphboard"
@@ -172,7 +184,8 @@
             paper-tabs {}
 
             .splitter-1,
-            .splitter-2 {
+            .splitter-2,
+            .splitter-3 {
                 --vaadin-split-layout-splitter: {
                     min-width: 1px;
                     min-height: 1px;
@@ -181,7 +194,7 @@
                 }
 
             }
-            .splitter-1 {
+            .splitter-1, .splitter-3 {
                 --vaadin-split-layout-splitter: {
                     background: var(--paper-tree-selected-background-color);
                     fill: var(--paper-tree-selected-background-color);
@@ -202,6 +215,15 @@
 
                 height: 100%;
             }
+
+
+
+            /*.splitter-3 {
+                --vaadin-split-layout-splitter: {
+                    background: var(--paper-tree-selected-background-color);
+                    fill: var(--paper-tree-selected-background-color);
+                };
+            }*/
 
             .global-actions {
                 flex-grow: 2;
@@ -287,6 +309,10 @@
                     notify: true
                 },
 
+                selectedPo: {
+                    type: Object,
+                },
+
                 disabledTabs: String
             },
 
@@ -295,7 +321,7 @@
                 "jump-to-src": "_onJumpToSrc"
             },
 
-            observers: ['filterChanged(filter.*)'],
+            observers: ['filterChanged(filter.*)', '_selectedPoChanged(selectedPo)'],
 
             _onJumpToSrc: function(event) {
                 var po = event.detail;
@@ -309,6 +335,16 @@
                     this.$.sourceview.jumpToLine(po.location.line)
                 };
                 sourceview.maybeLoadFile(this.filter.file, aftereffect.bind(this));
+            },
+
+            _selectedPoChanged:function(list){
+                var assumptions=[];
+                for(var i=0; i<list.length; i++){
+                    assumptions = assumptions.concat(list[i].outputs);
+                }
+                //XXX: make list of unique!
+
+                this.set("selectedAssumptions", assumptions);
             },
 
             filterChanged: function(event) {

@@ -50,10 +50,6 @@ module kt.Globals {
     }
 
 
-    /**
-    @deprecated;
-    */
-    export const PO_FILTER: Filter = new Filter();
     export interface FileContents {
         src: string;
     }
@@ -138,9 +134,6 @@ module kt.Globals {
         }
 
 
-
-
-
         public onFilterChanged(filter) {
             this._filteredProofObligations = null;
             this._filteredAssumptions = null;
@@ -188,7 +181,7 @@ module kt.Globals {
 
         get filteredProofObligations(): Array<model.ProofObligation> {
             if (!this._filteredProofObligations) {
-                let filter = (x) => PO_FILTER.accept(x);
+                let filter = (x) => kt.Globals.PO_FILTER.accept(x);
                 this._filteredProofObligations = model.sortPoNodes(_.filter(this.proofObligations, filter));
             }
             return this._filteredProofObligations;
@@ -246,7 +239,5 @@ module kt.Globals {
         return null;
     }
 
-
-    // export var project: Project = new Project(null);
 
 }

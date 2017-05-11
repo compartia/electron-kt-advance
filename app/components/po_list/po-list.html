@@ -4,11 +4,15 @@
 <dom-module id="po-list">
     <template>
         <div class="scrollable">
-            <iron-list scroll-target="scrollable" items="[[groupPOs(filteredProofObligations)]]" as="line">
+            <iron-list scroll-target="scrollable" items="[[groupPOs(filteredProofObligations)]]" as="line" selection-enabled multi-selection selected-items="{{selectedItems}}">
                 <template>
-                    <div>
+                    <div class$="po-wrapper [[_getClass(line, selected)]]">
                         <template is="dom-if" if="[[_showGroup(line, showgroups)]]">
-                            <div class="headline"><span class="file">[[line.parent]]</span> / <span class="function">[[line.value]]</span> </div>
+                            <div class="headline">
+                                <span class="file">[[line.parent]]</span>
+                                /
+                                <span class="function">[[line.value]]</span>
+                            </div>
                         </template>
 
                         <template is="dom-if" if="[[!line.group]]">
@@ -27,18 +31,49 @@
             is: 'po-list',
 
             properties: {
-                linktosource:Boolean,
-                showgroups:Boolean,
+                linktosource: Boolean,
+                showgroups: Boolean,
+
+                selectedPo: {
+                    type: Array,
+                    notify: true
+                },
 
                 filteredProofObligations: {
                     type: Object,
                     notify: true
+                },
+
+                selectedItems: {
+                    type: Object,
+                    // observer: '_selectedItemsChanged'
                 }
             },
 
-            _showGroup:function(line, showgroups){
-                var show=line.group && showgroups;
-                return show ;
+            observers: ['_selectedItemsChanged(selectedItems.*)'],
+
+            _selectedItemsChanged: function(arr) {
+                console.log(arr);
+                console.log(this.selectedItems);
+                var pos = [];
+                if (this.selectedItems && this.selectedItems.length) {
+                    for (var i = 0; i < this.selectedItems.length; i++) {
+                        pos.push(this.selectedItems[i].value);
+                    }
+                }
+
+                this.set("selectedPo", pos);
+            },
+
+            _getClass: function(line, selected) {
+                return selected
+                    ? "selected"
+                    : "";
+            },
+
+            _showGroup: function(line, showgroups) {
+                var show = line.group && showgroups;
+                return show;
             },
 
             _isGroup: function(item) {

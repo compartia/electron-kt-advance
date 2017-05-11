@@ -13,7 +13,6 @@ module kt.model {
         isMissing: boolean;
         type: string;
         predicateType: string;
-        symbol: kt.xml.Symbol;
         expression: string;
 
         dependentPos: Array<string>;//used during parsing
@@ -31,7 +30,6 @@ module kt.model {
             this.id = po["apiId"];
 
             this.location.textRange = po["textRange"];
-
         }
 
         get apiId(): string {
@@ -41,8 +39,6 @@ module kt.model {
         get predicate(): string {
             return this.predicateType;
         }
-
-        
 
         get key(): string {
             return makeAssumptionKey(this.type, this.id, this.functionName, this.file);
@@ -105,7 +101,6 @@ module kt.model {
 
             return true;
         }
-
 
 
         public asNodeDef(filter: Globals.Filter): tf.graph.proto.NodeDef {

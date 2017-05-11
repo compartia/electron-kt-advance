@@ -1,63 +1,70 @@
 <dom-module id="po-line">
     <template>
 
-        <div on-click="_clickListener" class$="po row [[_getClass(item)]]" title$="[[item.id]] [[item.file]]/[[item.functionName]]:[[item.location.line]]">
+        <div class$="po row [[_getClass(item)]]" title$="[[item.id]] [[item.file]]/[[item.functionName]]:[[item.location.line]]">
+            <span class='left'>
+                <iron-icon class="po-icon" icon$="{{_computeIcon(item)}}" on-click="select"></iron-icon>
 
-            <template is="dom-if" if="[[item.outputs.length]]">
-                <iron-icon class="po-icon" icon="chevron-right" on-click="expandOutAssumptions"></iron-icon>
-            </template>
+                <!-- <span class="po-id">{{item.id}}</span> -->
 
-            <template is="dom-if" if="[[item.inputs.length]]">
-                <iron-icon class="po-icon" icon="chevron-left" on-click="expandInAssumptions"></iron-icon>                
-            </template>
-
-
-            <iron-icon class="po-icon" icon$="{{_computeIcon(item)}}" on-click="select"></iron-icon>
-
-            <!-- <span class="po-id">{{item.id}}</span> -->
-
-            <template is="dom-if" if="[[linktosource]]">
-                <span class="location" on-tap="jumpToSource" data=[[item]]>
-                    <span id="line" title$="[[item.file]]/[[item.functionName]]">L [[item.location.line]]</span>
-                </span>
-            </template>
-
-            <span class="state">
                 <span class$="level-[[item.level]]">[[item.levelLabel]]</span>
-                [[item.stateName]]
-                <template is="dom-if" if="[[item.dischargeType]]">
-                    :<span class="discharge">{{item.dischargeType}}</span>
-                </template>
             </span>
+            <span class='mid'>
 
-            <span class="predicate">
-                <span class="predicate-name">
-                    [[item.predicate]]
+                <span class="state">
+
+                    [[item.stateName]]
+                    <template is="dom-if" if="[[item.dischargeType]]">
+                        :<span class="discharge">{{item.dischargeType}}</span>
+                    </template>
                 </span>
-                <template is="dom-if" if="[[item.predicateArgument]]">
-                    (<span class="predicate-arg">
-                        [[item.predicateArgument]]
-                    </span>)
+
+
+                <span class="predicate">
+                    <span class="predicate-name">
+                        [[item.predicate]]
+                    </span>
+                    <template is="dom-if" if="[[item.predicateArgument]]">
+                        (<span class="predicate-arg">
+                            [[item.predicateArgument]]
+                        </span>)
+                    </template>
+                </span>
+
+                <span class='expression'>
+                    [[item.expression]]
+                </span>
+
+                <template is="dom-if" if="[[item.discharge]]">
+                    <template is="dom-if" if="[[item.discharge.message]]">
+                        <span class="discharge-comment">{{item.discharge.message}}</span>
+                    </template>
                 </template>
             </span>
+            <span class='right'>
 
-            <span class='expression'>
-                [[item.expression]]
-            </span>
-
-            <template is="dom-if" if="[[item.discharge]]">
-                <template is="dom-if" if="[[item.discharge.message]]">
-                    <span class="discharge-comment">{{item.discharge.message}}</span>
-                </template>
-            </template>
-
-            <!-- <template is="dom-if" if="[[item.inputs.length]]"> -->
+                <!-- <template is="dom-if" if="[[item.inputs.length]]"> -->
                 <span class='assumptions'>
-                    <iron-icon class="po-icon" icon="chevron-right" on-click="expandAssumptions"></iron-icon>
-                    Assumptions: [[item.inputs.length]]
-                </span>
-            <!-- </template> -->
 
+                    <template is="dom-if" if="[[item.outputs.length]]">
+                        O: [[item.outputs.length]]
+                        <iron-icon class="po-icon" icon="chevron-right"></iron-icon>
+                    </template>
+
+                    <template is="dom-if" if="[[item.inputs.length]]">
+                        I: [[item.inputs.length]]
+                        <iron-icon class="po-icon" icon="chevron-left"></iron-icon>
+                    </template>
+
+                </span>
+
+                <template is="dom-if" if="[[linktosource]]">
+                    <span class="location" on-tap="jumpToSource" data=[[item]]>
+                        <span id="line" title$="[[item.file]]/[[item.functionName]]">L [[item.location.line]]</span>
+                    </span>
+                </template>
+                <!-- </template> -->
+            </span>
         </div>
 
     </template>
@@ -69,7 +76,7 @@
             properties: {
                 item: Object,
 
-                linktosource:Boolean
+                linktosource: Boolean
 
             },
 
@@ -102,7 +109,7 @@
 
             },
 
-            _clickListener: function(e) {}
+            // _clickListener: function(e) {}
 
         });
     </script>

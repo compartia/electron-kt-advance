@@ -17,6 +17,11 @@
 kt-layout {
     background: $main-bg;
 
+    #right-panel{
+        background: $side-bg-2;
+        width: 15%;
+    }
+
     iron-pages#contents {
         height  : 100vh;
         width   : 100%;

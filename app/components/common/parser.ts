@@ -11,19 +11,15 @@ module kt.parser {
 
         for (let ppo of pos) {
             if (ppo.isLinked()) {
-                if (!ppo.isTotallyDischarged()) {
-                    let node: tf.graph.proto.NodeDef = ppo.asNodeDef(filter);
-                    g.push(node);
-                }
+                let node: tf.graph.proto.NodeDef = ppo.asNodeDef(filter);
+                g.push(node);
             }
         }
 
         for (var api of apis) {
             if (api.isLinked()) {
-                if (!api.isTotallyDischarged()) {
-                    let node: tf.graph.proto.NodeDef = api.asNodeDef(filter);
-                    g.push(node);
-                }
+                let node: tf.graph.proto.NodeDef = api.asNodeDef(filter);
+                g.push(node);
             }
         }
 

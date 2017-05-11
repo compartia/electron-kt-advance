@@ -3,7 +3,7 @@
 
         <div class$="po row [[_getClass(item)]]" title$="[[item.id]] [[item.file]]/[[item.functionName]]:[[item.location.line]]">
 
-            <iron-icon class="po-icon" icon$="{{_computeIcon(item)}}" on-click="select"></iron-icon>
+            <iron-icon class="po-icon" icon$="{{_computeIcon(item)}}" title$="{{item.type}}"></iron-icon>
 
             <!-- <span class="po-id">{{item.id}}</span> -->
 
@@ -12,14 +12,6 @@
                     <span id="line" title$="[[item.file]]/[[item.functionName]]">L [[item.location.line]]</span>
                 </span>
             </template>
-
-            <span class="state">
-                <span class$="level-[[item.level]]">[[item.levelLabel]]</span>
-                [[item.stateName]]
-                <template is="dom-if" if="[[item.dischargeType]]">
-                    :<span class="discharge">{{item.dischargeType}}</span>
-                </template>
-            </span>
 
             <span class="predicate">
                 <span class="predicate-name">
