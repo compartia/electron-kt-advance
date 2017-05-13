@@ -23,6 +23,43 @@ module kt.model {
     }
 
 
+    export function makeGraphNodePath(filter: Globals.Filter, settings: Globals.GraphSettings, func: xml.CFunction, predicate: string, name: string): string {
+        let pathParts: string[] = [];
+
+        let fileBaseName: string = path.basename(func.fileInfo.relativePath);
+
+        let addFile: boolean = !filter.file || (func.fileInfo.relativePath != filter.file.relativePath);
+        let addFunction: boolean = !filter.cfunction || func.name != filter.cfunction.name;
+        let addPredicate: boolean = predicate != filter.singlePredicate;
+
+        if (settings.groupBy === Globals.GraphGrouppingOptions.file) {
+            if (addFile) {
+                pathParts.push(fileBaseName);
+            }
+            if (addFunction) {
+                pathParts.push(func.name);
+            }
+            if (addPredicate) {
+                pathParts.push(predicate);
+            }
+        } else {
+            //same but different order
+            if (addPredicate) {
+                pathParts.push(predicate);
+            }
+            if (addFile) {
+                pathParts.push(fileBaseName);
+            }
+            if (addFunction) {
+                pathParts.push(func.name);
+            }
+        }
+
+        pathParts.push(name);
+
+        return pathParts.join(SPL);
+    }
+
 
     export function compareStates(stateA: string, stateB: string): number {
         let stA: string[] = stateA.toLowerCase().split("-");
@@ -183,42 +220,7 @@ module kt.model {
             return true;
         }
 
-        public makeGraphNodePath(filter: Globals.Filter, settings: Globals.GraphSettings, file: string, func: string, predicate: string, name: string): string {
-            let pathParts: string[] = [];
 
-            let fileBaseName:string = path.basename(file);
-
-            let addFile: boolean = !filter.file || file != filter.file.relativePath;
-            let addFunction: boolean = !filter.cfunction || func != filter.cfunction.name;
-            let addPredicate: boolean = predicate != filter.singlePredicate;
-
-            if (settings.groupBy === Globals.GraphGrouppingOptions.file) {
-                if (addFile) {
-                    pathParts.push(fileBaseName);
-                }
-                if (addFunction) {
-                    pathParts.push(func);
-                }
-                if (addPredicate) {
-                    pathParts.push(predicate);
-                }
-            } else {
-                //same but different order
-                if (addPredicate) {
-                    pathParts.push(predicate);
-                }
-                if (addFile) {
-                    pathParts.push(fileBaseName);
-                }
-                if (addFunction) {
-                    pathParts.push(func);
-                }
-            }
-
-            pathParts.push(name);
-
-            return pathParts.join(SPL);
-        }
 
     }
 
@@ -443,7 +445,7 @@ module kt.model {
             }
 
 
-            return this.makeGraphNodePath(filter, settings, this.file, this.functionName, this.predicate, nm);
+            return makeGraphNodePath(filter, settings, this.cfunction, this.predicate, nm);
         }
 
 
@@ -503,6 +505,7 @@ module kt.model {
 
             for (let ref of sortNodes(this.inputs)) {
                 nodeDef.input.push(ref.makeName(filter, settings));
+
             }
 
             for (let ref of sortNodes(this.outputs)) {
