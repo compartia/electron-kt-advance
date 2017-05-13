@@ -48,8 +48,7 @@ module kt.model {
 
 
         public makeName(filter: Globals.Filter, settings: Globals.GraphSettings): string {
-            return this.makeGraphNodePath(filter, settings,
-                this.file, this.functionName, this.predicateType, this.type + "_" + this.id);
+            return makeGraphNodePath(filter, settings, this.cfunction, this.predicateType, this.type + "_" + this.id);
         }
 
         get label(): string {
@@ -82,10 +81,8 @@ module kt.model {
                 }
             }
 
-
             return true;
         }
-
 
 
         public asNodeDef(filter: Globals.Filter, settings: Globals.GraphSettings): tf.graph.proto.NodeDef {
@@ -113,6 +110,7 @@ module kt.model {
 
             for (let ref of this.inputs) {
                 nodeDef.input.push(ref.makeName(filter, settings));
+
             }
 
             for (let ref of this.outputs) {
