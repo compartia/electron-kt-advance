@@ -106,9 +106,9 @@ module kt.model {
         textRange: number[][];
 
         get line() {
-            if(this.textRange){
+            if (this.textRange) {
                 return this.textRange[0][0];
-            }else{
+            } else {
                 return 0;
             }
 
@@ -159,7 +159,7 @@ module kt.model {
             return PoStates[this.state];
         }
 
-        public abstract makeName(filter: Globals.Filter): string;
+        public abstract makeName(filter: Globals.Filter, settings: Globals.GraphSettings): string;
 
 
         public isTotallyDischarged(): boolean {
@@ -182,6 +182,44 @@ module kt.model {
 
             return true;
         }
+
+        public makeGraphNodePath(filter: Globals.Filter, settings: Globals.GraphSettings, file: string, func: string, predicate: string, name: string): string {
+            let pathParts: string[] = [];
+
+            let fileBaseName:string = path.basename(file);
+
+            let addFile: boolean = !filter.file || file != filter.file.relativePath;
+            let addFunction: boolean = !filter.cfunction || func != filter.cfunction.name;
+            let addPredicate: boolean = predicate != filter.singlePredicate;
+
+            if (settings.groupBy === Globals.GraphGrouppingOptions.file) {
+                if (addFile) {
+                    pathParts.push(fileBaseName);
+                }
+                if (addFunction) {
+                    pathParts.push(func);
+                }
+                if (addPredicate) {
+                    pathParts.push(predicate);
+                }
+            } else {
+                //same but different order
+                if (addPredicate) {
+                    pathParts.push(predicate);
+                }
+                if (addFile) {
+                    pathParts.push(fileBaseName);
+                }
+                if (addFunction) {
+                    pathParts.push(func);
+                }
+            }
+
+            pathParts.push(name);
+
+            return pathParts.join(SPL);
+        }
+
     }
 
     export class PODischarge extends POId {
@@ -394,33 +432,23 @@ module kt.model {
             return this.inputs.length > 0 || this.outputs.length > 0;
         }
 
-        public makeName(filter: Globals.Filter): string {
-            let nm = "";
-            if (!filter.file || util.stripSlash(this.file) != filter.file.name) {
-                nm += util.stripSlash(this.file) + SPL;
-            }
 
-            if (!filter.cfunction || this.functionName != filter.cfunction.name) {
-                nm += this.functionName + SPL;
-            }
-
-            if (this.predicate != filter.singlePredicate) {
-                nm += this.predicate + SPL;
-            }
-
-            nm += this.level + "(" + this.id + ")";
+        public makeName(filter: Globals.Filter, settings: Globals.GraphSettings): string {
+            let nm = this.levelLabel + "(" + this.id + ")";
 
             if (this.symbol) {
                 nm += this.symbol.pathLabel;
             } else {
                 nm += "-expression-";
             }
-            return nm;
+
+
+            return this.makeGraphNodePath(filter, settings, this.file, this.functionName, this.predicate, nm);
         }
 
 
         get label(): string {
-            let _nm = this.level + " (" + this.id + ") ";
+            let _nm = this.levelLabel + " (" + this.id + ") ";
 
             if (this.symbol) {
                 _nm += this.symbol.pathLabel;
@@ -430,10 +458,6 @@ module kt.model {
 
             return _nm;
         }
-
-
-
-
 
 
 
@@ -450,12 +474,12 @@ module kt.model {
             return this._apiId;
         }
 
-        public asNodeDef(filter: Globals.Filter): tf.graph.proto.NodeDef {
+        public asNodeDef(filter: Globals.Filter, settings: Globals.GraphSettings): tf.graph.proto.NodeDef {
             const po = this.po;
 
 
             let nodeDef: tf.graph.proto.NodeDef = {
-                name: this.makeName(filter),
+                name: this.makeName(filter, settings),
                 input: [],
                 output: [],
                 device: this.extendedState,
@@ -478,11 +502,11 @@ module kt.model {
             }
 
             for (let ref of sortNodes(this.inputs)) {
-                nodeDef.input.push(ref.makeName(filter));
+                nodeDef.input.push(ref.makeName(filter, settings));
             }
 
             for (let ref of sortNodes(this.outputs)) {
-                nodeDef.output.push(ref.makeName(filter));
+                nodeDef.output.push(ref.makeName(filter, settings));
             }
 
             return nodeDef;

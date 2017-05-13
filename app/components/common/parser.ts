@@ -7,19 +7,21 @@ module kt.parser {
 
         let nodesMap = {};
 
+
         for (let ppo of pos) {
             if (ppo.isLinked()) {
-                let node: tf.graph.proto.NodeDef = ppo.asNodeDef(filter);
+                let node: tf.graph.proto.NodeDef = ppo.asNodeDef(filter, new Globals.GraphSettings());//XXX: provide real settings
                 g.push(node);
             }
         }
 
         for (var api of apis) {
             if (api.isLinked()) {
-                let node: tf.graph.proto.NodeDef = api.asNodeDef(filter);
+                let node: tf.graph.proto.NodeDef = api.asNodeDef(filter, new Globals.GraphSettings());//XXX: provide real settings
                 g.push(node);
             }
         }
+
 
 
         console.info["NUMBER of nodes: " + g.length];
@@ -28,7 +30,7 @@ module kt.parser {
 
 
 
-    export function readAndParse(project: Globals.Project, tracker: tf.ProgressTracker): Promise<Globals.Project> {
+    export function readAndParse(project: Globals.Project, tracker: tf.ProgressTracker): Promise<kt.Globals.Project> {
 
         let reader: xml.XmlReader = new xml.XmlReader();
 
@@ -40,7 +42,6 @@ module kt.parser {
 
         return reader.readFunctionsMap(path.dirname(project.analysisDir), readFunctionsMapTracker)
             .then(functions => {
-
 
                 let resultingMap: { [key: string]: Array<treeview.FileInfo> } = {};
 
@@ -58,6 +59,9 @@ module kt.parser {
             .then((POs: xml.XmlAnalysis) => {
                 project.proofObligations = model.sortPoNodes(POs.ppos.concat(POs.spos));
                 project.apis = POs.apis;
+
+                // let g: tf.graph.proto.NodeDef[] = buildGraph(project.proofObligations, project.apis);
+                // return g;
 
                 return project;
             });
