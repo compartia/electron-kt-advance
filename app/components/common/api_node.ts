@@ -50,10 +50,6 @@ module kt.model {
         }
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/group-by-predicate
         public makeName(filter: Globals.Filter, settings: Globals.GraphSettings): string {
             return makeGraphNodePath(filter, settings, this.cfunction, this.predicateType, this.type + "_" + this.id);
         }
@@ -93,10 +89,7 @@ module kt.model {
 
 
         public asNodeDef(filter: Globals.Filter, settings: Globals.GraphSettings): tf.graph.proto.NodeDef {
-<<<<<<< HEAD
-=======
 
->>>>>>> origin/group-by-predicate
 
             let nodeDef: tf.graph.proto.NodeDef = {
                 name: this.makeName(filter, settings),
