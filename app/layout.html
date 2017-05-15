@@ -93,17 +93,18 @@
                             <!-- POs -->
                             <vaadin-split-layout class="splitter-3">
                                 <po-list id="main-po-list" filtered-proof-obligations="[[filteredProofObligations]]" linktosource showgroups selected-po="{{selectedPo}}"></po-list>
-                                <div id="right-panel" hidden$="[[!selectedAssumptions.length]]">
+                                <div id="right-panel" hidden$="[[!dependentAssumptions.length]]">
                                     <h3>Depends on</h3>
-                                    <assumptions-list filtered-assumptions="[[selectedAssumptions]]" linktosource></assumptions-list>
+                                    <assumptions-list filtered-assumptions="[[dependentAssumptions]]" linktosource></assumptions-list>
                                 </div>
                             </vaadin-split-layout>
 
 
                             <vaadin-split-layout class="splitter-3">
-                                <assumptions-list filtered-assumptions="[[filteredAssumptions]]" linktosource></assumptions-list>
+                                <assumptions-list id="main-assumptions-list" filtered-assumptions="[[filteredAssumptions]]" selected-assumptions="{{selectedAssumptions}}" linktosource></assumptions-list>
                                 <div id="right-panel">
-                                    Dependent POs
+                                    <h3>Dependent Proof obligations</h3>
+                                    <po-list filtered-proof-obligations="[[dependentProofObligations]]" linktosource showgroups></po-list>
                                 </div>
                             </vaadin-split-layout>
 
@@ -294,6 +295,11 @@
                     notify: true
                 },
 
+                dependentProofObligations: {
+                    type: Object,
+                    notify: true
+                },
+
                 filteredAssumptions: {
                     type: Object,
                     notify: true
@@ -314,6 +320,10 @@
                     type: Object,
                 },
 
+                selectedAssumptions: {
+                    type: Object,
+                },
+
                 disabledTabs: String
             },
 
@@ -322,7 +332,7 @@
                 "jump-to-src": "_onJumpToSrc"
             },
 
-            observers: ['filterChanged(filter.*)', '_selectedPoChanged(selectedPo)'],
+            observers: ['filterChanged(filter.*)', '_selectedPoChanged(selectedPo)', '_selectedAssumptionsChanged(selectedAssumptions)'],
 
             _onJumpToSrc: function(event) {
                 var po = event.detail;
@@ -345,7 +355,17 @@
                 }
                 //XXX: make list of unique!
 
-                this.set("selectedAssumptions", assumptions);
+                this.set("dependentAssumptions", assumptions);
+            },
+
+            _selectedAssumptionsChanged:function(list){
+                var pos=[];
+                for(var i=0; i<list.length; i++){
+                    pos = pos.concat(list[i].inputs);
+                }
+                //XXX: make list of unique!
+
+                this.set("dependentProofObligations", pos);
             },
 
             filterChanged: function(event) {

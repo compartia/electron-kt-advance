@@ -47,12 +47,11 @@
                 <span class='assumptions'>
 
                     <template is="dom-if" if="[[item.outputs.length]]">
-                        O: [[item.outputs.length]]
-                        <iron-icon class="po-icon" icon="chevron-right"></iron-icon>
+                        Assumptions:[[item.outputs.length]]  <iron-icon class="po-icon" icon="chevron-right"></iron-icon>
                     </template>
 
                     <template is="dom-if" if="[[item.inputs.length]]">
-                        I: [[item.inputs.length]]
+                        <!-- I: [[item.inputs.length]] -->
                         <iron-icon class="po-icon" icon="chevron-left"></iron-icon>
                     </template>
 

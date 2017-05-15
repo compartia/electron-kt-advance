@@ -37,6 +37,29 @@
                 </template>
             </span>
 
+            <span class='right'>
+
+                <span class='assumptions'>
+
+                    <template is="dom-if" if="[[item.outputs.length]]">
+                        POs:[[item.outputs.length]]
+                        <iron-icon class="po-icon" icon="chevron-right"></iron-icon>
+                    </template>
+
+                    <template is="dom-if" if="[[item.inputs.length]]">
+                        POs:[[item.inputs.length]]
+                        <iron-icon class="po-icon" icon="chevron-right"></iron-icon>
+                    </template>
+
+                </span>
+
+                <!-- <template is="dom-if" if="[[linktosource]]">
+                    <span class="location" on-tap="jumpToSource" data=[[item]]>
+                        <span id="line" title$="[[item.file]]/[[item.functionName]]">L [[item.location.line]]</span>
+                    </span>
+                </template> -->
+            </span>
+
         </div>
 
     </template>
