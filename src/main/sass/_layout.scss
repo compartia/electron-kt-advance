@@ -1,8 +1,9 @@
 @import "_fonts";
-// @import "_colors";
 
+$right-panel-width: 27%;
 
-#scrollable, scrollable {
+#scrollable,
+scrollable {
     height  : 100vh;
     width   : 100%;
 
@@ -12,25 +13,28 @@
     bottom  : 0;
 }
 
-
-
 kt-layout {
     background: $main-bg;
 
-    #right-panel{
+    #right-panel {
         background: $side-bg-2;
-        width: 15%;
+        width     : $right-panel-width;
+        padding-top: $filter-panel-height;
+    }
+
+    #main-po-list {
+        width: 100%-$right-panel-width;
     }
 
     iron-pages#contents {
-        height  : 100vh;
-        width   : 100%;
+        height    : 100vh;
+        width     : 100%;
 
         // overflow: auto;
         box-sizing: border-box;
-        position: absolute;
-        top     : 0;
-        bottom  : 0;
+        position  : absolute;
+        top       : 0;
+        bottom    : 0;
 
     }
 
