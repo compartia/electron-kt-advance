@@ -4,9 +4,9 @@
 <dom-module id="assumptions-list">
     <template>
         <div class="scrollable">
-            <iron-list scroll-target="scrollable" items="[[filteredAssumptions]]" as="line">
+            <iron-list scroll-target="scrollable" items="[[filteredAssumptions]]" as="line" selection-enabled selected-item="{{selectedItem}}">
                 <template>
-                    <div>
+                    <div class$="po-wrapper [[_getClass(line, selected)]]">
                         <assumption-line item="[[line]]"></assumption-line>
                     </div>
                 </template>
@@ -24,8 +24,37 @@
                 filteredAssumptions: {
                     type: Object,
                     notify: true
+                },
+
+                selectedItem: {
+                    type: Object,
+                },
+
+                selectedAssumptions: {
+                    type: Array,
+                    notify: true
+                },
+            },
+
+            observers: ['_selectedItemChanged(selectedItem)'],
+
+
+            _selectedItemChanged: function(item) {
+                var pos = [];
+                if(this.selectedItem){
+                    pos.push(this.selectedItem);
                 }
-            }
+
+                this.set("selectedAssumptions", pos);
+            },
+
+            _getClass: function(line, selected) {
+                return selected
+                    ? "selected"
+                    : "";
+            },
+
+
         });
     </script>
 </dom-module>

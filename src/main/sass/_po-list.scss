@@ -112,7 +112,7 @@ po-line {
 
         .right {
             margin-left: auto;
-            align-items: center;
+            align-items: flex-end;
             flex-flow  : column;
 
             .location {
@@ -126,9 +126,9 @@ po-line {
             }
 
             .assumptions {
-                // float          : right;
+                display: flex;
+                align-items: center;
                 text-align: right;
-
             }
         }
 

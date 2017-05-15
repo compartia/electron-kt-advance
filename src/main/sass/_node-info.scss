@@ -88,31 +88,31 @@ tf-node-info {
     }
 
     .po.state-OPEN {
-        background : $po-open-bg;
+        background : var(--kt-state-open-default-bg);
 
         .predicate {
-            color: $po-open;
+            color: var(--kt-state-open-default-tx);
         }
     }
 
     .po.state-DISCHARGED {
         .func,
         .predicate {
-            color: $po-discharged;
+            color: var(--kt-state-discharged-default-tx);
         }
-        background: $po-discharged-bg!important;
+        background: var(--kt-state-discharged-default-bg)!important;
     }
 
     .po.state-VIOLATION {
-        background : $po-violation-bg;
+        // background : $po-violation-bg;
 
         .func,
         .predicate {
-            color: $po-violation;
+            color: var(--kt-state-violation-default-tx);
         }
 
         .level {
-            color: $po-violation;
+            color: var(--kt-state-violation-default-tx);
         }
     }
 

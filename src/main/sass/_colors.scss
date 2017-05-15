@@ -5,40 +5,34 @@ $color-brand-2: #662D91;
 
 $red: #EF2060;
 $yellow: $color-brand-1;
-$green: lighten(mix($yellow, #6DF0B9, 22%), 6%);
+$green: hsl(140, 60, 80);
 $ian_gillan: $color-brand-2;
 $blue: #4397CE;
+
 $base-bg: mix($ian_gillan, $blue, 40%);
 
 $grey: lighten(desaturate($color-brand-2, 45%), 10%);
 $grey-lighter: lighten($grey, 30%);
 $grey-80: lighten($grey, 40%);
 
-$po-discharged: darken($green, 25%);
-$po-discharged-label: $green;
-
-$po-open-base: $yellow;
-$po-open: darken($po-open-base, 20%);
+$po-open: $yellow;
 $po-violation: $red;
+$po-discharged: $green;
+$po-assumption: desaturate(lighten($ian_gillan, 45%), 20%);
 
-$po-open-bg: lighten($po-open-base, 35%);
-$po-violation-bg: lighten($po-violation, 45%);
-$po-discharged-bg: lighten($po-discharged, 65%);
 
 $main-bg: lighten($base-bg, 50%);
 $side-bg: mix($base-bg, $main-bg, 5%);
 $side-bg-2: mix($side-bg, $base-bg, 85%);
 
-$selection-bg:$side-bg-2;
-$selection-border:darken($selection-bg, 20%);
+$selection-bg: $side-bg-2;
+$selection-border: darken($selection-bg, 20%);
 
-$selection-lt-bg:$side-bg;
-$selection-lt-border:darken($selection-lt-bg, 20%);
+$selection-lt-bg: $side-bg;
+$selection-lt-border: darken($selection-lt-bg, 20%);
 
 :root {
 
-    // --kt-po-primary-bg                    : lighten($ian_gillan, 50%);
-    // --kt-po-secondary-bg                  : $side-bg;
 
     --kt-po-primary-tx                    : darken($ian_gillan, 1%);
     --kt-po-secondary-tx                  : darken($side-bg,50%);
@@ -81,9 +75,8 @@ $selection-lt-border:darken($selection-lt-bg, 20%);
     $po-saturation                        : 75;
     $po-brightness                        : 60;
 
-    $discharged_base                      : hsl(140, 60, 80);
     $discharges                           : ( rv: hsl(40, $po-saturation, $po-brightness), ds: hsl(20, $po-saturation, $po-brightness), invariants: hsl(240, $po-saturation, $po-brightness), api: hsl(210, $po-saturation, $po-brightness), global: hsl(270, $po-saturation, $po-brightness), default: $grey-80);
-    $states                               : ( violation: $red, discharged:$discharged_base, open: $yellow, assumption: $selection-bg );
+    $states                               : ( violation: $po-violation, discharged:$po-discharged , open: $po-open, assumption: $po-assumption);
     $levels                               : ( primary: lighten($blue, 35%), secondary:lighten($ian_gillan, 50%));
     @each $level, $lcolor in $levels {
         --kt-po-#{$level}-bg: $lcolor;
@@ -116,7 +109,7 @@ $selection-lt-border:darken($selection-lt-bg, 20%);
 
             .po-#{$state}-#{$discharge} {
                 border-left-color: var(--kt-state-#{$state}-#{$discharge}-bg);
-                color      : var(--kt-state-#{$state}-#{$discharge}-tx);
+                color            : var(--kt-state-#{$state}-#{$discharge}-tx);
 
                 &:hover {
                     background: var(--kt-state-#{$state}-#{$discharge}-hover-bg);
