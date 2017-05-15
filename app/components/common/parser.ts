@@ -8,7 +8,7 @@ module kt.parser {
         let nodesMap = {};
 
         let settings = new Globals.GraphSettings(); //XXX: provide real settings
-        
+
         for (let ppo of pos) {
             if (ppo.isLinked()) {
                 let node: tf.graph.proto.NodeDef = ppo.asNodeDef(filter, settings);
