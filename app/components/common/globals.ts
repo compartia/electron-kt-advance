@@ -12,7 +12,7 @@ module kt.Globals {
     export enum GraphGrouppingOptions { file, predicate };
 
     export class GraphSettings {
-        groupBy: GraphGrouppingOptions = GraphGrouppingOptions.predicate;
+        groupBy: GraphGrouppingOptions = GraphGrouppingOptions.file;
     }
 
     export function groupProofObligationsByFileFunctions(pos: model.AbstractNode[]): { [key: string]: { [key: string]: model.AbstractNode[] } } {
