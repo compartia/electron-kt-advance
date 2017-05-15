@@ -429,14 +429,21 @@ module kt.xml {
                 let pevMap = _.indexBy(pevs, "key");
                 console.info("total objects: " + pevs.length + " \t\ttotal unique keys: " + Object.keys(pevMap).length);
 
+                let missing = [];
                 for (let key in pevMap) {
                     let ppo = ppoMap[key];
                     if (ppo) {
                         ppo.discharge = pevMap[key];
                     } else {
-                        console.warn((err++) + " no PO info for the key " + key);
+                        missing.push(key);
+                        //console.warn((err++) + " no PO info for the key " + key);
                     }
 
+                }
+
+                if (missing.length) {
+                    console.warn("readAndBindEvFiles: no PO info for some keys:");
+                    console.warn(missing);
                 }
 
             });
@@ -467,22 +474,38 @@ module kt.xml {
 
         }
 
-        private bindCallsiteFunctions(spos: Array<model.ProofObligation>, functionsMap: { [key: string]: Array<CFunction> }) {
+        private bindCallsiteFunctions(spos: Array<model.ProofObligation>, functionsMap: { [key: string]: Array<treeview.FileInfo> }) {
+            var missing = [];
+            var ambigous = {};
+
             for (let spo of spos) {
-                let funcs = functionsMap[spo.callsiteFname];
-                if (funcs) {
-                    if (funcs.length > 1) {
-                        console.warn("ambigous fname");
-                        console.warn(funcs);
+                let files:Array<treeview.FileInfo> = functionsMap[spo.callsiteFname];
+                if (files) {
+                    if (files.length > 1) {
+                        // console.warn("ambigous fname");
+                        // console.warn(funcs);
+                        ambigous[spo.callsiteFname] = files;
                     } else {
-                        spo.callsiteFileName = funcs[0].file;
+                        spo.callsiteFileName = files[0].relativePath;//XXX:
                     }
                 } else {
-                    let m = "source file is unknow for the function name " + spo.callsiteFname;
-                    console.warn(m);
+                    // let m = "source file is unknow for the function name " + spo.callsiteFname;
+                    missing.push(spo.callsiteFname);
+                    // console.warn(m);
                     // throw m;
                 }
             }
+
+            if (missing.length) {
+                console.warn("unknown source files for the folowing functions: ");
+                console.warn(missing);
+            }
+
+            if (_.values(ambigous).length) {
+                console.warn("cannot determine source file of the folowing functions: ");
+                console.warn(ambigous);
+            }
+
         }
 
         private listApiFiles(dirName: string, spoMap: { [key: string]: model.ProofObligation }): Array<string> {
@@ -500,7 +523,7 @@ module kt.xml {
             return apiFiles;
         }
 
-        public readDir(dirName: string, functionsMap: { [key: string]: Array<any> }, tracker: tf.ProgressTracker): Promise<XmlAnalysis> {
+        public readDir(dirName: string, functionsMap: { [key: string]: Array<treeview.FileInfo> }, tracker: tf.ProgressTracker): Promise<XmlAnalysis> {
             // this.readPPOs(dirName);
             const parser = this;
             let spoMap;
@@ -592,17 +615,20 @@ module kt.xml {
         private linkAssumptionsDeps(
             ppoMap: { [key: string]: model.ProofObligation },
             spoMap: { [key: string]: model.ProofObligation },
-            apis: Array<model.ApiNode>) {
+            apis: Array<model.ApiNode>): void {
 
+            let missing = [];
             for (let api of apis) {
                 for (let refId of api.dependentPos) {
                     let refKey = model.makeKey(refId, api.functionName, api.file);
                     let po = ppoMap[refKey];
                     if (!po) {
+                        //ok, let's try to find a SPO
                         po = spoMap[refKey];
                     }
                     if (!po) {
-                        console.warn("api-assumption " + api.key + " refers missing(or discharged) PO " + refKey);
+                        missing.push({ api: api, missing: refKey });
+                        // console.warn("api-assumption " + api.key + " refers missing(or discharged) PO " + refKey);
                     } else {
                         po.addOutput(api);
                         api.addInput(po);
@@ -610,12 +636,18 @@ module kt.xml {
                 }
             }
 
+            if (missing.length) {
+                console.warn("some api-assumptions refer missing (or discharged) PO:");
+                console.warn(missing);
+            }
+
         }
 
         private linkSpoApis(
             spoMap: { [key: string]: model.ProofObligation },
-            apiMap: { [key: string]: model.ApiNode }) {
+            apiMap: { [key: string]: model.ApiNode }): void {
 
+            let missing = [];
             for (let spoKey in spoMap) {
                 let spo = spoMap[spoKey];
                 // console.info(spoKey + " --> " + spo.apiKey);
@@ -624,9 +656,15 @@ module kt.xml {
                     spo.addOutput(api);
                     api.addInput(spo);
                 } else {
-                    console.warn("SPO " + spo.key + " refers missing api-assumption " + spo.apiKey);
+                    missing.push({ spo: spo, "missing-api-assumption": spo.apiKey });
+                    // console.warn("SPO " + spo.key + " refers missing api-assumption " + spo.apiKey);
                 }
 
+            }
+
+            if (missing.length) {
+                console.warn("some SPOs refer missing api-assumptions");
+                console.warn(missing);
             }
         }
 
@@ -634,6 +672,7 @@ module kt.xml {
             spoMap: { [key: string]: model.ProofObligation },
             apiMap: { [key: string]: model.ApiNode }) {
 
+            let missing = [];
             for (let spoKey in spoMap) {
                 let spo = spoMap[spoKey];
                 let dischargeApiKey = spo.dischargeApiKey;
@@ -643,11 +682,14 @@ module kt.xml {
                         spo.addOutput(api);//XXX: Input? or Output?
                         api.addInput(spo);
                     } else {
-                        console.warn("SPO " + spo.key + " refers missing discharge assumption " + dischargeApiKey);
+                        missing.push({ spo: spo, "missing-discharge-api-key": dischargeApiKey });
+                        // console.warn("SPO " + spo.key + " refers missing discharge assumption " + dischargeApiKey);
                     }
                 }
-
-
+            }
+            if (missing.length) {
+                console.warn("some SPOs refer missing discharge assumptions");
+                console.warn(missing);
             }
         }
 

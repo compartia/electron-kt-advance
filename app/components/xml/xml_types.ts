@@ -1,4 +1,5 @@
 module kt.xml {
+    const path = require('path');
 
     export enum SymbolType { CONST, ID };
 
@@ -51,7 +52,12 @@ module kt.xml {
         }
 
         set file(file: string) {
-            this._file.relativePath = file;
+            if(file){
+                this._file.relativePath = path.normalize(file);
+            }else{
+                this._file.relativePath = file;
+            }
+
         }
     }
     abstract class XmlTag {

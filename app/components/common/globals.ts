@@ -9,6 +9,12 @@ module kt.Globals {
         'summary', 'source', 'proof obligations', 'assumptions', 'graphs'
     ];
 
+    export enum GraphGrouppingOptions { file, predicate };
+
+    export class GraphSettings {
+        groupBy: GraphGrouppingOptions = GraphGrouppingOptions.file;
+    }
+
     export function groupProofObligationsByFileFunctions(pos: model.AbstractNode[]): { [key: string]: { [key: string]: model.AbstractNode[] } } {
         let byfile = _.groupBy(pos, "file");
         let byFileFunc = {};

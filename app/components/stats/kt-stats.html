@@ -5,6 +5,8 @@
             <div class="container flex-hor">
                 <div class="container flex-ver flexchild">
 
+
+
                     <paper-material elevation="1" class$="card panel flexchild [[_hiddenIfNoDischarged]]">
                         <h3>Proof obligations by type of discharge</h3>
                         <div id="poByDischarge" class="kt-chart"></div>
@@ -84,8 +86,12 @@
                         <h3>Proof obligations by predicate</h3>
                         <div id="poByRedicate" class="kt-chart"></div>
                     </paper-material>
-
                 </div>
+
+                <paper-material elevation="1" class="card panel flexchild">
+                    <h3>Functions by number of <b>assumptions</b> (top [[poByFunctionMaxRows]])</h3>
+                    <div id="assumptionsByFunction" class="kt-chart"></div>
+                </paper-material>
 
                 <!-- COL -->
                 <div class$="container flex-ver flexchild [[_hiddenIfNoPrimaries]]">
@@ -112,10 +118,12 @@
 
         .flex-hor {
             @apply(--layout-horizontal);
+            @apply(--layout-wrap);
         }
 
         .flex-ver {
             @apply(--layout-vertical);
+            @apply(--layout-wrap);
         }
 
         .flexchild {
@@ -124,6 +132,7 @@
         }
 
         .panel {
+            min-width: 350px;
             padding: var(--spacer);
             margin: var(--spacer);
             background-color: var(--kt-panel-bg);
@@ -177,6 +186,10 @@
                     newVal.updateChart(this, d3.select("#poByRedicate"));
                     newVal.updatePoByDischargeChart(this, d3.select("#poByDischarge"));
                     newVal.updatePoByFunctionChart(this.poByFunctionMaxRows, this, d3.select("#poByFunction"));
+                    newVal.updateAssumptionsByFunctionChart(this.poByFunctionMaxRows, this, d3.select("#assumptionsByFunction"));
+                    // newVal.updateInAssumptionsByFunctionChart(this.poByFunctionMaxRows, this, d3.select("#inAssumptionsByFunction"));
+
+
                     newVal.updatePoByFileChart(this, d3.select("#poByFile"));
 
                     newVal.updatePredicateByComplexityChart(this, d3.select("#complexityByPredicate"));
@@ -210,7 +223,7 @@
                     this.set("filter.dischargeTypes", new kt.util.StringSet([event.detail.row.toLowerCase()]));
                 }
 
-                if (src == this.$.poByFunction || src == this.$.cComplexityByFunction || src == this.$.pComplexityByFunction) {
+                if (src == this.$.poByFunction || src == this.$.cComplexityByFunction || src == this.$.pComplexityByFunction || src == this.$.assumptionsByFunction) {
                     console.log(event.detail);
                     this.filter.file = event.detail.row.fileInfo;
                     this.filter.cfunction = event.detail.row;
