@@ -94,7 +94,7 @@
                             <vaadin-split-layout class="splitter-3">
                                 <po-list id="main-po-list" filtered-proof-obligations="[[filteredProofObligations]]" linktosource showgroups selected-po="{{selectedPo}}"></po-list>
                                 <div id="right-panel" hidden$="[[!selectedAssumptions.length]]">
-                                    <h3>API assumptions</h3>
+                                    <h3>Depends on</h3>
                                     <assumptions-list filtered-assumptions="[[selectedAssumptions]]" linktosource></assumptions-list>
                                 </div>
                             </vaadin-split-layout>
