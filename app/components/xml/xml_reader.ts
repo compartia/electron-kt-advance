@@ -479,7 +479,7 @@ module kt.xml {
             var ambigous = {};
 
             for (let spo of spos) {
-                let files:Array<treeview.FileInfo> = functionsMap[spo.callsiteFname];
+                let files: Array<treeview.FileInfo> = functionsMap[spo.callsiteFname];
                 if (files) {
                     if (files.length > 1) {
                         // console.warn("ambigous fname");
