@@ -653,8 +653,8 @@ module kt.xml {
                 // console.info(spoKey + " --> " + spo.apiKey);
                 let api = apiMap[spo.apiKey];
                 if (api) {
-                    spo.addOutput(api);
-                    api.addInput(spo);
+                    spo.addInput(api);
+                    api.addOutput(spo);
                 } else {
                     missing.push({ spo: spo, "missing-api-assumption": spo.apiKey });
                     // console.warn("SPO " + spo.key + " refers missing api-assumption " + spo.apiKey);

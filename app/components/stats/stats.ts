@@ -175,6 +175,8 @@ module kt.stats {
         assumptionsByFunction: StatsTable<xml.CFunction>;
         inAssumptionsByFunction: StatsTable<xml.CFunction>;
 
+        dependenciesByFile: StatsTable<treeview.FileInfo>;
+
 
         private _primaryPredicatesCount: StatsTable<string>;
 
@@ -195,6 +197,7 @@ module kt.stats {
         }
 
         public build(project: Globals.Project) {
+            this.dependenciesByFile = new StatsTable<treeview.FileInfo>();
 
             this._primaryPredicatesCount = new StatsTable<string>();
 
@@ -207,8 +210,8 @@ module kt.stats {
 
             this.byFileLine = new StatsTable<string>();
             this.predicateByComplexity = new StatsTable<string>();
-            this.assumptionsByFunction= new StatsTable<xml.CFunction>();
-            this.inAssumptionsByFunction= new StatsTable<xml.CFunction>();
+            this.assumptionsByFunction = new StatsTable<xml.CFunction>();
+            this.inAssumptionsByFunction = new StatsTable<xml.CFunction>();
             this.complexityByFunction = new StatsTable<kt.xml.CFunction>();
             //
 
@@ -242,7 +245,11 @@ module kt.stats {
                 }
             }
 
-
+            for (let api of project.filteredProofObligations) {
+                this.dependenciesByFile.inc(api.file, "inputs", api.inputs.length);
+                this.dependenciesByFile.inc(api.file, "outputs", api.outputs.length);
+                this.dependenciesByFile.bind(api.file, api.cfunction.fileInfo);
+            }
 
             for (let po of project.filteredProofObligations) {
                 let functionKey = po.file + "/" + po.functionName;
@@ -265,10 +272,10 @@ module kt.stats {
                 this.byFunction.inc(functionKey, state, 1);
                 // this.byFunction.inc(functionKey, DEF_COL_NAME, 1);
                 this.byFunction.bind(functionKey, po.cfunction);
-                for(let linked of po.outputs){
+                for (let linked of po.outputs) {
                     this.assumptionsByFunction.inc(functionKey, (<model.ApiNode>linked).type, 1);
                 }
-                for(let linked of po.inputs){
+                for (let linked of po.inputs) {
                     this.inAssumptionsByFunction.inc(functionKey, (<model.ApiNode>linked).type, 1);
                 }
 
@@ -281,14 +288,14 @@ module kt.stats {
                 }
 
 
-                this.complexityByFile.inc(po.file, po.level, 1);
-                this.complexityByFile.bind(po.file, po.cfunction.fileInfo);
+                this.complexityByFile.inc(po.cfunction.fileInfo.relativePath, po.level, 1);
+                this.complexityByFile.bind(po.cfunction.fileInfo.relativePath, po.cfunction.fileInfo);
 
                 this.complexityByFunction.inc(functionKey, po.level, 1);
                 this.complexityByFunction.bind(functionKey, po.cfunction);
                 //------------
-                this.byFile.inc(po.file, state, 1);
-                this.byFile.bind(po.file, po.cfunction.fileInfo);
+                this.byFile.inc(po.cfunction.fileInfo.relativePath, state, 1);
+                this.byFile.bind(po.cfunction.fileInfo.relativePath, po.cfunction.fileInfo);
                 //------------
                 this.byState.inc(state, DEF_COL_NAME, 1);
                 this.byState.bind(state, state);
@@ -395,13 +402,31 @@ module kt.stats {
             charts.updateChart(scene, container,
                 {
                     data: data,
-                    colors: (x, index) => "var(--kt-state-assumption-"+columnNames[index] +"-bg)",
+                    colors: (x, index) => "var(--kt-state-assumption-" + columnNames[index] + "-bg)",
                     columnNames: columnNames,
                     label: x => x.object.name,
                     max: null
                 }
             );
         }
+
+
+        public updateDependenciesByFileChart(maxRows: number, scene, container: d3.Selection<any>) {
+            const table = this.dependenciesByFile;
+            const columnNames = table.columnNames;
+            const data: Array<NamedArray<treeview.FileInfo>> = table.getTopRows(maxRows);
+
+            charts.updateChart(scene, container,
+                {
+                    data: data,
+                    colors: (x, index) => { return (columnNames[index] == "inputs") ? "var(--kt-in-edge-highlight)" : "var(--kt-out-edge-highlight)" },
+                    columnNames: columnNames,
+                    label: (x: NamedArray<treeview.FileInfo>) => x.object.name,
+                    max: null
+                }
+            );
+        }
+
 
         public updateInAssumptionsByFunctionChart(maxRows: number, scene, container: d3.Selection<any>) {
             const table = this.inAssumptionsByFunction;
@@ -411,7 +436,7 @@ module kt.stats {
             charts.updateChart(scene, container,
                 {
                     data: data,
-                    colors: (x, index) => "var(--kt-state-assumption-"+columnNames[index] +"-bg)",
+                    colors: (x, index) => "var(--kt-state-assumption-" + columnNames[index] + "-bg)",
                     columnNames: columnNames,
                     label: x => x.object.name,
                     max: null
@@ -424,7 +449,7 @@ module kt.stats {
         public updatePoByFileChart(scene, container: d3.Selection<any>) {
             const table = this.byFile;
             const columnNames = table.columnNames;
-            const data: Array<NamedArray<kt.treeview.FileInfo>> = table.getTopRows(10);
+            const data: Array<NamedArray<treeview.FileInfo>> = table.getTopRows(10);
 
 
 
@@ -433,7 +458,7 @@ module kt.stats {
                     data: data,
                     colors: (x, index) => "var(--kt-state-" + columnNames[index] + "-default-bg)",
                     columnNames: columnNames,
-                    label: (x: NamedArray<kt.treeview.FileInfo>) => x.object.name,
+                    label: (x: NamedArray<treeview.FileInfo>) => x.object.name,
                     max: null
                 }
             );
@@ -457,6 +482,8 @@ module kt.stats {
                 d3.format(".2f")
             );
         }
+
+
 
 
         public updatComplexityByFunctionChart(showColumns: string[], maxRows: number, scene, container: d3.Selection<any>) {
@@ -493,6 +520,8 @@ module kt.stats {
                 d3.format(".2f")
             );
         }
+
+
 
 
 
