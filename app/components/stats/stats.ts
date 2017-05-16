@@ -245,11 +245,7 @@ module kt.stats {
                 }
             }
 
-            for (let api of project.filteredProofObligations) {
-                this.dependenciesByFile.inc(api.file, "inputs", api.inputs.length);
-                this.dependenciesByFile.inc(api.file, "outputs", api.outputs.length);
-                this.dependenciesByFile.bind(api.file, api.cfunction.fileInfo);
-            }
+
 
             for (let po of project.filteredProofObligations) {
                 let functionKey = po.file + "/" + po.functionName;
@@ -272,14 +268,17 @@ module kt.stats {
                 this.byFunction.inc(functionKey, state, 1);
                 // this.byFunction.inc(functionKey, DEF_COL_NAME, 1);
                 this.byFunction.bind(functionKey, po.cfunction);
+
                 for (let linked of po.outputs) {
                     this.assumptionsByFunction.inc(functionKey, (<model.ApiNode>linked).type, 1);
+                    this.dependenciesByFile.inc(po.file , (<model.ApiNode>linked).type, 1);
                 }
-                for (let linked of po.inputs) {
-                    this.inAssumptionsByFunction.inc(functionKey, (<model.ApiNode>linked).type, 1);
-                }
+                // for (let linked of po.inputs) {
+                //     this.inAssumptionsByFunction.inc(functionKey, (<model.ApiNode>linked).type, 1);
+                // }
 
                 this.assumptionsByFunction.bind(functionKey, po.cfunction);
+                this.dependenciesByFile.bind(po.file, po.cfunction.fileInfo);
 
                 for (let cCode of CPG) {
                     this.complexityByFunction.inc(functionKey, model.Complexitiy[model.Complexitiy[cCode]], po.complexity[model.Complexitiy[cCode]]);
@@ -307,7 +306,7 @@ module kt.stats {
 
                     dischargeType = dischargeType.toLowerCase();
 
-                    //-violation-ds-primary-
+                    //example: -violation-ds-primary-
                     this.byDischargeType.inc(dischargeType, state + "-" + dischargeType + "-" + po.level, 1);
                     this.byDischargeType.bind(dischargeType, dischargeType);
                 }
@@ -419,7 +418,7 @@ module kt.stats {
             charts.updateChart(scene, container,
                 {
                     data: data,
-                    colors: (x, index) => { return (columnNames[index] == "inputs") ? "var(--kt-in-edge-highlight)" : "var(--kt-out-edge-highlight)" },
+                    colors: (x, index) => "var(--kt-state-assumption-" + columnNames[index] + "-bg)",
                     columnNames: columnNames,
                     label: (x: NamedArray<treeview.FileInfo>) => x.object.name,
                     max: null
