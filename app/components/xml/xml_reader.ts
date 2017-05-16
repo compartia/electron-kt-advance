@@ -479,7 +479,7 @@ module kt.xml {
             var ambigous = {};
 
             for (let spo of spos) {
-                let files:Array<treeview.FileInfo> = functionsMap[spo.callsiteFname];
+                let files: Array<treeview.FileInfo> = functionsMap[spo.callsiteFname];
                 if (files) {
                     if (files.length > 1) {
                         // console.warn("ambigous fname");
@@ -581,13 +581,6 @@ module kt.xml {
 
                         parser.linkSpoApis(spoMap, apiMap);
 
-                        /**
-                            link DISCHARGE apis
-                        */
-
-                        parser.bindDischargeAssumptions(spoMap, apiMap);
-                        parser.bindDischargeAssumptions(ppoMap, apiMap);
-
                         let ret = new XmlAnalysis();
                         ret.apis = apiMap;
                         ret.spos = spoArr;
@@ -650,45 +643,18 @@ module kt.xml {
             let missing = [];
             for (let spoKey in spoMap) {
                 let spo = spoMap[spoKey];
-                // console.info(spoKey + " --> " + spo.apiKey);
                 let api = apiMap[spo.apiKey];
                 if (api) {
-                    spo.addOutput(api);
-                    api.addInput(spo);
+                    spo.addInput(api);
+                    api.addOutput(spo);
                 } else {
                     missing.push({ spo: spo, "missing-api-assumption": spo.apiKey });
-                    // console.warn("SPO " + spo.key + " refers missing api-assumption " + spo.apiKey);
                 }
 
             }
 
             if (missing.length) {
                 console.warn("some SPOs refer missing api-assumptions");
-                console.warn(missing);
-            }
-        }
-
-        private bindDischargeAssumptions(
-            spoMap: { [key: string]: model.ProofObligation },
-            apiMap: { [key: string]: model.ApiNode }) {
-
-            let missing = [];
-            for (let spoKey in spoMap) {
-                let spo = spoMap[spoKey];
-                let dischargeApiKey = spo.dischargeApiKey;
-                if (dischargeApiKey) {
-                    let api = apiMap[dischargeApiKey];
-                    if (api) {
-                        spo.addOutput(api);//XXX: Input? or Output?
-                        api.addInput(spo);
-                    } else {
-                        missing.push({ spo: spo, "missing-discharge-api-key": dischargeApiKey });
-                        // console.warn("SPO " + spo.key + " refers missing discharge assumption " + dischargeApiKey);
-                    }
-                }
-            }
-            if (missing.length) {
-                console.warn("some SPOs refer missing discharge assumptions");
                 console.warn(missing);
             }
         }

@@ -175,14 +175,31 @@ module kt.model {
             }
         }
 
-        public addInput(node: AbstractNode) {
-            if (!_.includes(this.inputs, node))
+        public addInput(node: AbstractNode): boolean {
+            if (_.includes(this.outputs, node)) {
+                console.error(node.key + " is already among of ouputs of this " + this.key);
+            }
+
+            if (!_.includes(this.inputs, node)) {
                 this.inputs.push(node);
+                return true;
+            } else {
+                return false;
+            }
+
         }
 
-        public addOutput(node: AbstractNode) {
-            if (!_.includes(this.outputs, node))
+        public addOutput(node: AbstractNode): boolean {
+            if (_.includes(this.inputs, node)) {
+                console.error(node.key + " is already among of inputs of this " + this.key);
+            }
+
+            if (!_.includes(this.outputs, node)) {
                 this.outputs.push(node);
+                return true;
+            } else {
+                return false;
+            }
         }
 
         public isLinked(): boolean {

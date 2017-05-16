@@ -88,11 +88,6 @@
                     </paper-material>
                 </div>
 
-                <paper-material elevation="1" class="card panel flexchild">
-                    <h3>Functions by number of <b>assumptions</b> (top [[poByFunctionMaxRows]])</h3>
-                    <div id="assumptionsByFunction" class="kt-chart"></div>
-                </paper-material>
-
                 <!-- COL -->
                 <div class$="container flex-ver flexchild [[_hiddenIfNoPrimaries]]">
 
@@ -105,7 +100,20 @@
                     </paper-material>
 
                 </div>
+            </div>
 
+            <!-- ROW -->
+            <div class="container flex-hor">
+                <paper-material elevation="1" class="card panel flexchild">
+                    <h3><b>Functions</b> by number of <b>PO dependencies</b> (top [[poByFunctionMaxRows]])</h3>
+                    <div id="assumptionsByFunction" class="kt-chart"></div>
+                </paper-material>
+
+
+                <paper-material elevation="1" class="card panel flexchild">
+                    <h3><b>Files</b> by number of <b>PO dependencies</b> (top [[poByFunctionMaxRows]])</h3>
+                    <div id="dependenciesByFileChart" class="kt-chart"></div>
+                </paper-material>
             </div>
         </div>
 
@@ -189,6 +197,7 @@
                     newVal.updateAssumptionsByFunctionChart(this.poByFunctionMaxRows, this, d3.select("#assumptionsByFunction"));
                     // newVal.updateInAssumptionsByFunctionChart(this.poByFunctionMaxRows, this, d3.select("#inAssumptionsByFunction"));
 
+                    newVal.updateDependenciesByFileChart(this.poByFunctionMaxRows, this, d3.select("#dependenciesByFileChart"));
 
                     newVal.updatePoByFileChart(this, d3.select("#poByFile"));
 
@@ -232,7 +241,7 @@
                     this.notifyPath("filter.cfunction");
                 }
 
-                if (src == this.$.poByFile || src == this.$.cComplexityByFile || src == this.$.pComplexityByFile) {
+                if (src == this.$.poByFile || src == this.$.cComplexityByFile || src == this.$.pComplexityByFile || src == this.$.dependenciesByFileChart) {
                     console.log(event.detail);
                     this.set("filter.file", event.detail.row);
                 }
