@@ -30,6 +30,7 @@ module kt.model {
             this.id = po["apiId"];
 
             this.location.textRange = po["textRange"];
+
         }
 
         get apiId(): string {
@@ -48,24 +49,9 @@ module kt.model {
             return model.PoStates.assumption;
         }
 
-        public makeName(filter: kt.Globals.Filter): string {
-            let nm = "";
 
-            if (!filter.file || kt.util.stripSlash(this.file) != filter.file.name) {
-                nm += kt.util.stripSlash(this.file) + SPL;
-            }
-
-            if (!filter.cfunction || this.functionName != filter.cfunction.name) {
-                nm += this.functionName + SPL;
-            }
-
-            if (this.predicateType != filter.singlePredicate) {
-                nm += this.predicateType + SPL;
-            }
-
-            nm += this.type + "_" + this.id;
-
-            return nm;
+        public makeName(filter: Globals.Filter, settings: Globals.GraphSettings): string {
+            return makeGraphNodePath(filter, settings, this.cfunction, this.predicateType, this.type + "_" + this.id);
         }
 
         get label(): string {
@@ -98,15 +84,15 @@ module kt.model {
                 }
             }
 
-
             return true;
         }
 
 
-        public asNodeDef(filter: Globals.Filter): tf.graph.proto.NodeDef {
+        public asNodeDef(filter: Globals.Filter, settings: Globals.GraphSettings): tf.graph.proto.NodeDef {
+
 
             let nodeDef: tf.graph.proto.NodeDef = {
-                name: this.makeName(filter),
+                name: this.makeName(filter, settings),
                 input: [],
                 output: [],
                 device: this.extendedState,
@@ -126,11 +112,12 @@ module kt.model {
             }
 
             for (let ref of this.inputs) {
-                nodeDef.input.push(ref.makeName(filter));
+                nodeDef.input.push(ref.makeName(filter, settings));
+
             }
 
             for (let ref of this.outputs) {
-                nodeDef.output.push(ref.makeName(filter));
+                nodeDef.output.push(ref.makeName(filter, settings));
             }
 
 
