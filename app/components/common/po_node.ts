@@ -147,7 +147,7 @@ module kt.model {
     export class POLocation {
         textRange: number[][];
 
-        get line() {
+        get line():number {
             if (this.textRange) {
                 return this.textRange[0][0];
             } else {
@@ -265,10 +265,6 @@ module kt.model {
             return "";
         }
 
-        get line(): string {
-            return this.location.line;
-        }
-
         get liftingType() {
             let dischargeType;
 
@@ -302,6 +298,10 @@ module kt.model {
         private _apiId: string = null;
 
         complexity: number[] = [0, 0, 0];
+
+        get line(): number {
+            return this.location.line;
+        }
 
         get callsiteFileName() {
             return this._callsiteFileName;
