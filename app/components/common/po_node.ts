@@ -116,6 +116,10 @@ module kt.model {
             return this._сfunction;
         }
 
+        set cfunction(func: xml.CFunction) {
+            this._сfunction = func;
+        }
+
         get file(): string {
             return this._сfunction.file;
         }
@@ -134,6 +138,7 @@ module kt.model {
             else
                 this._сfunction.file = f;
         }
+
         get key(): string {
             return makeKey(this.id, this.functionName, this.file);
         }
@@ -260,6 +265,10 @@ module kt.model {
             return "";
         }
 
+        get line(): string {
+            return this.location.line;
+        }
+
         get liftingType() {
             let dischargeType;
 
@@ -323,7 +332,7 @@ module kt.model {
             super();
             this.po = po;
             this.isMissing = isMissing;
-            this.file = po["file"];
+
             this._apiId = po["apiId"];
             this.level = po["level"];
             this.symbol = po["symbol"];
@@ -333,6 +342,7 @@ module kt.model {
             // this.outputs = [];
 
             this.predicate = po["predicateType"];
+            this.file = po["file"];
             this.functionName = po["functionName"];
             this.callsiteFname = po["callsiteFname"];
             this.callsiteFileName = po["callsiteFileName"];

@@ -44,14 +44,8 @@ module kt.parser {
         return reader.readFunctionsMap(path.dirname(project.analysisDir), readFunctionsMapTracker)
             .then(functions => {
 
-                let resultingMap: { [key: string]: Array<treeview.FileInfo> } = {};
+                let resultingMap = new model.FunctionsMap(functions);
 
-                for (let f of functions) {
-                    if (!resultingMap[f.name]) {
-                        resultingMap[f.name] = [];
-                    }
-                    resultingMap[f.name].push(f.fileInfo);
-                }
 
                 project.functionByFile = reader.buildFunctionsByFileMap(functions);
                 let result: Promise<xml.XmlAnalysis> = reader.readDir(project.analysisDir, resultingMap, readDirTracker);

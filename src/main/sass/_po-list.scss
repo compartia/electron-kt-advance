@@ -111,16 +111,17 @@ po-line {
             flex-flow  : row;
 
             .location {
-                float        : right;
+                // float        : right;
                 font-family  : $monospaced;
 
                 cursor       : pointer;
                 min-width    : $po-loc-width;
-                padding      : $spacer/4 $spacer;
+                padding      : $spacer/4 $spacer/2;
                 text-align   : right;
                 font-size    : $font-size-xs;
                 background   : $highlight;
                 border-radius: $spacer*2;
+                margin       : $spacer/3;
 
                 &:hover {
                     background: $highlight-hover;
@@ -138,7 +139,7 @@ po-line {
                 .inputs,
                 .outputs {
                     text-align   : center;
-                    margin       : $spacer/2;
+                    margin       : $spacer/3;
                     min-width    : 1em;
                     color        : $color-brand-2;
                     border-radius: $spacer*2;

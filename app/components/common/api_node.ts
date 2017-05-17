@@ -17,20 +17,10 @@ module kt.model {
 
         dependentPos: Array<string>;//used during parsing
 
-        constructor(po) {
+        constructor() {
             super();
-
             this.inputs = [];
             this.outputs = [];
-            this.predicateType = po["predicate"];
-            this.functionName = po["targetFuncName"];
-            this.message = po["message"];
-            this.file = po["file"];
-            this.type = po["type"] ? po["type"] : "unknown";
-            this.id = po["apiId"];
-
-            this.location.textRange = po["textRange"];
-
         }
 
         get line():number{

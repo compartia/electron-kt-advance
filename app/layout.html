@@ -346,10 +346,10 @@
 
                 this.set("filter.file", po.cfunction.fileInfo);
                 //this.set("filter.cfunction", po.cfunction);
-                this.set("filter.line", po.location.line);
+                this.set("filter.line", po.line);
 
                 var aftereffect = () => {
-                    this.$.sourceview.jumpToLine(po.location.line)
+                    this.$.sourceview.jumpToLine(po.line)
                 };
                 sourceview.maybeLoadFile(this.filter.file, aftereffect.bind(this));
             },

@@ -40,35 +40,18 @@
             <span class='right'>
 
                 <span class='assumptions'>
-
-                    <!-- <template is="dom-if" if="[[item.outputs.length]]">
-                        POs:[[item.outputs.length]]
-                        <iron-icon class="po-icon" icon="chevron-right"></iron-icon>
-                    </template>
-
-                    <template is="dom-if" if="[[item.inputs.length]]">
-                        POs:[[item.inputs.length]]
-                        <iron-icon class="po-icon" icon="chevron-right"></iron-icon>
-                    </template> -->
-
                     <template is="dom-if" if="[[item.outputs.length]]">
                         <span title="depends on POs" class="outputs">[[item.outputs.length]]</span>
                     </template>
                     <template is="dom-if" if="[[item.inputs.length]]">
                         <span title="dependend POs " class="inputs">[[item.inputs.length]]</span>
                     </template>
-
                 </span>
 
                 <span class="location" on-tap="jumpToSource" data=[[item]]>
-                    <iron-icon class="po-icon" icon="link"></iron-icon><span id="line" title$="[[item.file]]/[[item.functionName]]">L[[item.line]]</span>
+                    <iron-icon class="po-icon" icon="link"></iron-icon><span id="line" title$="[[item.file]]/[[item.functionName]]:[[item.line]]">L[[item.line]]</span>
                 </span>
 
-                <!-- <template is="dom-if" if="[[linktosource]]">
-                    <span class="location" on-tap="jumpToSource" data=[[item]]>
-                        <span id="line" title$="[[item.file]]/[[item.functionName]]">L [[item.location.line]]</span>
-                    </span>
-                </template> -->
             </span>
 
         </div>

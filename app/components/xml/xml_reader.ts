@@ -354,14 +354,15 @@ module kt.xml {
                 }
 
                 else if (tag.name == 'api-assumption' || tag.name == 'global-assumption' || tag.name == 'rv-assumption') {
-                    currentAssumption = new model.ApiNode({});
-                    currentAssumption.functionName = functionName;
-                    currentAssumption.id = tag.attributes["nr"];
+                    currentAssumption = new model.ApiNode();
 
                     currentAssumption.file = sourceFilename;
+                    currentAssumption.functionName = functionName;
+
+                    currentAssumption.id = tag.attributes["nr"];
 
                     if (tag.name == 'api-assumption') {
-                        currentAssumption.type = "api";
+                        currentAssumption.type = "api";//XXX Use kt.model.PoDischargeTypes enum
                     }
                     else if (tag.name == 'rv-assumption') {
                         currentAssumption.type = "rv";
@@ -474,20 +475,21 @@ module kt.xml {
 
         }
 
-        private bindCallsiteFunctions(spos: Array<model.ProofObligation>, functionsMap: { [key: string]: Array<treeview.FileInfo> }) {
+        private bindCallsiteFunctions(spos: Array<model.ProofObligation>, functionsMap:model.FunctionsMap) {
             var missing = [];
             var ambigous = {};
 
             for (let spo of spos) {
-                let files: Array<treeview.FileInfo> = functionsMap[spo.callsiteFname];
-                if (files) {
-                    if (files.length > 1) {
+                let funcs: Array<xml.CFunction> = functionsMap.findFuncs(spo.callsiteFname);
+                if (funcs) {
+                    if (funcs.length > 1) {
                         // console.warn("ambigous fname");
                         // console.warn(funcs);
-                        ambigous[spo.callsiteFname] = files;
-                    } else {
-                        spo.callsiteFileName = files[0].relativePath;//XXX:
+                        ambigous[spo.callsiteFname] = funcs;
                     }
+
+                    spo.callsiteFileName = funcs[0].fileInfo.relativePath;//XXX:
+
                 } else {
                     // let m = "source file is unknow for the function name " + spo.callsiteFname;
                     missing.push(spo.callsiteFname);
@@ -523,7 +525,13 @@ module kt.xml {
             return apiFiles;
         }
 
-        public readDir(dirName: string, functionsMap: { [key: string]: Array<treeview.FileInfo> }, tracker: tf.ProgressTracker): Promise<XmlAnalysis> {
+        public rebindCFunctions(apis: Array<model.ApiNode>, functionsMap:model.FunctionsMap){
+            for(let apiNode of apis){
+                apiNode.cfunction=functionsMap.findFunc(apiNode.file, apiNode.functionName);
+            }
+        }
+
+        public readDir(dirName: string, functionsMap: model.FunctionsMap, tracker: tf.ProgressTracker): Promise<XmlAnalysis> {
             // this.readPPOs(dirName);
             const parser = this;
             let spoMap;
@@ -568,6 +576,7 @@ module kt.xml {
 
                 return parser.parseFiles(apiFiles, parser.parseApiXml, apiTracker)
                     .then(apis => {
+                        parser.rebindCFunctions(apis, functionsMap);
                         apiMap = _.indexBy(apis, "key");
 
                         /**
