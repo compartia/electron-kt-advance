@@ -20,7 +20,6 @@ $po-violation: $red;
 $po-discharged: $green;
 $po-assumption: desaturate(lighten($ian_gillan, 45%), 20%);
 
-
 $main-bg: lighten($base-bg, 50%);
 $side-bg: mix($base-bg, $main-bg, 5%);
 $side-bg-2: mix($side-bg, $base-bg, 85%);
@@ -31,8 +30,16 @@ $selection-border: darken($selection-bg, 20%);
 $selection-lt-bg: $side-bg;
 $selection-lt-border: darken($selection-lt-bg, 20%);
 
+$highlight: transparentize($selection-bg, 0.7);
+$highlight-hover: transparentize($selection-bg, 0.35);
+
+$kt-out-edge: lighten($red, 5%);
+$kt-in-edge: $blue;
+
 :root {
 
+    --selection-lt-bg                     : $selection-lt-bg;
+    --selection-bg                        : $selection-bg;
 
     --kt-po-primary-tx                    : darken($ian_gillan, 1%);
     --kt-po-secondary-tx                  : darken($side-bg,50%);
@@ -66,8 +73,15 @@ $selection-lt-border: darken($selection-lt-bg, 20%);
 
     --kt-edge                             : lighten($grey,30%);
     --kt-edge-highlight                   : lighten($ian_gillan, 5%);
-    --kt-out-edge-highlight               : lighten($red, 5%);
-    --kt-in-edge-highlight                : lighten($ian_gillan, 5%);
+
+    --kt-out-edge-highlight               : $kt-out-edge;
+    --kt-in-edge-highlight                : $kt-in-edge;
+
+    --kt-out-edge-bg                      : transparentize($kt-out-edge, 0.65);
+    --kt-in-edge-bg                       : transparentize($kt-in-edge, 0.65);
+    --kt-out-edge-bg-hover                : transparentize($kt-out-edge, 0.45);
+    --kt-in-edge-bg-hover                 : transparentize($kt-in-edge, 0.45);
+
     --kt-edge-text                        : darken($grey, 20%);
 
     /* STATES =========== */

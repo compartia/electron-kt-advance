@@ -33,6 +33,10 @@ module kt.model {
 
         }
 
+        get line():number{
+            return this.cfunction.line;
+        }
+
         get apiId(): string {
             return this.id;
         }

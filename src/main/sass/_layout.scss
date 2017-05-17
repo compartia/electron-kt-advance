@@ -17,18 +17,25 @@ kt-layout {
     background: $main-bg;
 
     #right-panel {
-        background: $side-bg-2;
-        width     : $right-panel-width;
+        background : $selection-lt-bg;
+        width      : $right-panel-width;
+        padding-top: $filter-panel-height;
+
+        h3 {
+            padding: 2*$spacer $spacer $spacer;
+        }
+    }
+
+    #main-assumptions-list,
+    #main-po-list {
+        width: 100%-$right-panel-width;
         padding-top: $filter-panel-height;
     }
 
-    #main-po-list, #main-assumptions-list {
-        width: 100%-$right-panel-width;
-    }
-
-
-
     iron-pages#contents {
+
+
+
         // height    : 100vh;
         width     : 100%;
 
