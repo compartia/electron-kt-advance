@@ -421,7 +421,7 @@ function dagreLayout(
   _.each(graph.edges(), edgeObj => {
     _.each(graph.edge(edgeObj).points, (point: render.Point) => {
         point.x -= minX;
-        point.y -= minY;
+        point.y -= minY + Math.random()/100.0;
       });
   });
 
