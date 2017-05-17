@@ -4,9 +4,6 @@
         <div class$="po row [[_getClass(item)]]" title$="[[item.id]] [[item.file]]/[[item.functionName]]:[[item.location.line]]">
             <span class='left'>
                 <iron-icon class="po-icon" icon$="{{_computeIcon(item)}}" on-click="select"></iron-icon>
-
-                <!-- <span class="po-id">{{item.id}}</span> -->
-
                 <span class$="level-[[item.level]]">[[item.levelLabel]]</span>
             </span>
             <span class='mid'>
@@ -18,7 +15,6 @@
                         :<span class="discharge">{{item.dischargeType}}</span>
                     </template>
                 </span>
-
 
                 <span class="predicate">
                     <span class="predicate-name">
@@ -43,9 +39,7 @@
             </span>
             <span class='right'>
 
-                <!-- <template is="dom-if" if="[[item.inputs.length]]"> -->
                 <span class='assumptions'>
-
 
                     <template is="dom-if" if="[[item.outputs.length]]">
                         <span title="api assumptions" class="outputs">[[item.outputs.length]]</span>
@@ -54,15 +48,15 @@
                         <span title="depends on assumptions" class="inputs">[[item.inputs.length]]</span>
                     </template>
 
-
                 </span>
 
                 <template is="dom-if" if="[[linktosource]]">
                     <span class="location" on-tap="jumpToSource" data=[[item]]>
-                        <iron-icon class="po-icon" icon="link"></iron-icon><span id="line" title$="[[item.file]]/[[item.functionName]]">L[[item.location.line]]</span>
+                        <iron-icon class="po-icon" icon="link"></iron-icon>
+                        <span class="line" title$="[[item.file]]/[[item.functionName]]">L[[item.location.line]]</span>
                     </span>
                 </template>
-                <!-- </template> -->
+
             </span>
         </div>
 
@@ -107,8 +101,6 @@
                 console.error(node);
 
             },
-
-            // _clickListener: function(e) {}
 
         });
     </script>

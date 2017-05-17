@@ -7,13 +7,6 @@
             </span>
 
             <span class="mid">
-                <!-- <span class="po-id">{{item.id}}</span> -->
-
-                <template is="dom-if" if="[[linktosource]]">
-                    <span class="location" on-tap="jumpToSource" data=[[item]]>
-                        <span id="line" title$="[[item.file]]/[[item.functionName]]">L [[item.location.line]]</span>
-                    </span>
-                </template>
 
                 <span class="predicate">
                     <span class="predicate-name">
@@ -49,7 +42,8 @@
                 </span>
 
                 <span class="location" on-tap="jumpToSource" data=[[item]]>
-                    <iron-icon class="po-icon" icon="link"></iron-icon><span id="line" title$="[[item.file]]/[[item.functionName]]:[[item.line]]">L[[item.line]]</span>
+                    <iron-icon class="po-icon" icon="link"></iron-icon>
+                    <span class="line" title$="[[item.file]]/[[item.functionName]]:[[item.line]]">L[[item.line]]</span>
                 </span>
 
             </span>
@@ -82,7 +76,6 @@
                 } else {
                     return "";
                 }
-
             },
 
             _getClass: function(node) {

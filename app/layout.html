@@ -89,31 +89,36 @@
 
                             <source-view id="sourceview" current-project="[[currentProject]]" statistics="[[statistics]]"></source-view>
 
-
                             <!-- POs -->
-                            <vaadin-split-layout class="splitter-3">
-                                <po-list id="main-po-list" filtered-proof-obligations="[[filteredProofObligations]]" linktosource showgroups selected-po="{{selectedPo}}"></po-list>
-                                <div id="right-panel" hidden$="[[!dependentAssumptions.length]]">
-                                    <h3>Dependent assumptions</h3>
-                                    <assumptions-list filtered-assumptions="[[dependentAssumptionsIn]]" linktosource></assumptions-list>
+                            <div>
+                                <template  is="dom-if" if="{{showPoTab(modeIndex)}}">
+                                    <vaadin-split-layout class="splitter-3">
+                                        <po-list id="main-po-list" filtered-proof-obligations="[[filteredProofObligations]]" linktosource showgroups selected-po="{{selectedPo}}"></po-list>
+                                        <div id="right-panel" hidden$="[[!dependentAssumptions.length]]">
+                                            <h3>Dependent assumptions</h3>
+                                            <assumptions-list filtered-assumptions="[[dependentAssumptionsIn]]" linktosource></assumptions-list>
 
+                                            <h3>Depends on assumptions</h3>
+                                            <assumptions-list filtered-assumptions="[[dependentAssumptionsOut]]" linktosource></assumptions-list>
+                                        </div>
+                                    </vaadin-split-layout>
+                                </template>
+                            </div>
 
-                                    <h3>Depends on assumptions</h3>
-                                    <assumptions-list filtered-assumptions="[[dependentAssumptionsOut]]" linktosource></assumptions-list>
-                                </div>
-                            </vaadin-split-layout>
+                            <div>
+                                <template is="dom-if" if="{{showAssumptionsTab(modeIndex)}}">
+                                    <vaadin-split-layout class="splitter-3">
+                                        <assumptions-list id="main-assumptions-list" filtered-assumptions="[[filteredAssumptions]]" selected-assumptions="{{selectedAssumptions}}" linktosource></assumptions-list>
+                                        <div id="right-panel">
+                                            <h3>Dependent Proof obligations</h3>
+                                            <po-list filtered-proof-obligations="[[dependentProofObligationsIn]]" linktosource showgroups></po-list>
 
-
-                            <vaadin-split-layout class="splitter-3">
-                                <assumptions-list id="main-assumptions-list" filtered-assumptions="[[filteredAssumptions]]" selected-assumptions="{{selectedAssumptions}}" linktosource></assumptions-list>
-                                <div id="right-panel">
-                                    <h3>Dependent Proof obligations</h3>
-                                    <po-list filtered-proof-obligations="[[dependentProofObligationsIn]]" linktosource showgroups></po-list>
-
-                                    <h3>Depends on Proof obligations</h3>
-                                    <po-list filtered-proof-obligations="[[dependentProofObligationsOut]]" linktosource showgroups></po-list>
-                                </div>
-                            </vaadin-split-layout>
+                                            <h3>Depends on Proof obligations</h3>
+                                            <po-list filtered-proof-obligations="[[dependentProofObligationsOut]]" linktosource showgroups></po-list>
+                                        </div>
+                                    </vaadin-split-layout>
+                                </template>
+                            </div>
 
                             <tf-graph-board
                                 id="graphboard"
@@ -203,7 +208,8 @@
                 }
 
             }
-            .splitter-1, .splitter-3 {
+            .splitter-1,
+            .splitter-3 {
                 --vaadin-split-layout-splitter: {
                     background: var(--paper-tree-selected-background-color);
                     fill: var(--paper-tree-selected-background-color);
@@ -231,7 +237,6 @@
                     fill: var(--selection-lt-bg);
                 };
             }
-
 
             .global-actions {
                 flex-grow: 2;
@@ -301,10 +306,7 @@
                     notify: true
                 },
 
-                // dependentProofObligations: {
-                //     type: Object,
-                //     notify: true
-                // },
+                // dependentProofObligations: {     type: Object,     notify: true },
 
                 filteredAssumptions: {
                     type: Object,
@@ -323,11 +325,11 @@
                 },
 
                 selectedPo: {
-                    type: Object,
+                    type: Object
                 },
 
                 selectedAssumptions: {
-                    type: Object,
+                    type: Object
                 },
 
                 disabledTabs: String
@@ -338,7 +340,17 @@
                 "jump-to-src": "_onJumpToSrc"
             },
 
-            observers: ['filterChanged(filter.*)', '_selectedPoChanged(selectedPo)', '_selectedAssumptionsChanged(selectedAssumptions)'],
+            observers: [
+                'filterChanged(filter.*)', '_selectedPoChanged(selectedPo)', '_selectedAssumptionsChanged(selectedAssumptions)'
+            ],
+
+            showPoTab: function(mode) {
+                return mode != 4;
+            },
+
+            showAssumptionsTab: function(mode) {
+                return mode != 4;
+            },
 
             _onJumpToSrc: function(event) {
                 var po = event.detail;
@@ -354,24 +366,22 @@
                 sourceview.maybeLoadFile(this.filter.file, aftereffect.bind(this));
             },
 
-            _selectedPoChanged:function(list){
-                var assumptionsOut=[];
-                var assumptionsIn=[];
-                for(var i=0; i<list.length; i++){
+            _selectedPoChanged: function(list) {
+                var assumptionsOut = [];
+                var assumptionsIn = [];
+                for (var i = 0; i < list.length; i++) {
                     assumptionsOut = assumptionsOut.concat(list[i].outputs);
                     assumptionsIn = assumptionsIn.concat(list[i].inputs);
                 }
-                //XXX: make list of unique!
-
-                // pos=this.filter.filterAssumptions(assumptions);
+                //XXX: make list of unique! pos=this.filter.filterAssumptions(assumptions);
                 this.set("dependentAssumptionsIn", assumptionsIn);
                 this.set("dependentAssumptionsOut", assumptionsOut);
             },
 
-            _selectedAssumptionsChanged:function(list){
-                var posIn=[];
-                var posOut=[];
-                for(var i=0; i<list.length; i++){
+            _selectedAssumptionsChanged: function(list) {
+                var posIn = [];
+                var posOut = [];
+                for (var i = 0; i < list.length; i++) {
                     posIn = posIn.concat(list[i].inputs);
                     posOut = posOut.concat(list[i].outputs);
                 }
