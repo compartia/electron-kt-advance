@@ -7,23 +7,22 @@ module kt.parser {
 
         let nodesMap = {};
 
+        let settings = new Globals.GraphSettings(); //XXX: provide real settings
+
         for (let ppo of pos) {
             if (ppo.isLinked()) {
-                if (!ppo.isTotallyDischarged()) {
-                    let node: tf.graph.proto.NodeDef = ppo.asNodeDef(filter);
-                    g.push(node);
-                }
+                let node: tf.graph.proto.NodeDef = ppo.asNodeDef(filter, settings);
+                g.push(node);
             }
         }
 
         for (var api of apis) {
             if (api.isLinked()) {
-                if (!api.isTotallyDischarged()) {
-                    let node: tf.graph.proto.NodeDef = api.asNodeDef(filter);
-                    g.push(node);
-                }
+                let node: tf.graph.proto.NodeDef = api.asNodeDef(filter, settings);
+                g.push(node);
             }
         }
+
 
 
         console.info["NUMBER of nodes: " + g.length];
@@ -32,7 +31,7 @@ module kt.parser {
 
 
 
-    export function readAndParse(project: Globals.Project, tracker: tf.ProgressTracker): Promise<Globals.Project> {
+    export function readAndParse(project: Globals.Project, tracker: tf.ProgressTracker): Promise<kt.Globals.Project> {
 
         let reader: xml.XmlReader = new xml.XmlReader();
 
@@ -45,14 +44,8 @@ module kt.parser {
         return reader.readFunctionsMap(path.dirname(project.analysisDir), readFunctionsMapTracker)
             .then(functions => {
 
-                let resultingMap: { [key: string]: Array<xml.CFunction> } = {};
+                let resultingMap = new model.FunctionsMap(functions);
 
-                for (let f of functions) {
-                    if (!resultingMap[f.name]) {
-                        resultingMap[f.name] = [];
-                    }
-                    resultingMap[f.name].push(f);
-                }
 
                 project.functionByFile = reader.buildFunctionsByFileMap(functions);
                 let result: Promise<xml.XmlAnalysis> = reader.readDir(project.analysisDir, resultingMap, readDirTracker);
@@ -61,6 +54,9 @@ module kt.parser {
             .then((POs: xml.XmlAnalysis) => {
                 project.proofObligations = model.sortPoNodes(POs.ppos.concat(POs.spos));
                 project.apis = POs.apis;
+
+                // let g: tf.graph.proto.NodeDef[] = buildGraph(project.proofObligations, project.apis);
+                // return g;
 
                 return project;
             });

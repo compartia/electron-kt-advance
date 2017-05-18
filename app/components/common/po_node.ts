@@ -3,8 +3,6 @@ module kt.model {
 
     export const PoLevels = ["primary", "secondary"];
     export enum Complexitiy { P, C, G };
-
-    // export enum PoLevels {primary, secondary};
     export enum PoStatesExt { violation, open, discharged, global, invariants, ds, rv, api };
     export enum PoStates { violation, open, discharged, assumption };
 
@@ -25,6 +23,42 @@ module kt.model {
     }
 
 
+    export function makeGraphNodePath(filter: Globals.Filter, settings: Globals.GraphSettings, func: xml.CFunction, predicate: string, name: string): string {
+        let pathParts: string[] = [];
+
+        let fileBaseName: string = path.basename(func.fileInfo.relativePath);
+
+        let addFile: boolean = !filter.file || (func.fileInfo.relativePath != filter.file.relativePath);
+        let addFunction: boolean = !filter.cfunction || func.name != filter.cfunction.name;
+        let addPredicate: boolean = predicate != filter.singlePredicate;
+
+        if (settings.groupBy === Globals.GraphGrouppingOptions.file) {
+            if (addFile) {
+                pathParts.push(fileBaseName);
+            }
+            if (addFunction) {
+                pathParts.push(func.name);
+            }
+            if (addPredicate) {
+                pathParts.push(predicate);
+            }
+        } else {
+            //same but different order
+            if (addPredicate) {
+                pathParts.push(predicate);
+            }
+            if (addFile) {
+                pathParts.push(fileBaseName);
+            }
+            if (addFunction) {
+                pathParts.push(func.name);
+            }
+        }
+
+        pathParts.push(name);
+
+        return pathParts.join(SPL);
+    }
 
 
     export function compareStates(stateA: string, stateB: string): number {
@@ -82,6 +116,10 @@ module kt.model {
             return this._сfunction;
         }
 
+        set cfunction(func: xml.CFunction) {
+            this._сfunction = func;
+        }
+
         get file(): string {
             return this._сfunction.file;
         }
@@ -100,6 +138,7 @@ module kt.model {
             else
                 this._сfunction.file = f;
         }
+
         get key(): string {
             return makeKey(this.id, this.functionName, this.file);
         }
@@ -108,10 +147,10 @@ module kt.model {
     export class POLocation {
         textRange: number[][];
 
-        get line() {
-            if(this.textRange){
+        get line():number {
+            if (this.textRange) {
                 return this.textRange[0][0];
-            }else{
+            } else {
                 return 0;
             }
 
@@ -121,6 +160,7 @@ module kt.model {
         inputs: AbstractNode[];
         outputs: AbstractNode[];
         location: POLocation = new POLocation();
+        symbol: xml.Symbol;
 
         constructor() {
             super();
@@ -128,14 +168,43 @@ module kt.model {
             this.outputs = [];
         }
 
-        public addInput(node: AbstractNode) {
-            if (!_.includes(this.inputs, node))
-                this.inputs.push(node);
+        get predicateArgument(): string {
+            if (this.symbol) {
+                if (this.symbol.type == xml.SymbolType.ID) {
+                    return this.symbol.value;
+                } else {
+                    return '"' + this.symbol.value + '"';
+                }
+            } else {
+                return null;
+            }
         }
 
-        public addOutput(node: AbstractNode) {
-            if (!_.includes(this.outputs, node))
+        public addInput(node: AbstractNode): boolean {
+            if (_.includes(this.outputs, node)) {
+                console.error(node.key + " is already among of ouputs of this " + this.key);
+            }
+
+            if (!_.includes(this.inputs, node)) {
+                this.inputs.push(node);
+                return true;
+            } else {
+                return false;
+            }
+
+        }
+
+        public addOutput(node: AbstractNode): boolean {
+            if (_.includes(this.inputs, node)) {
+                console.error(node.key + " is already among of inputs of this " + this.key);
+            }
+
+            if (!_.includes(this.outputs, node)) {
                 this.outputs.push(node);
+                return true;
+            } else {
+                return false;
+            }
         }
 
         public isLinked(): boolean {
@@ -149,7 +218,7 @@ module kt.model {
             return PoStates[this.state];
         }
 
-        public abstract makeName(filter: Globals.Filter): string;
+        public abstract makeName(filter: Globals.Filter, settings: Globals.GraphSettings): string;
 
 
         public isTotallyDischarged(): boolean {
@@ -172,6 +241,9 @@ module kt.model {
 
             return true;
         }
+
+
+
     }
 
     export class PODischarge extends POId {
@@ -222,10 +294,14 @@ module kt.model {
 
         callsiteFname: string;
         private _callsiteFileName: string;
-        symbol: xml.Symbol;
+
         private _apiId: string = null;
 
         complexity: number[] = [0, 0, 0];
+
+        get line(): number {
+            return this.location.line;
+        }
 
         get callsiteFileName() {
             return this._callsiteFileName;
@@ -256,7 +332,7 @@ module kt.model {
             super();
             this.po = po;
             this.isMissing = isMissing;
-            this.file = po["file"];
+
             this._apiId = po["apiId"];
             this.level = po["level"];
             this.symbol = po["symbol"];
@@ -266,6 +342,7 @@ module kt.model {
             // this.outputs = [];
 
             this.predicate = po["predicateType"];
+            this.file = po["file"];
             this.functionName = po["functionName"];
             this.callsiteFname = po["callsiteFname"];
             this.callsiteFileName = po["callsiteFileName"];
@@ -357,17 +434,6 @@ module kt.model {
                 return -1;
         }
 
-        get predicateArgument(): string {
-            if (this.symbol) {
-                if (this.symbol.type == xml.SymbolType.ID) {
-                    return this.symbol.value;
-                } else {
-                    return '"' + this.symbol.value + '"';
-                }
-            } else {
-                return null;
-            }
-        }
 
         get extendedState(): string {
             let stateExt = this.dischargeType;
@@ -395,33 +461,23 @@ module kt.model {
             return this.inputs.length > 0 || this.outputs.length > 0;
         }
 
-        public makeName(filter: Globals.Filter): string {
-            let nm = "";
-            if (!filter.file || util.stripSlash(this.file) != filter.file.name) {
-                nm += util.stripSlash(this.file) + SPL;
-            }
 
-            if (!filter.cfunction || this.functionName != filter.cfunction.name) {
-                nm += this.functionName + SPL;
-            }
-
-            if (this.predicate != filter.singlePredicate) {
-                nm += this.predicate + SPL;
-            }
-
-            nm += this.level + "(" + this.id + ")";
+        public makeName(filter: Globals.Filter, settings: Globals.GraphSettings): string {
+            let nm = this.levelLabel + "(" + this.id + ")";
 
             if (this.symbol) {
                 nm += this.symbol.pathLabel;
             } else {
                 nm += "-expression-";
             }
-            return nm;
+
+
+            return makeGraphNodePath(filter, settings, this.cfunction, this.predicate, nm);
         }
 
 
         get label(): string {
-            let _nm = this.level + " (" + this.id + ") ";
+            let _nm = this.levelLabel + " (" + this.id + ") ";
 
             if (this.symbol) {
                 _nm += this.symbol.pathLabel;
@@ -431,10 +487,6 @@ module kt.model {
 
             return _nm;
         }
-
-
-
-
 
 
 
@@ -451,12 +503,12 @@ module kt.model {
             return this._apiId;
         }
 
-        public asNodeDef(filter: Globals.Filter): tf.graph.proto.NodeDef {
+        public asNodeDef(filter: Globals.Filter, settings: Globals.GraphSettings): tf.graph.proto.NodeDef {
             const po = this.po;
 
 
             let nodeDef: tf.graph.proto.NodeDef = {
-                name: this.makeName(filter),
+                name: this.makeName(filter, settings),
                 input: [],
                 output: [],
                 device: this.extendedState,
@@ -479,11 +531,12 @@ module kt.model {
             }
 
             for (let ref of sortNodes(this.inputs)) {
-                nodeDef.input.push(ref.makeName(filter));
+                nodeDef.input.push(ref.makeName(filter, settings));
+
             }
 
             for (let ref of sortNodes(this.outputs)) {
-                nodeDef.output.push(ref.makeName(filter));
+                nodeDef.output.push(ref.makeName(filter, settings));
             }
 
             return nodeDef;

@@ -1,11 +1,5 @@
 module kt.util {
 
-    export function stripSlash(file: string): string {
-        let last = file.lastIndexOf("/");
-        return file.substr(last + 1);
-    }
-
-
     export function addToSet(array: Array<any>, value: any) {
         if (array.indexOf(value) === -1) {
             array.push(value);

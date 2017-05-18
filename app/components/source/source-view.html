@@ -9,15 +9,13 @@
                 <template>
                     <div>
                         <div class$="code-line [[_getClass(_loadedFile, index, statistics, selected)]]">
-
                             <span class="info">
                                 <span id="line-number">[[_lineNumber(index)]]</span>
                                 <node-decorator show-count="true" statistics="[[_getStatsByLine(_loadedFile, index, statistics)]]"></node-decorator>
                             </span>
-
                             <pre class="text">[[item.text]]</pre>
-
                         </div>
+
                         <template is="dom-if" if="[[showAtLinePos(item, selected)]]">
                             <po-list filtered-proof-obligations="[[getPosAtLine(_loadedFile, index, statistics)]]"></po-list>
                         </template>
@@ -38,7 +36,8 @@
                 _loadedFile: Object,
 
                 lines: {
-                    type: String
+                    type: Array,
+                    notify: true
                 },
 
                 statistics: {
@@ -47,8 +46,8 @@
                 }
             },
 
-            showAtLinePos: function(item, selected){
-                return selected ? true : false;
+            showAtLinePos: function(item, selected) {
+                return selected;
             },
 
             getPosAtLine: function(file, index, statistics) {
@@ -75,27 +74,29 @@
                         if (stats[kt.model.PoStates[kt.model.PoStates.discharged]] > 0) {
                             clazz += " " + kt.model.PoStates[kt.model.PoStates.discharged];
                         }
-
                     }
-
                 }
-                if(selected){
-                    clazz+=" selected";
+                if (selected) {
+                    clazz += " selected";
                 }
                 return clazz;
             },
 
             jumpToLine: function(line) {
                 if (!line) {
-                    line = 0;
+                    line = 1;
                 }
-                if (line > 4)
-                    line = line - 4;
+                var jump = line;
+                if (line > 4){
+                    jump = line - 4;
+                }
 
                 var task = function() {
-                    if (this.$.listOfLines.items)
-                        this.$.listOfLines.scrollToIndex(line);
+                    if (this.$.listOfLines.items){
+                        this.$.listOfLines.scrollToIndex(jump);
+                        this.$.listOfLines.selectItem(this.lines[line-1]);
                     }
+                }
                 setTimeout(task.bind(this), 100);
 
             },
@@ -105,7 +106,6 @@
             },
 
             maybeLoadFile: function(newFile, aftereffect) {
-                // console.error("maybeLoadFile:"+this._shouldLoad(newFile));
                 if (this._shouldLoad(newFile)) {
                     this._loadedFile = newFile;
                     //XXX: handle errors;

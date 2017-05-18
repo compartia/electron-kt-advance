@@ -1,20 +1,12 @@
-<dom-module id="po-line">
+<dom-module id="assumption-line">
     <template>
 
         <div class$="po row [[_getClass(item)]]" title$="[[item.id]] [[item.file]]/[[item.functionName]]:[[item.location.line]]">
-            <span class='left'>
-                <iron-icon class="po-icon" icon$="{{_computeIcon(item)}}" on-click="select"></iron-icon>
-                <span class$="level-[[item.level]]">[[item.levelLabel]]</span>
+            <span class="left">
+                <iron-icon class="po-icon" icon$="{{_computeIcon(item)}}" title$="{{item.type}}"></iron-icon>
             </span>
-            <span class='mid'>
 
-                <span class="state">
-
-                    [[item.stateName]]
-                    <template is="dom-if" if="[[item.dischargeType]]">
-                        :<span class="discharge">{{item.dischargeType}}</span>
-                    </template>
-                </span>
+            <span class="mid">
 
                 <span class="predicate">
                     <span class="predicate-name">
@@ -37,40 +29,36 @@
                     </template>
                 </template>
             </span>
+
             <span class='right'>
 
                 <span class='assumptions'>
-
                     <template is="dom-if" if="[[item.outputs.length]]">
-                        <span title="api assumptions" class="outputs">[[item.outputs.length]]</span>
+                        <span title="depends on POs" class="outputs">[[item.outputs.length]]</span>
                     </template>
                     <template is="dom-if" if="[[item.inputs.length]]">
-                        <span title="depends on assumptions" class="inputs">[[item.inputs.length]]</span>
+                        <span title="dependend POs " class="inputs">[[item.inputs.length]]</span>
                     </template>
-
                 </span>
 
-                <template is="dom-if" if="[[linktosource]]">
-                    <span class="location" on-tap="jumpToSource" data=[[item]]>
-                        <iron-icon class="po-icon" icon="link"></iron-icon>
-                        <span class="line" title$="[[item.file]]/[[item.functionName]]">L[[item.location.line]]</span>
-                    </span>
-                </template>
+                <span class="location" on-tap="jumpToSource" data=[[item]]>
+                    <iron-icon class="po-icon" icon="link"></iron-icon>
+                    <span class="line" title$="[[item.file]]/[[item.functionName]]:[[item.line]]">L[[item.line]]</span>
+                </span>
 
             </span>
+
         </div>
 
     </template>
 
     <script>
         Polymer({
-            is: 'po-line',
+            is: 'assumption-line',
 
             properties: {
                 item: Object,
-
                 linktosource: Boolean
-
             },
 
             jumpToSource: function(event) {
@@ -88,7 +76,6 @@
                 } else {
                     return "";
                 }
-
             },
 
             _getClass: function(node) {
@@ -101,6 +88,8 @@
                 console.error(node);
 
             },
+
+            _clickListener: function(e) {}
 
         });
     </script>

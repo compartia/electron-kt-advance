@@ -4,16 +4,16 @@
 $po-id-width: $spacer*5;
 $po-id-padding: $spacer/2;
 
-$po-loc-width: $spacer*5;
+$po-loc-width: $spacer*4;
 $po-loc-padding: $spacer/2;
 
 $po-icon-width: 16px;
 
 po-list {
     .headline {
-        background: $side-bg;
-        padding   : $spacer;
-        color     : $grey-lighter;
+        // background: $side-bg;
+        padding: $spacer*2 $spacer $spacer;
+        color  : $grey-lighter;
 
         .function {
             display    : inline-block;
@@ -26,27 +26,38 @@ po-list {
             display: inline-block;
             color  : $grey-lighter;
         }
-
     }
-
 }
 
+.po-wrapper {
+    padding: 0;
+    margin : 0;
+}
 
+.po-wrapper.selected {
+    background: $selection-lt-bg;
+}
 
+assumption-line,
 po-line {
     .row > span {
         display: inline-block;
     }
 
     .row {
-        padding      : $spacer/2 $spacer;
+        padding    : $spacer/2 $spacer;
         //border-bottom: 1px solid var(--kt-grey-lighter);
-        box-sizing: border-box;
+        box-sizing : border-box;
         border-left: 3px solid $transparent;
+        display    : flex;
+        align-items: center;
+        flex-flow  : row;
 
         .po-icon {
-            width : $po-icon-width;
-            height: $po-icon-width;
+            width     : $po-icon-width;
+            height    : $po-icon-width;
+            min-width : $po-icon-width;
+            min-height: $po-icon-width;
         }
 
         .po-id {
@@ -72,14 +83,87 @@ po-line {
 
         }
 
-        .location {
-            float          : right;
-            font-family    : $monospaced;
-            text-decoration: underline;
-            cursor         : pointer;
-            min-width      : $po-loc-width;
-            padding        : 0 $po-loc-padding;
-            text-align     : right;
+        .left,
+        .mid,
+        .right {
+            display: flex;
+        }
+
+        .left {
+            padding-right: $spacer;
+            align-items  : center;
+            flex-flow    : row;
+        }
+
+        .mid {
+            flex       : 1;
+            align-items: center;
+            flex-flow  : wrap;
+
+            span {
+                margin: $spacer/4;
+            }
+        }
+
+        .right {
+            margin-left: auto;
+            align-items: flex-end;
+            flex-flow  : row;
+
+            .location {
+                // float        : right;
+                font-family  : $monospaced;
+
+                cursor       : pointer;
+                min-width    : $po-loc-width;
+                padding      : $spacer/4 $spacer/2;
+                text-align   : right;
+                font-size    : $font-size-xs;
+                background   : $highlight;
+                border-radius: $spacer*2;
+                margin       : $spacer/3;
+
+                &:hover {
+                    background: $highlight-hover;
+                }
+
+                .line {
+                    text-decoration: underline;
+                }
+            }
+
+            .assumptions {
+                display    : flex;
+                align-items: center;
+
+                .inputs,
+                .outputs {
+                    text-align   : center;
+                    margin       : $spacer/3;
+                    min-width    : 1em;
+                    color        : $color-brand-2;
+                    border-radius: $spacer*2;
+                    font-size    : $font-size-xs;
+                    padding      : $spacer/4 $spacer/2;
+                }
+
+                .outputs {
+                    background: var(--kt-out-edge-bg);
+
+                    &:hover {
+                        background: var(--kt-out-edge-bg-hover);
+                    }
+                }
+
+                .inputs {
+                    background: var(--kt-in-edge-bg);
+
+                    &:hover {
+                        background: var(--kt-in-edge-bg-hover);
+                    }
+                }
+
+            }
         }
 
         .state {
@@ -118,17 +202,16 @@ po-line {
             font-size    : $font-size-xs;
             font-family  : $monospaced;
 
-            background   : var(--kt-grey-lighter);
-            padding      : $spacer/8 $spacer/2;
-            margin-left  : $spacer/2;
-            border-radius: 10px;
+            background   : $highlight;
+            padding      : $spacer/4 $spacer;
+            border-radius: $spacer;
         }
 
         .discharge-comment {
-            font-size   : $font-size-sm;
-            color       : $grey;
-            width       : 100%;
-            padding-left: $po-icon-width+$spacer;
+            font-size: $font-size-sm;
+            color    : $grey;
+            width    : 100%;
+            // padding-left: $po-icon-width+$spacer;
         }
 
     }

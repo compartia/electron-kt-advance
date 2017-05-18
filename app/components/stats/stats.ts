@@ -163,14 +163,19 @@ module kt.stats {
         byPredicate: StatsTable<string>;
         byDischargeType: StatsTable<string>;
         byState: StatsTable<string>;
-        byFunction: StatsTable<kt.xml.CFunction>;
+        byFunction: StatsTable<xml.CFunction>;
 
         complexityByFunction: StatsTable<kt.xml.CFunction>;
-        byFile: StatsTable<kt.treeview.FileInfo>;
+        byFile: StatsTable<treeview.FileInfo>;
         byFileLine: StatsTable<string>;
 
         predicateByComplexity: StatsTable<string>;
-        complexityByFile: StatsTable<kt.treeview.FileInfo>;
+        complexityByFile: StatsTable<treeview.FileInfo>;
+
+        assumptionsByFunction: StatsTable<xml.CFunction>;
+        inAssumptionsByFunction: StatsTable<xml.CFunction>;
+
+        dependenciesByFile: StatsTable<treeview.FileInfo>;
 
 
         private _primaryPredicatesCount: StatsTable<string>;
@@ -192,6 +197,7 @@ module kt.stats {
         }
 
         public build(project: Globals.Project) {
+            this.dependenciesByFile = new StatsTable<treeview.FileInfo>();
 
             this._primaryPredicatesCount = new StatsTable<string>();
 
@@ -204,6 +210,8 @@ module kt.stats {
 
             this.byFileLine = new StatsTable<string>();
             this.predicateByComplexity = new StatsTable<string>();
+            this.assumptionsByFunction = new StatsTable<xml.CFunction>();
+            this.inAssumptionsByFunction = new StatsTable<xml.CFunction>();
             this.complexityByFunction = new StatsTable<kt.xml.CFunction>();
             //
 
@@ -261,6 +269,17 @@ module kt.stats {
                 // this.byFunction.inc(functionKey, DEF_COL_NAME, 1);
                 this.byFunction.bind(functionKey, po.cfunction);
 
+                for (let linked of po.outputs) {
+                    this.assumptionsByFunction.inc(functionKey, (<model.ApiNode>linked).type, 1);
+                    this.dependenciesByFile.inc(po.file , (<model.ApiNode>linked).type, 1);
+                }
+                // for (let linked of po.inputs) {
+                //     this.inAssumptionsByFunction.inc(functionKey, (<model.ApiNode>linked).type, 1);
+                // }
+
+                this.assumptionsByFunction.bind(functionKey, po.cfunction);
+                this.dependenciesByFile.bind(po.file, po.cfunction.fileInfo);
+
                 for (let cCode of CPG) {
                     this.complexityByFunction.inc(functionKey, model.Complexitiy[model.Complexitiy[cCode]], po.complexity[model.Complexitiy[cCode]]);
                     this.complexityByFile.inc(po.file, model.Complexitiy[model.Complexitiy[cCode]], po.complexity[model.Complexitiy[cCode]]);
@@ -268,14 +287,14 @@ module kt.stats {
                 }
 
 
-                this.complexityByFile.inc(po.file, po.level, 1);
-                this.complexityByFile.bind(po.file, po.cfunction.fileInfo);
+                this.complexityByFile.inc(po.cfunction.fileInfo.relativePath, po.level, 1);
+                this.complexityByFile.bind(po.cfunction.fileInfo.relativePath, po.cfunction.fileInfo);
 
                 this.complexityByFunction.inc(functionKey, po.level, 1);
                 this.complexityByFunction.bind(functionKey, po.cfunction);
                 //------------
-                this.byFile.inc(po.file, state, 1);
-                this.byFile.bind(po.file, po.cfunction.fileInfo);
+                this.byFile.inc(po.cfunction.fileInfo.relativePath, state, 1);
+                this.byFile.bind(po.cfunction.fileInfo.relativePath, po.cfunction.fileInfo);
                 //------------
                 this.byState.inc(state, DEF_COL_NAME, 1);
                 this.byState.bind(state, state);
@@ -287,7 +306,7 @@ module kt.stats {
 
                     dischargeType = dischargeType.toLowerCase();
 
-                    //-violation-ds-primary-
+                    //example: -violation-ds-primary-
                     this.byDischargeType.inc(dischargeType, state + "-" + dischargeType + "-" + po.level, 1);
                     this.byDischargeType.bind(dischargeType, dischargeType);
                 }
@@ -374,10 +393,62 @@ module kt.stats {
             );
         }
 
+        public updateAssumptionsByFunctionChart(maxRows: number, scene, container: d3.Selection<any>) {
+            const table = this.assumptionsByFunction;
+            const columnNames = table.columnNames;
+            const data: Array<NamedArray<kt.xml.CFunction>> = table.getTopRows(maxRows);
+
+            charts.updateChart(scene, container,
+                {
+                    data: data,
+                    colors: (x, index) => "var(--kt-state-assumption-" + columnNames[index] + "-bg)",
+                    columnNames: columnNames,
+                    label: x => x.object.name,
+                    max: null
+                }
+            );
+        }
+
+
+        public updateDependenciesByFileChart(maxRows: number, scene, container: d3.Selection<any>) {
+            const table = this.dependenciesByFile;
+            const columnNames = table.columnNames;
+            const data: Array<NamedArray<treeview.FileInfo>> = table.getTopRows(maxRows);
+
+            charts.updateChart(scene, container,
+                {
+                    data: data,
+                    colors: (x, index) => "var(--kt-state-assumption-" + columnNames[index] + "-bg)",
+                    columnNames: columnNames,
+                    label: (x: NamedArray<treeview.FileInfo>) => x.object.name,
+                    max: null
+                }
+            );
+        }
+
+
+        public updateInAssumptionsByFunctionChart(maxRows: number, scene, container: d3.Selection<any>) {
+            const table = this.inAssumptionsByFunction;
+            const columnNames = table.columnNames;
+            const data: Array<NamedArray<kt.xml.CFunction>> = table.getTopRows(maxRows);
+
+            charts.updateChart(scene, container,
+                {
+                    data: data,
+                    colors: (x, index) => "var(--kt-state-assumption-" + columnNames[index] + "-bg)",
+                    columnNames: columnNames,
+                    label: x => x.object.name,
+                    max: null
+                }
+            );
+        }
+
+
+
         public updatePoByFileChart(scene, container: d3.Selection<any>) {
             const table = this.byFile;
             const columnNames = table.columnNames;
-            const data: Array<NamedArray<kt.treeview.FileInfo>> = table.getTopRows(10);
+            const data: Array<NamedArray<treeview.FileInfo>> = table.getTopRows(10);
 
 
 
@@ -386,7 +457,7 @@ module kt.stats {
                     data: data,
                     colors: (x, index) => "var(--kt-state-" + columnNames[index] + "-default-bg)",
                     columnNames: columnNames,
-                    label: (x: NamedArray<kt.treeview.FileInfo>) => x.object.name,
+                    label: (x: NamedArray<treeview.FileInfo>) => x.object.name,
                     max: null
                 }
             );
@@ -410,6 +481,8 @@ module kt.stats {
                 d3.format(".2f")
             );
         }
+
+
 
 
         public updatComplexityByFunctionChart(showColumns: string[], maxRows: number, scene, container: d3.Selection<any>) {
@@ -446,6 +519,8 @@ module kt.stats {
                 d3.format(".2f")
             );
         }
+
+
 
 
 
