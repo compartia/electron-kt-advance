@@ -31,3 +31,10 @@ h3 {
     text-transform: uppercase;
     font-size     : 12px;
 }
+
+h1{
+    padding-top: $spacer;
+    color: $color-brand-2;
+    text-transform: uppercase;
+    font-size: $font-size-lg;
+}

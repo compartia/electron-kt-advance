@@ -1,0 +1,114 @@
+<dom-module id="kt-help">
+
+    <template>
+
+        <div class="legend panel">
+
+            <h1>Legend</h1>
+
+            <!-- 2 columns: LEVELS -->
+            <div class="flex-hor">
+
+                <div class="flex-ver">
+                    <h3>__</h3>
+                    <h3>__</h3>
+                    <template is="dom-repeat" items="{{getStates()}}" as="state">
+                        <h3 style$="background:var(--kt-state-[[state]]-default-bg); color:var(--kt-state-[[state]]-default-tx)">[[state]]</h3>
+                    </template>
+                </div>
+
+                <template is="dom-repeat" items="{{getLevels()}}" as="level">
+                    <!-- column: LEVEL -->
+                    <div class="equal-size">
+                        <h3 style$="background:var(--kt-po-[[level]]-bg);color:var(--kt-po-[[level]]-tx)">[[level]]</h3>
+
+                        <div class="flex-hor">
+
+                            <template is="dom-repeat" items="{{getDischarges()}}" as="discharge">
+                                <div class="flex-ver equal-size">
+                                    <h3 style$="background:var(--kt-state-discharged-[[discharge]]-[[level]]-bg);color:var(--kt-state-discharged-[[discharge]]-[[level]]-tx)">[[discharge]]</h3>
+                                    <template is="dom-repeat" items="{{getStates()}}" as="state">
+                                        <h3 style$="background:var(--kt-state-[[state]]-[[getDischargeSubst(state, discharge)]]-[[level]]-bg);color:var(--kt-state-[[state]]-[[getDischargeSubst(state, discharge)]]-[[level]]-tx)">
+                                            <iron-icon class="po-icon" icon$="{{_computeIcon(state, discharge)}}" on-click="select"></iron-icon>
+                                        </h3>
+                                    </template>
+
+                                </div>
+                            </template>
+                        </div>
+
+                    </div>
+
+                </template>
+            </div>
+
+        </div>
+
+    </template>
+
+    <style is="kt-help">
+
+        .flex-hor {
+            display: flex;
+            flex-flow: row;
+        }
+
+        .flex-ver {
+            display: flex;
+            flex-flow: column;
+        }
+
+        h3 {
+            padding: 5px;
+            flex: 1;
+            text-align: center;
+        }
+
+        .equal-size{
+            flex-grow: 1;
+            flex-basis: 0;
+        }
+
+        iron-icon {
+            height: 1em;
+            width: 1em;
+            margin: 0;
+            padding: 0;
+        }
+        .legend{
+            padding: var(--spacer);
+        }
+
+
+    </style>
+
+    <script>
+        Polymer({
+            is: 'kt-help',
+
+            getStates: function() {
+                return ["open", "violation", "discharged"];
+            },
+
+            getLevels: function() {
+                return kt.model.PoLevels;
+            },
+
+            getDischarges: function() {
+                return kt.model.PoDischargeTypesArr;
+            },
+
+            getDischargeSubst: function(state, discharge) {
+                if (state == "open" && discharge != "default")
+                    return "undefined";
+                return discharge;
+            },
+
+            _computeIcon: function(state, discharge) {
+                return "kt:state-" + state + "-" + discharge;
+            }
+
+        });
+    </script>
+
+</dom-module>

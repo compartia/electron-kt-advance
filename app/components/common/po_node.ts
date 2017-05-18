@@ -10,6 +10,7 @@ module kt.model {
 
     export const PoDischargeTypesArr: Array<string> = ["global", "invariants", "ds", "rv", "api", "default"];
     export const PoStatesArr: Array<PoStates> = [PoStates.violation, PoStates.open, PoStates.discharged];
+    export const PoStatesNames: Array<string> = [PoStates[PoStates.violation], PoStates[PoStates.open], PoStates[PoStates.discharged], PoStates[PoStates.assumption]];
 
 
     const SPL = "/";
