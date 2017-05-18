@@ -11,14 +11,14 @@ $blue: #4397CE;
 
 $base-bg: mix($ian_gillan, $blue, 40%);
 
-$grey: lighten(desaturate($color-brand-2, 45%), 10%);
-$grey-lighter: lighten($grey, 30%);
-$grey-80: lighten($grey, 40%);
+$grey: hsl(hue($ian_gillan), 5, 50);
+$grey-lighter: hsl(hue($ian_gillan), 5, 70);
+$grey-80: hsl(hue($ian_gillan), 5, 80);
 
 $po-open: $yellow;
 $po-violation: $red;
 $po-discharged: $green;
-$po-assumption: desaturate(lighten($ian_gillan, 45%), 20%);
+$po-assumption: hsl(hue($ian_gillan), 25, 85);
 
 $main-bg: lighten($base-bg, 50%);
 $side-bg: mix($base-bg, $main-bg, 5%);
