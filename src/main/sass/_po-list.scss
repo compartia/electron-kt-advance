@@ -9,6 +9,26 @@ $po-loc-padding: $spacer/2;
 
 $po-icon-width: 16px;
 
+.level-primary,
+.level-secondary {
+    font-weight  : 400;
+    border-radius: 15px;
+    min-width    : 1.3em;
+    display      : inline-block;
+    padding      : $spacer/8;
+    text-align   : center;
+    margin       : 0 $spacer/2;
+}
+
+.level-secondary {
+    background: var(--kt-po-secondary-bg);
+}
+
+.level-primary {
+    color     : white;
+    background: var(--kt-po-primary-bg);
+}
+
 po-list {
     .headline {
         // background: $side-bg;
@@ -170,26 +190,6 @@ po-line {
             min-width: 8rem;
 
             .discharge {}
-        }
-
-        .level-primary,
-        .level-secondary {
-            font-weight  : 400;
-            border-radius: 15px;
-            min-width    : 1.3em;
-            display      : inline-block;
-            padding      : $spacer/8;
-            text-align   : center;
-            margin       : 0 $spacer/2;
-        }
-
-        .level-secondary {
-            background: var(--kt-po-secondary-bg);
-        }
-
-        .level-primary {
-            color     : white;
-            background: var(--kt-po-primary-bg);
         }
 
         .function-name {

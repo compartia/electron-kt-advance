@@ -16,6 +16,25 @@ html {
     height : 100%;
 }
 
+table, th, td, tr{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    border: none;
+    border-collapse: collapse;
+	border-spacing: 0;
+    vertical-align: center;
+}
+
+td.headline{
+    text-align: right;
+    h3,h4{
+        text-align: right;
+        padding: 0;
+    }
+    padding: $spacer;
+}
+
 .edgePath path.path {
     stroke      : $grey;
     fill        : none;
@@ -25,12 +44,39 @@ html {
 .card.panel {
     h1,
     h2,
-    h3,
-    h4 {
+    h3 {
         color: var(--kt-grey);
     }
+}
 
-    h4 {
-        font-size: $font-size-xs;
+.table {
+    .row {
+        display  : flex;
+        flex-flow: row;
+    }
+
+    .column {
+        display      : flex;
+        flex-flow    : column;
+        align-items  : stretch;
+        align-content: stretch;
+    }
+
+    .cell,
+    h3 {
+        padding   : 5px;
+        flex      : 1;
+        text-align: center;
+    }
+
+    .cell {
+        h3 {
+            padding: 0;
+        }
+    }
+
+    .equal-size {
+        flex-grow : 1;
+        flex-basis: 0;
     }
 }

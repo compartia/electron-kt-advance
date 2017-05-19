@@ -11,8 +11,7 @@ $font-code: 300 80% $monospaced;
 
 h1,
 h2,
-h3,
-{
+h3 {
     margin     : 0;
     font-weight: 400;
 }
@@ -23,6 +22,12 @@ h5 {
     font-weight: 300;
 }
 
+h4 {
+    color    : var(--kt-grey);
+    font-size: $font-size-xs;
+}
+ 
+
 h2 {
     font-size: $font-size-lg;
 }
@@ -32,9 +37,9 @@ h3 {
     font-size     : 12px;
 }
 
-h1{
-    padding-top: $spacer;
-    color: $color-brand-2;
+h1 {
+    padding-top   : $spacer;
+    color         : var(--kt-grey);
     text-transform: uppercase;
-    font-size: $font-size-lg;
+    font-size     : $font-size-xl;
 }

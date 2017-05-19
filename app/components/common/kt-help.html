@@ -1,84 +1,93 @@
 <dom-module id="kt-help">
 
     <template>
-
-        <div class="legend panel">
+        <div class="legend panel table">
 
             <h1>Legend</h1>
-
-            <!-- 2 columns: LEVELS -->
-            <div class="flex-hor">
-
-                <div class="flex-ver">
-                    <h3>__</h3>
-                    <h3>__</h3>
+            <table style="width:100%; height:200px;">
+                <tr>
+                    <th style="width:calc(var(--spacer)*24)">
+                        &nbsp;
+                    </th>
                     <template is="dom-repeat" items="{{getStates()}}" as="state">
-                        <h3 style$="background:var(--kt-state-[[state]]-default-bg); color:var(--kt-state-[[state]]-default-tx)">[[state]]</h3>
+                        <th style$="background:var(--kt-state-[[state]]-default-bg); color:var(--kt-state-[[state]]-default-tx)">
+                            <div class="row">
+                                <h3 class="primary">
+                                    <span class="level-primary">I</span>
+                                </h3>
+                                <h3>[[state]]</h3>
+                                <h3 class="secondary">
+                                    <span class="level-secondary">II</span>
+                                </h3>
+                            </div>
+                        </th>
+
                     </template>
-                </div>
+                </tr>
 
-                <template is="dom-repeat" items="{{getLevels()}}" as="level">
-                    <!-- column: LEVEL -->
-                    <div class="equal-size">
-                        <h3 style$="background:var(--kt-po-[[level]]-bg);color:var(--kt-po-[[level]]-tx)">[[level]]</h3>
+                <template is="dom-repeat" items="{{getDischarges()}}" as="discharge">
+                    <tr>
+                        <td class="headline">
+                            <h3>[[discharge]]</h3>
+                            <h4>[[getDischargeDescription(discharge)]]</h4>
+                        </td>
 
-                        <div class="flex-hor">
+                        <template is="dom-repeat" items="{{getStates()}}" as="state">
+                            <td >
+                                <div class="row">
+                                    <h3 class="primary" style$="background:var(--kt-state-[[state]]-[[getDischargeSubst(state, discharge)]]-primary-bg);color:var(--kt-state-[[state]]-[[getDischargeSubst(state, discharge)]]-tx)"></h3>
 
-                            <template is="dom-repeat" items="{{getDischarges()}}" as="discharge">
-                                <div class="flex-ver equal-size">
-                                    <h3 style$="background:var(--kt-state-discharged-[[discharge]]-[[level]]-bg);color:var(--kt-state-discharged-[[discharge]]-[[level]]-tx)">[[discharge]]</h3>
-                                    <template is="dom-repeat" items="{{getStates()}}" as="state">
-                                        <h3 style$="background:var(--kt-state-[[state]]-[[getDischargeSubst(state, discharge)]]-[[level]]-bg);color:var(--kt-state-[[state]]-[[getDischargeSubst(state, discharge)]]-[[level]]-tx)">
-                                            <iron-icon class="po-icon" icon$="{{_computeIcon(state, discharge)}}" on-click="select"></iron-icon>
-                                        </h3>
-                                    </template>
+                                    <h3 style$="background:var(--kt-state-[[state]]-[[getDischargeSubst(state, discharge)]]-bg);color:var(--kt-state-[[state]]-[[getDischargeSubst(state, discharge)]]-tx)">
+                                        <iron-icon class="po-icon" icon$="{{_computeIcon(state, discharge)}}" on-click="select"></iron-icon>
+                                    </h3>
 
+                                    <h3 class="secondary" style$="background:var(--kt-state-[[state]]-[[getDischargeSubst(state, discharge)]]-secondary-bg);color:var(--kt-state-[[state]]-[[getDischargeSubst(state, discharge)]]-tx)"></h3>
                                 </div>
-                            </template>
-                        </div>
+                            </td>
 
-                    </div>
+                        </template>
+
+                    </tr>
 
                 </template>
-            </div>
-
+            </table>
         </div>
 
     </template>
 
     <style is="kt-help">
 
-        .flex-hor {
-            display: flex;
-            flex-flow: row;
-        }
-
-        .flex-ver {
-            display: flex;
-            flex-flow: column;
-        }
-
-        h3 {
-            padding: 5px;
-            flex: 1;
-            text-align: center;
-        }
-
-        .equal-size{
-            flex-grow: 1;
-            flex-basis: 0;
-        }
-
         iron-icon {
-            height: 1em;
-            width: 1em;
+            height: 1.5em;
+            width: 1.5em;
             margin: 0;
             padding: 0;
         }
-        .legend{
-            padding: var(--spacer);
+
+        .legend {
+            padding: calc( var(--spacer)*2);
         }
 
+        .state.assumption {
+            padding-left: calc( var(--spacer)/2);
+        }
+
+        .state > .headline {
+            border-bottom: calc( var(--spacer)/2) solid white;
+            min-height: 2.5em;
+            display: flex;
+            align-items: center;
+        }
+
+        .assumption .primary,
+        .assumption .secondary {
+            display: none;
+        }
+
+        .primary,
+        .secondary {
+            max-width: 3em;
+        }
 
     </style>
 
@@ -86,8 +95,12 @@
         Polymer({
             is: 'kt-help',
 
+            getDischargeDescription(discharge) {
+                return kt.lang.dischargeDescriptions[discharge];
+            },
+
             getStates: function() {
-                return ["open", "violation", "discharged"];
+                return ["violation", "discharged", "open", "assumption"];
             },
 
             getLevels: function() {
@@ -101,6 +114,12 @@
             getDischargeSubst: function(state, discharge) {
                 if (state == "open" && discharge != "default")
                     return "undefined";
+
+                if (state == "assumption") {
+                    if (discharge != "api" && discharge != "ds" && discharge != "global" && discharge != "rv") {
+                        return "undefined";
+                    }
+                }
                 return discharge;
             },
 
