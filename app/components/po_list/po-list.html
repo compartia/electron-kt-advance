@@ -21,9 +21,8 @@
                     </div>
 
                 </template>
-            </div>
-        </iron-list>
-
+            </iron-list>
+        </div>
     </template>
 
     <script>
@@ -69,7 +68,7 @@
 
             _selectedItemChanged: function(item) {
                 var pos = [];
-                if(this.selectedItem){
+                if (this.selectedItem) {
                     pos.push(this.selectedItem.value);
                 }
 
@@ -78,9 +77,9 @@
             },
 
             _getClass: function(line, selected) {
-                return selected
-                    ? "selected"
-                    : "";
+                return selected ?
+                    "selected" :
+                    "";
             },
 
             _showGroup: function(line, showgroups) {

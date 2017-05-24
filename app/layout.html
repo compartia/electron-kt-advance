@@ -19,7 +19,7 @@
 <link rel="import" href="components/common/po-filter-panel.html">
 <link rel="import" href="components/treeview/paper-tree.html">
 <link rel="import" href="components/treeview/functions-list.html">
-<link rel="import" href="components/po_list/po-list.html">
+<link rel="import" href="components/po_list/po-list-scene.html">
 <link rel="import" href="components/po_list/assumptions-list.html">
 
 <link rel="import" href="components/stats/kt-stats.html">
@@ -90,20 +90,7 @@
                             <source-view id="sourceview" current-project="[[currentProject]]" statistics="[[statistics]]"></source-view>
 
                             <!-- POs -->
-                            <div>
-                                <template  is="dom-if" if="{{showPoTab(modeIndex)}}">
-                                    <vaadin-split-layout class="splitter-3">
-                                        <po-list id="main-po-list" filtered-proof-obligations="[[filteredProofObligations]]" linktosource showgroups selected-po="{{selectedPo}}"></po-list>
-                                        <div id="right-panel" hidden$="[[!dependentAssumptions.length]]">
-                                            <h3>Dependent assumptions</h3>
-                                            <assumptions-list filtered-assumptions="[[dependentAssumptionsIn]]" linktosource></assumptions-list>
-
-                                            <h3>Depends on assumptions</h3>
-                                            <assumptions-list filtered-assumptions="[[dependentAssumptionsOut]]" linktosource></assumptions-list>
-                                        </div>
-                                    </vaadin-split-layout>
-                                </template>
-                            </div>
+                            <po-list-scene id="main-po-list" filtered-proof-obligations="[[filteredProofObligations]]" linktosource showgroups selected-po="{{selectedPo}}"></po-list-scene>
 
                             <div>
                                 <template is="dom-if" if="{{showAssumptionsTab(modeIndex)}}">
@@ -324,10 +311,6 @@
                     notify: true
                 },
 
-                selectedPo: {
-                    type: Object
-                },
-
                 selectedAssumptions: {
                     type: Object
                 },
@@ -341,7 +324,7 @@
             },
 
             observers: [
-                'filterChanged(filter.*)', '_selectedPoChanged(selectedPo)', '_selectedAssumptionsChanged(selectedAssumptions)'
+                'filterChanged(filter.*)',  '_selectedAssumptionsChanged(selectedAssumptions)'
             ],
 
             showPoTab: function(mode) {
@@ -364,18 +347,6 @@
                     this.$.sourceview.jumpToLine(po.line)
                 };
                 sourceview.maybeLoadFile(this.filter.file, aftereffect.bind(this));
-            },
-
-            _selectedPoChanged: function(list) {
-                var assumptionsOut = [];
-                var assumptionsIn = [];
-                for (var i = 0; i < list.length; i++) {
-                    assumptionsOut = assumptionsOut.concat(list[i].outputs);
-                    assumptionsIn = assumptionsIn.concat(list[i].inputs);
-                }
-                //XXX: make list of unique! pos=this.filter.filterAssumptions(assumptions);
-                this.set("dependentAssumptionsIn", assumptionsIn);
-                this.set("dependentAssumptionsOut", assumptionsOut);
             },
 
             _selectedAssumptionsChanged: function(list) {

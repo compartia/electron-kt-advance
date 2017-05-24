@@ -4,28 +4,46 @@
 
     <template>
 
-        <div id="scrollable">
-            <iron-list scroll-target="scrollable" id="listOfLines" items="[[lines]]" max-physical-count="[[lines.length]]" selection-enabled as="item">
-                <template>
-                    <div>
-                        <div class$="code-line [[_getClass(_loadedFile, index, statistics, selected)]]">
-                            <span class="info">
-                                <span id="line-number">[[_lineNumber(index)]]</span>
-                                <node-decorator show-count="true" statistics="[[_getStatsByLine(_loadedFile, index, statistics)]]"></node-decorator>
-                            </span>
-                            <pre class="text">[[item.text]]</pre>
+        <vaadin-split-layout id="verticalSplitter" class="splitter-3" >
+
+            <div id="scrollable" style="width:70%">
+                <iron-list scroll-target="scrollable" id="listOfLines" items="[[lines]]" max-physical-count="[[lines.length]]" selection-enabled as="item">
+                    <template>
+                        <div>
+                            <div class$="code-line [[_getClass(_loadedFile, index, statistics, selected)]]">
+                                <span class="info">
+                                    <span id="line-number">[[_lineNumber(index)]]</span>
+                                    <node-decorator show-count="true" statistics="[[_getStatsByLine(_loadedFile, index, statistics)]]"></node-decorator>
+                                </span>
+                                <pre class="text">[[item.text]]</pre>
+                            </div>
+
+                            <template is="dom-if" if="[[showAtLinePos(item, selected)]]">
+                                <po-list on-tap="_toggleLine" filtered-proof-obligations="[[getPosAtLine(_loadedFile, index, statistics)]]" selected-po="{{selectedPo}}"></po-list>
+                            </template>
                         </div>
+                    </template>
+                </iron-list>
+            </div>
 
-                        <template is="dom-if" if="[[showAtLinePos(item, selected)]]">
-                            <po-list filtered-proof-obligations="[[getPosAtLine(_loadedFile, index, statistics)]]"></po-list>
-                        </template>
-                    </div>
 
-                </template>
-            </iron-list>
-        </div>
+            <!-- <template is="dom-if" if="[[showAtLinePos(item, selected)]]"> -->
+                <div id="right-panel" style="width:30%">
+                    <h3>Dependent assumptions</h3>
+                    <assumptions-list filtered-assumptions="[[dependentAssumptionsIn]]" linktosource></assumptions-list>
+
+                    <h3>Depends on assumptions</h3>
+                    <assumptions-list filtered-assumptions="[[dependentAssumptionsOut]]" linktosource></assumptions-list>
+                </div>
+            <!-- </template> -->
+
+        </vaadin-split-layout>
+
+
 
     </template>
+
+
 
     <script>
         Polymer({
@@ -43,7 +61,42 @@
                 statistics: {
                     type: Object,
                     notify: true
+                },
+
+                selectedPo: {
+                    type: Object,
+                    notify: true
                 }
+
+            },
+
+            observers: [
+                '_selectedPoChanged(selectedPo)'
+            ],
+
+            assumptionsPanelStyle: function(dependentAssumptionsIn, dependentAssumptionsOut) {
+                return ((dependentAssumptionsIn && dependentAssumptionsIn.length) || (dependentAssumptionsOut && dependentAssumptionsOut.length)) ? "width:30%" : "width:0%";
+            },
+
+            _toggleLine: function(e) {
+                e.stopPropagation();
+            },
+
+            _selectedPoChanged: function(list) {
+                var assumptionsOut = [];
+                var assumptionsIn = [];
+                for (var i = 0; i < list.length; i++) {
+                    assumptionsOut = assumptionsOut.concat(list[i].outputs);
+                    assumptionsIn = assumptionsIn.concat(list[i].inputs);
+                }
+                //XXX: make list of unique! pos=this.filter.filterAssumptions(assumptions);
+                this.set("dependentAssumptionsIn", assumptionsIn);
+                this.set("dependentAssumptionsOut", assumptionsOut);
+
+                if (this.$.verticalSplitter) {
+                    this.$.verticalSplitter.notifyResize();
+                }
+
             },
 
             showAtLinePos: function(item, selected) {
@@ -87,14 +140,14 @@
                     line = 1;
                 }
                 var jump = line;
-                if (line > 4){
+                if (line > 4) {
                     jump = line - 4;
                 }
 
                 var task = function() {
-                    if (this.$.listOfLines.items){
+                    if (this.$.listOfLines.items) {
                         this.$.listOfLines.scrollToIndex(jump);
-                        this.$.listOfLines.selectItem(this.lines[line-1]);
+                        this.$.listOfLines.selectItem(this.lines[line - 1]);
                     }
                 }
                 setTimeout(task.bind(this), 100);
@@ -132,5 +185,28 @@
             }
         });
     </script>
+
+    <style>
+        .splitter-3 {
+            --vaadin-split-layout-splitter: {
+                min-width: 1px;
+                min-height: 1px;
+                border: solid 4px none;
+                background-clip: content-box;
+            }
+        }
+
+        .splitter-3 {
+            --vaadin-split-layout-splitter: {
+                background: var(--paper-tree-selected-background-color);
+                fill: var(--paper-tree-selected-background-color);
+            }
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+        }
+    </style>
 
 </dom-module>
