@@ -1,5 +1,5 @@
 module kt.model {
-
+    const path = require('path');
     const SPL = "/";
 
 
@@ -14,6 +14,7 @@ module kt.model {
         type: string;
         predicateType: string;
         expression: string;
+        eLocation: xml.ExpressionLocation;
 
         dependentPos: Array<string>;//used during parsing
 
@@ -24,7 +25,24 @@ module kt.model {
         }
 
         get line():number{
+            if(this.eLocation){
+                return this.eLocation.line;
+            }
             return this.cfunction.line;
+        }
+
+        get file(): string {
+            if(this.eLocation){
+                return this.eLocation.file;
+            }
+            return this.cfunction.file;
+        }
+
+        set file(f: string) {
+            if (f)
+                this.cfunction.file = path.normalize(f);
+            else
+                this.cfunction.file = f;
         }
 
         get apiId(): string {

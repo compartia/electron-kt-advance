@@ -84,34 +84,7 @@ module kt.xml {
     }
 
 
-    export class ExpressionHolder extends XmlTag {
-        xstr: string;
-        exp: Expression;
 
-        get varName(): Symbol {
-            if (this.exp) {
-                return this.exp.varName;
-            } else {
-                return null;
-            }
-        }
-
-        get expression(): string {
-            if (this.xstr)
-                return this.xstr;
-            if (this.exp) {
-                return this.exp.expression;
-            }
-            return this._tagname;
-        }
-
-        public constructor(tag) {
-            super();
-            this.xstr = tag.attributes["xstr"];
-        }
-
-
-    }
 
 
     export class UnsupportedTag extends XmlTag {
@@ -127,6 +100,26 @@ module kt.xml {
             this.strValue = tag.attributes["strValue"];
         }
     }
+
+
+
+    //   <exp1 byte="72746" etag="fnapp" file="src/auth/password-scheme.c" line="592" xstr="fn(t_malloc)@ 592[_]">
+    //    <arg/>
+    //    <fn etag="lval" xstr="t_malloc">
+    //     <lval>
+    //      <lhost>
+    //       <var vid="366" vname="t_malloc"/>
+    //      </lhost>
+    //     </lval>
+    //    </fn>
+    //   </exp1>
+
+    export class ExpressionLocation {
+        file: string;
+        line: number;
+    }
+
+
 
     export class Expression extends XmlTag {
         /**
@@ -148,10 +141,20 @@ module kt.xml {
         byteNo: number;
         line: number;
 
+        location: ExpressionLocation;
+
         constructor(tag, parent: XmlTag) {
             super();
             this.xstr = tag.attributes["xstr"];
             this.etag = tag.attributes["etag"];
+
+            if(tag.attributes["line"] && tag.attributes["file"]){
+                this.location=new ExpressionLocation();
+                this.location.line = tag.attributes["line"];
+                this.location.file = tag.attributes["file"];
+            }
+
+
             this.parent = parent;
         }
 
@@ -198,6 +201,38 @@ module kt.xml {
 
 
     }
+
+        export class ExpressionHolder extends XmlTag {
+            xstr: string;
+            exp: Expression;
+
+            get varName(): Symbol {
+                if (this.exp) {
+                    return this.exp.varName;
+                } else {
+                    return null;
+                }
+            }
+
+            get location(): ExpressionLocation {
+                return this.exp.location;
+            }
+
+            get expression(): string {
+                if (this.xstr)
+                    return this.xstr;
+                if (this.exp) {
+                    return this.exp.expression;
+                }
+                return this._tagname;
+            }
+
+            public constructor(tag, parent) {
+                super();
+                this.xstr = tag.attributes["xstr"];
+                this.exp = new Expression(tag, parent);
+            }
+        }
 
 
     export class Var extends XmlTag {
@@ -248,7 +283,6 @@ module kt.xml {
 
     export class Predicate extends XmlTag {
 
-
         baseExp: ExpressionHolder;
         lenExp: ExpressionHolder;
 
@@ -267,6 +301,19 @@ module kt.xml {
             super();
             this.tag = _tag.attributes["tag"];
             this.op = _tag.attributes["op"];
+        }
+
+        get location(): ExpressionLocation{
+            if (this.baseExp) {
+                return this.baseExp.location;
+            } else if (this.exp) {
+                return this.exp.location;
+            } else if (this.exp1) {
+                return this.exp1.location;
+            }
+
+
+            return null;
         }
 
         get varName(): Symbol {
@@ -324,18 +371,15 @@ module kt.xml {
                 this.currentTag = this.predicate;
             }
             else if (tag.name == 'len-exp') {
-                let lenExp = new ExpressionHolder(tag);
+                let lenExp = new ExpressionHolder(tag, this.currentTag);
                 lenExp.xstr = tag.attributes["xstr"];
-
 
                 this.currentTag.lenExp = lenExp;
                 this.process(lenExp, tag);
             }
 
             else if (tag.name == 'base-exp') {
-                let baseExp = new ExpressionHolder(tag);
-
-
+                let baseExp = new ExpressionHolder(tag, this.currentTag);
 
                 this.currentTag.baseExp = baseExp;
                 this.process(baseExp, tag);
@@ -408,7 +452,6 @@ module kt.xml {
             obj.parent = this.currentTag;
             this.currentTag = obj;
         }
-
 
 
         public onclosetag(tag: string) {

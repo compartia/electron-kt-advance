@@ -10,7 +10,7 @@
                 <iron-list scroll-target="scrollable" id="listOfLines" items="[[lines]]" max-physical-count="[[lines.length]]" selection-enabled as="item">
                     <template>
                         <div>
-                            <div class$="code-line [[_getClass(_loadedFile, index, statistics, selected)]]">
+                            <div class$="code-line [[_getClass(_loadedFile, index, statistics, selected)]]" on-tap="_onLineSelectedLine">
                                 <span class="info">
                                     <span id="line-number">[[_lineNumber(index)]]</span>
                                     <node-decorator show-count="true" statistics="[[_getStatsByLine(_loadedFile, index, statistics)]]"></node-decorator>
@@ -82,20 +82,28 @@
                 e.stopPropagation();
             },
 
+            _onLineSelectedLine: function(e) {
+                this.selectedPo = null;
+            },
+
             _selectedPoChanged: function(list) {
+
                 var assumptionsOut = [];
                 var assumptionsIn = [];
-                for (var i = 0; i < list.length; i++) {
-                    assumptionsOut = assumptionsOut.concat(list[i].outputs);
-                    assumptionsIn = assumptionsIn.concat(list[i].inputs);
+                if(list){
+                    for (var i = 0; i < list.length; i++) {
+                        assumptionsOut = assumptionsOut.concat(list[i].outputs);
+                        assumptionsIn = assumptionsIn.concat(list[i].inputs);
+                    }
                 }
+
                 //XXX: make list of unique! pos=this.filter.filterAssumptions(assumptions);
                 this.set("dependentAssumptionsIn", assumptionsIn);
                 this.set("dependentAssumptionsOut", assumptionsOut);
-
-                if (this.$.verticalSplitter) {
-                    this.$.verticalSplitter.notifyResize();
-                }
+                //
+                // if (this.$.verticalSplitter) {
+                //     this.$.verticalSplitter.notifyResize();
+                // }
 
             },
 

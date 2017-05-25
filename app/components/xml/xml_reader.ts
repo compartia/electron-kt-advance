@@ -329,7 +329,28 @@ module kt.xml {
 
         }
 
-
+// <rv-assumption communicated="yes" nr="4">
+//      <predicate op="pluspi" tag="ptr-upper-bound-deref">
+//       <typ ikind="iuchar" ttag="tint"/>
+//       <exp1 byte="72746" etag="fnapp" file="src/auth/password-scheme.c" line="592" xstr="fn(t_malloc)@ 592[_]">
+//        <arg/>
+//        <fn etag="lval" xstr="t_malloc">
+//         <lval>
+//          <lhost>
+//           <var vid="366" vname="t_malloc"/>
+//          </lhost>
+//         </lval>
+//        </fn>
+//       </exp1>
+//       <exp2 etag="const" xstr="18">
+//        <constant ctag="cint64" ikind="iint" intValue="18"/>
+//       </exp2>
+//      </predicate>
+//      <dependent-primary-proof-obligations>
+//       <po id="50"/>
+//      </dependent-primary-proof-obligations>
+//      <dependent-secondary-proof-obligations/>
+//     </rv-assumption>
 
         public parseApiXml(filename: string, tracker: tf.ProgressTracker): Promise<Array<model.ApiNode>> {
 
@@ -408,6 +429,7 @@ module kt.xml {
                     predicateXmlParser.onclosetag(tagName);
                     currentAssumption.symbol = predicateXmlParser.result.varName;
                     currentAssumption.expression = predicateXmlParser.result.expression;
+                    currentAssumption.eLocation = predicateXmlParser.result.location;
                     predicateXmlParser = null;
                 }
                 else if (predicateXmlParser) {
