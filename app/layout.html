@@ -91,21 +91,22 @@
 
                             <!-- POs -->
                             <po-list-scene id="main-po-list" filtered-proof-obligations="[[filteredProofObligations]]" linktosource showgroups selected-po="{{selectedPo}}"></po-list-scene>
+                     
+                            <vaadin-split-layout id="verticalAssumptionsSplitter"  class="splitter-3">
+                                <assumptions-list class="main" id="main-assumptions-list" filtered-assumptions="[[filteredAssumptions]]"
+                                    selected-assumptions="{{selectedAssumptions}}" linktosource></assumptions-list>
+                                <div id="right-panel" class="side">
+                                    <template is="dom-if" if="[[dependentProofObligationsIn.length]]">
+                                        <h3>Dependent Proof obligations</h3>
+                                        <po-list filtered-proof-obligations="[[dependentProofObligationsIn]]" linktosource showgroups></po-list>
+                                    </template>
+                                    <template is="dom-if" if="[[dependentProofObligationsOut.length]]">
+                                        <h3>Depends on Proof obligations</h3>
+                                        <po-list filtered-proof-obligations="[[dependentProofObligationsOut]]" linktosource showgroups></po-list>
+                                    </template>
+                                </div>
+                            </vaadin-split-layout>
 
-                            <div>
-                                <template is="dom-if" if="{{showAssumptionsTab(modeIndex)}}">
-                                    <vaadin-split-layout class="splitter-3">
-                                        <assumptions-list id="main-assumptions-list" filtered-assumptions="[[filteredAssumptions]]" selected-assumptions="{{selectedAssumptions}}" linktosource></assumptions-list>
-                                        <div id="right-panel">
-                                            <h3>Dependent Proof obligations</h3>
-                                            <po-list filtered-proof-obligations="[[dependentProofObligationsIn]]" linktosource showgroups></po-list>
-
-                                            <h3>Depends on Proof obligations</h3>
-                                            <po-list filtered-proof-obligations="[[dependentProofObligationsOut]]" linktosource showgroups></po-list>
-                                        </div>
-                                    </vaadin-split-layout>
-                                </template>
-                            </div>
 
                             <tf-graph-board
                                 id="graphboard"
@@ -361,6 +362,13 @@
 
                 this.set("dependentProofObligationsIn", posIn);
                 this.set("dependentProofObligationsOut", posOut);
+
+                var task = function() {
+                    if (this.$.verticalAssumptionsSplitter) {
+                        this.$.verticalAssumptionsSplitter.notifyResize();
+                    }
+                }
+                setTimeout(task.bind(this), 50);
             },
 
             filterChanged: function(event) {

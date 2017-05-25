@@ -4,9 +4,9 @@
 
     <template>
 
-        <vaadin-split-layout id="verticalSplitter" class="splitter-3" >
+        <vaadin-split-layout id="verticalSplitter" class$="splitter-3 [[getSplitterClass(dependentAssumptionsIn, dependentAssumptionsOut)]]" >
 
-            <div id="scrollable" style$="{{codePanelStyle(dependentAssumptionsIn, dependentAssumptionsOut)}}">
+            <div id="scrollable" class="main">
                 <iron-list scroll-target="scrollable" id="listOfLines" items="[[lines]]" max-physical-count="[[lines.length]]" selection-enabled as="item">
                     <template>
                         <div class$="code-line-wrapper [[_getRowClass(_loadedFile, index, statistics, selected)]]" >
@@ -27,7 +27,7 @@
             </div>
 
 
-            <div id="right-panel" style$="{{assumptionsPanelStyle(dependentAssumptionsIn, dependentAssumptionsOut)}}">
+            <div id="right-panel" class="side">
                 <template is="dom-if" if="[[dependentAssumptionsIn.length]]">
                     <h3>Dependent assumptions</h3>
                     <assumptions-list filtered-assumptions="[[dependentAssumptionsIn]]" linktosource></assumptions-list>
@@ -76,12 +76,9 @@
                 '_selectedPoChanged(selectedPo)'
             ],
 
-            assumptionsPanelStyle: function(dependentAssumptionsIn, dependentAssumptionsOut) {
-                return ((dependentAssumptionsIn && dependentAssumptionsIn.length) || (dependentAssumptionsOut && dependentAssumptionsOut.length)) ? "width:35%" : "width:0.001%";
-            },
 
-            codePanelStyle: function(dependentAssumptionsIn, dependentAssumptionsOut) {
-                return ((dependentAssumptionsIn && dependentAssumptionsIn.length) || (dependentAssumptionsOut && dependentAssumptionsOut.length)) ? "width:65%" : "width:99.999%";
+            getSplitterClass: function(dependentAssumptionsIn, dependentAssumptionsOut) {
+                return ((dependentAssumptionsIn && dependentAssumptionsIn.length) || (dependentAssumptionsOut && dependentAssumptionsOut.length)) ? "" : "collapsed";
             },
 
             _toggleLine: function(e) {
@@ -107,7 +104,6 @@
                 this.set("dependentAssumptionsIn", assumptionsIn);
                 this.set("dependentAssumptionsOut", assumptionsOut);
                 //
-
 
                 var task = function() {
                     if (this.$.verticalSplitter) {
