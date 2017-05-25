@@ -6,10 +6,10 @@
 
         <vaadin-split-layout id="verticalSplitter" class="splitter-3" >
 
-            <div id="scrollable" style="width:70%">
+            <div id="scrollable" style$="{{codePanelStyle(dependentAssumptionsIn, dependentAssumptionsOut)}}">
                 <iron-list scroll-target="scrollable" id="listOfLines" items="[[lines]]" max-physical-count="[[lines.length]]" selection-enabled as="item">
                     <template>
-                        <div>
+                        <div class$="code-line-wrapper [[_getRowClass(_loadedFile, index, statistics, selected)]]" >
                             <div class$="code-line [[_getClass(_loadedFile, index, statistics, selected)]]" on-tap="_onLineSelectedLine">
                                 <span class="info">
                                     <span id="line-number">[[_lineNumber(index)]]</span>
@@ -27,15 +27,17 @@
             </div>
 
 
-            <!-- <template is="dom-if" if="[[showAtLinePos(item, selected)]]"> -->
-                <div id="right-panel" style="width:30%">
+            <div id="right-panel" style$="{{assumptionsPanelStyle(dependentAssumptionsIn, dependentAssumptionsOut)}}">
+                <template is="dom-if" if="[[dependentAssumptionsIn.length]]">
                     <h3>Dependent assumptions</h3>
                     <assumptions-list filtered-assumptions="[[dependentAssumptionsIn]]" linktosource></assumptions-list>
-
+                </template>
+                <template is="dom-if" if="[[dependentAssumptionsOut.length]]">
                     <h3>Depends on assumptions</h3>
                     <assumptions-list filtered-assumptions="[[dependentAssumptionsOut]]" linktosource></assumptions-list>
-                </div>
-            <!-- </template> -->
+                </template>
+            </div>
+
 
         </vaadin-split-layout>
 
@@ -75,7 +77,11 @@
             ],
 
             assumptionsPanelStyle: function(dependentAssumptionsIn, dependentAssumptionsOut) {
-                return ((dependentAssumptionsIn && dependentAssumptionsIn.length) || (dependentAssumptionsOut && dependentAssumptionsOut.length)) ? "width:30%" : "width:0%";
+                return ((dependentAssumptionsIn && dependentAssumptionsIn.length) || (dependentAssumptionsOut && dependentAssumptionsOut.length)) ? "width:35%" : "width:0.001%";
+            },
+
+            codePanelStyle: function(dependentAssumptionsIn, dependentAssumptionsOut) {
+                return ((dependentAssumptionsIn && dependentAssumptionsIn.length) || (dependentAssumptionsOut && dependentAssumptionsOut.length)) ? "width:65%" : "width:99.999%";
             },
 
             _toggleLine: function(e) {
@@ -101,9 +107,14 @@
                 this.set("dependentAssumptionsIn", assumptionsIn);
                 this.set("dependentAssumptionsOut", assumptionsOut);
                 //
-                // if (this.$.verticalSplitter) {
-                //     this.$.verticalSplitter.notifyResize();
-                // }
+
+
+                var task = function() {
+                    if (this.$.verticalSplitter) {
+                        this.$.verticalSplitter.notifyResize();
+                    }
+                }
+                setTimeout(task.bind(this), 50);
 
             },
 
@@ -117,6 +128,10 @@
 
             _getStatsByLine: function(file, index, statistics) {
                 return statistics.getStatsByFileLine(file.relativePath, index);
+            },
+
+            _getRowClass: function(file, index, statistics, selected) {
+                return selected ? "selected":"";
             },
 
             _getClass: function(file, index, statistics, selected) {
