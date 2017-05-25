@@ -19,7 +19,7 @@
                             </div>
 
                             <template is="dom-if" if="[[showAtLinePos(item, selected)]]">
-                                <po-list on-tap="_toggleLine" filtered-proof-obligations="[[getPosAtLine(_loadedFile, index, statistics)]]" selected-po="{{selectedPo}}"></po-list>
+                                <po-list small on-tap="_toggleLine" filtered-proof-obligations="[[getPosAtLine(_loadedFile, index, statistics)]]" selected-po="{{selectedPo}}"></po-list>
                             </template>
                         </div>
                     </template>
@@ -30,11 +30,11 @@
             <div id="right-panel" class="side">
                 <template is="dom-if" if="[[dependentAssumptionsIn.length]]">
                     <h3>Dependent assumptions</h3>
-                    <assumptions-list filtered-assumptions="[[dependentAssumptionsIn]]" linktosource></assumptions-list>
+                    <assumptions-list small filtered-assumptions="[[dependentAssumptionsIn]]" linktosource></assumptions-list>
                 </template>
                 <template is="dom-if" if="[[dependentAssumptionsOut.length]]">
                     <h3>Depends on assumptions</h3>
-                    <assumptions-list filtered-assumptions="[[dependentAssumptionsOut]]" linktosource></assumptions-list>
+                    <assumptions-list small filtered-assumptions="[[dependentAssumptionsOut]]" linktosource></assumptions-list>
                 </template>
             </div>
 

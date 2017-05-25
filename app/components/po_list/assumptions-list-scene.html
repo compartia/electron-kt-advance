@@ -16,11 +16,11 @@
             <div id="right-panel" class="side">
                 <template is="dom-if" if="[[dependentProofObligationsIn.length]]">
                     <h3>Dependent Proof obligations</h3>
-                    <po-list filtered-proof-obligations="[[dependentProofObligationsIn]]" linktosource showgroups></po-list>
+                    <po-list small filtered-proof-obligations="[[dependentProofObligationsIn]]" linktosource showgroups></po-list>
                 </template>
                 <template is="dom-if" if="[[dependentProofObligationsOut.length]]">
                     <h3>Depends on Proof obligations</h3>
-                    <po-list filtered-proof-obligations="[[dependentProofObligationsOut]]" linktosource showgroups></po-list>
+                    <po-list small filtered-proof-obligations="[[dependentProofObligationsOut]]" linktosource showgroups></po-list>
                 </template>
             </div>
         </vaadin-split-layout>
