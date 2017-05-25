@@ -20,7 +20,7 @@
 <link rel="import" href="components/treeview/paper-tree.html">
 <link rel="import" href="components/treeview/functions-list.html">
 <link rel="import" href="components/po_list/po-list-scene.html">
-<link rel="import" href="components/po_list/assumptions-list.html">
+<link rel="import" href="components/po_list/assumptions-list-scene.html">
 
 <link rel="import" href="components/stats/kt-stats.html">
 
@@ -91,21 +91,9 @@
 
                             <!-- POs -->
                             <po-list-scene id="main-po-list" filtered-proof-obligations="[[filteredProofObligations]]" linktosource showgroups selected-po="{{selectedPo}}"></po-list-scene>
-                     
-                            <vaadin-split-layout id="verticalAssumptionsSplitter"  class="splitter-3">
-                                <assumptions-list class="main" id="main-assumptions-list" filtered-assumptions="[[filteredAssumptions]]"
-                                    selected-assumptions="{{selectedAssumptions}}" linktosource></assumptions-list>
-                                <div id="right-panel" class="side">
-                                    <template is="dom-if" if="[[dependentProofObligationsIn.length]]">
-                                        <h3>Dependent Proof obligations</h3>
-                                        <po-list filtered-proof-obligations="[[dependentProofObligationsIn]]" linktosource showgroups></po-list>
-                                    </template>
-                                    <template is="dom-if" if="[[dependentProofObligationsOut.length]]">
-                                        <h3>Depends on Proof obligations</h3>
-                                        <po-list filtered-proof-obligations="[[dependentProofObligationsOut]]" linktosource showgroups></po-list>
-                                    </template>
-                                </div>
-                            </vaadin-split-layout>
+
+                            <assumptions-list-scene filtered-assumptions="[[filteredAssumptions]]"
+                                selected-assumptions="{{selectedAssumptions}}" linktosource></assumptions-list-scene>
 
 
                             <tf-graph-board
@@ -294,8 +282,6 @@
                     notify: true
                 },
 
-                // dependentProofObligations: {     type: Object,     notify: true },
-
                 filteredAssumptions: {
                     type: Object,
                     notify: true
@@ -312,9 +298,6 @@
                     notify: true
                 },
 
-                selectedAssumptions: {
-                    type: Object
-                },
 
                 disabledTabs: String
             },
@@ -325,7 +308,7 @@
             },
 
             observers: [
-                'filterChanged(filter.*)',  '_selectedAssumptionsChanged(selectedAssumptions)'
+                'filterChanged(filter.*)'
             ],
 
             showPoTab: function(mode) {
@@ -350,26 +333,6 @@
                 sourceview.maybeLoadFile(this.filter.file, aftereffect.bind(this));
             },
 
-            _selectedAssumptionsChanged: function(list) {
-                var posIn = [];
-                var posOut = [];
-                for (var i = 0; i < list.length; i++) {
-                    posIn = posIn.concat(list[i].inputs);
-                    posOut = posOut.concat(list[i].outputs);
-                }
-
-                // pos = kt.model.sortPoNodes(_.uniq(pos));
-
-                this.set("dependentProofObligationsIn", posIn);
-                this.set("dependentProofObligationsOut", posOut);
-
-                var task = function() {
-                    if (this.$.verticalAssumptionsSplitter) {
-                        this.$.verticalAssumptionsSplitter.notifyResize();
-                    }
-                }
-                setTimeout(task.bind(this), 50);
-            },
 
             filterChanged: function(event) {
                 if (this.currentProject) {
@@ -434,29 +397,6 @@
                 return mode;
             },
 
-            _modeIsSource: function(mode) {
-                return mode === "source";
-            },
-
-            _modeIsPo: function(mode) {
-                return mode === "proof obligations";
-            },
-
-            _modeIsSummary: function(mode) {
-                return mode === "summary";
-            },
-
-            _modeIsGraphs: function(mode) {
-                return mode === "graphs";
-            },
-
-            selectedDashboard: function() {
-                var dashboard = this.$$("#" + this.mode);
-                if (dashboard == null) {
-                    throw new Error(`Unable to find dashboard for mode: ${this.mode}`);
-                }
-                return dashboard;
-            },
 
             _getToastClass: function(_progress) {
                 var result = 'toast';
@@ -492,7 +432,6 @@
                     });
                     console.log("cancelled");
                 }
-
             },
 
             _computeFunctionListStyle: function(filterFile) {

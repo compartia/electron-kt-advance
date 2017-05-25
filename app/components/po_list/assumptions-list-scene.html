@@ -1,0 +1,102 @@
+<link rel="import" href="po-list.html">
+<link rel="import" href="assumptions-list.html">
+
+<dom-module id="assumptions-list-scene">
+    <template>
+
+        <vaadin-split-layout id="verticalAssumptionsSplitter" class$="splitter-3 [[getSplitterClass(dependentProofObligationsIn, dependentProofObligationsOut)]]">
+
+            <assumptions-list
+                id="main-assumptions-list"
+                class="main"
+                filtered-assumptions="[[filteredAssumptions]]"
+                selected-assumptions="{{selectedAssumptions}}"
+                linktosource></assumptions-list>
+
+            <div id="right-panel" class="side">
+                <template is="dom-if" if="[[dependentProofObligationsIn.length]]">
+                    <h3>Dependent Proof obligations</h3>
+                    <po-list filtered-proof-obligations="[[dependentProofObligationsIn]]" linktosource showgroups></po-list>
+                </template>
+                <template is="dom-if" if="[[dependentProofObligationsOut.length]]">
+                    <h3>Depends on Proof obligations</h3>
+                    <po-list filtered-proof-obligations="[[dependentProofObligationsOut]]" linktosource showgroups></po-list>
+                </template>
+            </div>
+        </vaadin-split-layout>
+
+    </template>
+
+
+
+    <script>
+        Polymer({
+            is: 'assumptions-list-scene',
+            properties: {
+                filteredAssumptions: {
+                    type: Object,
+                    notify: true
+                },
+                selectedAssumptions: Object,
+                selectedPo: Object,
+                dependentProofObligationsIn: Array,
+                dependentProofObligationsOut: Array,
+            },
+
+            observers: [
+                '_selectedAssumptionsChanged(selectedAssumptions)'
+            ],
+
+            getSplitterClass: function(dependentProofObligationsIn, dependentProofObligationsOut) {
+                return ((dependentProofObligationsIn && dependentProofObligationsIn.length) || (dependentProofObligationsOut && dependentProofObligationsOut.length)) ? "" : "collapsed";
+            },
+
+
+            _selectedAssumptionsChanged: function(list) {
+                var posIn = [];
+                var posOut = [];
+                for (var i = 0; i < list.length; i++) {
+                    posIn = posIn.concat(list[i].inputs);
+                    posOut = posOut.concat(list[i].outputs);
+                }
+
+                // pos = kt.model.sortPoNodes(_.uniq(pos));
+
+                this.set("dependentProofObligationsIn", posIn);
+                this.set("dependentProofObligationsOut", posOut);
+
+                var task = function() {
+                    if (this.$.verticalAssumptionsSplitter) {
+                        this.$.verticalAssumptionsSplitter.notifyResize();
+                    }
+                }
+                setTimeout(task.bind(this), 50);
+            },
+
+
+        });
+    </script>
+
+    <style>
+        .splitter-3 {
+            --vaadin-split-layout-splitter: {
+                min-width: 1px;
+                min-height: 1px;
+                border: solid 4px none;
+                background-clip: content-box;
+            }
+        }
+
+        .splitter-3 {
+            --vaadin-split-layout-splitter: {
+                background: var(--paper-tree-selected-background-color);
+                fill: var(--paper-tree-selected-background-color);
+            }
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+        }
+    </style>
+</dom-module>
