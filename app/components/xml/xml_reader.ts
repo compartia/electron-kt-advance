@@ -670,7 +670,7 @@ module kt.xml {
             for (let spoKey in spoMap) {
                 let spo = spoMap[spoKey];
                 let api = apiMap[spo.apiKey];
-                if (api) {
+                if (api && api.type=="api") {                    
                     spo.addInput(api);
                     api.addOutput(spo);
                 } else {
