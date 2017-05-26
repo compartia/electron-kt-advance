@@ -310,7 +310,15 @@ module kt.xml {
                 return this.exp.location;
             } else if (this.exp1) {
                 return this.exp1.location;
+            } else if (this.lval) {
+                if (this.lval.lhost) {
+                    if (this.lval.lhost.mem) {
+                        //please refer dovecot / dict-client.c / client_dict_connect:L428
+                       return this.lval.lhost.mem.location;
+                   }
+                }
             }
+
 
 
             return null;
