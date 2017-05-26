@@ -7,19 +7,29 @@
         <vaadin-split-layout id="verticalSplitter" class$="splitter-3 [[getSplitterClass(dependentAssumptionsIn, dependentAssumptionsOut)]]" >
 
             <div id="scrollable" class="main">
-                <iron-list scroll-target="scrollable" id="listOfLines" items="[[lines]]" max-physical-count="[[lines.length]]" selection-enabled as="item">
+                <iron-list
+                        id="listOfLines"
+                        scroll-target="scrollable"
+                        items="[[lines]]"
+                        max-physical-count="[[lines.length]]"
+                        selection-enabled
+                        selected-item="{{selectedLine}}"
+                        as="item">
+
                     <template>
                         <div class$="code-line-wrapper [[_getRowClass(_loadedFile, index, statistics, selected)]]" >
                             <div class$="code-line [[_getClass(_loadedFile, index, statistics, selected)]]" on-tap="_onLineSelectedLine">
                                 <span class="info">
-                                    <span id="line-number">[[_lineNumber(index)]]</span>
+                                    <span id="line-number">[[item.index]]</span>
                                     <node-decorator show-count="true" statistics="[[_getStatsByLine(_loadedFile, index, statistics)]]"></node-decorator>
                                 </span>
                                 <pre class="text">[[item.text]]</pre>
                             </div>
 
-                            <template is="dom-if" if="[[showAtLinePos(item, selected)]]">
-                                <po-list small on-tap="_toggleLine" filtered-proof-obligations="[[getPosAtLine(_loadedFile, index, statistics)]]" selected-po="{{selectedPo}}"></po-list>
+                            <template is="dom-if" if="{{showAtLinePos(item, selected)}}">
+                                <div style="max-height:300px; overflow: auto">
+                                    <po-list linktosource small on-tap="_toggleLine" filtered-proof-obligations="{{posByLine}}" selected-po="{{selectedPo}}"></po-list>
+                                </div>
                             </template>
                         </div>
                     </template>
@@ -65,6 +75,11 @@
                     notify: true
                 },
 
+                selectedLine: {
+                    type: Object,
+                    notify: true
+                },
+
                 selectedPo: {
                     type: Object,
                     notify: true
@@ -73,7 +88,7 @@
             },
 
             observers: [
-                '_selectedPoChanged(selectedPo)'
+                '_selectedPoChanged(selectedPo)', '_selectedLineChanged(selectedLine, statistics)'
             ],
 
 
@@ -89,8 +104,19 @@
                 this.selectedPo = null;
             },
 
-            _selectedPoChanged: function(list) {
+            _selectedLineChanged:function(selectedLine, statistics){
+                console.warn(selectedLine);
+                if(selectedLine!=null){
+                    var posByLine = this.currentProject.getPosAtLine(this._loadedFile.relativePath, selectedLine.index);
+                    this.set("posByLine", posByLine);
+                }
+            },
 
+            showAtLinePos: function(item, selected) {
+                return selected;
+            },
+
+            _selectedPoChanged: function(list) {
                 var assumptionsOut = [];
                 var assumptionsIn = [];
                 if(list){
@@ -114,13 +140,7 @@
 
             },
 
-            showAtLinePos: function(item, selected) {
-                return selected;
-            },
 
-            getPosAtLine: function(file, index, statistics) {
-                return this.currentProject.getPosAtLine(file.relativePath, index + 1);
-            },
 
             _getStatsByLine: function(file, index, statistics) {
                 return statistics.getStatsByFileLine(file.relativePath, index);
@@ -155,6 +175,7 @@
             },
 
             jumpToLine: function(line) {
+
                 if (!line) {
                     line = 1;
                 }
@@ -163,13 +184,20 @@
                     jump = line - 4;
                 }
 
-                var task = function() {
+                var task2 = function() {
                     if (this.$.listOfLines.items) {
-                        this.$.listOfLines.scrollToIndex(jump);
                         this.$.listOfLines.selectItem(this.lines[line - 1]);
                     }
                 }
-                setTimeout(task.bind(this), 100);
+
+                var task = function() {
+                    if (this.$.listOfLines.items) {
+                        this.$.listOfLines.scrollToIndex(jump);
+                        // this.$.listOfLines.selectItem(this.lines[line - 1]);
+                        setTimeout(task2.bind(this), 50);
+                    }
+                }
+                setTimeout(task.bind(this), 50);
 
             },
 
@@ -182,6 +210,7 @@
                     this._loadedFile = newFile;
                     //XXX: handle errors;
                     this.currentProject.loadFile(newFile.relativePath).then(function(fileContents) {
+                        this.set("posByLine", []);
                         this.set("lines", fileContents.lines);
                         aftereffect();
                     }.bind(this));

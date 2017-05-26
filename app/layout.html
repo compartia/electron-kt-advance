@@ -335,19 +335,22 @@
 
 
             filterChanged: function(event) {
-                if (this.currentProject) {
-                    console.info("filterChanged: " + event);
-                    console.info(event);
+                console.info("filterChanged: " + event.path);
 
-                    if (!this.pendingFilterChanges) {
-                        var task = function() {
-                            this._applyFilterAsync(this.currentProject, this.filter);
+                if(event.path!="filter.line"){
+                    if (this.currentProject) {
+
+                        if (!this.pendingFilterChanges) {
+                            var task = function() {
+                                this._applyFilterAsync(this.currentProject, this.filter);
+                            }
+                            setTimeout(task.bind(this), 100);
                         }
-                        setTimeout(task.bind(this), 100);
-                    }
 
-                    this.pendingFilterChanges = true;
+                        this.pendingFilterChanges = true;
+                    }
                 }
+
 
             },
 
