@@ -505,18 +505,13 @@ module kt.xml {
                 let funcs: Array<xml.CFunction> = functionsMap.findFuncs(spo.callsiteFname);
                 if (funcs) {
                     if (funcs.length > 1) {
-                        // console.warn("ambigous fname");
-                        // console.warn(funcs);
                         ambigous[spo.callsiteFname] = funcs;
                     }
 
                     spo.callsiteFileName = funcs[0].fileInfo.relativePath;//XXX:
 
                 } else {
-                    // let m = "source file is unknow for the function name " + spo.callsiteFname;
                     missing.push(spo.callsiteFname);
-                    // console.warn(m);
-                    // throw m;
                 }
             }
 

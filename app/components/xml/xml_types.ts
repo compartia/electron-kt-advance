@@ -39,7 +39,7 @@ module kt.xml {
     }
 
     export class CFunction {
-        private _file: kt.treeview.FileInfo = new  kt.treeview.FileInfoImpl();
+        private _file: kt.treeview.FileInfo = new kt.treeview.FileInfoImpl();
         line: number;
         name: string;
 
@@ -52,9 +52,9 @@ module kt.xml {
         }
 
         set file(file: string) {
-            if(file){
+            if (file) {
                 this._file.relativePath = path.normalize(file);
-            }else{
+            } else {
                 this._file.relativePath = file;
             }
 
@@ -141,15 +141,30 @@ module kt.xml {
         byteNo: number;
         line: number;
 
-        location: ExpressionLocation;
+        _location: ExpressionLocation;
+
+        get location(): ExpressionLocation {
+            if (this._location != null) {
+                return this._location;
+            } else {
+                if (this.lval != null) {
+                    return this.lval.location;
+                }
+            }
+            return null;
+        }
+
+        set location(_location: ExpressionLocation) {
+            this._location = _location;
+        }
 
         constructor(tag, parent: XmlTag) {
             super();
             this.xstr = tag.attributes["xstr"];
             this.etag = tag.attributes["etag"];
 
-            if(tag.attributes["line"] && tag.attributes["file"]){
-                this.location=new ExpressionLocation();
+            if (tag.attributes["line"] && tag.attributes["file"]) {
+                this.location = new ExpressionLocation();
                 this.location.line = tag.attributes["line"];
                 this.location.file = tag.attributes["file"];
             }
@@ -202,37 +217,37 @@ module kt.xml {
 
     }
 
-        export class ExpressionHolder extends XmlTag {
-            xstr: string;
-            exp: Expression;
+    export class ExpressionHolder extends XmlTag {
+        xstr: string;
+        exp: Expression;
 
-            get varName(): Symbol {
-                if (this.exp) {
-                    return this.exp.varName;
-                } else {
-                    return null;
-                }
-            }
-
-            get location(): ExpressionLocation {
-                return this.exp.location;
-            }
-
-            get expression(): string {
-                if (this.xstr)
-                    return this.xstr;
-                if (this.exp) {
-                    return this.exp.expression;
-                }
-                return this._tagname;
-            }
-
-            public constructor(tag, parent) {
-                super();
-                this.xstr = tag.attributes["xstr"];
-                this.exp = new Expression(tag, parent);
+        get varName(): Symbol {
+            if (this.exp) {
+                return this.exp.varName;
+            } else {
+                return null;
             }
         }
+
+        get location(): ExpressionLocation {
+            return this.exp.location;
+        }
+
+        get expression(): string {
+            if (this.xstr)
+                return this.xstr;
+            if (this.exp) {
+                return this.exp.expression;
+            }
+            return this._tagname;
+        }
+
+        public constructor(tag, parent) {
+            super();
+            this.xstr = tag.attributes["xstr"];
+            this.exp = new Expression(tag, parent);
+        }
+    }
 
 
     export class Var extends XmlTag {
@@ -259,6 +274,14 @@ module kt.xml {
         get expression(): string {
             return this.lhost.expression;
         }
+
+        get location(): ExpressionLocation {
+            if (this.lhost != null) {
+                return this.lhost.location;
+            }
+            return null;
+        }
+
     }
 
     export class LHost extends XmlTag {
@@ -278,6 +301,13 @@ module kt.xml {
             } else {
                 return this.var.expression;
             }
+        }
+
+        get location(): ExpressionLocation {
+            if (this.mem != null) {
+                return this.mem.location;
+            }
+            return null;
         }
     }
 
@@ -303,7 +333,7 @@ module kt.xml {
             this.op = _tag.attributes["op"];
         }
 
-        get location(): ExpressionLocation{
+        get location(): ExpressionLocation {
             if (this.baseExp) {
                 return this.baseExp.location;
             } else if (this.exp) {
@@ -311,15 +341,8 @@ module kt.xml {
             } else if (this.exp1) {
                 return this.exp1.location;
             } else if (this.lval) {
-                if (this.lval.lhost) {
-                    if (this.lval.lhost.mem) {
-                        //please refer dovecot / dict-client.c / client_dict_connect:L428
-                       return this.lval.lhost.mem.location;
-                   }
-                }
+                return this.lval.location;
             }
-
-
 
             return null;
         }
