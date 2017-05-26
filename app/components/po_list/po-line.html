@@ -1,29 +1,21 @@
 <dom-module id="po-line">
     <template>
 
-        <div class$="po row [[_getClass(item)]]" title$="[[item.id]] [[item.file]]/[[item.functionName]]:[[item.location.line]]">
+        <div class$="po row [[_getClass(item)]]" title$="[[item.stateName]] id:[[item.id]] [[item.file]]/[[item.functionName]]:[[item.location.line]]">
             <span class='left'>
                 <iron-icon class="po-icon" icon$="{{_computeIcon(item)}}" on-click="select"></iron-icon>
                 <span class$="level-[[item.level]]">[[item.levelLabel]]</span>
             </span>
             <span class='mid'>
-
-                <span class="state">
-
-                    [[item.stateName]]
-                    <template is="dom-if" if="[[item.dischargeType]]">
-                        :<span class="discharge">{{item.dischargeType}}</span>
-                    </template>
-                </span>
-
+                <template is="dom-if" if="[[item.dischargeType]]">
+                     <span class="discharge">{{item.dischargeType}}</span>
+                </template>
                 <span class="predicate">
                     <span class="predicate-name">
                         [[item.predicate]]
                     </span>
                     <template is="dom-if" if="[[item.predicateArgument]]">
-                        (<span class="predicate-arg">
-                            [[item.predicateArgument]]
-                        </span>)
+                        (<span class="predicate-arg">[[item.predicateArgument]]</span>)
                     </template>
                 </span>
 

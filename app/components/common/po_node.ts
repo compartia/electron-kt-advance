@@ -147,7 +147,7 @@ module kt.model {
     export class POLocation {
         textRange: number[][];
 
-        get line():number {
+        get line(): number {
             if (this.textRange) {
                 return this.textRange[0][0];
             } else {
@@ -171,7 +171,7 @@ module kt.model {
         get predicateArgument(): string {
             if (this.symbol) {
                 if (this.symbol.type == xml.SymbolType.ID) {
-                    return this.symbol.value;
+                    return ("" + this.symbol.value).trim();
                 } else {
                     return '"' + this.symbol.value + '"';
                 }
@@ -216,6 +216,14 @@ module kt.model {
 
         get stateName() {
             return PoStates[this.state];
+        }
+
+        get stateNameIfNotDischarged() {
+            if (this.state != PoStates.discharged) {
+                return PoStates[this.state];
+            } else {
+                return "";
+            }
         }
 
         public abstract makeName(filter: Globals.Filter, settings: Globals.GraphSettings): string;

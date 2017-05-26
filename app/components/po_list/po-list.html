@@ -4,7 +4,14 @@
 <dom-module id="po-list">
     <template>
         <div class="scrollable">
-            <iron-list scroll-target="scrollable" items="[[groupPOs(filteredProofObligations)]]" as="line" selection-enabled selected-items="{{selectedItems}}"  selected-item="{{selectedItem}}">
+            <iron-list
+                scroll-target="scrollable"
+                items="[[groupPOs(filteredProofObligations)]]"
+                as="line"
+                selection-enabled
+                selected-items="{{selectedItems}}"
+                selected-item="{{selectedItem}}">
+
                 <template>
                     <div class$="po-wrapper [[_getClass(line, selected)]]">
                         <template is="dom-if" if="[[_showGroup(line, showgroups)]]">
@@ -21,9 +28,8 @@
                     </div>
 
                 </template>
-            </div>
-        </iron-list>
-
+            </iron-list>
+        </div>
     </template>
 
     <script>
@@ -33,6 +39,7 @@
             properties: {
                 linktosource: Boolean,
                 showgroups: Boolean,
+                small: Boolean,
 
                 selectedPo: {
                     type: Array,
@@ -69,18 +76,21 @@
 
             _selectedItemChanged: function(item) {
                 var pos = [];
-                if(this.selectedItem){
+                if (this.selectedItem) {
                     pos.push(this.selectedItem.value);
                 }
-
 
                 this.set("selectedPo", pos);
             },
 
-            _getClass: function(line, selected) {
-                return selected
-                    ? "selected"
-                    : "";
+            _getClass: function(line, selected, small) {
+                var clazz = selected ?
+                    "selected" :
+                    "";
+                if(this.small){
+                    clazz+=" small";
+                }
+                return clazz;
             },
 
             _showGroup: function(line, showgroups) {

@@ -19,8 +19,8 @@
 <link rel="import" href="components/common/po-filter-panel.html">
 <link rel="import" href="components/treeview/paper-tree.html">
 <link rel="import" href="components/treeview/functions-list.html">
-<link rel="import" href="components/po_list/po-list.html">
-<link rel="import" href="components/po_list/assumptions-list.html">
+<link rel="import" href="components/po_list/po-list-scene.html">
+<link rel="import" href="components/po_list/assumptions-list-scene.html">
 
 <link rel="import" href="components/stats/kt-stats.html">
 
@@ -90,35 +90,11 @@
                             <source-view id="sourceview" current-project="[[currentProject]]" statistics="[[statistics]]"></source-view>
 
                             <!-- POs -->
-                            <div>
-                                <template  is="dom-if" if="{{showPoTab(modeIndex)}}">
-                                    <vaadin-split-layout class="splitter-3">
-                                        <po-list id="main-po-list" filtered-proof-obligations="[[filteredProofObligations]]" linktosource showgroups selected-po="{{selectedPo}}"></po-list>
-                                        <div id="right-panel" hidden$="[[!dependentAssumptions.length]]">
-                                            <h3>Dependent assumptions</h3>
-                                            <assumptions-list filtered-assumptions="[[dependentAssumptionsIn]]" linktosource></assumptions-list>
+                            <po-list-scene id="main-po-list" filtered-proof-obligations="[[filteredProofObligations]]" linktosource showgroups selected-po="{{selectedPo}}"></po-list-scene>
 
-                                            <h3>Depends on assumptions</h3>
-                                            <assumptions-list filtered-assumptions="[[dependentAssumptionsOut]]" linktosource></assumptions-list>
-                                        </div>
-                                    </vaadin-split-layout>
-                                </template>
-                            </div>
+                            <assumptions-list-scene filtered-assumptions="[[filteredAssumptions]]"
+                                selected-assumptions="{{selectedAssumptions}}" linktosource></assumptions-list-scene>
 
-                            <div>
-                                <template is="dom-if" if="{{showAssumptionsTab(modeIndex)}}">
-                                    <vaadin-split-layout class="splitter-3">
-                                        <assumptions-list id="main-assumptions-list" filtered-assumptions="[[filteredAssumptions]]" selected-assumptions="{{selectedAssumptions}}" linktosource></assumptions-list>
-                                        <div id="right-panel">
-                                            <h3>Dependent Proof obligations</h3>
-                                            <po-list filtered-proof-obligations="[[dependentProofObligationsIn]]" linktosource showgroups></po-list>
-
-                                            <h3>Depends on Proof obligations</h3>
-                                            <po-list filtered-proof-obligations="[[dependentProofObligationsOut]]" linktosource showgroups></po-list>
-                                        </div>
-                                    </vaadin-split-layout>
-                                </template>
-                            </div>
 
                             <tf-graph-board
                                 id="graphboard"
@@ -306,8 +282,6 @@
                     notify: true
                 },
 
-                // dependentProofObligations: {     type: Object,     notify: true },
-
                 filteredAssumptions: {
                     type: Object,
                     notify: true
@@ -324,13 +298,6 @@
                     notify: true
                 },
 
-                selectedPo: {
-                    type: Object
-                },
-
-                selectedAssumptions: {
-                    type: Object
-                },
 
                 disabledTabs: String
             },
@@ -341,7 +308,7 @@
             },
 
             observers: [
-                'filterChanged(filter.*)', '_selectedPoChanged(selectedPo)', '_selectedAssumptionsChanged(selectedAssumptions)'
+                'filterChanged(filter.*)'
             ],
 
             showPoTab: function(mode) {
@@ -366,46 +333,24 @@
                 sourceview.maybeLoadFile(this.filter.file, aftereffect.bind(this));
             },
 
-            _selectedPoChanged: function(list) {
-                var assumptionsOut = [];
-                var assumptionsIn = [];
-                for (var i = 0; i < list.length; i++) {
-                    assumptionsOut = assumptionsOut.concat(list[i].outputs);
-                    assumptionsIn = assumptionsIn.concat(list[i].inputs);
-                }
-                //XXX: make list of unique! pos=this.filter.filterAssumptions(assumptions);
-                this.set("dependentAssumptionsIn", assumptionsIn);
-                this.set("dependentAssumptionsOut", assumptionsOut);
-            },
-
-            _selectedAssumptionsChanged: function(list) {
-                var posIn = [];
-                var posOut = [];
-                for (var i = 0; i < list.length; i++) {
-                    posIn = posIn.concat(list[i].inputs);
-                    posOut = posOut.concat(list[i].outputs);
-                }
-
-                // pos = kt.model.sortPoNodes(_.uniq(pos));
-
-                this.set("dependentProofObligationsIn", posIn);
-                this.set("dependentProofObligationsOut", posOut);
-            },
 
             filterChanged: function(event) {
-                if (this.currentProject) {
-                    console.info("filterChanged: " + event);
-                    console.info(event);
+                console.info("filterChanged: " + event.path);
 
-                    if (!this.pendingFilterChanges) {
-                        var task = function() {
-                            this._applyFilterAsync(this.currentProject, this.filter);
+                if(event.path!="filter.line"){
+                    if (this.currentProject) {
+
+                        if (!this.pendingFilterChanges) {
+                            var task = function() {
+                                this._applyFilterAsync(this.currentProject, this.filter);
+                            }
+                            setTimeout(task.bind(this), 100);
                         }
-                        setTimeout(task.bind(this), 100);
-                    }
 
-                    this.pendingFilterChanges = true;
+                        this.pendingFilterChanges = true;
+                    }
                 }
+
 
             },
 
@@ -455,29 +400,6 @@
                 return mode;
             },
 
-            _modeIsSource: function(mode) {
-                return mode === "source";
-            },
-
-            _modeIsPo: function(mode) {
-                return mode === "proof obligations";
-            },
-
-            _modeIsSummary: function(mode) {
-                return mode === "summary";
-            },
-
-            _modeIsGraphs: function(mode) {
-                return mode === "graphs";
-            },
-
-            selectedDashboard: function() {
-                var dashboard = this.$$("#" + this.mode);
-                if (dashboard == null) {
-                    throw new Error(`Unable to find dashboard for mode: ${this.mode}`);
-                }
-                return dashboard;
-            },
 
             _getToastClass: function(_progress) {
                 var result = 'toast';
@@ -513,7 +435,6 @@
                     });
                     console.log("cancelled");
                 }
-
             },
 
             _computeFunctionListStyle: function(filterFile) {

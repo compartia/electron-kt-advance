@@ -30,6 +30,9 @@ $selection-border: darken($selection-bg, 20%);
 $selection-lt-bg: $side-bg;
 $selection-lt-border: darken($selection-lt-bg, 20%);
 
+$selection-md-bg:  mix($selection-bg,$selection-lt-bg, 50%);
+
+
 $highlight: transparentize($selection-bg, 0.7);
 $highlight-hover: transparentize($selection-bg, 0.35);
 

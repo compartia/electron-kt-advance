@@ -75,15 +75,20 @@ source-view {
         margin-left: $spacer !important;
     }
 
-    .code-line.violation {
-        background: var(--kt-state-violation-default-hover-bg);
+    // .code-line.violation {
+    //     background: var(--kt-state-violation-default-hover-bg);
+    // }
+
+
+    .code-line-wrapper.selected{
+        background: $selection-md-bg!important;
     }
 
     .code-line.selected{
-        background: $selection-bg!important;
+        background: $selection-md-bg!important;
 
         .info{
-            background: $selection-bg!important;
+            background: $selection-md-bg!important;
 
             node-decorator{
                 visibility: hidden;

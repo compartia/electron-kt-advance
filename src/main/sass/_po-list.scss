@@ -11,7 +11,6 @@ $po-icon-width: 16px;
 
 po-list {
     .headline {
-        // background: $side-bg;
         padding: $spacer*2 $spacer $spacer;
         color  : $grey-lighter;
 
@@ -34,8 +33,12 @@ po-list {
     margin : 0;
 }
 
-.po-wrapper.selected {
-    background: $selection-lt-bg;
+.po-wrapper.selected, .po-wrapper.selected.small  {
+    background: $selection-bg;
+}
+
+.po-wrapper.small {
+    font-size: $font-size-sm;
 }
 
 assumption-line,
@@ -58,15 +61,6 @@ po-line {
             height    : $po-icon-width;
             min-width : $po-icon-width;
             min-height: $po-icon-width;
-        }
-
-        .po-id {
-            color        : $grey;
-            font-size    : $font-size-xs;
-            font-family  : $monospaced;
-            min-width    : $po-id-width;
-            padding-right: $po-id-padding;
-            text-align   : right;
         }
 
         .predicate {
@@ -118,7 +112,7 @@ po-line {
                 min-width    : $po-loc-width;
                 padding      : $spacer/4 $spacer/2;
                 text-align   : right;
-                font-size    : $font-size-xs;
+                font-size    : 80%s;
                 background   : $highlight;
                 border-radius: $spacer*2;
                 margin       : $spacer/3;
@@ -143,7 +137,7 @@ po-line {
                     min-width    : 1em;
                     color        : $color-brand-2;
                     border-radius: $spacer*2;
-                    font-size    : $font-size-xs;
+                    font-size    : 80%;
                     padding      : $spacer/4 $spacer/2;
                 }
 
