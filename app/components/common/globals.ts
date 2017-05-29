@@ -6,7 +6,7 @@ module kt.Globals {
     export const CH_DIR: string = "ch_analysis";
 
     export var TABS = [
-        'summary', 'source', 'proof obligations', 'assumptions', 'graphs'
+        'summary', 'source', 'proof obligations', 'assumptions', 'graphs', '?'
     ];
 
     export enum GraphGrouppingOptions { file, predicate };
