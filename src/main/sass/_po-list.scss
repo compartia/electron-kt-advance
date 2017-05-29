@@ -71,7 +71,7 @@ po-line {
         padding    : $spacer/2 $spacer;
         //border-bottom: 1px solid var(--kt-grey-lighter);
         box-sizing : border-box;
-        border-left: 3px solid $transparent;
+        border-left: $marker-line-width solid $transparent;
         display    : flex;
         align-items: center;
         flex-flow  : row;
@@ -84,6 +84,7 @@ po-line {
         }
 
         .predicate {
+
             .predicate-name {
                 min-width     : 8rem;
                 font-weight   : 500;
@@ -94,7 +95,6 @@ po-line {
                 color      : $grey;
                 font-family: $monospaced;
             }
-
         }
 
         .left,
@@ -113,77 +113,70 @@ po-line {
             flex       : 1;
             align-items: center;
             flex-flow  : wrap;
-
-            span {
-                margin: $spacer/4;
-            }
         }
 
         .right {
             margin-left: auto;
             align-items: flex-end;
             flex-flow  : row;
+        }
 
-            .location {
-                // float        : right;
-                font-family  : $monospaced;
+        .assumptions {
+            display    : flex;
+            align-items: center;
 
-                cursor       : pointer;
-                min-width    : $po-loc-width;
-                padding      : $spacer/4 $spacer/2;
-                text-align   : right;
-                font-size    : 80%s;
-                background   : $highlight;
-                border-radius: $spacer*2;
+            .inputs,
+            .outputs {
+                text-align   : center;
                 margin       : $spacer/3;
+                min-width    : 1em;
+                color        : $color-brand-2;
+                border-radius: $spacer*2;
+                font-size    : 80%;
+                padding      : $spacer/4 $spacer/2;
+            }
+
+            .outputs {
+                background: var(--kt-out-edge-bg);
 
                 &:hover {
-                    background: $highlight-hover;
-                }
-
-                .line {
-                    text-decoration: underline;
+                    background: var(--kt-out-edge-bg-hover);
                 }
             }
 
-            .assumptions {
-                display    : flex;
-                align-items: center;
+            .inputs {
+                background: var(--kt-in-edge-bg);
 
-                .inputs,
-                .outputs {
-                    text-align   : center;
-                    margin       : $spacer/3;
-                    min-width    : 1em;
-                    color        : $color-brand-2;
-                    border-radius: $spacer*2;
-                    font-size    : 80%;
-                    padding      : $spacer/4 $spacer/2;
+                &:hover {
+                    background: var(--kt-in-edge-bg-hover);
                 }
+            }
+        }
 
-                .outputs {
-                    background: var(--kt-out-edge-bg);
+        .location {
+            // float        : right;
+            font-family  : $monospaced;
 
-                    &:hover {
-                        background: var(--kt-out-edge-bg-hover);
-                    }
-                }
+            cursor       : pointer;
+            min-width    : $po-loc-width;
+            padding      : $spacer/4 $spacer/2;
+            text-align   : right;
+            font-size    : 80%s;
+            background   : $highlight;
+            border-radius: $spacer*2;
+            margin       : $spacer/3;
 
-                .inputs {
-                    background: var(--kt-in-edge-bg);
+            &:hover {
+                background: $highlight-hover;
+            }
 
-                    &:hover {
-                        background: var(--kt-in-edge-bg-hover);
-                    }
-                }
-
+            .line {
+                text-decoration: underline;
             }
         }
 
         .state {
             min-width: 8rem;
-
-            .discharge {}
         }
 
         .function-name {
@@ -199,12 +192,16 @@ po-line {
             background   : $highlight;
             padding      : $spacer/4 $spacer;
             border-radius: $spacer;
+
+            margin: $spacer/4;
         }
 
         .discharge-comment {
             font-size: $font-size-sm;
             color    : $grey;
             width    : 100%;
+
+            margin: $spacer/4;
             // padding-left: $po-icon-width+$spacer;
         }
 

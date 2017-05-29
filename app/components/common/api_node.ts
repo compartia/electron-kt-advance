@@ -24,15 +24,23 @@ module kt.model {
             this.outputs = [];
         }
 
-        get line():number{
-            if(this.eLocation){
+        get line(): number {
+            if (this.eLocation) {
                 return this.eLocation.line;
             }
             return this.cfunction.line;
         }
 
+        get dischargeType(): string {
+            return this.type;
+        }
+
+        get level(): string {
+            return null;
+        }
+
         get file(): string {
-            if(this.eLocation){
+            if (this.eLocation) {
                 return this.eLocation.file;
             }
             return this.cfunction.file;
@@ -119,7 +127,8 @@ module kt.model {
                     "symbol": this.symbol,
                     "assumptionType": this.type,
                     "locationPath": this.file + SPL + this.functionName,
-                    "location": this.location
+                    "location": this.location,
+                    "data": this
                 }
             }
 

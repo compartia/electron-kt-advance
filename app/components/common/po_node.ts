@@ -515,7 +515,6 @@ module kt.model {
         public asNodeDef(filter: Globals.Filter, settings: Globals.GraphSettings): tf.graph.proto.NodeDef {
             const po = this.po;
 
-
             let nodeDef: tf.graph.proto.NodeDef = {
                 name: this.makeName(filter, settings),
                 input: [],
@@ -535,7 +534,8 @@ module kt.model {
                     "dischargeType": this.dischargeType,
                     "discharge": this.discharge, //? po["discharge"]["comment"] : null
                     "dischargeAssumption": this.dischargeAssumption,
-                    "locationPath": this.file + SPL + this.functionName
+                    "locationPath": this.file + SPL + this.functionName,
+                    "data":this
                 }
             }
 
