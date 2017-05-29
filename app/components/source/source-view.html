@@ -4,28 +4,58 @@
 
     <template>
 
-        <div id="scrollable">
-            <iron-list scroll-target="scrollable" id="listOfLines" items="[[lines]]" max-physical-count="[[lines.length]]" selection-enabled as="item">
-                <template>
-                    <div>
-                        <div class$="code-line [[_getClass(_loadedFile, index, statistics, selected)]]">
-                            <span class="info">
-                                <span id="line-number">[[_lineNumber(index)]]</span>
-                                <node-decorator show-count="true" statistics="[[_getStatsByLine(_loadedFile, index, statistics)]]"></node-decorator>
-                            </span>
-                            <pre class="text">[[item.text]]</pre>
+        <vaadin-split-layout id="verticalSplitter" class$="splitter-3 [[getSplitterClass(dependentAssumptionsIn, dependentAssumptionsOut)]]" >
+
+            <div id="scrollable" class="main">
+                <iron-list
+                        id="listOfLines"
+                        scroll-target="scrollable"
+                        items="[[lines]]"
+                        max-physical-count="[[lines.length]]"
+                        selection-enabled
+                        selected-item="{{selectedLine}}"
+                        as="item">
+
+                    <template>
+                        <div class$="code-line-wrapper [[_getRowClass(_loadedFile, index, statistics, selected)]]" >
+                            <div class$="code-line [[_getClass(_loadedFile, index, statistics, selected)]]" on-tap="_onLineSelectedLine">
+                                <span class="info">
+                                    <span id="line-number">[[item.index]]</span>
+                                    <node-decorator show-count="true" statistics="[[_getStatsByLine(_loadedFile, index, statistics)]]"></node-decorator>
+                                </span>
+                                <pre class="text">[[item.text]]</pre>
+                            </div>
+
+                            <template is="dom-if" if="{{showAtLinePos(item, selected)}}">
+                                <div style="max-height:300px; overflow: auto">
+                                    <po-list small on-tap="_toggleLine" filtered-proof-obligations="{{posByLine}}" selected-po="{{selectedPo}}"></po-list>
+                                </div>
+                            </template>
                         </div>
+                    </template>
+                </iron-list>
+            </div>
 
-                        <template is="dom-if" if="[[showAtLinePos(item, selected)]]">
-                            <po-list filtered-proof-obligations="[[getPosAtLine(_loadedFile, index, statistics)]]"></po-list>
-                        </template>
-                    </div>
 
+            <div id="right-panel" class="side">
+                <template is="dom-if" if="[[dependentAssumptionsIn.length]]">
+                    <h3>API assumption</h3>
+                    <assumptions-list small filtered-assumptions="[[dependentAssumptionsIn]]" linktosource></assumptions-list>
                 </template>
-            </iron-list>
-        </div>
+                <template is="dom-if" if="[[dependentAssumptionsOut.length]]">
+                    <h3>Depends on assumptions</h3>
+                    <assumptions-list small filtered-assumptions="[[dependentAssumptionsOut]]" linktosource></assumptions-list>
+                </template>
+            </div>
+
+
+        </vaadin-split-layout>
+
+
 
     </template>
+
+
 
     <script>
         Polymer({
@@ -43,6 +73,42 @@
                 statistics: {
                     type: Object,
                     notify: true
+                },
+
+                selectedLine: {
+                    type: Object,
+                    notify: true
+                },
+
+                selectedPo: {
+                    type: Object,
+                    notify: true
+                }
+
+            },
+
+            observers: [
+                '_selectedPoChanged(selectedPo)', '_selectedLineChanged(selectedLine, statistics)'
+            ],
+
+
+            getSplitterClass: function(dependentAssumptionsIn, dependentAssumptionsOut) {
+                return ((dependentAssumptionsIn && dependentAssumptionsIn.length) || (dependentAssumptionsOut && dependentAssumptionsOut.length)) ? "" : "collapsed";
+            },
+
+            _toggleLine: function(e) {
+                e.stopPropagation();
+            },
+
+            _onLineSelectedLine: function(e) {
+                this.selectedPo = null;
+            },
+
+            _selectedLineChanged:function(selectedLine, statistics){
+                console.warn(selectedLine);
+                if(selectedLine!=null){
+                    var posByLine = this.currentProject.getPosAtLine(this._loadedFile.relativePath, selectedLine.index);
+                    this.set("posByLine", posByLine);
                 }
             },
 
@@ -50,12 +116,38 @@
                 return selected;
             },
 
-            getPosAtLine: function(file, index, statistics) {
-                return this.currentProject.getPosAtLine(file.relativePath, index + 1);
+            _selectedPoChanged: function(list) {
+                var assumptionsOut = [];
+                var assumptionsIn = [];
+                if(list){
+                    for (var i = 0; i < list.length; i++) {
+                        assumptionsOut = assumptionsOut.concat(list[i].outputs);
+                        assumptionsIn = assumptionsIn.concat(list[i].inputs);
+                    }
+                }
+
+                //XXX: make list of unique! pos=this.filter.filterAssumptions(assumptions);
+                this.set("dependentAssumptionsIn", assumptionsIn);
+                this.set("dependentAssumptionsOut", assumptionsOut);
+                //
+
+                var task = function() {
+                    if (this.$.verticalSplitter) {
+                        this.$.verticalSplitter.notifyResize();
+                    }
+                }
+                setTimeout(task.bind(this), 50);
+
             },
+
+
 
             _getStatsByLine: function(file, index, statistics) {
                 return statistics.getStatsByFileLine(file.relativePath, index);
+            },
+
+            _getRowClass: function(file, index, statistics, selected) {
+                return selected ? "selected":"";
             },
 
             _getClass: function(file, index, statistics, selected) {
@@ -83,21 +175,29 @@
             },
 
             jumpToLine: function(line) {
+
                 if (!line) {
                     line = 1;
                 }
                 var jump = line;
-                if (line > 4){
+                if (line > 4) {
                     jump = line - 4;
                 }
 
-                var task = function() {
-                    if (this.$.listOfLines.items){
-                        this.$.listOfLines.scrollToIndex(jump);
-                        this.$.listOfLines.selectItem(this.lines[line-1]);
+                var task2 = function() {
+                    if (this.$.listOfLines.items) {
+                        this.$.listOfLines.selectItem(this.lines[line - 1]);
                     }
                 }
-                setTimeout(task.bind(this), 100);
+
+                var task = function() {
+                    if (this.$.listOfLines.items) {
+                        this.$.listOfLines.scrollToIndex(jump);
+                        // this.$.listOfLines.selectItem(this.lines[line - 1]);
+                        setTimeout(task2.bind(this), 50);
+                    }
+                }
+                setTimeout(task.bind(this), 50);
 
             },
 
@@ -110,6 +210,7 @@
                     this._loadedFile = newFile;
                     //XXX: handle errors;
                     this.currentProject.loadFile(newFile.relativePath).then(function(fileContents) {
+                        this.set("posByLine", []);
                         this.set("lines", fileContents.lines);
                         aftereffect();
                     }.bind(this));
@@ -132,5 +233,28 @@
             }
         });
     </script>
+
+    <style>
+        .splitter-3 {
+            --vaadin-split-layout-splitter: {
+                min-width: 1px;
+                min-height: 1px;
+                border: solid 4px none;
+                background-clip: content-box;
+            }
+        }
+
+        .splitter-3 {
+            --vaadin-split-layout-splitter: {
+                background: var(--paper-tree-selected-background-color);
+                fill: var(--paper-tree-selected-background-color);
+            }
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+        }
+    </style>
 
 </dom-module>

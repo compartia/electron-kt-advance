@@ -20,6 +20,7 @@
             is: 'assumptions-list',
 
             properties: {
+                small: Boolean,
 
                 filteredAssumptions: {
                     type: Object,
@@ -49,10 +50,14 @@
             },
 
             _getClass: function(line, selected) {
-                return selected
-                    ? "selected"
-                    : "";
-            },
+                var clazz = selected ?
+                    "selected" :
+                    "";
+                if(this.small){
+                    clazz += " small";
+                }
+                return clazz;
+            }
 
 
         });

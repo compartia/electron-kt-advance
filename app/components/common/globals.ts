@@ -114,14 +114,17 @@ module kt.Globals {
             //XXX: types!!
             let lines = contents.split(/\r\n|\r|\n/g);
             let ret = [];
+            let index = 1;
             for (let line of lines) {
                 ret.push({
+                    index: index,
                     text: line,
                     stats: {
                         violations: 0,
-                        open: 0,
+                        open: 0
                     }
                 });
+                index++;
             }
             return ret;
         }

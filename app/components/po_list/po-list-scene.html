@@ -1,0 +1,92 @@
+<link rel="import" href="po-list.html">
+<link rel="import" href="assumptions-list.html">
+
+<dom-module id="po-list-scene">
+    <template>
+        <vaadin-split-layout id="verticalPoSplitter" class$="splitter-3 [[getSplitterClass(dependentAssumptionsIn, dependentAssumptionsOut)]]">
+            <po-list
+                id="main-po-list"
+                class="main"
+                filtered-proof-obligations="[[filteredProofObligations]]"
+                linktosource showgroups selected-po="{{selectedPo}}"></po-list>
+
+            <div id="right-panel" class="side">
+                <template is="dom-if" if="[[dependentAssumptionsIn.length]]">
+                    <h3>API assumption</h3>
+                    <assumptions-list small filtered-assumptions="[[dependentAssumptionsIn]]" linktosource></assumptions-list>
+                </template>
+                <template is="dom-if" if="{{dependentAssumptionsOut.length}}">
+                    <h3>Depends on assumptions</h3>
+                    <assumptions-list small filtered-assumptions="{{dependentAssumptionsOut}}" linktosource></assumptions-list>
+                </template>
+            </div>
+
+        </vaadin-split-layout>
+    </template>
+
+
+
+    <script>
+        Polymer({
+            is: 'po-list-scene',
+            properties: {
+                filteredProofObligations: Object,
+                selectedPo: Object,
+                dependentAssumptionsIn: Array,
+                dependentAssumptionsOut: Array,
+            },
+
+            observers: [
+                '_selectedPoChanged(selectedPo)'
+            ],
+
+            getSplitterClass: function(dependentAssumptionsIn, dependentAssumptionsOut) {
+                return ((dependentAssumptionsIn && dependentAssumptionsIn.length) || (dependentAssumptionsOut && dependentAssumptionsOut.length)) ? "" : "collapsed";
+            },
+
+            _selectedPoChanged: function(list) {
+                var assumptionsOut = [];
+                var assumptionsIn = [];
+                for (var i = 0; i < list.length; i++) {
+                    assumptionsOut = assumptionsOut.concat(list[i].outputs);
+                    assumptionsIn = assumptionsIn.concat(list[i].inputs);
+                }
+                //XXX: make list of unique! pos=this.filter.filterAssumptions(assumptions);
+                this.set("dependentAssumptionsIn", assumptionsIn);
+                this.set("dependentAssumptionsOut", assumptionsOut);
+
+                var task = function() {
+                    if (this.$.verticalPoSplitter) {
+                        this.$.verticalPoSplitter.notifyResize();
+                    }
+                }
+                setTimeout(task.bind(this), 50);
+            },
+
+
+        });
+    </script>
+
+    <style>
+        .splitter-3 {
+            --vaadin-split-layout-splitter: {
+                min-width: 1px;
+                min-height: 1px;
+                border: solid 4px none;
+                background-clip: content-box;
+            }
+        }
+
+        .splitter-3 {
+            --vaadin-split-layout-splitter: {
+                background: var(--paper-tree-selected-background-color);
+                fill: var(--paper-tree-selected-background-color);
+            }
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+        }
+    </style>
+</dom-module>

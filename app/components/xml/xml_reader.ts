@@ -329,7 +329,28 @@ module kt.xml {
 
         }
 
-
+// <rv-assumption communicated="yes" nr="4">
+//      <predicate op="pluspi" tag="ptr-upper-bound-deref">
+//       <typ ikind="iuchar" ttag="tint"/>
+//       <exp1 byte="72746" etag="fnapp" file="src/auth/password-scheme.c" line="592" xstr="fn(t_malloc)@ 592[_]">
+//        <arg/>
+//        <fn etag="lval" xstr="t_malloc">
+//         <lval>
+//          <lhost>
+//           <var vid="366" vname="t_malloc"/>
+//          </lhost>
+//         </lval>
+//        </fn>
+//       </exp1>
+//       <exp2 etag="const" xstr="18">
+//        <constant ctag="cint64" ikind="iint" intValue="18"/>
+//       </exp2>
+//      </predicate>
+//      <dependent-primary-proof-obligations>
+//       <po id="50"/>
+//      </dependent-primary-proof-obligations>
+//      <dependent-secondary-proof-obligations/>
+//     </rv-assumption>
 
         public parseApiXml(filename: string, tracker: tf.ProgressTracker): Promise<Array<model.ApiNode>> {
 
@@ -408,6 +429,7 @@ module kt.xml {
                     predicateXmlParser.onclosetag(tagName);
                     currentAssumption.symbol = predicateXmlParser.result.varName;
                     currentAssumption.expression = predicateXmlParser.result.expression;
+                    currentAssumption.eLocation = predicateXmlParser.result.location;
                     predicateXmlParser = null;
                 }
                 else if (predicateXmlParser) {
@@ -483,18 +505,13 @@ module kt.xml {
                 let funcs: Array<xml.CFunction> = functionsMap.findFuncs(spo.callsiteFname);
                 if (funcs) {
                     if (funcs.length > 1) {
-                        // console.warn("ambigous fname");
-                        // console.warn(funcs);
                         ambigous[spo.callsiteFname] = funcs;
                     }
 
                     spo.callsiteFileName = funcs[0].fileInfo.relativePath;//XXX:
 
                 } else {
-                    // let m = "source file is unknow for the function name " + spo.callsiteFname;
                     missing.push(spo.callsiteFname);
-                    // console.warn(m);
-                    // throw m;
                 }
             }
 
@@ -653,7 +670,7 @@ module kt.xml {
             for (let spoKey in spoMap) {
                 let spo = spoMap[spoKey];
                 let api = apiMap[spo.apiKey];
-                if (api) {
+                if (api && api.type=="api") {                    
                     spo.addInput(api);
                     api.addOutput(spo);
                 } else {
