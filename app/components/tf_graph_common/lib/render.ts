@@ -202,34 +202,22 @@ export class RenderGraphInfo {
   }
 
   computeScales() {
-    // this.deviceColorMap = d3.scale.ordinal<string>()
-    //     .domain(this.hierarchy.devices)
-    //     .range(_.map(d3.range(this.hierarchy.devices.length),
-    //                  MetanodeColors.DEVICE_PALETTE));
-    //
-    //
-    // let _deviceColorMap = function(id:string){
-    //     return this.palette["state-"+id.toLowerCase()+"-bg"];
-    // };
-    //
-    // _deviceColorMap.domain=this.deviceColorMap.domain;
-    // this.deviceColorMap=_deviceColorMap;
-
     this.statesColorMap= function(id:string){
         return this.palette["state-"+id.toLowerCase()+"-bg"];
     };
 
-
     let topLevelGraph = this.hierarchy.root.metagraph;
-    // Find the maximum and minimum memory usage.
+
+    // Find the maximum and minimum number of links.
     let memoryExtent = d3.extent(topLevelGraph.nodes(),
         (nodeName, index) => {
-      let node = topLevelGraph.node(nodeName);
-      // Some ops don't have stats at all.
-      if (node.stats != null) {
-        return node.stats.totalBytes;
-      }
-    });
+            let node:Node = topLevelGraph.node(nodeName);
+            // Some ops don't have stats at all.
+            if (node.cardinality!=null) {
+                return node.cardinality;
+            }
+        });
+
     this.memoryUsageScale = d3.scale.linear<string, string>()
         .domain(memoryExtent)
         .range(PARAMS.minMaxColors);
@@ -308,11 +296,13 @@ export class RenderGraphInfo {
     this.index[nodeName] = renderInfo;
 
 
-    if (node.stats) {
-      renderInfo.memoryColor = this.memoryUsageScale(node.stats.totalBytes);
-      renderInfo.computeTimeColor =
-        this.computeTimeScale(node.stats.totalMicros);
+
+    renderInfo.cardinalityColor = this.memoryUsageScale(node.cardinality);
+    if(node.stats){
+        renderInfo.computeTimeColor =
+            this.computeTimeScale(node.stats.totalMicros);
     }
+
 
     // We only fade nodes when we're displaying stats.
     renderInfo.isFadedOut = this.displayingStats &&
@@ -1065,7 +1055,7 @@ export class RenderNodeInfo {
   /**
    * Color according to the memory usage of this node.
    */
-  memoryColor: string;
+  cardinalityColor: string;
 
   /**
    * Color according to the compute time of this node.

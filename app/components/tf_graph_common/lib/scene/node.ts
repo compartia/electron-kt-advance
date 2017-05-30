@@ -618,7 +618,7 @@ function position(nodeGroup, d: render.RenderNodeInfo) {
 };
 
 /** Enum specifying the options to color nodes by */
-export enum ColorBy { STRUCTURE, DEVICE, COMPUTE_TIME, MEMORY };
+export enum ColorBy { STRUCTURE, DEVICE, COMPUTE_TIME, CARDINALITY };
 
 /**
  * Returns the fill color for the node given its state and the 'color by'
@@ -660,9 +660,9 @@ export function getFillForNode(colorBy,
       return isExpanded ?
         colorParams.EXPANDED_COLOR : renderInfo.computeTimeColor ||
         colorParams.UNKNOWN;
-    case ColorBy.MEMORY:
+    case ColorBy.CARDINALITY:
       return isExpanded ?
-        colorParams.EXPANDED_COLOR : renderInfo.memoryColor ||
+        colorParams.EXPANDED_COLOR : renderInfo.cardinalityColor ||
         colorParams.UNKNOWN;
     default:
       throw new Error('Unknown case to color nodes by');
