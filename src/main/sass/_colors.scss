@@ -92,9 +92,16 @@ $kt-in-edge: $blue;
     $po-saturation                        : 75;
     $po-brightness                        : 60;
 
-    $discharges                           : ( rv: hsl(40, $po-saturation, $po-brightness), ds: hsl(20, $po-saturation, $po-brightness), invariants: hsl(240, $po-saturation, $po-brightness), api: hsl(210, $po-saturation, $po-brightness), global: hsl(270, $po-saturation, $po-brightness), default: $grey-80);
+    $discharges                           : ( rv: hsl(50, $po-saturation, $po-brightness), ds: hsl(10, $po-saturation, $po-brightness), invariants: hsl(240, $po-saturation, $po-brightness), api: hsl(210, $po-saturation, $po-brightness), global: hsl(270, $po-saturation, $po-brightness), default: $grey-80);
     $states                               : ( violation: $po-violation, discharged:$po-discharged , open: $po-open, assumption: $po-assumption);
     $levels                               : ( primary: lighten($blue, 35%), secondary:lighten($ian_gillan, 50%));
+
+    @each $discharge, $dcolor in $discharges {
+        $_c                                        : $dcolor;
+        $_hover                                    : hsl( hue($_c), saturation($_c), 93);
+        --kt-discharge-#{$discharge}-hover-bg: $_hover;
+    }
+
     @each $level, $lcolor in $levels {
         --kt-po-#{$level}-bg: $lcolor;
         --kt-po-#{$level}-tx: hsl( hue($lcolor), saturation($lcolor), 40);

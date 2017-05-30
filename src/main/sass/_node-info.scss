@@ -133,7 +133,7 @@ tf-node-info {
     .node-color-container{
         min-height: 6px;
         position: relative;
-
+        height: $font-size-xs*1.4 + $base-padding;
         #caption{
             z-index: 1200;
             position: absolute;
@@ -153,9 +153,6 @@ tf-node-info {
             // right: 0;
             height: $font-size-xs*1.4 + $base-padding;
             top: 0;
-        }
-        #bg{
-
         }
 
         #bg svg{

@@ -10,6 +10,7 @@ module kt.model {
 
     export const PoDischargeTypesArr: Array<string> = ["global", "invariants", "ds", "rv", "api", "default"];
     export const PoStatesArr: Array<PoStates> = [PoStates.violation, PoStates.open, PoStates.discharged];
+    export const PoStatesNames: Array<string> = [PoStates[PoStates.violation], PoStates[PoStates.open], PoStates[PoStates.discharged], PoStates[PoStates.assumption]];
 
 
     const SPL = "/";
@@ -78,13 +79,8 @@ module kt.model {
                 //leaf node
                 return node.attr["locationPath"];
             } else {
-                let ret = node.name;
-                if ((<any>node).parentNode) {
-                    let parent = (<any>node).parentNode;
-                    if (parent.parentNode != null) //do not addd _root_
-                        ret = parent.name + "/" + ret;
-                }
-                return ret;
+                //meta group node
+                return node.name;
             }
         }
         return "";
@@ -514,7 +510,6 @@ module kt.model {
         public asNodeDef(filter: Globals.Filter, settings: Globals.GraphSettings): tf.graph.proto.NodeDef {
             const po = this.po;
 
-
             let nodeDef: tf.graph.proto.NodeDef = {
                 name: this.makeName(filter, settings),
                 input: [],
@@ -534,7 +529,8 @@ module kt.model {
                     "dischargeType": this.dischargeType,
                     "discharge": this.discharge, //? po["discharge"]["comment"] : null
                     "dischargeAssumption": this.dischargeAssumption,
-                    "locationPath": this.file + SPL + this.functionName
+                    "locationPath": this.file + SPL + this.functionName,
+                    "data":this
                 }
             }
 

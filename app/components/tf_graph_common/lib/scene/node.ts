@@ -347,7 +347,7 @@ export function getGroupSettingLabel(node: Node):string {
  * @param sceneElement <tf-graph-scene> polymer element.
  */
 function labelBuild(nodeGroup, renderNodeInfo: render.RenderNodeInfo, sceneElement) {
-  let namePath = renderNodeInfo.node.name.split('/');
+    let namePath = renderNodeInfo.node.name.split('/');
 
     let text = "-";
     if (renderNodeInfo.node.type === NodeType.OP && renderNodeInfo.node.attr["label"]) {
@@ -502,8 +502,12 @@ export function buildShape(nodeGroup, d, nodeClass: string) {
   // TODO(jimbo): DOM structure should be templated in HTML somewhere, not JS.
   switch (d.node.type) {
     case NodeType.OP:
+        let r = d.radius;
+        if (d.node.attr && "assumption" == d.node.attr["state"]) {
+            r = 3;
+        }
         scene.selectOrCreateChild(shapeGroup, 'rect', Class.Node.COLOR_TARGET)
-            .attr({rx: d.radius, ry: d.radius});
+            .attr({ rx: r, ry: r });
 
         break;
 
@@ -529,8 +533,10 @@ export function buildShape(nodeGroup, d, nodeClass: string) {
           .attr({rx: d.radius, ry: d.radius});
       break;
     case NodeType.META:
-      scene.selectOrCreateChild(shapeGroup, 'rect', Class.Node.COLOR_TARGET)
-          .attr({rx: d.radius, ry: d.radius});
+        // let rr = d.radius;
+        let rr=1;
+        scene.selectOrCreateChild(shapeGroup, 'rect', Class.Node.COLOR_TARGET)
+            .attr({rx: rr, ry: rr});
       break;
     default:
       throw Error('Unrecognized node type: ' + d.node.type);

@@ -2,13 +2,9 @@
 <link rel="import" href="../../../bower_components/iron-list/iron-list.html">
 <link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../../bower_components/paper-item/all-imports.html">
-
 <link rel="import" href="../../static/icons/icons.html">
-
 <link rel="import" href="node-icon.html">
-
 <link rel="import" href="tf-node-list-item.html">
-<link rel="import" href="discharge-info.html">
 
 <dom-module id="tf-node-info">
     <style></style>
@@ -21,35 +17,16 @@
 
                 <div id="caption">
                     <paper-icon-button icon="{{_getToggleIcon(_expanded)}}" on-click="_toggleExpanded" class="toggle-button"></paper-icon-button>
-                    <div ><iron-icon icon="kt:location-on"></iron-icon><span id="nodetitle"></span> <span class='location'>
+                    <div><iron-icon icon="kt:location-on"></iron-icon><span id="nodetitle"></span> <span class='location'>
                         [[_funcLocation]]</span></div>
                 </div>
             </div>
 
+            <template is="dom-if" if="[[_data]]">
+                <po-line item="[[_data]]" linktosource></po-line>
+            </template>
+
             <div class="po">
-
-                <template is="dom-if" if="[[_predicate]]">
-                    <div class='predicate'>
-                        <sup>
-                            <span class='level'></span>
-                        </sup>
-                        <span id="predicate-name">
-                            [[_predicate]]
-                        </span>
-                        <template is="dom-if" if="[[_predicateArgument]]">
-                            (<span id="predicate-arg">
-                                [[_predicateArgument]]
-                            </span>)
-
-                        </template>
-
-                        <div id='expression'>
-                            [[_attributes.expression]]
-                        </div>
-
-                    </div>
-
-                </template>
 
 
                 <template is="dom-if" if="{{_node.metagraph}}">
@@ -63,23 +40,6 @@
             </div>
 
             <div>
-
-                <template is="dom-if" if="{{_node.op}}">
-
-                    <div class$="[[_node_class]]">
-
-                        <template is="dom-if" if="{{_attributes.apiId}}">
-                            <div id='api-id'>api-id: [[_attributes.apiId]]</div>
-                        </template>
-
-
-                        <discharge-info node="[[_node]]">
-                        <discharge-info>
-
-
-                    </div>
-
-                </template>
 
                 <iron-collapse opened="{{_expanded}}">
                     <template is="dom-if" if="{{_expanded}}" restamp="true">
@@ -143,44 +103,29 @@
                     renderHierarchy: Object,
                     /** What to color the nodes by (compute time, memory, device etc.) */
                     colorBy: String,
+
                     _node: {
                         type: Object,
                         computed: '_getNode(nodeName, graphHierarchy)',
                         observer: '_resetState'
                     },
+
+                    _data: {
+                        type: Object,
+                        computed: '_getData(_node)',
+                        observer: '_resetState'
+                    },
+
                     _funcLocation: {
                         type: String,
                         computed: '_getFuncLocation(_node)'
                     },
-                    _node_class: {
-                        type: String,
-                        computed: '_getNodeClass(_node)'
-                    },
-                    // The enum value of the include property of the selected node.
-                    nodeInclude: {
-                        type: Number,
-                        observer: '_nodeIncludeStateChanged'
-                    },
-                    _attributes: {
-                        type: Object,
-                        computed: '_getAttributes(_node)'
-                    },
-                    _predicate: {
-                        type: String,
-                        computed: '_getPredicate(_node)'
-                    },
-                    _device: {
-                        type: String,
-                        computed: '_getDevice(_node)'
-                    },
+
                     _successors: {
                         type: Object,
                         computed: '_getSuccessors(_node, graphHierarchy)'
                     },
-                    _predicateArgument: {
-                        type: String,
-                        computed: '_getPredicateArgument(_node)'
-                    },
+
                     _predecessors: {
                         type: Object,
                         computed: '_getPredecessors(_node, graphHierarchy)'
@@ -209,29 +154,38 @@
                         type: Boolean,
                         value: false
                     },
-                    _auxButtonText: String,
                     _groupButtonText: String
                 },
                 _getPredicate: function(node) {
                     return kt.model.getPredicate(node);
                 },
+
+                _getData: function(node) {
+                    if (node && node.attr && node.attr.data)
+                        return node.attr.data;
+                    return null;
+                },
+
                 expandNode: function() {
                     this.fire('_node.expand', this.node);
                 },
                 _getNode: function(nodeName, graphHierarchy) {
                     return graphHierarchy.node(nodeName);
                 },
+
                 _getPrintableHTMLNodeName: function(nodeName) {
                     // Insert an optional line break before each slash so that long node names wrap cleanly at path boundaries.
                     return (nodeName || '').replace(/\//g, '<wbr>/');
                 },
+
                 _getRenderInfo: function(nodeName, renderHierarchy) {
                     return this.renderHierarchy.getOrCreateRenderNodeByName(nodeName);
                 },
 
                 _getFuncLocation(node) {
-                    if (node && node.attr && node.attr.location)
-                        return ":"+node.attr.location.line;
+                    if(this._data){
+                        return ":L"+this._data.line;
+                    }                    
                     return "";
                 },
 
@@ -362,11 +316,13 @@
                 _toggleExpanded: function() {
                     this._expanded = !this._expanded;
                 },
+
                 _getToggleIcon: function(expanded) {
                     return expanded
                         ? "expand-less"
                         : "expand-more";
                 },
+
                 _resetState: function() {
                     this._openedControlPred = false;
                     this._openedControlSucc = false;
@@ -378,29 +334,36 @@
                         Polymer.dom(this.$.nodetitle).innerHTML = this._getPrintableHTMLNodeName(title);
                     }
                 },
+
                 _resizeList: function(selector) {
                     var list = document.querySelector(selector);
                     if (list) {
                         list.fire('iron-resize');
                     }
                 },
+
                 _toggleInclude: function() {
                     var graphElem = document.querySelector("#graph");
                     graphElem.fire("node-toggle-extract", {name: this.nodeName});
                     var graphBoardElem = document.querySelector("#graphboard");
                     graphBoardElem.fire("node-toggle-extract");
                 },
-                _nodeIncludeStateChanged: function(include, oldInclude) {
-                    this.set("_auxButtonText", tf.graph.getIncludeNodeButtonString(include));
-                },
+
                 _toggleGroup: function() {
                     var graphElem = document.querySelector("#graph");
                     var seriesName = tf.graph.scene.node.getSeriesName(this._node);
                     graphElem.fire("node-toggle-seriesgroup", {name: seriesName});
                 },
+
                 _isInSeries: function(node) {
                     return tf.graph.scene.node.canBeInSeries(node);
-                }
+                },
+
+                jumpToSource: function(event) {
+                    var item = event.currentTarget.data;
+                    this.fire("jump-to-src", item);
+                },
+
             });
         })();
     </script>

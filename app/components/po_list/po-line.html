@@ -1,15 +1,21 @@
 <dom-module id="po-line">
     <template>
 
-        <div class$="po row [[_getClass(item)]]" title$="[[item.stateName]] id:[[item.id]] [[item.file]]/[[item.functionName]]:[[item.location.line]]">
+        <div class$="po row [[_getClass(item)]]" title$="[[item.stateName]] id:[[item.id]] [[item.file]]/[[item.functionName]]:[[item.line]]">
+
             <span class='left'>
                 <iron-icon class="po-icon" icon$="{{_computeIcon(item)}}" on-click="select"></iron-icon>
-                <span class$="level-[[item.level]]">[[item.levelLabel]]</span>
-            </span>
-            <span class='mid'>
-                <template is="dom-if" if="[[item.dischargeType]]">
-                     <span class="discharge">{{item.dischargeType}}</span>
+                <template is="dom-if" if="[[item.level]]">
+                    <span class$="level-[[item.level]]">[[item.levelLabel]]</span>
                 </template>
+            </span>
+
+
+            <span class='mid'>
+                <!-- <template is="dom-if" if="[[item.dischargeType]]">
+                     <span class="discharge">{{item.dischargeType}}</span>
+                </template> -->
+
                 <span class="predicate">
                     <span class="predicate-name">
                         [[item.predicate]]
@@ -29,25 +35,28 @@
                     </template>
                 </template>
             </span>
+            
             <span class='right'>
 
-                <span class='assumptions'>
 
-                    <template is="dom-if" if="[[item.outputs.length]]">
-                        <span title="api assumptions" class="outputs">[[item.outputs.length]]</span>
-                    </template>
-                    <template is="dom-if" if="[[item.inputs.length]]">
-                        <span title="depends on assumptions" class="inputs">[[item.inputs.length]]</span>
-                    </template>
-
-                </span>
+                <template is="dom-if" if="[[showassumptions]]">
+                    <span class='assumptions'>
+                        <template is="dom-if" if="[[item.outputs.length]]">
+                            <span title="api assumptions" class="outputs">[[item.outputs.length]]</span>
+                        </template>
+                        <template is="dom-if" if="[[item.inputs.length]]">
+                            <span title="depends on assumptions" class="inputs">[[item.inputs.length]]</span>
+                        </template>
+                    </span>
+                </template>
 
                 <template is="dom-if" if="[[linktosource]]">
                     <span class="location" on-tap="jumpToSource" data=[[item]]>
                         <iron-icon class="po-icon" icon="link"></iron-icon>
-                        <span class="line" title$="[[item.file]]/[[item.functionName]]">L[[item.location.line]]</span>
+                        <span class="line" title$="[[item.file]]/[[item.functionName]]">L[[item.line]]</span>
                     </span>
                 </template>
+
 
             </span>
         </div>
@@ -60,9 +69,8 @@
 
             properties: {
                 item: Object,
-
-                linktosource: Boolean
-
+                linktosource: Boolean,
+                showassumptions: Boolean
             },
 
             jumpToSource: function(event) {
@@ -75,23 +83,20 @@
             },
 
             _computeIcon: function(node) {
-                if (node.extendedState) {
+                if (node && node.extendedState) {
                     return "kt:state-" + node.extendedState.toLowerCase();
                 } else {
                     return "";
                 }
-
             },
 
             _getClass: function(node) {
-
-                if (node.extendedState) {
+                if (node && node.extendedState) {
                     return "po-" + node.extendedState.toLowerCase();
                 } else {
                     return "";
                 }
                 console.error(node);
-
             },
 
         });
