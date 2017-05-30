@@ -73,10 +73,7 @@ export interface NormalizedInput {
 }
 
 export interface BuildParams {
-  enableEmbedding: boolean;
-  inEmbeddingTypes: string[];
-  outEmbeddingTypes: string[];
-  refEdges: { [inputEdge: string]: boolean };
+
 }
 
 /**
@@ -789,9 +786,7 @@ function addEdgeToGraph(
   if (inputName === outputNode.name) {
     return;
   }
-  // Check if this op type and input number corresponds to a
-  // reference edge using the refEdges dictionary in the params.
-  let isRefEdge = params.refEdges[outputNode.op + ' ' + index] === true;
+
   graph.edges.push({
     v: inputName,
     w: outputNode.name,
@@ -818,9 +813,7 @@ export function build(
    * out-embedding node label objects.
    */
   let outEmbeddings: {[inputName: string]: OpNode[]} = {};
-  let isInEmbeddedPred = getEmbedPredicate(params.inEmbeddingTypes);
-  let isOutEmbeddedPred = getEmbedPredicate(params.outEmbeddingTypes);
-  let embeddingNodeNames: string[] = [];
+   let embeddingNodeNames: string[] = [];
   /**
    * A list of all the non-embedding node names which appear in the processed
    * list of raw nodes. Here we pre-allocate enough room for all the rawNodes,
@@ -840,22 +833,7 @@ export function build(
             let index = 0;
             _.each(rawNodes, rawNode => {
               let opNode = new OpNodeImpl(rawNode);
-              if (isInEmbeddedPred(opNode)) {
-                embeddingNodeNames.push(opNode.name);
-                inEmbedding[opNode.name] = opNode;
-                return;
-              }
 
-              if (isOutEmbeddedPred(opNode)) {
-                embeddingNodeNames.push(opNode.name);
-                outEmbedding[opNode.name] = opNode;
-                _.each(opNode.inputs, input => {
-                  let inputName = input.name;
-                  outEmbeddings[inputName] = outEmbeddings[inputName] || [];
-                  outEmbeddings[inputName].push(opNode);
-                });
-                return;
-              }
               // The node is not an embedding, so add it to the names and nodes
               // lists.
               opNodes[index] = opNode;

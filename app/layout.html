@@ -81,6 +81,7 @@
                             out-graph="{{graph}}"
                             filter="{{filter}}"
                             progress="{{progress}}"
+                            tab-visible="[[graphTabSelected(mode)]]"
                             current-project="[[currentProject]]"
                             out-hierarchy-params="{{_hierarchyParams}}"></tf-graph-loader>
 
@@ -90,7 +91,6 @@
 
                             <source-view id="sourceview" current-project="[[currentProject]]" statistics="[[statistics]]"></source-view>
 
-                            <!-- POs -->
                             <po-list-scene id="main-po-list" filtered-proof-obligations="[[filteredProofObligations]]" linktosource showgroups selected-po="{{selectedPo}}"></po-list-scene>
 
                             <assumptions-list-scene filtered-assumptions="[[filteredAssumptions]]"
@@ -316,6 +316,10 @@
 
             showPoTab: function(mode) {
                 return mode != 4;
+            },
+
+            graphTabSelected: function(mode){
+                return "graphs"===mode;
             },
 
             showAssumptionsTab: function(mode) {

@@ -45,6 +45,19 @@
                 type: Object,
                 notify: true,
                 observer: '_filteredProofObligationsChanged'
+            },
+
+            tabVisible: {
+                type: Boolean,
+                notify: true,
+                observer: '_onGraphVisibilityChanged'
+            }
+        },
+
+
+        _onGraphVisibilityChanged: function(newV, oldV){
+            if (this.rebuildGraphPending && newV){
+                this._filteredProofObligationsChanged(null, null);
             }
         },
 
@@ -81,12 +94,6 @@
             var readDataTracker = tf.graph.util.getSubtaskTracker(tracker, 100, 'Reading Data');
 
 
-            var buildParams = {
-                enableEmbedding: false,
-                inEmbeddingTypes: [],
-                outEmbeddingTypes: [],
-                refEdges: {}
-            };
 
             this.filter.reset();
 
@@ -99,6 +106,14 @@
         },
 
         rebuildGraph: function(project, tracker) {
+
+            if(!this.tabVisible){
+                this.rebuildGraphPending = true;
+                return;
+            }
+
+
+            this.rebuildGraphPending = false;
 
             var hierarchyParams = {
                 verifyTemplate: false,
@@ -113,17 +128,8 @@
             var graphTracker = tf.graph.util.getSubtaskTracker(tracker, 50, 'Linking nodes');
             var hierarchyTracker = tf.graph.util.getSubtaskTracker(tracker, 50, 'Namespace hierarchy');
 
-            var buildParams = {
-                enableEmbedding: false,
-                inEmbeddingTypes: [],
-                outEmbeddingTypes: [],
-                refEdges: {}
-            };
-
-
             var nodes = kt.parser.buildGraph(project.filteredProofObligations, project.filteredAssumptions, this.filter);
-            // this.fire("project-loaded", {});
-            tf.graph.build(nodes, buildParams, graphTracker).then(function(graph) {
+            tf.graph.build(nodes, {}, graphTracker).then(function(graph) {
                 this._setOutGraph(graph);
                 return tf.graph.hierarchy.build(graph, hierarchyParams, hierarchyTracker);
 
