@@ -45,23 +45,7 @@ export let MetanodeColors = {
    * compute time, memory and device).
    */
   EXPANDED_COLOR: '#f0f0f0',
-  /**
-   * Standard hue values for node color palette.
-   */
-  HUES: [220, 100, 180, 40, 20, 340, 260, 300, 140, 60],
-  STRUCTURE_PALETTE: function(id: number, lightened?: boolean) {
-    // The code below is a flexible way to computationally create a set
-    // of colors that go well together.
-    let hues = MetanodeColors.HUES;
-    let n = hues.length;
-    let hue = hues[id % n];
-    let m = Math.sin(hue * Math.PI / 360);
-    let sat = lightened ? 30 : 90 - 60 * m;
-    let light = lightened ? 95 : 80;
-    return d3.hsl(hue, .01 * sat, .01 * light).toString();
-  },
-  DEVICE_PALETTE: function(index: number):
-      string { return MetanodeColors.STRUCTURE_PALETTE(index);},
+  
   UNKNOWN: '#eee',
   GRADIENT_OUTLINE: '#888'
 };
@@ -316,7 +300,7 @@ export class RenderGraphInfo {
         // Compute the total # of devices.
         let numDevices = this.logSumDevices (pairs);// Math.log(1 + _.sum(pairs, _.last));
         pairs=this.sortStates(pairs);
-        renderInfo.deviceColors = _.map(pairs, pair => ({
+        renderInfo.stateColors = _.map(pairs, pair => ({
               color: this.statesColorMap(pair[0]),
               // Normalize to a proportion of total # of devices.
               proportion: Math.log(1 + pair[1]) / numDevices
@@ -325,7 +309,7 @@ export class RenderGraphInfo {
     } else {
       let device = (<OpNode>renderInfo.node).device;
       if (device) {
-        renderInfo.deviceColors = [{
+        renderInfo.stateColors = [{
           color: this.statesColorMap(device),
           proportion: 1.0
         }];
@@ -1050,7 +1034,7 @@ export class RenderNodeInfo {
    * its children. If this node is an op node, this list will have only one
    * color with proportion 1.0.
    */
-  deviceColors: {color: string, proportion: number}[];
+  stateColors: {color: string, proportion: number}[];
 
   /**
    * Color according to the memory usage of this node.

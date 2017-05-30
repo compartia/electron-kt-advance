@@ -618,7 +618,7 @@ function position(nodeGroup, d: render.RenderNodeInfo) {
 };
 
 /** Enum specifying the options to color nodes by */
-export enum ColorBy { STRUCTURE, DEVICE, COMPUTE_TIME, CARDINALITY };
+export enum ColorBy { STRUCTURE, STATE, COMPUTE_TIME, CARDINALITY };
 
 /**
  * Returns the fill color for the node given its state and the 'color by'
@@ -628,8 +628,8 @@ export function getFillForNode(colorBy,
     renderInfo: render.RenderNodeInfo, isExpanded: boolean): string {
   let colorParams = render.MetanodeColors;
   switch (colorBy) {
-    case ColorBy.DEVICE:
-      if (renderInfo.deviceColors == null) {
+    case ColorBy.STATE:
+      if (renderInfo.stateColors == null) {
         // Return the hue for unknown device.
         return colorParams.UNKNOWN;
       }
@@ -644,7 +644,7 @@ export function getFillForNode(colorBy,
         linearGradient.selectAll('*').remove();
         let cumulativeProportion = 0;
         // For each device, create a stop using the proportion of that device.
-        _.each(renderInfo.deviceColors, d => {
+        _.each(renderInfo.stateColors, d => {
           let color = d.color;
           linearGradient.append('stop')
               .attr('offset', cumulativeProportion)
