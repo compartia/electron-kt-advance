@@ -79,13 +79,8 @@ module kt.model {
                 //leaf node
                 return node.attr["locationPath"];
             } else {
-                let ret = node.name;
-                if ((<any>node).parentNode) {
-                    let parent = (<any>node).parentNode;
-                    if (parent.parentNode != null) //do not addd _root_
-                        ret = parent.name + "/" + ret;
-                }
-                return ret;
+                //meta group node
+                return node.name;
             }
         }
         return "";
