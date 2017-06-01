@@ -1,6 +1,6 @@
 <dom-module id="tf-graph-loader"></dom-module>
 
- <script>
+<script>
     Polymer({
 
         is: 'tf-graph-loader',
@@ -45,6 +45,19 @@
                 type: Object,
                 notify: true,
                 observer: '_filteredProofObligationsChanged'
+            },
+
+            tabVisible: {
+                type: Boolean,
+                notify: true,
+                observer: '_onGraphVisibilityChanged'
+            }
+        },
+
+
+        _onGraphVisibilityChanged: function(newV, oldV) {
+            if (this.rebuildGraphPending && newV) {
+                this._filteredProofObligationsChanged(null, null);
             }
         },
 
@@ -67,63 +80,43 @@
                 msg: ''
             });
 
-            var hierarchyParams = {
-                verifyTemplate: false,
-                // If a set of numbered op nodes has at least this number of nodes then group them into a series node.
-                seriesNodeMinSize: 6,
-                // A map of series node names to series grouping settings, to indicate if a series is to be rendered as grouped or ungrouped. Starts out empty which allows the renderer to decide which series are initially rendered grouped and which aren't.
-                seriesMap: {}
-            };
-
-            this._setOutHierarchyParams(hierarchyParams);
-
             var tracker = tf.graph.util.getTracker(this);
             var readDataTracker = tf.graph.util.getSubtaskTracker(tracker, 100, 'Reading Data');
 
-
-            var buildParams = {
-                enableEmbedding: false,
-                inEmbeddingTypes: [],
-                outEmbeddingTypes: [],
-                refEdges: {}
-            };
-
             this.filter.reset();
 
-            kt.parser.readAndParse(newProject, readDataTracker)
-            .then(function(project) {
-                this.fire("project-loaded", {});
-                //return this.rebuildGraph(project, graphTracker);
-
-            }.bind(this));
+            newProject.readAndParse(readDataTracker)
+                .then(function(project) {
+                    this.fire("project-loaded", {});
+                }.bind(this));
         },
 
         rebuildGraph: function(project, tracker) {
+            if (!this.tabVisible) {
+                this.rebuildGraphPending = true;
+                tracker.updateProgress(100);
+                return;
+            }
+
+            this.rebuildGraphPending = false;
 
             var hierarchyParams = {
-                verifyTemplate: false,
                 // If a set of numbered op nodes has at least this number of nodes then group them into a series node.
                 seriesNodeMinSize: 6,
-                // A map of series node names to series grouping settings, to indicate if a series is to be rendered as grouped or ungrouped. Starts out empty which allows the renderer to decide which series are initially rendered grouped and which aren't.
+                // A map of series node names to series grouping settings, to indicate if a series is to be rendered as grouped or ungrouped.
+                //Starts out empty which allows the renderer to decide which series are initially rendered grouped and which aren't.
                 seriesMap: {}
             };
 
             this._setOutHierarchyParams(hierarchyParams);
+
 
             var graphTracker = tf.graph.util.getSubtaskTracker(tracker, 50, 'Linking nodes');
             var hierarchyTracker = tf.graph.util.getSubtaskTracker(tracker, 50, 'Namespace hierarchy');
 
-            var buildParams = {
-                enableEmbedding: false,
-                inEmbeddingTypes: [],
-                outEmbeddingTypes: [],
-                refEdges: {}
-            };
+            var nodes = project.buildGraph(this.filter);
 
-
-            var nodes = kt.parser.buildGraph(project.filteredProofObligations, project.filteredAssumptions, this.filter);
-            // this.fire("project-loaded", {});
-            tf.graph.build(nodes, buildParams, graphTracker).then(function(graph) {
+            tf.graph.build(nodes, {}, graphTracker).then(function(graph) {
                 this._setOutGraph(graph);
                 return tf.graph.hierarchy.build(graph, hierarchyParams, hierarchyTracker);
 

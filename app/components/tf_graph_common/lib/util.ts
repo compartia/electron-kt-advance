@@ -191,25 +191,6 @@ module tf.graph.util {
   export function escapeQuerySelector(querySelector: string): string {
     return querySelector.replace(/([:.\[\],/\\\(\)])/g, '\\$1');
   }
-
-  // For unit conversion.
-  export const MEMORY_UNITS = [
-    // Atomic unit.
-    {symbol: 'B'},
-    // numUnits specifies how many previous units this unit contains.
-    {symbol: 'KB', numUnits: 1024}, {symbol: 'MB', numUnits: 1024},
-    {symbol: 'GB', numUnits: 1024}, {symbol: 'TB', numUnits: 1024},
-    {symbol: 'PB', numUnits: 1024}
-  ];
-  export const TIME_UNITS = [
-    // Atomic unit. Finest granularity in TensorFlow stat collection.
-    {symbol: 'µs'},
-    // numUnits specifies how many previous units this unit contains.
-    {symbol: 'ms', numUnits: 1000}, {symbol: 's', numUnits: 1000},
-    {symbol: 'min', numUnits: 60}, {symbol: 'hr', numUnits: 60},
-    {symbol: 'days', numUnits: 24}
-  ];
-
   /**
    * Returns the human readable version of the unit.
    * (e.g. 1.35 GB, 23 MB, 34 ms, 6.53 min etc).

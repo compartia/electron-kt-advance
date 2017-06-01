@@ -78,6 +78,61 @@ module kt.Globals {
             this.baseDir = baseDir;
         }
 
+        public readAndParse(tracker: tf.ProgressTracker): Promise<kt.Globals.Project> {
+            let project = this;
+            let reader: xml.XmlReader = new xml.XmlReader();
+
+            tracker.setMessage("reading XML data");
+
+            const readFunctionsMapTracker = tf.graph.util.getSubtaskTracker(tracker, 10, 'Reading functions map (*._cfile.xml)');
+            const readDirTracker = tf.graph.util.getSubtaskTracker(tracker, 90, 'Reading Proof Oblications data');
+
+
+            return reader.readFunctionsMap(path.dirname(project.analysisDir), readFunctionsMapTracker)
+                .then(functions => {
+
+                    let resultingMap = new model.FunctionsMap(functions);
+
+                    project.functionByFile = reader.buildFunctionsByFileMap(functions);
+                    let result: Promise<xml.XmlAnalysis> = reader.readDir(project.analysisDir, resultingMap, readDirTracker);
+                    return result;
+                })
+                .then((POs: xml.XmlAnalysis) => {
+                    project.proofObligations = model.sortPoNodes(POs.ppos.concat(POs.spos));
+                    project.apis = POs.apis;
+                    return project;
+                });
+        }
+
+
+        public buildGraph(filter: Globals.Filter): tf.graph.proto.NodeDef[] {
+            const apis = this.filteredAssumptions;
+            const pos = this.filteredProofObligations;
+
+            let g: tf.graph.proto.NodeDef[] = [];
+
+            let nodesMap = {};
+
+            let settings = new Globals.GraphSettings(); //XXX: provide real settings
+
+            for (let ppo of pos) {
+                if (ppo.isLinked()) {
+                    let node: tf.graph.proto.NodeDef = ppo.asNodeDef(filter, settings);
+                    g.push(node);
+                }
+            }
+
+            for (var api of apis) {
+                if (api.isLinked()) {
+                    let node: tf.graph.proto.NodeDef = api.asNodeDef(filter, settings);
+                    g.push(node);
+                }
+            }
+
+            console.info["NUMBER of nodes: " + g.length];
+            return g;
+        }
+
         public getPosAtLine(fileName: string, line: number): Array<model.ProofObligation> {
             let ret = new Array<model.ProofObligation>();
             for (let po of this.filteredProofObligations) {
@@ -143,10 +198,7 @@ module kt.Globals {
         }
 
 
-        public onFilterChanged(filter) {
-            this._filteredProofObligations = null;
-            this._filteredAssumptions = null;
-        }
+
 
         private hasIntersection(inputs: model.AbstractNode[], base: model.AbstractNode[]): boolean {
             for (let input of inputs) {
@@ -157,42 +209,57 @@ module kt.Globals {
             return false;
         }
 
+        public applyFilter(filter): void {
 
-        get filteredAssumptions(): Array<model.ApiNode> {
-            if (!this._filteredAssumptions) {
-                let _filteredAssumptions = [];
+            this._filteredProofObligations = null;
+            this._filteredAssumptions = null;
 
-                for (let apiKey in this._apis) {
-                    let api = this._apis[apiKey];
-                    if (this.hasIntersection(api.inputs, this.filteredProofObligations) ||
-                        this.hasIntersection(api.outputs, this.filteredProofObligations)) {
-                        _filteredAssumptions.push(api);
-                    }
+            this.filterProofObligations();
+            this.filterAssumptions();
+        }
 
+        private filterProofObligations(): void {
+            let filter = (x) => kt.Globals.PO_FILTER.accept(x);
+            this._filteredProofObligations = model.sortPoNodes(_.filter(this.proofObligations, filter));
+        }
+
+        private filterAssumptions(): void {
+
+            let _filteredAssumptions = [];
+
+            for (let apiKey in this._apis) {
+                let api = this._apis[apiKey];
+                if (this.hasIntersection(api.inputs, this.filteredProofObligations) ||
+                    this.hasIntersection(api.outputs, this.filteredProofObligations)) {
+                    _filteredAssumptions.push(api);
                 }
-
-                for (let po of this.filteredProofObligations) {
-                    for (let input of po.inputs) {
-                        _filteredAssumptions.push(<model.ApiNode>input);
-                    }
-
-                    for (let output of po.outputs) {
-                        _filteredAssumptions.push(<model.ApiNode>output);
-                    }
-                }
-
-                _filteredAssumptions = _.uniq(_filteredAssumptions);
-                this._filteredAssumptions = _filteredAssumptions;
 
             }
+
+
+            for (let po of this.filteredProofObligations) {
+                for (let input of po.inputs) {
+                    _filteredAssumptions.push(<model.ApiNode>input);
+                }
+
+                for (let output of po.outputs) {
+                    _filteredAssumptions.push(<model.ApiNode>output);
+                }
+            }
+
+
+            _filteredAssumptions = _.uniq(_filteredAssumptions);
+            this._filteredAssumptions = _filteredAssumptions;
+
+
+        }
+
+
+        get filteredAssumptions(): Array<model.ApiNode> {
             return this._filteredAssumptions;
         }
 
         get filteredProofObligations(): Array<model.ProofObligation> {
-            if (!this._filteredProofObligations) {
-                let filter = (x) => kt.Globals.PO_FILTER.accept(x);
-                this._filteredProofObligations = model.sortPoNodes(_.filter(this.proofObligations, filter));
-            }
             return this._filteredProofObligations;
         }
 

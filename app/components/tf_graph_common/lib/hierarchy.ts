@@ -361,7 +361,6 @@ function findEdgeTargetsInGraph(
 }
 
 export interface HierarchyParams {
-  verifyTemplate: boolean;
   seriesNodeMinSize: number;
   seriesMap: { [name: string]: tf.graph.SeriesGroupingType };
 }
