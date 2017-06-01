@@ -4,12 +4,12 @@ module kt.treeview {
     const path = require('path');
     const fs = require('fs');
 
-    export function splitPath(filePath:string):string[] {
+    export function splitPath(filePath: string): string[] {
         return filePath.split(path.sep);
     }
 
 
-    export function build(container, project:kt.Globals.Project): void {
+    export function build(container, project: kt.Globals.Project): void {
         let root = tree(project.baseDir);
 
         container.data = root;
@@ -27,14 +27,14 @@ module kt.treeview {
         dir: boolean;
     }
 
-    export class FileInfoImpl implements FileInfo{
+    export class FileInfoImpl implements FileInfo {
         relativePath: string;
         icon: string;
         open: boolean;
         children: Array<FileInfo>;
         dir: boolean;
 
-        get name():string{
+        get name(): string {
             return path.basename(this.relativePath);
         }
     }
@@ -87,16 +87,12 @@ module kt.treeview {
         });
 
         fileList.sort((a, b) => {
-            if (a.children && !b.children) {
-                return -1;
-            } else if (!a.children && b.children) {
-                return 1;
-            } else if (a.name.toLowerCase() > b.name.toLowerCase()) {
-                return 1;
-            } else if (a.name.toLowerCase() > b.name.toLowerCase()) {
+            if (a.dir == b.dir) {
+                return a.name.localeCompare(b.name);
+            } else {
+                if (a.dir) return 1;
                 return -1;
             }
-            return 0;
         });
 
         return fileList
