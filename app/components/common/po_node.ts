@@ -178,7 +178,7 @@ module kt.model {
 
         public addInput(node: AbstractNode): boolean {
             if (_.includes(this.outputs, node)) {
-                console.error(node.key + " is already among of ouputs of this " + this.key);
+                console.warn("LOOP!" + node.key + " is already among of ouputs of this " + this.key);
             }
 
             if (!_.includes(this.inputs, node)) {
@@ -187,12 +187,11 @@ module kt.model {
             } else {
                 return false;
             }
-
         }
 
         public addOutput(node: AbstractNode): boolean {
             if (_.includes(this.inputs, node)) {
-                console.error(node.key + " is already among of inputs of this " + this.key);
+                console.warn("LOOP!" + node.key + " is already among of inputs of this " + this.key);
             }
 
             if (!_.includes(this.outputs, node)) {
@@ -530,7 +529,7 @@ module kt.model {
                     "discharge": this.discharge, //? po["discharge"]["comment"] : null
                     "dischargeAssumption": this.dischargeAssumption,
                     "locationPath": this.file + SPL + this.functionName,
-                    "data":this
+                    "data": this
                 }
             }
 
