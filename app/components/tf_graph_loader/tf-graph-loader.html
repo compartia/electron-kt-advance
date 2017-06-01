@@ -1,6 +1,6 @@
 <dom-module id="tf-graph-loader"></dom-module>
 
- <script>
+<script>
     Polymer({
 
         is: 'tf-graph-loader',
@@ -55,8 +55,8 @@
         },
 
 
-        _onGraphVisibilityChanged: function(newV, oldV){
-            if (this.rebuildGraphPending && newV){
+        _onGraphVisibilityChanged: function(newV, oldV) {
+            if (this.rebuildGraphPending && newV) {
                 this._filteredProofObligationsChanged(null, null);
             }
         },
@@ -80,6 +80,27 @@
                 msg: ''
             });
 
+
+            var tracker = tf.graph.util.getTracker(this);
+            var readDataTracker = tf.graph.util.getSubtaskTracker(tracker, 100, 'Reading Data');
+
+
+            this.filter.reset();
+
+            newProject.readAndParse(readDataTracker)
+                .then(function(project) {
+                    this.fire("project-loaded", {});
+                }.bind(this));
+        },
+
+        rebuildGraph: function(project, tracker) {
+            if (!this.tabVisible) {
+                this.rebuildGraphPending = true;
+                return;
+            }
+
+            this.rebuildGraphPending = false;
+
             var hierarchyParams = {
                 // If a set of numbered op nodes has at least this number of nodes then group them into a series node.
                 seriesNodeMinSize: 6,
@@ -90,30 +111,12 @@
 
             this._setOutHierarchyParams(hierarchyParams);
 
-            var tracker = tf.graph.util.getTracker(this);
-            var readDataTracker = tf.graph.util.getSubtaskTracker(tracker, 100, 'Reading Data');
-
-
-            this.filter.reset();
-
-            kt.parser.readAndParse(newProject, readDataTracker)
-            .then(function(project) {
-                this.fire("project-loaded", {});
-            }.bind(this));
-        },
-
-        rebuildGraph: function(project, tracker) {
-            if(!this.tabVisible){
-                this.rebuildGraphPending = true;
-                return;
-            }
-
-            this.rebuildGraphPending = false;
 
             var graphTracker = tf.graph.util.getSubtaskTracker(tracker, 50, 'Linking nodes');
             var hierarchyTracker = tf.graph.util.getSubtaskTracker(tracker, 50, 'Namespace hierarchy');
 
-            var nodes = kt.parser.buildGraph(project.filteredProofObligations, project.filteredAssumptions, this.filter);
+            var nodes = project.buildGraph(this.filter);
+
             tf.graph.build(nodes, {}, graphTracker).then(function(graph) {
                 this._setOutGraph(graph);
                 return tf.graph.hierarchy.build(graph, hierarchyParams, hierarchyTracker);
