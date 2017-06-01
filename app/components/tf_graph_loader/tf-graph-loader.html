@@ -80,10 +80,8 @@
                 msg: ''
             });
 
-
             var tracker = tf.graph.util.getTracker(this);
             var readDataTracker = tf.graph.util.getSubtaskTracker(tracker, 100, 'Reading Data');
-
 
             this.filter.reset();
 
@@ -96,6 +94,7 @@
         rebuildGraph: function(project, tracker) {
             if (!this.tabVisible) {
                 this.rebuildGraphPending = true;
+                tracker.updateProgress(100);
                 return;
             }
 
