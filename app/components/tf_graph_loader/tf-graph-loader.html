@@ -81,10 +81,10 @@
             });
 
             var hierarchyParams = {
-                verifyTemplate: false,
                 // If a set of numbered op nodes has at least this number of nodes then group them into a series node.
                 seriesNodeMinSize: 6,
-                // A map of series node names to series grouping settings, to indicate if a series is to be rendered as grouped or ungrouped. Starts out empty which allows the renderer to decide which series are initially rendered grouped and which aren't.
+                // A map of series node names to series grouping settings, to indicate if a series is to be rendered as grouped or ungrouped.
+                //Starts out empty which allows the renderer to decide which series are initially rendered grouped and which aren't.
                 seriesMap: {}
             };
 
@@ -94,36 +94,21 @@
             var readDataTracker = tf.graph.util.getSubtaskTracker(tracker, 100, 'Reading Data');
 
 
-
             this.filter.reset();
 
             kt.parser.readAndParse(newProject, readDataTracker)
             .then(function(project) {
                 this.fire("project-loaded", {});
-                //return this.rebuildGraph(project, graphTracker);
-
             }.bind(this));
         },
 
         rebuildGraph: function(project, tracker) {
-
             if(!this.tabVisible){
                 this.rebuildGraphPending = true;
                 return;
             }
 
-
             this.rebuildGraphPending = false;
-
-            var hierarchyParams = {
-                verifyTemplate: false,
-                // If a set of numbered op nodes has at least this number of nodes then group them into a series node.
-                seriesNodeMinSize: 6,
-                // A map of series node names to series grouping settings, to indicate if a series is to be rendered as grouped or ungrouped. Starts out empty which allows the renderer to decide which series are initially rendered grouped and which aren't.
-                seriesMap: {}
-            };
-
-            this._setOutHierarchyParams(hierarchyParams);
 
             var graphTracker = tf.graph.util.getSubtaskTracker(tracker, 50, 'Linking nodes');
             var hierarchyTracker = tf.graph.util.getSubtaskTracker(tracker, 50, 'Namespace hierarchy');
