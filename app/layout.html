@@ -38,217 +38,204 @@
             <div id="progress-msg" class="toast" class$="[[_getToastClass(progress)]]">[[progress.msg]]</div>
         </template>
 
-        <vaadin-split-layout class="splitter-1">
+    <vaadin-split-layout class="splitter-1">
 
-            <div style="width:15%; position: relative; overflow:none">
-                <paper-header-panel mode="waterfall" class="panel-files">
-                    <paper-toolbar>
-                        <paper-icon-button icon="menu" on-tap="openProject"></paper-icon-button>
-                    </paper-toolbar>
-                    <paper-tree id="treeview" selected-file="{{filter.file}}" statistics="[[statistics]]"></paper-tree>
+        <div style="width:15%; position: relative; overflow:none">
+            <paper-header-panel mode="waterfall" class="panel-files">
+                <paper-toolbar>
+                    <paper-icon-button icon="menu" on-tap="openProject"></paper-icon-button>
+                </paper-toolbar>
+                <paper-tree id="treeview" selected-file="{{filter.file}}" statistics="[[statistics]]"></paper-tree>
+            </paper-header-panel>
+        </div>
+
+        <div style="width:85%">
+
+            <vaadin-split-layout class="splitter-2">
+
+                <paper-header-panel style$="[[_computeFunctionListStyle(filter.file)]]" mode="waterfall" class="panel-functions">
+                    <paper-toolbar></paper-toolbar>
+                    <functions-list id="functions" selected-file="[[filter.file]]" statistics="[[statistics]]" selected-function="{{filter.cfunction}}" project="[[currentProject]]"></functions-list>
                 </paper-header-panel>
-            </div>
 
-            <div style="width:85%">
+                <paper-header-panel style="width:80%" mode="standard">
 
-                <vaadin-split-layout class="splitter-2">
+                    <paper-toolbar id="toolbar">
 
-                    <paper-header-panel style$="[[_computeFunctionListStyle(filter.file)]]" mode="waterfall" class="panel-functions">
-                        <paper-toolbar></paper-toolbar>
-                        <functions-list id="functions" selected-file="[[filter.file]]" statistics="[[statistics]]" selected-function="{{filter.cfunction}}" project="[[currentProject]]"></functions-list>
-                    </paper-header-panel>
-
-                    <paper-header-panel style="width:80%" mode="standard">
-
-                        <paper-toolbar id="toolbar">
-
-                            <paper-tabs selected="{{modeIndex}}" class="tabs" id="tabs" scrollable fit-container style="width: 80%;">
-                                <template is="dom-repeat" items="[[tabs]]">
+                        <paper-tabs selected="{{modeIndex}}" class="tabs" id="tabs" scrollable fit-container style="width: 80%;">
+                            <template is="dom-repeat" items="[[tabs]]">
                                     <template is="dom-if" if="[[_isTabEnabled(item)]]">
                                         <paper-tab data-mode="[[item]]">[[item]]</paper-tab>
                                     </template>
-                                </template>
-                            </paper-tabs>
+                            </template>
+                        </paper-tabs>
 
-                        </paper-toolbar>
+                    </paper-toolbar>
 
-                        <po-filter-panel statistics="[[statistics]]" filter="{{filter}}" project="[[currentProject]]"></po-filter-panel>
+                    <po-filter-panel statistics="[[statistics]]" filter="{{filter}}" project="[[currentProject]]"></po-filter-panel>
 
-                        <tf-graph-loader
-                            id="loader"
-                            filtered-proof-obligations="[[filteredProofObligations]]"
-                            out-graph-hierarchy="{{graphHierarchy}}"
-                            out-graph="{{graph}}"
-                            filter="{{filter}}"
-                            progress="{{progress}}"
-                            tab-visible="[[graphTabSelected(mode)]]"
-                            current-project="[[currentProject]]"
-                            out-hierarchy-params="{{_hierarchyParams}}"></tf-graph-loader>
+                    <tf-graph-loader id="loader" filtered-proof-obligations="[[filteredProofObligations]]" out-graph-hierarchy="{{graphHierarchy}}" out-graph="{{graph}}" filter="{{filter}}" progress="{{progress}}" tab-visible="[[graphTabSelected(mode)]]" current-project="[[currentProject]]"
+                        out-hierarchy-params="{{_hierarchyParams}}"></tf-graph-loader>
 
-                        <iron-pages class="content fit" id="contents" selected="{{modeIndex}}">
+                    <iron-pages class="content fit" id="contents" selected="{{modeIndex}}">
 
-                            <kt-stats progress="{{progress}}" statistics="[[statistics]]" filter="{{filter}}"></kt-stats>
+                        <kt-stats progress="{{progress}}" statistics="[[statistics]]" filter="{{filter}}"></kt-stats>
 
-                            <source-view id="sourceview" current-project="[[currentProject]]" statistics="[[statistics]]"></source-view>
+                        <source-view id="sourceview" current-project="[[currentProject]]" statistics="[[statistics]]"></source-view>
 
-                            <po-list-scene id="main-po-list" filtered-proof-obligations="[[filteredProofObligations]]" linktosource showgroups selected-po="{{selectedPo}}"></po-list-scene>
+                        <po-list-scene id="main-po-list" filtered-proof-obligations="[[filteredProofObligations]]" linktosource showgroups selected-po="{{selectedPo}}"></po-list-scene>
 
-                            <assumptions-list-scene filtered-assumptions="[[filteredAssumptions]]"
-                                selected-assumptions="{{selectedAssumptions}}" linktosource></assumptions-list-scene>
+                        <assumptions-list-scene filtered-assumptions="[[filteredAssumptions]]" selected-assumptions="{{selectedAssumptions}}" linktosource></assumptions-list-scene>
 
 
-                            <tf-graph-board
-                                id="graphboard"
-                                color-by="[[colorBy]]"
-                                color-by-params="{{colorByParams}}"
-                                devices-for-stats="[[_devicesForStats]]"
-                                graph-hierarchy="[[graphHierarchy]]"
-                                graph="[[graph]]"
-                                progress="{{progress}}"
-                                hierarchy-params="[[_hierarchyParams]]"
-                                render-hierarchy="{{_renderHierarchy}}"></tf-graph-board>
+                        <tf-graph-board id="graphboard" color-by="[[colorBy]]" color-by-params="{{colorByParams}}" devices-for-stats="[[_devicesForStats]]" graph-hierarchy="[[graphHierarchy]]" graph="[[graph]]" progress="{{progress}}" hierarchy-params="[[_hierarchyParams]]"
+                            render-hierarchy="{{_renderHierarchy}}"></tf-graph-board>
 
-                            <kt-help></kt-help>
+                        <kt-help></kt-help>
 
-                        </iron-pages>
+                    </iron-pages>
 
-                    </paper-header-panel>
+                </paper-header-panel>
 
-                </vaadin-split-layout >
+            </vaadin-split-layout>
 
-            </div>
-        </vaadin-split-layout>
+        </div>
+    </vaadin-split-layout>
 
-        <style>
-            vaadin-split-layout {}
+    <style>
+        vaadin-split-layout {}
 
-            paper-header-panel.panel-files {
-                --paper-header-panel-waterfall-container: {
-                    background: var(--kt-side-bg);
-                };
+        paper-header-panel.panel-files {
+            --paper-header-panel-waterfall-container: {
+                background: var(--kt-side-bg);
             }
+            ;
+        }
 
-            paper-header-panel.panel-functions {
-                --paper-header-panel-waterfall-container: {
-                    background: var(--kt-side-bg-2);
-                };
+        paper-header-panel.panel-functions {
+            --paper-header-panel-waterfall-container: {
+                background: var(--kt-side-bg-2);
             }
+            ;
+        }
 
-            paper-progress {
-                z-index: 2000;
-                position: fixed;
-                top: 0;
-                width: 100%;
-                --paper-progress-height: 4px;
-                --paper-progress-active-color: var(--kt-progress);
+        paper-progress {
+            z-index: 2000;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            --paper-progress-height: 4px;
+            --paper-progress-active-color: var(--kt-progress);
+        }
+
+         :host {
+            height: 100%;
+            display: block;
+            background-color: var(--kt-grey-80);
+
+            --paper-tabs-selection-bar-color: var(--kt-violet);
+            --paper-tab-ink: var(--kt-text-color);
+            --paper-toolbar-color: var(--kt-text-color, black);
+        }
+
+        #toolbar {
+            background-color: var(--kt-grey-lighter);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .toolbar-title {
+            font-size: 20px;
+            margin-left: 10px;
+            text-rendering: optimizeLegibility;
+            letter-spacing: -0.025em;
+            font-weight: 500;
+            flex-grow: 2;
+            display: var(--tb-toolbar-title-display, block);
+        }
+
+        .tabs {
+            flex-grow: 1;
+            text-transform: uppercase;
+            height: 100%;
+        }
+
+        paper-tabs {}
+
+        .splitter-1,
+        .splitter-2,
+        .splitter-3 {
+            --vaadin-split-layout-splitter: {
+                min-width: 1px;
+                min-height: 1px;
+                border: solid 4px none;
+                background-clip: content-box;
             }
+        }
 
-            :host {
-                height: 100%;
-                display: block;
-                background-color: var(--kt-grey-80);
-
-                --paper-tabs-selection-bar-color: var(--kt-violet);
-                --paper-tab-ink: var(--kt-text-color);
-                --paper-toolbar-color: var(--kt-text-color, black);
+        .splitter-1,
+        .splitter-3 {
+            --vaadin-split-layout-splitter: {
+                background: var(--paper-tree-selected-background-color);
+                fill: var(--paper-tree-selected-background-color);
             }
+            ;
 
-            #toolbar {
-                background-color: var(--kt-grey-lighter);
-                -webkit-font-smoothing: antialiased;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+        }
+
+        .splitter-2 {
+            --vaadin-split-layout-splitter: {
+                fill: var(--kt-main-bg);
+                background: var(--kt-main-bg);
             }
+            ;
 
-            .toolbar-title {
-                font-size: 20px;
-                margin-left: 10px;
-                text-rendering: optimizeLegibility;
-                letter-spacing: -0.025em;
-                font-weight: 500;
-                flex-grow: 2;
-                display: var(--tb-toolbar-title-display, block);
+            height: 100%;
+        }
+
+        .splitter-3 {
+            --vaadin-split-layout-splitter: {
+                background: var(--selection-lt-bg);
+                fill: var(--selection-lt-bg);
             }
+            ;
+        }
 
-            .tabs {
-                flex-grow: 1;
-                text-transform: uppercase;
-                height: 100%;
-            }
+        .global-actions {
+            flex-grow: 2;
+            display: inline-flex;
+            /* Ensure that icons stay aligned */
+            justify-content: flex-end;
+            text-align: right;
+            color: var(--kt-text-color);
+        }
 
-            paper-tabs {}
+        .global-actions a {
+            color: var(--kt-text-color);
+        }
 
-            .splitter-1,
-            .splitter-2,
-            .splitter-3 {
-                --vaadin-split-layout-splitter: {
-                    min-width: 1px;
-                    min-height: 1px;
-                    border: solid 4px none;
-                    background-clip: content-box;
-                }
+        #toolbar-content {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-            }
-            .splitter-1,
-            .splitter-3 {
-                --vaadin-split-layout-splitter: {
-                    background: var(--paper-tree-selected-background-color);
-                    fill: var(--paper-tree-selected-background-color);
-                };
+        #content {
+            height: 100%;
+        }
 
-                position: absolute;
-                top: 0;
-                left: 0;
-                bottom: 0;
-                right: 0;
-            }
-
-            .splitter-2 {
-                --vaadin-split-layout-splitter: {
-                    fill: var(--kt-main-bg);
-                    background: var(--kt-main-bg);
-                };
-
-                height: 100%;
-            }
-
-            .splitter-3 {
-                --vaadin-split-layout-splitter: {
-                    background: var(--selection-lt-bg);
-                    fill: var(--selection-lt-bg);
-                };
-            }
-
-            .global-actions {
-                flex-grow: 2;
-                display: inline-flex;
-                /* Ensure that icons stay aligned */
-                justify-content: flex-end;
-                text-align: right;
-                color: var(--kt-text-color);
-            }
-
-            .global-actions a {
-                color: var(--kt-text-color);
-            }
-
-            #toolbar-content {
-                width: 100%;
-                height: 100%;
-                display: flex;
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: center;
-            }
-
-            #content {
-                height: 100%;
-            }
-
-            [disabled] {
-                opacity: 0.2;
-                color: var(--kt-text-color);
-            }
-
-        </style>
+        [disabled] {
+            opacity: 0.2;
+            color: var(--kt-text-color);
+        }
+    </style>
     </template>
     <script>
         Polymer({
@@ -318,8 +305,8 @@
                 return mode != 4;
             },
 
-            graphTabSelected: function(mode){
-                return "graphs"===mode;
+            graphTabSelected: function(mode) {
+                return "graphs" === mode;
             },
 
             showAssumptionsTab: function(mode) {
@@ -344,14 +331,19 @@
             filterChanged: function(event) {
                 console.info("filterChanged: " + event.path);
 
-                if(event.path!="filter.line"){
+                if (event.path != "filter.line") {
                     if (this.currentProject) {
 
                         if (!this.pendingFilterChanges) {
+                            // this._applyFilterAsync(this.currentProject, this.filter);
+                            var tracker = tf.graph.util.getTracker(this);
                             var task = function() {
-                                this._applyFilterAsync(this.currentProject, this.filter);
+                                this._applyFilterAsync(this.currentProject, this.filter, tracker);
                             }
-                            setTimeout(task.bind(this), 100);
+                            // // setTimeout(task.bind(this), 70);
+
+                            tf.graph.util
+                                .runAsyncTask("Applying filter", 50, task.bind(this), tracker);
                         }
 
                         this.pendingFilterChanges = true;
@@ -361,23 +353,37 @@
 
             },
 
-            _applyFilterAsync: function(project, filter) {
+            _applyFilterAsync: function(project, filter, tracker) {
                 console.info("applying filter..");
                 this.pendingFilterChanges = false;
 
                 if (project) {
+                    this._startProgress();
+                    _self = this;
+                    project.applyFilter(filter);
 
-                    project.onFilterChanged(filter);
-                    this.set("statistics", project.buildStatistics());
-                    this.set("filteredProofObligations", project.filteredProofObligations);
-                    this.set("filteredAssumptions", project.filteredAssumptions);
+                    var aftereffect = (function() {
+                        sourceview.jumpToLine(_self.filter.line)
+                    }).bind(_self);
 
-                    var sourceview = this.$.sourceview;
-                    var aftereffect = () => {
-                        sourceview.jumpToLine(this.filter.line)
-                    };
+                    var task= (function(){
+                        return project.buildStatistics();
+                    }).bind(this);
 
-                    sourceview.maybeLoadFile(filter.file, aftereffect.bind(this));
+                    tf.graph.util
+                        .runAsyncTask("building statistics", 50, task, tracker).then(
+                            function(ret) {
+                                _self.set("statistics", ret);
+                                _self.set("filteredProofObligations", project.filteredProofObligations);
+                                _self.set("filteredAssumptions", project.filteredAssumptions);
+
+                                _self.$.sourceview.maybeLoadFile(filter.file, aftereffect);
+                            }
+
+                        );
+
+
+
                 }
             },
 
@@ -418,10 +424,7 @@
 
             openProject: function() {
                 var _self = this;
-                _self.set('progress', {
-                    value: 0,
-                    msg: ''
-                });
+                _self._startProgress();
 
                 var tracker = tf.graph.util.getTracker(this);
 
@@ -430,10 +433,7 @@
                 if (newProject) {
                     _self.set("currentProject", newProject);
                     _self.set('modeIndex', 0);
-                    _self.set('progress', {
-                        value: 0,
-                        msg: ''
-                    });
+                    _self._startProgress();
 
                 } else {
                     _self.set('progress', {
@@ -442,6 +442,13 @@
                     });
                     console.log("cancelled");
                 }
+            },
+
+            _startProgress: function() {
+                this.set('progress', {
+                    value: 0,
+                    msg: ''
+                });
             },
 
             _computeFunctionListStyle: function(filterFile) {

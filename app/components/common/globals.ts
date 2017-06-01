@@ -102,9 +102,6 @@ module kt.Globals {
                     project.apis = POs.apis;
                     return project;
                 });
-
-
-
         }
 
 
@@ -201,10 +198,7 @@ module kt.Globals {
         }
 
 
-        public onFilterChanged(filter) {
-            this._filteredProofObligations = null;
-            this._filteredAssumptions = null;
-        }
+
 
         private hasIntersection(inputs: model.AbstractNode[], base: model.AbstractNode[]): boolean {
             for (let input of inputs) {
@@ -215,42 +209,57 @@ module kt.Globals {
             return false;
         }
 
+        public applyFilter(filter): void {
 
-        get filteredAssumptions(): Array<model.ApiNode> {
-            if (!this._filteredAssumptions) {
-                let _filteredAssumptions = [];
+            this._filteredProofObligations = null;
+            this._filteredAssumptions = null;
 
-                for (let apiKey in this._apis) {
-                    let api = this._apis[apiKey];
-                    if (this.hasIntersection(api.inputs, this.filteredProofObligations) ||
-                        this.hasIntersection(api.outputs, this.filteredProofObligations)) {
-                        _filteredAssumptions.push(api);
-                    }
+            this.filterProofObligations();
+            this.filterAssumptions();
+        }
 
+        private filterProofObligations(): void {
+            let filter = (x) => kt.Globals.PO_FILTER.accept(x);
+            this._filteredProofObligations = model.sortPoNodes(_.filter(this.proofObligations, filter));
+        }
+
+        private filterAssumptions(): void {
+
+            let _filteredAssumptions = [];
+
+            for (let apiKey in this._apis) {
+                let api = this._apis[apiKey];
+                if (this.hasIntersection(api.inputs, this.filteredProofObligations) ||
+                    this.hasIntersection(api.outputs, this.filteredProofObligations)) {
+                    _filteredAssumptions.push(api);
                 }
-
-                for (let po of this.filteredProofObligations) {
-                    for (let input of po.inputs) {
-                        _filteredAssumptions.push(<model.ApiNode>input);
-                    }
-
-                    for (let output of po.outputs) {
-                        _filteredAssumptions.push(<model.ApiNode>output);
-                    }
-                }
-
-                _filteredAssumptions = _.uniq(_filteredAssumptions);
-                this._filteredAssumptions = _filteredAssumptions;
 
             }
+
+
+            for (let po of this.filteredProofObligations) {
+                for (let input of po.inputs) {
+                    _filteredAssumptions.push(<model.ApiNode>input);
+                }
+
+                for (let output of po.outputs) {
+                    _filteredAssumptions.push(<model.ApiNode>output);
+                }
+            }
+
+
+            _filteredAssumptions = _.uniq(_filteredAssumptions);
+            this._filteredAssumptions = _filteredAssumptions;
+
+
+        }
+
+
+        get filteredAssumptions(): Array<model.ApiNode> {
             return this._filteredAssumptions;
         }
 
         get filteredProofObligations(): Array<model.ProofObligation> {
-            if (!this._filteredProofObligations) {
-                let filter = (x) => kt.Globals.PO_FILTER.accept(x);
-                this._filteredProofObligations = model.sortPoNodes(_.filter(this.proofObligations, filter));
-            }
             return this._filteredProofObligations;
         }
 
