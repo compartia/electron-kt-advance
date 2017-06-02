@@ -269,6 +269,8 @@ module kt.Globals {
             this.analysisDir = path.join(this.baseDir, CH_DIR);
             this._filteredAssumptions = null;
             this._filteredProofObligations = null;
+
+            CONF.addRecentProject(path.basename(baseDir), baseDir);
             //XXX: reset all data
         }
 
