@@ -16,23 +16,28 @@ html {
     height : 100%;
 }
 
-table, th, td, tr{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    border: none;
+table,
+td,
+th,
+tr {
+    margin         : 0;
+    padding        : 0;
+    box-sizing     : border-box;
+    border         : none;
     border-collapse: collapse;
-	border-spacing: 0;
-    vertical-align: center;
+    border-spacing : 0;
+    vertical-align : center;
 }
 
-td.headline{
+td.headline {
     text-align: right;
-    h3,h4{
+
+    h3,
+    h4 {
         text-align: right;
-        padding: 0;
+        padding   : 0;
     }
-    padding: $spacer;
+    padding   : $spacer;
 }
 
 .edgePath path.path {
@@ -78,5 +83,85 @@ td.headline{
     .equal-size {
         flex-grow : 1;
         flex-basis: 0;
+    }
+}
+
+.vr {
+    width       : 1px;
+    background  : $highlight-hover;
+    margin-left : $spacer*2;
+    margin-right: $spacer*2;
+}
+
+hr {
+    border    : none;
+    background: none;
+    border-top: 1px solid $highlight-hover;
+    width     : 100%;
+    height    : 1px;
+}
+
+.footer{
+    border-top: 1px solid $highlight-hover;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: auto;
+    padding: $spacer*2;
+}
+
+
+.text-right {
+    text-align: right;
+}
+
+.text-center {
+    text-align: center;
+}
+
+ul.links {
+
+    list-style : none;
+    display    : flex;
+    flex-flow  : column;
+    align-items: flex-end;
+
+    li {
+        padding    : $spacer/8 $spacer/2;
+
+        iron-icon {
+            width  : 1.2rem;
+            padding: $spacer/8;
+        }
+        text-align : right;
+        display    : flex;
+        flex-flow  : row;
+        cursor     : pointer;
+
+        align-items: center;
+
+        &:hover {
+            background: $highlight-hover;
+        }
+    }
+}
+
+splash-layout {
+    .table {
+        align-items   : center;
+        display       : flex;
+        flex-direction: column;
+    }
+
+    .row {}
+
+    .column {
+        width: 220px;
+    }
+
+    label {
+        display: block;
+        margin : $spacer 0 $spacer*3;
     }
 }

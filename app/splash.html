@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>KT-Advance GUI</title>
+
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+
+    <script>
+        window.Polymer = {
+            lazyRegister: true,
+            useNativeCSSProperties: true
+        };
+    </script>
+
+    <style type='text/css'>
+        html, body {
+            padding: 0px;
+            margin: 0;
+            width: 100%;
+            height: auto;
+
+        }
+
+        html{
+            background: url('static/kt-splash.svg');
+            background-repeat: no-repeat;
+            background-position: top;
+        }
+    </style>
+
+    <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+    <link rel="import" href="../bower_components/polymer/polymer.html">
+
+    <link rel="import" href="splash-layout.html">
+
+</head>
+
+<body unresolved class="fullbleed layout vertical">
+
+    <splash-layout>
+    </splash-layout>
+
+</body>
+
+</html>

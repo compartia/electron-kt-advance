@@ -1,0 +1,141 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/paper-progress/paper-progress.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/paper-material/paper-material.html">
+
+
+<script src="components/tf_graph_common/lib/util.js"></script>
+<script src="components/common/globals.js"></script>
+<script src="components/common/fs.js"></script>
+
+<dom-module id="splash-layout">
+    <template>
+        <div style="margin-top: 250px">
+
+        <template is="dom-if" if="[[_isNotComplete(progress)]]">
+            <div id="progress-bar">
+                <paper-progress value="[[progress.value]]" style="width:100%"></paper-progress>
+            </div>
+            <div id="progress-msg" class="toast" class$="[[_getToastClass(progress)]]">[[progress.msg]]</div>
+        </template>
+
+    <div class="table">
+        <div class="row">
+            <div class="column">
+                <section>
+                    <h1 class="text-right">Resources</h1>
+                    <ul class="links">
+
+                        <li on-tap="openLink" value="http://kestreltechnology.com/">Kestrel Technology
+                            <iron-icon icon="chevron-right"></iron-icon>
+                        </li>
+                        <li on-tap="openLink" value="https://github.com/kestreltechnology/electron-kt-advance/blob/master/README.md">Documentation
+                            <iron-icon icon="chevron-right"></iron-icon>
+                        </li>
+
+                        <li on-tap="openLink" value="https://github.com/kestreltechnology/electron-kt-advance/issues">Bug tracker
+                            <iron-icon icon="chevron-right"></iron-icon>
+                        </li>
+                        <li on-tap="openLink" value="https://github.com/kestreltechnology/electron-kt-advance">Contribute
+                            <iron-icon icon="chevron-right"></iron-icon>
+                        </li>
+                    </ul>
+
+                </section>
+            </div>
+
+            <div class="vr"></div>
+
+
+            <div class="column">
+                <section class="text-center">
+                    <h1>Start new project</h1>
+                    <label>Start by selecting a directory where your C files located</label>
+                    <paper-button raised on-tap="openProject">new..</paper-button>
+                </section>
+            </div>
+
+            <div class="vr"></div>
+
+            <div class="column">
+                <paper-material elevation="0" class="card panel flexchild">
+                    <h1>Open recent project</h1>
+                    <label>Start by selecting a directory where your C files located</label>
+
+                </paper-material>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="footer">
+        Copyright (c) 2017 Kestrel Technology All Rights Reserved.
+    </div>
+
+
+    </div>
+
+    </template>
+    <script>
+        Polymer({
+            is: "splash-layout",
+            properties: {
+
+                progress: {
+                    type: Object,
+                    notify: true
+                },
+
+            },
+
+            openLink: function(e) {
+                // console.log(e);
+                var url = e.srcElement.attributes['value'].nodeValue;
+                const {
+                    shell
+                } = require('electron')
+                shell.openExternal(url);
+            },
+
+            _isNotComplete: function(progress) {
+                return progress.value < 100;
+            },
+
+
+            openProject: function() {
+                var _self = this;
+                // self._startProgress();
+                var tracker = tf.graph.util.getTracker(this);
+                var newProject = kt.Globals.openNewProject(null);
+
+                const ipc = require('electron').ipcRenderer;
+                if (newProject) {
+                    ipc.send("project", newProject);
+                    // _stopProgress();
+                }
+
+
+            },
+
+            _startProgress: function() {
+                this.set('progress', {
+                    value: 0,
+                    msg: ''
+                });
+            },
+
+            _stopProgress: function() {
+                this.set('progress', {
+                    value: 100,
+                    msg: ''
+                });
+            },
+
+
+        });
+    </script>
+
+</dom-module>

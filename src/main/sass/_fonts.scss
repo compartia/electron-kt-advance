@@ -26,7 +26,6 @@ h4 {
     color    : var(--kt-grey);
     font-size: $font-size-xs;
 }
- 
 
 h2 {
     font-size: $font-size-lg;
@@ -42,4 +41,16 @@ h1 {
     color         : var(--kt-grey);
     text-transform: uppercase;
     font-size     : $font-size-xl;
+    font-weight   : 100;
+}
+
+li {
+    font-size: $font-size-sm;
+    color    : var(--kt-grey);
+}
+
+.footer{
+    text-align: center;
+    font-size: $font-size-xs;
+    color    : var(--kt-grey);
 }

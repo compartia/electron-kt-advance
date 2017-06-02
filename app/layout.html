@@ -43,7 +43,7 @@
         <div style="width:15%; position: relative; overflow:none">
             <paper-header-panel mode="waterfall" class="panel-files">
                 <paper-toolbar>
-                    <paper-icon-button icon="menu" on-tap="openProject"></paper-icon-button>
+                    <paper-icon-button icon="menu" on-tap="openSplash"></paper-icon-button>
                 </paper-toolbar>
                 <paper-tree id="treeview" selected-file="{{filter.file}}" statistics="[[statistics]]"></paper-tree>
             </paper-header-panel>
@@ -294,6 +294,7 @@
 
             listeners: {
                 "project-loaded": "_onProjectLoaded",
+                "project-selected": "_onProjectSelected",
                 "jump-to-src": "_onJumpToSrc"
             },
 
@@ -301,16 +302,9 @@
                 'filterChanged(filter.*)'
             ],
 
-            showPoTab: function(mode) {
-                return mode != 4;
-            },
 
             graphTabSelected: function(mode) {
                 return "graphs" === mode;
-            },
-
-            showAssumptionsTab: function(mode) {
-                return mode != 4;
             },
 
             _onJumpToSrc: function(event) {
@@ -335,12 +329,11 @@
                     if (this.currentProject) {
 
                         if (!this.pendingFilterChanges) {
-                            // this._applyFilterAsync(this.currentProject, this.filter);
+
                             var tracker = tf.graph.util.getTracker(this);
                             var task = function() {
                                 this._applyFilterAsync(this.currentProject, this.filter, tracker);
                             }
-                            // // setTimeout(task.bind(this), 70);
 
                             tf.graph.util
                                 .runAsyncTask("Applying filter", 50, task.bind(this), tracker);
@@ -397,6 +390,18 @@
                 this.notifyPath("currentProject.allPredicates");
             },
 
+            _onProjectSelected: function(event) {
+                var _self = this;
+                _self._startProgress();
+
+                var newProject = event.detail
+
+                _self.set("currentProject", newProject);
+                _self.set('modeIndex', 0);
+                _self._startProgress();
+
+            },
+
             _isNotComplete: function(progress) {
                 return progress.value < 100;
             },
@@ -422,27 +427,11 @@
                 return result;
             },
 
-            openProject: function() {
-                var _self = this;
-                _self._startProgress();
-
-                var tracker = tf.graph.util.getTracker(this);
-
-                var newProject = kt.Globals.openNewProject(tracker);
-
-                if (newProject) {
-                    _self.set("currentProject", newProject);
-                    _self.set('modeIndex', 0);
-                    _self._startProgress();
-
-                } else {
-                    _self.set('progress', {
-                        value: 100,
-                        msg: ''
-                    });
-                    console.log("cancelled");
-                }
+            openSplash: function() {
+                const ipc = require('electron').ipcRenderer;
+                ipc.send("open-project", {});
             },
+
 
             _startProgress: function() {
                 this.set('progress', {
@@ -460,7 +449,7 @@
             },
 
             ready: function() {
-                this.openProject();
+                this.openSplash();
             }
         });
     </script>
