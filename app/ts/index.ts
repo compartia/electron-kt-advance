@@ -12,8 +12,7 @@ function initApp(): void {
 
     ipcRenderer.on('project-open', (event, prj) => {
         let project = new kt.Globals.Project(prj.baseDir);
-        document.getElementById("loader").fire("project-selected", project);
-
+        (<any>document.getElementById("loader")).fire("project-selected", project);
     })
 
 }
