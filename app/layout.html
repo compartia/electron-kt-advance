@@ -43,7 +43,7 @@
         <div style="width:15%; position: relative; overflow:none">
             <paper-header-panel mode="waterfall" class="panel-files">
                 <paper-toolbar>
-                    <paper-icon-button icon="menu" on-tap="openProject"></paper-icon-button>
+                    <paper-icon-button icon="menu" on-tap="openSplash"></paper-icon-button>
                 </paper-toolbar>
                 <paper-tree id="treeview" selected-file="{{filter.file}}" statistics="[[statistics]]"></paper-tree>
             </paper-header-panel>
@@ -294,6 +294,7 @@
 
             listeners: {
                 "project-loaded": "_onProjectLoaded",
+                "project-selected": "_onProjectSelected",
                 "jump-to-src": "_onJumpToSrc"
             },
 
@@ -397,6 +398,18 @@
                 this.notifyPath("currentProject.allPredicates");
             },
 
+            _onProjectSelected: function(event) {
+                var _self = this;
+                _self._startProgress();
+
+                var newProject = event.detail
+
+                _self.set("currentProject", newProject);
+                _self.set('modeIndex', 0);
+                _self._startProgress();
+
+            },
+
             _isNotComplete: function(progress) {
                 return progress.value < 100;
             },
@@ -422,6 +435,16 @@
                 return result;
             },
 
+            openSplash: function() {
+                // var remote = require('electron').remote;
+                // remote.getGlobal("loadingScreen").show();
+
+                const ipc = require('electron').ipcRenderer;
+                ipc.send("open-project", {});
+
+
+            },
+
             openProject: function() {
                 var _self = this;
                 _self._startProgress();
@@ -444,6 +467,9 @@
                 }
             },
 
+
+
+
             _startProgress: function() {
                 this.set('progress', {
                     value: 0,
@@ -460,7 +486,7 @@
             },
 
             ready: function() {
-                this.openProject();
+                this.openSplash();
             }
         });
     </script>

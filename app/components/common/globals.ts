@@ -76,6 +76,7 @@ module kt.Globals {
 
         constructor(baseDir: string) {
             this.baseDir = baseDir;
+            this.open(this.baseDir);
         }
 
         public readAndParse(tracker: tf.ProgressTracker): Promise<kt.Globals.Project> {
@@ -263,7 +264,7 @@ module kt.Globals {
             return this._filteredProofObligations;
         }
 
-        public open(baseDir: string, tracker: tf.ProgressTracker): void {
+        public open(baseDir: string): void {
             this.baseDir = baseDir;
             this.analysisDir = path.join(this.baseDir, CH_DIR);
             this._filteredAssumptions = null;
@@ -303,7 +304,6 @@ module kt.Globals {
             if (projectDir) {
                 projectDir = path.dirname(projectDir);
                 let project = new Project(projectDir);
-                project.open(projectDir, tracker);
                 return project;
 
             } else {
