@@ -6,11 +6,22 @@ module kt.storage {
     export class Storage {
         data: any;
         _path: string;
+        defaults: string;
 
         constructor(opts) {
             const userDataPath = (electron.app || electron.remote.app).getPath('userData');
             this._path = path.join(userDataPath, opts.configName + '.json');
-            this.data = parseDataFile(this._path, opts.defaults);
+            this.defaults = opts.defaults;
+            this.readConfig();
+        }
+
+        public readConfig(): void {
+
+            try {
+                this.data = JSON.parse(fs.readFileSync(this._path));
+            } catch (error) {
+                this.data = this.defaults;
+            }
         }
 
         get(key) {
@@ -19,8 +30,8 @@ module kt.storage {
 
         set(key, val) {
             this.data[key] = val;
-
             fs.writeFileSync(this._path, JSON.stringify(this.data));
+            console.info("saving config file");
         }
 
         public addRecentProject(name: string, baseDir: string) {
@@ -33,7 +44,7 @@ module kt.storage {
                     { "name": name, "baseDir": baseDir, count: 0 }
                 );
                 for (let e of arr) {
-                    if (e.path != baseDir) {
+                    if (e.baseDir != baseDir) {
                         arrNew.push(e);
                     }
                 }
@@ -45,13 +56,7 @@ module kt.storage {
         }
     }
 
-    export function parseDataFile(filePath, defaults): any {
-        try {
-            return JSON.parse(fs.readFileSync(filePath));
-        } catch (error) {
-            return defaults;
-        }
-    }
+
 }
 
 
@@ -65,8 +70,7 @@ function initConf(): void {
         configName: 'user-preferences',
         defaults: {
             recentProjects: [
-                // {name:"dovecot", "path":"sdfsdfsdfsdf"},
-                // {name:"redis", "path":"sdfsdfsdfsdf"}
+
             ]
         }
     });

@@ -95,9 +95,8 @@
             is: "splash-layout",
             properties: {
                 recentProjects:{
-                    type: Object,
-                    notify: true,
-                    // computed: "_getRecentProjects()"
+                    type: Array,
+                    notify: true
                 },
 
                 progress: {
@@ -125,23 +124,17 @@
                 return progress.value < 100;
             },
 
-            _getRecentProjects: function(){
-                return CONF.get("recentProjects");
-            },
-
 
             openProject: function() {
-
                 this._startProgress();
                 var tracker = tf.graph.util.getTracker(this);
                 var newProject = kt.Globals.openNewProject(tracker);
 
                 const ipc = require('electron').ipcRenderer;
                 if (newProject) {
-                    ipc.send("project", newProject);
-                    // _stopProgress();
+                     ipc.send("project", newProject);
+                    _stopProgress();
                 }
-
 
             },
 
@@ -159,8 +152,11 @@
                 });
             },
 
-            ready: function() {
-                this.recentProjects=this._getRecentProjects();
+
+            attached: function() {
+                console.log("attached");
+                this.set("recentProjects",[]);
+                this.set("recentProjects", CONF.get("recentProjects"));
             }
 
         });
