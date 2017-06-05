@@ -30,7 +30,7 @@ module kt.storage {
             } else {
                 let arrNew = [];
                 arrNew.push(
-                    { "name": name, "path": baseDir, count: 0 }
+                    { "name": name, "baseDir": baseDir, count: 0 }
                 );
                 for (let e of arr) {
                     if (e.path != baseDir) {

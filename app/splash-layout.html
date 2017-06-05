@@ -69,7 +69,9 @@
                     <template is="dom-if" if="[[recentProjects.length]]">
                         <ul class="links">
                             <template is="dom-repeat" items="[[recentProjects]]">
-                                <li title="{{item.path}}"><iron-icon icon="chevron-right"></iron-icon> <span>{{item.name}} &nbsp;<small>{{item.path}}</small></span></li>
+                                <li title="{{item.baseDir}}" on-tap="openRecentProject" data-item="{{index}}">
+                                    <iron-icon icon="chevron-right"></iron-icon> <span>{{item.name}} &nbsp;<small>{{item.baseDir}}</small></span>
+                                </li>
                             </template>
                         <ul>
                     </template>
@@ -105,9 +107,14 @@
 
             },
 
+            openRecentProject: function(e ){
+                console.log( e.model.item);
+                const ipc = require('electron').ipcRenderer;
+                ipc.send("project", e.model.item);
+            },
+
             openLink: function(e) {
-                // console.log(e);
-                var url = e.srcElement.attributes['value'].nodeValue;
+                var url = e.currentTarget.attributes['value'].nodeValue;
                 const {
                     shell
                 } = require('electron')
@@ -154,9 +161,6 @@
 
             ready: function() {
                 this.recentProjects=this._getRecentProjects();
-                // console.log (this.recentProjects);
-                // this.set("recentProjects", this._getRecentProjects());
-                // this.set("recentProject", this.recentProjects[0]);
             }
 
         });
