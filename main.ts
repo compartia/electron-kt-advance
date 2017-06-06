@@ -39,13 +39,7 @@ function createWindow() {
     }))
 
     mainWindow.webContents.on('did-finish-load', () => {
-        // mainWindow.show();
-
-        // if (loadingScreen) {
-            // let loadingScreenBounds = loadingScreen.getBounds();
-            // mainWindow.setBounds(loadingScreenBounds);
-            //loadingScreen.close();
-        // }
+        // nothing
     });
 
     // Open the DevTools.
@@ -68,13 +62,14 @@ function createWindow() {
     });
 
     ipcMain.on('open-project', (event, arg) => {
-        if(!loadingScreen){
+        if (!loadingScreen) {
             createSplashScreen();
-        }else{
+        } else {
             loadingScreen.show();
+            loadingScreen.send('loadingScreen-show', {});
         }
 
-    })
+    });
 
 }
 
@@ -87,7 +82,6 @@ function createSplashScreen() {
         slashes: true
     }))
 
-    //loadingScreen.on('closed', () => loadingScreen = null);
     loadingScreen.webContents.on('did-finish-load', () => {
         loadingScreen.show();
     });
@@ -99,8 +93,7 @@ function createSplashScreen() {
 app.on('ready', () => {
     createSplashScreen();
     createWindow();
-}
-)
+})
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function() {
@@ -117,6 +110,4 @@ app.on('activate', function() {
     if (mainWindow === null) {
         createWindow();
     }
-
-
 })

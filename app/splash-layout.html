@@ -26,7 +26,7 @@
             <div class="column">
                 <section>
                     <h1 class="text-right">Resources</h1>
-                    <ul class="links">
+                    <ul class="links" style="align-items: flex-end;">
 
                         <li on-tap="openLink" value="http://kestreltechnology.com/">Kestrel Technology
                             <iron-icon icon="chevron-right"></iron-icon>
@@ -62,8 +62,19 @@
             <div class="column">
                 <paper-material elevation="0" class="card panel flexchild">
                     <h1>Open recent project</h1>
-                    <label>Start by selecting a directory where your C files located</label>
 
+                    <template is="dom-if" if="[[!recentProjects.length]]">
+                        <label><small>There were no recent projects</small></label>
+                    </template>
+                    <template is="dom-if" if="[[recentProjects.length]]">
+                        <ul class="links">
+                            <template is="dom-repeat" items="[[recentProjects]]">
+                                <li title="{{item.baseDir}}" on-tap="openRecentProject" data-item="{{index}}">
+                                    <iron-icon icon="chevron-right"></iron-icon> <span>{{item.name}} &nbsp;<small>{{item.baseDir}}</small></span>
+                                </li>
+                            </template>
+                        <ul>
+                    </template>
                 </paper-material>
             </div>
 
@@ -83,6 +94,10 @@
         Polymer({
             is: "splash-layout",
             properties: {
+                recentProjects:{
+                    type: Array,
+                    notify: true
+                },
 
                 progress: {
                     type: Object,
@@ -91,9 +106,14 @@
 
             },
 
+            openRecentProject: function(e ){
+                console.log( e.model.item);
+                const ipc = require('electron').ipcRenderer;
+                ipc.send("project", e.model.item);
+            },
+
             openLink: function(e) {
-                // console.log(e);
-                var url = e.srcElement.attributes['value'].nodeValue;
+                var url = e.currentTarget.attributes['value'].nodeValue;
                 const {
                     shell
                 } = require('electron')
@@ -106,17 +126,15 @@
 
 
             openProject: function() {
-                var _self = this;
-                // self._startProgress();
+                this._startProgress();
                 var tracker = tf.graph.util.getTracker(this);
-                var newProject = kt.Globals.openNewProject(null);
+                var newProject = kt.Globals.openNewProject(tracker);
 
                 const ipc = require('electron').ipcRenderer;
                 if (newProject) {
-                    ipc.send("project", newProject);
-                    // _stopProgress();
+                     ipc.send("project", newProject);
+                    _stopProgress();
                 }
-
 
             },
 
@@ -134,6 +152,12 @@
                 });
             },
 
+
+            attached: function() {
+                console.log("attached");
+                this.set("recentProjects",[]);
+                this.set("recentProjects", CONF.get("recentProjects"));
+            }
 
         });
     </script>
