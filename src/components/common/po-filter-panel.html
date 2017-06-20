@@ -1,0 +1,223 @@
+<link rel="import" href="../../../bower_components/iron-collapse/iron-collapse.html">
+<link rel="import" href="../../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../../../bower_components/iron-list/iron-list.html">
+
+<link rel="import" href="kt-list-selection.html">
+
+<dom-module id="po-filter-panel">
+    <template>
+        <div class="container">
+            <div class="path">
+                [[_getFileName(filter.file)]]
+                <br>
+                <span id="function-name">[[_getFunctionName(filter.cfunction)]]</span>
+                <span id="predicate"><br>[[_getPredicatePathChunk(filter.singlePredicate)]]</span>
+                <span id="state"><br>[[_getStateName(filter.singleState)]]</span>
+
+            </div>
+
+            <div class="stats flexchild">
+                <span id="btnv" class="stat-hidden" title$="not included: [[statistics.countFilteredOut]]">
+                    <iron-icon icon="icons:visibility-off"></iron-icon>
+                    <!-- not included: -->
+                    [[statistics.countFilteredOut]]</span>
+
+                <span id="btnv" class="stat-violation" on-tap="_click">violations:[[statistics.countViolations]]</span>
+                <span id="btno" class="stat-open" on-tap="_click">open:[[statistics.countOpen]]</span>
+                <span id="btnd" class="stat-discharged" on-tap="_click">discharged:[[statistics.countDischarged]]</span>
+            </div>
+
+            <div class="controls">
+                <paper-icon-button icon="icons:filter-list" on-tap="openSettings" id="filter-button" on-click="toggle"></paper-icon-button>
+            </div>
+
+        </div>
+
+        <!-- PANEL -->
+
+        <iron-collapse id="filtersettings">
+            <paper-material elevation="4" class="card" id="filtersettings-container">
+                <h2>Include Proof Obligations</h2>
+
+                <div id="filtersettings-body">
+
+                    <div id="levels" class="card panel">
+                        <kt-list-selection show-select-all-box caption="Level" all-values="[[_allLevels]]" selected-values="{{filter.levels}}" styles="[[_getLevelStyles(filter)]]"></kt-list-selection>
+                    </div>
+
+                    <div id="states" class="card panel">
+                        <kt-list-selection show-select-all-box caption="State" all-values="[[_allStates]]" item-names="[[_statesNames()]]" selected-values="{{filter.states}}" styles="[[_statesStyles]]"></kt-list-selection>
+                    </div>
+
+                    <div id="discharge-types" class="card panel">
+                        <kt-list-selection show-select-all-box caption="Discharge Type" all-values="[[_allDischargeTypes]]" selected-values="{{filter.dischargeTypes}}" styles="[[_dischargeTypesStyles]]"></kt-list-selection>
+                    </div>
+
+                    <div id="predicates" class="card panel">
+                        <kt-list-selection show-select-all-box caption="Predicates" grid="true" all-values="{{project.allPredicates}}" selected-values="{{filter.predicates}}"></kt-list-selection>
+                    </div>
+
+                </div>
+            </paper-material>
+
+        </iron-collapse>
+
+    </template>
+
+    <style is="po-filter-panel">
+        .flexchild {
+            @apply(--layout-flex);
+            background-color: var(--kt-panel-bg);
+        }
+
+    </style>
+
+    <script>
+        Polymer({
+            is: 'po-filter-panel',
+
+            properties: {
+                project: {
+                    type: Object,
+                    notify: true
+                },
+
+                statistics: {
+                    type: Object,
+                    notify: true
+                },
+
+                filter: {
+                    type: Object,
+                    notify: true
+                },
+
+                _statesStyles: {
+                    type: Object,
+                    computed: "_getStatesStyles(filter)"
+                },
+
+                _dischargeTypesStyles: {
+                    type: Object,
+                    computed: "_getDischargeTypesStyles(filter)"
+                },
+
+                _allStates: {
+                    type: Object,
+                    computed: "_getAllStates(statistics, filter)"
+                },
+
+                _allLevels: {
+                    type: Object,
+                    computed: "_getAllLevels(filter)"
+                },
+
+                _allDischargeTypes: {
+                    type: Object,
+                    computed: "_getDischargeTypes(statistics, filter)"
+                }
+            },
+
+            observers: [
+                '_predicatesChanged(filter.predicates.*)', '_statesChanged(filter.states.*)'
+            ],
+
+            _statesNames: function() {
+                return model.PoStates;
+            },
+
+            _getDischargeTypesStyles: function(filter) {
+                var map = {};
+                _.forEach(model.PoDischargeTypesArr, function(x) {
+                    map[x] = "--paper-checkbox-label-checked-color:var(--kt-state-discharged-" + x + "-tx); --paper-checkbox-checked-color:var(--kt-state-discharged-" + x + "-bg)";
+                });
+                return map;
+            },
+
+            _getStatesStyles: function(filter) {
+                var map = {};
+                _.forEach(model.PoStatesArr, function(x) {
+                    map[x] = "--paper-checkbox-label-checked-color:var(--kt-state-" + model.PoStates[x] + "-default-tx); --paper-checkbox-checked-color:var(--kt-state-" + model.PoStates[x] + "-default-bg)";
+                });
+                return map;
+            },
+
+            _getLevelStyles: function(filter) {
+                var map = {};
+                _.forEach(model.PoLevels, function(x) {
+                    map[x] = "--paper-checkbox-label-checked-color:var(--kt-po-" + x + "-tx); --paper-checkbox-checked-color:var(--kt-po-" + x + "-bg)";
+                });
+                return map;
+            },
+
+            _predicatesChanged: function(a, b) {
+                this.notifyPath("filter.singlePredicate");
+            },
+
+            _statesChanged: function(a, b) {
+                this.notifyPath("filter.singleState");
+            },
+
+            toggle: function() {
+                this.$.filtersettings.toggle();
+            },
+
+            _getDischargeTypes: function(stats, filter) {
+                return model.PoDischargeTypesArr;
+            },
+
+            _getAllStates: function(stats, filter) {
+                return model.PoStatesArr;
+            },
+
+            _getAllLevels: function(filter) {
+                return model.PoLevels;
+            },
+
+            _getStateName: function(filterState) {
+                if (filterState === null) {
+                    return "*";
+                } else if (filterState === undefined) {
+                    return "?";
+                } else {
+                    return model.PoStates[filterState];
+                }
+            },
+
+            _getPredicatePathChunk: function(p) {
+                if (p === null) {
+                    return "*";
+                } else if (p === undefined) {
+                    return "?";
+                } else {
+                    return p;
+                }
+            },
+
+            _getFileName: function(file) {
+                if (file)
+                    return file.relativePath;
+                return "*";
+            },
+
+            _getFunctionName: function(cfunction) {
+                if (cfunction)
+                    return cfunction.name;
+                return "*";
+            },
+
+            _click: function(event) {
+                if (event.srcElement == this.$.btnv) {
+                    this.set("filter.states", new util.StringSet([model.PoStates.violation]));
+                } else if (event.srcElement == this.$.btnd) {
+                    this.set("filter.states", new util.StringSet([model.PoStates.discharged]));
+                } else if (event.srcElement == this.$.btno) {
+                    this.set("filter.states", new util.StringSet([model.PoStates.open]));
+                }
+            }
+        });
+    </script>
+</dom-module>

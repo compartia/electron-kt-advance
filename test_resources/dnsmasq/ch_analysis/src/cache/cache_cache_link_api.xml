@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function cfilename="src/cache.c" gvid="65" name="cache_link" num-ppo="0">
+   <statistics api-assumptions="1" callers="4" ds-assumptions="0" field-assignments="3" global-assignments="3" global-assumptions="2" rv-assumptions="0"/>
+   <parameters>
+    <param formal-vid="5968" index="1" vname="crecp"/>
+   </parameters>
+   <callers>
+    <caller cfilename="src/cache.c" fname="cache_end_insert" gvid="57" updated="01/09/2017 21:38:35" updated-f="1483997915.03">
+     <call-site byte="197222" file="src/cache.c" line="611"/>
+     <args>
+      <arg/>
+     </args>
+     <calling-context>
+      <node name="instr" num="1"/>
+      <node name="stmt" num="278"/>
+      <node name="if-else"/>
+      <node name="stmt" num="276"/>
+      <node name="loop"/>
+      <node name="stmt" num="272"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/cache.c" fname="cache_find_by_addr" gvid="32" updated="01/09/2017 21:38:34" updated-f="1483997914.99">
+     <call-site byte="199760" file="src/cache.c" line="744"/>
+     <args>
+      <arg/>
+     </args>
+     <calling-context>
+      <node name="instr" num="1"/>
+      <node name="stmt" num="350"/>
+      <node name="if-else"/>
+      <node name="stmt" num="348"/>
+      <node name="if-then"/>
+      <node name="stmt" num="347"/>
+      <node name="if-then"/>
+      <node name="stmt" num="345"/>
+      <node name="if-else"/>
+      <node name="stmt" num="341"/>
+      <node name="loop"/>
+      <node name="stmt" num="335"/>
+      <node name="loop"/>
+      <node name="stmt" num="331"/>
+      <node name="if-else"/>
+      <node name="stmt" num="328"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/cache.c" fname="cache_find_by_name" gvid="31" updated="01/09/2017 21:38:35" updated-f="1483997915.01">
+     <call-site byte="198140" file="src/cache.c" line="653"/>
+     <args>
+      <arg/>
+     </args>
+     <calling-context>
+      <node name="instr" num="1"/>
+      <node name="stmt" num="303"/>
+      <node name="if-else"/>
+      <node name="stmt" num="301"/>
+      <node name="if-then"/>
+      <node name="stmt" num="300"/>
+      <node name="if-then"/>
+      <node name="stmt" num="298"/>
+      <node name="if-then"/>
+      <node name="stmt" num="297"/>
+      <node name="if-else"/>
+      <node name="stmt" num="295"/>
+      <node name="if-else"/>
+      <node name="stmt" num="290"/>
+      <node name="loop"/>
+      <node name="stmt" num="286"/>
+      <node name="if-else"/>
+      <node name="stmt" num="283"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/cache.c" fname="cache_init" gvid="70" updated="01/09/2017 21:38:35" updated-f="1483997915.17">
+     <call-site byte="188166" file="src/cache.c" line="101"/>
+     <args>
+      <arg/>
+     </args>
+     <calling-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="11"/>
+      <node name="loop"/>
+      <node name="stmt" num="8"/>
+      <node name="if-then"/>
+      <node name="stmt" num="6"/>
+     </calling-context>
+    </caller>
+   </callers>
+   <api-assumptions>
+    <api-assumption nr="1">
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="crecp">
+       <lval>
+        <lhost>
+         <var vid="5968" vname="crecp"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="15"/>
+      <po id="24"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </api-assumption>
+   </api-assumptions>
+   <rv-assumptions/>
+   <ds-assumptions/>
+   <global-assumptions>
+    <global-assumption nr="1">
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="cache_head">
+       <lval>
+        <lhost>
+         <var vid="109" vname="cache_head"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="4"/>
+      <po id="22"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="2">
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="cache_head">
+       <lval>
+        <lhost>
+         <var vid="109" vname="cache_head"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="3"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+   </global-assumptions>
+   <global-assignments>
+    <global-assignment nr="1">
+     <lhs>
+      <lhost>
+       <mem etag="lval" xstr="cache_head">
+        <lval>
+         <lhost>
+          <var vid="109" vname="cache_head"/>
+         </lhost>
+        </lval>
+       </mem>
+      </lhost>
+      <offset>
+       <field ckey="66" fname="prev"/>
+      </offset>
+     </lhs>
+     <rhs etag="lval" xstr="crecp">
+      <lval>
+       <lhost>
+        <var vid="5968" vname="crecp"/>
+       </lhost>
+      </lval>
+     </rhs>
+     <loc byte="190256" file="src/cache.c" line="229"/>
+    </global-assignment>
+    <global-assignment nr="3">
+     <lhs>
+      <lhost>
+       <var vid="108" vname="cache_tail"/>
+      </lhost>
+     </lhs>
+     <rhs etag="lval" xstr="crecp">
+      <lval>
+       <lhost>
+        <var vid="5968" vname="crecp"/>
+       </lhost>
+      </lval>
+     </rhs>
+     <loc byte="190384" file="src/cache.c" line="234"/>
+    </global-assignment>
+    <global-assignment nr="2">
+     <lhs>
+      <lhost>
+       <var vid="109" vname="cache_head"/>
+      </lhost>
+     </lhs>
+     <rhs etag="lval" xstr="crecp">
+      <lval>
+       <lhost>
+        <var vid="5968" vname="crecp"/>
+       </lhost>
+      </lval>
+     </rhs>
+     <loc byte="190341" file="src/cache.c" line="232"/>
+    </global-assignment>
+   </global-assignments>
+   <field-assignments>
+    <field-assignment ckey="66" field="prev" nr="1">
+     <rhs etag="lval" xstr="crecp">
+      <lval>
+       <lhost>
+        <var vid="5968" vname="crecp"/>
+       </lhost>
+      </lval>
+     </rhs>
+     <loc byte="190256" file="src/cache.c" line="229"/>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="81"/>
+       <node name="if-then"/>
+       <node name="stmt" num="80"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </field-assignment>
+    <field-assignment ckey="66" field="prev" nr="3">
+     <rhs etag="caste" xstr="caste (caste (0:(void*)):(struct 196*))">
+      <typ ttag="tptr">
+       <typ ckey="196" ttag="tcomp"/>
+      </typ>
+      <exp etag="caste" xstr="caste (0:(void*))">
+       <typ ttag="tptr">
+        <typ ttag="tvoid"/>
+       </typ>
+       <exp etag="const" xstr="0">
+        <constant ctag="cint64" ikind="iint" intValue="0"/>
+       </exp>
+      </exp>
+     </rhs>
+     <loc byte="190312" file="src/cache.c" line="231"/>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="82"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </field-assignment>
+    <field-assignment ckey="66" field="next" nr="2">
+     <rhs etag="lval" xstr="cache_head">
+      <lval>
+       <lhost>
+        <var vid="5900" vname="cache_head"/>
+       </lhost>
+      </lval>
+     </rhs>
+     <loc byte="190284" file="src/cache.c" line="230"/>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="82"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </field-assignment>
+   </field-assignments>
+  </function>
+  <header time="01/10/2017 06:52:37">
+   <application file="src/cache.c" name="application"/>
+  </header>
+ </c-analysis>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function name="cache_free">
+   <secondary-proof-obligations max-spo-id="122" num-ppo="122">
+    <indirect-calls/>
+    <callsite-obligations>
+     <callsite-obligation api-max-id="0" fname="next_uid" fvid="5927">
+      <location byte="189843" file="src/cache.c" line="202"/>
+      <args/>
+      <obligations/>
+      <context>
+       <cfg-context>
+        <node name="instr" num="2"/>
+        <node name="stmt" num="72"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+    </callsite-obligations>
+    <return-sites/>
+    <post-expectations/>
+    <ds-expectations/>
+   </secondary-proof-obligations>
+  </function>
+  <header time="01/10/2017 05:33:32">
+   <application file="src/cache.c" name="application"/>
+  </header>
+ </c-analysis>

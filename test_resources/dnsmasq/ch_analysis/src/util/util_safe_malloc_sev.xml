@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <log>
+   <log-entry time="01/10/2017 06:57:10"/>
+   <log-entry time="01/10/2017 05:33:05"/>
+   <log-entry time="01/10/2017 05:21:42"/>
+   <log-entry time="01/10/2017 04:59:56"/>
+   <log-entry time="01/10/2017 04:36:40"/>
+   <log-entry time="01/10/2017 03:42:55"/>
+   <log-entry delta-checkvalid="1" time="01/10/2017 02:54:45"/>
+   <log-entry delta-checkvalid="8" delta-invariant="1" time="01/09/2017 22:53:12"/>
+   <log-entry time="01/09/2017 22:06:25"/>
+  </log>
+  <function name="safe_malloc">
+   <statistics checkvalid="9" invariant="1" invariant_with_api="0" total="21" total-proven="10"/>
+   <open-proof-obligations>
+    <open id="20" line="252" predicate="initialized-range"/>
+    <open id="21" line="252" predicate="int-overflow"/>
+    <open id="25" line="252" predicate="ptr-upper-bound-deref"/>
+    <open id="27" line="252" predicate="ptr-upper-bound-deref"/>
+    <open id="28" line="252" predicate="ptr-upper-bound-deref"/>
+    <open id="29" line="252" predicate="ptr-upper-bound-deref"/>
+    <open id="31" line="252" predicate="ptr-upper-bound-deref"/>
+    <open id="32" line="252" predicate="ptr-upper-bound-deref"/>
+    <open id="35" line="252" predicate="ptr-upper-bound-deref"/>
+    <open id="36" line="252" predicate="ptr-upper-bound-deref"/>
+    <open id="38" line="250" predicate="ptr-upper-bound"/>
+   </open-proof-obligations>
+   <proof-obligations-discharged>
+    <discharged domain="linear equalities" id="19" method="invariants" time="01/09/2017 22:53:12" type="not-null" violation="true">
+     <evidence comment="return value from calloc may be null"/>
+    </discharged>
+    <discharged id="22" method="check-valid" time="01/09/2017 22:53:12" type="upper-bound">
+     <evidence comment="result of pointer arithmetic is guaranteed to satisfy upperbound by inductive hypothesis"/>
+    </discharged>
+    <discharged id="23" method="check-valid" time="01/09/2017 22:53:12" type="upper-bound">
+     <evidence comment="result of pointer arithmetic is guaranteed to satisfy upperbound by inductive hypothesis"/>
+    </discharged>
+    <discharged id="24" method="check-valid" time="01/09/2017 22:53:12" type="upper-bound">
+     <evidence comment="result of pointer arithmetic is guaranteed to satisfy upperbound by inductive hypothesis"/>
+    </discharged>
+    <discharged id="26" method="check-valid" time="01/09/2017 22:53:12" type="upper-bound">
+     <evidence comment="result of pointer arithmetic is guaranteed to satisfy upperbound by inductive hypothesis"/>
+    </discharged>
+    <discharged id="30" method="check-valid" time="01/09/2017 22:53:12" type="upper-bound">
+     <evidence comment="result of pointer arithmetic is guaranteed to satisfy upperbound by inductive hypothesis"/>
+    </discharged>
+    <discharged id="33" method="check-valid" time="01/09/2017 22:53:12" type="upper-bound">
+     <evidence comment="result of pointer arithmetic is guaranteed to satisfy upperbound by inductive hypothesis"/>
+    </discharged>
+    <discharged id="34" method="check-valid" time="01/09/2017 22:53:12" type="upper-bound">
+     <evidence comment="result of pointer arithmetic is guaranteed to satisfy upperbound by inductive hypothesis"/>
+    </discharged>
+    <discharged id="37" method="check-valid" time="01/09/2017 22:53:12" type="upper-bound">
+     <evidence comment="result of pointer arithmetic is guaranteed to satisfy upperbound by inductive hypothesis"/>
+    </discharged>
+    <discharged id="39" method="check-valid" time="01/10/2017 02:54:45" type="not-null">
+     <evidence comment="string-literal"/>
+    </discharged>
+   </proof-obligations-discharged>
+  </function>
+  <header time="01/10/2017 06:57:10">
+   <application file="src//util.c" name="application"/>
+  </header>
+ </c-analysis>

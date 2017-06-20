@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <c-file filename="src/poll">
+   <linked-into linkname="dnsmasq">
+    <enumtag-xreferences/>
+    <comptag-xreferences>
+     <compxref ckey="68" gckey="168"/>
+    </comptag-xreferences>
+    <var-xreferences>
+     <varxref gvid="5" vid="4790"/>
+     <varxref gvid="8" vid="1375"/>
+     <varxref gvid="82" vid="3210"/>
+     <varxref gvid="223" vid="5809"/>
+     <varxref gvid="224" vid="5806"/>
+     <varxref gvid="225" vid="5801"/>
+     <varxref gvid="226" vid="5796"/>
+     <varxref gvid="380" vid="1382"/>
+     <varxref gvid="542" vid="5903"/>
+     <varxref gvid="543" vid="1001"/>
+     <varxref gvid="544" vid="5902"/>
+     <varxref gvid="545" vid="5901"/>
+     <varxref gvid="546" vid="5900"/>
+    </var-xreferences>
+   </linked-into>
+   <global-type-definitions>
+    <gtype>
+     <typeinfo tname="size_t">
+      <ttype ikind="iulong" ttag="tint"/>
+     </typeinfo>
+     <loc byte="3968" file="/usr/lib/gcc/x86_64-redhat-linux/4.4.7/include/stddef.h" line="211"/>
+    </gtype>
+    <gtype>
+     <typeinfo tname="nfds_t">
+      <ttype ikind="iulong" ttag="tint"/>
+     </typeinfo>
+     <loc byte="39789" file="/usr/include/sys/poll.h" line="37"/>
+    </gtype>
+   </global-type-definitions>
+   <global-comptag-definitions>
+    <gcomptag>
+     <compinfo ckey="68" cname="pollfd" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="68" fname="fd">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="39851" file="/usr/include/sys/poll.h" line="42"/>
+       </fieldinfo>
+       <fieldinfo ckey="68" fname="events">
+        <ftyp ikind="ishort" ttag="tint"/>
+        <floc byte="39869" file="/usr/include/sys/poll.h" line="43"/>
+       </fieldinfo>
+       <fieldinfo ckey="68" fname="revents">
+        <ftyp ikind="ishort" ttag="tint"/>
+        <floc byte="39891" file="/usr/include/sys/poll.h" line="44"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="39825" file="/usr/include/sys/poll.h" line="40"/>
+    </gcomptag>
+   </global-comptag-definitions>
+   <global-comptag-declarations/>
+   <global-enumtag-definitions/>
+   <global-enumtag-declarations/>
+   <global-var-definitions>
+    <gvar>
+     <varinfo vglob="true" vid="5900" vname="pollfds" vstorage="static">
+      <vtyp ttag="tptr">
+       <typ ckey="68" ttag="tcomp"/>
+      </vtyp>
+      <vdecl byte="186530" file="src/poll.c" line="42"/>
+     </varinfo>
+     <loc byte="186509" file="src/poll.c" line="42"/>
+     <init itag="singleinit">
+      <exp etag="caste" xstr="caste (caste (0:(void*)):(struct 68*))">
+       <typ ttag="tptr">
+        <typ ckey="68" ttag="tcomp"/>
+       </typ>
+       <exp etag="caste" xstr="caste (0:(void*))">
+        <typ ttag="tptr">
+         <typ ttag="tvoid"/>
+        </typ>
+        <exp etag="const" xstr="0">
+         <constant ctag="cint64" ikind="iint" intValue="0"/>
+        </exp>
+       </exp>
+      </exp>
+     </init>
+    </gvar>
+    <gvar>
+     <varinfo vglob="true" vid="5901" vname="nfds" vstorage="static">
+      <vtyp tname="nfds_t" ttag="tnamed"/>
+      <vdecl byte="186568" file="src/poll.c" line="43"/>
+     </varinfo>
+     <loc byte="186554" file="src/poll.c" line="43"/>
+    </gvar>
+    <gvar>
+     <varinfo vglob="true" vid="5902" vname="arrsize" vstorage="static">
+      <vtyp tname="nfds_t" ttag="tnamed"/>
+      <vdecl byte="186574" file="src/poll.c" line="43"/>
+     </varinfo>
+     <loc byte="186554" file="src/poll.c" line="43"/>
+     <init itag="singleinit">
+      <exp etag="caste" xstr="caste (0:nfds_t)">
+       <typ tname="nfds_t" ttag="tnamed"/>
+       <exp etag="const" xstr="0">
+        <constant ctag="cint64" ikind="iint" intValue="0"/>
+       </exp>
+      </exp>
+     </init>
+    </gvar>
+   </global-var-definitions>
+   <global-var-declarations>
+    <gvardecl>
+     <varinfo vglob="true" vid="1001" vname="poll" vstorage="extern">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="__fds">
+         <typ ttag="tptr">
+          <typ ckey="68" ttag="tcomp"/>
+         </typ>
+        </arg>
+        <arg aname="__nfds">
+         <typ tname="nfds_t" ttag="tnamed"/>
+        </arg>
+        <arg aname="__timeout">
+         <typ ikind="iint" ttag="tint"/>
+        </arg>
+       </args>
+       <typ ikind="iint" ttag="tint"/>
+      </vtyp>
+      <vdecl byte="39954" file="/usr/include/sys/poll.h" line="58"/>
+     </varinfo>
+     <loc byte="39943" file="/usr/include/sys/poll.h" line="58"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="1375" vname="memcpy" vstorage="extern">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="__dest">
+         <typ ttag="tptr">
+          <attributes>
+           <attr attrname="restrict"/>
+          </attributes>
+          <typ ttag="tvoid"/>
+         </typ>
+        </arg>
+        <arg aname="__src">
+         <typ ttag="tptr">
+          <attributes>
+           <attr attrname="restrict"/>
+          </attributes>
+          <typ ttag="tvoid">
+           <attributes>
+            <attr attrname="const"/>
+           </attributes>
+          </typ>
+         </typ>
+        </arg>
+        <arg aname="__n">
+         <typ tname="size_t" ttag="tnamed"/>
+        </arg>
+       </args>
+       <attributes>
+        <attr attrname="nonnull"/>
+       </attributes>
+       <typ ttag="tptr">
+        <typ ttag="tvoid"/>
+       </typ>
+      </vtyp>
+      <vdecl byte="59300" file="/usr/include/string.h" line="44"/>
+      <vattr>
+       <attr attrname="nothrow"/>
+      </vattr>
+     </varinfo>
+     <loc byte="59288" file="/usr/include/string.h" line="44"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="1382" vname="memmove" vstorage="extern">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="__dest">
+         <typ ttag="tptr">
+          <typ ttag="tvoid"/>
+         </typ>
+        </arg>
+        <arg aname="__src">
+         <typ ttag="tptr">
+          <typ ttag="tvoid">
+           <attributes>
+            <attr attrname="const"/>
+           </attributes>
+          </typ>
+         </typ>
+        </arg>
+        <arg aname="__n">
+         <typ tname="size_t" ttag="tnamed"/>
+        </arg>
+       </args>
+       <attributes>
+        <attr attrname="nonnull"/>
+       </attributes>
+       <typ ttag="tptr">
+        <typ ttag="tvoid"/>
+       </typ>
+      </vtyp>
+      <vdecl byte="59472" file="/usr/include/string.h" line="49"/>
+      <vattr>
+       <attr attrname="nothrow"/>
+      </vattr>
+     </varinfo>
+     <loc byte="59460" file="/usr/include/string.h" line="49"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="3210" vname="free" vstorage="extern">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="__ptr">
+         <typ ttag="tptr">
+          <typ ttag="tvoid"/>
+         </typ>
+        </arg>
+       </args>
+       <typ ttag="tvoid"/>
+      </vtyp>
+      <vdecl byte="119302" file="/usr/include/stdlib.h" line="488"/>
+      <vattr>
+       <attr attrname="nothrow"/>
+      </vattr>
+     </varinfo>
+     <loc byte="119290" file="/usr/include/stdlib.h" line="488"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="4790" vname="whine_malloc" vstorage="extern">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="size">
+         <typ tname="size_t" ttag="tnamed"/>
+        </arg>
+       </args>
+       <typ ttag="tptr">
+        <typ ttag="tvoid"/>
+       </typ>
+      </vtyp>
+      <vdecl byte="174189" file="src/dnsmasq.h" line="1174"/>
+     </varinfo>
+     <loc byte="174184" file="src/dnsmasq.h" line="1174"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="5796" vname="poll_reset">
+      <vtyp ttag="tfun" vararg="false">
+       <args/>
+       <typ ttag="tvoid"/>
+      </vtyp>
+      <vdecl byte="186915" file="src/poll.c" line="71"/>
+     </varinfo>
+     <loc byte="185413" file="src/dnsmasq.h" line="1520"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="5801" vname="poll_check">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="fd">
+         <typ ikind="iint" ttag="tint"/>
+        </arg>
+        <arg aname="event">
+         <typ ikind="ishort" ttag="tint"/>
+        </arg>
+       </args>
+       <typ ikind="iint" ttag="tint"/>
+      </vtyp>
+      <vdecl byte="187023" file="src/poll.c" line="81"/>
+     </varinfo>
+     <loc byte="185436" file="src/dnsmasq.h" line="1521"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="5806" vname="poll_listen">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="fd">
+         <typ ikind="iint" ttag="tint"/>
+        </arg>
+        <arg aname="event">
+         <typ ikind="ishort" ttag="tint"/>
+        </arg>
+       </args>
+       <typ ttag="tvoid"/>
+      </vtyp>
+      <vdecl byte="187184" file="src/poll.c" line="91"/>
+     </varinfo>
+     <loc byte="185473" file="src/dnsmasq.h" line="1522"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="5809" vname="do_poll">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="timeout">
+         <typ ikind="iint" ttag="tint"/>
+        </arg>
+       </args>
+       <typ ikind="iint" ttag="tint"/>
+      </vtyp>
+      <vdecl byte="186954" file="src/poll.c" line="76"/>
+     </varinfo>
+     <loc byte="185512" file="src/dnsmasq.h" line="1523"/>
+    </gvardecl>
+   </global-var-declarations>
+   <functions>
+    <gfun>
+     <svar vglob="true" vid="5903" vname="fd_search" vstorage="static">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="fd">
+         <typ ikind="iint" ttag="tint"/>
+        </arg>
+       </args>
+       <typ tname="nfds_t" ttag="tnamed"/>
+      </vtyp>
+      <vdecl byte="186591" file="src/poll.c" line="48"/>
+     </svar>
+     <loc byte="186591" file="src/poll.c" line="48"/>
+    </gfun>
+    <gfun>
+     <svar vglob="true" vid="5796" vname="poll_reset">
+      <vtyp ttag="tfun" vararg="false">
+       <args/>
+       <typ ttag="tvoid"/>
+      </vtyp>
+      <vdecl byte="186915" file="src/poll.c" line="71"/>
+     </svar>
+     <loc byte="186915" file="src/poll.c" line="71"/>
+    </gfun>
+    <gfun>
+     <svar vglob="true" vid="5809" vname="do_poll">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="timeout">
+         <typ ikind="iint" ttag="tint"/>
+        </arg>
+       </args>
+       <typ ikind="iint" ttag="tint"/>
+      </vtyp>
+      <vdecl byte="186954" file="src/poll.c" line="76"/>
+     </svar>
+     <loc byte="186954" file="src/poll.c" line="76"/>
+    </gfun>
+    <gfun>
+     <svar vglob="true" vid="5801" vname="poll_check">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="fd">
+         <typ ikind="iint" ttag="tint"/>
+        </arg>
+        <arg aname="event">
+         <typ ikind="ishort" ttag="tint"/>
+        </arg>
+       </args>
+       <typ ikind="iint" ttag="tint"/>
+      </vtyp>
+      <vdecl byte="187023" file="src/poll.c" line="81"/>
+     </svar>
+     <loc byte="187023" file="src/poll.c" line="81"/>
+    </gfun>
+    <gfun>
+     <svar vglob="true" vid="5806" vname="poll_listen">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="fd">
+         <typ ikind="iint" ttag="tint"/>
+        </arg>
+        <arg aname="event">
+         <typ ikind="ishort" ttag="tint"/>
+        </arg>
+       </args>
+       <typ ttag="tvoid"/>
+      </vtyp>
+      <vdecl byte="187184" file="src/poll.c" line="91"/>
+     </svar>
+     <loc byte="187184" file="src/poll.c" line="91"/>
+    </gfun>
+   </functions>
+   <global-assembly-statements/>
+   <global-pragmas/>
+   <global-text/>
+  </c-file>
+  <header>
+   <linked filename="src/poll.c" time="01/09/2017 21:36:06"/>
+   <created file="src/poll" project-directory="/home/vagrant/git/dnsmasq" time="01/09/2017 21:32:22"/>
+  </header>
+ </c-analysis>

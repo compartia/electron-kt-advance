@@ -1,0 +1,1105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function name="cache_get_cname_target">
+   <statistics avg-context-complexity="0.40" avg-predicate-complexity="1.46" context-complexity="14" predicate-complexity="51" size="35"/>
+   <unconstrained-external-functions/>
+   <primary-proof-obligations>
+    <proof-obligation c-complexity="0" id="1" origin="prim-exp" p-complexity="6">
+     <location byte="190905" file="src/cache.c" line="263"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="crecp">
+         <lval>
+          <lhost>
+           <var vid="5977" vname="crecp"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <offset>
+         <offset>
+          <field ckey="198" fname="uid"/>
+         </offset>
+         <field ckey="197" fname="cname"/>
+        </offset>
+        <field ckey="196" fname="addr"/>
+       </offset>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="98"/>
+      </cfg-context>
+      <exp-context>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="2" origin="prim-exp" p-complexity="0">
+     <location byte="190905" file="src/cache.c" line="263"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="5977" vname="crecp"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="98"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="3" origin="prim-lval" p-complexity="1">
+     <location byte="190905" file="src/cache.c" line="263"/>
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="crecp">
+       <lval>
+        <lhost>
+         <var vid="5977" vname="crecp"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="98"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="4" origin="prim-lval" p-complexity="1">
+     <location byte="190905" file="src/cache.c" line="263"/>
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="crecp">
+       <lval>
+        <lhost>
+         <var vid="5977" vname="crecp"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="98"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="5" origin="prim-lval" p-complexity="1">
+     <location byte="190905" file="src/cache.c" line="263"/>
+     <predicate tag="lower-bound">
+      <exp etag="lval" xstr="crecp">
+       <lval>
+        <lhost>
+         <var vid="5977" vname="crecp"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ckey="196" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="98"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="6" origin="prim-lval" p-complexity="1">
+     <location byte="190905" file="src/cache.c" line="263"/>
+     <predicate tag="upper-bound">
+      <exp etag="lval" xstr="crecp">
+       <lval>
+        <lhost>
+         <var vid="5977" vname="crecp"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ckey="196" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="98"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="7" origin="prim-exp" p-complexity="6">
+     <location byte="190941" file="src/cache.c" line="264"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="crecp">
+         <lval>
+          <lhost>
+           <var vid="5977" vname="crecp"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <offset>
+         <offset>
+          <offset>
+           <field ckey="199" fname="cache"/>
+          </offset>
+          <field ckey="198" fname="target"/>
+         </offset>
+         <field ckey="197" fname="cname"/>
+        </offset>
+        <field ckey="196" fname="addr"/>
+       </offset>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="99"/>
+       <node name="if-then"/>
+       <node name="stmt" num="98"/>
+      </cfg-context>
+      <exp-context>
+       <node name="arg" num="0"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="8" origin="prim-exp" p-complexity="0">
+     <location byte="190941" file="src/cache.c" line="264"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="5977" vname="crecp"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="99"/>
+       <node name="if-then"/>
+       <node name="stmt" num="98"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="arg" num="0"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="9" origin="prim-lval" p-complexity="1">
+     <location byte="190941" file="src/cache.c" line="264"/>
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="crecp">
+       <lval>
+        <lhost>
+         <var vid="5977" vname="crecp"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="99"/>
+       <node name="if-then"/>
+       <node name="stmt" num="98"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="arg" num="0"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="10" origin="prim-lval" p-complexity="1">
+     <location byte="190941" file="src/cache.c" line="264"/>
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="crecp">
+       <lval>
+        <lhost>
+         <var vid="5977" vname="crecp"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="99"/>
+       <node name="if-then"/>
+       <node name="stmt" num="98"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="arg" num="0"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="11" origin="prim-lval" p-complexity="1">
+     <location byte="190941" file="src/cache.c" line="264"/>
+     <predicate tag="lower-bound">
+      <exp etag="lval" xstr="crecp">
+       <lval>
+        <lhost>
+         <var vid="5977" vname="crecp"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ckey="196" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="99"/>
+       <node name="if-then"/>
+       <node name="stmt" num="98"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="arg" num="0"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="12" origin="prim-lval" p-complexity="1">
+     <location byte="190941" file="src/cache.c" line="264"/>
+     <predicate tag="upper-bound">
+      <exp etag="lval" xstr="crecp">
+       <lval>
+        <lhost>
+         <var vid="5977" vname="crecp"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ckey="196" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="99"/>
+       <node name="if-then"/>
+       <node name="stmt" num="98"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="arg" num="0"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="13" origin="prim-exp" p-complexity="1">
+     <location byte="190941" file="src/cache.c" line="264"/>
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="crecp-&gt;addr.cname.target.cache">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="crecp">
+          <lval>
+           <lhost>
+            <var vid="5977" vname="crecp"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <offset>
+           <offset>
+            <field ckey="199" fname="cache"/>
+           </offset>
+           <field ckey="198" fname="target"/>
+          </offset>
+          <field ckey="197" fname="cname"/>
+         </offset>
+         <field ckey="196" fname="addr"/>
+        </offset>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="99"/>
+       <node name="if-then"/>
+       <node name="stmt" num="98"/>
+      </cfg-context>
+      <exp-context>
+       <node name="arg" num="0"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="14" origin="prim-exp" p-complexity="1">
+     <location byte="190941" file="src/cache.c" line="264"/>
+     <predicate tag="lower-bound">
+      <exp etag="lval" xstr="crecp-&gt;addr.cname.target.cache">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="crecp">
+          <lval>
+           <lhost>
+            <var vid="5977" vname="crecp"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <offset>
+           <offset>
+            <field ckey="199" fname="cache"/>
+           </offset>
+           <field ckey="198" fname="target"/>
+          </offset>
+          <field ckey="197" fname="cname"/>
+         </offset>
+         <field ckey="196" fname="addr"/>
+        </offset>
+       </lval>
+      </exp>
+      <typ ckey="196" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="99"/>
+       <node name="if-then"/>
+       <node name="stmt" num="98"/>
+      </cfg-context>
+      <exp-context>
+       <node name="arg" num="0"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="15" origin="prim-exp" p-complexity="1">
+     <location byte="190941" file="src/cache.c" line="264"/>
+     <predicate tag="upper-bound">
+      <exp etag="lval" xstr="crecp-&gt;addr.cname.target.cache">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="crecp">
+          <lval>
+           <lhost>
+            <var vid="5977" vname="crecp"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <offset>
+           <offset>
+            <field ckey="199" fname="cache"/>
+           </offset>
+           <field ckey="198" fname="target"/>
+          </offset>
+          <field ckey="197" fname="cname"/>
+         </offset>
+         <field ckey="196" fname="addr"/>
+        </offset>
+       </lval>
+      </exp>
+      <typ ckey="196" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="99"/>
+       <node name="if-then"/>
+       <node name="stmt" num="98"/>
+      </cfg-context>
+      <exp-context>
+       <node name="arg" num="0"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="16" origin="prim-exp" p-complexity="0">
+     <location byte="190941" file="src/cache.c" line="264"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="5978" vname="tmp"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="return"/>
+       <node name="stmt" num="100"/>
+       <node name="if-then"/>
+       <node name="stmt" num="98"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="17" origin="prim-exp" p-complexity="1">
+     <location byte="190941" file="src/cache.c" line="264"/>
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="tmp">
+       <lval>
+        <lhost>
+         <var vid="5978" vname="tmp"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="return"/>
+       <node name="stmt" num="100"/>
+       <node name="if-then"/>
+       <node name="stmt" num="98"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="18" origin="prim-exp" p-complexity="1">
+     <location byte="190941" file="src/cache.c" line="264"/>
+     <predicate tag="global-mem">
+      <exp etag="lval" xstr="tmp">
+       <lval>
+        <lhost>
+         <var vid="5978" vname="tmp"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="return"/>
+       <node name="stmt" num="100"/>
+       <node name="if-then"/>
+       <node name="stmt" num="98"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="19" origin="prim-exp" p-complexity="1">
+     <location byte="190941" file="src/cache.c" line="264"/>
+     <predicate tag="lower-bound">
+      <exp etag="lval" xstr="tmp">
+       <lval>
+        <lhost>
+         <var vid="5978" vname="tmp"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ikind="ichar" ttag="tint"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="return"/>
+       <node name="stmt" num="100"/>
+       <node name="if-then"/>
+       <node name="stmt" num="98"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="20" origin="prim-exp" p-complexity="1">
+     <location byte="190941" file="src/cache.c" line="264"/>
+     <predicate tag="upper-bound">
+      <exp etag="lval" xstr="tmp">
+       <lval>
+        <lhost>
+         <var vid="5978" vname="tmp"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ikind="ichar" ttag="tint"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="return"/>
+       <node name="stmt" num="100"/>
+       <node name="if-then"/>
+       <node name="stmt" num="98"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="21" origin="prim-exp" p-complexity="6">
+     <location byte="190999" file="src/cache.c" line="266"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="crecp-&gt;addr.cname.target.int_name">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="crecp">
+            <lval>
+             <lhost>
+              <var vid="5977" vname="crecp"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <offset>
+            <offset>
+             <offset>
+              <field ckey="199" fname="int_name"/>
+             </offset>
+             <field ckey="198" fname="target"/>
+            </offset>
+            <field ckey="197" fname="cname"/>
+           </offset>
+           <field ckey="196" fname="addr"/>
+          </offset>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <field ckey="193" fname="name"/>
+       </offset>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="return"/>
+       <node name="stmt" num="101"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="22" origin="prim-exp" p-complexity="6">
+     <location byte="190999" file="src/cache.c" line="266"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="crecp">
+         <lval>
+          <lhost>
+           <var vid="5977" vname="crecp"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <offset>
+         <offset>
+          <offset>
+           <field ckey="199" fname="int_name"/>
+          </offset>
+          <field ckey="198" fname="target"/>
+         </offset>
+         <field ckey="197" fname="cname"/>
+        </offset>
+        <field ckey="196" fname="addr"/>
+       </offset>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="return"/>
+       <node name="stmt" num="101"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="23" origin="prim-exp" p-complexity="0">
+     <location byte="190999" file="src/cache.c" line="266"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="5977" vname="crecp"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="return"/>
+       <node name="stmt" num="101"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="mem"/>
+       <node name="lval"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="24" origin="prim-lval" p-complexity="1">
+     <location byte="190999" file="src/cache.c" line="266"/>
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="crecp">
+       <lval>
+        <lhost>
+         <var vid="5977" vname="crecp"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="return"/>
+       <node name="stmt" num="101"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="mem"/>
+       <node name="lval"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="25" origin="prim-lval" p-complexity="1">
+     <location byte="190999" file="src/cache.c" line="266"/>
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="crecp">
+       <lval>
+        <lhost>
+         <var vid="5977" vname="crecp"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="return"/>
+       <node name="stmt" num="101"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="mem"/>
+       <node name="lval"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="26" origin="prim-lval" p-complexity="1">
+     <location byte="190999" file="src/cache.c" line="266"/>
+     <predicate tag="lower-bound">
+      <exp etag="lval" xstr="crecp">
+       <lval>
+        <lhost>
+         <var vid="5977" vname="crecp"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ckey="196" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="return"/>
+       <node name="stmt" num="101"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="mem"/>
+       <node name="lval"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="27" origin="prim-lval" p-complexity="1">
+     <location byte="190999" file="src/cache.c" line="266"/>
+     <predicate tag="upper-bound">
+      <exp etag="lval" xstr="crecp">
+       <lval>
+        <lhost>
+         <var vid="5977" vname="crecp"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ckey="196" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="return"/>
+       <node name="stmt" num="101"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="mem"/>
+       <node name="lval"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="28" origin="prim-lval" p-complexity="1">
+     <location byte="190999" file="src/cache.c" line="266"/>
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="crecp-&gt;addr.cname.target.int_name">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="crecp">
+          <lval>
+           <lhost>
+            <var vid="5977" vname="crecp"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <offset>
+           <offset>
+            <field ckey="199" fname="int_name"/>
+           </offset>
+           <field ckey="198" fname="target"/>
+          </offset>
+          <field ckey="197" fname="cname"/>
+         </offset>
+         <field ckey="196" fname="addr"/>
+        </offset>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="return"/>
+       <node name="stmt" num="101"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="29" origin="prim-lval" p-complexity="1">
+     <location byte="190999" file="src/cache.c" line="266"/>
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="crecp-&gt;addr.cname.target.int_name">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="crecp">
+          <lval>
+           <lhost>
+            <var vid="5977" vname="crecp"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <offset>
+           <offset>
+            <field ckey="199" fname="int_name"/>
+           </offset>
+           <field ckey="198" fname="target"/>
+          </offset>
+          <field ckey="197" fname="cname"/>
+         </offset>
+         <field ckey="196" fname="addr"/>
+        </offset>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="return"/>
+       <node name="stmt" num="101"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="30" origin="prim-lval" p-complexity="1">
+     <location byte="190999" file="src/cache.c" line="266"/>
+     <predicate tag="lower-bound">
+      <exp etag="lval" xstr="crecp-&gt;addr.cname.target.int_name">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="crecp">
+          <lval>
+           <lhost>
+            <var vid="5977" vname="crecp"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <offset>
+           <offset>
+            <field ckey="199" fname="int_name"/>
+           </offset>
+           <field ckey="198" fname="target"/>
+          </offset>
+          <field ckey="197" fname="cname"/>
+         </offset>
+         <field ckey="196" fname="addr"/>
+        </offset>
+       </lval>
+      </exp>
+      <typ ckey="193" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="return"/>
+       <node name="stmt" num="101"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="31" origin="prim-lval" p-complexity="1">
+     <location byte="190999" file="src/cache.c" line="266"/>
+     <predicate tag="upper-bound">
+      <exp etag="lval" xstr="crecp-&gt;addr.cname.target.int_name">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="crecp">
+          <lval>
+           <lhost>
+            <var vid="5977" vname="crecp"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <offset>
+           <offset>
+            <field ckey="199" fname="int_name"/>
+           </offset>
+           <field ckey="198" fname="target"/>
+          </offset>
+          <field ckey="197" fname="cname"/>
+         </offset>
+         <field ckey="196" fname="addr"/>
+        </offset>
+       </lval>
+      </exp>
+      <typ ckey="193" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="return"/>
+       <node name="stmt" num="101"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="32" origin="prim-exp" p-complexity="1">
+     <location byte="190999" file="src/cache.c" line="266"/>
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="crecp-&gt;addr.cname.target.int_name-&gt;name">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="crecp-&gt;addr.cname.target.int_name">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="crecp">
+             <lval>
+              <lhost>
+               <var vid="5977" vname="crecp"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <offset>
+              <offset>
+               <field ckey="199" fname="int_name"/>
+              </offset>
+              <field ckey="198" fname="target"/>
+             </offset>
+             <field ckey="197" fname="cname"/>
+            </offset>
+            <field ckey="196" fname="addr"/>
+           </offset>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <field ckey="193" fname="name"/>
+        </offset>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="return"/>
+       <node name="stmt" num="101"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="33" origin="prim-exp" p-complexity="1">
+     <location byte="190999" file="src/cache.c" line="266"/>
+     <predicate tag="global-mem">
+      <exp etag="lval" xstr="crecp-&gt;addr.cname.target.int_name-&gt;name">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="crecp-&gt;addr.cname.target.int_name">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="crecp">
+             <lval>
+              <lhost>
+               <var vid="5977" vname="crecp"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <offset>
+              <offset>
+               <field ckey="199" fname="int_name"/>
+              </offset>
+              <field ckey="198" fname="target"/>
+             </offset>
+             <field ckey="197" fname="cname"/>
+            </offset>
+            <field ckey="196" fname="addr"/>
+           </offset>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <field ckey="193" fname="name"/>
+        </offset>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="return"/>
+       <node name="stmt" num="101"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="34" origin="prim-exp" p-complexity="1">
+     <location byte="190999" file="src/cache.c" line="266"/>
+     <predicate tag="lower-bound">
+      <exp etag="lval" xstr="crecp-&gt;addr.cname.target.int_name-&gt;name">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="crecp-&gt;addr.cname.target.int_name">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="crecp">
+             <lval>
+              <lhost>
+               <var vid="5977" vname="crecp"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <offset>
+              <offset>
+               <field ckey="199" fname="int_name"/>
+              </offset>
+              <field ckey="198" fname="target"/>
+             </offset>
+             <field ckey="197" fname="cname"/>
+            </offset>
+            <field ckey="196" fname="addr"/>
+           </offset>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <field ckey="193" fname="name"/>
+        </offset>
+       </lval>
+      </exp>
+      <typ ikind="ichar" ttag="tint"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="return"/>
+       <node name="stmt" num="101"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="35" origin="prim-exp" p-complexity="1">
+     <location byte="190999" file="src/cache.c" line="266"/>
+     <predicate tag="upper-bound">
+      <exp etag="lval" xstr="crecp-&gt;addr.cname.target.int_name-&gt;name">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="crecp-&gt;addr.cname.target.int_name">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="crecp">
+             <lval>
+              <lhost>
+               <var vid="5977" vname="crecp"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <offset>
+              <offset>
+               <field ckey="199" fname="int_name"/>
+              </offset>
+              <field ckey="198" fname="target"/>
+             </offset>
+             <field ckey="197" fname="cname"/>
+            </offset>
+            <field ckey="196" fname="addr"/>
+           </offset>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <field ckey="193" fname="name"/>
+        </offset>
+       </lval>
+      </exp>
+      <typ ikind="ichar" ttag="tint"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="return"/>
+       <node name="stmt" num="101"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </proof-obligation>
+   </primary-proof-obligations>
+  </function>
+  <header time="01/09/2017 21:38:35">
+   <application file="src/cache.xml" name="application"/>
+  </header>
+ </c-analysis>

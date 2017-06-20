@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function name="rand64">
+   <secondary-proof-obligations max-spo-id="57" num-ppo="57">
+    <indirect-calls/>
+    <callsite-obligations>
+     <callsite-obligation api-max-id="0" fname="surf" fvid="5911">
+      <location byte="188671" file="src/util.c" line="103"/>
+      <args/>
+      <obligations/>
+      <context>
+       <cfg-context>
+        <node name="instr" num="0"/>
+        <node name="stmt" num="68"/>
+        <node name="if-then"/>
+        <node name="stmt" num="60"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+    </callsite-obligations>
+    <return-sites>
+     <return-site>
+      <exp binop="plusa" etag="binop" xstr="((caste (out[((outleft___0 + 1):int]:u64) + ((caste (out[outleft___0]:u64) &lt;&lt; 32):u64):u64">
+       <exp1 etag="caste" xstr="caste (out[((outleft___0 + 1):int]:u64)">
+        <typ tname="u64" ttag="tnamed"/>
+        <exp etag="lval" xstr="out[((outleft___0 + 1):int]">
+         <lval>
+          <lhost>
+           <var vid="5902" vname="out"/>
+          </lhost>
+          <offset>
+           <index binop="plusa" etag="binop" xstr="((outleft___0 + 1):int">
+            <exp1 etag="lval" xstr="outleft___0">
+             <lval>
+              <lhost>
+               <var vid="5925" vname="outleft___0"/>
+              </lhost>
+             </lval>
+            </exp1>
+            <exp2 etag="const" xstr="1">
+             <constant ctag="cint64" ikind="iint" intValue="1"/>
+            </exp2>
+            <typ ikind="iint" ttag="tint"/>
+           </index>
+          </offset>
+         </lval>
+        </exp>
+       </exp1>
+       <exp2 binop="shiftlt" etag="binop" xstr="((caste (out[outleft___0]:u64) &lt;&lt; 32):u64">
+        <exp1 etag="caste" xstr="caste (out[outleft___0]:u64)">
+         <typ tname="u64" ttag="tnamed"/>
+         <exp etag="lval" xstr="out[outleft___0]">
+          <lval>
+           <lhost>
+            <var vid="5902" vname="out"/>
+           </lhost>
+           <offset>
+            <index etag="lval" xstr="outleft___0">
+             <lval>
+              <lhost>
+               <var vid="5925" vname="outleft___0"/>
+              </lhost>
+             </lval>
+            </index>
+           </offset>
+          </lval>
+         </exp>
+        </exp1>
+        <exp2 etag="const" xstr="32">
+         <constant ctag="cint64" ikind="iint" intValue="32"/>
+        </exp2>
+        <typ tname="u64" ttag="tnamed"/>
+       </exp2>
+       <typ tname="u64" ttag="tnamed"/>
+      </exp>
+      <location byte="188724" file="src/util.c" line="109"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="70"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+    </return-sites>
+    <post-expectations/>
+    <ds-expectations/>
+   </secondary-proof-obligations>
+  </function>
+  <header time="01/10/2017 05:33:38">
+   <application file="src/util.c" name="application"/>
+  </header>
+ </c-analysis>

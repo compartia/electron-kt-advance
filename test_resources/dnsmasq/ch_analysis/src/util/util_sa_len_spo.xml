@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function name="sa_len">
+   <secondary-proof-obligations max-spo-id="11" num-ppo="9">
+    <indirect-calls/>
+    <callsite-obligations/>
+    <return-sites>
+     <return-site>
+      <exp etag="caste" xstr="caste (sizeof(addr-&gt;in):int)">
+       <typ ikind="iint" ttag="tint"/>
+       <exp etag="sizeofe" xstr="sizeof(addr-&gt;in)">
+        <exp etag="lval" xstr="addr-&gt;in">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="addr">
+            <lval>
+             <lhost>
+              <var vid="5992" vname="addr"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <field ckey="203" fname="in"/>
+          </offset>
+         </lval>
+        </exp>
+       </exp>
+      </exp>
+      <location byte="191809" file="src/util.c" line="302"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="192"/>
+        <node name="if-else"/>
+        <node name="stmt" num="190"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+     <return-site>
+      <exp etag="caste" xstr="caste (sizeof(addr-&gt;in6):int)">
+       <typ ikind="iint" ttag="tint"/>
+       <exp etag="sizeofe" xstr="sizeof(addr-&gt;in6)">
+        <exp etag="lval" xstr="addr-&gt;in6">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="addr">
+            <lval>
+             <lhost>
+              <var vid="5992" vname="addr"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <field ckey="203" fname="in6"/>
+          </offset>
+         </lval>
+        </exp>
+       </exp>
+      </exp>
+      <location byte="191771" file="src/util.c" line="299"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="191"/>
+        <node name="if-then"/>
+        <node name="stmt" num="190"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+    </return-sites>
+    <post-expectations>
+     <post-expectation id="10">
+      <callers>
+       <caller api-id="1" fname="resend_query" fvid="259"/>
+       <caller api-id="1" fname="send_from" fvid="169"/>
+       <caller api-id="1" fname="forward_query" fvid="347"/>
+       <caller api-id="9" fname="tcp_request" fvid="261"/>
+       <caller api-id="3" fname="random_sock" fvid="351"/>
+       <caller api-id="2" fname="loop_send_probes" fvid="469"/>
+       <caller api-id="1" fname="check_tftp_listeners" fvid="232"/>
+       <caller api-id="13" fname="tftp_request" fvid="233"/>
+       <caller api-id="2" fname="local_bind" fvid="352"/>
+       <caller api-id="1" fname="resend_query" fvid="259"/>
+       <caller api-id="1" fname="send_from" fvid="169"/>
+       <caller api-id="1" fname="forward_query" fvid="347"/>
+       <caller api-id="9" fname="tcp_request" fvid="261"/>
+       <caller api-id="3" fname="random_sock" fvid="351"/>
+       <caller api-id="2" fname="loop_send_probes" fvid="469"/>
+       <caller api-id="1" fname="check_tftp_listeners" fvid="232"/>
+       <caller api-id="13" fname="tftp_request" fvid="233"/>
+       <caller api-id="2" fname="local_bind" fvid="352"/>
+       <caller api-id="1" fname="resend_query" fvid="259"/>
+       <caller api-id="1" fname="send_from" fvid="169"/>
+       <caller api-id="1" fname="forward_query" fvid="347"/>
+       <caller api-id="9" fname="tcp_request" fvid="261"/>
+       <caller api-id="3" fname="random_sock" fvid="351"/>
+       <caller api-id="2" fname="loop_send_probes" fvid="469"/>
+       <caller api-id="1" fname="check_tftp_listeners" fvid="232"/>
+       <caller api-id="13" fname="tftp_request" fvid="233"/>
+       <caller api-id="2" fname="local_bind" fvid="352"/>
+       <caller api-id="1" fname="resend_query" fvid="259"/>
+       <caller api-id="1" fname="send_from" fvid="169"/>
+       <caller api-id="1" fname="forward_query" fvid="347"/>
+       <caller api-id="9" fname="tcp_request" fvid="261"/>
+       <caller api-id="3" fname="random_sock" fvid="351"/>
+       <caller api-id="2" fname="loop_send_probes" fvid="469"/>
+       <caller api-id="1" fname="check_tftp_listeners" fvid="232"/>
+       <caller api-id="13" fname="tftp_request" fvid="233"/>
+       <caller api-id="2" fname="local_bind" fvid="352"/>
+       <caller api-id="1" fname="resend_query" fvid="259"/>
+       <caller api-id="1" fname="send_from" fvid="169"/>
+       <caller api-id="1" fname="forward_query" fvid="347"/>
+       <caller api-id="9" fname="tcp_request" fvid="261"/>
+       <caller api-id="3" fname="random_sock" fvid="351"/>
+       <caller api-id="2" fname="loop_send_probes" fvid="469"/>
+       <caller api-id="1" fname="check_tftp_listeners" fvid="232"/>
+       <caller api-id="13" fname="tftp_request" fvid="233"/>
+       <caller api-id="2" fname="local_bind" fvid="352"/>
+       <caller api-id="1" fname="resend_query" fvid="259"/>
+       <caller api-id="1" fname="send_from" fvid="169"/>
+       <caller api-id="1" fname="forward_query" fvid="347"/>
+       <caller api-id="9" fname="tcp_request" fvid="261"/>
+       <caller api-id="3" fname="random_sock" fvid="351"/>
+       <caller api-id="2" fname="loop_send_probes" fvid="469"/>
+       <caller api-id="1" fname="check_tftp_listeners" fvid="232"/>
+       <caller api-id="13" fname="tftp_request" fvid="233"/>
+       <caller api-id="2" fname="local_bind" fvid="352"/>
+       <caller api-id="1" fname="resend_query" fvid="259"/>
+       <caller api-id="1" fname="send_from" fvid="169"/>
+       <caller api-id="1" fname="forward_query" fvid="347"/>
+       <caller api-id="9" fname="tcp_request" fvid="261"/>
+       <caller api-id="3" fname="random_sock" fvid="351"/>
+       <caller api-id="2" fname="loop_send_probes" fvid="469"/>
+       <caller api-id="1" fname="check_tftp_listeners" fvid="232"/>
+       <caller api-id="13" fname="tftp_request" fvid="233"/>
+       <caller api-id="2" fname="local_bind" fvid="352"/>
+       <caller api-id="1" fname="resend_query" fvid="259"/>
+       <caller api-id="1" fname="send_from" fvid="169"/>
+       <caller api-id="1" fname="forward_query" fvid="347"/>
+       <caller api-id="9" fname="tcp_request" fvid="261"/>
+       <caller api-id="3" fname="random_sock" fvid="351"/>
+       <caller api-id="2" fname="loop_send_probes" fvid="469"/>
+       <caller api-id="1" fname="check_tftp_listeners" fvid="232"/>
+       <caller api-id="13" fname="tftp_request" fvid="233"/>
+       <caller api-id="2" fname="local_bind" fvid="352"/>
+      </callers>
+      <predicate from="iint" tag="signed-to-unsigned-cast" to="iuint">
+       <exp etag="caste" xstr="caste (sizeof(addr-&gt;in):int)">
+        <typ ikind="iint" ttag="tint"/>
+        <exp etag="sizeofe" xstr="sizeof(addr-&gt;in)">
+         <exp etag="lval" xstr="addr-&gt;in">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="addr">
+             <lval>
+              <lhost>
+               <var vid="5992" vname="addr"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <field ckey="203" fname="in"/>
+           </offset>
+          </lval>
+         </exp>
+        </exp>
+       </exp>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="192"/>
+        <node name="if-else"/>
+        <node name="stmt" num="190"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="191809" file="src/util.c" line="302"/>
+     </post-expectation>
+     <post-expectation id="11">
+      <callers>
+       <caller api-id="1" fname="resend_query" fvid="259"/>
+       <caller api-id="1" fname="send_from" fvid="169"/>
+       <caller api-id="1" fname="forward_query" fvid="347"/>
+       <caller api-id="9" fname="tcp_request" fvid="261"/>
+       <caller api-id="2" fname="loop_send_probes" fvid="469"/>
+       <caller api-id="1" fname="check_tftp_listeners" fvid="232"/>
+       <caller api-id="1" fname="resend_query" fvid="259"/>
+       <caller api-id="1" fname="send_from" fvid="169"/>
+       <caller api-id="1" fname="forward_query" fvid="347"/>
+       <caller api-id="9" fname="tcp_request" fvid="261"/>
+       <caller api-id="2" fname="loop_send_probes" fvid="469"/>
+       <caller api-id="1" fname="check_tftp_listeners" fvid="232"/>
+       <caller api-id="1" fname="resend_query" fvid="259"/>
+       <caller api-id="1" fname="send_from" fvid="169"/>
+       <caller api-id="1" fname="forward_query" fvid="347"/>
+       <caller api-id="9" fname="tcp_request" fvid="261"/>
+       <caller api-id="2" fname="loop_send_probes" fvid="469"/>
+       <caller api-id="1" fname="check_tftp_listeners" fvid="232"/>
+       <caller api-id="1" fname="resend_query" fvid="259"/>
+       <caller api-id="1" fname="send_from" fvid="169"/>
+       <caller api-id="1" fname="forward_query" fvid="347"/>
+       <caller api-id="9" fname="tcp_request" fvid="261"/>
+       <caller api-id="2" fname="loop_send_probes" fvid="469"/>
+       <caller api-id="1" fname="check_tftp_listeners" fvid="232"/>
+       <caller api-id="1" fname="resend_query" fvid="259"/>
+       <caller api-id="1" fname="send_from" fvid="169"/>
+       <caller api-id="1" fname="forward_query" fvid="347"/>
+       <caller api-id="9" fname="tcp_request" fvid="261"/>
+       <caller api-id="2" fname="loop_send_probes" fvid="469"/>
+       <caller api-id="1" fname="check_tftp_listeners" fvid="232"/>
+       <caller api-id="1" fname="resend_query" fvid="259"/>
+       <caller api-id="1" fname="send_from" fvid="169"/>
+       <caller api-id="1" fname="forward_query" fvid="347"/>
+       <caller api-id="9" fname="tcp_request" fvid="261"/>
+       <caller api-id="2" fname="loop_send_probes" fvid="469"/>
+       <caller api-id="1" fname="check_tftp_listeners" fvid="232"/>
+       <caller api-id="1" fname="resend_query" fvid="259"/>
+       <caller api-id="1" fname="send_from" fvid="169"/>
+       <caller api-id="1" fname="forward_query" fvid="347"/>
+       <caller api-id="9" fname="tcp_request" fvid="261"/>
+       <caller api-id="2" fname="loop_send_probes" fvid="469"/>
+       <caller api-id="1" fname="check_tftp_listeners" fvid="232"/>
+       <caller api-id="1" fname="resend_query" fvid="259"/>
+       <caller api-id="1" fname="send_from" fvid="169"/>
+       <caller api-id="1" fname="forward_query" fvid="347"/>
+       <caller api-id="9" fname="tcp_request" fvid="261"/>
+       <caller api-id="2" fname="loop_send_probes" fvid="469"/>
+       <caller api-id="1" fname="check_tftp_listeners" fvid="232"/>
+      </callers>
+      <predicate from="iint" tag="signed-to-unsigned-cast" to="iuint">
+       <exp etag="caste" xstr="caste (sizeof(addr-&gt;in6):int)">
+        <typ ikind="iint" ttag="tint"/>
+        <exp etag="sizeofe" xstr="sizeof(addr-&gt;in6)">
+         <exp etag="lval" xstr="addr-&gt;in6">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="addr">
+             <lval>
+              <lhost>
+               <var vid="5992" vname="addr"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <field ckey="203" fname="in6"/>
+           </offset>
+          </lval>
+         </exp>
+        </exp>
+       </exp>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="191"/>
+        <node name="if-then"/>
+        <node name="stmt" num="190"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="191771" file="src/util.c" line="299"/>
+     </post-expectation>
+    </post-expectations>
+    <ds-expectations/>
+   </secondary-proof-obligations>
+  </function>
+  <header time="01/10/2017 05:33:38">
+   <application file="src/util.c" name="application"/>
+  </header>
+ </c-analysis>

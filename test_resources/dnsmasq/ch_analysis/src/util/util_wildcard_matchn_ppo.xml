@@ -1,0 +1,1748 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function name="wildcard_matchn">
+   <statistics avg-context-complexity="4.08" avg-predicate-complexity="1.41" context-complexity="257" predicate-complexity="89" size="63"/>
+   <unconstrained-external-functions/>
+   <primary-proof-obligations>
+    <proof-obligation c-complexity="5" id="1" origin="prim-exp" p-complexity="6">
+     <location byte="198233" file="src/util.c" line="659"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="wildcard">
+         <lval>
+          <lhost>
+           <var vid="6169" vname="wildcard"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="398"/>
+       <node name="loop"/>
+       <node name="stmt" num="397"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="2" origin="prim-exp" p-complexity="0">
+     <location byte="198233" file="src/util.c" line="659"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="6169" vname="wildcard"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="398"/>
+       <node name="loop"/>
+       <node name="stmt" num="397"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="3" origin="prim-lval" p-complexity="1">
+     <location byte="198233" file="src/util.c" line="659"/>
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="wildcard">
+       <lval>
+        <lhost>
+         <var vid="6169" vname="wildcard"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="398"/>
+       <node name="loop"/>
+       <node name="stmt" num="397"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="4" origin="prim-lval" p-complexity="1">
+     <location byte="198233" file="src/util.c" line="659"/>
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="wildcard">
+       <lval>
+        <lhost>
+         <var vid="6169" vname="wildcard"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="398"/>
+       <node name="loop"/>
+       <node name="stmt" num="397"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="5" origin="prim-lval" p-complexity="1">
+     <location byte="198233" file="src/util.c" line="659"/>
+     <predicate tag="lower-bound">
+      <exp etag="lval" xstr="wildcard">
+       <lval>
+        <lhost>
+         <var vid="6169" vname="wildcard"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ikind="ichar" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="398"/>
+       <node name="loop"/>
+       <node name="stmt" num="397"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="6" origin="prim-lval" p-complexity="1">
+     <location byte="198233" file="src/util.c" line="659"/>
+     <predicate tag="upper-bound">
+      <exp etag="lval" xstr="wildcard">
+       <lval>
+        <lhost>
+         <var vid="6169" vname="wildcard"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ikind="ichar" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="398"/>
+       <node name="loop"/>
+       <node name="stmt" num="397"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="6" id="7" origin="prim-exp" p-complexity="6">
+     <location byte="198233" file="src/util.c" line="659"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="match">
+         <lval>
+          <lhost>
+           <var vid="6170" vname="match"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="399"/>
+       <node name="if-then"/>
+       <node name="stmt" num="398"/>
+       <node name="loop"/>
+       <node name="stmt" num="397"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="6" id="8" origin="prim-exp" p-complexity="0">
+     <location byte="198233" file="src/util.c" line="659"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="6170" vname="match"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="399"/>
+       <node name="if-then"/>
+       <node name="stmt" num="398"/>
+       <node name="loop"/>
+       <node name="stmt" num="397"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="6" id="9" origin="prim-lval" p-complexity="1">
+     <location byte="198233" file="src/util.c" line="659"/>
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="match">
+       <lval>
+        <lhost>
+         <var vid="6170" vname="match"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="399"/>
+       <node name="if-then"/>
+       <node name="stmt" num="398"/>
+       <node name="loop"/>
+       <node name="stmt" num="397"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="6" id="10" origin="prim-lval" p-complexity="1">
+     <location byte="198233" file="src/util.c" line="659"/>
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="match">
+       <lval>
+        <lhost>
+         <var vid="6170" vname="match"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="399"/>
+       <node name="if-then"/>
+       <node name="stmt" num="398"/>
+       <node name="loop"/>
+       <node name="stmt" num="397"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="6" id="11" origin="prim-lval" p-complexity="1">
+     <location byte="198233" file="src/util.c" line="659"/>
+     <predicate tag="lower-bound">
+      <exp etag="lval" xstr="match">
+       <lval>
+        <lhost>
+         <var vid="6170" vname="match"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ikind="ichar" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="399"/>
+       <node name="if-then"/>
+       <node name="stmt" num="398"/>
+       <node name="loop"/>
+       <node name="stmt" num="397"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="6" id="12" origin="prim-lval" p-complexity="1">
+     <location byte="198233" file="src/util.c" line="659"/>
+     <predicate tag="upper-bound">
+      <exp etag="lval" xstr="match">
+       <lval>
+        <lhost>
+         <var vid="6170" vname="match"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ikind="ichar" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="399"/>
+       <node name="if-then"/>
+       <node name="stmt" num="398"/>
+       <node name="loop"/>
+       <node name="stmt" num="397"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="7" id="13" origin="prim-exp" p-complexity="0">
+     <location byte="198233" file="src/util.c" line="659"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="6171" vname="num"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="400"/>
+       <node name="if-then"/>
+       <node name="stmt" num="399"/>
+       <node name="if-then"/>
+       <node name="stmt" num="398"/>
+       <node name="loop"/>
+       <node name="stmt" num="397"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="14" origin="prim-exp" p-complexity="1">
+     <location byte="198280" file="src/util.c" line="661"/>
+     <predicate tag="cast">
+      <tfrom ikind="ichar" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </tfrom>
+      <tto ikind="iint" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </tto>
+      <exp etag="lval" xstr="(*wildcard)">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="wildcard">
+          <lval>
+           <lhost>
+            <var vid="6169" vname="wildcard"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="404"/>
+       <node name="loop"/>
+       <node name="stmt" num="397"/>
+      </cfg-context>
+      <exp-context>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="15" origin="prim-exp" p-complexity="6">
+     <location byte="198280" file="src/util.c" line="661"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="wildcard">
+         <lval>
+          <lhost>
+           <var vid="6169" vname="wildcard"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="404"/>
+       <node name="loop"/>
+       <node name="stmt" num="397"/>
+      </cfg-context>
+      <exp-context>
+       <node name="cast"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="16" origin="prim-exp" p-complexity="0">
+     <location byte="198280" file="src/util.c" line="661"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="6169" vname="wildcard"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="404"/>
+       <node name="loop"/>
+       <node name="stmt" num="397"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="17" origin="prim-lval" p-complexity="1">
+     <location byte="198280" file="src/util.c" line="661"/>
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="wildcard">
+       <lval>
+        <lhost>
+         <var vid="6169" vname="wildcard"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="404"/>
+       <node name="loop"/>
+       <node name="stmt" num="397"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="18" origin="prim-lval" p-complexity="1">
+     <location byte="198280" file="src/util.c" line="661"/>
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="wildcard">
+       <lval>
+        <lhost>
+         <var vid="6169" vname="wildcard"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="404"/>
+       <node name="loop"/>
+       <node name="stmt" num="397"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="19" origin="prim-lval" p-complexity="1">
+     <location byte="198280" file="src/util.c" line="661"/>
+     <predicate tag="lower-bound">
+      <exp etag="lval" xstr="wildcard">
+       <lval>
+        <lhost>
+         <var vid="6169" vname="wildcard"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ikind="ichar" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="404"/>
+       <node name="loop"/>
+       <node name="stmt" num="397"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="20" origin="prim-lval" p-complexity="1">
+     <location byte="198280" file="src/util.c" line="661"/>
+     <predicate tag="upper-bound">
+      <exp etag="lval" xstr="wildcard">
+       <lval>
+        <lhost>
+         <var vid="6169" vname="wildcard"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ikind="ichar" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="404"/>
+       <node name="loop"/>
+       <node name="stmt" num="397"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="21" origin="prim-exp" p-complexity="1">
+     <location byte="198327" file="src/util.c" line="664"/>
+     <predicate tag="cast">
+      <tfrom ikind="ichar" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </tfrom>
+      <tto ikind="iint" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </tto>
+      <exp etag="lval" xstr="(*wildcard)">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="wildcard">
+          <lval>
+           <lhost>
+            <var vid="6169" vname="wildcard"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="406"/>
+       <node name="loop"/>
+       <node name="stmt" num="397"/>
+      </cfg-context>
+      <exp-context>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="22" origin="prim-exp" p-complexity="6">
+     <location byte="198327" file="src/util.c" line="664"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="wildcard">
+         <lval>
+          <lhost>
+           <var vid="6169" vname="wildcard"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="406"/>
+       <node name="loop"/>
+       <node name="stmt" num="397"/>
+      </cfg-context>
+      <exp-context>
+       <node name="cast"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="23" origin="prim-exp" p-complexity="0">
+     <location byte="198327" file="src/util.c" line="664"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="6169" vname="wildcard"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="406"/>
+       <node name="loop"/>
+       <node name="stmt" num="397"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="24" origin="prim-lval" p-complexity="1">
+     <location byte="198327" file="src/util.c" line="664"/>
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="wildcard">
+       <lval>
+        <lhost>
+         <var vid="6169" vname="wildcard"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="406"/>
+       <node name="loop"/>
+       <node name="stmt" num="397"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="25" origin="prim-lval" p-complexity="1">
+     <location byte="198327" file="src/util.c" line="664"/>
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="wildcard">
+       <lval>
+        <lhost>
+         <var vid="6169" vname="wildcard"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="406"/>
+       <node name="loop"/>
+       <node name="stmt" num="397"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="26" origin="prim-lval" p-complexity="1">
+     <location byte="198327" file="src/util.c" line="664"/>
+     <predicate tag="lower-bound">
+      <exp etag="lval" xstr="wildcard">
+       <lval>
+        <lhost>
+         <var vid="6169" vname="wildcard"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ikind="ichar" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="406"/>
+       <node name="loop"/>
+       <node name="stmt" num="397"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="27" origin="prim-lval" p-complexity="1">
+     <location byte="198327" file="src/util.c" line="664"/>
+     <predicate tag="upper-bound">
+      <exp etag="lval" xstr="wildcard">
+       <lval>
+        <lhost>
+         <var vid="6169" vname="wildcard"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ikind="ichar" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="406"/>
+       <node name="loop"/>
+       <node name="stmt" num="397"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="28" origin="prim-exp" p-complexity="1">
+     <location byte="198327" file="src/util.c" line="664"/>
+     <predicate tag="cast">
+      <tfrom ikind="ichar" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </tfrom>
+      <tto ikind="iint" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </tto>
+      <exp etag="lval" xstr="(*match)">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="match">
+          <lval>
+           <lhost>
+            <var vid="6170" vname="match"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="406"/>
+       <node name="loop"/>
+       <node name="stmt" num="397"/>
+      </cfg-context>
+      <exp-context>
+       <node name="2op" num="2"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="29" origin="prim-exp" p-complexity="6">
+     <location byte="198327" file="src/util.c" line="664"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="match">
+         <lval>
+          <lhost>
+           <var vid="6170" vname="match"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="406"/>
+       <node name="loop"/>
+       <node name="stmt" num="397"/>
+      </cfg-context>
+      <exp-context>
+       <node name="cast"/>
+       <node name="2op" num="2"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="30" origin="prim-exp" p-complexity="0">
+     <location byte="198327" file="src/util.c" line="664"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="6170" vname="match"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="406"/>
+       <node name="loop"/>
+       <node name="stmt" num="397"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="2op" num="2"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="31" origin="prim-lval" p-complexity="1">
+     <location byte="198327" file="src/util.c" line="664"/>
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="match">
+       <lval>
+        <lhost>
+         <var vid="6170" vname="match"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="406"/>
+       <node name="loop"/>
+       <node name="stmt" num="397"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="2op" num="2"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="32" origin="prim-lval" p-complexity="1">
+     <location byte="198327" file="src/util.c" line="664"/>
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="match">
+       <lval>
+        <lhost>
+         <var vid="6170" vname="match"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="406"/>
+       <node name="loop"/>
+       <node name="stmt" num="397"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="2op" num="2"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="33" origin="prim-lval" p-complexity="1">
+     <location byte="198327" file="src/util.c" line="664"/>
+     <predicate tag="lower-bound">
+      <exp etag="lval" xstr="match">
+       <lval>
+        <lhost>
+         <var vid="6170" vname="match"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ikind="ichar" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="406"/>
+       <node name="loop"/>
+       <node name="stmt" num="397"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="2op" num="2"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="34" origin="prim-lval" p-complexity="1">
+     <location byte="198327" file="src/util.c" line="664"/>
+     <predicate tag="upper-bound">
+      <exp etag="lval" xstr="match">
+       <lval>
+        <lhost>
+         <var vid="6170" vname="match"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ikind="ichar" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="406"/>
+       <node name="loop"/>
+       <node name="stmt" num="397"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="2op" num="2"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="35" origin="prim-exp" p-complexity="0">
+     <location byte="198377" file="src/util.c" line="667"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="6169" vname="wildcard"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="408"/>
+       <node name="loop"/>
+       <node name="stmt" num="397"/>
+      </cfg-context>
+      <exp-context>
+       <node name="2op" num="1"/>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="36" origin="prim-op" p-complexity="1">
+     <location byte="198377" file="src/util.c" line="667"/>
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="wildcard">
+       <lval>
+        <lhost>
+         <var vid="6169" vname="wildcard"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="408"/>
+       <node name="loop"/>
+       <node name="stmt" num="397"/>
+      </cfg-context>
+      <exp-context>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="37" origin="prim-op" p-complexity="1">
+     <location byte="198377" file="src/util.c" line="667"/>
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="wildcard">
+       <lval>
+        <lhost>
+         <var vid="6169" vname="wildcard"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="408"/>
+       <node name="loop"/>
+       <node name="stmt" num="397"/>
+      </cfg-context>
+      <exp-context>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="38" origin="prim-op" p-complexity="2">
+     <location byte="198377" file="src/util.c" line="667"/>
+     <predicate op="pluspi" tag="ptr-lower-bound">
+      <typ ikind="ichar" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+      <exp1 etag="lval" xstr="wildcard">
+       <lval>
+        <lhost>
+         <var vid="6169" vname="wildcard"/>
+        </lhost>
+       </lval>
+      </exp1>
+      <exp2 etag="const" xstr="1">
+       <constant ctag="cint64" ikind="iint" intValue="1"/>
+      </exp2>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="408"/>
+       <node name="loop"/>
+       <node name="stmt" num="397"/>
+      </cfg-context>
+      <exp-context>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="39" origin="prim-op" p-complexity="1">
+     <location byte="198377" file="src/util.c" line="667"/>
+     <predicate op="pluspi" tag="ptr-upper-bound-deref">
+      <typ ikind="ichar" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+      <exp1 etag="lval" xstr="wildcard">
+       <lval>
+        <lhost>
+         <var vid="6169" vname="wildcard"/>
+        </lhost>
+       </lval>
+      </exp1>
+      <exp2 etag="const" xstr="1">
+       <constant ctag="cint64" ikind="iint" intValue="1"/>
+      </exp2>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="408"/>
+       <node name="loop"/>
+       <node name="stmt" num="397"/>
+      </cfg-context>
+      <exp-context>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="40" origin="prim-exp" p-complexity="0">
+     <location byte="198395" file="src/util.c" line="668"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="6170" vname="match"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="408"/>
+       <node name="loop"/>
+       <node name="stmt" num="397"/>
+      </cfg-context>
+      <exp-context>
+       <node name="2op" num="1"/>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="41" origin="prim-op" p-complexity="1">
+     <location byte="198395" file="src/util.c" line="668"/>
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="match">
+       <lval>
+        <lhost>
+         <var vid="6170" vname="match"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="408"/>
+       <node name="loop"/>
+       <node name="stmt" num="397"/>
+      </cfg-context>
+      <exp-context>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="42" origin="prim-op" p-complexity="1">
+     <location byte="198395" file="src/util.c" line="668"/>
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="match">
+       <lval>
+        <lhost>
+         <var vid="6170" vname="match"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="408"/>
+       <node name="loop"/>
+       <node name="stmt" num="397"/>
+      </cfg-context>
+      <exp-context>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="43" origin="prim-op" p-complexity="2">
+     <location byte="198395" file="src/util.c" line="668"/>
+     <predicate op="pluspi" tag="ptr-lower-bound">
+      <typ ikind="ichar" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+      <exp1 etag="lval" xstr="match">
+       <lval>
+        <lhost>
+         <var vid="6170" vname="match"/>
+        </lhost>
+       </lval>
+      </exp1>
+      <exp2 etag="const" xstr="1">
+       <constant ctag="cint64" ikind="iint" intValue="1"/>
+      </exp2>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="408"/>
+       <node name="loop"/>
+       <node name="stmt" num="397"/>
+      </cfg-context>
+      <exp-context>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="44" origin="prim-op" p-complexity="1">
+     <location byte="198395" file="src/util.c" line="668"/>
+     <predicate op="pluspi" tag="ptr-upper-bound-deref">
+      <typ ikind="ichar" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+      <exp1 etag="lval" xstr="match">
+       <lval>
+        <lhost>
+         <var vid="6170" vname="match"/>
+        </lhost>
+       </lval>
+      </exp1>
+      <exp2 etag="const" xstr="1">
+       <constant ctag="cint64" ikind="iint" intValue="1"/>
+      </exp2>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="408"/>
+       <node name="loop"/>
+       <node name="stmt" num="397"/>
+      </cfg-context>
+      <exp-context>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="45" origin="prim-exp" p-complexity="0">
+     <location byte="198410" file="src/util.c" line="669"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="6171" vname="num"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="408"/>
+       <node name="loop"/>
+       <node name="stmt" num="397"/>
+      </cfg-context>
+      <exp-context>
+       <node name="2op" num="1"/>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="46" origin="prim-op" p-complexity="2">
+     <location byte="198410" file="src/util.c" line="669"/>
+     <predicate op="minusa" size="iint" tag="int-underflow">
+      <exp1 etag="lval" xstr="num">
+       <lval>
+        <lhost>
+         <var vid="6171" vname="num"/>
+        </lhost>
+       </lval>
+      </exp1>
+      <exp2 etag="const" xstr="1">
+       <constant ctag="cint64" ikind="iint" intValue="1"/>
+      </exp2>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="408"/>
+       <node name="loop"/>
+       <node name="stmt" num="397"/>
+      </cfg-context>
+      <exp-context>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="47" origin="prim-op" p-complexity="2">
+     <location byte="198410" file="src/util.c" line="669"/>
+     <predicate op="minusa" size="iint" tag="int-overflow">
+      <exp1 etag="lval" xstr="num">
+       <lval>
+        <lhost>
+         <var vid="6171" vname="num"/>
+        </lhost>
+       </lval>
+      </exp1>
+      <exp2 etag="const" xstr="1">
+       <constant ctag="cint64" ikind="iint" intValue="1"/>
+      </exp2>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="408"/>
+       <node name="loop"/>
+       <node name="stmt" num="397"/>
+      </cfg-context>
+      <exp-context>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="48" origin="prim-exp" p-complexity="0">
+     <location byte="198426" file="src/util.c" line="672"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="6171" vname="num"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="409"/>
+      </cfg-context>
+      <exp-context>
+       <node name="op"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="49" origin="prim-exp" p-complexity="1">
+     <location byte="198426" file="src/util.c" line="672"/>
+     <predicate tag="cast">
+      <tfrom ikind="ichar" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </tfrom>
+      <tto ikind="iint" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </tto>
+      <exp etag="lval" xstr="(*wildcard)">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="wildcard">
+          <lval>
+           <lhost>
+            <var vid="6169" vname="wildcard"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="411"/>
+       <node name="if-else"/>
+       <node name="stmt" num="409"/>
+      </cfg-context>
+      <exp-context>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="50" origin="prim-exp" p-complexity="6">
+     <location byte="198426" file="src/util.c" line="672"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="wildcard">
+         <lval>
+          <lhost>
+           <var vid="6169" vname="wildcard"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="411"/>
+       <node name="if-else"/>
+       <node name="stmt" num="409"/>
+      </cfg-context>
+      <exp-context>
+       <node name="cast"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="51" origin="prim-exp" p-complexity="0">
+     <location byte="198426" file="src/util.c" line="672"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="6169" vname="wildcard"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="411"/>
+       <node name="if-else"/>
+       <node name="stmt" num="409"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="52" origin="prim-lval" p-complexity="1">
+     <location byte="198426" file="src/util.c" line="672"/>
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="wildcard">
+       <lval>
+        <lhost>
+         <var vid="6169" vname="wildcard"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="411"/>
+       <node name="if-else"/>
+       <node name="stmt" num="409"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="53" origin="prim-lval" p-complexity="1">
+     <location byte="198426" file="src/util.c" line="672"/>
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="wildcard">
+       <lval>
+        <lhost>
+         <var vid="6169" vname="wildcard"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="411"/>
+       <node name="if-else"/>
+       <node name="stmt" num="409"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="54" origin="prim-lval" p-complexity="1">
+     <location byte="198426" file="src/util.c" line="672"/>
+     <predicate tag="lower-bound">
+      <exp etag="lval" xstr="wildcard">
+       <lval>
+        <lhost>
+         <var vid="6169" vname="wildcard"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ikind="ichar" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="411"/>
+       <node name="if-else"/>
+       <node name="stmt" num="409"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="55" origin="prim-lval" p-complexity="1">
+     <location byte="198426" file="src/util.c" line="672"/>
+     <predicate tag="upper-bound">
+      <exp etag="lval" xstr="wildcard">
+       <lval>
+        <lhost>
+         <var vid="6169" vname="wildcard"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ikind="ichar" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="411"/>
+       <node name="if-else"/>
+       <node name="stmt" num="409"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="56" origin="prim-exp" p-complexity="1">
+     <location byte="198426" file="src/util.c" line="672"/>
+     <predicate tag="cast">
+      <tfrom ikind="ichar" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </tfrom>
+      <tto ikind="iint" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </tto>
+      <exp etag="lval" xstr="(*match)">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="match">
+          <lval>
+           <lhost>
+            <var vid="6170" vname="match"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="411"/>
+       <node name="if-else"/>
+       <node name="stmt" num="409"/>
+      </cfg-context>
+      <exp-context>
+       <node name="2op" num="2"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="57" origin="prim-exp" p-complexity="6">
+     <location byte="198426" file="src/util.c" line="672"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="match">
+         <lval>
+          <lhost>
+           <var vid="6170" vname="match"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="411"/>
+       <node name="if-else"/>
+       <node name="stmt" num="409"/>
+      </cfg-context>
+      <exp-context>
+       <node name="cast"/>
+       <node name="2op" num="2"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="58" origin="prim-exp" p-complexity="0">
+     <location byte="198426" file="src/util.c" line="672"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="6170" vname="match"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="411"/>
+       <node name="if-else"/>
+       <node name="stmt" num="409"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="2op" num="2"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="59" origin="prim-lval" p-complexity="1">
+     <location byte="198426" file="src/util.c" line="672"/>
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="match">
+       <lval>
+        <lhost>
+         <var vid="6170" vname="match"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="411"/>
+       <node name="if-else"/>
+       <node name="stmt" num="409"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="2op" num="2"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="60" origin="prim-lval" p-complexity="1">
+     <location byte="198426" file="src/util.c" line="672"/>
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="match">
+       <lval>
+        <lhost>
+         <var vid="6170" vname="match"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="411"/>
+       <node name="if-else"/>
+       <node name="stmt" num="409"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="2op" num="2"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="61" origin="prim-lval" p-complexity="1">
+     <location byte="198426" file="src/util.c" line="672"/>
+     <predicate tag="lower-bound">
+      <exp etag="lval" xstr="match">
+       <lval>
+        <lhost>
+         <var vid="6170" vname="match"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ikind="ichar" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="411"/>
+       <node name="if-else"/>
+       <node name="stmt" num="409"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="2op" num="2"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="62" origin="prim-lval" p-complexity="1">
+     <location byte="198426" file="src/util.c" line="672"/>
+     <predicate tag="upper-bound">
+      <exp etag="lval" xstr="match">
+       <lval>
+        <lhost>
+         <var vid="6170" vname="match"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ikind="ichar" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="411"/>
+       <node name="if-else"/>
+       <node name="stmt" num="409"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="2op" num="2"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="63" origin="prim-exp" p-complexity="0">
+     <location byte="198426" file="src/util.c" line="672"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="6172" vname="tmp"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="return"/>
+       <node name="stmt" num="414"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </proof-obligation>
+   </primary-proof-obligations>
+  </function>
+  <header time="01/09/2017 21:38:51">
+   <application file="src/util.xml" name="application"/>
+  </header>
+ </c-analysis>

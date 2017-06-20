@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function name="read_write">
+   <secondary-proof-obligations max-spo-id="71" num-ppo="71">
+    <indirect-calls/>
+    <callsite-obligations>
+     <callsite-obligation api-max-id="0" fname="retry_send" fvid="4834">
+      <location byte="197561" file="src/util.c" line="620"/>
+      <args>
+       <arg etag="lval" xstr="n">
+        <lval>
+         <lhost>
+          <var vid="6151" vname="n"/>
+         </lhost>
+        </lval>
+       </arg>
+      </args>
+      <obligations/>
+      <context>
+       <cfg-context>
+        <node name="instr" num="0"/>
+        <node name="stmt" num="374"/>
+        <node name="loop"/>
+        <node name="stmt" num="368"/>
+        <node name="loop"/>
+        <node name="stmt" num="365"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+    </callsite-obligations>
+    <return-sites>
+     <return-site>
+      <exp etag="const" xstr="1">
+       <constant ctag="cint64" ikind="iint" intValue="1"/>
+      </exp>
+      <location byte="197876" file="src/util.c" line="635"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="385"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+     <return-site>
+      <exp etag="const" xstr="0">
+       <constant ctag="cint64" ikind="iint" intValue="0"/>
+      </exp>
+      <location byte="197857" file="src/util.c" line="632"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="383"/>
+        <node name="if-then"/>
+        <node name="stmt" num="382"/>
+        <node name="loop"/>
+        <node name="stmt" num="365"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+     <return-site>
+      <exp etag="const" xstr="0">
+       <constant ctag="cint64" ikind="iint" intValue="0"/>
+      </exp>
+      <location byte="197709" file="src/util.c" line="627"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="373"/>
+        <node name="if-then"/>
+        <node name="stmt" num="372"/>
+        <node name="loop"/>
+        <node name="stmt" num="368"/>
+        <node name="loop"/>
+        <node name="stmt" num="365"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+    </return-sites>
+    <post-expectations/>
+    <ds-expectations/>
+   </secondary-proof-obligations>
+  </function>
+  <header time="01/10/2017 05:33:38">
+   <application file="src/util.c" name="application"/>
+  </header>
+ </c-analysis>

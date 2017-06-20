@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <log>
+   <log-entry time="01/10/2017 06:57:09"/>
+   <log-entry time="01/10/2017 05:33:05"/>
+   <log-entry time="01/10/2017 05:21:41"/>
+   <log-entry time="01/10/2017 04:59:55"/>
+   <log-entry time="01/10/2017 04:36:39"/>
+   <log-entry time="01/10/2017 03:42:55"/>
+   <log-entry time="01/10/2017 02:54:44"/>
+   <log-entry time="01/09/2017 22:53:12"/>
+   <log-entry delta-checkvalid="34" delta-invariant="16" delta-lifted="5" time="01/09/2017 22:06:24"/>
+  </log>
+  <function name="print_mac">
+   <statistics checkvalid="34" invariant="16" invariant_with_api="5" total="74" total-proven="55"/>
+   <open-proof-obligations>
+    <open id="33" line="572" predicate="not-null"/>
+    <open id="34" line="572" predicate="lower-bound"/>
+    <open id="35" line="572" predicate="ptr-upper-bound"/>
+    <open id="38" line="572" predicate="valid-mem"/>
+    <open id="39" line="572" predicate="lower-bound"/>
+    <open id="40" line="572" predicate="upper-bound"/>
+    <open id="45" line="572" predicate="unsigned-to-signed-cast"/>
+    <open id="46" line="572" predicate="initialized"/>
+    <open id="50" line="572" predicate="valid-mem"/>
+    <open id="52" line="572" predicate="ptr-upper-bound-deref"/>
+    <open id="58" line="572" predicate="valid-mem"/>
+    <open id="59" line="572" predicate="lower-bound"/>
+    <open id="60" line="572" predicate="upper-bound"/>
+    <open id="63" line="572" predicate="not-null"/>
+    <open id="64" line="572" predicate="valid-mem"/>
+    <open id="65" line="572" predicate="ptr-lower-bound"/>
+    <open id="66" line="572" predicate="ptr-upper-bound-deref"/>
+    <open id="69" line="571" predicate="int-overflow"/>
+    <open id="71" line="574" predicate="valid-mem"/>
+   </open-proof-obligations>
+   <proof-obligations-discharged>
+    <discharged id="1" method="check-valid" time="01/09/2017 22:06:24" type="initialized">
+     <evidence comment="buff is a function parameter"/>
+    </discharged>
+    <discharged id="2" method="check-valid" time="01/09/2017 22:06:24" type="initialized">
+     <evidence comment="len is a function parameter"/>
+    </discharged>
+    <discharged id="3" method="check-valid" time="01/09/2017 22:06:24" type="format-string">
+     <evidence comment="&lt;null&gt; is a string literal"/>
+    </discharged>
+    <discharged id="4" method="check-valid" time="01/09/2017 22:06:24" type="not-null">
+     <evidence comment="string-literal"/>
+    </discharged>
+    <discharged id="5" method="check-valid" time="01/09/2017 22:06:24" type="null-terminated">
+     <evidence comment="string literal"/>
+    </discharged>
+    <discharged id="6" method="check-valid" time="01/09/2017 22:06:24" type="lower-bound">
+     <evidence comment="constant string is allocated by compiler"/>
+    </discharged>
+    <discharged id="7" method="check-valid" time="01/09/2017 22:06:24" type="ptr-upper-bound">
+     <evidence comment="upperbound of constant string argument: &lt;null&gt;"/>
+    </discharged>
+    <discharged id="8" method="check-valid" time="01/09/2017 22:06:24" type="initialized-range">
+     <evidence comment="constant string"/>
+    </discharged>
+    <discharged domain="linear equalities" id="9" method="invariants" time="01/09/2017 22:06:24" type="not-null">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="5" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="valuesets" id="10" method="invariants" time="01/09/2017 22:06:24" type="lower-bound">
+     <evidence comment="non-negative offset from base value: buff"/>
+    </discharged>
+    <discharged domain="valuesets" id="11" method="invariants" time="01/09/2017 22:06:24" type="ptr-upper-bound">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="4" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged id="12" method="check-valid" time="01/09/2017 22:06:24" type="pointer-cast">
+     <evidence comment="source and target type are the same"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="13" method="invariants" time="01/09/2017 22:06:24" type="initialized">
+     <evidence comment="assignedAt#565"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="14" method="invariants" time="01/09/2017 22:06:24" type="valid-mem">
+     <evidence comment="external address provided by parameter still points to valid memory"/>
+    </discharged>
+    <discharged domain="valuesets" id="15" method="invariants" time="01/09/2017 22:06:24" type="lower-bound">
+     <evidence comment="non-negative offset from base value: buff"/>
+    </discharged>
+    <discharged domain="valuesets" id="16" method="invariants" time="01/09/2017 22:06:24" type="upper-bound">
+     <evidence comment="externally provided address; dereferencability is checked as part of precondition"/>
+    </discharged>
+    <discharged id="17" method="check-valid" time="01/09/2017 22:06:24" type="pointer-cast">
+     <evidence comment="source and target type are the same"/>
+    </discharged>
+    <discharged id="18" method="check-valid" time="01/09/2017 22:06:24" type="valid-mem">
+     <evidence comment="constant string is allocated by compiler"/>
+    </discharged>
+    <discharged id="19" method="check-valid" time="01/09/2017 22:06:24" type="lower-bound">
+     <evidence comment="constant string is allocated by compiler"/>
+    </discharged>
+    <discharged id="20" method="check-valid" time="01/09/2017 22:06:24" type="upper-bound">
+     <evidence comment="constant string is allocated by compiler"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="21" method="invariants" time="01/09/2017 22:06:24" type="initialized">
+     <evidence comment="assignedAt#571"/>
+    </discharged>
+    <discharged id="22" method="check-valid" time="01/09/2017 22:06:24" type="initialized">
+     <evidence comment="len is a function parameter"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="23" method="invariants" time="01/09/2017 22:06:24" type="initialized">
+     <evidence comment="assignedAt#571"/>
+    </discharged>
+    <discharged id="24" method="check-valid" time="01/09/2017 22:06:24" type="initialized">
+     <evidence comment="len is a function parameter"/>
+    </discharged>
+    <discharged domain="linear equalities" id="25" method="invariants" time="01/09/2017 22:06:24" type="int-underflow">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="1" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged id="26" method="check-valid" time="01/09/2017 22:06:24" type="int-overflow">
+     <evidence comment="subtract non-negative number: value is 1"/>
+    </discharged>
+    <discharged id="27" method="check-valid" time="01/09/2017 22:06:24" type="format-string">
+     <evidence comment="%.2x%s is a string literal"/>
+    </discharged>
+    <discharged id="28" method="check-valid" time="01/09/2017 22:06:24" type="not-null">
+     <evidence comment="string-literal"/>
+    </discharged>
+    <discharged id="29" method="check-valid" time="01/09/2017 22:06:24" type="null-terminated">
+     <evidence comment="string literal"/>
+    </discharged>
+    <discharged id="30" method="check-valid" time="01/09/2017 22:06:24" type="lower-bound">
+     <evidence comment="constant string is allocated by compiler"/>
+    </discharged>
+    <discharged id="31" method="check-valid" time="01/09/2017 22:06:24" type="ptr-upper-bound">
+     <evidence comment="upperbound of constant string argument: %.2x%s"/>
+    </discharged>
+    <discharged id="32" method="check-valid" time="01/09/2017 22:06:24" type="initialized-range">
+     <evidence comment="constant string"/>
+    </discharged>
+    <discharged id="36" method="check-valid" time="01/09/2017 22:06:24" type="pointer-cast">
+     <evidence comment="source and target type are the same"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="37" method="invariants" time="01/09/2017 22:06:24" type="initialized">
+     <evidence comment="assignedAt#565_xx_assignedAt#572"/>
+    </discharged>
+    <discharged id="41" method="check-valid" time="01/09/2017 22:06:24" type="pointer-cast">
+     <evidence comment="source and target type are the same"/>
+    </discharged>
+    <discharged id="42" method="check-valid" time="01/09/2017 22:06:24" type="valid-mem">
+     <evidence comment="constant string is allocated by compiler"/>
+    </discharged>
+    <discharged id="43" method="check-valid" time="01/09/2017 22:06:24" type="lower-bound">
+     <evidence comment="constant string is allocated by compiler"/>
+    </discharged>
+    <discharged id="44" method="check-valid" time="01/09/2017 22:06:24" type="upper-bound">
+     <evidence comment="constant string is allocated by compiler"/>
+    </discharged>
+    <discharged id="47" method="check-valid" time="01/09/2017 22:06:24" type="initialized">
+     <evidence comment="mac is a function parameter"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="48" method="invariants" time="01/09/2017 22:06:24" type="initialized">
+     <evidence comment="assignedAt#571"/>
+    </discharged>
+    <discharged domain="linear equalities" id="49" method="invariants" time="01/09/2017 22:06:24" type="not-null">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="2" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="intervals" id="51" method="invariants" time="01/09/2017 22:06:24" type="ptr-lower-bound">
+     <evidence comment="non-negative lower bound on pointer increment: 0"/>
+    </discharged>
+    <discharged id="53" method="check-valid" time="01/09/2017 22:06:24" type="not-null">
+     <evidence comment="arguments of pointer arithmetic are checked for null"/>
+    </discharged>
+    <discharged id="54" method="check-valid" time="01/09/2017 22:06:24" type="valid-mem">
+     <evidence comment="pointer arithmetic stays within memory region"/>
+    </discharged>
+    <discharged id="55" method="check-valid" time="01/09/2017 22:06:24" type="lower-bound">
+     <evidence comment="result of pointer arithmetic is guaranteed to satisfy lowerbound by inductive hypothesis"/>
+    </discharged>
+    <discharged id="56" method="check-valid" time="01/09/2017 22:06:24" type="upper-bound">
+     <evidence comment="result of pointer arithmetic is guaranteed to satisfy upperbound by inductive hypothesis"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="57" method="invariants" time="01/09/2017 22:06:24" type="initialized">
+     <evidence comment="assignedAt#572"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="61" method="invariants" time="01/09/2017 22:06:24" type="initialized">
+     <evidence comment="assignedAt#565_xx_assignedAt#572"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="62" method="invariants" time="01/09/2017 22:06:24" type="initialized">
+     <evidence comment="assignedAt#572"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="67" method="invariants" time="01/09/2017 22:06:24" type="initialized">
+     <evidence comment="assignedAt#571"/>
+    </discharged>
+    <discharged id="68" method="check-valid" time="01/09/2017 22:06:24" type="int-underflow">
+     <evidence comment="add non-negative number: value is 1"/>
+    </discharged>
+    <discharged id="70" method="check-valid" time="01/09/2017 22:06:24" type="initialized">
+     <evidence comment="buff is a function parameter"/>
+    </discharged>
+    <discharged domain="valuesets" id="72" method="invariants" time="01/09/2017 22:06:24" type="global-mem">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="3" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="valuesets" id="73" method="invariants" time="01/09/2017 22:06:24" type="lower-bound">
+     <evidence comment="non-negative offset from base value: buff"/>
+    </discharged>
+    <discharged domain="valuesets" id="74" method="invariants" time="01/09/2017 22:06:24" type="upper-bound">
+     <evidence comment="externally provided address; dereferencability is checked as part of precondition"/>
+    </discharged>
+   </proof-obligations-discharged>
+  </function>
+  <header time="01/10/2017 06:57:09">
+   <application file="src//util.c" name="application"/>
+  </header>
+ </c-analysis>

@@ -1,0 +1,784 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function name="flush_log">
+   <statistics avg-context-complexity="5.19" avg-predicate-complexity="0.24" context-complexity="109" predicate-complexity="5" size="21"/>
+   <unconstrained-external-functions/>
+   <primary-proof-obligations>
+    <proof-obligation c-complexity="5" id="1" origin="prim-exp" p-complexity="0">
+     <location byte="193375" file="src/log.c" line="440"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="5903" vname="log_fd"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="203"/>
+       <node name="loop"/>
+       <node name="stmt" num="202"/>
+      </cfg-context>
+      <exp-context>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="2" origin="prim-exp" p-complexity="0">
+     <location byte="193457" file="src/log.c" line="444"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="5910" vname="entries"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="206"/>
+       <node name="loop"/>
+       <node name="stmt" num="202"/>
+      </cfg-context>
+      <exp-context>
+       <node name="op"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="6" id="3" origin="prim-exp" p-complexity="0">
+     <location byte="193497" file="src/log.c" line="446"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="5903" vname="log_fd"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="207"/>
+       <node name="if-then"/>
+       <node name="stmt" num="206"/>
+       <node name="loop"/>
+       <node name="stmt" num="202"/>
+      </cfg-context>
+      <exp-context>
+       <node name="arg" num="0"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="6" id="4" origin="prim-exp" p-complexity="0">
+     <location byte="193457" file="src/log.c" line="444"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="5907" vname="connection_good"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="209"/>
+       <node name="if-else"/>
+       <node name="stmt" num="206"/>
+       <node name="loop"/>
+       <node name="stmt" num="202"/>
+      </cfg-context>
+      <exp-context>
+       <node name="op"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="7" id="5" origin="prim-exp" p-complexity="0">
+     <location byte="193497" file="src/log.c" line="446"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="5903" vname="log_fd"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="210"/>
+       <node name="if-then"/>
+       <node name="stmt" num="209"/>
+       <node name="if-else"/>
+       <node name="stmt" num="206"/>
+       <node name="loop"/>
+       <node name="stmt" num="202"/>
+      </cfg-context>
+      <exp-context>
+       <node name="arg" num="0"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="6" origin="prim-exp" p-complexity="0">
+     <location byte="193531" file="src/log.c" line="449"/>
+     <predicate tag="cast">
+      <tfrom ikind="iint" ttag="tint"/>
+      <tto ikind="ilong" ttag="tint"/>
+      <exp etag="const" xstr="0">
+       <constant ctag="cint64" ikind="iint" intValue="0"/>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="212"/>
+       <node name="loop"/>
+       <node name="stmt" num="202"/>
+      </cfg-context>
+      <exp-context>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" fname="nanosleep" id="7" name="deref-write-null" origin="f-pre" p-complexity="0">
+     <location byte="193588" file="src/log.c" line="451"/>
+     <predicate tag="lower-bound">
+      <exp etag="caste" xstr="caste (caste (0:(void*)):(struct 3*))">
+       <typ ttag="tptr">
+        <typ ckey="3" ttag="tcomp"/>
+       </typ>
+       <exp etag="caste" xstr="caste (0:(void*))">
+        <typ ttag="tptr">
+         <typ ttag="tvoid"/>
+        </typ>
+        <exp etag="const" xstr="0">
+         <constant ctag="cint64" ikind="iint" intValue="0"/>
+        </exp>
+       </exp>
+      </exp>
+      <typ ckey="3" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="212"/>
+       <node name="loop"/>
+       <node name="stmt" num="202"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+     <args>
+      <exp etag="caste" name="rmtp" nr="2" xstr="caste (caste (0:(void*)):(struct 3*))">
+       <typ ttag="tptr">
+        <typ ckey="3" ttag="tcomp"/>
+       </typ>
+       <exp etag="caste" xstr="caste (0:(void*))">
+        <typ ttag="tptr">
+         <typ ttag="tvoid"/>
+        </typ>
+        <exp etag="const" xstr="0">
+         <constant ctag="cint64" ikind="iint" intValue="0"/>
+        </exp>
+       </exp>
+      </exp>
+     </args>
+     <precondition name="deref-write-null">
+      <math>
+       <apply>
+        <deref-write-null/>
+        <ci>rmtp</ci>
+        <apply>
+         <index-size/>
+         <cn>1</cn>
+        </apply>
+       </apply>
+      </math>
+     </precondition>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" fname="nanosleep" id="8" name="deref-write-null" origin="f-pre" p-complexity="0">
+     <location byte="193588" file="src/log.c" line="451"/>
+     <predicate tag="upper-bound">
+      <exp etag="caste" xstr="caste (caste (0:(void*)):(struct 3*))">
+       <typ ttag="tptr">
+        <typ ckey="3" ttag="tcomp"/>
+       </typ>
+       <exp etag="caste" xstr="caste (0:(void*))">
+        <typ ttag="tptr">
+         <typ ttag="tvoid"/>
+        </typ>
+        <exp etag="const" xstr="0">
+         <constant ctag="cint64" ikind="iint" intValue="0"/>
+        </exp>
+       </exp>
+      </exp>
+      <typ ckey="3" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="212"/>
+       <node name="loop"/>
+       <node name="stmt" num="202"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+     <args>
+      <exp etag="caste" name="rmtp" nr="2" xstr="caste (caste (0:(void*)):(struct 3*))">
+       <typ ttag="tptr">
+        <typ ckey="3" ttag="tcomp"/>
+       </typ>
+       <exp etag="caste" xstr="caste (0:(void*))">
+        <typ ttag="tptr">
+         <typ ttag="tvoid"/>
+        </typ>
+        <exp etag="const" xstr="0">
+         <constant ctag="cint64" ikind="iint" intValue="0"/>
+        </exp>
+       </exp>
+      </exp>
+     </args>
+     <precondition name="deref-write-null">
+      <math>
+       <apply>
+        <deref-write-null/>
+        <ci>rmtp</ci>
+        <apply>
+         <index-size/>
+         <cn>1</cn>
+        </apply>
+       </apply>
+      </math>
+     </precondition>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" fname="nanosleep" id="9" name="deref-read" origin="f-pre" p-complexity="0">
+     <location byte="193588" file="src/log.c" line="451"/>
+     <predicate tag="not-null">
+      <exp etag="caste" xstr="caste (addrof (waiter):(struct 3*))">
+       <typ ttag="tptr">
+        <typ ckey="3" ttag="tcomp">
+         <attributes>
+          <attr attrname="const"/>
+         </attributes>
+        </typ>
+       </typ>
+       <exp etag="addrof" xstr="addrof (waiter)">
+        <lval>
+         <lhost>
+          <var vid="6027" vname="waiter"/>
+         </lhost>
+        </lval>
+       </exp>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="212"/>
+       <node name="loop"/>
+       <node name="stmt" num="202"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+     <args>
+      <exp etag="caste" name="rqtp" nr="1" xstr="caste (addrof (waiter):(struct 3*))">
+       <typ ttag="tptr">
+        <typ ckey="3" ttag="tcomp">
+         <attributes>
+          <attr attrname="const"/>
+         </attributes>
+        </typ>
+       </typ>
+       <exp etag="addrof" xstr="addrof (waiter)">
+        <lval>
+         <lhost>
+          <var vid="6027" vname="waiter"/>
+         </lhost>
+        </lval>
+       </exp>
+      </exp>
+     </args>
+     <precondition name="deref-read">
+      <math>
+       <apply>
+        <deref-read/>
+        <ci>rqtp</ci>
+        <apply>
+         <index-size/>
+         <cn>1</cn>
+        </apply>
+       </apply>
+      </math>
+     </precondition>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" fname="nanosleep" id="10" name="deref-read" origin="f-pre" p-complexity="0">
+     <location byte="193588" file="src/log.c" line="451"/>
+     <predicate tag="lower-bound">
+      <exp etag="caste" xstr="caste (addrof (waiter):(struct 3*))">
+       <typ ttag="tptr">
+        <typ ckey="3" ttag="tcomp">
+         <attributes>
+          <attr attrname="const"/>
+         </attributes>
+        </typ>
+       </typ>
+       <exp etag="addrof" xstr="addrof (waiter)">
+        <lval>
+         <lhost>
+          <var vid="6027" vname="waiter"/>
+         </lhost>
+        </lval>
+       </exp>
+      </exp>
+      <typ ckey="3" ttag="tcomp">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="212"/>
+       <node name="loop"/>
+       <node name="stmt" num="202"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+     <args>
+      <exp etag="caste" name="rqtp" nr="1" xstr="caste (addrof (waiter):(struct 3*))">
+       <typ ttag="tptr">
+        <typ ckey="3" ttag="tcomp">
+         <attributes>
+          <attr attrname="const"/>
+         </attributes>
+        </typ>
+       </typ>
+       <exp etag="addrof" xstr="addrof (waiter)">
+        <lval>
+         <lhost>
+          <var vid="6027" vname="waiter"/>
+         </lhost>
+        </lval>
+       </exp>
+      </exp>
+     </args>
+     <precondition name="deref-read">
+      <math>
+       <apply>
+        <deref-read/>
+        <ci>rqtp</ci>
+        <apply>
+         <index-size/>
+         <cn>1</cn>
+        </apply>
+       </apply>
+      </math>
+     </precondition>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" fname="nanosleep" id="11" name="deref-read" origin="f-pre" p-complexity="0">
+     <location byte="193588" file="src/log.c" line="451"/>
+     <predicate tag="upper-bound">
+      <exp etag="caste" xstr="caste (addrof (waiter):(struct 3*))">
+       <typ ttag="tptr">
+        <typ ckey="3" ttag="tcomp">
+         <attributes>
+          <attr attrname="const"/>
+         </attributes>
+        </typ>
+       </typ>
+       <exp etag="addrof" xstr="addrof (waiter)">
+        <lval>
+         <lhost>
+          <var vid="6027" vname="waiter"/>
+         </lhost>
+        </lval>
+       </exp>
+      </exp>
+      <typ ckey="3" ttag="tcomp">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="212"/>
+       <node name="loop"/>
+       <node name="stmt" num="202"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+     <args>
+      <exp etag="caste" name="rqtp" nr="1" xstr="caste (addrof (waiter):(struct 3*))">
+       <typ ttag="tptr">
+        <typ ckey="3" ttag="tcomp">
+         <attributes>
+          <attr attrname="const"/>
+         </attributes>
+        </typ>
+       </typ>
+       <exp etag="addrof" xstr="addrof (waiter)">
+        <lval>
+         <lhost>
+          <var vid="6027" vname="waiter"/>
+         </lhost>
+        </lval>
+       </exp>
+      </exp>
+     </args>
+     <precondition name="deref-read">
+      <math>
+       <apply>
+        <deref-read/>
+        <ci>rqtp</ci>
+        <apply>
+         <index-size/>
+         <cn>1</cn>
+        </apply>
+       </apply>
+      </math>
+     </precondition>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" fname="nanosleep" id="12" name="deref-read" origin="f-pre" p-complexity="5">
+     <location byte="193588" file="src/log.c" line="451"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="caste" xstr="caste (addrof (waiter):(struct 3*))">
+         <typ ttag="tptr">
+          <typ ckey="3" ttag="tcomp">
+           <attributes>
+            <attr attrname="const"/>
+           </attributes>
+          </typ>
+         </typ>
+         <exp etag="addrof" xstr="addrof (waiter)">
+          <lval>
+           <lhost>
+            <var vid="6027" vname="waiter"/>
+           </lhost>
+          </lval>
+         </exp>
+        </mem>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="212"/>
+       <node name="loop"/>
+       <node name="stmt" num="202"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+     <args>
+      <exp etag="caste" name="rqtp" nr="1" xstr="caste (addrof (waiter):(struct 3*))">
+       <typ ttag="tptr">
+        <typ ckey="3" ttag="tcomp">
+         <attributes>
+          <attr attrname="const"/>
+         </attributes>
+        </typ>
+       </typ>
+       <exp etag="addrof" xstr="addrof (waiter)">
+        <lval>
+         <lhost>
+          <var vid="6027" vname="waiter"/>
+         </lhost>
+        </lval>
+       </exp>
+      </exp>
+     </args>
+     <precondition name="deref-read">
+      <math>
+       <apply>
+        <deref-read/>
+        <ci>rqtp</ci>
+        <apply>
+         <index-size/>
+         <cn>1</cn>
+        </apply>
+       </apply>
+      </math>
+     </precondition>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="13" origin="prim-exp" p-complexity="0">
+     <location byte="193588" file="src/log.c" line="451"/>
+     <predicate tag="pointer-cast">
+      <tfrom ckey="3" ttag="tcomp"/>
+      <tto ckey="3" ttag="tcomp">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </tto>
+      <exp etag="addrof" xstr="addrof (waiter)">
+       <lval>
+        <lhost>
+         <var vid="6027" vname="waiter"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="212"/>
+       <node name="loop"/>
+       <node name="stmt" num="202"/>
+      </cfg-context>
+      <exp-context>
+       <node name="arg" num="0"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="14" origin="prim-exp" p-complexity="0">
+     <location byte="193588" file="src/log.c" line="451"/>
+     <predicate tag="valid-mem">
+      <exp etag="caste" xstr="caste (addrof (waiter):(struct 3*))">
+       <typ ttag="tptr">
+        <typ ckey="3" ttag="tcomp">
+         <attributes>
+          <attr attrname="const"/>
+         </attributes>
+        </typ>
+       </typ>
+       <exp etag="addrof" xstr="addrof (waiter)">
+        <lval>
+         <lhost>
+          <var vid="6027" vname="waiter"/>
+         </lhost>
+        </lval>
+       </exp>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="212"/>
+       <node name="loop"/>
+       <node name="stmt" num="202"/>
+      </cfg-context>
+      <exp-context>
+       <node name="arg" num="0"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="15" origin="prim-exp" p-complexity="0">
+     <location byte="193588" file="src/log.c" line="451"/>
+     <predicate tag="lower-bound">
+      <exp etag="caste" xstr="caste (addrof (waiter):(struct 3*))">
+       <typ ttag="tptr">
+        <typ ckey="3" ttag="tcomp">
+         <attributes>
+          <attr attrname="const"/>
+         </attributes>
+        </typ>
+       </typ>
+       <exp etag="addrof" xstr="addrof (waiter)">
+        <lval>
+         <lhost>
+          <var vid="6027" vname="waiter"/>
+         </lhost>
+        </lval>
+       </exp>
+      </exp>
+      <typ ckey="3" ttag="tcomp">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="212"/>
+       <node name="loop"/>
+       <node name="stmt" num="202"/>
+      </cfg-context>
+      <exp-context>
+       <node name="arg" num="0"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="16" origin="prim-exp" p-complexity="0">
+     <location byte="193588" file="src/log.c" line="451"/>
+     <predicate tag="upper-bound">
+      <exp etag="caste" xstr="caste (addrof (waiter):(struct 3*))">
+       <typ ttag="tptr">
+        <typ ckey="3" ttag="tcomp">
+         <attributes>
+          <attr attrname="const"/>
+         </attributes>
+        </typ>
+       </typ>
+       <exp etag="addrof" xstr="addrof (waiter)">
+        <lval>
+         <lhost>
+          <var vid="6027" vname="waiter"/>
+         </lhost>
+        </lval>
+       </exp>
+      </exp>
+      <typ ckey="3" ttag="tcomp">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="212"/>
+       <node name="loop"/>
+       <node name="stmt" num="202"/>
+      </cfg-context>
+      <exp-context>
+       <node name="arg" num="0"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="17" origin="prim-exp" p-complexity="0">
+     <location byte="193588" file="src/log.c" line="451"/>
+     <predicate tag="pointer-cast">
+      <tfrom ttag="tvoid"/>
+      <tto ckey="3" ttag="tcomp"/>
+      <exp etag="caste" xstr="caste (0:(void*))">
+       <typ ttag="tptr">
+        <typ ttag="tvoid"/>
+       </typ>
+       <exp etag="const" xstr="0">
+        <constant ctag="cint64" ikind="iint" intValue="0"/>
+       </exp>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="212"/>
+       <node name="loop"/>
+       <node name="stmt" num="202"/>
+      </cfg-context>
+      <exp-context>
+       <node name="arg" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="18" origin="prim-exp" p-complexity="0">
+     <location byte="193588" file="src/log.c" line="451"/>
+     <predicate tag="cast">
+      <tfrom ikind="iint" ttag="tint"/>
+      <tto ttag="tptr">
+       <typ ttag="tvoid"/>
+      </tto>
+      <exp etag="const" xstr="0">
+       <constant ctag="cint64" ikind="iint" intValue="0"/>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="212"/>
+       <node name="loop"/>
+       <node name="stmt" num="202"/>
+      </cfg-context>
+      <exp-context>
+       <node name="cast"/>
+       <node name="arg" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="19" origin="prim-exp" p-complexity="0">
+     <location byte="193588" file="src/log.c" line="451"/>
+     <predicate tag="valid-mem">
+      <exp etag="caste" xstr="caste (caste (0:(void*)):(struct 3*))">
+       <typ ttag="tptr">
+        <typ ckey="3" ttag="tcomp"/>
+       </typ>
+       <exp etag="caste" xstr="caste (0:(void*))">
+        <typ ttag="tptr">
+         <typ ttag="tvoid"/>
+        </typ>
+        <exp etag="const" xstr="0">
+         <constant ctag="cint64" ikind="iint" intValue="0"/>
+        </exp>
+       </exp>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="212"/>
+       <node name="loop"/>
+       <node name="stmt" num="202"/>
+      </cfg-context>
+      <exp-context>
+       <node name="arg" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="20" origin="prim-exp" p-complexity="0">
+     <location byte="193588" file="src/log.c" line="451"/>
+     <predicate tag="lower-bound">
+      <exp etag="caste" xstr="caste (caste (0:(void*)):(struct 3*))">
+       <typ ttag="tptr">
+        <typ ckey="3" ttag="tcomp"/>
+       </typ>
+       <exp etag="caste" xstr="caste (0:(void*))">
+        <typ ttag="tptr">
+         <typ ttag="tvoid"/>
+        </typ>
+        <exp etag="const" xstr="0">
+         <constant ctag="cint64" ikind="iint" intValue="0"/>
+        </exp>
+       </exp>
+      </exp>
+      <typ ckey="3" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="212"/>
+       <node name="loop"/>
+       <node name="stmt" num="202"/>
+      </cfg-context>
+      <exp-context>
+       <node name="arg" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="21" origin="prim-exp" p-complexity="0">
+     <location byte="193588" file="src/log.c" line="451"/>
+     <predicate tag="upper-bound">
+      <exp etag="caste" xstr="caste (caste (0:(void*)):(struct 3*))">
+       <typ ttag="tptr">
+        <typ ckey="3" ttag="tcomp"/>
+       </typ>
+       <exp etag="caste" xstr="caste (0:(void*))">
+        <typ ttag="tptr">
+         <typ ttag="tvoid"/>
+        </typ>
+        <exp etag="const" xstr="0">
+         <constant ctag="cint64" ikind="iint" intValue="0"/>
+        </exp>
+       </exp>
+      </exp>
+      <typ ckey="3" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="212"/>
+       <node name="loop"/>
+       <node name="stmt" num="202"/>
+      </cfg-context>
+      <exp-context>
+       <node name="arg" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+   </primary-proof-obligations>
+  </function>
+  <header time="01/09/2017 21:38:38">
+   <application file="src/log.xml" name="application"/>
+  </header>
+ </c-analysis>

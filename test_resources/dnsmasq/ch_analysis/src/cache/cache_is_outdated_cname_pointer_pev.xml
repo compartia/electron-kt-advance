@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <log>
+   <log-entry time="01/10/2017 06:52:37"/>
+   <log-entry time="01/10/2017 05:29:25"/>
+   <log-entry time="01/10/2017 05:18:09"/>
+   <log-entry time="01/10/2017 04:56:06"/>
+   <log-entry time="01/10/2017 04:32:24"/>
+   <log-entry time="01/10/2017 03:39:03"/>
+   <log-entry time="01/10/2017 02:50:40"/>
+   <log-entry time="01/09/2017 22:49:46"/>
+   <log-entry delta-checkvalid="20" delta-invariant="22" delta-lifted="14" time="01/09/2017 22:03:43"/>
+  </log>
+  <function name="is_outdated_cname_pointer">
+   <statistics checkvalid="20" invariant="22" invariant_with_api="14" total="56" total-proven="56"/>
+   <open-proof-obligations/>
+   <proof-obligations-discharged>
+    <discharged id="1" method="check-valid" time="01/09/2017 22:03:43" type="cast">
+     <evidence comment="casting from unsigned short to unsigned int is safe"/>
+    </discharged>
+    <discharged domain="linear equalities" id="2" method="invariants" time="01/09/2017 22:03:43" type="initialized">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="6" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged id="3" method="check-valid" time="01/09/2017 22:03:43" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged domain="linear equalities" id="4" method="invariants" time="01/09/2017 22:03:43" type="not-null">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="1" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="symbolic sets" id="5" method="invariants" time="01/09/2017 22:03:43" type="valid-mem">
+     <evidence comment="external address provided by parameter still points to valid memory"/>
+    </discharged>
+    <discharged domain="valuesets" id="6" method="invariants" time="01/09/2017 22:03:43" type="lower-bound">
+     <evidence comment="non-negative offset from base value: crecp"/>
+    </discharged>
+    <discharged domain="valuesets" id="7" method="invariants" time="01/09/2017 22:03:43" type="upper-bound">
+     <evidence comment="externally provided address; dereferencability is checked as part of precondition"/>
+    </discharged>
+    <discharged id="8" method="check-valid" time="01/09/2017 22:03:43" type="non-negative">
+     <evidence comment="value is 11"/>
+    </discharged>
+    <discharged id="9" method="check-valid" time="01/09/2017 22:03:43" type="width-overflow">
+     <evidence comment="value 11 is less than minimum word size (16"/>
+    </discharged>
+    <discharged domain="linear equalities" id="10" method="invariants" time="01/09/2017 22:03:43" type="initialized">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="3" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged id="11" method="check-valid" time="01/09/2017 22:03:43" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged domain="linear equalities" id="12" method="invariants" time="01/09/2017 22:03:43" type="not-null">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="1" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="symbolic sets" id="13" method="invariants" time="01/09/2017 22:03:43" type="valid-mem">
+     <evidence comment="external address provided by parameter still points to valid memory"/>
+    </discharged>
+    <discharged domain="valuesets" id="14" method="invariants" time="01/09/2017 22:03:43" type="lower-bound">
+     <evidence comment="non-negative offset from base value: crecp"/>
+    </discharged>
+    <discharged domain="valuesets" id="15" method="invariants" time="01/09/2017 22:03:43" type="upper-bound">
+     <evidence comment="externally provided address; dereferencability is checked as part of precondition"/>
+    </discharged>
+    <discharged domain="linear equalities" id="16" method="invariants" time="01/09/2017 22:03:43" type="initialized">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="4" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged id="17" method="check-valid" time="01/09/2017 22:03:43" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged domain="linear equalities" id="18" method="invariants" time="01/09/2017 22:03:43" type="not-null">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="1" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="symbolic sets" id="19" method="invariants" time="01/09/2017 22:03:43" type="valid-mem">
+     <evidence comment="external address provided by parameter still points to valid memory"/>
+    </discharged>
+    <discharged domain="valuesets" id="20" method="invariants" time="01/09/2017 22:03:43" type="lower-bound">
+     <evidence comment="non-negative offset from base value: crecp"/>
+    </discharged>
+    <discharged domain="valuesets" id="21" method="invariants" time="01/09/2017 22:03:43" type="upper-bound">
+     <evidence comment="externally provided address; dereferencability is checked as part of precondition"/>
+    </discharged>
+    <discharged id="22" method="check-valid" time="01/09/2017 22:03:43" type="cast">
+     <evidence comment="casting from unsigned short to unsigned int is safe"/>
+    </discharged>
+    <discharged domain="linear equalities" id="23" method="invariants" time="01/09/2017 22:03:43" type="initialized">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="2" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="linear equalities" id="24" method="invariants" time="01/09/2017 22:03:43" type="initialized">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="4" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged id="25" method="check-valid" time="01/09/2017 22:03:43" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged domain="linear equalities" id="26" method="invariants" time="01/09/2017 22:03:43" type="not-null">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="1" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="symbolic sets" id="27" method="invariants" time="01/09/2017 22:03:43" type="valid-mem">
+     <evidence comment="external address provided by parameter still points to valid memory"/>
+    </discharged>
+    <discharged domain="valuesets" id="28" method="invariants" time="01/09/2017 22:03:43" type="lower-bound">
+     <evidence comment="non-negative offset from base value: crecp"/>
+    </discharged>
+    <discharged domain="valuesets" id="29" method="invariants" time="01/09/2017 22:03:43" type="upper-bound">
+     <evidence comment="externally provided address; dereferencability is checked as part of precondition"/>
+    </discharged>
+    <discharged domain="intervals" id="30" method="invariants" time="01/09/2017 22:03:43" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="31" method="invariants" time="01/09/2017 22:03:43" type="valid-mem">
+     <evidence comment="external address provided by parameter still points to valid memory"/>
+    </discharged>
+    <discharged id="32" method="check-valid" time="01/09/2017 22:03:43" type="lower-bound">
+     <evidence comment="field cache (199) is assigned a value with a valid lower bound by inductive hypothesis (checked at assignment)"/>
+    </discharged>
+    <discharged id="33" method="check-valid" time="01/09/2017 22:03:43" type="upper-bound">
+     <evidence comment="field cache (199) is assigned a value with a valid upper bound by inductive hypothesis (checked at assignment)"/>
+    </discharged>
+    <discharged id="34" method="check-valid" time="01/09/2017 22:03:43" type="non-negative">
+     <evidence comment="value is 7"/>
+    </discharged>
+    <discharged id="35" method="check-valid" time="01/09/2017 22:03:43" type="width-overflow">
+     <evidence comment="value 7 is less than minimum word size (16"/>
+    </discharged>
+    <discharged id="36" method="check-valid" time="01/09/2017 22:03:43" type="non-negative">
+     <evidence comment="value is 8"/>
+    </discharged>
+    <discharged id="37" method="check-valid" time="01/09/2017 22:03:43" type="width-overflow">
+     <evidence comment="value 8 is less than minimum word size (16"/>
+    </discharged>
+    <discharged id="38" method="check-valid" time="01/09/2017 22:03:43" type="non-negative">
+     <evidence comment="value is 11"/>
+    </discharged>
+    <discharged id="39" method="check-valid" time="01/09/2017 22:03:43" type="width-overflow">
+     <evidence comment="value 11 is less than minimum word size (16"/>
+    </discharged>
+    <discharged domain="linear equalities" id="40" method="invariants" time="01/09/2017 22:03:43" type="initialized">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="3" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged id="41" method="check-valid" time="01/09/2017 22:03:43" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged domain="linear equalities" id="42" method="invariants" time="01/09/2017 22:03:43" type="not-null">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="1" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="symbolic sets" id="43" method="invariants" time="01/09/2017 22:03:43" type="valid-mem">
+     <evidence comment="external address provided by parameter still points to valid memory"/>
+    </discharged>
+    <discharged domain="valuesets" id="44" method="invariants" time="01/09/2017 22:03:43" type="lower-bound">
+     <evidence comment="non-negative offset from base value: crecp"/>
+    </discharged>
+    <discharged domain="valuesets" id="45" method="invariants" time="01/09/2017 22:03:43" type="upper-bound">
+     <evidence comment="externally provided address; dereferencability is checked as part of precondition"/>
+    </discharged>
+    <discharged domain="linear equalities" id="46" method="invariants" time="01/09/2017 22:03:43" type="initialized">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="5" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="linear equalities" id="47" method="invariants" time="01/09/2017 22:03:43" type="initialized">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="4" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged id="48" method="check-valid" time="01/09/2017 22:03:43" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged domain="linear equalities" id="49" method="invariants" time="01/09/2017 22:03:43" type="not-null">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="1" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="symbolic sets" id="50" method="invariants" time="01/09/2017 22:03:43" type="valid-mem">
+     <evidence comment="external address provided by parameter still points to valid memory"/>
+    </discharged>
+    <discharged domain="valuesets" id="51" method="invariants" time="01/09/2017 22:03:43" type="lower-bound">
+     <evidence comment="non-negative offset from base value: crecp"/>
+    </discharged>
+    <discharged domain="valuesets" id="52" method="invariants" time="01/09/2017 22:03:43" type="upper-bound">
+     <evidence comment="externally provided address; dereferencability is checked as part of precondition"/>
+    </discharged>
+    <discharged domain="intervals" id="53" method="invariants" time="01/09/2017 22:03:43" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="54" method="invariants" time="01/09/2017 22:03:43" type="valid-mem">
+     <evidence comment="external address provided by parameter still points to valid memory"/>
+    </discharged>
+    <discharged id="55" method="check-valid" time="01/09/2017 22:03:43" type="lower-bound">
+     <evidence comment="field cache (199) is assigned a value with a valid lower bound by inductive hypothesis (checked at assignment)"/>
+    </discharged>
+    <discharged id="56" method="check-valid" time="01/09/2017 22:03:43" type="upper-bound">
+     <evidence comment="field cache (199) is assigned a value with a valid upper bound by inductive hypothesis (checked at assignment)"/>
+    </discharged>
+   </proof-obligations-discharged>
+  </function>
+  <header time="01/10/2017 06:52:37">
+   <application file="src//cache.c" name="application"/>
+  </header>
+ </c-analysis>

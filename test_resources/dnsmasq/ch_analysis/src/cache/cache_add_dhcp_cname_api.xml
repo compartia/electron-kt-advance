@@ -1,0 +1,1164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function cfilename="src/cache.c" gvid="48" name="add_dhcp_cname" num-ppo="0">
+   <statistics api-assumptions="15" callers="2" ds-assumptions="0" field-assignments="6" global-assignments="1" global-assumptions="7" rv-assumptions="10"/>
+   <parameters>
+    <param formal-vid="6246" index="1" vname="target"/>
+    <param formal-vid="6247" index="2" vname="ttd"/>
+   </parameters>
+   <callers>
+    <caller cfilename="src/cache.c" fname="add_dhcp_cname" gvid="48" updated="01/09/2017 21:38:34" updated-f="1483997914.72">
+     <call-site byte="210068" file="src/cache.c" line="1202"/>
+     <args>
+      <arg/>
+      <arg/>
+     </args>
+     <calling-context>
+      <node name="instr" num="5"/>
+      <node name="stmt" num="610"/>
+      <node name="if-then"/>
+      <node name="stmt" num="605"/>
+      <node name="if-then"/>
+      <node name="stmt" num="600"/>
+      <node name="if-then"/>
+      <node name="stmt" num="598"/>
+      <node name="loop"/>
+      <node name="stmt" num="595"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/cache.c" fname="cache_add_dhcp_entry" gvid="47" updated="01/09/2017 21:38:34" updated-f="1483997914.69">
+     <call-site byte="212207" file="src/cache.c" line="1291"/>
+     <args>
+      <arg/>
+      <arg/>
+     </args>
+     <calling-context>
+      <node name="instr" num="4"/>
+      <node name="stmt" num="650"/>
+      <node name="if-then"/>
+      <node name="stmt" num="645"/>
+     </calling-context>
+    </caller>
+   </callers>
+   <api-assumptions>
+    <api-assumption nr="1">
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="target">
+       <lval>
+        <lhost>
+         <var vid="6246" vname="target"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="125"/>
+      <po id="157"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </api-assumption>
+    <api-assumption nr="2">
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="target-&gt;name.bname">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="target">
+          <lval>
+           <lhost>
+            <var vid="6246" vname="target"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <field ckey="67" fname="bname"/>
+         </offset>
+         <field ckey="66" fname="name"/>
+        </offset>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="156"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </api-assumption>
+    <api-assumption nr="3">
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="target">
+         <lval>
+          <lhost>
+           <var vid="6246" vname="target"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <offset>
+         <field ckey="67" fname="namep"/>
+        </offset>
+        <field ckey="66" fname="name"/>
+       </offset>
+      </lval>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="158"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </api-assumption>
+    <api-assumption nr="4">
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="target">
+         <lval>
+          <lhost>
+           <var vid="6246" vname="target"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <offset>
+         <field ckey="67" fname="bname"/>
+        </offset>
+        <field ckey="66" fname="name"/>
+       </offset>
+      </lval>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="159"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </api-assumption>
+    <api-assumption nr="5">
+     <predicate tag="global-mem">
+      <exp etag="lval" xstr="target-&gt;name.namep">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="target">
+          <lval>
+           <lhost>
+            <var vid="6246" vname="target"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <field ckey="67" fname="namep"/>
+         </offset>
+         <field ckey="66" fname="name"/>
+        </offset>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="160"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </api-assumption>
+    <api-assumption nr="6">
+     <predicate tag="global-mem">
+      <exp etag="lval" xstr="target-&gt;name.bname">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="target">
+          <lval>
+           <lhost>
+            <var vid="6246" vname="target"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <field ckey="67" fname="bname"/>
+         </offset>
+         <field ckey="66" fname="name"/>
+        </offset>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="161"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </api-assumption>
+    <api-assumption nr="7">
+     <predicate tag="global-mem">
+      <exp etag="lval" xstr="target">
+       <lval>
+        <lhost>
+         <var vid="6246" vname="target"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="155"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </api-assumption>
+    <api-assumption nr="8">
+     <predicate op="pluspi" tag="ptr-upper-bound">
+      <typ ikind="ichar" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+      <exp1 etag="lval" xstr="target">
+       <lval>
+        <lhost>
+         <var vid="6246" vname="target"/>
+        </lhost>
+       </lval>
+      </exp1>
+      <exp2 etag="const" xstr="256">
+       <constant ctag="cint64" ikind="iint" intValue="256"/>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="166"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </api-assumption>
+    <api-assumption nr="9">
+     <predicate op="pluspi" tag="ptr-upper-bound">
+      <typ ikind="ichar" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+      <exp1 etag="lval" xstr="target-&gt;name.namep">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="target">
+          <lval>
+           <lhost>
+            <var vid="6246" vname="target"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <field ckey="67" fname="namep"/>
+         </offset>
+         <field ckey="66" fname="name"/>
+        </offset>
+       </lval>
+      </exp1>
+      <exp2 cn="null-terminator-pos" etag="cnapp" xstr="null-terminator-pos[caste (target-&gt;name.namep:(char*))]">
+       <arg etag="caste" xstr="caste (target-&gt;name.namep:(char*))">
+        <typ ttag="tptr">
+         <typ ikind="ichar" ttag="tint">
+          <attributes>
+           <attr attrname="const"/>
+          </attributes>
+         </typ>
+        </typ>
+        <exp etag="lval" xstr="target-&gt;name.namep">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="target">
+            <lval>
+             <lhost>
+              <var vid="6246" vname="target"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <offset>
+            <field ckey="67" fname="namep"/>
+           </offset>
+           <field ckey="66" fname="name"/>
+          </offset>
+         </lval>
+        </exp>
+       </arg>
+       <typ ikind="iint" ttag="tint"/>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="164"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </api-assumption>
+    <api-assumption nr="10">
+     <predicate op="pluspi" tag="ptr-upper-bound">
+      <typ ikind="ichar" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+      <exp1 etag="lval" xstr="target-&gt;name.namep">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="target">
+          <lval>
+           <lhost>
+            <var vid="6246" vname="target"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <field ckey="67" fname="namep"/>
+         </offset>
+         <field ckey="66" fname="name"/>
+        </offset>
+       </lval>
+      </exp1>
+      <exp2 etag="const" xstr="256">
+       <constant ctag="cint64" ikind="iint" intValue="256"/>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="163"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </api-assumption>
+    <api-assumption nr="11">
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="target-&gt;name.namep">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="target">
+          <lval>
+           <lhost>
+            <var vid="6246" vname="target"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <field ckey="67" fname="namep"/>
+         </offset>
+         <field ckey="66" fname="name"/>
+        </offset>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="162"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </api-assumption>
+    <api-assumption nr="12">
+     <predicate op="pluspi" tag="ptr-upper-bound">
+      <typ ikind="ichar" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+      <exp1 etag="lval" xstr="target-&gt;name.bname">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="target">
+          <lval>
+           <lhost>
+            <var vid="6246" vname="target"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <field ckey="67" fname="bname"/>
+         </offset>
+         <field ckey="66" fname="name"/>
+        </offset>
+       </lval>
+      </exp1>
+      <exp2 etag="const" xstr="256">
+       <constant ctag="cint64" ikind="iint" intValue="256"/>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="165"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </api-assumption>
+    <api-assumption nr="13">
+     <predicate op="pluspi" tag="ptr-upper-bound-deref">
+      <typ ikind="ichar" ttag="tint"/>
+      <exp1 etag="lval" xstr="target-&gt;name.namep">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="target">
+          <lval>
+           <lhost>
+            <var vid="6246" vname="target"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <field ckey="67" fname="namep"/>
+         </offset>
+         <field ckey="66" fname="name"/>
+        </offset>
+       </lval>
+      </exp1>
+      <exp2 etag="const" xstr="1024">
+       <constant ctag="cint64" ikind="iint" intValue="1024"/>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="191"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </api-assumption>
+    <api-assumption nr="14">
+     <predicate op="pluspi" tag="ptr-upper-bound-deref">
+      <typ ikind="ichar" ttag="tint"/>
+      <exp1 etag="lval" xstr="target-&gt;name.bname">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="target">
+          <lval>
+           <lhost>
+            <var vid="6246" vname="target"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <field ckey="67" fname="bname"/>
+         </offset>
+         <field ckey="66" fname="name"/>
+        </offset>
+       </lval>
+      </exp1>
+      <exp2 etag="const" xstr="1024">
+       <constant ctag="cint64" ikind="iint" intValue="1024"/>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="190"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </api-assumption>
+    <api-assumption nr="15">
+     <predicate op="pluspi" tag="ptr-upper-bound-deref">
+      <typ ikind="ichar" ttag="tint"/>
+      <exp1 etag="lval" xstr="target">
+       <lval>
+        <lhost>
+         <var vid="6246" vname="target"/>
+        </lhost>
+       </lval>
+      </exp1>
+      <exp2 etag="const" xstr="1024">
+       <constant ctag="cint64" ikind="iint" intValue="1024"/>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="192"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </api-assumption>
+   </api-assumptions>
+   <rv-assumptions>
+    <rv-assumption nr="1">
+     <predicate tag="pointer-cast">
+      <tfrom ttag="tvoid"/>
+      <tto ckey="66" ttag="tcomp"/>
+      <exp byte="209658" etag="fnapp" file="src/cache.c" line="1188" xstr="fn(whine_malloc)@ 1188[sizeof (struct 66)]">
+       <arg etag="sizeof" xstr="sizeof (struct 66)">
+        <typ ckey="66" ttag="tcomp"/>
+       </arg>
+       <fn etag="lval" xstr="whine_malloc">
+        <lval>
+         <lhost>
+          <var vid="5" vname="whine_malloc"/>
+         </lhost>
+        </lval>
+       </fn>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="55"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </rv-assumption>
+    <rv-assumption communicated="yes" nr="2">
+     <predicate tag="not-null">
+      <exp byte="209499" etag="fnapp" file="src/cache.c" line="1182" xstr="fn(cache_get_name)@ 1182[_]">
+       <arg/>
+       <fn etag="lval" xstr="cache_get_name">
+        <lval>
+         <lhost>
+          <var vid="30" vname="cache_get_name"/>
+         </lhost>
+        </lval>
+       </fn>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="153"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </rv-assumption>
+    <rv-assumption nr="3">
+     <predicate tag="global-mem">
+      <exp byte="209658" etag="fnapp" file="src/cache.c" line="1188" xstr="fn(whine_malloc)@ 1188[sizeof (struct 66)]">
+       <arg etag="sizeof" xstr="sizeof (struct 66)">
+        <typ ckey="66" ttag="tcomp"/>
+       </arg>
+       <fn etag="lval" xstr="whine_malloc">
+        <lval>
+         <lhost>
+          <var vid="5" vname="whine_malloc"/>
+         </lhost>
+        </lval>
+       </fn>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="173"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </rv-assumption>
+    <rv-assumption nr="4">
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="*(fn(lval (whine_malloc))@ 1188[sizeof (struct 66)]).name.bname">
+       <lval>
+        <lhost>
+         <mem byte="209658" etag="fnapp" file="src/cache.c" line="1188" xstr="fn(whine_malloc)@ 1188[sizeof (struct 66)]">
+          <arg etag="sizeof" xstr="sizeof (struct 66)">
+           <typ ckey="66" ttag="tcomp"/>
+          </arg>
+          <fn etag="lval" xstr="whine_malloc">
+           <lval>
+            <lhost>
+             <var vid="5" vname="whine_malloc"/>
+            </lhost>
+           </lval>
+          </fn>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <field ckey="67" fname="bname"/>
+         </offset>
+         <field ckey="66" fname="name"/>
+        </offset>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="168"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </rv-assumption>
+    <rv-assumption nr="5">
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem byte="209658" etag="fnapp" file="src/cache.c" line="1188" xstr="fn(whine_malloc)@ 1188[sizeof (struct 66)]">
+         <arg etag="sizeof" xstr="sizeof (struct 66)">
+          <typ ckey="66" ttag="tcomp"/>
+         </arg>
+         <fn etag="lval" xstr="whine_malloc">
+          <lval>
+           <lhost>
+            <var vid="5" vname="whine_malloc"/>
+           </lhost>
+          </lval>
+         </fn>
+        </mem>
+       </lhost>
+       <offset>
+        <offset>
+         <field ckey="67" fname="bname"/>
+        </offset>
+        <field ckey="66" fname="name"/>
+       </offset>
+      </lval>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="169"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </rv-assumption>
+    <rv-assumption nr="6">
+     <predicate tag="global-mem">
+      <exp etag="lval" xstr="*(fn(lval (whine_malloc))@ 1188[sizeof (struct 66)]).name.bname">
+       <lval>
+        <lhost>
+         <mem byte="209658" etag="fnapp" file="src/cache.c" line="1188" xstr="fn(whine_malloc)@ 1188[sizeof (struct 66)]">
+          <arg etag="sizeof" xstr="sizeof (struct 66)">
+           <typ ckey="66" ttag="tcomp"/>
+          </arg>
+          <fn etag="lval" xstr="whine_malloc">
+           <lval>
+            <lhost>
+             <var vid="5" vname="whine_malloc"/>
+            </lhost>
+           </lval>
+          </fn>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <field ckey="67" fname="bname"/>
+         </offset>
+         <field ckey="66" fname="name"/>
+        </offset>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="167"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </rv-assumption>
+    <rv-assumption nr="7">
+     <predicate op="pluspi" tag="ptr-upper-bound">
+      <typ ikind="ichar" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+      <exp1 byte="209658" etag="fnapp" file="src/cache.c" line="1188" xstr="fn(whine_malloc)@ 1188[sizeof (struct 66)]">
+       <arg etag="sizeof" xstr="sizeof (struct 66)">
+        <typ ckey="66" ttag="tcomp"/>
+       </arg>
+       <fn etag="lval" xstr="whine_malloc">
+        <lval>
+         <lhost>
+          <var vid="5" vname="whine_malloc"/>
+         </lhost>
+        </lval>
+       </fn>
+      </exp1>
+      <exp2 etag="const" xstr="256">
+       <constant ctag="cint64" ikind="iint" intValue="256"/>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="188"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </rv-assumption>
+    <rv-assumption nr="8">
+     <predicate op="pluspi" tag="ptr-upper-bound">
+      <typ ikind="ichar" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+      <exp1 etag="lval" xstr="*(fn(lval (whine_malloc))@ 1188[sizeof (struct 66)]).name.bname">
+       <lval>
+        <lhost>
+         <mem byte="209658" etag="fnapp" file="src/cache.c" line="1188" xstr="fn(whine_malloc)@ 1188[sizeof (struct 66)]">
+          <arg etag="sizeof" xstr="sizeof (struct 66)">
+           <typ ckey="66" ttag="tcomp"/>
+          </arg>
+          <fn etag="lval" xstr="whine_malloc">
+           <lval>
+            <lhost>
+             <var vid="5" vname="whine_malloc"/>
+            </lhost>
+           </lval>
+          </fn>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <field ckey="67" fname="bname"/>
+         </offset>
+         <field ckey="66" fname="name"/>
+        </offset>
+       </lval>
+      </exp1>
+      <exp2 etag="const" xstr="256">
+       <constant ctag="cint64" ikind="iint" intValue="256"/>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="187"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </rv-assumption>
+    <rv-assumption nr="9">
+     <predicate op="pluspi" tag="ptr-upper-bound-deref">
+      <typ ikind="ichar" ttag="tint"/>
+      <exp1 etag="lval" xstr="*(fn(lval (whine_malloc))@ 1188[sizeof (struct 66)]).name.bname">
+       <lval>
+        <lhost>
+         <mem byte="209658" etag="fnapp" file="src/cache.c" line="1188" xstr="fn(whine_malloc)@ 1188[sizeof (struct 66)]">
+          <arg etag="sizeof" xstr="sizeof (struct 66)">
+           <typ ckey="66" ttag="tcomp"/>
+          </arg>
+          <fn etag="lval" xstr="whine_malloc">
+           <lval>
+            <lhost>
+             <var vid="5" vname="whine_malloc"/>
+            </lhost>
+           </lval>
+          </fn>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <field ckey="67" fname="bname"/>
+         </offset>
+         <field ckey="66" fname="name"/>
+        </offset>
+       </lval>
+      </exp1>
+      <exp2 etag="const" xstr="1024">
+       <constant ctag="cint64" ikind="iint" intValue="1024"/>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="197"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </rv-assumption>
+    <rv-assumption nr="10">
+     <predicate op="pluspi" tag="ptr-upper-bound-deref">
+      <typ ikind="ichar" ttag="tint"/>
+      <exp1 byte="209658" etag="fnapp" file="src/cache.c" line="1188" xstr="fn(whine_malloc)@ 1188[sizeof (struct 66)]">
+       <arg etag="sizeof" xstr="sizeof (struct 66)">
+        <typ ckey="66" ttag="tcomp"/>
+       </arg>
+       <fn etag="lval" xstr="whine_malloc">
+        <lval>
+         <lhost>
+          <var vid="5" vname="whine_malloc"/>
+         </lhost>
+        </lval>
+       </fn>
+      </exp1>
+      <exp2 etag="const" xstr="1024">
+       <constant ctag="cint64" ikind="iint" intValue="1024"/>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="198"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </rv-assumption>
+   </rv-assumptions>
+   <ds-assumptions/>
+   <global-assumptions>
+    <global-assumption nr="1">
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="dhcp_spare">
+       <lval>
+        <lhost>
+         <var vid="106" vname="dhcp_spare"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="49"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="2">
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="dnsmasq_daemon">
+       <lval>
+        <lhost>
+         <var vid="317" vname="dnsmasq_daemon"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="4"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="3">
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="dhcp_spare-&gt;next">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="dhcp_spare">
+          <lval>
+           <lhost>
+            <var vid="106" vname="dhcp_spare"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <field ckey="66" fname="next"/>
+        </offset>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="54"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="4">
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="dnsmasq_daemon">
+         <lval>
+          <lhost>
+           <var vid="317" vname="dnsmasq_daemon"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <field ckey="6" fname="cnames"/>
+       </offset>
+      </lval>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="1"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="5">
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="dnsmasq_daemon">
+       <lval>
+        <lhost>
+         <var vid="317" vname="dnsmasq_daemon"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="3"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="6">
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="dhcp_spare">
+       <lval>
+        <lhost>
+         <var vid="106" vname="dhcp_spare"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="48"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="7">
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="dhcp_spare">
+         <lval>
+          <lhost>
+           <var vid="106" vname="dhcp_spare"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <field ckey="66" fname="next"/>
+       </offset>
+      </lval>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="46"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+   </global-assumptions>
+   <global-assignments>
+    <global-assignment nr="1">
+     <lhs>
+      <lhost>
+       <var vid="106" vname="dhcp_spare"/>
+      </lhost>
+     </lhs>
+     <rhs etag="lval" xstr="dhcp_spare-&gt;next">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="dhcp_spare">
+         <lval>
+          <lhost>
+           <var vid="106" vname="dhcp_spare"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <field ckey="66" fname="next"/>
+       </offset>
+      </lval>
+     </rhs>
+     <loc byte="209618" file="src/cache.c" line="1186"/>
+    </global-assignment>
+   </global-assignments>
+   <field-assignments>
+    <field-assignment ckey="66" field="flags" nr="1">
+     <rhs etag="caste" xstr="caste (((((((((((1 &lt;&lt; 3):unsigned int | ((1 &lt;&lt; 1):unsigned int):unsigned int | ((1 &lt;&lt; 4):unsigned int):unsigned int | ((1 &lt;&lt; 11):unsigned int):unsigned int | ((1 &lt;&lt; 13):unsigned int):unsigned int:unsigned short)">
+      <typ ikind="iushort" ttag="tint"/>
+      <exp binop="bor" etag="binop" xstr="((((((((((1 &lt;&lt; 3):unsigned int | ((1 &lt;&lt; 1):unsigned int):unsigned int | ((1 &lt;&lt; 4):unsigned int):unsigned int | ((1 &lt;&lt; 11):unsigned int):unsigned int | ((1 &lt;&lt; 13):unsigned int):unsigned int">
+       <exp1 binop="bor" etag="binop" xstr="((((((((1 &lt;&lt; 3):unsigned int | ((1 &lt;&lt; 1):unsigned int):unsigned int | ((1 &lt;&lt; 4):unsigned int):unsigned int | ((1 &lt;&lt; 11):unsigned int):unsigned int">
+        <exp1 binop="bor" etag="binop" xstr="((((((1 &lt;&lt; 3):unsigned int | ((1 &lt;&lt; 1):unsigned int):unsigned int | ((1 &lt;&lt; 4):unsigned int):unsigned int">
+         <exp1 binop="bor" etag="binop" xstr="((((1 &lt;&lt; 3):unsigned int | ((1 &lt;&lt; 1):unsigned int):unsigned int">
+          <exp1 binop="shiftlt" etag="binop" xstr="((1 &lt;&lt; 3):unsigned int">
+           <exp1 etag="const" xstr="1">
+            <constant ctag="cint64" ikind="iuint" intValue="1"/>
+           </exp1>
+           <exp2 etag="const" xstr="3">
+            <constant ctag="cint64" ikind="iint" intValue="3"/>
+           </exp2>
+           <typ ikind="iuint" ttag="tint"/>
+          </exp1>
+          <exp2 binop="shiftlt" etag="binop" xstr="((1 &lt;&lt; 1):unsigned int">
+           <exp1 etag="const" xstr="1">
+            <constant ctag="cint64" ikind="iuint" intValue="1"/>
+           </exp1>
+           <exp2 etag="const" xstr="1">
+            <constant ctag="cint64" ikind="iint" intValue="1"/>
+           </exp2>
+           <typ ikind="iuint" ttag="tint"/>
+          </exp2>
+          <typ ikind="iuint" ttag="tint"/>
+         </exp1>
+         <exp2 binop="shiftlt" etag="binop" xstr="((1 &lt;&lt; 4):unsigned int">
+          <exp1 etag="const" xstr="1">
+           <constant ctag="cint64" ikind="iuint" intValue="1"/>
+          </exp1>
+          <exp2 etag="const" xstr="4">
+           <constant ctag="cint64" ikind="iint" intValue="4"/>
+          </exp2>
+          <typ ikind="iuint" ttag="tint"/>
+         </exp2>
+         <typ ikind="iuint" ttag="tint"/>
+        </exp1>
+        <exp2 binop="shiftlt" etag="binop" xstr="((1 &lt;&lt; 11):unsigned int">
+         <exp1 etag="const" xstr="1">
+          <constant ctag="cint64" ikind="iuint" intValue="1"/>
+         </exp1>
+         <exp2 etag="const" xstr="11">
+          <constant ctag="cint64" ikind="iint" intValue="11"/>
+         </exp2>
+         <typ ikind="iuint" ttag="tint"/>
+        </exp2>
+        <typ ikind="iuint" ttag="tint"/>
+       </exp1>
+       <exp2 binop="shiftlt" etag="binop" xstr="((1 &lt;&lt; 13):unsigned int">
+        <exp1 etag="const" xstr="1">
+         <constant ctag="cint64" ikind="iuint" intValue="1"/>
+        </exp1>
+        <exp2 etag="const" xstr="13">
+         <constant ctag="cint64" ikind="iint" intValue="13"/>
+        </exp2>
+        <typ ikind="iuint" ttag="tint"/>
+       </exp2>
+       <typ ikind="iuint" ttag="tint"/>
+      </exp>
+     </rhs>
+     <loc byte="209726" file="src/cache.c" line="1192"/>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="606"/>
+       <node name="if-then"/>
+       <node name="stmt" num="605"/>
+       <node name="if-then"/>
+       <node name="stmt" num="600"/>
+       <node name="if-then"/>
+       <node name="stmt" num="598"/>
+       <node name="loop"/>
+       <node name="stmt" num="595"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </field-assignment>
+    <field-assignment ckey="67" field="namep" nr="4">
+     <rhs etag="lval" xstr="a-&gt;alias">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="a">
+         <lval>
+          <lhost>
+           <var vid="6249" vname="a"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <field ckey="186" fname="alias"/>
+       </offset>
+      </lval>
+     </rhs>
+     <loc byte="209886" file="src/cache.c" line="1197"/>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="610"/>
+       <node name="if-then"/>
+       <node name="stmt" num="605"/>
+       <node name="if-then"/>
+       <node name="stmt" num="600"/>
+       <node name="if-then"/>
+       <node name="stmt" num="598"/>
+       <node name="loop"/>
+       <node name="stmt" num="595"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </field-assignment>
+    <field-assignment ckey="72" field="cache" nr="5">
+     <rhs etag="lval" xstr="target">
+      <lval>
+       <lhost>
+        <var vid="6246" vname="target"/>
+       </lhost>
+      </lval>
+     </rhs>
+     <loc byte="209922" file="src/cache.c" line="1198"/>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="610"/>
+       <node name="if-then"/>
+       <node name="stmt" num="605"/>
+       <node name="if-then"/>
+       <node name="stmt" num="600"/>
+       <node name="if-then"/>
+       <node name="stmt" num="598"/>
+       <node name="loop"/>
+       <node name="stmt" num="595"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </field-assignment>
+    <field-assignment ckey="66" field="ttd" nr="3">
+     <rhs etag="lval" xstr="ttd">
+      <lval>
+       <lhost>
+        <var vid="6247" vname="ttd"/>
+       </lhost>
+      </lval>
+     </rhs>
+     <loc byte="209862" file="src/cache.c" line="1196"/>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="609"/>
+       <node name="if-else"/>
+       <node name="stmt" num="607"/>
+       <node name="if-then"/>
+       <node name="stmt" num="605"/>
+       <node name="if-then"/>
+       <node name="stmt" num="600"/>
+       <node name="if-then"/>
+       <node name="stmt" num="598"/>
+       <node name="loop"/>
+       <node name="stmt" num="595"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </field-assignment>
+    <field-assignment ckey="66" field="flags" nr="2">
+     <rhs etag="caste" xstr="caste (((caste (aliasc-&gt;flags:unsigned int) | 1):unsigned int:unsigned short)">
+      <typ ikind="iushort" ttag="tint"/>
+      <exp binop="bor" etag="binop" xstr="((caste (aliasc-&gt;flags:unsigned int) | 1):unsigned int">
+       <exp1 etag="caste" xstr="caste (aliasc-&gt;flags:unsigned int)">
+        <typ ikind="iuint" ttag="tint"/>
+        <exp etag="lval" xstr="aliasc-&gt;flags">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="aliasc">
+            <lval>
+             <lhost>
+              <var vid="6248" vname="aliasc"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <field ckey="196" fname="flags"/>
+          </offset>
+         </lval>
+        </exp>
+       </exp1>
+       <exp2 etag="const" xstr="1">
+        <constant ctag="cint64" ikind="iuint" intValue="1"/>
+       </exp2>
+       <typ ikind="iuint" ttag="tint"/>
+      </exp>
+     </rhs>
+     <loc byte="209819" file="src/cache.c" line="1194"/>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="608"/>
+       <node name="if-then"/>
+       <node name="stmt" num="607"/>
+       <node name="if-then"/>
+       <node name="stmt" num="605"/>
+       <node name="if-then"/>
+       <node name="stmt" num="600"/>
+       <node name="if-then"/>
+       <node name="stmt" num="598"/>
+       <node name="loop"/>
+       <node name="stmt" num="595"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </field-assignment>
+    <field-assignment ckey="71" field="uid" nr="6">
+     <rhs etag="lval" xstr="target-&gt;uid">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="target">
+         <lval>
+          <lhost>
+           <var vid="6246" vname="target"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <field ckey="196" fname="uid"/>
+       </offset>
+      </lval>
+     </rhs>
+     <loc byte="209969" file="src/cache.c" line="1199"/>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="610"/>
+       <node name="if-then"/>
+       <node name="stmt" num="605"/>
+       <node name="if-then"/>
+       <node name="stmt" num="600"/>
+       <node name="if-then"/>
+       <node name="stmt" num="598"/>
+       <node name="loop"/>
+       <node name="stmt" num="595"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </field-assignment>
+   </field-assignments>
+  </function>
+  <header time="01/10/2017 06:52:36">
+   <application file="src/cache.c" name="application"/>
+  </header>
+ </c-analysis>

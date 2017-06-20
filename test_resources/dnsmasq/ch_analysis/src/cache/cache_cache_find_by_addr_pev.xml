@@ -1,0 +1,515 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <log>
+   <log-entry time="01/10/2017 06:52:37"/>
+   <log-entry time="01/10/2017 05:29:24"/>
+   <log-entry time="01/10/2017 05:18:08"/>
+   <log-entry time="01/10/2017 04:56:05"/>
+   <log-entry time="01/10/2017 04:32:23"/>
+   <log-entry time="01/10/2017 03:39:02"/>
+   <log-entry time="01/10/2017 02:50:40"/>
+   <log-entry time="01/09/2017 22:49:46"/>
+   <log-entry delta-checkvalid="67" delta-invariant="35" delta-lifted="14" time="01/09/2017 22:03:42"/>
+  </log>
+  <function name="cache_find_by_addr">
+   <statistics checkvalid="67" invariant="35" invariant_with_api="14" total="217" total-proven="116"/>
+   <open-proof-obligations>
+    <open id="33" line="728" predicate="initialized"/>
+    <open id="36" line="728" predicate="valid-mem"/>
+    <open id="37" line="728" predicate="lower-bound"/>
+    <open id="38" line="728" predicate="upper-bound"/>
+    <open id="43" line="731" predicate="valid-mem"/>
+    <open id="44" line="731" predicate="lower-bound"/>
+    <open id="45" line="731" predicate="upper-bound"/>
+    <open id="48" line="751" predicate="not-null"/>
+    <open id="49" line="751" predicate="valid-mem"/>
+    <open id="50" line="751" predicate="lower-bound"/>
+    <open id="51" line="751" predicate="upper-bound"/>
+    <open id="52" line="751" predicate="initialized"/>
+    <open id="55" line="751" predicate="valid-mem"/>
+    <open id="56" line="751" predicate="lower-bound"/>
+    <open id="57" line="751" predicate="upper-bound"/>
+    <open id="59" line="752" predicate="initialized"/>
+    <open id="62" line="752" predicate="valid-mem"/>
+    <open id="63" line="752" predicate="lower-bound"/>
+    <open id="64" line="752" predicate="upper-bound"/>
+    <open id="72" line="754" predicate="valid-mem"/>
+    <open id="73" line="754" predicate="lower-bound"/>
+    <open id="74" line="754" predicate="upper-bound"/>
+    <open id="76" line="755" predicate="valid-mem"/>
+    <open id="77" line="755" predicate="lower-bound"/>
+    <open id="78" line="755" predicate="upper-bound"/>
+    <open id="80" line="733" predicate="initialized"/>
+    <open id="83" line="733" predicate="valid-mem"/>
+    <open id="84" line="733" predicate="lower-bound"/>
+    <open id="85" line="733" predicate="upper-bound"/>
+    <open id="88" line="733" predicate="lower-bound"/>
+    <open id="89" line="733" predicate="ptr-upper-bound"/>
+    <open id="90" line="733" predicate="initialized-range"/>
+    <open id="94" line="733" predicate="initialized-range"/>
+    <open id="98" line="733" predicate="valid-mem"/>
+    <open id="99" line="733" predicate="lower-bound"/>
+    <open id="100" line="733" predicate="upper-bound"/>
+    <open id="101" line="733" predicate="valid-mem"/>
+    <open id="102" line="733" predicate="lower-bound"/>
+    <open id="103" line="733" predicate="upper-bound"/>
+    <open id="106" line="733" predicate="valid-mem"/>
+    <open id="113" line="736" predicate="initialized"/>
+    <open id="116" line="736" predicate="valid-mem"/>
+    <open id="117" line="736" predicate="lower-bound"/>
+    <open id="118" line="736" predicate="upper-bound"/>
+    <open id="126" line="738" predicate="not-null"/>
+    <open id="127" line="738" predicate="valid-mem"/>
+    <open id="128" line="738" predicate="lower-bound"/>
+    <open id="129" line="738" predicate="upper-bound"/>
+    <open id="133" line="739" predicate="valid-mem"/>
+    <open id="134" line="739" predicate="lower-bound"/>
+    <open id="135" line="739" predicate="upper-bound"/>
+    <open id="137" line="743" predicate="valid-mem"/>
+    <open id="138" line="743" predicate="lower-bound"/>
+    <open id="139" line="743" predicate="upper-bound"/>
+    <open id="141" line="744" predicate="valid-mem"/>
+    <open id="142" line="744" predicate="lower-bound"/>
+    <open id="143" line="744" predicate="upper-bound"/>
+    <open id="146" line="747" predicate="valid-mem"/>
+    <open id="147" line="747" predicate="lower-bound"/>
+    <open id="148" line="747" predicate="upper-bound"/>
+    <open id="149" line="728" predicate="initialized"/>
+    <open id="152" line="728" predicate="valid-mem"/>
+    <open id="153" line="728" predicate="lower-bound"/>
+    <open id="154" line="728" predicate="upper-bound"/>
+    <open id="157" line="727" predicate="int-overflow"/>
+    <open id="159" line="759" predicate="not-null"/>
+    <open id="160" line="759" predicate="valid-mem"/>
+    <open id="161" line="759" predicate="lower-bound"/>
+    <open id="162" line="759" predicate="upper-bound"/>
+    <open id="164" line="762" predicate="initialized"/>
+    <open id="166" line="762" predicate="initialized"/>
+    <open id="167" line="762" predicate="initialized"/>
+    <open id="168" line="762" predicate="not-null"/>
+    <open id="169" line="762" predicate="valid-mem"/>
+    <open id="170" line="762" predicate="lower-bound"/>
+    <open id="171" line="762" predicate="upper-bound"/>
+    <open id="175" line="762" predicate="initialized"/>
+    <open id="176" line="762" predicate="initialized"/>
+    <open id="177" line="762" predicate="not-null"/>
+    <open id="178" line="762" predicate="valid-mem"/>
+    <open id="179" line="762" predicate="lower-bound"/>
+    <open id="180" line="762" predicate="upper-bound"/>
+    <open id="182" line="762" predicate="not-null"/>
+    <open id="183" line="762" predicate="lower-bound"/>
+    <open id="184" line="762" predicate="ptr-upper-bound"/>
+    <open id="185" line="762" predicate="initialized-range"/>
+    <open id="189" line="762" predicate="initialized-range"/>
+    <open id="191" line="762" predicate="initialized"/>
+    <open id="192" line="762" predicate="not-null"/>
+    <open id="193" line="762" predicate="valid-mem"/>
+    <open id="194" line="762" predicate="lower-bound"/>
+    <open id="195" line="762" predicate="upper-bound"/>
+    <open id="196" line="762" predicate="valid-mem"/>
+    <open id="197" line="762" predicate="lower-bound"/>
+    <open id="198" line="762" predicate="upper-bound"/>
+    <open id="201" line="762" predicate="valid-mem"/>
+    <open id="207" line="766" predicate="initialized"/>
+    <open id="208" line="766" predicate="valid-mem"/>
+    <open id="209" line="766" predicate="global-mem"/>
+    <open id="210" line="766" predicate="lower-bound"/>
+    <open id="211" line="766" predicate="upper-bound"/>
+   </open-proof-obligations>
+   <proof-obligations-discharged>
+    <discharged id="1" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="prot is a function parameter"/>
+    </discharged>
+    <discharged id="2" method="check-valid" time="01/09/2017 22:03:42" type="non-negative">
+     <evidence comment="value is 8"/>
+    </discharged>
+    <discharged id="3" method="check-valid" time="01/09/2017 22:03:42" type="width-overflow">
+     <evidence comment="value 8 is less than minimum word size (16"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="4" method="invariants" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="assignedAt#711"/>
+    </discharged>
+    <discharged id="5" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged domain="linear equalities" id="6" method="invariants" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="3" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged id="7" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged domain="intervals" id="8" method="invariants" time="01/09/2017 22:03:42" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="9" method="invariants" time="01/09/2017 22:03:42" type="valid-mem">
+     <evidence comment="external address provided by parameter still points to valid memory"/>
+    </discharged>
+    <discharged domain="valuesets" id="10" method="invariants" time="01/09/2017 22:03:42" type="lower-bound">
+     <evidence comment="non-negative offset from base value: crecp"/>
+    </discharged>
+    <discharged domain="valuesets" id="11" method="invariants" time="01/09/2017 22:03:42" type="upper-bound">
+     <evidence comment="externally provided address; dereferencability is checked as part of precondition"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="12" method="invariants" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="assignedAt#727"/>
+    </discharged>
+    <discharged id="13" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="hash_size is global"/>
+    </discharged>
+    <discharged domain="none" id="14" method="invariants" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="predicate depends on global variables hash_table, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="3" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="15" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="hash_table is global"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="16" method="invariants" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="assignedAt#727"/>
+    </discharged>
+    <discharged domain="none" id="17" method="invariants" time="01/09/2017 22:03:42" type="not-null">
+     <evidence comment="predicate depends on global variables hash_table, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="5" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="18" method="invariants" time="01/09/2017 22:03:42" type="valid-mem">
+     <evidence comment="predicate depends on global variables hash_table, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="1" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="19" method="invariants" time="01/09/2017 22:03:42" type="ptr-lower-bound">
+     <evidence comment="predicate depends on global variables hash_table, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="4" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="20" method="invariants" time="01/09/2017 22:03:42" type="ptr-upper-bound-deref">
+     <evidence comment="predicate depends on global variables hash_table, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="2" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="21" method="check-valid" time="01/09/2017 22:03:42" type="not-null">
+     <evidence comment="arguments of pointer arithmetic are checked for null"/>
+    </discharged>
+    <discharged id="22" method="check-valid" time="01/09/2017 22:03:42" type="valid-mem">
+     <evidence comment="pointer arithmetic stays within memory region"/>
+    </discharged>
+    <discharged id="23" method="check-valid" time="01/09/2017 22:03:42" type="lower-bound">
+     <evidence comment="result of pointer arithmetic is guaranteed to satisfy lowerbound by inductive hypothesis"/>
+    </discharged>
+    <discharged id="24" method="check-valid" time="01/09/2017 22:03:42" type="upper-bound">
+     <evidence comment="result of pointer arithmetic is guaranteed to satisfy upperbound by inductive hypothesis"/>
+    </discharged>
+    <discharged id="25" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="hash_table is global"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="26" method="invariants" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="assignedAt#727"/>
+    </discharged>
+    <discharged domain="none" id="27" method="invariants" time="01/09/2017 22:03:42" type="not-null">
+     <evidence comment="predicate depends on global variables hash_table, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="5" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="28" method="invariants" time="01/09/2017 22:03:42" type="valid-mem">
+     <evidence comment="predicate depends on global variables hash_table, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="1" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="29" method="invariants" time="01/09/2017 22:03:42" type="ptr-lower-bound">
+     <evidence comment="predicate depends on global variables hash_table, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="4" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="30" method="invariants" time="01/09/2017 22:03:42" type="ptr-upper-bound-deref">
+     <evidence comment="predicate depends on global variables hash_table, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="2" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="31" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged id="32" method="check-valid" time="01/09/2017 22:03:42" type="cast">
+     <evidence comment="casting from unsigned short to unsigned int is safe"/>
+    </discharged>
+    <discharged id="34" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged domain="intervals" id="35" method="invariants" time="01/09/2017 22:03:42" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged id="39" method="check-valid" time="01/09/2017 22:03:42" type="non-negative">
+     <evidence comment="value is 2"/>
+    </discharged>
+    <discharged id="40" method="check-valid" time="01/09/2017 22:03:42" type="width-overflow">
+     <evidence comment="value 2 is less than minimum word size (16"/>
+    </discharged>
+    <discharged id="41" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="now is a function parameter"/>
+    </discharged>
+    <discharged id="42" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="46" method="invariants" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="assignedAt#731"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="47" method="invariants" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="assignedAt#728_xx_assignedAt#747"/>
+    </discharged>
+    <discharged id="53" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged domain="intervals" id="54" method="invariants" time="01/09/2017 22:03:42" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged id="58" method="check-valid" time="01/09/2017 22:03:42" type="cast">
+     <evidence comment="casting from unsigned short to unsigned int is safe"/>
+    </discharged>
+    <discharged id="60" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged domain="intervals" id="61" method="invariants" time="01/09/2017 22:03:42" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged id="65" method="check-valid" time="01/09/2017 22:03:42" type="non-negative">
+     <evidence comment="value is 6"/>
+    </discharged>
+    <discharged id="66" method="check-valid" time="01/09/2017 22:03:42" type="width-overflow">
+     <evidence comment="value 6 is less than minimum word size (16"/>
+    </discharged>
+    <discharged id="67" method="check-valid" time="01/09/2017 22:03:42" type="non-negative">
+     <evidence comment="value is 4"/>
+    </discharged>
+    <discharged id="68" method="check-valid" time="01/09/2017 22:03:42" type="width-overflow">
+     <evidence comment="value 4 is less than minimum word size (16"/>
+    </discharged>
+    <discharged id="69" method="check-valid" time="01/09/2017 22:03:42" type="non-negative">
+     <evidence comment="value is 13"/>
+    </discharged>
+    <discharged id="70" method="check-valid" time="01/09/2017 22:03:42" type="width-overflow">
+     <evidence comment="value 13 is less than minimum word size (16"/>
+    </discharged>
+    <discharged id="71" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged id="75" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged id="79" method="check-valid" time="01/09/2017 22:03:42" type="cast">
+     <evidence comment="casting from unsigned short to unsigned int is safe"/>
+    </discharged>
+    <discharged id="81" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged domain="intervals" id="82" method="invariants" time="01/09/2017 22:03:42" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged id="86" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="prot is a function parameter"/>
+    </discharged>
+    <discharged domain="intervals" id="87" method="invariants" time="01/09/2017 22:03:42" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="linear equalities" id="91" method="invariants" time="01/09/2017 22:03:42" type="not-null">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="2" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="valuesets" id="92" method="invariants" time="01/09/2017 22:03:42" type="lower-bound">
+     <evidence comment="non-negative offset from base value: addr"/>
+    </discharged>
+    <discharged domain="valuesets" id="93" method="invariants" time="01/09/2017 22:03:42" type="ptr-upper-bound">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="1" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged id="95" method="check-valid" time="01/09/2017 22:03:42" type="pointer-cast">
+     <evidence comment="cast to void pointer"/>
+    </discharged>
+    <discharged id="96" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged domain="intervals" id="97" method="invariants" time="01/09/2017 22:03:42" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged id="104" method="check-valid" time="01/09/2017 22:03:42" type="pointer-cast">
+     <evidence comment="cast to void pointer"/>
+    </discharged>
+    <discharged id="105" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="addr is a function parameter"/>
+    </discharged>
+    <discharged domain="valuesets" id="107" method="invariants" time="01/09/2017 22:03:42" type="lower-bound">
+     <evidence comment="non-negative offset from base value: addr"/>
+    </discharged>
+    <discharged domain="valuesets" id="108" method="invariants" time="01/09/2017 22:03:42" type="upper-bound">
+     <evidence comment="externally provided address; dereferencability is checked as part of precondition"/>
+    </discharged>
+    <discharged domain="intervals" id="109" method="invariants" time="01/09/2017 22:03:42" type="signed-to-unsigned-cast">
+     <evidence comment="value is non-negative and target type maximum value is larger than or equal to source type maximum value"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="110" method="invariants" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="assignedAt#711"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="111" method="invariants" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="assignedAt#733"/>
+    </discharged>
+    <discharged id="112" method="check-valid" time="01/09/2017 22:03:42" type="cast">
+     <evidence comment="casting from unsigned short to unsigned int is safe"/>
+    </discharged>
+    <discharged id="114" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged domain="intervals" id="115" method="invariants" time="01/09/2017 22:03:42" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged id="119" method="check-valid" time="01/09/2017 22:03:42" type="non-negative">
+     <evidence comment="value is 6"/>
+    </discharged>
+    <discharged id="120" method="check-valid" time="01/09/2017 22:03:42" type="width-overflow">
+     <evidence comment="value 6 is less than minimum word size (16"/>
+    </discharged>
+    <discharged id="121" method="check-valid" time="01/09/2017 22:03:42" type="non-negative">
+     <evidence comment="value is 4"/>
+    </discharged>
+    <discharged id="122" method="check-valid" time="01/09/2017 22:03:42" type="width-overflow">
+     <evidence comment="value 4 is less than minimum word size (16"/>
+    </discharged>
+    <discharged id="123" method="check-valid" time="01/09/2017 22:03:42" type="non-negative">
+     <evidence comment="value is 13"/>
+    </discharged>
+    <discharged id="124" method="check-valid" time="01/09/2017 22:03:42" type="width-overflow">
+     <evidence comment="value 13 is less than minimum word size (16"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="125" method="invariants" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="assignedAt#725_xx_assignedAt#739"/>
+    </discharged>
+    <discharged id="130" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged id="131" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged domain="intervals" id="132" method="invariants" time="01/09/2017 22:03:42" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged id="136" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged id="140" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged id="144" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged domain="intervals" id="145" method="invariants" time="01/09/2017 22:03:42" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged id="150" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged domain="intervals" id="151" method="invariants" time="01/09/2017 22:03:42" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="155" method="invariants" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="assignedAt#727"/>
+    </discharged>
+    <discharged id="156" method="check-valid" time="01/09/2017 22:03:42" type="int-underflow">
+     <evidence comment="add non-negative number: value is 1"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="158" method="invariants" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="assignedAt#725_xx_assignedAt#739"/>
+    </discharged>
+    <discharged id="163" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="cache_head is global"/>
+    </discharged>
+    <discharged id="165" method="check-valid" time="01/09/2017 22:03:42" type="cast">
+     <evidence comment="casting from unsigned short to unsigned int is safe"/>
+    </discharged>
+    <discharged id="172" method="check-valid" time="01/09/2017 22:03:42" type="non-negative">
+     <evidence comment="value is 2"/>
+    </discharged>
+    <discharged id="173" method="check-valid" time="01/09/2017 22:03:42" type="width-overflow">
+     <evidence comment="value 2 is less than minimum word size (16"/>
+    </discharged>
+    <discharged id="174" method="check-valid" time="01/09/2017 22:03:42" type="cast">
+     <evidence comment="casting from unsigned short to unsigned int is safe"/>
+    </discharged>
+    <discharged id="181" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="prot is a function parameter"/>
+    </discharged>
+    <discharged domain="linear equalities" id="186" method="invariants" time="01/09/2017 22:03:42" type="not-null">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="2" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="valuesets" id="187" method="invariants" time="01/09/2017 22:03:42" type="lower-bound">
+     <evidence comment="non-negative offset from base value: addr"/>
+    </discharged>
+    <discharged domain="valuesets" id="188" method="invariants" time="01/09/2017 22:03:42" type="ptr-upper-bound">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="1" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged id="190" method="check-valid" time="01/09/2017 22:03:42" type="pointer-cast">
+     <evidence comment="cast to void pointer"/>
+    </discharged>
+    <discharged id="199" method="check-valid" time="01/09/2017 22:03:42" type="pointer-cast">
+     <evidence comment="cast to void pointer"/>
+    </discharged>
+    <discharged id="200" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="addr is a function parameter"/>
+    </discharged>
+    <discharged domain="valuesets" id="202" method="invariants" time="01/09/2017 22:03:42" type="lower-bound">
+     <evidence comment="non-negative offset from base value: addr"/>
+    </discharged>
+    <discharged domain="valuesets" id="203" method="invariants" time="01/09/2017 22:03:42" type="upper-bound">
+     <evidence comment="externally provided address; dereferencability is checked as part of precondition"/>
+    </discharged>
+    <discharged domain="intervals" id="204" method="invariants" time="01/09/2017 22:03:42" type="signed-to-unsigned-cast">
+     <evidence comment="value is non-negative and target type maximum value is larger than or equal to source type maximum value"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="205" method="invariants" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="assignedAt#711"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="206" method="invariants" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="assignedAt#762"/>
+    </discharged>
+    <discharged id="212" method="check-valid" time="01/09/2017 22:03:42" type="pointer-cast">
+     <evidence comment="cast of null-pointer"/>
+    </discharged>
+    <discharged id="213" method="check-valid" time="01/09/2017 22:03:42" type="cast">
+     <evidence comment="null-pointer cast"/>
+    </discharged>
+    <discharged id="214" method="check-valid" time="01/09/2017 22:03:42" type="valid-mem">
+     <evidence comment="null pointer is a valid memory pointer"/>
+    </discharged>
+    <discharged id="215" method="check-valid" time="01/09/2017 22:03:42" type="global-mem">
+     <evidence comment="null pointer is a non-local address"/>
+    </discharged>
+    <discharged id="216" method="check-valid" time="01/09/2017 22:03:42" type="lower-bound">
+     <evidence comment="null pointer does not violate bounds"/>
+    </discharged>
+    <discharged id="217" method="check-valid" time="01/09/2017 22:03:42" type="upper-bound">
+     <evidence comment="null pointer does not violate bounds"/>
+    </discharged>
+   </proof-obligations-discharged>
+  </function>
+  <header time="01/10/2017 06:52:37">
+   <application file="src//cache.c" name="application"/>
+  </header>
+ </c-analysis>

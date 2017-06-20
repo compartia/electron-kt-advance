@@ -1,0 +1,1397 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function name="cache_make_stat">
+   <secondary-proof-obligations max-spo-id="578" num-ppo="538">
+    <indirect-calls/>
+    <callsite-obligations>
+     <callsite-obligation api-max-id="1" fname="whine_malloc" fvid="4790">
+      <location byte="213972" file="src/cache.c" line="1367"/>
+      <args>
+       <arg etag="caste" xstr="caste (newlen:size_t)">
+        <typ tname="size_t" ttag="tnamed"/>
+        <exp etag="lval" xstr="newlen">
+         <lval>
+          <lhost>
+           <var vid="6287" vname="newlen"/>
+          </lhost>
+         </lval>
+        </exp>
+       </arg>
+      </args>
+      <obligations>
+       <obligation api-id="1" id="539">
+        <predicate from="iulong" tag="unsigned-to-signed-cast" to="iint">
+         <exp etag="caste" xstr="caste (newlen:size_t)">
+          <typ tname="size_t" ttag="tnamed"/>
+          <exp etag="lval" xstr="newlen">
+           <lval>
+            <lhost>
+             <var vid="6287" vname="newlen"/>
+            </lhost>
+           </lval>
+          </exp>
+         </exp>
+        </predicate>
+       </obligation>
+      </obligations>
+      <context>
+       <cfg-context>
+        <node name="instr" num="1"/>
+        <node name="stmt" num="691"/>
+        <node name="if-then"/>
+        <node name="stmt" num="690"/>
+        <node name="if-then"/>
+        <node name="stmt" num="679"/>
+        <node name="loop"/>
+        <node name="stmt" num="676"/>
+        <node name="stmt" num="657"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="12" fname="prettyprint_addr" fvid="4844">
+      <location byte="213628" file="src/cache.c" line="1359"/>
+      <args>
+       <arg etag="addrof" xstr="addrof (serv-&gt;addr)">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="serv">
+           <lval>
+            <lhost>
+             <var vid="6280" vname="serv"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <field ckey="206" fname="addr"/>
+         </offset>
+        </lval>
+       </arg>
+       <arg etag="lval" xstr="dnsmasq_daemon-&gt;addrbuff">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="dnsmasq_daemon">
+           <lval>
+            <lhost>
+             <var vid="4341" vname="dnsmasq_daemon"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <field ckey="238" fname="addrbuff"/>
+         </offset>
+        </lval>
+       </arg>
+      </args>
+      <obligations>
+       <obligation api-id="6" id="551">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="addrof" xstr="addrof (serv-&gt;addr)">
+            <lval>
+             <lhost>
+              <mem etag="lval" xstr="serv">
+               <lval>
+                <lhost>
+                 <var vid="6280" vname="serv"/>
+                </lhost>
+               </lval>
+              </mem>
+             </lhost>
+             <offset>
+              <field ckey="206" fname="addr"/>
+             </offset>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <offset>
+            <field ckey="34" fname="sin6_scope_id"/>
+           </offset>
+           <field ckey="203" fname="in6"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="2" id="550">
+        <predicate tag="not-null">
+         <exp etag="lval" xstr="dnsmasq_daemon-&gt;addrbuff">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="dnsmasq_daemon">
+             <lval>
+              <lhost>
+               <var vid="4341" vname="dnsmasq_daemon"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <field ckey="238" fname="addrbuff"/>
+           </offset>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="8" id="549">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="addrof" xstr="addrof (serv-&gt;addr)">
+            <lval>
+             <lhost>
+              <mem etag="lval" xstr="serv">
+               <lval>
+                <lhost>
+                 <var vid="6280" vname="serv"/>
+                </lhost>
+               </lval>
+              </mem>
+             </lhost>
+             <offset>
+              <field ckey="206" fname="addr"/>
+             </offset>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <offset>
+            <field ckey="20" fname="sa_family"/>
+           </offset>
+           <field ckey="203" fname="sa"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="7" id="548">
+        <predicate from="iushort" tag="unsigned-to-signed-cast" to="iint">
+         <exp etag="lval" xstr="*(addrof (*(lval (serv)).addr)).sa.sa_family">
+          <lval>
+           <lhost>
+            <mem etag="addrof" xstr="addrof (serv-&gt;addr)">
+             <lval>
+              <lhost>
+               <mem etag="lval" xstr="serv">
+                <lval>
+                 <lhost>
+                  <var vid="6280" vname="serv"/>
+                 </lhost>
+                </lval>
+               </mem>
+              </lhost>
+              <offset>
+               <field ckey="206" fname="addr"/>
+              </offset>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="20" fname="sa_family"/>
+            </offset>
+            <field ckey="203" fname="sa"/>
+           </offset>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="3" id="547">
+        <predicate op="pluspi" tag="ptr-upper-bound">
+         <typ ikind="ichar" ttag="tint"/>
+         <exp1 etag="lval" xstr="dnsmasq_daemon-&gt;addrbuff">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="dnsmasq_daemon">
+             <lval>
+              <lhost>
+               <var vid="4341" vname="dnsmasq_daemon"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <field ckey="238" fname="addrbuff"/>
+           </offset>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="46">
+          <constant ctag="cint64" ikind="iint" intValue="46"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="12" id="546">
+        <predicate op="pluspi" tag="ptr-upper-bound">
+         <typ ikind="ichar" ttag="tint">
+          <attributes>
+           <attr attrname="const"/>
+          </attributes>
+         </typ>
+         <exp1 etag="lval" xstr="dnsmasq_daemon-&gt;addrbuff">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="dnsmasq_daemon">
+             <lval>
+              <lhost>
+               <var vid="4341" vname="dnsmasq_daemon"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <field ckey="238" fname="addrbuff"/>
+           </offset>
+          </lval>
+         </exp1>
+         <exp2 cn="null-terminator-pos" etag="cnapp" xstr="null-terminator-pos[caste (dnsmasq_daemon-&gt;addrbuff:(char*))]">
+          <arg etag="caste" xstr="caste (dnsmasq_daemon-&gt;addrbuff:(char*))">
+           <typ ttag="tptr">
+            <typ ikind="ichar" ttag="tint">
+             <attributes>
+              <attr attrname="const"/>
+             </attributes>
+            </typ>
+           </typ>
+           <exp etag="lval" xstr="dnsmasq_daemon-&gt;addrbuff">
+            <lval>
+             <lhost>
+              <mem etag="lval" xstr="dnsmasq_daemon">
+               <lval>
+                <lhost>
+                 <var vid="4341" vname="dnsmasq_daemon"/>
+                </lhost>
+               </lval>
+              </mem>
+             </lhost>
+             <offset>
+              <field ckey="238" fname="addrbuff"/>
+             </offset>
+            </lval>
+           </exp>
+          </arg>
+          <typ ikind="iint" ttag="tint"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="5" id="545">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="addrof" xstr="addrof (serv-&gt;addr)">
+            <lval>
+             <lhost>
+              <mem etag="lval" xstr="serv">
+               <lval>
+                <lhost>
+                 <var vid="6280" vname="serv"/>
+                </lhost>
+               </lval>
+              </mem>
+             </lhost>
+             <offset>
+              <field ckey="206" fname="addr"/>
+             </offset>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <offset>
+            <field ckey="33" fname="sin_port"/>
+           </offset>
+           <field ckey="203" fname="in"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="4" id="544">
+        <predicate tag="initialized-range">
+         <base-exp etag="lval" xstr="dnsmasq_daemon-&gt;addrbuff">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="dnsmasq_daemon">
+             <lval>
+              <lhost>
+               <var vid="4341" vname="dnsmasq_daemon"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <field ckey="238" fname="addrbuff"/>
+           </offset>
+          </lval>
+         </base-exp>
+         <len-exp etag="lval" xstr="dnsmasq_daemon-&gt;addrbuff">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="dnsmasq_daemon">
+             <lval>
+              <lhost>
+               <var vid="4341" vname="dnsmasq_daemon"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <field ckey="238" fname="addrbuff"/>
+           </offset>
+          </lval>
+         </len-exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="9" id="543">
+        <predicate op="plusa" size="iint" tag="int-overflow">
+         <exp1 cn="null-terminator-pos" etag="cnapp" xstr="null-terminator-pos[caste (dnsmasq_daemon-&gt;addrbuff:(char*))]">
+          <arg etag="caste" xstr="caste (dnsmasq_daemon-&gt;addrbuff:(char*))">
+           <typ ttag="tptr">
+            <typ ikind="ichar" ttag="tint">
+             <attributes>
+              <attr attrname="const"/>
+             </attributes>
+            </typ>
+           </typ>
+           <exp etag="lval" xstr="dnsmasq_daemon-&gt;addrbuff">
+            <lval>
+             <lhost>
+              <mem etag="lval" xstr="dnsmasq_daemon">
+               <lval>
+                <lhost>
+                 <var vid="4341" vname="dnsmasq_daemon"/>
+                </lhost>
+               </lval>
+              </mem>
+             </lhost>
+             <offset>
+              <field ckey="238" fname="addrbuff"/>
+             </offset>
+            </lval>
+           </exp>
+          </arg>
+          <typ ikind="iint" ttag="tint"/>
+         </exp1>
+         <exp2 cn="null-terminator-pos" etag="cnapp" xstr="null-terminator-pos[caste (&quot;%&quot;:(char*))]">
+          <arg etag="caste" xstr="caste (&quot;%&quot;:(char*))">
+           <typ ttag="tptr">
+            <attributes>
+             <attr attrname="restrict"/>
+            </attributes>
+            <typ ikind="ichar" ttag="tint">
+             <attributes>
+              <attr attrname="const"/>
+             </attributes>
+            </typ>
+           </typ>
+           <exp etag="const" xstr="&quot;%&quot;">
+            <constant ctag="cstr" strValue="%"/>
+           </exp>
+          </arg>
+          <typ ikind="iint" ttag="tint"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="11" id="542">
+        <predicate op="plusa" size="iint" tag="int-underflow">
+         <exp1 cn="null-terminator-pos" etag="cnapp" xstr="null-terminator-pos[caste (dnsmasq_daemon-&gt;addrbuff:(char*))]">
+          <arg etag="caste" xstr="caste (dnsmasq_daemon-&gt;addrbuff:(char*))">
+           <typ ttag="tptr">
+            <typ ikind="ichar" ttag="tint">
+             <attributes>
+              <attr attrname="const"/>
+             </attributes>
+            </typ>
+           </typ>
+           <exp etag="lval" xstr="dnsmasq_daemon-&gt;addrbuff">
+            <lval>
+             <lhost>
+              <mem etag="lval" xstr="dnsmasq_daemon">
+               <lval>
+                <lhost>
+                 <var vid="4341" vname="dnsmasq_daemon"/>
+                </lhost>
+               </lval>
+              </mem>
+             </lhost>
+             <offset>
+              <field ckey="238" fname="addrbuff"/>
+             </offset>
+            </lval>
+           </exp>
+          </arg>
+          <typ ikind="iint" ttag="tint"/>
+         </exp1>
+         <exp2 cn="null-terminator-pos" etag="cnapp" xstr="null-terminator-pos[caste (&quot;%&quot;:(char*))]">
+          <arg etag="caste" xstr="caste (&quot;%&quot;:(char*))">
+           <typ ttag="tptr">
+            <attributes>
+             <attr attrname="restrict"/>
+            </attributes>
+            <typ ikind="ichar" ttag="tint">
+             <attributes>
+              <attr attrname="const"/>
+             </attributes>
+            </typ>
+           </typ>
+           <exp etag="const" xstr="&quot;%&quot;">
+            <constant ctag="cstr" strValue="%"/>
+           </exp>
+          </arg>
+          <typ ikind="iint" ttag="tint"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="10" id="541">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="addrof" xstr="addrof (serv-&gt;addr)">
+            <lval>
+             <lhost>
+              <mem etag="lval" xstr="serv">
+               <lval>
+                <lhost>
+                 <var vid="6280" vname="serv"/>
+                </lhost>
+               </lval>
+              </mem>
+             </lhost>
+             <offset>
+              <field ckey="206" fname="addr"/>
+             </offset>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <offset>
+            <field ckey="34" fname="sin6_port"/>
+           </offset>
+           <field ckey="203" fname="in6"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="1" id="540">
+        <predicate tag="not-null">
+         <exp etag="addrof" xstr="addrof (serv-&gt;addr)">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="serv">
+             <lval>
+              <lhost>
+               <var vid="6280" vname="serv"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <field ckey="206" fname="addr"/>
+           </offset>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+      </obligations>
+      <context>
+       <cfg-context>
+        <node name="instr" num="0"/>
+        <node name="stmt" num="689"/>
+        <node name="if-then"/>
+        <node name="stmt" num="679"/>
+        <node name="loop"/>
+        <node name="stmt" num="676"/>
+        <node name="stmt" num="657"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="26" fname="sockaddr_isequal" fvid="4798">
+      <location byte="213406" file="src/cache.c" line="1351"/>
+      <args>
+       <arg etag="addrof" xstr="addrof (serv-&gt;addr)">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="serv">
+           <lval>
+            <lhost>
+             <var vid="6280" vname="serv"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <field ckey="206" fname="addr"/>
+         </offset>
+        </lval>
+       </arg>
+       <arg etag="addrof" xstr="addrof (serv1-&gt;addr)">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="serv1">
+           <lval>
+            <lhost>
+             <var vid="6281" vname="serv1"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <field ckey="206" fname="addr"/>
+         </offset>
+        </lval>
+       </arg>
+      </args>
+      <obligations>
+       <obligation api-id="20" id="577">
+        <predicate op="pluspi" tag="ptr-upper-bound-deref">
+         <typ ikind="iuint" ttag="tint"/>
+         <exp1 etag="addrof" xstr="addrof (serv-&gt;addr)">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="serv">
+             <lval>
+              <lhost>
+               <var vid="6280" vname="serv"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <field ckey="206" fname="addr"/>
+           </offset>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="2">
+          <constant ctag="cint64" ikind="iint" intValue="2"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="2" id="576">
+        <predicate tag="not-null">
+         <exp etag="addrof" xstr="addrof (serv1-&gt;addr)">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="serv1">
+             <lval>
+              <lhost>
+               <var vid="6281" vname="serv1"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <field ckey="206" fname="addr"/>
+           </offset>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="8" id="575">
+        <predicate tag="pointer-cast">
+         <tfrom ckey="46" ttag="tcomp"/>
+         <tto ikind="iuint" ttag="tint"/>
+         <exp etag="addrof" xstr="addrof (serv-&gt;addr)">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="serv">
+             <lval>
+              <lhost>
+               <var vid="6280" vname="serv"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <field ckey="206" fname="addr"/>
+           </offset>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="7" id="574">
+        <predicate from="iushort" tag="unsigned-to-signed-cast" to="iint">
+         <exp etag="lval" xstr="*(addrof (*(lval (serv1)).addr)).sa.sa_family">
+          <lval>
+           <lhost>
+            <mem etag="addrof" xstr="addrof (serv1-&gt;addr)">
+             <lval>
+              <lhost>
+               <mem etag="lval" xstr="serv1">
+                <lval>
+                 <lhost>
+                  <var vid="6281" vname="serv1"/>
+                 </lhost>
+                </lval>
+               </mem>
+              </lhost>
+              <offset>
+               <field ckey="206" fname="addr"/>
+              </offset>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="20" fname="sa_family"/>
+            </offset>
+            <field ckey="203" fname="sa"/>
+           </offset>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="13" id="573">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="addrof" xstr="addrof (serv-&gt;addr)">
+            <lval>
+             <lhost>
+              <mem etag="lval" xstr="serv">
+               <lval>
+                <lhost>
+                 <var vid="6280" vname="serv"/>
+                </lhost>
+               </lval>
+              </mem>
+             </lhost>
+             <offset>
+              <field ckey="206" fname="addr"/>
+             </offset>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <offset>
+            <field ckey="33" fname="sin_port"/>
+           </offset>
+           <field ckey="203" fname="in"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="12" id="572">
+        <predicate from="iushort" tag="unsigned-to-signed-cast" to="iint">
+         <exp etag="lval" xstr="*(addrof (*(lval (serv)).addr)).sa.sa_family">
+          <lval>
+           <lhost>
+            <mem etag="addrof" xstr="addrof (serv-&gt;addr)">
+             <lval>
+              <lhost>
+               <mem etag="lval" xstr="serv">
+                <lval>
+                 <lhost>
+                  <var vid="6280" vname="serv"/>
+                 </lhost>
+                </lval>
+               </mem>
+              </lhost>
+              <offset>
+               <field ckey="206" fname="addr"/>
+              </offset>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="20" fname="sa_family"/>
+            </offset>
+            <field ckey="203" fname="sa"/>
+           </offset>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="9" id="571">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="addrof" xstr="addrof (serv-&gt;addr)">
+            <lval>
+             <lhost>
+              <mem etag="lval" xstr="serv">
+               <lval>
+                <lhost>
+                 <var vid="6280" vname="serv"/>
+                </lhost>
+               </lval>
+              </mem>
+             </lhost>
+             <offset>
+              <field ckey="206" fname="addr"/>
+             </offset>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <offset>
+            <field ckey="34" fname="sin6_port"/>
+           </offset>
+           <field ckey="203" fname="in6"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="11" id="570">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="addrof" xstr="addrof (serv-&gt;addr)">
+            <lval>
+             <lhost>
+              <mem etag="lval" xstr="serv">
+               <lval>
+                <lhost>
+                 <var vid="6280" vname="serv"/>
+                </lhost>
+               </lval>
+              </mem>
+             </lhost>
+             <offset>
+              <field ckey="206" fname="addr"/>
+             </offset>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <offset>
+            <field ckey="34" fname="sin6_scope_id"/>
+           </offset>
+           <field ckey="203" fname="in6"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="26" id="569">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="addrof" xstr="addrof (serv-&gt;addr)">
+            <lval>
+             <lhost>
+              <mem etag="lval" xstr="serv">
+               <lval>
+                <lhost>
+                 <var vid="6280" vname="serv"/>
+                </lhost>
+               </lval>
+              </mem>
+             </lhost>
+             <offset>
+              <field ckey="206" fname="addr"/>
+             </offset>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <offset>
+            <field ckey="20" fname="sa_family"/>
+           </offset>
+           <field ckey="203" fname="sa"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="10" id="568">
+        <predicate op="pluspi" tag="ptr-upper-bound-deref">
+         <typ ikind="iuint" ttag="tint"/>
+         <exp1 etag="addrof" xstr="addrof (serv-&gt;addr)">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="serv">
+             <lval>
+              <lhost>
+               <var vid="6280" vname="serv"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <field ckey="206" fname="addr"/>
+           </offset>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="1">
+          <constant ctag="cint64" ikind="iint" intValue="1"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="15" id="567">
+        <predicate op="pluspi" tag="ptr-upper-bound-deref">
+         <typ ikind="iuint" ttag="tint"/>
+         <exp1 etag="addrof" xstr="addrof (serv-&gt;addr)">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="serv">
+             <lval>
+              <lhost>
+               <var vid="6280" vname="serv"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <field ckey="206" fname="addr"/>
+           </offset>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="3">
+          <constant ctag="cint64" ikind="iint" intValue="3"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="6" id="566">
+        <predicate from="iushort" tag="unsigned-to-signed-cast" to="iint">
+         <exp etag="lval" xstr="*(addrof (*(lval (serv1)).addr)).in6.sin6_port">
+          <lval>
+           <lhost>
+            <mem etag="addrof" xstr="addrof (serv1-&gt;addr)">
+             <lval>
+              <lhost>
+               <mem etag="lval" xstr="serv1">
+                <lval>
+                 <lhost>
+                  <var vid="6281" vname="serv1"/>
+                 </lhost>
+                </lval>
+               </mem>
+              </lhost>
+              <offset>
+               <field ckey="206" fname="addr"/>
+              </offset>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="34" fname="sin6_port"/>
+            </offset>
+            <field ckey="203" fname="in6"/>
+           </offset>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="21" id="565">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="addrof" xstr="addrof (serv1-&gt;addr)">
+            <lval>
+             <lhost>
+              <mem etag="lval" xstr="serv1">
+               <lval>
+                <lhost>
+                 <var vid="6281" vname="serv1"/>
+                </lhost>
+               </lval>
+              </mem>
+             </lhost>
+             <offset>
+              <field ckey="206" fname="addr"/>
+             </offset>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <offset>
+            <field ckey="34" fname="sin6_scope_id"/>
+           </offset>
+           <field ckey="203" fname="in6"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="14" id="564">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="addrof" xstr="addrof (serv-&gt;addr)">
+            <lval>
+             <lhost>
+              <mem etag="lval" xstr="serv">
+               <lval>
+                <lhost>
+                 <var vid="6280" vname="serv"/>
+                </lhost>
+               </lval>
+              </mem>
+             </lhost>
+             <offset>
+              <field ckey="206" fname="addr"/>
+             </offset>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <offset>
+            <offset>
+             <field ckey="42" fname="s_addr"/>
+            </offset>
+            <field ckey="33" fname="sin_addr"/>
+           </offset>
+           <field ckey="203" fname="in"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="24" id="563">
+        <predicate op="pluspi" tag="ptr-upper-bound-deref">
+         <typ ikind="iuint" ttag="tint"/>
+         <exp1 etag="addrof" xstr="addrof (serv1-&gt;addr)">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="serv1">
+             <lval>
+              <lhost>
+               <var vid="6281" vname="serv1"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <field ckey="206" fname="addr"/>
+           </offset>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="1">
+          <constant ctag="cint64" ikind="iint" intValue="1"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="16" id="562">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="addrof" xstr="addrof (serv1-&gt;addr)">
+            <lval>
+             <lhost>
+              <mem etag="lval" xstr="serv1">
+               <lval>
+                <lhost>
+                 <var vid="6281" vname="serv1"/>
+                </lhost>
+               </lval>
+              </mem>
+             </lhost>
+             <offset>
+              <field ckey="206" fname="addr"/>
+             </offset>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <offset>
+            <field ckey="34" fname="sin6_port"/>
+           </offset>
+           <field ckey="203" fname="in6"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="3" id="561">
+        <predicate op="pluspi" tag="ptr-upper-bound-deref">
+         <typ ikind="iuint" ttag="tint"/>
+         <exp1 etag="addrof" xstr="addrof (serv1-&gt;addr)">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="serv1">
+             <lval>
+              <lhost>
+               <var vid="6281" vname="serv1"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <field ckey="206" fname="addr"/>
+           </offset>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="2">
+          <constant ctag="cint64" ikind="iint" intValue="2"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="5" id="560">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="addrof" xstr="addrof (serv1-&gt;addr)">
+            <lval>
+             <lhost>
+              <mem etag="lval" xstr="serv1">
+               <lval>
+                <lhost>
+                 <var vid="6281" vname="serv1"/>
+                </lhost>
+               </lval>
+              </mem>
+             </lhost>
+             <offset>
+              <field ckey="206" fname="addr"/>
+             </offset>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <offset>
+            <field ckey="33" fname="sin_port"/>
+           </offset>
+           <field ckey="203" fname="in"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="4" id="559">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="addrof" xstr="addrof (serv1-&gt;addr)">
+            <lval>
+             <lhost>
+              <mem etag="lval" xstr="serv1">
+               <lval>
+                <lhost>
+                 <var vid="6281" vname="serv1"/>
+                </lhost>
+               </lval>
+              </mem>
+             </lhost>
+             <offset>
+              <field ckey="206" fname="addr"/>
+             </offset>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <offset>
+            <field ckey="20" fname="sa_family"/>
+           </offset>
+           <field ckey="203" fname="sa"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="25" id="558">
+        <predicate from="iushort" tag="unsigned-to-signed-cast" to="iint">
+         <exp etag="lval" xstr="*(addrof (*(lval (serv1)).addr)).in.sin_port">
+          <lval>
+           <lhost>
+            <mem etag="addrof" xstr="addrof (serv1-&gt;addr)">
+             <lval>
+              <lhost>
+               <mem etag="lval" xstr="serv1">
+                <lval>
+                 <lhost>
+                  <var vid="6281" vname="serv1"/>
+                 </lhost>
+                </lval>
+               </mem>
+              </lhost>
+              <offset>
+               <field ckey="206" fname="addr"/>
+              </offset>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="33" fname="sin_port"/>
+            </offset>
+            <field ckey="203" fname="in"/>
+           </offset>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="23" id="557">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="addrof" xstr="addrof (serv1-&gt;addr)">
+            <lval>
+             <lhost>
+              <mem etag="lval" xstr="serv1">
+               <lval>
+                <lhost>
+                 <var vid="6281" vname="serv1"/>
+                </lhost>
+               </lval>
+              </mem>
+             </lhost>
+             <offset>
+              <field ckey="206" fname="addr"/>
+             </offset>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <offset>
+            <offset>
+             <field ckey="42" fname="s_addr"/>
+            </offset>
+            <field ckey="33" fname="sin_addr"/>
+           </offset>
+           <field ckey="203" fname="in"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="1" id="556">
+        <predicate tag="not-null">
+         <exp etag="addrof" xstr="addrof (serv-&gt;addr)">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="serv">
+             <lval>
+              <lhost>
+               <var vid="6280" vname="serv"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <field ckey="206" fname="addr"/>
+           </offset>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="17" id="555">
+        <predicate from="iushort" tag="unsigned-to-signed-cast" to="iint">
+         <exp etag="lval" xstr="*(addrof (*(lval (serv)).addr)).in6.sin6_port">
+          <lval>
+           <lhost>
+            <mem etag="addrof" xstr="addrof (serv-&gt;addr)">
+             <lval>
+              <lhost>
+               <mem etag="lval" xstr="serv">
+                <lval>
+                 <lhost>
+                  <var vid="6280" vname="serv"/>
+                 </lhost>
+                </lval>
+               </mem>
+              </lhost>
+              <offset>
+               <field ckey="206" fname="addr"/>
+              </offset>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="34" fname="sin6_port"/>
+            </offset>
+            <field ckey="203" fname="in6"/>
+           </offset>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="19" id="554">
+        <predicate op="pluspi" tag="ptr-upper-bound-deref">
+         <typ ikind="iuint" ttag="tint"/>
+         <exp1 etag="addrof" xstr="addrof (serv1-&gt;addr)">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="serv1">
+             <lval>
+              <lhost>
+               <var vid="6281" vname="serv1"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <field ckey="206" fname="addr"/>
+           </offset>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="3">
+          <constant ctag="cint64" ikind="iint" intValue="3"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="18" id="553">
+        <predicate tag="pointer-cast">
+         <tfrom ckey="46" ttag="tcomp"/>
+         <tto ikind="iuint" ttag="tint"/>
+         <exp etag="addrof" xstr="addrof (serv1-&gt;addr)">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="serv1">
+             <lval>
+              <lhost>
+               <var vid="6281" vname="serv1"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <field ckey="206" fname="addr"/>
+           </offset>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="22" id="552">
+        <predicate from="iushort" tag="unsigned-to-signed-cast" to="iint">
+         <exp etag="lval" xstr="*(addrof (*(lval (serv)).addr)).in.sin_port">
+          <lval>
+           <lhost>
+            <mem etag="addrof" xstr="addrof (serv-&gt;addr)">
+             <lval>
+              <lhost>
+               <mem etag="lval" xstr="serv">
+                <lval>
+                 <lhost>
+                  <var vid="6280" vname="serv"/>
+                 </lhost>
+                </lval>
+               </mem>
+              </lhost>
+              <offset>
+               <field ckey="206" fname="addr"/>
+              </offset>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="33" fname="sin_port"/>
+            </offset>
+            <field ckey="203" fname="in"/>
+           </offset>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+      </obligations>
+      <context>
+       <cfg-context>
+        <node name="instr" num="0"/>
+        <node name="stmt" num="685"/>
+        <node name="if-then"/>
+        <node name="stmt" num="684"/>
+        <node name="loop"/>
+        <node name="stmt" num="681"/>
+        <node name="if-then"/>
+        <node name="stmt" num="679"/>
+        <node name="loop"/>
+        <node name="stmt" num="676"/>
+        <node name="stmt" num="657"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="1" fname="whine_malloc" fvid="4790">
+      <location byte="212407" file="src/cache.c" line="1305"/>
+      <args>
+       <arg etag="caste" xstr="caste (60:size_t)">
+        <typ tname="size_t" ttag="tnamed"/>
+        <exp etag="const" xstr="60">
+         <constant ctag="cint64" ikind="iint" intValue="60"/>
+        </exp>
+       </arg>
+      </args>
+      <obligations>
+       <obligation api-id="1" id="578">
+        <predicate from="iulong" tag="unsigned-to-signed-cast" to="iint">
+         <exp etag="caste" xstr="caste (60:size_t)">
+          <typ tname="size_t" ttag="tnamed"/>
+          <exp etag="const" xstr="60">
+           <constant ctag="cint64" ikind="iint" intValue="60"/>
+          </exp>
+         </exp>
+        </predicate>
+       </obligation>
+      </obligations>
+      <context>
+       <cfg-context>
+        <node name="instr" num="0"/>
+        <node name="stmt" num="653"/>
+        <node name="if-then"/>
+        <node name="stmt" num="652"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+    </callsite-obligations>
+    <return-sites>
+     <return-site>
+      <exp etag="const" xstr="1">
+       <constant ctag="cint64" ikind="iint" intValue="1"/>
+      </exp>
+      <location byte="214539" file="src/cache.c" line="1390"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="700"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+     <return-site>
+      <exp etag="const" xstr="1">
+       <constant ctag="cint64" ikind="iint" intValue="1"/>
+      </exp>
+      <location byte="214427" file="src/cache.c" line="1383"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="698"/>
+        <node name="stmt" num="657"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+     <return-site>
+      <exp etag="const" xstr="0">
+       <constant ctag="cint64" ikind="iint" intValue="0"/>
+      </exp>
+      <location byte="214011" file="src/cache.c" line="1368"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="693"/>
+        <node name="if-else"/>
+        <node name="stmt" num="692"/>
+        <node name="if-then"/>
+        <node name="stmt" num="690"/>
+        <node name="if-then"/>
+        <node name="stmt" num="679"/>
+        <node name="loop"/>
+        <node name="stmt" num="676"/>
+        <node name="stmt" num="657"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+     <return-site>
+      <exp etag="const" xstr="0">
+       <constant ctag="cint64" ikind="iint" intValue="0"/>
+      </exp>
+      <location byte="212452" file="src/cache.c" line="1306"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="655"/>
+        <node name="if-else"/>
+        <node name="stmt" num="654"/>
+        <node name="if-then"/>
+        <node name="stmt" num="652"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+    </return-sites>
+    <post-expectations/>
+    <ds-expectations/>
+   </secondary-proof-obligations>
+  </function>
+  <header time="01/10/2017 05:33:32">
+   <application file="src/cache.c" name="application"/>
+  </header>
+ </c-analysis>

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <codehawk-c-analysis>
+  <header>
+   <created file="src/util" project-directory="/home/vagrant/git/dnsmasq" time="01/09/2017 21:32:10"/>
+  </header>
+  <function filename="src/util">
+   <svar vglob="true" vid="4793" vname="sa_len">
+    <vtyp ttag="tfun" vararg="false">
+     <args>
+      <arg aname="addr">
+       <typ ttag="tptr">
+        <typ ckey="203" ttag="tcomp"/>
+       </typ>
+      </arg>
+     </args>
+     <typ ikind="iint" ttag="tint"/>
+    </vtyp>
+    <vdecl byte="191694" file="src/util.c" line="292"/>
+   </svar>
+   <sformals>
+    <varinfo vid="5992" vname="addr">
+     <vtyp ttag="tptr">
+      <typ ckey="203" ttag="tcomp"/>
+     </vtyp>
+     <vdecl byte="191722" file="src/util.c" line="292"/>
+    </varinfo>
+   </sformals>
+   <slocals/>
+   <sbody>
+    <bstmts>
+     <stmt sid="190">
+      <skind stag="if">
+       <exp binop="eq" etag="binop">
+        <exp1 etag="caste">
+         <typ ikind="iint" ttag="tint"/>
+         <exp etag="lval">
+          <lval>
+           <offset>
+            <field ckey="203" fname="sa"/>
+            <offset>
+             <field ckey="20" fname="sa_family"/>
+            </offset>
+           </offset>
+           <lhost>
+            <mem etag="lval">
+             <lval>
+              <lhost>
+               <var vid="5992" vname="addr"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+          </lval>
+         </exp>
+        </exp1>
+        <exp2 etag="const">
+         <constant ctag="cint64" ikind="iint" intValue="10"/>
+        </exp2>
+        <typ ikind="iint" ttag="tint"/>
+       </exp>
+       <thenblock>
+        <bstmts>
+         <stmt sid="191">
+          <skind stag="return">
+           <loc byte="191771" file="src/util.c" line="299"/>
+           <exp etag="caste">
+            <typ ikind="iint" ttag="tint"/>
+            <exp etag="sizeofe">
+             <exp etag="lval">
+              <lval>
+               <offset>
+                <field ckey="203" fname="in6"/>
+               </offset>
+               <lhost>
+                <mem etag="lval">
+                 <lval>
+                  <lhost>
+                   <var vid="5992" vname="addr"/>
+                  </lhost>
+                 </lval>
+                </mem>
+               </lhost>
+              </lval>
+             </exp>
+            </exp>
+           </exp>
+          </skind>
+          <succs/>
+          <preds>
+           <int intValue="190"/>
+          </preds>
+         </stmt>
+        </bstmts>
+       </thenblock>
+       <elseblock>
+        <bstmts>
+         <stmt sid="192">
+          <skind stag="return">
+           <loc byte="191809" file="src/util.c" line="302"/>
+           <exp etag="caste">
+            <typ ikind="iint" ttag="tint"/>
+            <exp etag="sizeofe">
+             <exp etag="lval">
+              <lval>
+               <offset>
+                <field ckey="203" fname="in"/>
+               </offset>
+               <lhost>
+                <mem etag="lval">
+                 <lval>
+                  <lhost>
+                   <var vid="5992" vname="addr"/>
+                  </lhost>
+                 </lval>
+                </mem>
+               </lhost>
+              </lval>
+             </exp>
+            </exp>
+           </exp>
+          </skind>
+          <succs/>
+          <preds>
+           <int intValue="190"/>
+          </preds>
+         </stmt>
+        </bstmts>
+       </elseblock>
+       <loc byte="191737" file="src/util.c" line="298"/>
+      </skind>
+      <succs>
+       <int intValue="191"/>
+       <int intValue="192"/>
+      </succs>
+      <preds/>
+     </stmt>
+    </bstmts>
+   </sbody>
+  </function>
+ </codehawk-c-analysis>

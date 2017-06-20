@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <codehawk-c-analysis>
+  <header>
+   <created file="src/util" project-directory="/home/vagrant/git/dnsmasq" time="01/09/2017 21:32:10"/>
+  </header>
+  <function filename="src/util">
+   <svar vglob="true" vid="4816" vname="is_same_net">
+    <vtyp ttag="tfun" vararg="false">
+     <args>
+      <arg aname="a">
+       <typ ckey="42" ttag="tcomp"/>
+      </arg>
+      <arg aname="b">
+       <typ ckey="42" ttag="tcomp"/>
+      </arg>
+      <arg aname="mask">
+       <typ ckey="42" ttag="tcomp"/>
+      </arg>
+     </args>
+     <typ ikind="iint" ttag="tint"/>
+    </vtyp>
+    <vdecl byte="192446" file="src/util.c" line="355"/>
+   </svar>
+   <sformals>
+    <varinfo vid="6014" vname="a">
+     <vtyp ckey="42" ttag="tcomp"/>
+     <vdecl byte="192477" file="src/util.c" line="355"/>
+    </varinfo>
+    <varinfo vid="6015" vname="b">
+     <vtyp ckey="42" ttag="tcomp"/>
+     <vdecl byte="192495" file="src/util.c" line="355"/>
+    </varinfo>
+    <varinfo vid="6016" vname="mask">
+     <vtyp ckey="42" ttag="tcomp"/>
+     <vdecl byte="192513" file="src/util.c" line="355"/>
+    </varinfo>
+   </sformals>
+   <slocals/>
+   <sbody>
+    <bstmts>
+     <stmt sid="216">
+      <skind stag="return">
+       <loc byte="192523" file="src/util.c" line="357"/>
+       <exp binop="eq" etag="binop">
+        <exp1 binop="band" etag="binop">
+         <exp1 etag="lval">
+          <lval>
+           <offset>
+            <field ckey="42" fname="s_addr"/>
+           </offset>
+           <lhost>
+            <var vid="6014" vname="a"/>
+           </lhost>
+          </lval>
+         </exp1>
+         <exp2 etag="lval">
+          <lval>
+           <offset>
+            <field ckey="42" fname="s_addr"/>
+           </offset>
+           <lhost>
+            <var vid="6016" vname="mask"/>
+           </lhost>
+          </lval>
+         </exp2>
+         <typ ikind="iuint" ttag="tint"/>
+        </exp1>
+        <exp2 binop="band" etag="binop">
+         <exp1 etag="lval">
+          <lval>
+           <offset>
+            <field ckey="42" fname="s_addr"/>
+           </offset>
+           <lhost>
+            <var vid="6015" vname="b"/>
+           </lhost>
+          </lval>
+         </exp1>
+         <exp2 etag="lval">
+          <lval>
+           <offset>
+            <field ckey="42" fname="s_addr"/>
+           </offset>
+           <lhost>
+            <var vid="6016" vname="mask"/>
+           </lhost>
+          </lval>
+         </exp2>
+         <typ ikind="iuint" ttag="tint"/>
+        </exp2>
+        <typ ikind="iint" ttag="tint"/>
+       </exp>
+      </skind>
+      <succs/>
+      <preds/>
+     </stmt>
+    </bstmts>
+   </sbody>
+  </function>
+ </codehawk-c-analysis>

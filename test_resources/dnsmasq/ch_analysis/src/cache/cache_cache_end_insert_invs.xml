@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function name="cache_end_insert" stable="yes">
+   <program-locations>
+    <program-location>
+     <locations>
+      <loc byte="197007" file="src/cache.c" line="599"/>
+     </locations>
+     <cfg-context>
+      <node name="if-expr"/>
+      <node name="stmt" num="270"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="5" pv="7"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="197040" file="src/cache.c" line="602"/>
+     </locations>
+     <cfg-context>
+      <node name="if-expr"/>
+      <node name="stmt" num="273"/>
+      <node name="loop"/>
+      <node name="stmt" num="272"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="5" pv="7"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="197070" file="src/cache.c" line="604"/>
+     </locations>
+     <cfg-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="275"/>
+      <node name="loop"/>
+      <node name="stmt" num="272"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="6" pv="9"/>
+      <inv nrv="5" pv="7"/>
+      <inv nrv="6" pv="8"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="197113" file="src/cache.c" line="606"/>
+     </locations>
+     <cfg-context>
+      <node name="instr" num="1"/>
+      <node name="stmt" num="275"/>
+      <node name="loop"/>
+      <node name="stmt" num="272"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="6" pv="9"/>
+      <inv nrv="5" pv="7"/>
+      <inv nrv="3" pv="7"/>
+      <inv nrv="6" pv="10"/>
+      <inv nrv="6" pv="14"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="197113" file="src/cache.c" line="606"/>
+     </locations>
+     <cfg-context>
+      <node name="if-expr"/>
+      <node name="stmt" num="276"/>
+      <node name="loop"/>
+      <node name="stmt" num="272"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="6" pv="9"/>
+      <inv nrv="5" pv="7"/>
+      <inv nrv="3" pv="7"/>
+      <inv nrv="1" pv="3"/>
+      <inv nrv="4" pv="3"/>
+      <inv nrv="1" pv="5"/>
+      <inv nrv="4" pv="5"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="197156" file="src/cache.c" line="607"/>
+     </locations>
+     <cfg-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="277"/>
+      <node name="if-then"/>
+      <node name="stmt" num="276"/>
+      <node name="loop"/>
+      <node name="stmt" num="272"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="6" pv="9"/>
+      <inv nrv="5" pv="7"/>
+      <inv nrv="3" pv="7"/>
+      <inv nrv="1" pv="3"/>
+      <inv nrv="4" pv="3"/>
+      <inv nrv="6" pv="11"/>
+      <inv nrv="6" pv="15"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="197196" file="src/cache.c" line="610"/>
+     </locations>
+     <cfg-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="278"/>
+      <node name="if-else"/>
+      <node name="stmt" num="276"/>
+      <node name="loop"/>
+      <node name="stmt" num="272"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="6" pv="9"/>
+      <inv nrv="5" pv="7"/>
+      <inv nrv="3" pv="7"/>
+      <inv nrv="1" pv="3"/>
+      <inv nrv="4" pv="3"/>
+      <inv nrv="7" pv="19"/>
+      <inv nrv="8" pv="21"/>
+      <inv nrv="6" pv="12"/>
+      <inv nrv="6" pv="16"/>
+      <inv nrv="6" pv="18"/>
+      <inv nrv="6" pv="20"/>
+      <inv nrv="6" pv="22"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="197222" file="src/cache.c" line="611"/>
+     </locations>
+     <cfg-context>
+      <node name="instr" num="1"/>
+      <node name="stmt" num="278"/>
+      <node name="if-else"/>
+      <node name="stmt" num="276"/>
+      <node name="loop"/>
+      <node name="stmt" num="272"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="6" pv="9"/>
+      <inv nrv="5" pv="7"/>
+      <inv nrv="3" pv="7"/>
+      <inv nrv="1" pv="3"/>
+      <inv nrv="4" pv="3"/>
+      <inv nrv="6" pv="13"/>
+      <inv nrv="6" pv="17"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="197248" file="src/cache.c" line="612"/>
+     </locations>
+     <cfg-context>
+      <node name="instr" num="2"/>
+      <node name="stmt" num="278"/>
+      <node name="if-else"/>
+      <node name="stmt" num="276"/>
+      <node name="loop"/>
+      <node name="stmt" num="272"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="6" pv="9"/>
+      <inv nrv="5" pv="7"/>
+      <inv nrv="3" pv="7"/>
+      <inv nrv="1" pv="3"/>
+      <inv nrv="4" pv="3"/>
+      <inv nrv="2" pv="4"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="197275" file="src/cache.c" line="614"/>
+     </locations>
+     <cfg-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="279"/>
+      <node name="loop"/>
+      <node name="stmt" num="272"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="6" pv="9"/>
+      <inv nrv="5" pv="7"/>
+      <inv nrv="3" pv="7"/>
+      <inv nrv="1" pv="3"/>
+      <inv nrv="4" pv="3"/>
+      <inv nrv="5" pv="6"/>
+      <inv nrv="3" pv="6"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="197300" file="src/cache.c" line="616"/>
+     </locations>
+     <cfg-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="280"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="5" pv="9"/>
+      <inv nrv="5" pv="7"/>
+      <inv nrv="0" pv="2"/>
+      <inv nrv="0" pv="1"/>
+      <inv nrv="0" pv="0"/>
+     </invariants>
+    </program-location>
+   </program-locations>
+   <program-value-table size="23">
+    <pvals index="0">
+     <pval arg="2" id="35"/>
+     <pval arg="2" id="36"/>
+     <pval arg="1" id="37"/>
+    </pvals>
+    <pvals index="1">
+     <pval arg="3" id="34"/>
+    </pvals>
+    <pvals index="2">
+     <pval arg="3" id="33"/>
+    </pvals>
+    <pvals index="3">
+     <pval>
+      <lhost>
+       <var vid="6053" vname="tmp___0"/>
+      </lhost>
+     </pval>
+    </pvals>
+    <pvals index="4">
+     <pval arg="3" id="27"/>
+     <pval arg="3" id="28"/>
+    </pvals>
+    <pvals index="5">
+     <pval arg="1" id="13"/>
+    </pvals>
+    <pvals index="6">
+     <pval arg="1" id="29"/>
+     <pval arg="2" id="30"/>
+     <pval arg="2" id="31"/>
+     <pval arg="1" id="32"/>
+    </pvals>
+    <pvals index="7">
+     <pval>
+      <lhost>
+       <var vid="6051" vname="tmp"/>
+      </lhost>
+     </pval>
+    </pvals>
+    <pvals index="8">
+     <pval arg="1" id="4"/>
+     <pval arg="1" id="5"/>
+     <pval arg="1" id="6"/>
+     <pval arg="2" id="7"/>
+     <pval arg="2" id="8"/>
+    </pvals>
+    <pvals index="9">
+     <pval>
+      <lhost>
+       <var vid="5904" vname="new_chain"/>
+      </lhost>
+     </pval>
+    </pvals>
+    <pvals index="10">
+     <pval arg="1" id="9"/>
+     <pval arg="1" id="10"/>
+     <pval arg="2" id="11"/>
+     <pval arg="2" id="12"/>
+    </pvals>
+    <pvals index="11">
+     <pval arg="1" id="14"/>
+     <pval arg="1" id="15"/>
+     <pval arg="2" id="16"/>
+     <pval arg="2" id="17"/>
+    </pvals>
+    <pvals index="12">
+     <pval arg="1" id="18"/>
+     <pval arg="1" id="19"/>
+     <pval arg="2" id="20"/>
+     <pval arg="2" id="21"/>
+    </pvals>
+    <pvals index="13">
+     <pval arg="1" id="22"/>
+     <pval arg="1" id="23"/>
+     <pval arg="2" id="24"/>
+     <pval arg="2" id="25"/>
+    </pvals>
+    <pvals index="14">
+     <pval arg="1" id="9"/>
+     <pval arg="1" id="10"/>
+     <pval arg="2" id="11"/>
+     <pval arg="2" id="12"/>
+     <pval arg="1" id="44"/>
+    </pvals>
+    <pvals index="15">
+     <pval arg="1" id="14"/>
+     <pval arg="1" id="15"/>
+     <pval arg="2" id="16"/>
+     <pval arg="2" id="17"/>
+     <pval arg="1" id="40"/>
+    </pvals>
+    <pvals index="16">
+     <pval arg="1" id="18"/>
+     <pval arg="1" id="19"/>
+     <pval arg="2" id="20"/>
+     <pval arg="2" id="21"/>
+     <pval arg="1" id="39"/>
+    </pvals>
+    <pvals index="17">
+     <pval arg="1" id="22"/>
+     <pval arg="1" id="23"/>
+     <pval arg="2" id="24"/>
+     <pval arg="2" id="25"/>
+     <pval arg="1" id="38"/>
+    </pvals>
+    <pvals index="18">
+     <pval arg="1" id="18"/>
+     <pval arg="1" id="19"/>
+     <pval arg="2" id="20"/>
+     <pval arg="2" id="21"/>
+     <pval arg="1" id="39"/>
+     <pval arg="1" id="56"/>
+    </pvals>
+    <pvals index="19">
+     <pval arg="4" id="59"/>
+     <pval arg="4" id="60"/>
+     <pval arg="4" id="61"/>
+    </pvals>
+    <pvals index="20">
+     <pval arg="1" id="18"/>
+     <pval arg="1" id="19"/>
+     <pval arg="2" id="20"/>
+     <pval arg="2" id="21"/>
+     <pval arg="1" id="39"/>
+     <pval arg="1" id="56"/>
+     <pval arg="3" id="60"/>
+    </pvals>
+    <pvals index="21">
+     <pval arg="4" id="62"/>
+     <pval arg="4" id="63"/>
+     <pval arg="4" id="64"/>
+    </pvals>
+    <pvals index="22">
+     <pval arg="1" id="18"/>
+     <pval arg="1" id="19"/>
+     <pval arg="2" id="20"/>
+     <pval arg="2" id="21"/>
+     <pval arg="1" id="39"/>
+     <pval arg="1" id="56"/>
+     <pval arg="3" id="60"/>
+     <pval arg="3" id="64"/>
+    </pvals>
+   </program-value-table>
+   <non-relational-value-table size="9">
+    <nrv index="0" tag="range" value="0"/>
+    <nrv byte="197113" etag="fnapp" file="src/cache.c" index="1" line="606" tag="fv" xstr="fn(is_outdated_cname_pointer)@ 606[_]">
+     <arg/>
+     <fn etag="lval" xstr="is_outdated_cname_pointer">
+      <lval>
+       <lhost>
+        <var vid="5985" vname="is_outdated_cname_pointer"/>
+       </lhost>
+      </lval>
+     </fn>
+    </nrv>
+    <nrv index="2" tag="range" value="1"/>
+    <nrv index="3" tag="ss">
+     <sym name="assignedAt#604">
+      <attr value="field"/>
+      <attr value="next"/>
+      <attr value="196"/>
+     </sym>
+    </nrv>
+    <nrv index="4" tag="ss">
+     <sym name="assignedAt#606">
+      <attr value="return-value"/>
+      <attr value="is_outdated_cname_pointer"/>
+     </sym>
+    </nrv>
+    <nrv index="5" lb="0" tag="range"/>
+    <nrv index="6" lb="1" tag="range"/>
+    <nrv index="7" tag="range" value="256"/>
+    <nrv index="8" tag="range" value="1024"/>
+   </non-relational-value-table>
+  </function>
+  <header time="01/10/2017 05:02:18">
+   <application file="src/cache.c" name="application"/>
+  </header>
+ </c-analysis>

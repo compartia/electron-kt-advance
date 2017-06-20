@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function cfilename="src/util.c" gvid="22" name="is_same_net" num-ppo="0">
+   <statistics api-assumptions="0" callers="11" ds-assumptions="0" field-assignments="0" global-assignments="0" global-assumptions="0" rv-assumptions="0"/>
+   <parameters>
+    <param formal-vid="6014" index="1" vname="a"/>
+    <param formal-vid="6015" index="2" vname="b"/>
+    <param formal-vid="6016" index="3" vname="mask"/>
+   </parameters>
+   <callers>
+    <caller cfilename="src/auth.c" fname="find_addrlist" gvid="18" updated="01/09/2017 21:38:34" updated-f="1483997914.45">
+     <call-site byte="187067" file="src/auth.c" line="33"/>
+     <args>
+      <arg/>
+      <arg/>
+      <arg/>
+     </args>
+     <calling-context>
+      <node name="instr" num="3"/>
+      <node name="stmt" num="6"/>
+      <node name="if-then"/>
+      <node name="stmt" num="2"/>
+      <node name="loop"/>
+      <node name="stmt" num="1"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/dhcp-common.c" fname="is_config_in_context" gvid="121" updated="01/09/2017 21:38:35" updated-f="1483997915.5">
+     <call-site byte="192211" file="src/dhcp-common.c" line="292"/>
+     <args>
+      <arg/>
+      <arg/>
+      <arg/>
+     </args>
+     <calling-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="232"/>
+      <node name="if-then"/>
+      <node name="stmt" num="231"/>
+      <node name="if-else"/>
+      <node name="stmt" num="226"/>
+      <node name="loop"/>
+      <node name="stmt" num="223"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/dhcp.c" fname="complete_context" gvid="155" updated="01/09/2017 21:38:35" updated-f="1483997915.8">
+     <call-site byte="198611" file="src/dhcp.c" line="512"/>
+     <args>
+      <arg/>
+      <arg/>
+      <arg/>
+     </args>
+     <calling-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="199"/>
+      <node name="if-then"/>
+      <node name="stmt" num="198"/>
+      <node name="loop"/>
+      <node name="stmt" num="195"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/dhcp.c" fname="narrow_context" gvid="153" updated="01/09/2017 21:38:35" updated-f="1483997915.78">
+     <call-site byte="202018" file="src/dhcp.c" line="610"/>
+     <args>
+      <arg/>
+      <arg/>
+      <arg/>
+     </args>
+     <calling-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="267"/>
+      <node name="if-then"/>
+      <node name="stmt" num="266"/>
+      <node name="loop"/>
+      <node name="stmt" num="262"/>
+      <node name="if-else"/>
+      <node name="stmt" num="260"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/forward.c" fname="receive_query" gvid="262" updated="01/09/2017 21:38:37" updated-f="1483997917.36">
+     <call-site byte="211809" file="src/forward.c" line="1230"/>
+     <args>
+      <arg/>
+      <arg/>
+      <arg/>
+     </args>
+     <calling-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="431"/>
+      <node name="if-then"/>
+      <node name="stmt" num="430"/>
+      <node name="loop"/>
+      <node name="stmt" num="426"/>
+      <node name="if-else"/>
+      <node name="stmt" num="415"/>
+      <node name="if-then"/>
+      <node name="stmt" num="414"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/forward.c" fname="tcp_request" gvid="261" updated="01/09/2017 21:38:37" updated-f="1483997917.26">
+     <call-site byte="219318" file="src/forward.c" line="1663"/>
+     <args>
+      <arg/>
+      <arg/>
+      <arg/>
+     </args>
+     <calling-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="575"/>
+      <node name="if-then"/>
+      <node name="stmt" num="574"/>
+      <node name="loop"/>
+      <node name="stmt" num="570"/>
+      <node name="if-else"/>
+      <node name="stmt" num="559"/>
+      <node name="if-then"/>
+      <node name="stmt" num="558"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/lease.c" fname="find_interface_v4" gvid="421" updated="01/09/2017 21:38:38" updated-f="1483997918.45">
+     <call-site byte="195674" file="src/lease.c" line="369"/>
+     <args>
+      <arg/>
+      <arg/>
+      <arg/>
+     </args>
+     <calling-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="227"/>
+      <node name="if-then"/>
+      <node name="stmt" num="226"/>
+      <node name="loop"/>
+      <node name="stmt" num="223"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/option.c" fname="one_opt" gvid="493" updated="01/09/2017 21:38:40" updated-f="1483997920.41">
+     <call-site byte="260083" file="src/option.c" line="2793"/>
+     <args>
+      <arg/>
+      <arg/>
+      <arg/>
+     </args>
+     <calling-context>
+      <node name="instr" num="2"/>
+      <node name="stmt" num="1553"/>
+      <node name="if-then"/>
+      <node name="stmt" num="1552"/>
+      <node name="if-then"/>
+      <node name="stmt" num="1550"/>
+      <node name="if-then"/>
+      <node name="stmt" num="1548"/>
+      <node name="if-then"/>
+      <node name="stmt" num="1532"/>
+      <node name="stmt" num="626"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/rfc1035.c" fname="answer_request" gvid="359" updated="01/09/2017 21:38:45" updated-f="1483997925.77">
+     <call-site byte="233181" file="src/rfc1035.c" line="1566"/>
+     <args>
+      <arg/>
+      <arg/>
+      <arg/>
+     </args>
+     <calling-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="1049"/>
+      <node name="if-then"/>
+      <node name="stmt" num="1048"/>
+      <node name="loop"/>
+      <node name="stmt" num="1047"/>
+      <node name="if-then"/>
+      <node name="stmt" num="1045"/>
+      <node name="if-then"/>
+      <node name="stmt" num="1044"/>
+      <node name="if-then"/>
+      <node name="stmt" num="1043"/>
+      <node name="if-then"/>
+      <node name="stmt" num="1041"/>
+      <node name="loop"/>
+      <node name="stmt" num="964"/>
+      <node name="if-then"/>
+      <node name="stmt" num="824"/>
+      <node name="loop"/>
+      <node name="stmt" num="795"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/rfc1035.c" fname="do_doctor" gvid="562" updated="01/09/2017 21:38:47" updated-f="1483997927.44">
+     <call-site byte="197467" file="src/rfc1035.c" line="463"/>
+     <args>
+      <arg/>
+      <arg/>
+      <arg/>
+     </args>
+     <calling-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="305"/>
+      <node name="if-then"/>
+      <node name="stmt" num="304"/>
+      <node name="loop"/>
+      <node name="stmt" num="301"/>
+      <node name="if-then"/>
+      <node name="stmt" num="297"/>
+      <node name="if-then"/>
+      <node name="stmt" num="296"/>
+      <node name="loop"/>
+      <node name="stmt" num="283"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/rfc2131.c" fname="dhcp_reply" gvid="161" updated="01/09/2017 21:38:48" updated-f="1483997928.45">
+     <call-site byte="195389" file="src/rfc2131.c" line="293"/>
+     <args>
+      <arg/>
+      <arg/>
+      <arg/>
+     </args>
+     <calling-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="113"/>
+      <node name="if-then"/>
+      <node name="stmt" num="112"/>
+      <node name="loop"/>
+      <node name="stmt" num="109"/>
+      <node name="if-else"/>
+      <node name="stmt" num="106"/>
+      <node name="if-else"/>
+      <node name="stmt" num="104"/>
+      <node name="if-then"/>
+      <node name="stmt" num="102"/>
+      <node name="if-else"/>
+      <node name="stmt" num="100"/>
+      <node name="if-else"/>
+      <node name="stmt" num="98"/>
+     </calling-context>
+    </caller>
+   </callers>
+   <api-assumptions/>
+   <rv-assumptions/>
+   <ds-assumptions/>
+   <global-assumptions/>
+   <global-assignments/>
+   <field-assignments/>
+  </function>
+  <header time="01/10/2017 06:57:10">
+   <application file="src/util.c" name="application"/>
+  </header>
+ </c-analysis>

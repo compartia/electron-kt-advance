@@ -1,0 +1,804 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function cfilename="src/cache.c" gvid="29" name="cache_enumerate" num-ppo="0">
+   <statistics api-assumptions="0" callers="1" ds-assumptions="0" field-assignments="0" global-assignments="6" global-assumptions="25" rv-assumptions="0"/>
+   <parameters>
+    <param formal-vid="5981" index="1" vname="init"/>
+   </parameters>
+   <callers>
+    <caller cfilename="src/auth.c" fname="answer_auth" gvid="13" updated="01/09/2017 21:38:33" updated-f="1483997913.93">
+     <call-site byte="207293" file="src/auth.c" line="791"/>
+     <args>
+      <arg etag="const" xstr="1">
+       <constant ctag="cint64" ikind="iint" intValue="1"/>
+      </arg>
+     </args>
+     <calling-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="611"/>
+      <node name="if-then"/>
+      <node name="stmt" num="473"/>
+      <node name="if-then"/>
+      <node name="stmt" num="413"/>
+      <node name="if-then"/>
+      <node name="stmt" num="412"/>
+     </calling-context>
+    </caller>
+   </callers>
+   <api-assumptions/>
+   <rv-assumptions/>
+   <ds-assumptions/>
+   <global-assumptions>
+    <global-assumption nr="1">
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="cache-&gt;hash_next">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="cache">
+          <lval>
+           <lhost>
+            <var vid="95" vname="cache"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <field ckey="66" fname="hash_next"/>
+        </offset>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="22"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="2">
+     <predicate tag="lower-bound">
+      <exp etag="lval" xstr="*(((lval (hash_table) +i lval (tmp)):((struct 66*)*))">
+       <lval>
+        <lhost>
+         <mem binop="indexpi" etag="binop" xstr="((hash_table +i tmp):((struct 66*)*)">
+          <exp1 etag="lval" xstr="hash_table">
+           <lval>
+            <lhost>
+             <var vid="107" vname="hash_table"/>
+            </lhost>
+           </lval>
+          </exp1>
+          <exp2 etag="lval" xstr="tmp">
+           <lval>
+            <lhost>
+             <var vid="5984" vname="tmp"/>
+            </lhost>
+           </lval>
+          </exp2>
+          <typ ttag="tptr">
+           <typ ttag="tptr">
+            <typ ckey="66" ttag="tcomp"/>
+           </typ>
+          </typ>
+         </mem>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ckey="66" ttag="tcomp"/>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="45"/>
+      <po id="46"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="3">
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="cache">
+       <lval>
+        <lhost>
+         <var vid="95" vname="cache"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="11"/>
+      <po id="17"/>
+      <po id="50"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="4">
+     <predicate op="indexpi" tag="ptr-upper-bound-deref">
+      <typ ttag="tptr">
+       <typ ckey="66" ttag="tcomp"/>
+      </typ>
+      <exp1 etag="lval" xstr="hash_table">
+       <lval>
+        <lhost>
+         <var vid="107" vname="hash_table"/>
+        </lhost>
+       </lval>
+      </exp1>
+      <exp2 etag="lval" xstr="tmp">
+       <lval>
+        <lhost>
+         <var vid="5984" vname="tmp"/>
+        </lhost>
+       </lval>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="40"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="5">
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="*(((lval (hash_table) +i lval (tmp)):((struct 66*)*))">
+       <lval>
+        <lhost>
+         <mem binop="indexpi" etag="binop" xstr="((hash_table +i tmp):((struct 66*)*)">
+          <exp1 etag="lval" xstr="hash_table">
+           <lval>
+            <lhost>
+             <var vid="107" vname="hash_table"/>
+            </lhost>
+           </lval>
+          </exp1>
+          <exp2 etag="lval" xstr="tmp">
+           <lval>
+            <lhost>
+             <var vid="5984" vname="tmp"/>
+            </lhost>
+           </lval>
+          </exp2>
+          <typ ttag="tptr">
+           <typ ttag="tptr">
+            <typ ckey="66" ttag="tcomp"/>
+           </typ>
+          </typ>
+         </mem>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="47"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="6">
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="cache">
+       <lval>
+        <lhost>
+         <var vid="95" vname="cache"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="10"/>
+      <po id="16"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="7">
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="cache">
+         <lval>
+          <lhost>
+           <var vid="95" vname="cache"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <field ckey="66" fname="hash_next"/>
+       </offset>
+      </lval>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="8"/>
+      <po id="14"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="8">
+     <predicate op="plusa" size="iint" tag="int-overflow">
+      <exp1 etag="lval" xstr="bucket">
+       <lval>
+        <lhost>
+         <var vid="96" vname="bucket"/>
+        </lhost>
+       </lval>
+      </exp1>
+      <exp2 etag="const" xstr="1">
+       <constant ctag="cint64" ikind="iint" intValue="1"/>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="33"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="9">
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="hash_table">
+       <lval>
+        <lhost>
+         <var vid="107" vname="hash_table"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="37"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="10">
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="hash_table">
+       <lval>
+        <lhost>
+         <var vid="107" vname="hash_table"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="38"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="11">
+     <predicate op="indexpi" tag="ptr-lower-bound">
+      <typ ttag="tptr">
+       <typ ckey="66" ttag="tcomp"/>
+      </typ>
+      <exp1 etag="lval" xstr="hash_table">
+       <lval>
+        <lhost>
+         <var vid="107" vname="hash_table"/>
+        </lhost>
+       </lval>
+      </exp1>
+      <exp2 etag="lval" xstr="tmp">
+       <lval>
+        <lhost>
+         <var vid="5984" vname="tmp"/>
+        </lhost>
+       </lval>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="39"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="12">
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem binop="indexpi" etag="binop" xstr="((hash_table +i tmp):((struct 66*)*)">
+         <exp1 etag="lval" xstr="hash_table">
+          <lval>
+           <lhost>
+            <var vid="107" vname="hash_table"/>
+           </lhost>
+          </lval>
+         </exp1>
+         <exp2 etag="lval" xstr="tmp">
+          <lval>
+           <lhost>
+            <var vid="5984" vname="tmp"/>
+           </lhost>
+          </lval>
+         </exp2>
+         <typ ttag="tptr">
+          <typ ttag="tptr">
+           <typ ckey="66" ttag="tcomp"/>
+          </typ>
+         </typ>
+        </mem>
+       </lhost>
+      </lval>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="34"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="13">
+     <predicate tag="global-mem">
+      <exp etag="lval" xstr="cache">
+       <lval>
+        <lhost>
+         <var vid="95" vname="cache"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="51"/>
+      <po id="57"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="14">
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="cache">
+         <lval>
+          <lhost>
+           <var vid="95" vname="cache"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <offset>
+         <field ckey="67" fname="namep"/>
+        </offset>
+        <field ckey="66" fname="name"/>
+       </offset>
+      </lval>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="54"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="15">
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="cache">
+         <lval>
+          <lhost>
+           <var vid="95" vname="cache"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <offset>
+         <field ckey="67" fname="bname"/>
+        </offset>
+        <field ckey="66" fname="name"/>
+       </offset>
+      </lval>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="56"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="16">
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="cache-&gt;name.bname">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="cache">
+          <lval>
+           <lhost>
+            <var vid="95" vname="cache"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <field ckey="67" fname="bname"/>
+         </offset>
+         <field ckey="66" fname="name"/>
+        </offset>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="55"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="17">
+     <predicate tag="global-mem">
+      <exp etag="lval" xstr="cache-&gt;name.namep">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="cache">
+          <lval>
+           <lhost>
+            <var vid="95" vname="cache"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <field ckey="67" fname="namep"/>
+         </offset>
+         <field ckey="66" fname="name"/>
+        </offset>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="58"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="18">
+     <predicate tag="global-mem">
+      <exp etag="lval" xstr="cache-&gt;name.bname">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="cache">
+          <lval>
+           <lhost>
+            <var vid="95" vname="cache"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <field ckey="67" fname="bname"/>
+         </offset>
+         <field ckey="66" fname="name"/>
+        </offset>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="59"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="19">
+     <predicate op="pluspi" tag="ptr-upper-bound">
+      <typ ikind="ichar" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+      <exp1 etag="lval" xstr="cache-&gt;name.namep">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="cache">
+          <lval>
+           <lhost>
+            <var vid="95" vname="cache"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <field ckey="67" fname="namep"/>
+         </offset>
+         <field ckey="66" fname="name"/>
+        </offset>
+       </lval>
+      </exp1>
+      <exp2 etag="const" xstr="256">
+       <constant ctag="cint64" ikind="iint" intValue="256"/>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="61"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="20">
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="cache-&gt;name.namep">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="cache">
+          <lval>
+           <lhost>
+            <var vid="95" vname="cache"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <field ckey="67" fname="namep"/>
+         </offset>
+         <field ckey="66" fname="name"/>
+        </offset>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="63"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="21">
+     <predicate op="pluspi" tag="ptr-upper-bound">
+      <typ ikind="ichar" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+      <exp1 etag="lval" xstr="cache-&gt;name.bname">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="cache">
+          <lval>
+           <lhost>
+            <var vid="95" vname="cache"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <field ckey="67" fname="bname"/>
+         </offset>
+         <field ckey="66" fname="name"/>
+        </offset>
+       </lval>
+      </exp1>
+      <exp2 etag="const" xstr="256">
+       <constant ctag="cint64" ikind="iint" intValue="256"/>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="62"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="22">
+     <predicate op="pluspi" tag="ptr-upper-bound">
+      <typ ikind="ichar" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+      <exp1 etag="lval" xstr="cache">
+       <lval>
+        <lhost>
+         <var vid="95" vname="cache"/>
+        </lhost>
+       </lval>
+      </exp1>
+      <exp2 etag="const" xstr="256">
+       <constant ctag="cint64" ikind="iint" intValue="256"/>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="60"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="23">
+     <predicate op="pluspi" tag="ptr-upper-bound-deref">
+      <typ ikind="ichar" ttag="tint"/>
+      <exp1 etag="lval" xstr="cache-&gt;name.bname">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="cache">
+          <lval>
+           <lhost>
+            <var vid="95" vname="cache"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <field ckey="67" fname="bname"/>
+         </offset>
+         <field ckey="66" fname="name"/>
+        </offset>
+       </lval>
+      </exp1>
+      <exp2 etag="const" xstr="1024">
+       <constant ctag="cint64" ikind="iint" intValue="1024"/>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="65"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="24">
+     <predicate op="pluspi" tag="ptr-upper-bound-deref">
+      <typ ikind="ichar" ttag="tint"/>
+      <exp1 etag="lval" xstr="cache-&gt;name.namep">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="cache">
+          <lval>
+           <lhost>
+            <var vid="95" vname="cache"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <field ckey="67" fname="namep"/>
+         </offset>
+         <field ckey="66" fname="name"/>
+        </offset>
+       </lval>
+      </exp1>
+      <exp2 etag="const" xstr="1024">
+       <constant ctag="cint64" ikind="iint" intValue="1024"/>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="66"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="25">
+     <predicate op="pluspi" tag="ptr-upper-bound-deref">
+      <typ ikind="ichar" ttag="tint"/>
+      <exp1 etag="lval" xstr="cache">
+       <lval>
+        <lhost>
+         <var vid="95" vname="cache"/>
+        </lhost>
+       </lval>
+      </exp1>
+      <exp2 etag="const" xstr="1024">
+       <constant ctag="cint64" ikind="iint" intValue="1024"/>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="64"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+   </global-assumptions>
+   <global-assignments>
+    <global-assignment nr="1">
+     <lhs>
+      <lhost>
+       <var vid="96" vname="bucket"/>
+      </lhost>
+     </lhs>
+     <rhs etag="const" xstr="0">
+      <constant ctag="cint64" ikind="iint" intValue="0"/>
+     </rhs>
+     <loc byte="191168" file="src/cache.c" line="278"/>
+    </global-assignment>
+    <global-assignment nr="4">
+     <lhs>
+      <lhost>
+       <var vid="95" vname="cache"/>
+      </lhost>
+     </lhs>
+     <rhs etag="caste" xstr="caste (caste (0:(void*)):(struct 66*))">
+      <typ ttag="tptr">
+       <typ ckey="66" ttag="tcomp"/>
+      </typ>
+      <exp etag="caste" xstr="caste (0:(void*))">
+       <typ ttag="tptr">
+        <typ ttag="tvoid"/>
+       </typ>
+       <exp etag="const" xstr="0">
+        <constant ctag="cint64" ikind="iint" intValue="0"/>
+       </exp>
+      </exp>
+     </rhs>
+     <loc byte="191301" file="src/cache.c" line="285"/>
+    </global-assignment>
+    <global-assignment nr="5">
+     <lhs>
+      <lhost>
+       <var vid="96" vname="bucket"/>
+      </lhost>
+     </lhs>
+     <rhs binop="plusa" etag="binop" xstr="((bucket + 1):int">
+      <exp1 etag="lval" xstr="bucket">
+       <lval>
+        <lhost>
+         <var vid="96" vname="bucket"/>
+        </lhost>
+       </lval>
+      </exp1>
+      <exp2 etag="const" xstr="1">
+       <constant ctag="cint64" ikind="iint" intValue="1"/>
+      </exp2>
+      <typ ikind="iint" ttag="tint"/>
+     </rhs>
+     <loc byte="191358" file="src/cache.c" line="287"/>
+    </global-assignment>
+    <global-assignment nr="3">
+     <lhs>
+      <lhost>
+       <var vid="95" vname="cache"/>
+      </lhost>
+     </lhs>
+     <rhs etag="lval" xstr="cache-&gt;hash_next">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="cache">
+         <lval>
+          <lhost>
+           <var vid="95" vname="cache"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <field ckey="66" fname="hash_next"/>
+       </offset>
+      </lval>
+     </rhs>
+     <loc byte="191255" file="src/cache.c" line="282"/>
+    </global-assignment>
+    <global-assignment nr="2">
+     <lhs>
+      <lhost>
+       <var vid="95" vname="cache"/>
+      </lhost>
+     </lhs>
+     <rhs etag="caste" xstr="caste (caste (0:(void*)):(struct 66*))">
+      <typ ttag="tptr">
+       <typ ckey="66" ttag="tcomp"/>
+      </typ>
+      <exp etag="caste" xstr="caste (0:(void*))">
+       <typ ttag="tptr">
+        <typ ttag="tvoid"/>
+       </typ>
+       <exp etag="const" xstr="0">
+        <constant ctag="cint64" ikind="iint" intValue="0"/>
+       </exp>
+      </exp>
+     </rhs>
+     <loc byte="191186" file="src/cache.c" line="279"/>
+    </global-assignment>
+    <global-assignment nr="6">
+     <lhs>
+      <lhost>
+       <var vid="95" vname="cache"/>
+      </lhost>
+     </lhs>
+     <rhs etag="lval" xstr="*(((lval (hash_table) +i lval (tmp)):((struct 66*)*))">
+      <lval>
+       <lhost>
+        <mem binop="indexpi" etag="binop" xstr="((hash_table +i tmp):((struct 66*)*)">
+         <exp1 etag="lval" xstr="hash_table">
+          <lval>
+           <lhost>
+            <var vid="107" vname="hash_table"/>
+           </lhost>
+          </lval>
+         </exp1>
+         <exp2 etag="lval" xstr="tmp">
+          <lval>
+           <lhost>
+            <var vid="5984" vname="tmp"/>
+           </lhost>
+          </lval>
+         </exp2>
+         <typ ttag="tptr">
+          <typ ttag="tptr">
+           <typ ckey="66" ttag="tcomp"/>
+          </typ>
+         </typ>
+        </mem>
+       </lhost>
+      </lval>
+     </rhs>
+     <loc byte="191358" file="src/cache.c" line="287"/>
+    </global-assignment>
+   </global-assignments>
+   <field-assignments/>
+  </function>
+  <header time="01/10/2017 06:52:37">
+   <application file="src/cache.c" name="application"/>
+  </header>
+ </c-analysis>

@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <codehawk-c-analysis>
+  <header>
+   <created file="src/cache" project-directory="/home/vagrant/git/dnsmasq" time="01/09/2017 21:32:09"/>
+  </header>
+  <function filename="src/cache">
+   <svar vglob="true" vid="4428" vname="cache_get_cname_target">
+    <vtyp ttag="tfun" vararg="false">
+     <args>
+      <arg aname="crecp">
+       <typ ttag="tptr">
+        <typ ckey="196" ttag="tcomp"/>
+       </typ>
+      </arg>
+     </args>
+     <typ ttag="tptr">
+      <typ ikind="ichar" ttag="tint"/>
+     </typ>
+    </vtyp>
+    <vdecl byte="190852" file="src/cache.c" line="261"/>
+   </svar>
+   <sformals>
+    <varinfo vid="5977" vname="crecp">
+     <vtyp ttag="tptr">
+      <typ ckey="196" ttag="tcomp"/>
+     </vtyp>
+     <vdecl byte="190852" file="src/cache.c" line="261"/>
+    </varinfo>
+   </sformals>
+   <slocals>
+    <varinfo vid="5978" vname="tmp">
+     <vtyp ttag="tptr">
+      <typ ikind="ichar" ttag="tint"/>
+     </vtyp>
+     <vdecl byte="-1" file="" line="-1"/>
+    </varinfo>
+   </slocals>
+   <sbody>
+    <bstmts>
+     <stmt sid="98">
+      <skind stag="if">
+       <exp binop="ne" etag="binop">
+        <exp1 etag="lval">
+         <lval>
+          <offset>
+           <field ckey="196" fname="addr"/>
+           <offset>
+            <field ckey="197" fname="cname"/>
+            <offset>
+             <field ckey="198" fname="uid"/>
+            </offset>
+           </offset>
+          </offset>
+          <lhost>
+           <mem etag="lval">
+            <lval>
+             <lhost>
+              <var vid="5977" vname="crecp"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+         </lval>
+        </exp1>
+        <exp2 etag="const">
+         <constant ctag="cint64" ikind="iuint" intValue="0"/>
+        </exp2>
+        <typ ikind="iint" ttag="tint"/>
+       </exp>
+       <thenblock>
+        <bstmts>
+         <stmt sid="99">
+          <skind stag="instr">
+           <instrs>
+            <instr itag="call">
+             <exp etag="lval">
+              <lval>
+               <lhost>
+                <var vid="4425" vname="cache_get_name"/>
+               </lhost>
+              </lval>
+             </exp>
+             <args>
+              <exp etag="lval">
+               <lval>
+                <offset>
+                 <field ckey="196" fname="addr"/>
+                 <offset>
+                  <field ckey="197" fname="cname"/>
+                  <offset>
+                   <field ckey="198" fname="target"/>
+                   <offset>
+                    <field ckey="199" fname="cache"/>
+                   </offset>
+                  </offset>
+                 </offset>
+                </offset>
+                <lhost>
+                 <mem etag="lval">
+                  <lval>
+                   <lhost>
+                    <var vid="5977" vname="crecp"/>
+                   </lhost>
+                  </lval>
+                 </mem>
+                </lhost>
+               </lval>
+              </exp>
+             </args>
+             <loc byte="190941" file="src/cache.c" line="264"/>
+             <lval>
+              <lhost>
+               <var vid="5978" vname="tmp"/>
+              </lhost>
+             </lval>
+            </instr>
+           </instrs>
+          </skind>
+          <succs>
+           <int intValue="100"/>
+          </succs>
+          <preds>
+           <int intValue="98"/>
+          </preds>
+         </stmt>
+         <stmt sid="100">
+          <skind stag="return">
+           <loc byte="190941" file="src/cache.c" line="264"/>
+           <exp etag="lval">
+            <lval>
+             <lhost>
+              <var vid="5978" vname="tmp"/>
+             </lhost>
+            </lval>
+           </exp>
+          </skind>
+          <succs/>
+          <preds>
+           <int intValue="99"/>
+          </preds>
+         </stmt>
+        </bstmts>
+       </thenblock>
+       <elseblock>
+        <bstmts/>
+       </elseblock>
+       <loc byte="190905" file="src/cache.c" line="263"/>
+      </skind>
+      <succs>
+       <int intValue="99"/>
+       <int intValue="101"/>
+      </succs>
+      <preds/>
+     </stmt>
+     <stmt sid="101">
+      <skind stag="return">
+       <loc byte="190999" file="src/cache.c" line="266"/>
+       <exp etag="lval">
+        <lval>
+         <offset>
+          <field ckey="193" fname="name"/>
+         </offset>
+         <lhost>
+          <mem etag="lval">
+           <lval>
+            <offset>
+             <field ckey="196" fname="addr"/>
+             <offset>
+              <field ckey="197" fname="cname"/>
+              <offset>
+               <field ckey="198" fname="target"/>
+               <offset>
+                <field ckey="199" fname="int_name"/>
+               </offset>
+              </offset>
+             </offset>
+            </offset>
+            <lhost>
+             <mem etag="lval">
+              <lval>
+               <lhost>
+                <var vid="5977" vname="crecp"/>
+               </lhost>
+              </lval>
+             </mem>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+        </lval>
+       </exp>
+      </skind>
+      <succs/>
+      <preds>
+       <int intValue="98"/>
+      </preds>
+     </stmt>
+    </bstmts>
+   </sbody>
+  </function>
+ </codehawk-c-analysis>

@@ -1,0 +1,2477 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function name="hash_bucket">
+   <secondary-proof-obligations max-spo-id="88" num-ppo="62">
+    <indirect-calls/>
+    <callsite-obligations/>
+    <return-sites>
+     <return-site>
+      <exp binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 196*)*)">
+       <exp1 etag="lval" xstr="hash_table">
+        <lval>
+         <lhost>
+          <var vid="5902" vname="hash_table"/>
+         </lhost>
+        </lval>
+       </exp1>
+       <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+        <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+         <exp1 etag="lval" xstr="val">
+          <lval>
+           <lhost>
+            <var vid="5953" vname="val"/>
+           </lhost>
+          </lval>
+         </exp1>
+         <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+          <exp1 etag="lval" xstr="val">
+           <lval>
+            <lhost>
+             <var vid="5953" vname="val"/>
+            </lhost>
+           </lval>
+          </exp1>
+          <exp2 etag="const" xstr="16">
+           <constant ctag="cint64" ikind="iint" intValue="16"/>
+          </exp2>
+          <typ ikind="iuint" ttag="tint"/>
+         </exp2>
+         <typ ikind="iuint" ttag="tint"/>
+        </exp1>
+        <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+         <typ ikind="iuint" ttag="tint"/>
+         <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+          <exp1 etag="lval" xstr="hash_size">
+           <lval>
+            <lhost>
+             <var vid="5910" vname="hash_size"/>
+            </lhost>
+           </lval>
+          </exp1>
+          <exp2 etag="const" xstr="1">
+           <constant ctag="cint64" ikind="iint" intValue="1"/>
+          </exp2>
+          <typ ikind="iint" ttag="tint"/>
+         </exp>
+        </exp2>
+        <typ ikind="iuint" ttag="tint"/>
+       </exp2>
+       <typ ttag="tptr">
+        <typ ttag="tptr">
+         <typ ckey="196" ttag="tcomp"/>
+        </typ>
+       </typ>
+      </exp>
+      <location byte="189285" file="src/cache.c" line="163"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="54"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+    </return-sites>
+    <post-expectations>
+     <post-expectation id="68">
+      <callers>
+       <caller api-id="6" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="8" fname="cache_find_by_name" fvid="31"/>
+       <caller api-id="6" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="8" fname="cache_find_by_name" fvid="31"/>
+       <caller api-id="6" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="8" fname="cache_find_by_name" fvid="31"/>
+       <caller api-id="6" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="8" fname="cache_find_by_name" fvid="31"/>
+       <caller api-id="6" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="8" fname="cache_find_by_name" fvid="31"/>
+       <caller api-id="6" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="8" fname="cache_find_by_name" fvid="31"/>
+      </callers>
+      <predicate tag="global-mem">
+       <exp etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 196*)*))">
+        <lval>
+         <lhost>
+          <mem binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 196*)*)">
+           <exp1 etag="lval" xstr="hash_table">
+            <lval>
+             <lhost>
+              <var vid="5902" vname="hash_table"/>
+             </lhost>
+            </lval>
+           </exp1>
+           <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+            <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+             <exp1 etag="lval" xstr="val">
+              <lval>
+               <lhost>
+                <var vid="5953" vname="val"/>
+               </lhost>
+              </lval>
+             </exp1>
+             <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+              <exp1 etag="lval" xstr="val">
+               <lval>
+                <lhost>
+                 <var vid="5953" vname="val"/>
+                </lhost>
+               </lval>
+              </exp1>
+              <exp2 etag="const" xstr="16">
+               <constant ctag="cint64" ikind="iint" intValue="16"/>
+              </exp2>
+              <typ ikind="iuint" ttag="tint"/>
+             </exp2>
+             <typ ikind="iuint" ttag="tint"/>
+            </exp1>
+            <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+             <typ ikind="iuint" ttag="tint"/>
+             <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+              <exp1 etag="lval" xstr="hash_size">
+               <lval>
+                <lhost>
+                 <var vid="5910" vname="hash_size"/>
+                </lhost>
+               </lval>
+              </exp1>
+              <exp2 etag="const" xstr="1">
+               <constant ctag="cint64" ikind="iint" intValue="1"/>
+              </exp2>
+              <typ ikind="iint" ttag="tint"/>
+             </exp>
+            </exp2>
+            <typ ikind="iuint" ttag="tint"/>
+           </exp2>
+           <typ ttag="tptr">
+            <typ ttag="tptr">
+             <typ ckey="196" ttag="tcomp"/>
+            </typ>
+           </typ>
+          </mem>
+         </lhost>
+        </lval>
+       </exp>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="54"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="189285" file="src/cache.c" line="163"/>
+     </post-expectation>
+     <post-expectation id="82">
+      <callers>
+       <caller api-id="19" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="19" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="19" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="19" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="19" fname="cache_scan_free" fvid="60"/>
+      </callers>
+      <predicate tag="not-null">
+       <exp etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 196*)*))-&gt;name.bname">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 196*)*))">
+           <lval>
+            <lhost>
+             <mem binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 196*)*)">
+              <exp1 etag="lval" xstr="hash_table">
+               <lval>
+                <lhost>
+                 <var vid="5902" vname="hash_table"/>
+                </lhost>
+               </lval>
+              </exp1>
+              <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+               <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+                <exp1 etag="lval" xstr="val">
+                 <lval>
+                  <lhost>
+                   <var vid="5953" vname="val"/>
+                  </lhost>
+                 </lval>
+                </exp1>
+                <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+                 <exp1 etag="lval" xstr="val">
+                  <lval>
+                   <lhost>
+                    <var vid="5953" vname="val"/>
+                   </lhost>
+                  </lval>
+                 </exp1>
+                 <exp2 etag="const" xstr="16">
+                  <constant ctag="cint64" ikind="iint" intValue="16"/>
+                 </exp2>
+                 <typ ikind="iuint" ttag="tint"/>
+                </exp2>
+                <typ ikind="iuint" ttag="tint"/>
+               </exp1>
+               <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+                <typ ikind="iuint" ttag="tint"/>
+                <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+                 <exp1 etag="lval" xstr="hash_size">
+                  <lval>
+                   <lhost>
+                    <var vid="5910" vname="hash_size"/>
+                   </lhost>
+                  </lval>
+                 </exp1>
+                 <exp2 etag="const" xstr="1">
+                  <constant ctag="cint64" ikind="iint" intValue="1"/>
+                 </exp2>
+                 <typ ikind="iint" ttag="tint"/>
+                </exp>
+               </exp2>
+               <typ ikind="iuint" ttag="tint"/>
+              </exp2>
+              <typ ttag="tptr">
+               <typ ttag="tptr">
+                <typ ckey="196" ttag="tcomp"/>
+               </typ>
+              </typ>
+             </mem>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <offset>
+           <field ckey="202" fname="bname"/>
+          </offset>
+          <field ckey="196" fname="name"/>
+         </offset>
+        </lval>
+       </exp>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="54"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="189285" file="src/cache.c" line="163"/>
+     </post-expectation>
+     <post-expectation id="78">
+      <callers>
+       <caller api-id="21" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="21" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="21" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="21" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="21" fname="cache_scan_free" fvid="60"/>
+      </callers>
+      <predicate op="pluspi" tag="ptr-upper-bound">
+       <typ ikind="ichar" ttag="tint">
+        <attributes>
+         <attr attrname="const"/>
+        </attributes>
+       </typ>
+       <exp1 etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 196*)*))-&gt;name.bname">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 196*)*))">
+           <lval>
+            <lhost>
+             <mem binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 196*)*)">
+              <exp1 etag="lval" xstr="hash_table">
+               <lval>
+                <lhost>
+                 <var vid="5902" vname="hash_table"/>
+                </lhost>
+               </lval>
+              </exp1>
+              <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+               <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+                <exp1 etag="lval" xstr="val">
+                 <lval>
+                  <lhost>
+                   <var vid="5953" vname="val"/>
+                  </lhost>
+                 </lval>
+                </exp1>
+                <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+                 <exp1 etag="lval" xstr="val">
+                  <lval>
+                   <lhost>
+                    <var vid="5953" vname="val"/>
+                   </lhost>
+                  </lval>
+                 </exp1>
+                 <exp2 etag="const" xstr="16">
+                  <constant ctag="cint64" ikind="iint" intValue="16"/>
+                 </exp2>
+                 <typ ikind="iuint" ttag="tint"/>
+                </exp2>
+                <typ ikind="iuint" ttag="tint"/>
+               </exp1>
+               <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+                <typ ikind="iuint" ttag="tint"/>
+                <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+                 <exp1 etag="lval" xstr="hash_size">
+                  <lval>
+                   <lhost>
+                    <var vid="5910" vname="hash_size"/>
+                   </lhost>
+                  </lval>
+                 </exp1>
+                 <exp2 etag="const" xstr="1">
+                  <constant ctag="cint64" ikind="iint" intValue="1"/>
+                 </exp2>
+                 <typ ikind="iint" ttag="tint"/>
+                </exp>
+               </exp2>
+               <typ ikind="iuint" ttag="tint"/>
+              </exp2>
+              <typ ttag="tptr">
+               <typ ttag="tptr">
+                <typ ckey="196" ttag="tcomp"/>
+               </typ>
+              </typ>
+             </mem>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <offset>
+           <field ckey="202" fname="bname"/>
+          </offset>
+          <field ckey="196" fname="name"/>
+         </offset>
+        </lval>
+       </exp1>
+       <exp2 etag="const" xstr="256">
+        <constant ctag="cint64" ikind="iint" intValue="256"/>
+       </exp2>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="54"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="189285" file="src/cache.c" line="163"/>
+     </post-expectation>
+     <post-expectation id="85">
+      <callers>
+       <caller api-id="25" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="10" fname="cache_find_by_name" fvid="31"/>
+       <caller api-id="25" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="10" fname="cache_find_by_name" fvid="31"/>
+       <caller api-id="25" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="10" fname="cache_find_by_name" fvid="31"/>
+       <caller api-id="25" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="10" fname="cache_find_by_name" fvid="31"/>
+      </callers>
+      <predicate op="pluspi" tag="ptr-upper-bound-deref">
+       <typ ikind="ichar" ttag="tint"/>
+       <exp1 etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 196*)*))">
+        <lval>
+         <lhost>
+          <mem binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 196*)*)">
+           <exp1 etag="lval" xstr="hash_table">
+            <lval>
+             <lhost>
+              <var vid="5902" vname="hash_table"/>
+             </lhost>
+            </lval>
+           </exp1>
+           <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+            <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+             <exp1 etag="lval" xstr="val">
+              <lval>
+               <lhost>
+                <var vid="5953" vname="val"/>
+               </lhost>
+              </lval>
+             </exp1>
+             <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+              <exp1 etag="lval" xstr="val">
+               <lval>
+                <lhost>
+                 <var vid="5953" vname="val"/>
+                </lhost>
+               </lval>
+              </exp1>
+              <exp2 etag="const" xstr="16">
+               <constant ctag="cint64" ikind="iint" intValue="16"/>
+              </exp2>
+              <typ ikind="iuint" ttag="tint"/>
+             </exp2>
+             <typ ikind="iuint" ttag="tint"/>
+            </exp1>
+            <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+             <typ ikind="iuint" ttag="tint"/>
+             <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+              <exp1 etag="lval" xstr="hash_size">
+               <lval>
+                <lhost>
+                 <var vid="5910" vname="hash_size"/>
+                </lhost>
+               </lval>
+              </exp1>
+              <exp2 etag="const" xstr="1">
+               <constant ctag="cint64" ikind="iint" intValue="1"/>
+              </exp2>
+              <typ ikind="iint" ttag="tint"/>
+             </exp>
+            </exp2>
+            <typ ikind="iuint" ttag="tint"/>
+           </exp2>
+           <typ ttag="tptr">
+            <typ ttag="tptr">
+             <typ ckey="196" ttag="tcomp"/>
+            </typ>
+           </typ>
+          </mem>
+         </lhost>
+        </lval>
+       </exp1>
+       <exp2 etag="const" xstr="1024">
+        <constant ctag="cint64" ikind="iint" intValue="1024"/>
+       </exp2>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="54"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="189285" file="src/cache.c" line="163"/>
+     </post-expectation>
+     <post-expectation id="80">
+      <callers>
+       <caller api-id="16" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="16" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="16" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="16" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="16" fname="cache_scan_free" fvid="60"/>
+      </callers>
+      <predicate op="pluspi" tag="ptr-upper-bound">
+       <typ ikind="ichar" ttag="tint">
+        <attributes>
+         <attr attrname="const"/>
+        </attributes>
+       </typ>
+       <exp1 etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 196*)*))-&gt;name.namep">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 196*)*))">
+           <lval>
+            <lhost>
+             <mem binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 196*)*)">
+              <exp1 etag="lval" xstr="hash_table">
+               <lval>
+                <lhost>
+                 <var vid="5902" vname="hash_table"/>
+                </lhost>
+               </lval>
+              </exp1>
+              <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+               <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+                <exp1 etag="lval" xstr="val">
+                 <lval>
+                  <lhost>
+                   <var vid="5953" vname="val"/>
+                  </lhost>
+                 </lval>
+                </exp1>
+                <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+                 <exp1 etag="lval" xstr="val">
+                  <lval>
+                   <lhost>
+                    <var vid="5953" vname="val"/>
+                   </lhost>
+                  </lval>
+                 </exp1>
+                 <exp2 etag="const" xstr="16">
+                  <constant ctag="cint64" ikind="iint" intValue="16"/>
+                 </exp2>
+                 <typ ikind="iuint" ttag="tint"/>
+                </exp2>
+                <typ ikind="iuint" ttag="tint"/>
+               </exp1>
+               <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+                <typ ikind="iuint" ttag="tint"/>
+                <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+                 <exp1 etag="lval" xstr="hash_size">
+                  <lval>
+                   <lhost>
+                    <var vid="5910" vname="hash_size"/>
+                   </lhost>
+                  </lval>
+                 </exp1>
+                 <exp2 etag="const" xstr="1">
+                  <constant ctag="cint64" ikind="iint" intValue="1"/>
+                 </exp2>
+                 <typ ikind="iint" ttag="tint"/>
+                </exp>
+               </exp2>
+               <typ ikind="iuint" ttag="tint"/>
+              </exp2>
+              <typ ttag="tptr">
+               <typ ttag="tptr">
+                <typ ckey="196" ttag="tcomp"/>
+               </typ>
+              </typ>
+             </mem>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <offset>
+           <field ckey="202" fname="namep"/>
+          </offset>
+          <field ckey="196" fname="name"/>
+         </offset>
+        </lval>
+       </exp1>
+       <exp2 etag="const" xstr="256">
+        <constant ctag="cint64" ikind="iint" intValue="256"/>
+       </exp2>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="54"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="189285" file="src/cache.c" line="163"/>
+     </post-expectation>
+     <post-expectation id="79">
+      <callers>
+       <caller api-id="14" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="14" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="14" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="14" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="14" fname="cache_scan_free" fvid="60"/>
+      </callers>
+      <predicate tag="initialized">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 196*)*))">
+          <lval>
+           <lhost>
+            <mem binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 196*)*)">
+             <exp1 etag="lval" xstr="hash_table">
+              <lval>
+               <lhost>
+                <var vid="5902" vname="hash_table"/>
+               </lhost>
+              </lval>
+             </exp1>
+             <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+              <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+               <exp1 etag="lval" xstr="val">
+                <lval>
+                 <lhost>
+                  <var vid="5953" vname="val"/>
+                 </lhost>
+                </lval>
+               </exp1>
+               <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+                <exp1 etag="lval" xstr="val">
+                 <lval>
+                  <lhost>
+                   <var vid="5953" vname="val"/>
+                  </lhost>
+                 </lval>
+                </exp1>
+                <exp2 etag="const" xstr="16">
+                 <constant ctag="cint64" ikind="iint" intValue="16"/>
+                </exp2>
+                <typ ikind="iuint" ttag="tint"/>
+               </exp2>
+               <typ ikind="iuint" ttag="tint"/>
+              </exp1>
+              <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+               <typ ikind="iuint" ttag="tint"/>
+               <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+                <exp1 etag="lval" xstr="hash_size">
+                 <lval>
+                  <lhost>
+                   <var vid="5910" vname="hash_size"/>
+                  </lhost>
+                 </lval>
+                </exp1>
+                <exp2 etag="const" xstr="1">
+                 <constant ctag="cint64" ikind="iint" intValue="1"/>
+                </exp2>
+                <typ ikind="iint" ttag="tint"/>
+               </exp>
+              </exp2>
+              <typ ikind="iuint" ttag="tint"/>
+             </exp2>
+             <typ ttag="tptr">
+              <typ ttag="tptr">
+               <typ ckey="196" ttag="tcomp"/>
+              </typ>
+             </typ>
+            </mem>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <field ckey="202" fname="namep"/>
+         </offset>
+         <field ckey="196" fname="name"/>
+        </offset>
+       </lval>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="54"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="189285" file="src/cache.c" line="163"/>
+     </post-expectation>
+     <post-expectation id="81">
+      <callers>
+       <caller api-id="17" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="17" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="17" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="17" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="17" fname="cache_scan_free" fvid="60"/>
+      </callers>
+      <predicate tag="initialized">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 196*)*))">
+          <lval>
+           <lhost>
+            <mem binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 196*)*)">
+             <exp1 etag="lval" xstr="hash_table">
+              <lval>
+               <lhost>
+                <var vid="5902" vname="hash_table"/>
+               </lhost>
+              </lval>
+             </exp1>
+             <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+              <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+               <exp1 etag="lval" xstr="val">
+                <lval>
+                 <lhost>
+                  <var vid="5953" vname="val"/>
+                 </lhost>
+                </lval>
+               </exp1>
+               <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+                <exp1 etag="lval" xstr="val">
+                 <lval>
+                  <lhost>
+                   <var vid="5953" vname="val"/>
+                  </lhost>
+                 </lval>
+                </exp1>
+                <exp2 etag="const" xstr="16">
+                 <constant ctag="cint64" ikind="iint" intValue="16"/>
+                </exp2>
+                <typ ikind="iuint" ttag="tint"/>
+               </exp2>
+               <typ ikind="iuint" ttag="tint"/>
+              </exp1>
+              <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+               <typ ikind="iuint" ttag="tint"/>
+               <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+                <exp1 etag="lval" xstr="hash_size">
+                 <lval>
+                  <lhost>
+                   <var vid="5910" vname="hash_size"/>
+                  </lhost>
+                 </lval>
+                </exp1>
+                <exp2 etag="const" xstr="1">
+                 <constant ctag="cint64" ikind="iint" intValue="1"/>
+                </exp2>
+                <typ ikind="iint" ttag="tint"/>
+               </exp>
+              </exp2>
+              <typ ikind="iuint" ttag="tint"/>
+             </exp2>
+             <typ ttag="tptr">
+              <typ ttag="tptr">
+               <typ ckey="196" ttag="tcomp"/>
+              </typ>
+             </typ>
+            </mem>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <field ckey="202" fname="bname"/>
+         </offset>
+         <field ckey="196" fname="name"/>
+        </offset>
+       </lval>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="54"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="189285" file="src/cache.c" line="163"/>
+     </post-expectation>
+     <post-expectation id="65">
+      <callers>
+       <caller api-id="3" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="3" fname="cache_find_by_name" fvid="31"/>
+       <caller api-id="5" fname="cache_hash" fvid="67"/>
+       <caller api-id="3" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="3" fname="cache_find_by_name" fvid="31"/>
+       <caller api-id="5" fname="cache_hash" fvid="67"/>
+       <caller api-id="3" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="3" fname="cache_find_by_name" fvid="31"/>
+       <caller api-id="5" fname="cache_hash" fvid="67"/>
+       <caller api-id="3" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="3" fname="cache_find_by_name" fvid="31"/>
+       <caller api-id="5" fname="cache_hash" fvid="67"/>
+       <caller api-id="3" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="3" fname="cache_find_by_name" fvid="31"/>
+       <caller api-id="5" fname="cache_hash" fvid="67"/>
+       <caller api-id="3" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="3" fname="cache_find_by_name" fvid="31"/>
+       <caller api-id="5" fname="cache_hash" fvid="67"/>
+       <caller api-id="3" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="3" fname="cache_find_by_name" fvid="31"/>
+       <caller api-id="5" fname="cache_hash" fvid="67"/>
+       <caller api-id="3" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="3" fname="cache_find_by_name" fvid="31"/>
+      </callers>
+      <predicate tag="upper-bound">
+       <exp etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 196*)*))">
+        <lval>
+         <lhost>
+          <mem binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 196*)*)">
+           <exp1 etag="lval" xstr="hash_table">
+            <lval>
+             <lhost>
+              <var vid="5902" vname="hash_table"/>
+             </lhost>
+            </lval>
+           </exp1>
+           <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+            <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+             <exp1 etag="lval" xstr="val">
+              <lval>
+               <lhost>
+                <var vid="5953" vname="val"/>
+               </lhost>
+              </lval>
+             </exp1>
+             <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+              <exp1 etag="lval" xstr="val">
+               <lval>
+                <lhost>
+                 <var vid="5953" vname="val"/>
+                </lhost>
+               </lval>
+              </exp1>
+              <exp2 etag="const" xstr="16">
+               <constant ctag="cint64" ikind="iint" intValue="16"/>
+              </exp2>
+              <typ ikind="iuint" ttag="tint"/>
+             </exp2>
+             <typ ikind="iuint" ttag="tint"/>
+            </exp1>
+            <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+             <typ ikind="iuint" ttag="tint"/>
+             <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+              <exp1 etag="lval" xstr="hash_size">
+               <lval>
+                <lhost>
+                 <var vid="5910" vname="hash_size"/>
+                </lhost>
+               </lval>
+              </exp1>
+              <exp2 etag="const" xstr="1">
+               <constant ctag="cint64" ikind="iint" intValue="1"/>
+              </exp2>
+              <typ ikind="iint" ttag="tint"/>
+             </exp>
+            </exp2>
+            <typ ikind="iuint" ttag="tint"/>
+           </exp2>
+           <typ ttag="tptr">
+            <typ ttag="tptr">
+             <typ ckey="196" ttag="tcomp"/>
+            </typ>
+           </typ>
+          </mem>
+         </lhost>
+        </lval>
+       </exp>
+       <typ ckey="196" ttag="tcomp"/>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="54"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="189285" file="src/cache.c" line="163"/>
+     </post-expectation>
+     <post-expectation id="77">
+      <callers>
+       <caller api-id="15" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="15" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="15" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="15" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="15" fname="cache_scan_free" fvid="60"/>
+      </callers>
+      <predicate op="pluspi" tag="ptr-upper-bound-deref">
+       <typ ikind="iuint" ttag="tint"/>
+       <exp1 etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 196*)*))">
+        <lval>
+         <lhost>
+          <mem binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 196*)*)">
+           <exp1 etag="lval" xstr="hash_table">
+            <lval>
+             <lhost>
+              <var vid="5902" vname="hash_table"/>
+             </lhost>
+            </lval>
+           </exp1>
+           <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+            <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+             <exp1 etag="lval" xstr="val">
+              <lval>
+               <lhost>
+                <var vid="5953" vname="val"/>
+               </lhost>
+              </lval>
+             </exp1>
+             <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+              <exp1 etag="lval" xstr="val">
+               <lval>
+                <lhost>
+                 <var vid="5953" vname="val"/>
+                </lhost>
+               </lval>
+              </exp1>
+              <exp2 etag="const" xstr="16">
+               <constant ctag="cint64" ikind="iint" intValue="16"/>
+              </exp2>
+              <typ ikind="iuint" ttag="tint"/>
+             </exp2>
+             <typ ikind="iuint" ttag="tint"/>
+            </exp1>
+            <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+             <typ ikind="iuint" ttag="tint"/>
+             <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+              <exp1 etag="lval" xstr="hash_size">
+               <lval>
+                <lhost>
+                 <var vid="5910" vname="hash_size"/>
+                </lhost>
+               </lval>
+              </exp1>
+              <exp2 etag="const" xstr="1">
+               <constant ctag="cint64" ikind="iint" intValue="1"/>
+              </exp2>
+              <typ ikind="iint" ttag="tint"/>
+             </exp>
+            </exp2>
+            <typ ikind="iuint" ttag="tint"/>
+           </exp2>
+           <typ ttag="tptr">
+            <typ ttag="tptr">
+             <typ ckey="196" ttag="tcomp"/>
+            </typ>
+           </typ>
+          </mem>
+         </lhost>
+        </lval>
+       </exp1>
+       <exp2 etag="const" xstr="1">
+        <constant ctag="cint64" ikind="iint" intValue="1"/>
+       </exp2>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="54"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="189285" file="src/cache.c" line="163"/>
+     </post-expectation>
+     <post-expectation id="87">
+      <callers>
+       <caller api-id="24" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="24" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="24" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="24" fname="cache_scan_free" fvid="60"/>
+      </callers>
+      <predicate tag="pointer-cast">
+       <tfrom ckey="46" ttag="tcomp"/>
+       <tto ikind="iuint" ttag="tint"/>
+       <exp etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 196*)*))">
+        <lval>
+         <lhost>
+          <mem binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 196*)*)">
+           <exp1 etag="lval" xstr="hash_table">
+            <lval>
+             <lhost>
+              <var vid="5902" vname="hash_table"/>
+             </lhost>
+            </lval>
+           </exp1>
+           <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+            <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+             <exp1 etag="lval" xstr="val">
+              <lval>
+               <lhost>
+                <var vid="5953" vname="val"/>
+               </lhost>
+              </lval>
+             </exp1>
+             <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+              <exp1 etag="lval" xstr="val">
+               <lval>
+                <lhost>
+                 <var vid="5953" vname="val"/>
+                </lhost>
+               </lval>
+              </exp1>
+              <exp2 etag="const" xstr="16">
+               <constant ctag="cint64" ikind="iint" intValue="16"/>
+              </exp2>
+              <typ ikind="iuint" ttag="tint"/>
+             </exp2>
+             <typ ikind="iuint" ttag="tint"/>
+            </exp1>
+            <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+             <typ ikind="iuint" ttag="tint"/>
+             <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+              <exp1 etag="lval" xstr="hash_size">
+               <lval>
+                <lhost>
+                 <var vid="5910" vname="hash_size"/>
+                </lhost>
+               </lval>
+              </exp1>
+              <exp2 etag="const" xstr="1">
+               <constant ctag="cint64" ikind="iint" intValue="1"/>
+              </exp2>
+              <typ ikind="iint" ttag="tint"/>
+             </exp>
+            </exp2>
+            <typ ikind="iuint" ttag="tint"/>
+           </exp2>
+           <typ ttag="tptr">
+            <typ ttag="tptr">
+             <typ ckey="196" ttag="tcomp"/>
+            </typ>
+           </typ>
+          </mem>
+         </lhost>
+        </lval>
+       </exp>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="54"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="189285" file="src/cache.c" line="163"/>
+     </post-expectation>
+     <post-expectation id="73">
+      <callers>
+       <caller api-id="12" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="12" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="12" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="12" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="12" fname="cache_scan_free" fvid="60"/>
+      </callers>
+      <predicate tag="initialized">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 196*)*))">
+          <lval>
+           <lhost>
+            <mem binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 196*)*)">
+             <exp1 etag="lval" xstr="hash_table">
+              <lval>
+               <lhost>
+                <var vid="5902" vname="hash_table"/>
+               </lhost>
+              </lval>
+             </exp1>
+             <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+              <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+               <exp1 etag="lval" xstr="val">
+                <lval>
+                 <lhost>
+                  <var vid="5953" vname="val"/>
+                 </lhost>
+                </lval>
+               </exp1>
+               <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+                <exp1 etag="lval" xstr="val">
+                 <lval>
+                  <lhost>
+                   <var vid="5953" vname="val"/>
+                  </lhost>
+                 </lval>
+                </exp1>
+                <exp2 etag="const" xstr="16">
+                 <constant ctag="cint64" ikind="iint" intValue="16"/>
+                </exp2>
+                <typ ikind="iuint" ttag="tint"/>
+               </exp2>
+               <typ ikind="iuint" ttag="tint"/>
+              </exp1>
+              <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+               <typ ikind="iuint" ttag="tint"/>
+               <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+                <exp1 etag="lval" xstr="hash_size">
+                 <lval>
+                  <lhost>
+                   <var vid="5910" vname="hash_size"/>
+                  </lhost>
+                 </lval>
+                </exp1>
+                <exp2 etag="const" xstr="1">
+                 <constant ctag="cint64" ikind="iint" intValue="1"/>
+                </exp2>
+                <typ ikind="iint" ttag="tint"/>
+               </exp>
+              </exp2>
+              <typ ikind="iuint" ttag="tint"/>
+             </exp2>
+             <typ ttag="tptr">
+              <typ ttag="tptr">
+               <typ ckey="196" ttag="tcomp"/>
+              </typ>
+             </typ>
+            </mem>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <field ckey="196" fname="next"/>
+        </offset>
+       </lval>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="54"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="189285" file="src/cache.c" line="163"/>
+     </post-expectation>
+     <post-expectation id="67">
+      <callers>
+       <caller api-id="4" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="1" fname="cache_find_by_name" fvid="31"/>
+       <caller api-id="3" fname="cache_hash" fvid="67"/>
+       <caller api-id="4" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="1" fname="cache_find_by_name" fvid="31"/>
+       <caller api-id="3" fname="cache_hash" fvid="67"/>
+       <caller api-id="4" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="1" fname="cache_find_by_name" fvid="31"/>
+       <caller api-id="3" fname="cache_hash" fvid="67"/>
+       <caller api-id="4" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="1" fname="cache_find_by_name" fvid="31"/>
+       <caller api-id="3" fname="cache_hash" fvid="67"/>
+       <caller api-id="4" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="1" fname="cache_find_by_name" fvid="31"/>
+       <caller api-id="3" fname="cache_hash" fvid="67"/>
+       <caller api-id="4" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="1" fname="cache_find_by_name" fvid="31"/>
+       <caller api-id="3" fname="cache_hash" fvid="67"/>
+       <caller api-id="4" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="1" fname="cache_find_by_name" fvid="31"/>
+       <caller api-id="3" fname="cache_hash" fvid="67"/>
+       <caller api-id="4" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="1" fname="cache_find_by_name" fvid="31"/>
+      </callers>
+      <predicate tag="initialized">
+       <lval>
+        <lhost>
+         <mem binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 196*)*)">
+          <exp1 etag="lval" xstr="hash_table">
+           <lval>
+            <lhost>
+             <var vid="5902" vname="hash_table"/>
+            </lhost>
+           </lval>
+          </exp1>
+          <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+           <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+            <exp1 etag="lval" xstr="val">
+             <lval>
+              <lhost>
+               <var vid="5953" vname="val"/>
+              </lhost>
+             </lval>
+            </exp1>
+            <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+             <exp1 etag="lval" xstr="val">
+              <lval>
+               <lhost>
+                <var vid="5953" vname="val"/>
+               </lhost>
+              </lval>
+             </exp1>
+             <exp2 etag="const" xstr="16">
+              <constant ctag="cint64" ikind="iint" intValue="16"/>
+             </exp2>
+             <typ ikind="iuint" ttag="tint"/>
+            </exp2>
+            <typ ikind="iuint" ttag="tint"/>
+           </exp1>
+           <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+            <typ ikind="iuint" ttag="tint"/>
+            <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+             <exp1 etag="lval" xstr="hash_size">
+              <lval>
+               <lhost>
+                <var vid="5910" vname="hash_size"/>
+               </lhost>
+              </lval>
+             </exp1>
+             <exp2 etag="const" xstr="1">
+              <constant ctag="cint64" ikind="iint" intValue="1"/>
+             </exp2>
+             <typ ikind="iint" ttag="tint"/>
+            </exp>
+           </exp2>
+           <typ ikind="iuint" ttag="tint"/>
+          </exp2>
+          <typ ttag="tptr">
+           <typ ttag="tptr">
+            <typ ckey="196" ttag="tcomp"/>
+           </typ>
+          </typ>
+         </mem>
+        </lhost>
+       </lval>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="54"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="189285" file="src/cache.c" line="163"/>
+     </post-expectation>
+     <post-expectation id="70">
+      <callers>
+       <caller api-id="8" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="8" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="8" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="8" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="8" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="8" fname="cache_scan_free" fvid="60"/>
+      </callers>
+      <predicate tag="initialized">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 196*)*))">
+          <lval>
+           <lhost>
+            <mem binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 196*)*)">
+             <exp1 etag="lval" xstr="hash_table">
+              <lval>
+               <lhost>
+                <var vid="5902" vname="hash_table"/>
+               </lhost>
+              </lval>
+             </exp1>
+             <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+              <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+               <exp1 etag="lval" xstr="val">
+                <lval>
+                 <lhost>
+                  <var vid="5953" vname="val"/>
+                 </lhost>
+                </lval>
+               </exp1>
+               <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+                <exp1 etag="lval" xstr="val">
+                 <lval>
+                  <lhost>
+                   <var vid="5953" vname="val"/>
+                  </lhost>
+                 </lval>
+                </exp1>
+                <exp2 etag="const" xstr="16">
+                 <constant ctag="cint64" ikind="iint" intValue="16"/>
+                </exp2>
+                <typ ikind="iuint" ttag="tint"/>
+               </exp2>
+               <typ ikind="iuint" ttag="tint"/>
+              </exp1>
+              <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+               <typ ikind="iuint" ttag="tint"/>
+               <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+                <exp1 etag="lval" xstr="hash_size">
+                 <lval>
+                  <lhost>
+                   <var vid="5910" vname="hash_size"/>
+                  </lhost>
+                 </lval>
+                </exp1>
+                <exp2 etag="const" xstr="1">
+                 <constant ctag="cint64" ikind="iint" intValue="1"/>
+                </exp2>
+                <typ ikind="iint" ttag="tint"/>
+               </exp>
+              </exp2>
+              <typ ikind="iuint" ttag="tint"/>
+             </exp2>
+             <typ ttag="tptr">
+              <typ ttag="tptr">
+               <typ ckey="196" ttag="tcomp"/>
+              </typ>
+             </typ>
+            </mem>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <offset>
+           <offset>
+            <field ckey="199" fname="cache"/>
+           </offset>
+           <field ckey="198" fname="target"/>
+          </offset>
+          <field ckey="197" fname="cname"/>
+         </offset>
+         <field ckey="196" fname="addr"/>
+        </offset>
+       </lval>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="54"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="189285" file="src/cache.c" line="163"/>
+     </post-expectation>
+     <post-expectation id="84">
+      <callers>
+       <caller api-id="22" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="22" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="22" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="22" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="22" fname="cache_scan_free" fvid="60"/>
+      </callers>
+      <predicate tag="initialized">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 196*)*))">
+          <lval>
+           <lhost>
+            <mem binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 196*)*)">
+             <exp1 etag="lval" xstr="hash_table">
+              <lval>
+               <lhost>
+                <var vid="5902" vname="hash_table"/>
+               </lhost>
+              </lval>
+             </exp1>
+             <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+              <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+               <exp1 etag="lval" xstr="val">
+                <lval>
+                 <lhost>
+                  <var vid="5953" vname="val"/>
+                 </lhost>
+                </lval>
+               </exp1>
+               <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+                <exp1 etag="lval" xstr="val">
+                 <lval>
+                  <lhost>
+                   <var vid="5953" vname="val"/>
+                  </lhost>
+                 </lval>
+                </exp1>
+                <exp2 etag="const" xstr="16">
+                 <constant ctag="cint64" ikind="iint" intValue="16"/>
+                </exp2>
+                <typ ikind="iuint" ttag="tint"/>
+               </exp2>
+               <typ ikind="iuint" ttag="tint"/>
+              </exp1>
+              <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+               <typ ikind="iuint" ttag="tint"/>
+               <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+                <exp1 etag="lval" xstr="hash_size">
+                 <lval>
+                  <lhost>
+                   <var vid="5910" vname="hash_size"/>
+                  </lhost>
+                 </lval>
+                </exp1>
+                <exp2 etag="const" xstr="1">
+                 <constant ctag="cint64" ikind="iint" intValue="1"/>
+                </exp2>
+                <typ ikind="iint" ttag="tint"/>
+               </exp>
+              </exp2>
+              <typ ikind="iuint" ttag="tint"/>
+             </exp2>
+             <typ ttag="tptr">
+              <typ ttag="tptr">
+               <typ ckey="196" ttag="tcomp"/>
+              </typ>
+             </typ>
+            </mem>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <field ckey="196" fname="hash_next"/>
+        </offset>
+       </lval>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="54"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="189285" file="src/cache.c" line="163"/>
+     </post-expectation>
+     <post-expectation id="63">
+      <callers>
+       <caller api-id="2" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="5" fname="cache_find_by_name" fvid="31"/>
+       <caller api-id="1" fname="cache_hash" fvid="67"/>
+       <caller api-id="2" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="5" fname="cache_find_by_name" fvid="31"/>
+       <caller api-id="1" fname="cache_hash" fvid="67"/>
+       <caller api-id="2" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="5" fname="cache_find_by_name" fvid="31"/>
+       <caller api-id="1" fname="cache_hash" fvid="67"/>
+       <caller api-id="2" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="5" fname="cache_find_by_name" fvid="31"/>
+       <caller api-id="1" fname="cache_hash" fvid="67"/>
+       <caller api-id="2" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="5" fname="cache_find_by_name" fvid="31"/>
+       <caller api-id="1" fname="cache_hash" fvid="67"/>
+       <caller api-id="2" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="5" fname="cache_find_by_name" fvid="31"/>
+       <caller api-id="1" fname="cache_hash" fvid="67"/>
+       <caller api-id="2" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="5" fname="cache_find_by_name" fvid="31"/>
+       <caller api-id="1" fname="cache_hash" fvid="67"/>
+       <caller api-id="2" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="5" fname="cache_find_by_name" fvid="31"/>
+       <caller api-id="1" fname="cache_hash" fvid="67"/>
+      </callers>
+      <predicate tag="not-null">
+       <exp binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 196*)*)">
+        <exp1 etag="lval" xstr="hash_table">
+         <lval>
+          <lhost>
+           <var vid="5902" vname="hash_table"/>
+          </lhost>
+         </lval>
+        </exp1>
+        <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+         <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+          <exp1 etag="lval" xstr="val">
+           <lval>
+            <lhost>
+             <var vid="5953" vname="val"/>
+            </lhost>
+           </lval>
+          </exp1>
+          <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+           <exp1 etag="lval" xstr="val">
+            <lval>
+             <lhost>
+              <var vid="5953" vname="val"/>
+             </lhost>
+            </lval>
+           </exp1>
+           <exp2 etag="const" xstr="16">
+            <constant ctag="cint64" ikind="iint" intValue="16"/>
+           </exp2>
+           <typ ikind="iuint" ttag="tint"/>
+          </exp2>
+          <typ ikind="iuint" ttag="tint"/>
+         </exp1>
+         <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+          <typ ikind="iuint" ttag="tint"/>
+          <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+           <exp1 etag="lval" xstr="hash_size">
+            <lval>
+             <lhost>
+              <var vid="5910" vname="hash_size"/>
+             </lhost>
+            </lval>
+           </exp1>
+           <exp2 etag="const" xstr="1">
+            <constant ctag="cint64" ikind="iint" intValue="1"/>
+           </exp2>
+           <typ ikind="iint" ttag="tint"/>
+          </exp>
+         </exp2>
+         <typ ikind="iuint" ttag="tint"/>
+        </exp2>
+        <typ ttag="tptr">
+         <typ ttag="tptr">
+          <typ ckey="196" ttag="tcomp"/>
+         </typ>
+        </typ>
+       </exp>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="54"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="189285" file="src/cache.c" line="163"/>
+     </post-expectation>
+     <post-expectation id="66">
+      <callers>
+       <caller api-id="4" fname="cache_find_by_name" fvid="31"/>
+       <caller api-id="4" fname="cache_find_by_name" fvid="31"/>
+       <caller api-id="4" fname="cache_find_by_name" fvid="31"/>
+       <caller api-id="4" fname="cache_find_by_name" fvid="31"/>
+       <caller api-id="4" fname="cache_find_by_name" fvid="31"/>
+       <caller api-id="4" fname="cache_find_by_name" fvid="31"/>
+       <caller api-id="4" fname="cache_find_by_name" fvid="31"/>
+       <caller api-id="4" fname="cache_find_by_name" fvid="31"/>
+      </callers>
+      <predicate tag="not-null">
+       <exp etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 196*)*))">
+        <lval>
+         <lhost>
+          <mem binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 196*)*)">
+           <exp1 etag="lval" xstr="hash_table">
+            <lval>
+             <lhost>
+              <var vid="5902" vname="hash_table"/>
+             </lhost>
+            </lval>
+           </exp1>
+           <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+            <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+             <exp1 etag="lval" xstr="val">
+              <lval>
+               <lhost>
+                <var vid="5953" vname="val"/>
+               </lhost>
+              </lval>
+             </exp1>
+             <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+              <exp1 etag="lval" xstr="val">
+               <lval>
+                <lhost>
+                 <var vid="5953" vname="val"/>
+                </lhost>
+               </lval>
+              </exp1>
+              <exp2 etag="const" xstr="16">
+               <constant ctag="cint64" ikind="iint" intValue="16"/>
+              </exp2>
+              <typ ikind="iuint" ttag="tint"/>
+             </exp2>
+             <typ ikind="iuint" ttag="tint"/>
+            </exp1>
+            <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+             <typ ikind="iuint" ttag="tint"/>
+             <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+              <exp1 etag="lval" xstr="hash_size">
+               <lval>
+                <lhost>
+                 <var vid="5910" vname="hash_size"/>
+                </lhost>
+               </lval>
+              </exp1>
+              <exp2 etag="const" xstr="1">
+               <constant ctag="cint64" ikind="iint" intValue="1"/>
+              </exp2>
+              <typ ikind="iint" ttag="tint"/>
+             </exp>
+            </exp2>
+            <typ ikind="iuint" ttag="tint"/>
+           </exp2>
+           <typ ttag="tptr">
+            <typ ttag="tptr">
+             <typ ckey="196" ttag="tcomp"/>
+            </typ>
+           </typ>
+          </mem>
+         </lhost>
+        </lval>
+       </exp>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="54"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="189285" file="src/cache.c" line="163"/>
+     </post-expectation>
+     <post-expectation id="83">
+      <callers>
+       <caller api-id="18" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="18" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="18" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="18" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="18" fname="cache_scan_free" fvid="60"/>
+      </callers>
+      <predicate op="pluspi" tag="ptr-upper-bound-deref">
+       <typ ikind="iuint" ttag="tint"/>
+       <exp1 etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 196*)*))">
+        <lval>
+         <lhost>
+          <mem binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 196*)*)">
+           <exp1 etag="lval" xstr="hash_table">
+            <lval>
+             <lhost>
+              <var vid="5902" vname="hash_table"/>
+             </lhost>
+            </lval>
+           </exp1>
+           <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+            <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+             <exp1 etag="lval" xstr="val">
+              <lval>
+               <lhost>
+                <var vid="5953" vname="val"/>
+               </lhost>
+              </lval>
+             </exp1>
+             <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+              <exp1 etag="lval" xstr="val">
+               <lval>
+                <lhost>
+                 <var vid="5953" vname="val"/>
+                </lhost>
+               </lval>
+              </exp1>
+              <exp2 etag="const" xstr="16">
+               <constant ctag="cint64" ikind="iint" intValue="16"/>
+              </exp2>
+              <typ ikind="iuint" ttag="tint"/>
+             </exp2>
+             <typ ikind="iuint" ttag="tint"/>
+            </exp1>
+            <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+             <typ ikind="iuint" ttag="tint"/>
+             <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+              <exp1 etag="lval" xstr="hash_size">
+               <lval>
+                <lhost>
+                 <var vid="5910" vname="hash_size"/>
+                </lhost>
+               </lval>
+              </exp1>
+              <exp2 etag="const" xstr="1">
+               <constant ctag="cint64" ikind="iint" intValue="1"/>
+              </exp2>
+              <typ ikind="iint" ttag="tint"/>
+             </exp>
+            </exp2>
+            <typ ikind="iuint" ttag="tint"/>
+           </exp2>
+           <typ ttag="tptr">
+            <typ ttag="tptr">
+             <typ ckey="196" ttag="tcomp"/>
+            </typ>
+           </typ>
+          </mem>
+         </lhost>
+        </lval>
+       </exp1>
+       <exp2 etag="const" xstr="2">
+        <constant ctag="cint64" ikind="iint" intValue="2"/>
+       </exp2>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="54"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="189285" file="src/cache.c" line="163"/>
+     </post-expectation>
+     <post-expectation id="69">
+      <callers>
+       <caller api-id="7" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="9" fname="cache_find_by_name" fvid="31"/>
+       <caller api-id="7" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="9" fname="cache_find_by_name" fvid="31"/>
+       <caller api-id="7" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="9" fname="cache_find_by_name" fvid="31"/>
+       <caller api-id="7" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="9" fname="cache_find_by_name" fvid="31"/>
+       <caller api-id="7" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="9" fname="cache_find_by_name" fvid="31"/>
+       <caller api-id="7" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="9" fname="cache_find_by_name" fvid="31"/>
+      </callers>
+      <predicate op="pluspi" tag="ptr-upper-bound">
+       <typ ikind="ichar" ttag="tint">
+        <attributes>
+         <attr attrname="const"/>
+        </attributes>
+       </typ>
+       <exp1 etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 196*)*))">
+        <lval>
+         <lhost>
+          <mem binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 196*)*)">
+           <exp1 etag="lval" xstr="hash_table">
+            <lval>
+             <lhost>
+              <var vid="5902" vname="hash_table"/>
+             </lhost>
+            </lval>
+           </exp1>
+           <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+            <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+             <exp1 etag="lval" xstr="val">
+              <lval>
+               <lhost>
+                <var vid="5953" vname="val"/>
+               </lhost>
+              </lval>
+             </exp1>
+             <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+              <exp1 etag="lval" xstr="val">
+               <lval>
+                <lhost>
+                 <var vid="5953" vname="val"/>
+                </lhost>
+               </lval>
+              </exp1>
+              <exp2 etag="const" xstr="16">
+               <constant ctag="cint64" ikind="iint" intValue="16"/>
+              </exp2>
+              <typ ikind="iuint" ttag="tint"/>
+             </exp2>
+             <typ ikind="iuint" ttag="tint"/>
+            </exp1>
+            <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+             <typ ikind="iuint" ttag="tint"/>
+             <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+              <exp1 etag="lval" xstr="hash_size">
+               <lval>
+                <lhost>
+                 <var vid="5910" vname="hash_size"/>
+                </lhost>
+               </lval>
+              </exp1>
+              <exp2 etag="const" xstr="1">
+               <constant ctag="cint64" ikind="iint" intValue="1"/>
+              </exp2>
+              <typ ikind="iint" ttag="tint"/>
+             </exp>
+            </exp2>
+            <typ ikind="iuint" ttag="tint"/>
+           </exp2>
+           <typ ttag="tptr">
+            <typ ttag="tptr">
+             <typ ckey="196" ttag="tcomp"/>
+            </typ>
+           </typ>
+          </mem>
+         </lhost>
+        </lval>
+       </exp1>
+       <exp2 etag="const" xstr="256">
+        <constant ctag="cint64" ikind="iint" intValue="256"/>
+       </exp2>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="54"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="189285" file="src/cache.c" line="163"/>
+     </post-expectation>
+     <post-expectation id="74">
+      <callers>
+       <caller api-id="9" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="9" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="9" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="9" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="9" fname="cache_scan_free" fvid="60"/>
+      </callers>
+      <predicate tag="not-null">
+       <exp etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 196*)*))-&gt;name.namep">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 196*)*))">
+           <lval>
+            <lhost>
+             <mem binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 196*)*)">
+              <exp1 etag="lval" xstr="hash_table">
+               <lval>
+                <lhost>
+                 <var vid="5902" vname="hash_table"/>
+                </lhost>
+               </lval>
+              </exp1>
+              <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+               <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+                <exp1 etag="lval" xstr="val">
+                 <lval>
+                  <lhost>
+                   <var vid="5953" vname="val"/>
+                  </lhost>
+                 </lval>
+                </exp1>
+                <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+                 <exp1 etag="lval" xstr="val">
+                  <lval>
+                   <lhost>
+                    <var vid="5953" vname="val"/>
+                   </lhost>
+                  </lval>
+                 </exp1>
+                 <exp2 etag="const" xstr="16">
+                  <constant ctag="cint64" ikind="iint" intValue="16"/>
+                 </exp2>
+                 <typ ikind="iuint" ttag="tint"/>
+                </exp2>
+                <typ ikind="iuint" ttag="tint"/>
+               </exp1>
+               <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+                <typ ikind="iuint" ttag="tint"/>
+                <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+                 <exp1 etag="lval" xstr="hash_size">
+                  <lval>
+                   <lhost>
+                    <var vid="5910" vname="hash_size"/>
+                   </lhost>
+                  </lval>
+                 </exp1>
+                 <exp2 etag="const" xstr="1">
+                  <constant ctag="cint64" ikind="iint" intValue="1"/>
+                 </exp2>
+                 <typ ikind="iint" ttag="tint"/>
+                </exp>
+               </exp2>
+               <typ ikind="iuint" ttag="tint"/>
+              </exp2>
+              <typ ttag="tptr">
+               <typ ttag="tptr">
+                <typ ckey="196" ttag="tcomp"/>
+               </typ>
+              </typ>
+             </mem>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <offset>
+           <field ckey="202" fname="namep"/>
+          </offset>
+          <field ckey="196" fname="name"/>
+         </offset>
+        </lval>
+       </exp>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="54"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="189285" file="src/cache.c" line="163"/>
+     </post-expectation>
+     <post-expectation id="88">
+      <callers>
+       <caller api-id="23" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="23" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="23" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="23" fname="cache_scan_free" fvid="60"/>
+      </callers>
+      <predicate op="pluspi" tag="ptr-upper-bound-deref">
+       <typ ikind="ichar" ttag="tint"/>
+       <exp1 etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 196*)*))-&gt;name.namep">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 196*)*))">
+           <lval>
+            <lhost>
+             <mem binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 196*)*)">
+              <exp1 etag="lval" xstr="hash_table">
+               <lval>
+                <lhost>
+                 <var vid="5902" vname="hash_table"/>
+                </lhost>
+               </lval>
+              </exp1>
+              <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+               <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+                <exp1 etag="lval" xstr="val">
+                 <lval>
+                  <lhost>
+                   <var vid="5953" vname="val"/>
+                  </lhost>
+                 </lval>
+                </exp1>
+                <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+                 <exp1 etag="lval" xstr="val">
+                  <lval>
+                   <lhost>
+                    <var vid="5953" vname="val"/>
+                   </lhost>
+                  </lval>
+                 </exp1>
+                 <exp2 etag="const" xstr="16">
+                  <constant ctag="cint64" ikind="iint" intValue="16"/>
+                 </exp2>
+                 <typ ikind="iuint" ttag="tint"/>
+                </exp2>
+                <typ ikind="iuint" ttag="tint"/>
+               </exp1>
+               <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+                <typ ikind="iuint" ttag="tint"/>
+                <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+                 <exp1 etag="lval" xstr="hash_size">
+                  <lval>
+                   <lhost>
+                    <var vid="5910" vname="hash_size"/>
+                   </lhost>
+                  </lval>
+                 </exp1>
+                 <exp2 etag="const" xstr="1">
+                  <constant ctag="cint64" ikind="iint" intValue="1"/>
+                 </exp2>
+                 <typ ikind="iint" ttag="tint"/>
+                </exp>
+               </exp2>
+               <typ ikind="iuint" ttag="tint"/>
+              </exp2>
+              <typ ttag="tptr">
+               <typ ttag="tptr">
+                <typ ckey="196" ttag="tcomp"/>
+               </typ>
+              </typ>
+             </mem>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <offset>
+           <field ckey="202" fname="namep"/>
+          </offset>
+          <field ckey="196" fname="name"/>
+         </offset>
+        </lval>
+       </exp1>
+       <exp2 etag="const" xstr="1024">
+        <constant ctag="cint64" ikind="iint" intValue="1024"/>
+       </exp2>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="54"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="189285" file="src/cache.c" line="163"/>
+     </post-expectation>
+     <post-expectation id="72">
+      <callers>
+       <caller api-id="13" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="13" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="13" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="13" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="13" fname="cache_scan_free" fvid="60"/>
+      </callers>
+      <predicate tag="initialized">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 196*)*))">
+          <lval>
+           <lhost>
+            <mem binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 196*)*)">
+             <exp1 etag="lval" xstr="hash_table">
+              <lval>
+               <lhost>
+                <var vid="5902" vname="hash_table"/>
+               </lhost>
+              </lval>
+             </exp1>
+             <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+              <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+               <exp1 etag="lval" xstr="val">
+                <lval>
+                 <lhost>
+                  <var vid="5953" vname="val"/>
+                 </lhost>
+                </lval>
+               </exp1>
+               <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+                <exp1 etag="lval" xstr="val">
+                 <lval>
+                  <lhost>
+                   <var vid="5953" vname="val"/>
+                  </lhost>
+                 </lval>
+                </exp1>
+                <exp2 etag="const" xstr="16">
+                 <constant ctag="cint64" ikind="iint" intValue="16"/>
+                </exp2>
+                <typ ikind="iuint" ttag="tint"/>
+               </exp2>
+               <typ ikind="iuint" ttag="tint"/>
+              </exp1>
+              <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+               <typ ikind="iuint" ttag="tint"/>
+               <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+                <exp1 etag="lval" xstr="hash_size">
+                 <lval>
+                  <lhost>
+                   <var vid="5910" vname="hash_size"/>
+                  </lhost>
+                 </lval>
+                </exp1>
+                <exp2 etag="const" xstr="1">
+                 <constant ctag="cint64" ikind="iint" intValue="1"/>
+                </exp2>
+                <typ ikind="iint" ttag="tint"/>
+               </exp>
+              </exp2>
+              <typ ikind="iuint" ttag="tint"/>
+             </exp2>
+             <typ ttag="tptr">
+              <typ ttag="tptr">
+               <typ ckey="196" ttag="tcomp"/>
+              </typ>
+             </typ>
+            </mem>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <field ckey="196" fname="prev"/>
+        </offset>
+       </lval>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="54"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="189285" file="src/cache.c" line="163"/>
+     </post-expectation>
+     <post-expectation id="75">
+      <callers>
+       <caller api-id="11" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="11" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="11" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="11" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="11" fname="cache_scan_free" fvid="60"/>
+      </callers>
+      <predicate tag="global-mem">
+       <exp etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 196*)*))-&gt;name.namep">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 196*)*))">
+           <lval>
+            <lhost>
+             <mem binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 196*)*)">
+              <exp1 etag="lval" xstr="hash_table">
+               <lval>
+                <lhost>
+                 <var vid="5902" vname="hash_table"/>
+                </lhost>
+               </lval>
+              </exp1>
+              <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+               <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+                <exp1 etag="lval" xstr="val">
+                 <lval>
+                  <lhost>
+                   <var vid="5953" vname="val"/>
+                  </lhost>
+                 </lval>
+                </exp1>
+                <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+                 <exp1 etag="lval" xstr="val">
+                  <lval>
+                   <lhost>
+                    <var vid="5953" vname="val"/>
+                   </lhost>
+                  </lval>
+                 </exp1>
+                 <exp2 etag="const" xstr="16">
+                  <constant ctag="cint64" ikind="iint" intValue="16"/>
+                 </exp2>
+                 <typ ikind="iuint" ttag="tint"/>
+                </exp2>
+                <typ ikind="iuint" ttag="tint"/>
+               </exp1>
+               <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+                <typ ikind="iuint" ttag="tint"/>
+                <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+                 <exp1 etag="lval" xstr="hash_size">
+                  <lval>
+                   <lhost>
+                    <var vid="5910" vname="hash_size"/>
+                   </lhost>
+                  </lval>
+                 </exp1>
+                 <exp2 etag="const" xstr="1">
+                  <constant ctag="cint64" ikind="iint" intValue="1"/>
+                 </exp2>
+                 <typ ikind="iint" ttag="tint"/>
+                </exp>
+               </exp2>
+               <typ ikind="iuint" ttag="tint"/>
+              </exp2>
+              <typ ttag="tptr">
+               <typ ttag="tptr">
+                <typ ckey="196" ttag="tcomp"/>
+               </typ>
+              </typ>
+             </mem>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <offset>
+           <field ckey="202" fname="namep"/>
+          </offset>
+          <field ckey="196" fname="name"/>
+         </offset>
+        </lval>
+       </exp>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="54"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="189285" file="src/cache.c" line="163"/>
+     </post-expectation>
+     <post-expectation id="64">
+      <callers>
+       <caller api-id="1" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="2" fname="cache_find_by_name" fvid="31"/>
+       <caller api-id="4" fname="cache_hash" fvid="67"/>
+       <caller api-id="1" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="2" fname="cache_find_by_name" fvid="31"/>
+       <caller api-id="4" fname="cache_hash" fvid="67"/>
+       <caller api-id="1" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="2" fname="cache_find_by_name" fvid="31"/>
+       <caller api-id="4" fname="cache_hash" fvid="67"/>
+       <caller api-id="1" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="2" fname="cache_find_by_name" fvid="31"/>
+       <caller api-id="4" fname="cache_hash" fvid="67"/>
+       <caller api-id="1" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="2" fname="cache_find_by_name" fvid="31"/>
+       <caller api-id="4" fname="cache_hash" fvid="67"/>
+       <caller api-id="1" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="2" fname="cache_find_by_name" fvid="31"/>
+       <caller api-id="4" fname="cache_hash" fvid="67"/>
+       <caller api-id="1" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="2" fname="cache_find_by_name" fvid="31"/>
+       <caller api-id="4" fname="cache_hash" fvid="67"/>
+       <caller api-id="1" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="2" fname="cache_find_by_name" fvid="31"/>
+      </callers>
+      <predicate tag="lower-bound">
+       <exp etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 196*)*))">
+        <lval>
+         <lhost>
+          <mem binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 196*)*)">
+           <exp1 etag="lval" xstr="hash_table">
+            <lval>
+             <lhost>
+              <var vid="5902" vname="hash_table"/>
+             </lhost>
+            </lval>
+           </exp1>
+           <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+            <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+             <exp1 etag="lval" xstr="val">
+              <lval>
+               <lhost>
+                <var vid="5953" vname="val"/>
+               </lhost>
+              </lval>
+             </exp1>
+             <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+              <exp1 etag="lval" xstr="val">
+               <lval>
+                <lhost>
+                 <var vid="5953" vname="val"/>
+                </lhost>
+               </lval>
+              </exp1>
+              <exp2 etag="const" xstr="16">
+               <constant ctag="cint64" ikind="iint" intValue="16"/>
+              </exp2>
+              <typ ikind="iuint" ttag="tint"/>
+             </exp2>
+             <typ ikind="iuint" ttag="tint"/>
+            </exp1>
+            <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+             <typ ikind="iuint" ttag="tint"/>
+             <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+              <exp1 etag="lval" xstr="hash_size">
+               <lval>
+                <lhost>
+                 <var vid="5910" vname="hash_size"/>
+                </lhost>
+               </lval>
+              </exp1>
+              <exp2 etag="const" xstr="1">
+               <constant ctag="cint64" ikind="iint" intValue="1"/>
+              </exp2>
+              <typ ikind="iint" ttag="tint"/>
+             </exp>
+            </exp2>
+            <typ ikind="iuint" ttag="tint"/>
+           </exp2>
+           <typ ttag="tptr">
+            <typ ttag="tptr">
+             <typ ckey="196" ttag="tcomp"/>
+            </typ>
+           </typ>
+          </mem>
+         </lhost>
+        </lval>
+       </exp>
+       <typ ckey="196" ttag="tcomp"/>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="54"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="189285" file="src/cache.c" line="163"/>
+     </post-expectation>
+     <post-expectation id="76">
+      <callers>
+       <caller api-id="10" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="10" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="10" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="10" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="10" fname="cache_scan_free" fvid="60"/>
+      </callers>
+      <predicate op="pluspi" tag="ptr-upper-bound-deref">
+       <typ ikind="iuint" ttag="tint"/>
+       <exp1 etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 196*)*))">
+        <lval>
+         <lhost>
+          <mem binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 196*)*)">
+           <exp1 etag="lval" xstr="hash_table">
+            <lval>
+             <lhost>
+              <var vid="5902" vname="hash_table"/>
+             </lhost>
+            </lval>
+           </exp1>
+           <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+            <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+             <exp1 etag="lval" xstr="val">
+              <lval>
+               <lhost>
+                <var vid="5953" vname="val"/>
+               </lhost>
+              </lval>
+             </exp1>
+             <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+              <exp1 etag="lval" xstr="val">
+               <lval>
+                <lhost>
+                 <var vid="5953" vname="val"/>
+                </lhost>
+               </lval>
+              </exp1>
+              <exp2 etag="const" xstr="16">
+               <constant ctag="cint64" ikind="iint" intValue="16"/>
+              </exp2>
+              <typ ikind="iuint" ttag="tint"/>
+             </exp2>
+             <typ ikind="iuint" ttag="tint"/>
+            </exp1>
+            <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+             <typ ikind="iuint" ttag="tint"/>
+             <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+              <exp1 etag="lval" xstr="hash_size">
+               <lval>
+                <lhost>
+                 <var vid="5910" vname="hash_size"/>
+                </lhost>
+               </lval>
+              </exp1>
+              <exp2 etag="const" xstr="1">
+               <constant ctag="cint64" ikind="iint" intValue="1"/>
+              </exp2>
+              <typ ikind="iint" ttag="tint"/>
+             </exp>
+            </exp2>
+            <typ ikind="iuint" ttag="tint"/>
+           </exp2>
+           <typ ttag="tptr">
+            <typ ttag="tptr">
+             <typ ckey="196" ttag="tcomp"/>
+            </typ>
+           </typ>
+          </mem>
+         </lhost>
+        </lval>
+       </exp1>
+       <exp2 etag="const" xstr="3">
+        <constant ctag="cint64" ikind="iint" intValue="3"/>
+       </exp2>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="54"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="189285" file="src/cache.c" line="163"/>
+     </post-expectation>
+     <post-expectation id="86">
+      <callers>
+       <caller api-id="26" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="26" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="26" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="26" fname="cache_scan_free" fvid="60"/>
+      </callers>
+      <predicate op="pluspi" tag="ptr-upper-bound-deref">
+       <typ ikind="ichar" ttag="tint"/>
+       <exp1 etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 196*)*))-&gt;name.bname">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 196*)*))">
+           <lval>
+            <lhost>
+             <mem binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 196*)*)">
+              <exp1 etag="lval" xstr="hash_table">
+               <lval>
+                <lhost>
+                 <var vid="5902" vname="hash_table"/>
+                </lhost>
+               </lval>
+              </exp1>
+              <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+               <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+                <exp1 etag="lval" xstr="val">
+                 <lval>
+                  <lhost>
+                   <var vid="5953" vname="val"/>
+                  </lhost>
+                 </lval>
+                </exp1>
+                <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+                 <exp1 etag="lval" xstr="val">
+                  <lval>
+                   <lhost>
+                    <var vid="5953" vname="val"/>
+                   </lhost>
+                  </lval>
+                 </exp1>
+                 <exp2 etag="const" xstr="16">
+                  <constant ctag="cint64" ikind="iint" intValue="16"/>
+                 </exp2>
+                 <typ ikind="iuint" ttag="tint"/>
+                </exp2>
+                <typ ikind="iuint" ttag="tint"/>
+               </exp1>
+               <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+                <typ ikind="iuint" ttag="tint"/>
+                <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+                 <exp1 etag="lval" xstr="hash_size">
+                  <lval>
+                   <lhost>
+                    <var vid="5910" vname="hash_size"/>
+                   </lhost>
+                  </lval>
+                 </exp1>
+                 <exp2 etag="const" xstr="1">
+                  <constant ctag="cint64" ikind="iint" intValue="1"/>
+                 </exp2>
+                 <typ ikind="iint" ttag="tint"/>
+                </exp>
+               </exp2>
+               <typ ikind="iuint" ttag="tint"/>
+              </exp2>
+              <typ ttag="tptr">
+               <typ ttag="tptr">
+                <typ ckey="196" ttag="tcomp"/>
+               </typ>
+              </typ>
+             </mem>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <offset>
+           <field ckey="202" fname="bname"/>
+          </offset>
+          <field ckey="196" fname="name"/>
+         </offset>
+        </lval>
+       </exp1>
+       <exp2 etag="const" xstr="1024">
+        <constant ctag="cint64" ikind="iint" intValue="1024"/>
+       </exp2>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="54"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="189285" file="src/cache.c" line="163"/>
+     </post-expectation>
+     <post-expectation id="71">
+      <callers>
+       <caller api-id="20" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="20" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="20" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="20" fname="cache_scan_free" fvid="60"/>
+       <caller api-id="20" fname="cache_scan_free" fvid="60"/>
+      </callers>
+      <predicate tag="global-mem">
+       <exp etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 196*)*))-&gt;name.bname">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 196*)*))">
+           <lval>
+            <lhost>
+             <mem binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 196*)*)">
+              <exp1 etag="lval" xstr="hash_table">
+               <lval>
+                <lhost>
+                 <var vid="5902" vname="hash_table"/>
+                </lhost>
+               </lval>
+              </exp1>
+              <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+               <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+                <exp1 etag="lval" xstr="val">
+                 <lval>
+                  <lhost>
+                   <var vid="5953" vname="val"/>
+                  </lhost>
+                 </lval>
+                </exp1>
+                <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+                 <exp1 etag="lval" xstr="val">
+                  <lval>
+                   <lhost>
+                    <var vid="5953" vname="val"/>
+                   </lhost>
+                  </lval>
+                 </exp1>
+                 <exp2 etag="const" xstr="16">
+                  <constant ctag="cint64" ikind="iint" intValue="16"/>
+                 </exp2>
+                 <typ ikind="iuint" ttag="tint"/>
+                </exp2>
+                <typ ikind="iuint" ttag="tint"/>
+               </exp1>
+               <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+                <typ ikind="iuint" ttag="tint"/>
+                <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+                 <exp1 etag="lval" xstr="hash_size">
+                  <lval>
+                   <lhost>
+                    <var vid="5910" vname="hash_size"/>
+                   </lhost>
+                  </lval>
+                 </exp1>
+                 <exp2 etag="const" xstr="1">
+                  <constant ctag="cint64" ikind="iint" intValue="1"/>
+                 </exp2>
+                 <typ ikind="iint" ttag="tint"/>
+                </exp>
+               </exp2>
+               <typ ikind="iuint" ttag="tint"/>
+              </exp2>
+              <typ ttag="tptr">
+               <typ ttag="tptr">
+                <typ ckey="196" ttag="tcomp"/>
+               </typ>
+              </typ>
+             </mem>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <offset>
+           <field ckey="202" fname="bname"/>
+          </offset>
+          <field ckey="196" fname="name"/>
+         </offset>
+        </lval>
+       </exp>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="54"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="189285" file="src/cache.c" line="163"/>
+     </post-expectation>
+    </post-expectations>
+    <ds-expectations/>
+   </secondary-proof-obligations>
+  </function>
+  <header time="01/10/2017 05:33:32">
+   <application file="src/cache.c" name="application"/>
+  </header>
+ </c-analysis>

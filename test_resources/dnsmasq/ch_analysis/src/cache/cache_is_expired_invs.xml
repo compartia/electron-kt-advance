@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function name="is_expired" stable="yes">
+   <program-locations>
+    <program-location>
+     <locations>
+      <loc byte="191849" file="src/cache.c" line="311"/>
+     </locations>
+     <cfg-context>
+      <node name="if-expr"/>
+      <node name="stmt" num="125"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="1" pv="1"/>
+      <inv nrv="14" pv="1"/>
+      <inv nrv="13" pv="1"/>
+      <inv nrv="2" pv="2"/>
+      <inv nrv="10" pv="9"/>
+      <inv nrv="6" pv="9"/>
+      <inv nrv="9" pv="8"/>
+      <inv nrv="5" pv="8"/>
+      <inv nrv="8" pv="10"/>
+      <inv nrv="10" pv="11"/>
+      <inv nrv="6" pv="11"/>
+      <inv nrv="1" pv="5"/>
+      <inv nrv="14" pv="5"/>
+      <inv nrv="13" pv="5"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="191894" file="src/cache.c" line="314"/>
+     </locations>
+     <cfg-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="127"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="1" pv="1"/>
+      <inv nrv="14" pv="1"/>
+      <inv nrv="13" pv="1"/>
+      <inv nrv="2" pv="2"/>
+      <inv nrv="10" pv="9"/>
+      <inv nrv="6" pv="9"/>
+      <inv nrv="9" pv="8"/>
+      <inv nrv="5" pv="8"/>
+      <inv nrv="8" pv="10"/>
+      <inv nrv="2" pv="7"/>
+      <inv nrv="9" pv="12"/>
+      <inv nrv="5" pv="12"/>
+      <inv nrv="1" pv="6"/>
+      <inv nrv="14" pv="6"/>
+      <inv nrv="13" pv="6"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="191894" file="src/cache.c" line="314"/>
+     </locations>
+     <cfg-context>
+      <node name="if-expr"/>
+      <node name="stmt" num="128"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="1" pv="1"/>
+      <inv nrv="14" pv="1"/>
+      <inv nrv="13" pv="1"/>
+      <inv nrv="2" pv="2"/>
+      <inv nrv="12" pv="0"/>
+      <inv nrv="11" pv="0"/>
+      <inv nrv="0" pv="0"/>
+      <inv nrv="4" pv="0"/>
+      <inv nrv="10" pv="9"/>
+      <inv nrv="6" pv="9"/>
+      <inv nrv="9" pv="8"/>
+      <inv nrv="5" pv="8"/>
+      <inv nrv="7" pv="10"/>
+      <inv nrv="12" pv="3"/>
+      <inv nrv="11" pv="3"/>
+      <inv nrv="0" pv="3"/>
+      <inv nrv="4" pv="3"/>
+      <inv nrv="3" pv="4"/>
+     </invariants>
+    </program-location>
+   </program-locations>
+   <program-value-table size="13">
+    <pvals index="0">
+     <pval>
+      <lhost>
+       <var vid="5993" vname="tmp"/>
+      </lhost>
+     </pval>
+    </pvals>
+    <pvals index="1">
+     <pval>
+      <lhost>
+       <var vid="5992" vname="crecp"/>
+      </lhost>
+     </pval>
+    </pvals>
+    <pvals index="2">
+     <pval>
+      <lhost>
+       <var vid="5991" vname="now"/>
+      </lhost>
+     </pval>
+    </pvals>
+    <pvals index="3">
+     <pval arg="1" id="15"/>
+    </pvals>
+    <pvals index="4">
+     <pval arg="3" id="16"/>
+    </pvals>
+    <pvals index="5">
+     <pval arg="1" id="3"/>
+     <pval arg="1" id="4"/>
+     <pval arg="1" id="5"/>
+     <pval arg="2" id="6"/>
+     <pval arg="2" id="7"/>
+    </pvals>
+    <pvals index="6">
+     <pval arg="1" id="10"/>
+     <pval arg="1" id="11"/>
+     <pval arg="1" id="12"/>
+     <pval arg="2" id="13"/>
+     <pval arg="2" id="14"/>
+    </pvals>
+    <pvals index="7">
+     <pval arg="1" id="8"/>
+    </pvals>
+    <pvals index="8">
+     <pval>
+      <lhost>
+       <mem etag="lval" xstr="crecp">
+        <lval>
+         <lhost>
+          <var vid="5992" vname="crecp"/>
+         </lhost>
+        </lval>
+       </mem>
+      </lhost>
+      <offset>
+       <field ckey="196" fname="ttd"/>
+      </offset>
+     </pval>
+    </pvals>
+    <pvals index="9">
+     <pval>
+      <lhost>
+       <mem etag="lval" xstr="crecp">
+        <lval>
+         <lhost>
+          <var vid="5992" vname="crecp"/>
+         </lhost>
+        </lval>
+       </mem>
+      </lhost>
+      <offset>
+       <field ckey="196" fname="flags"/>
+      </offset>
+     </pval>
+    </pvals>
+    <pvals index="10">
+     <pval etag="lval" external="yes" property="vm" xstr="crecp">
+      <lval>
+       <lhost>
+        <var vid="5992" vname="crecp"/>
+       </lhost>
+      </lval>
+     </pval>
+    </pvals>
+    <pvals index="11">
+     <pval arg="3" id="1"/>
+     <pval arg="1" id="2"/>
+    </pvals>
+    <pvals index="12">
+     <pval arg="1" id="9"/>
+    </pvals>
+   </program-value-table>
+   <non-relational-value-table size="15">
+    <nrv byte="191894" etag="fnapp" file="src/cache.c" index="0" line="314" tag="fv" xstr="fn(difftime)@ 314[_, _]">
+     <arg/>
+     <arg/>
+     <fn etag="lval" xstr="difftime">
+      <lval>
+       <lhost>
+        <var vid="3864" vname="difftime"/>
+       </lhost>
+      </lval>
+     </fn>
+    </nrv>
+    <nrv etag="lval" index="1" tag="fv" xstr="crecp">
+     <lval>
+      <lhost>
+       <var vid="5992" vname="crecp"/>
+      </lhost>
+     </lval>
+    </nrv>
+    <nrv etag="lval" index="2" tag="fv" xstr="now">
+     <lval>
+      <lhost>
+       <var vid="5991" vname="now"/>
+      </lhost>
+     </lval>
+    </nrv>
+    <nrv index="3" tag="range" value="0"/>
+    <nrv index="4" tag="ss">
+     <sym name="assignedAt#314">
+      <attr value="return-value"/>
+      <attr value="difftime"/>
+     </sym>
+    </nrv>
+    <nrv index="5" tag="ss">
+     <sym name="parameter">
+      <attr value="crecp-&gt;ttd"/>
+     </sym>
+    </nrv>
+    <nrv index="6" tag="ss">
+     <sym name="parameter">
+      <attr value="crecp-&gt;flags"/>
+     </sym>
+    </nrv>
+    <nrv index="7" tag="ss">
+     <sym name="invalid"/>
+    </nrv>
+    <nrv index="8" tag="ss">
+     <sym name="valid"/>
+    </nrv>
+    <nrv etag="lval" index="9" tag="fv" xstr="crecp-&gt;ttd">
+     <lval>
+      <lhost>
+       <mem etag="lval" xstr="crecp">
+        <lval>
+         <lhost>
+          <var vid="5992" vname="crecp"/>
+         </lhost>
+        </lval>
+       </mem>
+      </lhost>
+      <offset>
+       <field ckey="196" fname="ttd"/>
+      </offset>
+     </lval>
+    </nrv>
+    <nrv etag="lval" index="10" tag="fv" xstr="crecp-&gt;flags">
+     <lval>
+      <lhost>
+       <mem etag="lval" xstr="crecp">
+        <lval>
+         <lhost>
+          <var vid="5992" vname="crecp"/>
+         </lhost>
+        </lval>
+       </mem>
+      </lhost>
+      <offset>
+       <field ckey="196" fname="flags"/>
+      </offset>
+     </lval>
+    </nrv>
+    <nrv byte="191894" etag="fnapp" file="src/cache.c" index="11" line="314" tag="fv" xstr="fn(difftime)@ 314[now, _]">
+     <arg etag="lval" xstr="now">
+      <lval>
+       <lhost>
+        <var vid="5991" vname="now"/>
+       </lhost>
+      </lval>
+     </arg>
+     <arg/>
+     <fn etag="lval" xstr="difftime">
+      <lval>
+       <lhost>
+        <var vid="3864" vname="difftime"/>
+       </lhost>
+      </lval>
+     </fn>
+    </nrv>
+    <nrv byte="191894" etag="fnapp" file="src/cache.c" index="12" line="314" tag="fv" xstr="fn(difftime)@ 314[now, crecp-&gt;ttd]">
+     <arg etag="lval" xstr="now">
+      <lval>
+       <lhost>
+        <var vid="5991" vname="now"/>
+       </lhost>
+      </lval>
+     </arg>
+     <arg etag="lval" xstr="crecp-&gt;ttd">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="crecp">
+         <lval>
+          <lhost>
+           <var vid="5992" vname="crecp"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <field ckey="196" fname="ttd"/>
+       </offset>
+      </lval>
+     </arg>
+     <fn etag="lval" xstr="difftime">
+      <lval>
+       <lhost>
+        <var vid="3864" vname="difftime"/>
+       </lhost>
+      </lval>
+     </fn>
+    </nrv>
+    <nrv address-type="external" index="13" tag="vs" value="0">
+     <base etag="lval" xstr="crecp">
+      <lval>
+       <lhost>
+        <var vid="5992" vname="crecp"/>
+       </lhost>
+      </lval>
+     </base>
+    </nrv>
+    <nrv index="14" lb="0" tag="range"/>
+   </non-relational-value-table>
+  </function>
+  <header time="01/09/2017 22:08:31">
+   <application file="src/cache.c" name="application"/>
+  </header>
+ </c-analysis>

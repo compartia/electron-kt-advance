@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function name="is_same_net">
+   <secondary-proof-obligations max-spo-id="4" num-ppo="4">
+    <indirect-calls/>
+    <callsite-obligations/>
+    <return-sites>
+     <return-site>
+      <exp binop="eq" etag="binop" xstr="((((a.s_addr &amp; mask.s_addr):unsigned int == ((b.s_addr &amp; mask.s_addr):unsigned int):int">
+       <exp1 binop="band" etag="binop" xstr="((a.s_addr &amp; mask.s_addr):unsigned int">
+        <exp1 etag="lval" xstr="a.s_addr">
+         <lval>
+          <lhost>
+           <var vid="6014" vname="a"/>
+          </lhost>
+          <offset>
+           <field ckey="42" fname="s_addr"/>
+          </offset>
+         </lval>
+        </exp1>
+        <exp2 etag="lval" xstr="mask.s_addr">
+         <lval>
+          <lhost>
+           <var vid="6016" vname="mask"/>
+          </lhost>
+          <offset>
+           <field ckey="42" fname="s_addr"/>
+          </offset>
+         </lval>
+        </exp2>
+        <typ ikind="iuint" ttag="tint"/>
+       </exp1>
+       <exp2 binop="band" etag="binop" xstr="((b.s_addr &amp; mask.s_addr):unsigned int">
+        <exp1 etag="lval" xstr="b.s_addr">
+         <lval>
+          <lhost>
+           <var vid="6015" vname="b"/>
+          </lhost>
+          <offset>
+           <field ckey="42" fname="s_addr"/>
+          </offset>
+         </lval>
+        </exp1>
+        <exp2 etag="lval" xstr="mask.s_addr">
+         <lval>
+          <lhost>
+           <var vid="6016" vname="mask"/>
+          </lhost>
+          <offset>
+           <field ckey="42" fname="s_addr"/>
+          </offset>
+         </lval>
+        </exp2>
+        <typ ikind="iuint" ttag="tint"/>
+       </exp2>
+       <typ ikind="iint" ttag="tint"/>
+      </exp>
+      <location byte="192523" file="src/util.c" line="357"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="216"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+    </return-sites>
+    <post-expectations/>
+    <ds-expectations/>
+   </secondary-proof-obligations>
+  </function>
+  <header time="01/10/2017 05:33:38">
+   <application file="src/util.c" name="application"/>
+  </header>
+ </c-analysis>

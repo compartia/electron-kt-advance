@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function cfilename="src/cache.c" gvid="49" name="cache_unhash_dhcp" num-ppo="0">
+   <statistics api-assumptions="0" callers="1" ds-assumptions="0" field-assignments="1" global-assignments="1" global-assumptions="6" rv-assumptions="0"/>
+   <parameters/>
+   <callers>
+    <caller cfilename="src/lease.c" fname="lease_update_dns" gvid="165" updated="01/09/2017 21:38:38" updated-f="1483997918.4">
+     <call-site byte="197582" file="src/lease.c" line="476"/>
+     <args/>
+     <calling-context>
+      <node name="instr" num="1"/>
+      <node name="stmt" num="275"/>
+      <node name="if-then"/>
+      <node name="stmt" num="274"/>
+      <node name="if-else"/>
+      <node name="stmt" num="272"/>
+      <node name="if-then"/>
+      <node name="stmt" num="271"/>
+     </calling-context>
+    </caller>
+   </callers>
+   <api-assumptions/>
+   <rv-assumptions/>
+   <ds-assumptions/>
+   <global-assumptions>
+    <global-assumption nr="1">
+     <predicate op="indexpi" tag="ptr-lower-bound">
+      <typ ttag="tptr">
+       <typ ckey="66" ttag="tcomp"/>
+      </typ>
+      <exp1 etag="lval" xstr="hash_table">
+       <lval>
+        <lhost>
+         <var vid="107" vname="hash_table"/>
+        </lhost>
+       </lval>
+      </exp1>
+      <exp2 etag="lval" xstr="i">
+       <lval>
+        <lhost>
+         <var vid="6242" vname="i"/>
+        </lhost>
+       </lval>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="8"/>
+      <po id="18"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="2">
+     <predicate op="indexpi" tag="ptr-upper-bound-deref">
+      <typ ttag="tptr">
+       <typ ckey="66" ttag="tcomp"/>
+      </typ>
+      <exp1 etag="lval" xstr="hash_table">
+       <lval>
+        <lhost>
+         <var vid="107" vname="hash_table"/>
+        </lhost>
+       </lval>
+      </exp1>
+      <exp2 etag="lval" xstr="i">
+       <lval>
+        <lhost>
+         <var vid="6242" vname="i"/>
+        </lhost>
+       </lval>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="9"/>
+      <po id="19"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="3">
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="hash_table">
+       <lval>
+        <lhost>
+         <var vid="107" vname="hash_table"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="7"/>
+      <po id="17"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="4">
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="dhcp_spare">
+       <lval>
+        <lhost>
+         <var vid="106" vname="dhcp_spare"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="49"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="5">
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="hash_table">
+       <lval>
+        <lhost>
+         <var vid="107" vname="hash_table"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="6"/>
+      <po id="16"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="6">
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem binop="indexpi" etag="binop" xstr="((hash_table +i i):((struct 66*)*)">
+         <exp1 etag="lval" xstr="hash_table">
+          <lval>
+           <lhost>
+            <var vid="107" vname="hash_table"/>
+           </lhost>
+          </lval>
+         </exp1>
+         <exp2 etag="lval" xstr="i">
+          <lval>
+           <lhost>
+            <var vid="6242" vname="i"/>
+           </lhost>
+          </lval>
+         </exp2>
+         <typ ttag="tptr">
+          <typ ttag="tptr">
+           <typ ckey="66" ttag="tcomp"/>
+          </typ>
+         </typ>
+        </mem>
+       </lhost>
+      </lval>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="3"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+   </global-assumptions>
+   <global-assignments>
+    <global-assignment nr="1">
+     <lhs>
+      <lhost>
+       <var vid="106" vname="dhcp_spare"/>
+      </lhost>
+     </lhs>
+     <rhs etag="lval" xstr="cache___0">
+      <lval>
+       <lhost>
+        <var vid="6240" vname="cache___0"/>
+       </lhost>
+      </lval>
+     </rhs>
+     <loc byte="209277" file="src/cache.c" line="1170"/>
+    </global-assignment>
+   </global-assignments>
+   <field-assignments>
+    <field-assignment ckey="66" field="next" nr="1">
+     <rhs etag="lval" xstr="dhcp_spare">
+      <lval>
+       <lhost>
+        <var vid="5903" vname="dhcp_spare"/>
+       </lhost>
+      </lval>
+     </rhs>
+     <loc byte="209248" file="src/cache.c" line="1169"/>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="589"/>
+       <node name="if-then"/>
+       <node name="stmt" num="588"/>
+       <node name="loop"/>
+       <node name="stmt" num="585"/>
+       <node name="loop"/>
+       <node name="stmt" num="581"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </field-assignment>
+   </field-assignments>
+  </function>
+  <header time="01/10/2017 06:52:36">
+   <application file="src/cache.c" name="application"/>
+  </header>
+ </c-analysis>

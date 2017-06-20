@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function name="check_log_writer">
+   <statistics avg-context-complexity="1.25" avg-predicate-complexity="0.00" context-complexity="5" predicate-complexity="0" size="4"/>
+   <unconstrained-external-functions>
+    <efn name="dnsmasq/poll_check" num="1"/>
+   </unconstrained-external-functions>
+   <primary-proof-obligations>
+    <proof-obligation c-complexity="0" id="1" origin="prim-exp" p-complexity="0">
+     <location byte="193270" file="src/log.c" line="432"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="5903" vname="log_fd"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="195"/>
+      </cfg-context>
+      <exp-context>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="2" origin="prim-exp" p-complexity="0">
+     <location byte="193270" file="src/log.c" line="432"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="6023" vname="force"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="196"/>
+       <node name="if-then"/>
+       <node name="stmt" num="195"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="2" id="3" origin="prim-exp" p-complexity="0">
+     <location byte="193270" file="src/log.c" line="432"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="5903" vname="log_fd"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="198"/>
+       <node name="if-else"/>
+       <node name="stmt" num="196"/>
+       <node name="if-then"/>
+       <node name="stmt" num="195"/>
+      </cfg-context>
+      <exp-context>
+       <node name="arg" num="0"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="2" id="4" origin="prim-exp" p-complexity="0">
+     <location byte="193270" file="src/log.c" line="432"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="6024" vname="tmp"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="199"/>
+       <node name="if-else"/>
+       <node name="stmt" num="196"/>
+       <node name="if-then"/>
+       <node name="stmt" num="195"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </proof-obligation>
+   </primary-proof-obligations>
+  </function>
+  <header time="01/09/2017 21:38:38">
+   <application file="src/log.xml" name="application"/>
+  </header>
+ </c-analysis>

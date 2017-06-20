@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function name="rand_init">
+   <secondary-proof-obligations max-spo-id="60" num-ppo="52">
+    <indirect-calls/>
+    <callsite-obligations>
+     <callsite-obligation api-max-id="2" fname="die" fvid="4904">
+      <location byte="186798" file="src/util.c" line="45"/>
+      <args>
+       <arg etag="caste" xstr="caste (&quot;failed to seed the random number generator: %s&quot;:(char*))">
+        <typ ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </typ>
+        <exp etag="const" xstr="&quot;failed to seed the random number generator: %s&quot;">
+         <constant ctag="cstr" strValue="failed to seed the random number generator: %s"/>
+        </exp>
+       </arg>
+       <arg etag="caste" xstr="caste (caste (0:(void*)):(char*))">
+        <typ ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </typ>
+        <exp etag="caste" xstr="caste (0:(void*))">
+         <typ ttag="tptr">
+          <typ ttag="tvoid"/>
+         </typ>
+         <exp etag="const" xstr="0">
+          <constant ctag="cint64" ikind="iint" intValue="0"/>
+         </exp>
+        </exp>
+       </arg>
+       <arg etag="const" xstr="5">
+        <constant ctag="cint64" ikind="iint" intValue="5"/>
+       </arg>
+      </args>
+      <obligations>
+       <obligation api-id="2" id="60">
+        <predicate tag="not-null">
+         <exp etag="caste" xstr="caste (&quot;failed to seed the random number generator: %s&quot;:(char*))">
+          <typ ttag="tptr">
+           <typ ikind="ichar" ttag="tint"/>
+          </typ>
+          <exp etag="const" xstr="&quot;failed to seed the random number generator: %s&quot;">
+           <constant ctag="cstr" strValue="failed to seed the random number generator: %s"/>
+          </exp>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="1" id="59">
+        <predicate op="pluspi" tag="ptr-upper-bound">
+         <typ ikind="ichar" ttag="tint">
+          <attributes>
+           <attr attrname="const"/>
+          </attributes>
+         </typ>
+         <exp1 etag="caste" xstr="caste (&quot;failed to seed the random number generator: %s&quot;:(char*))">
+          <typ ttag="tptr">
+           <typ ikind="ichar" ttag="tint"/>
+          </typ>
+          <exp etag="const" xstr="&quot;failed to seed the random number generator: %s&quot;">
+           <constant ctag="cstr" strValue="failed to seed the random number generator: %s"/>
+          </exp>
+         </exp1>
+         <exp2 cn="null-terminator-pos" etag="cnapp" xstr="null-terminator-pos[caste (caste (caste (&quot;failed to seed the random number generator: %s&quot;:(char*)):(char*)):(char*))]">
+          <arg etag="caste" xstr="caste (caste (caste (&quot;failed to seed the random number generator: %s&quot;:(char*)):(char*)):(char*))">
+           <typ ttag="tptr">
+            <attributes>
+             <attr attrname="restrict"/>
+            </attributes>
+            <typ ikind="ichar" ttag="tint">
+             <attributes>
+              <attr attrname="const"/>
+             </attributes>
+            </typ>
+           </typ>
+           <exp etag="caste" xstr="caste (caste (&quot;failed to seed the random number generator: %s&quot;:(char*)):(char*))">
+            <typ ttag="tptr">
+             <typ ikind="ichar" ttag="tint">
+              <attributes>
+               <attr attrname="const"/>
+              </attributes>
+             </typ>
+            </typ>
+            <exp etag="caste" xstr="caste (&quot;failed to seed the random number generator: %s&quot;:(char*))">
+             <typ ttag="tptr">
+              <typ ikind="ichar" ttag="tint"/>
+             </typ>
+             <exp etag="const" xstr="&quot;failed to seed the random number generator: %s&quot;">
+              <constant ctag="cstr" strValue="failed to seed the random number generator: %s"/>
+             </exp>
+            </exp>
+           </exp>
+          </arg>
+          <typ ikind="iint" ttag="tint"/>
+         </exp2>
+        </predicate>
+       </obligation>
+      </obligations>
+      <context>
+       <cfg-context>
+        <node name="instr" num="0"/>
+        <node name="stmt" num="9"/>
+        <node name="if-else"/>
+        <node name="stmt" num="5"/>
+        <node name="if-else"/>
+        <node name="stmt" num="2"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="2" fname="die" fvid="4904">
+      <location byte="186798" file="src/util.c" line="45"/>
+      <args>
+       <arg etag="caste" xstr="caste (&quot;failed to seed the random number generator: %s&quot;:(char*))">
+        <typ ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </typ>
+        <exp etag="const" xstr="&quot;failed to seed the random number generator: %s&quot;">
+         <constant ctag="cstr" strValue="failed to seed the random number generator: %s"/>
+        </exp>
+       </arg>
+       <arg etag="caste" xstr="caste (caste (0:(void*)):(char*))">
+        <typ ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </typ>
+        <exp etag="caste" xstr="caste (0:(void*))">
+         <typ ttag="tptr">
+          <typ ttag="tvoid"/>
+         </typ>
+         <exp etag="const" xstr="0">
+          <constant ctag="cint64" ikind="iint" intValue="0"/>
+         </exp>
+        </exp>
+       </arg>
+       <arg etag="const" xstr="5">
+        <constant ctag="cint64" ikind="iint" intValue="5"/>
+       </arg>
+      </args>
+      <obligations>
+       <obligation api-id="2" id="58">
+        <predicate tag="not-null">
+         <exp etag="caste" xstr="caste (&quot;failed to seed the random number generator: %s&quot;:(char*))">
+          <typ ttag="tptr">
+           <typ ikind="ichar" ttag="tint"/>
+          </typ>
+          <exp etag="const" xstr="&quot;failed to seed the random number generator: %s&quot;">
+           <constant ctag="cstr" strValue="failed to seed the random number generator: %s"/>
+          </exp>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="1" id="57">
+        <predicate op="pluspi" tag="ptr-upper-bound">
+         <typ ikind="ichar" ttag="tint">
+          <attributes>
+           <attr attrname="const"/>
+          </attributes>
+         </typ>
+         <exp1 etag="caste" xstr="caste (&quot;failed to seed the random number generator: %s&quot;:(char*))">
+          <typ ttag="tptr">
+           <typ ikind="ichar" ttag="tint"/>
+          </typ>
+          <exp etag="const" xstr="&quot;failed to seed the random number generator: %s&quot;">
+           <constant ctag="cstr" strValue="failed to seed the random number generator: %s"/>
+          </exp>
+         </exp1>
+         <exp2 cn="null-terminator-pos" etag="cnapp" xstr="null-terminator-pos[caste (caste (caste (&quot;failed to seed the random number generator: %s&quot;:(char*)):(char*)):(char*))]">
+          <arg etag="caste" xstr="caste (caste (caste (&quot;failed to seed the random number generator: %s&quot;:(char*)):(char*)):(char*))">
+           <typ ttag="tptr">
+            <attributes>
+             <attr attrname="restrict"/>
+            </attributes>
+            <typ ikind="ichar" ttag="tint">
+             <attributes>
+              <attr attrname="const"/>
+             </attributes>
+            </typ>
+           </typ>
+           <exp etag="caste" xstr="caste (caste (&quot;failed to seed the random number generator: %s&quot;:(char*)):(char*))">
+            <typ ttag="tptr">
+             <typ ikind="ichar" ttag="tint">
+              <attributes>
+               <attr attrname="const"/>
+              </attributes>
+             </typ>
+            </typ>
+            <exp etag="caste" xstr="caste (&quot;failed to seed the random number generator: %s&quot;:(char*))">
+             <typ ttag="tptr">
+              <typ ikind="ichar" ttag="tint"/>
+             </typ>
+             <exp etag="const" xstr="&quot;failed to seed the random number generator: %s&quot;">
+              <constant ctag="cstr" strValue="failed to seed the random number generator: %s"/>
+             </exp>
+            </exp>
+           </exp>
+          </arg>
+          <typ ikind="iint" ttag="tint"/>
+         </exp2>
+        </predicate>
+       </obligation>
+      </obligations>
+      <context>
+       <cfg-context>
+        <node name="instr" num="0"/>
+        <node name="stmt" num="8"/>
+        <node name="if-else"/>
+        <node name="stmt" num="7"/>
+        <node name="if-then"/>
+        <node name="stmt" num="5"/>
+        <node name="if-else"/>
+        <node name="stmt" num="2"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="1" fname="read_write" fvid="4885">
+      <location byte="186652" file="src/util.c" line="42"/>
+      <args>
+       <arg etag="lval" xstr="fd">
+        <lval>
+         <lhost>
+          <var vid="5905" vname="fd"/>
+         </lhost>
+        </lval>
+       </arg>
+       <arg etag="caste" xstr="caste (addrof (in):(unsigned char*))">
+        <typ ttag="tptr">
+         <typ ikind="iuchar" ttag="tint"/>
+        </typ>
+        <exp etag="addrof" xstr="addrof (in)">
+         <lval>
+          <lhost>
+           <var vid="5901" vname="in"/>
+          </lhost>
+         </lval>
+        </exp>
+       </arg>
+       <arg etag="caste" xstr="caste (sizeof(in):int)">
+        <typ ikind="iint" ttag="tint"/>
+        <exp etag="sizeofe" xstr="sizeof(in)">
+         <exp etag="lval" xstr="in">
+          <lval>
+           <lhost>
+            <var vid="5901" vname="in"/>
+           </lhost>
+          </lval>
+         </exp>
+        </exp>
+       </arg>
+       <arg etag="const" xstr="1">
+        <constant ctag="cint64" ikind="iint" intValue="1"/>
+       </arg>
+      </args>
+      <obligations>
+       <obligation api-id="1" id="53">
+        <predicate tag="not-null">
+         <exp etag="caste" xstr="caste (addrof (in):(unsigned char*))">
+          <typ ttag="tptr">
+           <typ ikind="iuchar" ttag="tint"/>
+          </typ>
+          <exp etag="addrof" xstr="addrof (in)">
+           <lval>
+            <lhost>
+             <var vid="5901" vname="in"/>
+            </lhost>
+           </lval>
+          </exp>
+         </exp>
+        </predicate>
+       </obligation>
+      </obligations>
+      <context>
+       <cfg-context>
+        <node name="instr" num="0"/>
+        <node name="stmt" num="6"/>
+        <node name="if-then"/>
+        <node name="stmt" num="5"/>
+        <node name="if-else"/>
+        <node name="stmt" num="2"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="1" fname="read_write" fvid="4885">
+      <location byte="186652" file="src/util.c" line="42"/>
+      <args>
+       <arg etag="lval" xstr="fd">
+        <lval>
+         <lhost>
+          <var vid="5905" vname="fd"/>
+         </lhost>
+        </lval>
+       </arg>
+       <arg etag="caste" xstr="caste (addrof (seed):(unsigned char*))">
+        <typ ttag="tptr">
+         <typ ikind="iuchar" ttag="tint"/>
+        </typ>
+        <exp etag="addrof" xstr="addrof (seed)">
+         <lval>
+          <lhost>
+           <var vid="5900" vname="seed"/>
+          </lhost>
+         </lval>
+        </exp>
+       </arg>
+       <arg etag="caste" xstr="caste (sizeof(seed):int)">
+        <typ ikind="iint" ttag="tint"/>
+        <exp etag="sizeofe" xstr="sizeof(seed)">
+         <exp etag="lval" xstr="seed">
+          <lval>
+           <lhost>
+            <var vid="5900" vname="seed"/>
+           </lhost>
+          </lval>
+         </exp>
+        </exp>
+       </arg>
+       <arg etag="const" xstr="1">
+        <constant ctag="cint64" ikind="iint" intValue="1"/>
+       </arg>
+      </args>
+      <obligations>
+       <obligation api-id="1" id="54">
+        <predicate tag="not-null">
+         <exp etag="caste" xstr="caste (addrof (seed):(unsigned char*))">
+          <typ ttag="tptr">
+           <typ ikind="iuchar" ttag="tint"/>
+          </typ>
+          <exp etag="addrof" xstr="addrof (seed)">
+           <lval>
+            <lhost>
+             <var vid="5900" vname="seed"/>
+            </lhost>
+           </lval>
+          </exp>
+         </exp>
+        </predicate>
+       </obligation>
+      </obligations>
+      <context>
+       <cfg-context>
+        <node name="instr" num="0"/>
+        <node name="stmt" num="4"/>
+        <node name="if-else"/>
+        <node name="stmt" num="2"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="2" fname="die" fvid="4904">
+      <location byte="186798" file="src/util.c" line="45"/>
+      <args>
+       <arg etag="caste" xstr="caste (&quot;failed to seed the random number generator: %s&quot;:(char*))">
+        <typ ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </typ>
+        <exp etag="const" xstr="&quot;failed to seed the random number generator: %s&quot;">
+         <constant ctag="cstr" strValue="failed to seed the random number generator: %s"/>
+        </exp>
+       </arg>
+       <arg etag="caste" xstr="caste (caste (0:(void*)):(char*))">
+        <typ ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </typ>
+        <exp etag="caste" xstr="caste (0:(void*))">
+         <typ ttag="tptr">
+          <typ ttag="tvoid"/>
+         </typ>
+         <exp etag="const" xstr="0">
+          <constant ctag="cint64" ikind="iint" intValue="0"/>
+         </exp>
+        </exp>
+       </arg>
+       <arg etag="const" xstr="5">
+        <constant ctag="cint64" ikind="iint" intValue="5"/>
+       </arg>
+      </args>
+      <obligations>
+       <obligation api-id="2" id="56">
+        <predicate tag="not-null">
+         <exp etag="caste" xstr="caste (&quot;failed to seed the random number generator: %s&quot;:(char*))">
+          <typ ttag="tptr">
+           <typ ikind="ichar" ttag="tint"/>
+          </typ>
+          <exp etag="const" xstr="&quot;failed to seed the random number generator: %s&quot;">
+           <constant ctag="cstr" strValue="failed to seed the random number generator: %s"/>
+          </exp>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="1" id="55">
+        <predicate op="pluspi" tag="ptr-upper-bound">
+         <typ ikind="ichar" ttag="tint">
+          <attributes>
+           <attr attrname="const"/>
+          </attributes>
+         </typ>
+         <exp1 etag="caste" xstr="caste (&quot;failed to seed the random number generator: %s&quot;:(char*))">
+          <typ ttag="tptr">
+           <typ ikind="ichar" ttag="tint"/>
+          </typ>
+          <exp etag="const" xstr="&quot;failed to seed the random number generator: %s&quot;">
+           <constant ctag="cstr" strValue="failed to seed the random number generator: %s"/>
+          </exp>
+         </exp1>
+         <exp2 cn="null-terminator-pos" etag="cnapp" xstr="null-terminator-pos[caste (caste (caste (&quot;failed to seed the random number generator: %s&quot;:(char*)):(char*)):(char*))]">
+          <arg etag="caste" xstr="caste (caste (caste (&quot;failed to seed the random number generator: %s&quot;:(char*)):(char*)):(char*))">
+           <typ ttag="tptr">
+            <attributes>
+             <attr attrname="restrict"/>
+            </attributes>
+            <typ ikind="ichar" ttag="tint">
+             <attributes>
+              <attr attrname="const"/>
+             </attributes>
+            </typ>
+           </typ>
+           <exp etag="caste" xstr="caste (caste (&quot;failed to seed the random number generator: %s&quot;:(char*)):(char*))">
+            <typ ttag="tptr">
+             <typ ikind="ichar" ttag="tint">
+              <attributes>
+               <attr attrname="const"/>
+              </attributes>
+             </typ>
+            </typ>
+            <exp etag="caste" xstr="caste (&quot;failed to seed the random number generator: %s&quot;:(char*))">
+             <typ ttag="tptr">
+              <typ ikind="ichar" ttag="tint"/>
+             </typ>
+             <exp etag="const" xstr="&quot;failed to seed the random number generator: %s&quot;">
+              <constant ctag="cstr" strValue="failed to seed the random number generator: %s"/>
+             </exp>
+            </exp>
+           </exp>
+          </arg>
+          <typ ikind="iint" ttag="tint"/>
+         </exp2>
+        </predicate>
+       </obligation>
+      </obligations>
+      <context>
+       <cfg-context>
+        <node name="instr" num="0"/>
+        <node name="stmt" num="3"/>
+        <node name="if-then"/>
+        <node name="stmt" num="2"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+    </callsite-obligations>
+    <return-sites/>
+    <post-expectations/>
+    <ds-expectations/>
+   </secondary-proof-obligations>
+  </function>
+  <header time="01/10/2017 05:33:38">
+   <application file="src/util.c" name="application"/>
+  </header>
+ </c-analysis>

@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function name="next_uid">
+   <statistics avg-context-complexity="0.38" avg-predicate-complexity="1.00" context-complexity="3" predicate-complexity="8" size="8"/>
+   <unconstrained-external-functions/>
+   <primary-proof-obligations>
+    <proof-obligation c-complexity="0" id="1" origin="prim-exp" p-complexity="0">
+     <location byte="187822" file="src/cache.c" line="79"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="5929" vname="uid"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="1"/>
+      </cfg-context>
+      <exp-context>
+       <node name="2op" num="1"/>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="2" origin="prim-op" p-complexity="2">
+     <location byte="187822" file="src/cache.c" line="79"/>
+     <predicate op="plusa" size="iuint" tag="int-underflow">
+      <exp1 etag="lval" xstr="uid">
+       <lval>
+        <lhost>
+         <var vid="5929" vname="uid"/>
+        </lhost>
+       </lval>
+      </exp1>
+      <exp2 etag="const" xstr="1">
+       <constant ctag="cint64" ikind="iuint" intValue="1"/>
+      </exp2>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="1"/>
+      </cfg-context>
+      <exp-context>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="3" origin="prim-op" p-complexity="2">
+     <location byte="187822" file="src/cache.c" line="79"/>
+     <predicate op="plusa" size="iuint" tag="int-overflow">
+      <exp1 etag="lval" xstr="uid">
+       <lval>
+        <lhost>
+         <var vid="5929" vname="uid"/>
+        </lhost>
+       </lval>
+      </exp1>
+      <exp2 etag="const" xstr="1">
+       <constant ctag="cint64" ikind="iuint" intValue="1"/>
+      </exp2>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="1"/>
+      </cfg-context>
+      <exp-context>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="4" origin="prim-exp" p-complexity="0">
+     <location byte="187833" file="src/cache.c" line="82"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="5929" vname="uid"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="2"/>
+      </cfg-context>
+      <exp-context>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="5" origin="prim-exp" p-complexity="0">
+     <location byte="187851" file="src/cache.c" line="83"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="5929" vname="uid"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="3"/>
+       <node name="if-then"/>
+       <node name="stmt" num="2"/>
+      </cfg-context>
+      <exp-context>
+       <node name="2op" num="1"/>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="6" origin="prim-op" p-complexity="2">
+     <location byte="187851" file="src/cache.c" line="83"/>
+     <predicate op="plusa" size="iuint" tag="int-underflow">
+      <exp1 etag="lval" xstr="uid">
+       <lval>
+        <lhost>
+         <var vid="5929" vname="uid"/>
+        </lhost>
+       </lval>
+      </exp1>
+      <exp2 etag="const" xstr="1">
+       <constant ctag="cint64" ikind="iuint" intValue="1"/>
+      </exp2>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="3"/>
+       <node name="if-then"/>
+       <node name="stmt" num="2"/>
+      </cfg-context>
+      <exp-context>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="7" origin="prim-op" p-complexity="2">
+     <location byte="187851" file="src/cache.c" line="83"/>
+     <predicate op="plusa" size="iuint" tag="int-overflow">
+      <exp1 etag="lval" xstr="uid">
+       <lval>
+        <lhost>
+         <var vid="5929" vname="uid"/>
+        </lhost>
+       </lval>
+      </exp1>
+      <exp2 etag="const" xstr="1">
+       <constant ctag="cint64" ikind="iuint" intValue="1"/>
+      </exp2>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="3"/>
+       <node name="if-then"/>
+       <node name="stmt" num="2"/>
+      </cfg-context>
+      <exp-context>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="8" origin="prim-exp" p-complexity="0">
+     <location byte="187861" file="src/cache.c" line="85"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="5929" vname="uid"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="return"/>
+       <node name="stmt" num="4"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </proof-obligation>
+   </primary-proof-obligations>
+  </function>
+  <header time="01/09/2017 21:38:35">
+   <application file="src/cache.xml" name="application"/>
+  </header>
+ </c-analysis>

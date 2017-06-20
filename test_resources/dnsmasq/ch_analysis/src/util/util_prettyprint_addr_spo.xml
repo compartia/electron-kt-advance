@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function name="prettyprint_addr">
+   <secondary-proof-obligations max-spo-id="158" num-ppo="158">
+    <indirect-calls/>
+    <callsite-obligations>
+     <callsite-obligation api-max-id="0" fname="if_indextoname" fvid="1728">
+      <location byte="193896" file="src/util.c" line="417"/>
+      <args>
+       <arg etag="lval" xstr="addr-&gt;in6.sin6_scope_id">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="addr">
+           <lval>
+            <lhost>
+             <var vid="6041" vname="addr"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <offset>
+           <field ckey="34" fname="sin6_scope_id"/>
+          </offset>
+          <field ckey="203" fname="in6"/>
+         </offset>
+        </lval>
+       </arg>
+       <arg etag="startof" xstr="startof (name)">
+        <lval>
+         <lhost>
+          <var vid="6046" vname="name"/>
+         </lhost>
+        </lval>
+       </arg>
+      </args>
+      <obligations/>
+      <context>
+       <cfg-context>
+        <node name="instr" num="0"/>
+        <node name="stmt" num="243"/>
+        <node name="if-then"/>
+        <node name="stmt" num="242"/>
+        <node name="if-then"/>
+        <node name="stmt" num="240"/>
+        <node name="if-else"/>
+        <node name="stmt" num="238"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+    </callsite-obligations>
+    <return-sites>
+     <return-site>
+      <exp etag="lval" xstr="port">
+       <lval>
+        <lhost>
+         <var vid="6043" vname="port"/>
+        </lhost>
+       </lval>
+      </exp>
+      <location byte="194384" file="src/util.c" line="431"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="249"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+    </return-sites>
+    <post-expectations/>
+    <ds-expectations/>
+   </secondary-proof-obligations>
+  </function>
+  <header time="01/10/2017 05:33:38">
+   <application file="src/util.c" name="application"/>
+  </header>
+ </c-analysis>

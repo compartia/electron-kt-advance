@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function name="flush_log">
+   <secondary-proof-obligations max-spo-id="21" num-ppo="21">
+    <indirect-calls/>
+    <callsite-obligations>
+     <callsite-obligation api-max-id="3" fname="log_write" fvid="5938">
+      <location byte="193438" file="src/log.c" line="443"/>
+      <args/>
+      <obligations/>
+      <context>
+       <cfg-context>
+        <node name="instr" num="0"/>
+        <node name="stmt" num="205"/>
+        <node name="loop"/>
+        <node name="stmt" num="202"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+    </callsite-obligations>
+    <return-sites/>
+    <post-expectations/>
+    <ds-expectations/>
+   </secondary-proof-obligations>
+  </function>
+  <header time="01/10/2017 05:33:34">
+   <application file="src/log.c" name="application"/>
+  </header>
+ </c-analysis>

@@ -1,0 +1,4363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <c-file filename="src/loop">
+   <linked-into linkname="dnsmasq">
+    <enumtag-xreferences/>
+    <comptag-xreferences>
+     <compxref ckey="117" gckey="2"/>
+     <compxref ckey="238" gckey="6"/>
+     <compxref ckey="237" gckey="7"/>
+     <compxref ckey="236" gckey="8"/>
+     <compxref ckey="234" gckey="10"/>
+     <compxref ckey="233" gckey="11"/>
+     <compxref ckey="232" gckey="12"/>
+     <compxref ckey="231" gckey="13"/>
+     <compxref ckey="230" gckey="14"/>
+     <compxref ckey="229" gckey="15"/>
+     <compxref ckey="228" gckey="16"/>
+     <compxref ckey="227" gckey="17"/>
+     <compxref ckey="226" gckey="18"/>
+     <compxref ckey="225" gckey="19"/>
+     <compxref ckey="224" gckey="20"/>
+     <compxref ckey="222" gckey="21"/>
+     <compxref ckey="223" gckey="22"/>
+     <compxref ckey="221" gckey="23"/>
+     <compxref ckey="220" gckey="24"/>
+     <compxref ckey="219" gckey="25"/>
+     <compxref ckey="218" gckey="26"/>
+     <compxref ckey="217" gckey="27"/>
+     <compxref ckey="214" gckey="28"/>
+     <compxref ckey="213" gckey="29"/>
+     <compxref ckey="212" gckey="30"/>
+     <compxref ckey="211" gckey="31"/>
+     <compxref ckey="210" gckey="32"/>
+     <compxref ckey="209" gckey="33"/>
+     <compxref ckey="208" gckey="34"/>
+     <compxref ckey="207" gckey="35"/>
+     <compxref ckey="206" gckey="36"/>
+     <compxref ckey="205" gckey="37"/>
+     <compxref ckey="204" gckey="38"/>
+     <compxref ckey="203" gckey="39"/>
+     <compxref ckey="193" gckey="40"/>
+     <compxref ckey="191" gckey="41"/>
+     <compxref ckey="192" gckey="42"/>
+     <compxref ckey="189" gckey="43"/>
+     <compxref ckey="190" gckey="44"/>
+     <compxref ckey="188" gckey="45"/>
+     <compxref ckey="186" gckey="46"/>
+     <compxref ckey="185" gckey="47"/>
+     <compxref ckey="184" gckey="48"/>
+     <compxref ckey="183" gckey="49"/>
+     <compxref ckey="182" gckey="50"/>
+     <compxref ckey="181" gckey="51"/>
+     <compxref ckey="180" gckey="52"/>
+     <compxref ckey="235" gckey="52"/>
+     <compxref ckey="176" gckey="53"/>
+     <compxref ckey="177" gckey="54"/>
+     <compxref ckey="179" gckey="55"/>
+     <compxref ckey="178" gckey="56"/>
+     <compxref ckey="123" gckey="58"/>
+     <compxref ckey="34" gckey="59"/>
+     <compxref ckey="33" gckey="60"/>
+     <compxref ckey="46" gckey="61"/>
+     <compxref ckey="47" gckey="62"/>
+     <compxref ckey="42" gckey="63"/>
+     <compxref ckey="20" gckey="64"/>
+     <compxref ckey="19" gckey="65"/>
+     <compxref ckey="58" gckey="75"/>
+    </comptag-xreferences>
+    <var-xreferences>
+     <varxref gvid="35" vid="2569"/>
+     <varxref gvid="36" vid="1581"/>
+     <varxref gvid="40" vid="1429"/>
+     <varxref gvid="81" vid="3708"/>
+     <varxref gvid="173" vid="4834"/>
+     <varxref gvid="210" vid="352"/>
+     <varxref gvid="256" vid="5077"/>
+     <varxref gvid="275" vid="4760"/>
+     <varxref gvid="317" vid="4341"/>
+     <varxref gvid="323" vid="1531"/>
+     <varxref gvid="343" vid="5032"/>
+     <varxref gvid="344" vid="5029"/>
+     <varxref gvid="349" vid="5780"/>
+     <varxref gvid="353" vid="4793"/>
+     <varxref gvid="468" vid="5902"/>
+     <varxref gvid="469" vid="5775"/>
+     <varxref gvid="470" vid="2969"/>
+    </var-xreferences>
+   </linked-into>
+   <global-type-definitions>
+    <gtype>
+     <typeinfo tname="__dev_t">
+      <ttype ikind="iulong" ttag="tint"/>
+     </typeinfo>
+     <loc byte="1564" file="/usr/include/bits/types.h" line="134"/>
+    </gtype>
+    <gtype>
+     <typeinfo tname="__ino64_t">
+      <ttype ikind="iulong" ttag="tint"/>
+     </typeinfo>
+     <loc byte="1694" file="/usr/include/bits/types.h" line="138"/>
+    </gtype>
+    <gtype>
+     <typeinfo tname="__off_t">
+      <ttype ikind="ilong" ttag="tint"/>
+     </typeinfo>
+     <loc byte="1799" file="/usr/include/bits/types.h" line="141"/>
+    </gtype>
+    <gtype>
+     <typeinfo tname="__off64_t">
+      <ttype ikind="ilong" ttag="tint"/>
+     </typeinfo>
+     <loc byte="1825" file="/usr/include/bits/types.h" line="142"/>
+    </gtype>
+    <gtype>
+     <typeinfo tname="__pid_t">
+      <ttype ikind="iint" ttag="tint"/>
+     </typeinfo>
+     <loc byte="1853" file="/usr/include/bits/types.h" line="143"/>
+    </gtype>
+    <gtype>
+     <typeinfo tname="__time_t">
+      <ttype ikind="ilong" ttag="tint"/>
+     </typeinfo>
+     <loc byte="2048" file="/usr/include/bits/types.h" line="149"/>
+    </gtype>
+    <gtype>
+     <typeinfo tname="__ssize_t">
+      <ttype ikind="ilong" ttag="tint"/>
+     </typeinfo>
+     <loc byte="2535" file="/usr/include/bits/types.h" line="180"/>
+    </gtype>
+    <gtype>
+     <typeinfo tname="__socklen_t">
+      <ttype ikind="iuint" ttag="tint"/>
+     </typeinfo>
+     <loc byte="2681" file="/usr/include/bits/types.h" line="192"/>
+    </gtype>
+    <gtype>
+     <typeinfo tname="ino_t">
+      <ttype tname="__ino64_t" ttag="tnamed"/>
+     </typeinfo>
+     <loc byte="2969" file="/usr/include/sys/types.h" line="51"/>
+    </gtype>
+    <gtype>
+     <typeinfo tname="dev_t">
+      <ttype tname="__dev_t" ttag="tnamed"/>
+     </typeinfo>
+     <loc byte="3029" file="/usr/include/sys/types.h" line="61"/>
+    </gtype>
+    <gtype>
+     <typeinfo tname="off_t">
+      <ttype tname="__off64_t" ttag="tnamed"/>
+     </typeinfo>
+     <loc byte="3173" file="/usr/include/sys/types.h" line="89"/>
+    </gtype>
+    <gtype>
+     <typeinfo tname="pid_t">
+      <ttype tname="__pid_t" ttag="tnamed"/>
+     </typeinfo>
+     <loc byte="3233" file="/usr/include/sys/types.h" line="99"/>
+    </gtype>
+    <gtype>
+     <typeinfo tname="ssize_t">
+      <ttype tname="__ssize_t" ttag="tnamed"/>
+     </typeinfo>
+     <loc byte="3286" file="/usr/include/sys/types.h" line="110"/>
+    </gtype>
+    <gtype>
+     <typeinfo tname="time_t">
+      <ttype tname="__time_t" ttag="tnamed"/>
+     </typeinfo>
+     <loc byte="3565" file="/usr/include/time.h" line="76"/>
+    </gtype>
+    <gtype>
+     <typeinfo tname="size_t">
+      <ttype ikind="iulong" ttag="tint"/>
+     </typeinfo>
+     <loc byte="3968" file="/usr/lib/gcc/x86_64-redhat-linux/4.4.7/include/stddef.h" line="211"/>
+    </gtype>
+    <gtype>
+     <typeinfo tname="socklen_t">
+      <ttype tname="__socklen_t" ttag="tnamed"/>
+     </typeinfo>
+     <loc byte="11573" file="/usr/include/bits/socket.h" line="35"/>
+    </gtype>
+    <gtype>
+     <typeinfo tname="sa_family_t">
+      <ttype ikind="iushort" ttag="tint"/>
+     </typeinfo>
+     <loc byte="11951" file="/usr/include/bits/sockaddr.h" line="29"/>
+    </gtype>
+    <gtype>
+     <typeinfo tname="uint8_t">
+      <ttype ikind="iuchar" ttag="tint"/>
+     </typeinfo>
+     <loc byte="18627" file="/usr/include/stdint.h" line="49"/>
+    </gtype>
+    <gtype>
+     <typeinfo tname="uint16_t">
+      <ttype ikind="iushort" ttag="tint"/>
+     </typeinfo>
+     <loc byte="18658" file="/usr/include/stdint.h" line="50"/>
+    </gtype>
+    <gtype>
+     <typeinfo tname="uint32_t">
+      <ttype ikind="iuint" ttag="tint"/>
+     </typeinfo>
+     <loc byte="18696" file="/usr/include/stdint.h" line="52"/>
+    </gtype>
+    <gtype>
+     <typeinfo tname="in_addr_t">
+      <ttype tname="uint32_t" ttag="tnamed"/>
+     </typeinfo>
+     <loc byte="19690" file="/usr/include/netinet/in.h" line="32"/>
+    </gtype>
+    <gtype>
+     <typeinfo tname="in_port_t">
+      <ttype tname="uint16_t" ttag="tnamed"/>
+     </typeinfo>
+     <loc byte="20974" file="/usr/include/netinet/in.h" line="119"/>
+    </gtype>
+    <gtype>
+     <typeinfo tname="u8">
+      <ttype ikind="iuchar" ttag="tint"/>
+     </typeinfo>
+     <loc byte="28950" file="src/dnsmasq.h" line="55"/>
+    </gtype>
+    <gtype>
+     <typeinfo tname="u16">
+      <ttype ikind="iushort" ttag="tint"/>
+     </typeinfo>
+     <loc byte="28976" file="src/dnsmasq.h" line="56"/>
+    </gtype>
+    <gtype>
+     <typeinfo tname="u32">
+      <ttype ikind="iuint" ttag="tint"/>
+     </typeinfo>
+     <loc byte="29004" file="src/dnsmasq.h" line="57"/>
+    </gtype>
+    <gtype>
+     <typeinfo tname="FILE">
+      <ttype ckey="117" ttag="tcomp"/>
+     </typeinfo>
+     <loc byte="94721" file="/usr/include/stdio.h" line="49"/>
+    </gtype>
+    <gtype>
+     <typeinfo tname="_IO_lock_t">
+      <ttype ttag="tvoid"/>
+     </typeinfo>
+     <loc byte="96143" file="/usr/include/libio.h" line="180"/>
+    </gtype>
+   </global-type-definitions>
+   <global-comptag-definitions>
+    <gcomptag>
+     <compinfo ckey="19" cname="iovec" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="19" fname="iov_base">
+        <ftyp ttag="tptr">
+         <typ ttag="tvoid"/>
+        </ftyp>
+        <floc byte="10236" file="/usr/include/bits/uio.h" line="46"/>
+       </fieldinfo>
+       <fieldinfo ckey="19" fname="iov_len">
+        <ftyp tname="size_t" ttag="tnamed"/>
+        <floc byte="10258" file="/usr/include/bits/uio.h" line="47"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="10210" file="/usr/include/bits/uio.h" line="44"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="20" cname="sockaddr" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="20" fname="sa_family">
+        <ftyp tname="sa_family_t" ttag="tnamed"/>
+        <floc byte="12070" file="/usr/include/bits/socket.h" line="176"/>
+       </fieldinfo>
+       <fieldinfo ckey="20" fname="sa_data">
+        <ftyp ttag="tarray">
+         <exp etag="const" xstr="14">
+          <constant ctag="cint64" ikind="iint" intValue="14"/>
+         </exp>
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="12090" file="/usr/include/bits/socket.h" line="177"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="12034" file="/usr/include/bits/socket.h" line="174"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="42" cname="in_addr" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="42" fname="s_addr">
+        <ftyp tname="in_addr_t" ttag="tnamed"/>
+        <floc byte="19751" file="/usr/include/netinet/in.h" line="35"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="19718" file="/usr/include/netinet/in.h" line="33"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="47" cname="__anonunion___in6_u_23" cstruct="false">
+      <cfields>
+       <fieldinfo ckey="47" fname="__u6_addr8">
+        <ftyp ttag="tarray">
+         <exp etag="const" xstr="16">
+          <constant ctag="cint64" ikind="iint" intValue="16"/>
+         </exp>
+         <typ tname="uint8_t" ttag="tnamed"/>
+        </ftyp>
+        <floc byte="21772" file="/usr/include/netinet/in.h" line="215"/>
+       </fieldinfo>
+       <fieldinfo ckey="47" fname="__u6_addr16">
+        <ftyp ttag="tarray">
+         <exp etag="const" xstr="8">
+          <constant ctag="cint64" ikind="iint" intValue="8"/>
+         </exp>
+         <typ tname="uint16_t" ttag="tnamed"/>
+        </ftyp>
+        <floc byte="21799" file="/usr/include/netinet/in.h" line="217"/>
+       </fieldinfo>
+       <fieldinfo ckey="47" fname="__u6_addr32">
+        <ftyp ttag="tarray">
+         <exp etag="const" xstr="4">
+          <constant ctag="cint64" ikind="iint" intValue="4"/>
+         </exp>
+         <typ tname="uint32_t" ttag="tnamed"/>
+        </ftyp>
+        <floc byte="21825" file="/usr/include/netinet/in.h" line="218"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="21725" file="/usr/include/netinet/in.h" line="211"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="46" cname="in6_addr" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="46" fname="__in6_u">
+        <ftyp ckey="47" ttag="tcomp"/>
+        <floc byte="21850" file="/usr/include/netinet/in.h" line="220"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="21725" file="/usr/include/netinet/in.h" line="211"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="33" cname="sockaddr_in" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="33" fname="sin_family">
+        <ftyp tname="sa_family_t" ttag="tnamed"/>
+        <floc byte="22037" file="/usr/include/netinet/in.h" line="241"/>
+       </fieldinfo>
+       <fieldinfo ckey="33" fname="sin_port">
+        <ftyp tname="in_port_t" ttag="tnamed"/>
+        <floc byte="22063" file="/usr/include/netinet/in.h" line="242"/>
+       </fieldinfo>
+       <fieldinfo ckey="33" fname="sin_addr">
+        <ftyp ckey="42" ttag="tcomp"/>
+        <floc byte="22092" file="/usr/include/netinet/in.h" line="243"/>
+       </fieldinfo>
+       <fieldinfo ckey="33" fname="sin_zero">
+        <ftyp ttag="tarray">
+         <exp binop="minusa" etag="binop" xstr="((((((sizeof (struct 20) - sizeof (unsigned short)):unsigned long - sizeof (in_port_t)):unsigned long - sizeof (struct 42)):unsigned long">
+          <exp1 binop="minusa" etag="binop" xstr="((((sizeof (struct 20) - sizeof (unsigned short)):unsigned long - sizeof (in_port_t)):unsigned long">
+           <exp1 binop="minusa" etag="binop" xstr="((sizeof (struct 20) - sizeof (unsigned short)):unsigned long">
+            <exp1 etag="sizeof" xstr="sizeof (struct 20)">
+             <typ ckey="20" ttag="tcomp"/>
+            </exp1>
+            <exp2 etag="sizeof" xstr="sizeof (unsigned short)">
+             <typ ikind="iushort" ttag="tint"/>
+            </exp2>
+            <typ ikind="iulong" ttag="tint"/>
+           </exp1>
+           <exp2 etag="sizeof" xstr="sizeof (in_port_t)">
+            <typ tname="in_port_t" ttag="tnamed"/>
+           </exp2>
+           <typ ikind="iulong" ttag="tint"/>
+          </exp1>
+          <exp2 etag="sizeof" xstr="sizeof (struct 42)">
+           <typ ckey="42" ttag="tcomp"/>
+          </exp2>
+          <typ ikind="iulong" ttag="tint"/>
+         </exp>
+         <typ ikind="iuchar" ttag="tint"/>
+        </ftyp>
+        <floc byte="22122" file="/usr/include/netinet/in.h" line="246"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="21998" file="/usr/include/netinet/in.h" line="239"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="34" cname="sockaddr_in6" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="34" fname="sin6_family">
+        <ftyp tname="sa_family_t" ttag="tnamed"/>
+        <floc byte="22303" file="/usr/include/netinet/in.h" line="256"/>
+       </fieldinfo>
+       <fieldinfo ckey="34" fname="sin6_port">
+        <ftyp tname="in_port_t" ttag="tnamed"/>
+        <floc byte="22330" file="/usr/include/netinet/in.h" line="257"/>
+       </fieldinfo>
+       <fieldinfo ckey="34" fname="sin6_flowinfo">
+        <ftyp tname="uint32_t" ttag="tnamed"/>
+        <floc byte="22354" file="/usr/include/netinet/in.h" line="258"/>
+       </fieldinfo>
+       <fieldinfo ckey="34" fname="sin6_addr">
+        <ftyp ckey="46" ttag="tcomp"/>
+        <floc byte="22389" file="/usr/include/netinet/in.h" line="259"/>
+       </fieldinfo>
+       <fieldinfo ckey="34" fname="sin6_scope_id">
+        <ftyp tname="uint32_t" ttag="tnamed"/>
+        <floc byte="22413" file="/usr/include/netinet/in.h" line="260"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="22263" file="/usr/include/netinet/in.h" line="254"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="58" cname="dns_header" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="58" fname="id">
+        <ftyp tname="u16" ttag="tnamed"/>
+        <floc byte="29137" file="src/dns-protocol.h" line="85"/>
+       </fieldinfo>
+       <fieldinfo ckey="58" fname="hb3">
+        <ftyp tname="u8" ttag="tnamed"/>
+        <floc byte="29146" file="src/dns-protocol.h" line="86"/>
+       </fieldinfo>
+       <fieldinfo ckey="58" fname="hb4">
+        <ftyp tname="u8" ttag="tnamed"/>
+        <floc byte="29150" file="src/dns-protocol.h" line="86"/>
+       </fieldinfo>
+       <fieldinfo ckey="58" fname="qdcount">
+        <ftyp tname="u16" ttag="tnamed"/>
+        <floc byte="29161" file="src/dns-protocol.h" line="87"/>
+       </fieldinfo>
+       <fieldinfo ckey="58" fname="ancount">
+        <ftyp tname="u16" ttag="tnamed"/>
+        <floc byte="29169" file="src/dns-protocol.h" line="87"/>
+       </fieldinfo>
+       <fieldinfo ckey="58" fname="nscount">
+        <ftyp tname="u16" ttag="tnamed"/>
+        <floc byte="29177" file="src/dns-protocol.h" line="87"/>
+       </fieldinfo>
+       <fieldinfo ckey="58" fname="arcount">
+        <ftyp tname="u16" ttag="tnamed"/>
+        <floc byte="29185" file="src/dns-protocol.h" line="87"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="29111" file="src/dns-protocol.h" line="84"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="123" cname="_IO_marker" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="123" fname="_next">
+        <ftyp ttag="tptr">
+         <typ ckey="123" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="96213" file="/usr/include/libio.h" line="187"/>
+       </fieldinfo>
+       <fieldinfo ckey="123" fname="_sbuf">
+        <ftyp ttag="tptr">
+         <typ ckey="117" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="96239" file="/usr/include/libio.h" line="188"/>
+       </fieldinfo>
+       <fieldinfo ckey="123" fname="_pos">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="96256" file="/usr/include/libio.h" line="192"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="96173" file="/usr/include/libio.h" line="186"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="117" cname="_IO_FILE" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="117" fname="_flags">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="96459" file="/usr/include/libio.h" line="272"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_IO_read_ptr">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="96477" file="/usr/include/libio.h" line="277"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_IO_read_end">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="96499" file="/usr/include/libio.h" line="278"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_IO_read_base">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="96521" file="/usr/include/libio.h" line="279"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_IO_write_base">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="96544" file="/usr/include/libio.h" line="280"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_IO_write_ptr">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="96568" file="/usr/include/libio.h" line="281"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_IO_write_end">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="96591" file="/usr/include/libio.h" line="282"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_IO_buf_base">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="96614" file="/usr/include/libio.h" line="283"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_IO_buf_end">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="96636" file="/usr/include/libio.h" line="284"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_IO_save_base">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="96659" file="/usr/include/libio.h" line="286"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_IO_backup_base">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="96682" file="/usr/include/libio.h" line="287"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_IO_save_end">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="96707" file="/usr/include/libio.h" line="288"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_markers">
+        <ftyp ttag="tptr">
+         <typ ckey="123" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="96743" file="/usr/include/libio.h" line="290"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_chain">
+        <ftyp ttag="tptr">
+         <typ ckey="117" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="96773" file="/usr/include/libio.h" line="292"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_fileno">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="96789" file="/usr/include/libio.h" line="294"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_flags2">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="96807" file="/usr/include/libio.h" line="298"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_old_offset">
+        <ftyp tname="__off_t" ttag="tnamed"/>
+        <floc byte="96827" file="/usr/include/libio.h" line="300"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_cur_column">
+        <ftyp ikind="iushort" ttag="tint"/>
+        <floc byte="96860" file="/usr/include/libio.h" line="304"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_vtable_offset">
+        <ftyp ikind="ischar" ttag="tint"/>
+        <floc byte="96887" file="/usr/include/libio.h" line="305"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_shortbuf">
+        <ftyp ttag="tarray">
+         <exp etag="const" xstr="1">
+          <constant ctag="cint64" ikind="iint" intValue="1"/>
+         </exp>
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="96910" file="/usr/include/libio.h" line="306"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_lock">
+        <ftyp ttag="tptr">
+         <typ tname="_IO_lock_t" ttag="tnamed"/>
+        </ftyp>
+        <floc byte="96940" file="/usr/include/libio.h" line="310"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_offset">
+        <ftyp tname="__off64_t" ttag="tnamed"/>
+        <floc byte="96993" file="/usr/include/libio.h" line="319"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="__pad1">
+        <ftyp ttag="tptr">
+         <typ ttag="tvoid"/>
+        </ftyp>
+        <floc byte="97042" file="/usr/include/libio.h" line="328"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="__pad2">
+        <ftyp ttag="tptr">
+         <typ ttag="tvoid"/>
+        </ftyp>
+        <floc byte="97058" file="/usr/include/libio.h" line="329"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="__pad3">
+        <ftyp ttag="tptr">
+         <typ ttag="tvoid"/>
+        </ftyp>
+        <floc byte="97074" file="/usr/include/libio.h" line="330"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="__pad4">
+        <ftyp ttag="tptr">
+         <typ ttag="tvoid"/>
+        </ftyp>
+        <floc byte="97090" file="/usr/include/libio.h" line="331"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="__pad5">
+        <ftyp tname="size_t" ttag="tnamed"/>
+        <floc byte="97108" file="/usr/include/libio.h" line="332"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_mode">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="97123" file="/usr/include/libio.h" line="334"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_unused2">
+        <ftyp ttag="tarray">
+         <exp binop="minusa" etag="binop" xstr="((((((15 * sizeof (int)):unsigned long - ((4 * sizeof ((void*))):unsigned long):unsigned long - sizeof (size_t)):unsigned long">
+          <exp1 binop="minusa" etag="binop" xstr="((((15 * sizeof (int)):unsigned long - ((4 * sizeof ((void*))):unsigned long):unsigned long">
+           <exp1 binop="mult" etag="binop" xstr="((15 * sizeof (int)):unsigned long">
+            <exp1 etag="const" xstr="15">
+             <constant ctag="cint64" ikind="iulong" intValue="15"/>
+            </exp1>
+            <exp2 etag="sizeof" xstr="sizeof (int)">
+             <typ ikind="iint" ttag="tint"/>
+            </exp2>
+            <typ ikind="iulong" ttag="tint"/>
+           </exp1>
+           <exp2 binop="mult" etag="binop" xstr="((4 * sizeof ((void*))):unsigned long">
+            <exp1 etag="const" xstr="4">
+             <constant ctag="cint64" ikind="iulong" intValue="4"/>
+            </exp1>
+            <exp2 etag="sizeof" xstr="sizeof ((void*))">
+             <typ ttag="tptr">
+              <typ ttag="tvoid"/>
+             </typ>
+            </exp2>
+            <typ ikind="iulong" ttag="tint"/>
+           </exp2>
+           <typ ikind="iulong" ttag="tint"/>
+          </exp1>
+          <exp2 etag="sizeof" xstr="sizeof (size_t)">
+           <typ tname="size_t" ttag="tnamed"/>
+          </exp2>
+          <typ ikind="iulong" ttag="tint"/>
+         </exp>
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="97138" file="/usr/include/libio.h" line="336"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="96435" file="/usr/include/libio.h" line="271"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="178" cname="__anonstruct_log_79" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="178" fname="keytag">
+        <ftyp ikind="iushort" ttag="tint"/>
+        <floc byte="158075" file="src/dnsmasq.h" line="256"/>
+       </fieldinfo>
+       <fieldinfo ckey="178" fname="algo">
+        <ftyp ikind="iushort" ttag="tint"/>
+        <floc byte="158083" file="src/dnsmasq.h" line="256"/>
+       </fieldinfo>
+       <fieldinfo ckey="178" fname="digest">
+        <ftyp ikind="iushort" ttag="tint"/>
+        <floc byte="158089" file="src/dnsmasq.h" line="256"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="157957" file="src/dnsmasq.h" line="248"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="179" cname="__anonstruct_dnssec_80" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="179" fname="class">
+        <ftyp ikind="iushort" ttag="tint"/>
+        <floc byte="158143" file="src/dnsmasq.h" line="260"/>
+       </fieldinfo>
+       <fieldinfo ckey="179" fname="type">
+        <ftyp ikind="iushort" ttag="tint"/>
+        <floc byte="158150" file="src/dnsmasq.h" line="260"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="157957" file="src/dnsmasq.h" line="248"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="177" cname="__anonunion_addr_78" cstruct="false">
+      <cfields>
+       <fieldinfo ckey="177" fname="addr4">
+        <ftyp ckey="42" ttag="tcomp"/>
+        <floc byte="158004" file="src/dnsmasq.h" line="250"/>
+       </fieldinfo>
+       <fieldinfo ckey="177" fname="addr6">
+        <ftyp ckey="46" ttag="tcomp"/>
+        <floc byte="158032" file="src/dnsmasq.h" line="252"/>
+       </fieldinfo>
+       <fieldinfo ckey="177" fname="log">
+        <ftyp ckey="178" ttag="tcomp"/>
+        <floc byte="158103" file="src/dnsmasq.h" line="257"/>
+       </fieldinfo>
+       <fieldinfo ckey="177" fname="dnssec">
+        <ftyp ckey="179" ttag="tcomp"/>
+        <floc byte="158162" file="src/dnsmasq.h" line="261"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="157957" file="src/dnsmasq.h" line="248"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="176" cname="all_addr" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="176" fname="addr">
+        <ftyp ckey="177" ttag="tcomp"/>
+        <floc byte="158174" file="src/dnsmasq.h" line="262"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="157957" file="src/dnsmasq.h" line="248"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="180" cname="bogus_addr" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="180" fname="addr">
+        <ftyp ckey="42" ttag="tcomp"/>
+        <floc byte="158221" file="src/dnsmasq.h" line="266"/>
+       </fieldinfo>
+       <fieldinfo ckey="180" fname="next">
+        <ftyp ttag="tptr">
+         <typ ckey="180" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="158247" file="src/dnsmasq.h" line="267"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="158184" file="src/dnsmasq.h" line="265"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="181" cname="doctor" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="181" fname="in">
+        <ftyp ckey="42" ttag="tcomp"/>
+        <floc byte="158292" file="src/dnsmasq.h" line="272"/>
+       </fieldinfo>
+       <fieldinfo ckey="181" fname="end">
+        <ftyp ckey="42" ttag="tcomp"/>
+        <floc byte="158296" file="src/dnsmasq.h" line="272"/>
+       </fieldinfo>
+       <fieldinfo ckey="181" fname="out">
+        <ftyp ckey="42" ttag="tcomp"/>
+        <floc byte="158301" file="src/dnsmasq.h" line="272"/>
+       </fieldinfo>
+       <fieldinfo ckey="181" fname="mask">
+        <ftyp ckey="42" ttag="tcomp"/>
+        <floc byte="158306" file="src/dnsmasq.h" line="272"/>
+       </fieldinfo>
+       <fieldinfo ckey="181" fname="next">
+        <ftyp ttag="tptr">
+         <typ ckey="181" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="158328" file="src/dnsmasq.h" line="273"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="158259" file="src/dnsmasq.h" line="271"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="182" cname="mx_srv_record" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="182" fname="name">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="158369" file="src/dnsmasq.h" line="277"/>
+       </fieldinfo>
+       <fieldinfo ckey="182" fname="target">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="158376" file="src/dnsmasq.h" line="277"/>
+       </fieldinfo>
+       <fieldinfo ckey="182" fname="issrv">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="158391" file="src/dnsmasq.h" line="278"/>
+       </fieldinfo>
+       <fieldinfo ckey="182" fname="srvport">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="158398" file="src/dnsmasq.h" line="278"/>
+       </fieldinfo>
+       <fieldinfo ckey="182" fname="priority">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="158407" file="src/dnsmasq.h" line="278"/>
+       </fieldinfo>
+       <fieldinfo ckey="182" fname="weight">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="158417" file="src/dnsmasq.h" line="278"/>
+       </fieldinfo>
+       <fieldinfo ckey="182" fname="offset">
+        <ftyp ikind="iuint" ttag="tint"/>
+        <floc byte="158440" file="src/dnsmasq.h" line="279"/>
+       </fieldinfo>
+       <fieldinfo ckey="182" fname="next">
+        <ftyp ttag="tptr">
+         <typ ckey="182" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="158471" file="src/dnsmasq.h" line="280"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="158339" file="src/dnsmasq.h" line="276"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="183" cname="naptr" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="183" fname="name">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="158504" file="src/dnsmasq.h" line="284"/>
+       </fieldinfo>
+       <fieldinfo ckey="183" fname="replace">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="158511" file="src/dnsmasq.h" line="284"/>
+       </fieldinfo>
+       <fieldinfo ckey="183" fname="regexp">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="158521" file="src/dnsmasq.h" line="284"/>
+       </fieldinfo>
+       <fieldinfo ckey="183" fname="services">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="158530" file="src/dnsmasq.h" line="284"/>
+       </fieldinfo>
+       <fieldinfo ckey="183" fname="flags">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="158541" file="src/dnsmasq.h" line="284"/>
+       </fieldinfo>
+       <fieldinfo ckey="183" fname="order">
+        <ftyp ikind="iuint" ttag="tint"/>
+        <floc byte="158564" file="src/dnsmasq.h" line="285"/>
+       </fieldinfo>
+       <fieldinfo ckey="183" fname="pref">
+        <ftyp ikind="iuint" ttag="tint"/>
+        <floc byte="158571" file="src/dnsmasq.h" line="285"/>
+       </fieldinfo>
+       <fieldinfo ckey="183" fname="next">
+        <ftyp ttag="tptr">
+         <typ ckey="183" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="158592" file="src/dnsmasq.h" line="286"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="158482" file="src/dnsmasq.h" line="283"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="184" cname="txt_record" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="184" fname="name">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="158647" file="src/dnsmasq.h" line="300"/>
+       </fieldinfo>
+       <fieldinfo ckey="184" fname="txt">
+        <ftyp ttag="tptr">
+         <typ ikind="iuchar" ttag="tint"/>
+        </ftyp>
+        <floc byte="158670" file="src/dnsmasq.h" line="301"/>
+       </fieldinfo>
+       <fieldinfo ckey="184" fname="class">
+        <ftyp ikind="iushort" ttag="tint"/>
+        <floc byte="158693" file="src/dnsmasq.h" line="302"/>
+       </fieldinfo>
+       <fieldinfo ckey="184" fname="len">
+        <ftyp ikind="iushort" ttag="tint"/>
+        <floc byte="158700" file="src/dnsmasq.h" line="302"/>
+       </fieldinfo>
+       <fieldinfo ckey="184" fname="stat">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="158711" file="src/dnsmasq.h" line="303"/>
+       </fieldinfo>
+       <fieldinfo ckey="184" fname="next">
+        <ftyp ttag="tptr">
+         <typ ckey="184" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="158737" file="src/dnsmasq.h" line="304"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="158620" file="src/dnsmasq.h" line="299"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="185" cname="ptr_record" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="185" fname="name">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="158775" file="src/dnsmasq.h" line="308"/>
+       </fieldinfo>
+       <fieldinfo ckey="185" fname="ptr">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="158782" file="src/dnsmasq.h" line="308"/>
+       </fieldinfo>
+       <fieldinfo ckey="185" fname="next">
+        <ftyp ttag="tptr">
+         <typ ckey="185" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="158808" file="src/dnsmasq.h" line="309"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="158748" file="src/dnsmasq.h" line="307"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="186" cname="cname" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="186" fname="ttl">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="158840" file="src/dnsmasq.h" line="313"/>
+       </fieldinfo>
+       <fieldinfo ckey="186" fname="alias">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="158852" file="src/dnsmasq.h" line="314"/>
+       </fieldinfo>
+       <fieldinfo ckey="186" fname="target">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="158860" file="src/dnsmasq.h" line="314"/>
+       </fieldinfo>
+       <fieldinfo ckey="186" fname="next">
+        <ftyp ttag="tptr">
+         <typ ckey="186" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="158884" file="src/dnsmasq.h" line="315"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="158819" file="src/dnsmasq.h" line="312"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="188" cname="addrlist" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="188" fname="addr">
+        <ftyp ckey="176" ttag="tcomp"/>
+        <floc byte="159058" file="src/dnsmasq.h" line="329"/>
+       </fieldinfo>
+       <fieldinfo ckey="188" fname="flags">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="159070" file="src/dnsmasq.h" line="330"/>
+       </fieldinfo>
+       <fieldinfo ckey="188" fname="prefixlen">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="159077" file="src/dnsmasq.h" line="330"/>
+       </fieldinfo>
+       <fieldinfo ckey="188" fname="next">
+        <ftyp ttag="tptr">
+         <typ ckey="188" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="159106" file="src/dnsmasq.h" line="331"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="159022" file="src/dnsmasq.h" line="328"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="190" cname="auth_name_list" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="190" fname="name">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="159190" file="src/dnsmasq.h" line="340"/>
+       </fieldinfo>
+       <fieldinfo ckey="190" fname="flags">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="159205" file="src/dnsmasq.h" line="341"/>
+       </fieldinfo>
+       <fieldinfo ckey="190" fname="next">
+        <ftyp ttag="tptr">
+         <typ ckey="190" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="159238" file="src/dnsmasq.h" line="342"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="159120" file="src/dnsmasq.h" line="337"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="189" cname="auth_zone" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="189" fname="domain">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="159146" file="src/dnsmasq.h" line="338"/>
+       </fieldinfo>
+       <fieldinfo ckey="189" fname="interface_names">
+        <ftyp ttag="tptr">
+         <typ ckey="190" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="159249" file="src/dnsmasq.h" line="343"/>
+       </fieldinfo>
+       <fieldinfo ckey="189" fname="subnet">
+        <ftyp ttag="tptr">
+         <typ ckey="188" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="159285" file="src/dnsmasq.h" line="344"/>
+       </fieldinfo>
+       <fieldinfo ckey="189" fname="exclude">
+        <ftyp ttag="tptr">
+         <typ ckey="188" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="159312" file="src/dnsmasq.h" line="345"/>
+       </fieldinfo>
+       <fieldinfo ckey="189" fname="next">
+        <ftyp ttag="tptr">
+         <typ ckey="189" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="159341" file="src/dnsmasq.h" line="346"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="159120" file="src/dnsmasq.h" line="337"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="192" cname="name_list" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="192" fname="name">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="159415" file="src/dnsmasq.h" line="353"/>
+       </fieldinfo>
+       <fieldinfo ckey="192" fname="next">
+        <ftyp ttag="tptr">
+         <typ ckey="192" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="159443" file="src/dnsmasq.h" line="354"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="159353" file="src/dnsmasq.h" line="350"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="191" cname="host_record" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="191" fname="ttl">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="159380" file="src/dnsmasq.h" line="351"/>
+       </fieldinfo>
+       <fieldinfo ckey="191" fname="names">
+        <ftyp ttag="tptr">
+         <typ ckey="192" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="159454" file="src/dnsmasq.h" line="355"/>
+       </fieldinfo>
+       <fieldinfo ckey="191" fname="addr">
+        <ftyp ckey="42" ttag="tcomp"/>
+        <floc byte="159479" file="src/dnsmasq.h" line="356"/>
+       </fieldinfo>
+       <fieldinfo ckey="191" fname="addr6">
+        <ftyp ckey="46" ttag="tcomp"/>
+        <floc byte="159504" file="src/dnsmasq.h" line="358"/>
+       </fieldinfo>
+       <fieldinfo ckey="191" fname="next">
+        <ftyp ttag="tptr">
+         <typ ckey="191" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="159533" file="src/dnsmasq.h" line="360"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="159353" file="src/dnsmasq.h" line="350"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="193" cname="interface_name" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="193" fname="name">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="159575" file="src/dnsmasq.h" line="364"/>
+       </fieldinfo>
+       <fieldinfo ckey="193" fname="intr">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="159589" file="src/dnsmasq.h" line="365"/>
+       </fieldinfo>
+       <fieldinfo ckey="193" fname="family">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="159602" file="src/dnsmasq.h" line="366"/>
+       </fieldinfo>
+       <fieldinfo ckey="193" fname="addr">
+        <ftyp ttag="tptr">
+         <typ ckey="188" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="159628" file="src/dnsmasq.h" line="367"/>
+       </fieldinfo>
+       <fieldinfo ckey="193" fname="next">
+        <ftyp ttag="tptr">
+         <typ ckey="193" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="159659" file="src/dnsmasq.h" line="368"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="159544" file="src/dnsmasq.h" line="363"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="203" cname="mysockaddr" cstruct="false">
+      <cfields>
+       <fieldinfo ckey="203" fname="sa">
+        <ftyp ckey="20" ttag="tcomp"/>
+        <floc byte="160516" file="src/dnsmasq.h" line="459"/>
+       </fieldinfo>
+       <fieldinfo ckey="203" fname="in">
+        <ftyp ckey="33" ttag="tcomp"/>
+        <floc byte="160541" file="src/dnsmasq.h" line="460"/>
+       </fieldinfo>
+       <fieldinfo ckey="203" fname="in6">
+        <ftyp ckey="34" ttag="tcomp"/>
+        <floc byte="160568" file="src/dnsmasq.h" line="462"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="160479" file="src/dnsmasq.h" line="458"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="204" cname="serverfd" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="204" fname="fd">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="160619" file="src/dnsmasq.h" line="490"/>
+       </fieldinfo>
+       <fieldinfo ckey="204" fname="source_addr">
+        <ftyp ckey="203" ttag="tcomp"/>
+        <floc byte="160642" file="src/dnsmasq.h" line="491"/>
+       </fieldinfo>
+       <fieldinfo ckey="204" fname="interface">
+        <ftyp ttag="tarray">
+         <exp etag="const" xstr="17">
+          <constant ctag="cint64" ikind="iint" intValue="17"/>
+         </exp>
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="160662" file="src/dnsmasq.h" line="492"/>
+       </fieldinfo>
+       <fieldinfo ckey="204" fname="ifindex">
+        <ftyp ikind="iuint" ttag="tint"/>
+        <floc byte="160695" file="src/dnsmasq.h" line="493"/>
+       </fieldinfo>
+       <fieldinfo ckey="204" fname="used">
+        <ftyp ikind="iuint" ttag="tint"/>
+        <floc byte="160704" file="src/dnsmasq.h" line="493"/>
+       </fieldinfo>
+       <fieldinfo ckey="204" fname="next">
+        <ftyp ttag="tptr">
+         <typ ckey="204" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="160728" file="src/dnsmasq.h" line="494"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="160595" file="src/dnsmasq.h" line="489"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="205" cname="randfd" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="205" fname="fd">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="160761" file="src/dnsmasq.h" line="498"/>
+       </fieldinfo>
+       <fieldinfo ckey="205" fname="refcount">
+        <ftyp ikind="iushort" ttag="tint"/>
+        <floc byte="160782" file="src/dnsmasq.h" line="499"/>
+       </fieldinfo>
+       <fieldinfo ckey="205" fname="family">
+        <ftyp ikind="iushort" ttag="tint"/>
+        <floc byte="160792" file="src/dnsmasq.h" line="499"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="160739" file="src/dnsmasq.h" line="497"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="206" cname="server" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="206" fname="addr">
+        <ftyp ckey="203" ttag="tcomp"/>
+        <floc byte="160839" file="src/dnsmasq.h" line="503"/>
+       </fieldinfo>
+       <fieldinfo ckey="206" fname="source_addr">
+        <ftyp ckey="203" ttag="tcomp"/>
+        <floc byte="160845" file="src/dnsmasq.h" line="503"/>
+       </fieldinfo>
+       <fieldinfo ckey="206" fname="interface">
+        <ftyp ttag="tarray">
+         <exp etag="const" xstr="17">
+          <constant ctag="cint64" ikind="iint" intValue="17"/>
+         </exp>
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="160865" file="src/dnsmasq.h" line="504"/>
+       </fieldinfo>
+       <fieldinfo ckey="206" fname="sfd">
+        <ftyp ttag="tptr">
+         <typ ckey="204" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="160901" file="src/dnsmasq.h" line="505"/>
+       </fieldinfo>
+       <fieldinfo ckey="206" fname="domain">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="160914" file="src/dnsmasq.h" line="506"/>
+       </fieldinfo>
+       <fieldinfo ckey="206" fname="flags">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="160929" file="src/dnsmasq.h" line="507"/>
+       </fieldinfo>
+       <fieldinfo ckey="206" fname="tcpfd">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="160936" file="src/dnsmasq.h" line="507"/>
+       </fieldinfo>
+       <fieldinfo ckey="206" fname="edns_pktsz">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="160943" file="src/dnsmasq.h" line="507"/>
+       </fieldinfo>
+       <fieldinfo ckey="206" fname="queries">
+        <ftyp ikind="iuint" ttag="tint"/>
+        <floc byte="160970" file="src/dnsmasq.h" line="508"/>
+       </fieldinfo>
+       <fieldinfo ckey="206" fname="failed_queries">
+        <ftyp ikind="iuint" ttag="tint"/>
+        <floc byte="160979" file="src/dnsmasq.h" line="508"/>
+       </fieldinfo>
+       <fieldinfo ckey="206" fname="uid">
+        <ftyp tname="u32" ttag="tnamed"/>
+        <floc byte="161002" file="src/dnsmasq.h" line="510"/>
+       </fieldinfo>
+       <fieldinfo ckey="206" fname="next">
+        <ftyp ttag="tptr">
+         <typ ckey="206" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="161024" file="src/dnsmasq.h" line="512"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="160804" file="src/dnsmasq.h" line="502"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="207" cname="ipsets" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="207" fname="sets">
+        <ftyp ttag="tptr">
+         <typ ttag="tptr">
+          <typ ikind="ichar" ttag="tint"/>
+         </typ>
+        </ftyp>
+        <floc byte="161058" file="src/dnsmasq.h" line="516"/>
+       </fieldinfo>
+       <fieldinfo ckey="207" fname="domain">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="161073" file="src/dnsmasq.h" line="517"/>
+       </fieldinfo>
+       <fieldinfo ckey="207" fname="next">
+        <ftyp ttag="tptr">
+         <typ ckey="207" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="161098" file="src/dnsmasq.h" line="518"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="161035" file="src/dnsmasq.h" line="515"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="208" cname="irec" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="208" fname="addr">
+        <ftyp ckey="203" ttag="tcomp"/>
+        <floc byte="161142" file="src/dnsmasq.h" line="522"/>
+       </fieldinfo>
+       <fieldinfo ckey="208" fname="netmask">
+        <ftyp ckey="42" ttag="tcomp"/>
+        <floc byte="161165" file="src/dnsmasq.h" line="523"/>
+       </fieldinfo>
+       <fieldinfo ckey="208" fname="tftp_ok">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="161180" file="src/dnsmasq.h" line="524"/>
+       </fieldinfo>
+       <fieldinfo ckey="208" fname="dhcp_ok">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="161189" file="src/dnsmasq.h" line="524"/>
+       </fieldinfo>
+       <fieldinfo ckey="208" fname="mtu">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="161198" file="src/dnsmasq.h" line="524"/>
+       </fieldinfo>
+       <fieldinfo ckey="208" fname="done">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="161203" file="src/dnsmasq.h" line="524"/>
+       </fieldinfo>
+       <fieldinfo ckey="208" fname="warned">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="161209" file="src/dnsmasq.h" line="524"/>
+       </fieldinfo>
+       <fieldinfo ckey="208" fname="dad">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="161217" file="src/dnsmasq.h" line="524"/>
+       </fieldinfo>
+       <fieldinfo ckey="208" fname="dns_auth">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="161222" file="src/dnsmasq.h" line="524"/>
+       </fieldinfo>
+       <fieldinfo ckey="208" fname="index">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="161232" file="src/dnsmasq.h" line="524"/>
+       </fieldinfo>
+       <fieldinfo ckey="208" fname="multicast_done">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="161239" file="src/dnsmasq.h" line="524"/>
+       </fieldinfo>
+       <fieldinfo ckey="208" fname="found">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="161255" file="src/dnsmasq.h" line="524"/>
+       </fieldinfo>
+       <fieldinfo ckey="208" fname="name">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="161269" file="src/dnsmasq.h" line="525"/>
+       </fieldinfo>
+       <fieldinfo ckey="208" fname="next">
+        <ftyp ttag="tptr">
+         <typ ckey="208" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="161290" file="src/dnsmasq.h" line="526"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="161109" file="src/dnsmasq.h" line="521"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="209" cname="listener" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="209" fname="fd">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="161325" file="src/dnsmasq.h" line="530"/>
+       </fieldinfo>
+       <fieldinfo ckey="209" fname="tcpfd">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="161329" file="src/dnsmasq.h" line="530"/>
+       </fieldinfo>
+       <fieldinfo ckey="209" fname="tftpfd">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="161336" file="src/dnsmasq.h" line="530"/>
+       </fieldinfo>
+       <fieldinfo ckey="209" fname="family">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="161344" file="src/dnsmasq.h" line="530"/>
+       </fieldinfo>
+       <fieldinfo ckey="209" fname="iface">
+        <ftyp ttag="tptr">
+         <typ ckey="208" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="161366" file="src/dnsmasq.h" line="531"/>
+       </fieldinfo>
+       <fieldinfo ckey="209" fname="next">
+        <ftyp ttag="tptr">
+         <typ ckey="209" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="161392" file="src/dnsmasq.h" line="532"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="161301" file="src/dnsmasq.h" line="529"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="210" cname="iname" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="210" fname="name">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="161426" file="src/dnsmasq.h" line="537"/>
+       </fieldinfo>
+       <fieldinfo ckey="210" fname="addr">
+        <ftyp ckey="203" ttag="tcomp"/>
+        <floc byte="161452" file="src/dnsmasq.h" line="538"/>
+       </fieldinfo>
+       <fieldinfo ckey="210" fname="used">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="161464" file="src/dnsmasq.h" line="539"/>
+       </fieldinfo>
+       <fieldinfo ckey="210" fname="next">
+        <ftyp ttag="tptr">
+         <typ ckey="210" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="161485" file="src/dnsmasq.h" line="540"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="161404" file="src/dnsmasq.h" line="536"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="211" cname="mysubnet" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="211" fname="addr">
+        <ftyp ckey="203" ttag="tcomp"/>
+        <floc byte="161534" file="src/dnsmasq.h" line="545"/>
+       </fieldinfo>
+       <fieldinfo ckey="211" fname="addr_used">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="161546" file="src/dnsmasq.h" line="546"/>
+       </fieldinfo>
+       <fieldinfo ckey="211" fname="mask">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="161563" file="src/dnsmasq.h" line="547"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="161497" file="src/dnsmasq.h" line="544"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="212" cname="resolvc" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="212" fname="next">
+        <ftyp ttag="tptr">
+         <typ ckey="212" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="161608" file="src/dnsmasq.h" line="552"/>
+       </fieldinfo>
+       <fieldinfo ckey="212" fname="is_default">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="161621" file="src/dnsmasq.h" line="553"/>
+       </fieldinfo>
+       <fieldinfo ckey="212" fname="logged">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="161633" file="src/dnsmasq.h" line="553"/>
+       </fieldinfo>
+       <fieldinfo ckey="212" fname="mtime">
+        <ftyp tname="time_t" ttag="tnamed"/>
+        <floc byte="161650" file="src/dnsmasq.h" line="554"/>
+       </fieldinfo>
+       <fieldinfo ckey="212" fname="name">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="161664" file="src/dnsmasq.h" line="555"/>
+       </fieldinfo>
+       <fieldinfo ckey="212" fname="wd">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="161678" file="src/dnsmasq.h" line="557"/>
+       </fieldinfo>
+       <fieldinfo ckey="212" fname="file">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="161689" file="src/dnsmasq.h" line="558"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="161574" file="src/dnsmasq.h" line="551"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="213" cname="hostsfile" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="213" fname="next">
+        <ftyp ttag="tptr">
+         <typ ckey="213" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="161756" file="src/dnsmasq.h" line="570"/>
+       </fieldinfo>
+       <fieldinfo ckey="213" fname="flags">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="161769" file="src/dnsmasq.h" line="571"/>
+       </fieldinfo>
+       <fieldinfo ckey="213" fname="fname">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="161783" file="src/dnsmasq.h" line="572"/>
+       </fieldinfo>
+       <fieldinfo ckey="213" fname="wd">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="161798" file="src/dnsmasq.h" line="574"/>
+       </fieldinfo>
+       <fieldinfo ckey="213" fname="index">
+        <ftyp ikind="iuint" ttag="tint"/>
+        <floc byte="161818" file="src/dnsmasq.h" line="576"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="161718" file="src/dnsmasq.h" line="569"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="214" cname="frec" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="214" fname="source">
+        <ftyp ckey="203" ttag="tcomp"/>
+        <floc byte="161879" file="src/dnsmasq.h" line="609"/>
+       </fieldinfo>
+       <fieldinfo ckey="214" fname="dest">
+        <ftyp ckey="176" ttag="tcomp"/>
+        <floc byte="161905" file="src/dnsmasq.h" line="610"/>
+       </fieldinfo>
+       <fieldinfo ckey="214" fname="sentto">
+        <ftyp ttag="tptr">
+         <typ ckey="206" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="161927" file="src/dnsmasq.h" line="611"/>
+       </fieldinfo>
+       <fieldinfo ckey="214" fname="rfd4">
+        <ftyp ttag="tptr">
+         <typ ckey="205" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="161952" file="src/dnsmasq.h" line="612"/>
+       </fieldinfo>
+       <fieldinfo ckey="214" fname="rfd6">
+        <ftyp ttag="tptr">
+         <typ ckey="205" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="161976" file="src/dnsmasq.h" line="614"/>
+       </fieldinfo>
+       <fieldinfo ckey="214" fname="iface">
+        <ftyp ikind="iuint" ttag="tint"/>
+        <floc byte="161999" file="src/dnsmasq.h" line="616"/>
+       </fieldinfo>
+       <fieldinfo ckey="214" fname="orig_id">
+        <ftyp ikind="iushort" ttag="tint"/>
+        <floc byte="162023" file="src/dnsmasq.h" line="617"/>
+       </fieldinfo>
+       <fieldinfo ckey="214" fname="new_id">
+        <ftyp ikind="iushort" ttag="tint"/>
+        <floc byte="162032" file="src/dnsmasq.h" line="617"/>
+       </fieldinfo>
+       <fieldinfo ckey="214" fname="log_id">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="162046" file="src/dnsmasq.h" line="618"/>
+       </fieldinfo>
+       <fieldinfo ckey="214" fname="fd">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="162054" file="src/dnsmasq.h" line="618"/>
+       </fieldinfo>
+       <fieldinfo ckey="214" fname="forwardall">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="162058" file="src/dnsmasq.h" line="618"/>
+       </fieldinfo>
+       <fieldinfo ckey="214" fname="flags">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="162070" file="src/dnsmasq.h" line="618"/>
+       </fieldinfo>
+       <fieldinfo ckey="214" fname="time">
+        <ftyp tname="time_t" ttag="tnamed"/>
+        <floc byte="162086" file="src/dnsmasq.h" line="619"/>
+       </fieldinfo>
+       <fieldinfo ckey="214" fname="hash">
+        <ftyp ttag="tarray">
+         <exp etag="sizeof" xstr="sizeof (int)">
+          <typ ikind="iint" ttag="tint"/>
+         </exp>
+         <typ ttag="tptr">
+          <typ ikind="iuchar" ttag="tint"/>
+         </typ>
+        </ftyp>
+        <floc byte="162108" file="src/dnsmasq.h" line="620"/>
+       </fieldinfo>
+       <fieldinfo ckey="214" fname="next">
+        <ftyp ttag="tptr">
+         <typ ckey="214" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="162149" file="src/dnsmasq.h" line="628"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="161846" file="src/dnsmasq.h" line="608"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="217" cname="dhcp_netid" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="217" fname="net">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="162819" file="src/dnsmasq.h" line="691"/>
+       </fieldinfo>
+       <fieldinfo ckey="217" fname="next">
+        <ftyp ttag="tptr">
+         <typ ckey="217" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="162845" file="src/dnsmasq.h" line="692"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="162792" file="src/dnsmasq.h" line="690"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="218" cname="dhcp_netid_list" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="218" fname="list">
+        <ftyp ttag="tptr">
+         <typ ckey="217" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="162901" file="src/dnsmasq.h" line="696"/>
+       </fieldinfo>
+       <fieldinfo ckey="218" fname="next">
+        <ftyp ttag="tptr">
+         <typ ckey="218" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="162933" file="src/dnsmasq.h" line="697"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="162856" file="src/dnsmasq.h" line="695"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="219" cname="tag_if" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="219" fname="set">
+        <ftyp ttag="tptr">
+         <typ ckey="218" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="162985" file="src/dnsmasq.h" line="701"/>
+       </fieldinfo>
+       <fieldinfo ckey="219" fname="tag">
+        <ftyp ttag="tptr">
+         <typ ckey="217" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="163011" file="src/dnsmasq.h" line="702"/>
+       </fieldinfo>
+       <fieldinfo ckey="219" fname="next">
+        <ftyp ttag="tptr">
+         <typ ckey="219" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="163033" file="src/dnsmasq.h" line="703"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="162944" file="src/dnsmasq.h" line="700"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="220" cname="hwaddr_config" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="220" fname="hwaddr_len">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="163073" file="src/dnsmasq.h" line="707"/>
+       </fieldinfo>
+       <fieldinfo ckey="220" fname="hwaddr_type">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="163085" file="src/dnsmasq.h" line="707"/>
+       </fieldinfo>
+       <fieldinfo ckey="220" fname="hwaddr">
+        <ftyp ttag="tarray">
+         <exp etag="const" xstr="16">
+          <constant ctag="cint64" ikind="iint" intValue="16"/>
+         </exp>
+         <typ ikind="iuchar" ttag="tint"/>
+        </ftyp>
+        <floc byte="163114" file="src/dnsmasq.h" line="708"/>
+       </fieldinfo>
+       <fieldinfo ckey="220" fname="wildcard_mask">
+        <ftyp ikind="iuint" ttag="tint"/>
+        <floc byte="163141" file="src/dnsmasq.h" line="709"/>
+       </fieldinfo>
+       <fieldinfo ckey="220" fname="next">
+        <ftyp ttag="tptr">
+         <typ ckey="220" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="163179" file="src/dnsmasq.h" line="710"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="163044" file="src/dnsmasq.h" line="706"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="221" cname="dhcp_config" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="221" fname="flags">
+        <ftyp ikind="iuint" ttag="tint"/>
+        <floc byte="163226" file="src/dnsmasq.h" line="714"/>
+       </fieldinfo>
+       <fieldinfo ckey="221" fname="clid_len">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="163239" file="src/dnsmasq.h" line="715"/>
+       </fieldinfo>
+       <fieldinfo ckey="221" fname="clid">
+        <ftyp ttag="tptr">
+         <typ ikind="iuchar" ttag="tint"/>
+        </ftyp>
+        <floc byte="163265" file="src/dnsmasq.h" line="716"/>
+       </fieldinfo>
+       <fieldinfo ckey="221" fname="hostname">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="163279" file="src/dnsmasq.h" line="717"/>
+       </fieldinfo>
+       <fieldinfo ckey="221" fname="domain">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="163290" file="src/dnsmasq.h" line="717"/>
+       </fieldinfo>
+       <fieldinfo ckey="221" fname="netid">
+        <ftyp ttag="tptr">
+         <typ ckey="218" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="163324" file="src/dnsmasq.h" line="718"/>
+       </fieldinfo>
+       <fieldinfo ckey="221" fname="addr6">
+        <ftyp ckey="46" ttag="tcomp"/>
+        <floc byte="163351" file="src/dnsmasq.h" line="720"/>
+       </fieldinfo>
+       <fieldinfo ckey="221" fname="addr">
+        <ftyp ckey="42" ttag="tcomp"/>
+        <floc byte="163376" file="src/dnsmasq.h" line="722"/>
+       </fieldinfo>
+       <fieldinfo ckey="221" fname="decline_time">
+        <ftyp tname="time_t" ttag="tnamed"/>
+        <floc byte="163391" file="src/dnsmasq.h" line="723"/>
+       </fieldinfo>
+       <fieldinfo ckey="221" fname="lease_time">
+        <ftyp ikind="iuint" ttag="tint"/>
+        <floc byte="163420" file="src/dnsmasq.h" line="724"/>
+       </fieldinfo>
+       <fieldinfo ckey="221" fname="hwaddr">
+        <ftyp ttag="tptr">
+         <typ ckey="220" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="163455" file="src/dnsmasq.h" line="725"/>
+       </fieldinfo>
+       <fieldinfo ckey="221" fname="next">
+        <ftyp ttag="tptr">
+         <typ ckey="221" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="163485" file="src/dnsmasq.h" line="726"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="163190" file="src/dnsmasq.h" line="713"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="223" cname="__anonunion_u_87" cstruct="false">
+      <cfields>
+       <fieldinfo ckey="223" fname="encap">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="163572" file="src/dnsmasq.h" line="747"/>
+       </fieldinfo>
+       <fieldinfo ckey="223" fname="wildcard_mask">
+        <ftyp ikind="iuint" ttag="tint"/>
+        <floc byte="163596" file="src/dnsmasq.h" line="748"/>
+       </fieldinfo>
+       <fieldinfo ckey="223" fname="vendor_class">
+        <ftyp ttag="tptr">
+         <typ ikind="iuchar" ttag="tint"/>
+        </ftyp>
+        <floc byte="163629" file="src/dnsmasq.h" line="749"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="163513" file="src/dnsmasq.h" line="744"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="222" cname="dhcp_opt" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="222" fname="opt">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="163537" file="src/dnsmasq.h" line="745"/>
+       </fieldinfo>
+       <fieldinfo ckey="222" fname="len">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="163542" file="src/dnsmasq.h" line="745"/>
+       </fieldinfo>
+       <fieldinfo ckey="222" fname="flags">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="163547" file="src/dnsmasq.h" line="745"/>
+       </fieldinfo>
+       <fieldinfo ckey="222" fname="u">
+        <ftyp ckey="223" ttag="tcomp"/>
+        <floc byte="163648" file="src/dnsmasq.h" line="750"/>
+       </fieldinfo>
+       <fieldinfo ckey="222" fname="val">
+        <ftyp ttag="tptr">
+         <typ ikind="iuchar" ttag="tint"/>
+        </ftyp>
+        <floc byte="163667" file="src/dnsmasq.h" line="751"/>
+       </fieldinfo>
+       <fieldinfo ckey="222" fname="netid">
+        <ftyp ttag="tptr">
+         <typ ckey="217" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="163693" file="src/dnsmasq.h" line="752"/>
+       </fieldinfo>
+       <fieldinfo ckey="222" fname="next">
+        <ftyp ttag="tptr">
+         <typ ckey="222" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="163719" file="src/dnsmasq.h" line="753"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="163513" file="src/dnsmasq.h" line="744"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="224" cname="dhcp_boot" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="224" fname="file">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="163773" file="src/dnsmasq.h" line="772"/>
+       </fieldinfo>
+       <fieldinfo ckey="224" fname="sname">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="163780" file="src/dnsmasq.h" line="772"/>
+       </fieldinfo>
+       <fieldinfo ckey="224" fname="tftp_sname">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="163788" file="src/dnsmasq.h" line="772"/>
+       </fieldinfo>
+       <fieldinfo ckey="224" fname="next_server">
+        <ftyp ckey="42" ttag="tcomp"/>
+        <floc byte="163818" file="src/dnsmasq.h" line="773"/>
+       </fieldinfo>
+       <fieldinfo ckey="224" fname="netid">
+        <ftyp ttag="tptr">
+         <typ ckey="217" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="163851" file="src/dnsmasq.h" line="774"/>
+       </fieldinfo>
+       <fieldinfo ckey="224" fname="next">
+        <ftyp ttag="tptr">
+         <typ ckey="224" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="163878" file="src/dnsmasq.h" line="775"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="163747" file="src/dnsmasq.h" line="771"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="225" cname="pxe_service" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="225" fname="CSA">
+        <ftyp ikind="iushort" ttag="tint"/>
+        <floc byte="163927" file="src/dnsmasq.h" line="779"/>
+       </fieldinfo>
+       <fieldinfo ckey="225" fname="type">
+        <ftyp ikind="iushort" ttag="tint"/>
+        <floc byte="163932" file="src/dnsmasq.h" line="779"/>
+       </fieldinfo>
+       <fieldinfo ckey="225" fname="menu">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="163945" file="src/dnsmasq.h" line="780"/>
+       </fieldinfo>
+       <fieldinfo ckey="225" fname="basename">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="163952" file="src/dnsmasq.h" line="780"/>
+       </fieldinfo>
+       <fieldinfo ckey="225" fname="sname">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="163963" file="src/dnsmasq.h" line="780"/>
+       </fieldinfo>
+       <fieldinfo ckey="225" fname="server">
+        <ftyp ckey="42" ttag="tcomp"/>
+        <floc byte="163988" file="src/dnsmasq.h" line="781"/>
+       </fieldinfo>
+       <fieldinfo ckey="225" fname="netid">
+        <ftyp ttag="tptr">
+         <typ ckey="217" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="164016" file="src/dnsmasq.h" line="782"/>
+       </fieldinfo>
+       <fieldinfo ckey="225" fname="next">
+        <ftyp ttag="tptr">
+         <typ ckey="225" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="164045" file="src/dnsmasq.h" line="783"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="163889" file="src/dnsmasq.h" line="778"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="226" cname="dhcp_vendor" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="226" fname="len">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="164100" file="src/dnsmasq.h" line="794"/>
+       </fieldinfo>
+       <fieldinfo ckey="226" fname="match_type">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="164105" file="src/dnsmasq.h" line="794"/>
+       </fieldinfo>
+       <fieldinfo ckey="226" fname="enterprise">
+        <ftyp ikind="iuint" ttag="tint"/>
+        <floc byte="164132" file="src/dnsmasq.h" line="795"/>
+       </fieldinfo>
+       <fieldinfo ckey="226" fname="data">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="164151" file="src/dnsmasq.h" line="796"/>
+       </fieldinfo>
+       <fieldinfo ckey="226" fname="netid">
+        <ftyp ckey="217" ttag="tcomp"/>
+        <floc byte="164178" file="src/dnsmasq.h" line="797"/>
+       </fieldinfo>
+       <fieldinfo ckey="226" fname="next">
+        <ftyp ttag="tptr">
+         <typ ckey="226" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="164206" file="src/dnsmasq.h" line="798"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="164073" file="src/dnsmasq.h" line="793"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="227" cname="dhcp_mac" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="227" fname="mask">
+        <ftyp ikind="iuint" ttag="tint"/>
+        <floc byte="164250" file="src/dnsmasq.h" line="802"/>
+       </fieldinfo>
+       <fieldinfo ckey="227" fname="hwaddr_len">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="164262" file="src/dnsmasq.h" line="803"/>
+       </fieldinfo>
+       <fieldinfo ckey="227" fname="hwaddr_type">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="164274" file="src/dnsmasq.h" line="803"/>
+       </fieldinfo>
+       <fieldinfo ckey="227" fname="hwaddr">
+        <ftyp ttag="tarray">
+         <exp etag="const" xstr="16">
+          <constant ctag="cint64" ikind="iint" intValue="16"/>
+         </exp>
+         <typ ikind="iuchar" ttag="tint"/>
+        </ftyp>
+        <floc byte="164303" file="src/dnsmasq.h" line="804"/>
+       </fieldinfo>
+       <fieldinfo ckey="227" fname="netid">
+        <ftyp ckey="217" ttag="tcomp"/>
+        <floc byte="164335" file="src/dnsmasq.h" line="805"/>
+       </fieldinfo>
+       <fieldinfo ckey="227" fname="next">
+        <ftyp ttag="tptr">
+         <typ ckey="227" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="164360" file="src/dnsmasq.h" line="806"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="164217" file="src/dnsmasq.h" line="801"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="228" cname="dhcp_bridge" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="228" fname="iface">
+        <ftyp ttag="tarray">
+         <exp etag="const" xstr="16">
+          <constant ctag="cint64" ikind="iint" intValue="16"/>
+         </exp>
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="164399" file="src/dnsmasq.h" line="810"/>
+       </fieldinfo>
+       <fieldinfo ckey="228" fname="alias">
+        <ftyp ttag="tptr">
+         <typ ckey="228" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="164431" file="src/dnsmasq.h" line="811"/>
+       </fieldinfo>
+       <fieldinfo ckey="228" fname="next">
+        <ftyp ttag="tptr">
+         <typ ckey="228" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="164439" file="src/dnsmasq.h" line="811"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="164371" file="src/dnsmasq.h" line="809"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="229" cname="cond_domain" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="229" fname="domain">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="164478" file="src/dnsmasq.h" line="815"/>
+       </fieldinfo>
+       <fieldinfo ckey="229" fname="prefix">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="164487" file="src/dnsmasq.h" line="815"/>
+       </fieldinfo>
+       <fieldinfo ckey="229" fname="start">
+        <ftyp ckey="42" ttag="tcomp"/>
+        <floc byte="164513" file="src/dnsmasq.h" line="816"/>
+       </fieldinfo>
+       <fieldinfo ckey="229" fname="end">
+        <ftyp ckey="42" ttag="tcomp"/>
+        <floc byte="164520" file="src/dnsmasq.h" line="816"/>
+       </fieldinfo>
+       <fieldinfo ckey="229" fname="start6">
+        <ftyp ckey="46" ttag="tcomp"/>
+        <floc byte="164544" file="src/dnsmasq.h" line="818"/>
+       </fieldinfo>
+       <fieldinfo ckey="229" fname="end6">
+        <ftyp ckey="46" ttag="tcomp"/>
+        <floc byte="164552" file="src/dnsmasq.h" line="818"/>
+       </fieldinfo>
+       <fieldinfo ckey="229" fname="is6">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="164565" file="src/dnsmasq.h" line="820"/>
+       </fieldinfo>
+       <fieldinfo ckey="229" fname="next">
+        <ftyp ttag="tptr">
+         <typ ckey="229" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="164591" file="src/dnsmasq.h" line="821"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="164450" file="src/dnsmasq.h" line="814"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="230" cname="ra_interface" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="230" fname="name">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="164648" file="src/dnsmasq.h" line="833"/>
+       </fieldinfo>
+       <fieldinfo ckey="230" fname="interval">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="164661" file="src/dnsmasq.h" line="834"/>
+       </fieldinfo>
+       <fieldinfo ckey="230" fname="lifetime">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="164671" file="src/dnsmasq.h" line="834"/>
+       </fieldinfo>
+       <fieldinfo ckey="230" fname="prio">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="164681" file="src/dnsmasq.h" line="834"/>
+       </fieldinfo>
+       <fieldinfo ckey="230" fname="next">
+        <ftyp ttag="tptr">
+         <typ ckey="230" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="164709" file="src/dnsmasq.h" line="835"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="164619" file="src/dnsmasq.h" line="832"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="231" cname="dhcp_context" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="231" fname="lease_time">
+        <ftyp ikind="iuint" ttag="tint"/>
+        <floc byte="164757" file="src/dnsmasq.h" line="839"/>
+       </fieldinfo>
+       <fieldinfo ckey="231" fname="addr_epoch">
+        <ftyp ikind="iuint" ttag="tint"/>
+        <floc byte="164769" file="src/dnsmasq.h" line="839"/>
+       </fieldinfo>
+       <fieldinfo ckey="231" fname="netmask">
+        <ftyp ckey="42" ttag="tcomp"/>
+        <floc byte="164798" file="src/dnsmasq.h" line="840"/>
+       </fieldinfo>
+       <fieldinfo ckey="231" fname="broadcast">
+        <ftyp ckey="42" ttag="tcomp"/>
+        <floc byte="164807" file="src/dnsmasq.h" line="840"/>
+       </fieldinfo>
+       <fieldinfo ckey="231" fname="local">
+        <ftyp ckey="42" ttag="tcomp"/>
+        <floc byte="164835" file="src/dnsmasq.h" line="841"/>
+       </fieldinfo>
+       <fieldinfo ckey="231" fname="router">
+        <ftyp ckey="42" ttag="tcomp"/>
+        <floc byte="164842" file="src/dnsmasq.h" line="841"/>
+       </fieldinfo>
+       <fieldinfo ckey="231" fname="start">
+        <ftyp ckey="42" ttag="tcomp"/>
+        <floc byte="164867" file="src/dnsmasq.h" line="842"/>
+       </fieldinfo>
+       <fieldinfo ckey="231" fname="end">
+        <ftyp ckey="42" ttag="tcomp"/>
+        <floc byte="164874" file="src/dnsmasq.h" line="842"/>
+       </fieldinfo>
+       <fieldinfo ckey="231" fname="start6">
+        <ftyp ckey="46" ttag="tcomp"/>
+        <floc byte="164898" file="src/dnsmasq.h" line="844"/>
+       </fieldinfo>
+       <fieldinfo ckey="231" fname="end6">
+        <ftyp ckey="46" ttag="tcomp"/>
+        <floc byte="164906" file="src/dnsmasq.h" line="844"/>
+       </fieldinfo>
+       <fieldinfo ckey="231" fname="local6">
+        <ftyp ckey="46" ttag="tcomp"/>
+        <floc byte="164930" file="src/dnsmasq.h" line="845"/>
+       </fieldinfo>
+       <fieldinfo ckey="231" fname="prefix">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="164944" file="src/dnsmasq.h" line="846"/>
+       </fieldinfo>
+       <fieldinfo ckey="231" fname="if_index">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="164952" file="src/dnsmasq.h" line="846"/>
+       </fieldinfo>
+       <fieldinfo ckey="231" fname="valid">
+        <ftyp ikind="iuint" ttag="tint"/>
+        <floc byte="164977" file="src/dnsmasq.h" line="847"/>
+       </fieldinfo>
+       <fieldinfo ckey="231" fname="preferred">
+        <ftyp ikind="iuint" ttag="tint"/>
+        <floc byte="164984" file="src/dnsmasq.h" line="847"/>
+       </fieldinfo>
+       <fieldinfo ckey="231" fname="saved_valid">
+        <ftyp ikind="iuint" ttag="tint"/>
+        <floc byte="164995" file="src/dnsmasq.h" line="847"/>
+       </fieldinfo>
+       <fieldinfo ckey="231" fname="ra_time">
+        <ftyp tname="time_t" ttag="tnamed"/>
+        <floc byte="165017" file="src/dnsmasq.h" line="848"/>
+       </fieldinfo>
+       <fieldinfo ckey="231" fname="ra_short_period_start">
+        <ftyp tname="time_t" ttag="tnamed"/>
+        <floc byte="165026" file="src/dnsmasq.h" line="848"/>
+       </fieldinfo>
+       <fieldinfo ckey="231" fname="address_lost_time">
+        <ftyp tname="time_t" ttag="tnamed"/>
+        <floc byte="165049" file="src/dnsmasq.h" line="848"/>
+       </fieldinfo>
+       <fieldinfo ckey="231" fname="template_interface">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="165075" file="src/dnsmasq.h" line="849"/>
+       </fieldinfo>
+       <fieldinfo ckey="231" fname="flags">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="165103" file="src/dnsmasq.h" line="851"/>
+       </fieldinfo>
+       <fieldinfo ckey="231" fname="netid">
+        <ftyp ckey="217" ttag="tcomp"/>
+        <floc byte="165130" file="src/dnsmasq.h" line="852"/>
+       </fieldinfo>
+       <fieldinfo ckey="231" fname="filter">
+        <ftyp ttag="tptr">
+         <typ ckey="217" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="165137" file="src/dnsmasq.h" line="852"/>
+       </fieldinfo>
+       <fieldinfo ckey="231" fname="next">
+        <ftyp ttag="tptr">
+         <typ ckey="231" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="165168" file="src/dnsmasq.h" line="853"/>
+       </fieldinfo>
+       <fieldinfo ckey="231" fname="current">
+        <ftyp ttag="tptr">
+         <typ ckey="231" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="165175" file="src/dnsmasq.h" line="853"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="164720" file="src/dnsmasq.h" line="838"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="232" cname="ping_result" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="232" fname="addr">
+        <ftyp ckey="42" ttag="tcomp"/>
+        <floc byte="165244" file="src/dnsmasq.h" line="877"/>
+       </fieldinfo>
+       <fieldinfo ckey="232" fname="time">
+        <ftyp tname="time_t" ttag="tnamed"/>
+        <floc byte="165259" file="src/dnsmasq.h" line="878"/>
+       </fieldinfo>
+       <fieldinfo ckey="232" fname="hash">
+        <ftyp ikind="iuint" ttag="tint"/>
+        <floc byte="165280" file="src/dnsmasq.h" line="879"/>
+       </fieldinfo>
+       <fieldinfo ckey="232" fname="next">
+        <ftyp ttag="tptr">
+         <typ ckey="232" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="165307" file="src/dnsmasq.h" line="880"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="165206" file="src/dnsmasq.h" line="876"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="233" cname="tftp_file" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="233" fname="refcount">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="165343" file="src/dnsmasq.h" line="884"/>
+       </fieldinfo>
+       <fieldinfo ckey="233" fname="fd">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="165353" file="src/dnsmasq.h" line="884"/>
+       </fieldinfo>
+       <fieldinfo ckey="233" fname="size">
+        <ftyp tname="off_t" ttag="tnamed"/>
+        <floc byte="165365" file="src/dnsmasq.h" line="885"/>
+       </fieldinfo>
+       <fieldinfo ckey="233" fname="dev">
+        <ftyp tname="dev_t" ttag="tnamed"/>
+        <floc byte="165379" file="src/dnsmasq.h" line="886"/>
+       </fieldinfo>
+       <fieldinfo ckey="233" fname="inode">
+        <ftyp tname="ino_t" ttag="tnamed"/>
+        <floc byte="165392" file="src/dnsmasq.h" line="887"/>
+       </fieldinfo>
+       <fieldinfo ckey="233" fname="filename">
+        <ftyp ttag="tarray">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="165406" file="src/dnsmasq.h" line="888"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="165318" file="src/dnsmasq.h" line="883"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="234" cname="tftp_transfer" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="234" fname="sockfd">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="165451" file="src/dnsmasq.h" line="892"/>
+       </fieldinfo>
+       <fieldinfo ckey="234" fname="timeout">
+        <ftyp tname="time_t" ttag="tnamed"/>
+        <floc byte="165468" file="src/dnsmasq.h" line="893"/>
+       </fieldinfo>
+       <fieldinfo ckey="234" fname="backoff">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="165483" file="src/dnsmasq.h" line="894"/>
+       </fieldinfo>
+       <fieldinfo ckey="234" fname="block">
+        <ftyp ikind="iuint" ttag="tint"/>
+        <floc byte="165507" file="src/dnsmasq.h" line="895"/>
+       </fieldinfo>
+       <fieldinfo ckey="234" fname="blocksize">
+        <ftyp ikind="iuint" ttag="tint"/>
+        <floc byte="165514" file="src/dnsmasq.h" line="895"/>
+       </fieldinfo>
+       <fieldinfo ckey="234" fname="expansion">
+        <ftyp ikind="iuint" ttag="tint"/>
+        <floc byte="165525" file="src/dnsmasq.h" line="895"/>
+       </fieldinfo>
+       <fieldinfo ckey="234" fname="offset">
+        <ftyp tname="off_t" ttag="tnamed"/>
+        <floc byte="165544" file="src/dnsmasq.h" line="896"/>
+       </fieldinfo>
+       <fieldinfo ckey="234" fname="peer">
+        <ftyp ckey="203" ttag="tcomp"/>
+        <floc byte="165571" file="src/dnsmasq.h" line="897"/>
+       </fieldinfo>
+       <fieldinfo ckey="234" fname="opt_blocksize">
+        <ftyp ikind="ichar" ttag="tint"/>
+        <floc byte="165584" file="src/dnsmasq.h" line="898"/>
+       </fieldinfo>
+       <fieldinfo ckey="234" fname="opt_transize">
+        <ftyp ikind="ichar" ttag="tint"/>
+        <floc byte="165599" file="src/dnsmasq.h" line="898"/>
+       </fieldinfo>
+       <fieldinfo ckey="234" fname="netascii">
+        <ftyp ikind="ichar" ttag="tint"/>
+        <floc byte="165613" file="src/dnsmasq.h" line="898"/>
+       </fieldinfo>
+       <fieldinfo ckey="234" fname="carrylf">
+        <ftyp ikind="ichar" ttag="tint"/>
+        <floc byte="165623" file="src/dnsmasq.h" line="898"/>
+       </fieldinfo>
+       <fieldinfo ckey="234" fname="file">
+        <ftyp ttag="tptr">
+         <typ ckey="233" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="165651" file="src/dnsmasq.h" line="899"/>
+       </fieldinfo>
+       <fieldinfo ckey="234" fname="next">
+        <ftyp ttag="tptr">
+         <typ ckey="234" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="165681" file="src/dnsmasq.h" line="900"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="165422" file="src/dnsmasq.h" line="891"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="235" cname="addr_list" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="235" fname="addr">
+        <ftyp ckey="42" ttag="tcomp"/>
+        <floc byte="165728" file="src/dnsmasq.h" line="904"/>
+       </fieldinfo>
+       <fieldinfo ckey="235" fname="next">
+        <ftyp ttag="tptr">
+         <typ ckey="235" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="165753" file="src/dnsmasq.h" line="905"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="165692" file="src/dnsmasq.h" line="903"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="236" cname="tftp_prefix" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="236" fname="interface">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="165792" file="src/dnsmasq.h" line="909"/>
+       </fieldinfo>
+       <fieldinfo ckey="236" fname="prefix">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="165811" file="src/dnsmasq.h" line="910"/>
+       </fieldinfo>
+       <fieldinfo ckey="236" fname="missing">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="165826" file="src/dnsmasq.h" line="911"/>
+       </fieldinfo>
+       <fieldinfo ckey="236" fname="next">
+        <ftyp ttag="tptr">
+         <typ ckey="236" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="165856" file="src/dnsmasq.h" line="912"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="165764" file="src/dnsmasq.h" line="908"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="237" cname="dhcp_relay" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="237" fname="local">
+        <ftyp ckey="176" ttag="tcomp"/>
+        <floc byte="165905" file="src/dnsmasq.h" line="916"/>
+       </fieldinfo>
+       <fieldinfo ckey="237" fname="server">
+        <ftyp ckey="176" ttag="tcomp"/>
+        <floc byte="165912" file="src/dnsmasq.h" line="916"/>
+       </fieldinfo>
+       <fieldinfo ckey="237" fname="interface">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="165927" file="src/dnsmasq.h" line="917"/>
+       </fieldinfo>
+       <fieldinfo ckey="237" fname="iface_index">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="165945" file="src/dnsmasq.h" line="918"/>
+       </fieldinfo>
+       <fieldinfo ckey="237" fname="current">
+        <ftyp ttag="tptr">
+         <typ ckey="237" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="165978" file="src/dnsmasq.h" line="919"/>
+       </fieldinfo>
+       <fieldinfo ckey="237" fname="next">
+        <ftyp ttag="tptr">
+         <typ ckey="237" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="165988" file="src/dnsmasq.h" line="919"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="165867" file="src/dnsmasq.h" line="915"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="238" cname="dnsmasq_daemon" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="238" fname="options">
+        <ftyp ikind="iuint" ttag="tint"/>
+        <floc byte="166049" file="src/dnsmasq.h" line="927"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="options2">
+        <ftyp ikind="iuint" ttag="tint"/>
+        <floc byte="166058" file="src/dnsmasq.h" line="927"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="default_resolv">
+        <ftyp ckey="212" ttag="tcomp"/>
+        <floc byte="166085" file="src/dnsmasq.h" line="928"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="resolv_files">
+        <ftyp ttag="tptr">
+         <typ ckey="212" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="166101" file="src/dnsmasq.h" line="928"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="last_resolv">
+        <ftyp tname="time_t" ttag="tnamed"/>
+        <floc byte="166125" file="src/dnsmasq.h" line="929"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="servers_file">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="166145" file="src/dnsmasq.h" line="930"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="mxnames">
+        <ftyp ttag="tptr">
+         <typ ckey="182" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="166183" file="src/dnsmasq.h" line="931"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="naptr">
+        <ftyp ttag="tptr">
+         <typ ckey="183" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="166208" file="src/dnsmasq.h" line="932"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="txt">
+        <ftyp ttag="tptr">
+         <typ ckey="184" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="166236" file="src/dnsmasq.h" line="933"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="rr">
+        <ftyp ttag="tptr">
+         <typ ckey="184" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="166242" file="src/dnsmasq.h" line="933"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="ptr">
+        <ftyp ttag="tptr">
+         <typ ckey="185" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="166267" file="src/dnsmasq.h" line="934"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="host_records">
+        <ftyp ttag="tptr">
+         <typ ckey="191" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="166294" file="src/dnsmasq.h" line="935"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="host_records_tail">
+        <ftyp ttag="tptr">
+         <typ ckey="191" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="166309" file="src/dnsmasq.h" line="935"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="cnames">
+        <ftyp ttag="tptr">
+         <typ ckey="186" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="166344" file="src/dnsmasq.h" line="936"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="auth_zones">
+        <ftyp ttag="tptr">
+         <typ ckey="189" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="166372" file="src/dnsmasq.h" line="937"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="int_names">
+        <ftyp ttag="tptr">
+         <typ ckey="193" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="166409" file="src/dnsmasq.h" line="938"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="mxtarget">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="166428" file="src/dnsmasq.h" line="939"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="add_subnet4">
+        <ftyp ttag="tptr">
+         <typ ckey="211" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="166457" file="src/dnsmasq.h" line="940"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="add_subnet6">
+        <ftyp ttag="tptr">
+         <typ ckey="211" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="166489" file="src/dnsmasq.h" line="941"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="lease_file">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="166510" file="src/dnsmasq.h" line="942"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="username">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="166530" file="src/dnsmasq.h" line="943"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="groupname">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="166541" file="src/dnsmasq.h" line="943"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="scriptuser">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="166553" file="src/dnsmasq.h" line="943"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="luascript">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="166573" file="src/dnsmasq.h" line="944"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="authserver">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="166592" file="src/dnsmasq.h" line="945"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="hostmaster">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="166605" file="src/dnsmasq.h" line="945"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="authinterface">
+        <ftyp ttag="tptr">
+         <typ ckey="210" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="166633" file="src/dnsmasq.h" line="946"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="secondary_forward_server">
+        <ftyp ttag="tptr">
+         <typ ckey="192" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="166668" file="src/dnsmasq.h" line="947"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="group_set">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="166701" file="src/dnsmasq.h" line="948"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="osport">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="166712" file="src/dnsmasq.h" line="948"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="domain_suffix">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="166727" file="src/dnsmasq.h" line="949"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="cond_domain">
+        <ftyp ttag="tptr">
+         <typ ckey="229" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="166764" file="src/dnsmasq.h" line="950"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="synth_domains">
+        <ftyp ttag="tptr">
+         <typ ckey="229" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="166778" file="src/dnsmasq.h" line="950"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="runfile">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="166801" file="src/dnsmasq.h" line="951"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="lease_change_command">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="166818" file="src/dnsmasq.h" line="952"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="if_names">
+        <ftyp ttag="tptr">
+         <typ ckey="210" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="166856" file="src/dnsmasq.h" line="953"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="if_addrs">
+        <ftyp ttag="tptr">
+         <typ ckey="210" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="166867" file="src/dnsmasq.h" line="953"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="if_except">
+        <ftyp ttag="tptr">
+         <typ ckey="210" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="166878" file="src/dnsmasq.h" line="953"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="dhcp_except">
+        <ftyp ttag="tptr">
+         <typ ckey="210" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="166890" file="src/dnsmasq.h" line="953"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="auth_peers">
+        <ftyp ttag="tptr">
+         <typ ckey="210" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="166904" file="src/dnsmasq.h" line="953"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="tftp_interfaces">
+        <ftyp ttag="tptr">
+         <typ ckey="210" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="166917" file="src/dnsmasq.h" line="953"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="bogus_addr">
+        <ftyp ttag="tptr">
+         <typ ckey="180" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="166955" file="src/dnsmasq.h" line="954"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="ignore_addr">
+        <ftyp ttag="tptr">
+         <typ ckey="180" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="166968" file="src/dnsmasq.h" line="954"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="servers">
+        <ftyp ttag="tptr">
+         <typ ckey="206" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="166998" file="src/dnsmasq.h" line="955"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="ipsets">
+        <ftyp ttag="tptr">
+         <typ ckey="207" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="167024" file="src/dnsmasq.h" line="956"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="log_fac">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="167039" file="src/dnsmasq.h" line="957"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="log_file">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="167055" file="src/dnsmasq.h" line="958"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="max_logs">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="167072" file="src/dnsmasq.h" line="959"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="cachesize">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="167088" file="src/dnsmasq.h" line="960"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="ftabsize">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="167099" file="src/dnsmasq.h" line="960"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="port">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="167115" file="src/dnsmasq.h" line="961"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="query_port">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="167121" file="src/dnsmasq.h" line="961"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="min_port">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="167133" file="src/dnsmasq.h" line="961"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="max_port">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="167143" file="src/dnsmasq.h" line="961"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="local_ttl">
+        <ftyp ikind="iulong" ttag="tint"/>
+        <floc byte="167169" file="src/dnsmasq.h" line="962"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="neg_ttl">
+        <ftyp ikind="iulong" ttag="tint"/>
+        <floc byte="167180" file="src/dnsmasq.h" line="962"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="max_ttl">
+        <ftyp ikind="iulong" ttag="tint"/>
+        <floc byte="167189" file="src/dnsmasq.h" line="962"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="min_cache_ttl">
+        <ftyp ikind="iulong" ttag="tint"/>
+        <floc byte="167198" file="src/dnsmasq.h" line="962"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="max_cache_ttl">
+        <ftyp ikind="iulong" ttag="tint"/>
+        <floc byte="167213" file="src/dnsmasq.h" line="962"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="auth_ttl">
+        <ftyp ikind="iulong" ttag="tint"/>
+        <floc byte="167228" file="src/dnsmasq.h" line="962"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="dhcp_ttl">
+        <ftyp ikind="iulong" ttag="tint"/>
+        <floc byte="167238" file="src/dnsmasq.h" line="962"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="use_dhcp_ttl">
+        <ftyp ikind="iulong" ttag="tint"/>
+        <floc byte="167248" file="src/dnsmasq.h" line="962"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="dns_client_id">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="167269" file="src/dnsmasq.h" line="963"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="addn_hosts">
+        <ftyp ttag="tptr">
+         <typ ckey="213" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="167304" file="src/dnsmasq.h" line="964"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="dhcp">
+        <ftyp ttag="tptr">
+         <typ ckey="231" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="167339" file="src/dnsmasq.h" line="965"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="dhcp6">
+        <ftyp ttag="tptr">
+         <typ ckey="231" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="167346" file="src/dnsmasq.h" line="965"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="ra_interfaces">
+        <ftyp ttag="tptr">
+         <typ ckey="230" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="167376" file="src/dnsmasq.h" line="966"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="dhcp_conf">
+        <ftyp ttag="tptr">
+         <typ ckey="221" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="167413" file="src/dnsmasq.h" line="967"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="dhcp_opts">
+        <ftyp ttag="tptr">
+         <typ ckey="222" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="167443" file="src/dnsmasq.h" line="968"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="dhcp_match">
+        <ftyp ttag="tptr">
+         <typ ckey="222" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="167455" file="src/dnsmasq.h" line="968"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="dhcp_opts6">
+        <ftyp ttag="tptr">
+         <typ ckey="222" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="167468" file="src/dnsmasq.h" line="968"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="dhcp_match6">
+        <ftyp ttag="tptr">
+         <typ ckey="222" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="167481" file="src/dnsmasq.h" line="968"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="dhcp_vendors">
+        <ftyp ttag="tptr">
+         <typ ckey="226" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="167516" file="src/dnsmasq.h" line="969"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="dhcp_macs">
+        <ftyp ttag="tptr">
+         <typ ckey="227" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="167549" file="src/dnsmasq.h" line="970"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="boot_config">
+        <ftyp ttag="tptr">
+         <typ ckey="224" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="167580" file="src/dnsmasq.h" line="971"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="pxe_services">
+        <ftyp ttag="tptr">
+         <typ ckey="225" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="167615" file="src/dnsmasq.h" line="972"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="tag_if">
+        <ftyp ttag="tptr">
+         <typ ckey="219" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="167646" file="src/dnsmasq.h" line="973"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="override_relays">
+        <ftyp ttag="tptr">
+         <typ ckey="235" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="167674" file="src/dnsmasq.h" line="974"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="relay4">
+        <ftyp ttag="tptr">
+         <typ ckey="237" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="167712" file="src/dnsmasq.h" line="975"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="relay6">
+        <ftyp ttag="tptr">
+         <typ ckey="237" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="167721" file="src/dnsmasq.h" line="975"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="override">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="167736" file="src/dnsmasq.h" line="976"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="enable_pxe">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="167752" file="src/dnsmasq.h" line="977"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="doing_ra">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="167770" file="src/dnsmasq.h" line="978"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="doing_dhcp6">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="167780" file="src/dnsmasq.h" line="978"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="dhcp_ignore">
+        <ftyp ttag="tptr">
+         <typ ckey="218" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="167818" file="src/dnsmasq.h" line="979"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="dhcp_ignore_names">
+        <ftyp ttag="tptr">
+         <typ ckey="218" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="167832" file="src/dnsmasq.h" line="979"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="dhcp_gen_names">
+        <ftyp ttag="tptr">
+         <typ ckey="218" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="167852" file="src/dnsmasq.h" line="979"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="force_broadcast">
+        <ftyp ttag="tptr">
+         <typ ckey="218" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="167894" file="src/dnsmasq.h" line="980"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="bootp_dynamic">
+        <ftyp ttag="tptr">
+         <typ ckey="218" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="167912" file="src/dnsmasq.h" line="980"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="dhcp_hosts_file">
+        <ftyp ttag="tptr">
+         <typ ckey="213" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="167947" file="src/dnsmasq.h" line="981"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="dhcp_opts_file">
+        <ftyp ttag="tptr">
+         <typ ckey="213" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="167965" file="src/dnsmasq.h" line="981"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="dynamic_dirs">
+        <ftyp ttag="tptr">
+         <typ ckey="213" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="167982" file="src/dnsmasq.h" line="981"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="dhcp_max">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="168003" file="src/dnsmasq.h" line="982"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="tftp_max">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="168013" file="src/dnsmasq.h" line="982"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="tftp_mtu">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="168023" file="src/dnsmasq.h" line="982"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="dhcp_server_port">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="168039" file="src/dnsmasq.h" line="983"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="dhcp_client_port">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="168057" file="src/dnsmasq.h" line="983"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="start_tftp_port">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="168081" file="src/dnsmasq.h" line="984"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="end_tftp_port">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="168098" file="src/dnsmasq.h" line="984"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="min_leasetime">
+        <ftyp ikind="iuint" ttag="tint"/>
+        <floc byte="168128" file="src/dnsmasq.h" line="985"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="doctors">
+        <ftyp ttag="tptr">
+         <typ ckey="181" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="168159" file="src/dnsmasq.h" line="986"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="edns_pktsz">
+        <ftyp ikind="iushort" ttag="tint"/>
+        <floc byte="168186" file="src/dnsmasq.h" line="987"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="tftp_prefix">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="168205" file="src/dnsmasq.h" line="988"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="if_prefix">
+        <ftyp ttag="tptr">
+         <typ ckey="236" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="168240" file="src/dnsmasq.h" line="989"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="duid_enterprise">
+        <ftyp ikind="iuint" ttag="tint"/>
+        <floc byte="168267" file="src/dnsmasq.h" line="990"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="duid_config_len">
+        <ftyp ikind="iuint" ttag="tint"/>
+        <floc byte="168284" file="src/dnsmasq.h" line="990"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="duid_config">
+        <ftyp ttag="tptr">
+         <typ ikind="iuchar" ttag="tint"/>
+        </ftyp>
+        <floc byte="168317" file="src/dnsmasq.h" line="991"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="dbus_name">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="168338" file="src/dnsmasq.h" line="992"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="soa_sn">
+        <ftyp ikind="iulong" ttag="tint"/>
+        <floc byte="168366" file="src/dnsmasq.h" line="993"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="soa_refresh">
+        <ftyp ikind="iulong" ttag="tint"/>
+        <floc byte="168374" file="src/dnsmasq.h" line="993"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="soa_retry">
+        <ftyp ikind="iulong" ttag="tint"/>
+        <floc byte="168387" file="src/dnsmasq.h" line="993"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="soa_expiry">
+        <ftyp ikind="iulong" ttag="tint"/>
+        <floc byte="168398" file="src/dnsmasq.h" line="993"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="packet">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="168436" file="src/dnsmasq.h" line="1005"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="packet_buff_sz">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="168451" file="src/dnsmasq.h" line="1006"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="namebuff">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="168474" file="src/dnsmasq.h" line="1007"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="local_answer">
+        <ftyp ikind="iuint" ttag="tint"/>
+        <floc byte="168504" file="src/dnsmasq.h" line="1012"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="queries_forwarded">
+        <ftyp ikind="iuint" ttag="tint"/>
+        <floc byte="168518" file="src/dnsmasq.h" line="1012"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="auth_answer">
+        <ftyp ikind="iuint" ttag="tint"/>
+        <floc byte="168537" file="src/dnsmasq.h" line="1012"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="frec_list">
+        <ftyp ttag="tptr">
+         <typ ckey="214" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="168564" file="src/dnsmasq.h" line="1013"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="sfds">
+        <ftyp ttag="tptr">
+         <typ ckey="204" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="168594" file="src/dnsmasq.h" line="1014"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="interfaces">
+        <ftyp ttag="tptr">
+         <typ ckey="208" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="168615" file="src/dnsmasq.h" line="1015"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="listeners">
+        <ftyp ttag="tptr">
+         <typ ckey="209" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="168646" file="src/dnsmasq.h" line="1016"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="last_server">
+        <ftyp ttag="tptr">
+         <typ ckey="206" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="168674" file="src/dnsmasq.h" line="1017"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="forwardtime">
+        <ftyp tname="time_t" ttag="tnamed"/>
+        <floc byte="168697" file="src/dnsmasq.h" line="1018"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="forwardcount">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="168716" file="src/dnsmasq.h" line="1019"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="srv_save">
+        <ftyp ttag="tptr">
+         <typ ckey="206" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="168746" file="src/dnsmasq.h" line="1020"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="packet_len">
+        <ftyp tname="size_t" ttag="tnamed"/>
+        <floc byte="168766" file="src/dnsmasq.h" line="1021"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="rfd_save">
+        <ftyp ttag="tptr">
+         <typ ckey="205" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="168794" file="src/dnsmasq.h" line="1022"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="tcp_pids">
+        <ftyp ttag="tarray">
+         <exp etag="const" xstr="20">
+          <constant ctag="cint64" ikind="iint" intValue="20"/>
+         </exp>
+         <typ tname="pid_t" ttag="tnamed"/>
+        </ftyp>
+        <floc byte="168813" file="src/dnsmasq.h" line="1023"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="randomsocks">
+        <ftyp ttag="tarray">
+         <exp etag="const" xstr="64">
+          <constant ctag="cint64" ikind="iint" intValue="64"/>
+         </exp>
+         <typ ckey="205" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="168843" file="src/dnsmasq.h" line="1024"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="v6pktinfo">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="168866" file="src/dnsmasq.h" line="1025"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="interface_addrs">
+        <ftyp ttag="tptr">
+         <typ ckey="188" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="168895" file="src/dnsmasq.h" line="1026"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="log_id">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="168919" file="src/dnsmasq.h" line="1027"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="log_display_id">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="168927" file="src/dnsmasq.h" line="1027"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="log_source_addr">
+        <ftyp ttag="tptr">
+         <typ ckey="203" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="168962" file="src/dnsmasq.h" line="1028"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="dhcpfd">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="168988" file="src/dnsmasq.h" line="1031"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="helperfd">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="168996" file="src/dnsmasq.h" line="1031"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="pxefd">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="169006" file="src/dnsmasq.h" line="1031"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="inotifyfd">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="169020" file="src/dnsmasq.h" line="1033"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="netlinkfd">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="169039" file="src/dnsmasq.h" line="1036"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="dhcp_packet">
+        <ftyp ckey="19" ttag="tcomp"/>
+        <floc byte="169068" file="src/dnsmasq.h" line="1040"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="dhcp_buff">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="169088" file="src/dnsmasq.h" line="1041"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="dhcp_buff2">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="169100" file="src/dnsmasq.h" line="1041"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="dhcp_buff3">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="169113" file="src/dnsmasq.h" line="1041"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="ping_results">
+        <ftyp ttag="tptr">
+         <typ ckey="232" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="169147" file="src/dnsmasq.h" line="1042"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="lease_stream">
+        <ftyp ttag="tptr">
+         <typ tname="FILE" ttag="tnamed"/>
+        </ftyp>
+        <floc byte="169169" file="src/dnsmasq.h" line="1043"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="bridges">
+        <ftyp ttag="tptr">
+         <typ ckey="228" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="169205" file="src/dnsmasq.h" line="1044"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="duid_len">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="169222" file="src/dnsmasq.h" line="1046"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="duid">
+        <ftyp ttag="tptr">
+         <typ ikind="iuchar" ttag="tint"/>
+        </ftyp>
+        <floc byte="169248" file="src/dnsmasq.h" line="1047"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="outpacket">
+        <ftyp ckey="19" ttag="tcomp"/>
+        <floc byte="169270" file="src/dnsmasq.h" line="1048"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="dhcp6fd">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="169287" file="src/dnsmasq.h" line="1049"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="icmp6fd">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="169296" file="src/dnsmasq.h" line="1049"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="dbus">
+        <ftyp ttag="tptr">
+         <typ ttag="tvoid"/>
+        </ftyp>
+        <floc byte="169315" file="src/dnsmasq.h" line="1053"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="tftp_trans">
+        <ftyp ttag="tptr">
+         <typ ckey="234" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="169350" file="src/dnsmasq.h" line="1059"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="tftp_done_trans">
+        <ftyp ttag="tptr">
+         <typ ckey="234" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="169363" file="src/dnsmasq.h" line="1059"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="addrbuff">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="169390" file="src/dnsmasq.h" line="1062"/>
+       </fieldinfo>
+       <fieldinfo ckey="238" fname="addrbuff2">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="169408" file="src/dnsmasq.h" line="1063"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="165999" file="src/dnsmasq.h" line="922"/>
+    </gcomptag>
+   </global-comptag-definitions>
+   <global-comptag-declarations>
+    <gcomptagdecl>
+     <compinfo ckey="33" cname="sockaddr_in" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="33" fname="sin_family">
+        <ftyp tname="sa_family_t" ttag="tnamed"/>
+        <floc byte="22037" file="/usr/include/netinet/in.h" line="241"/>
+       </fieldinfo>
+       <fieldinfo ckey="33" fname="sin_port">
+        <ftyp tname="in_port_t" ttag="tnamed"/>
+        <floc byte="22063" file="/usr/include/netinet/in.h" line="242"/>
+       </fieldinfo>
+       <fieldinfo ckey="33" fname="sin_addr">
+        <ftyp ckey="42" ttag="tcomp"/>
+        <floc byte="22092" file="/usr/include/netinet/in.h" line="243"/>
+       </fieldinfo>
+       <fieldinfo ckey="33" fname="sin_zero">
+        <ftyp ttag="tarray">
+         <exp binop="minusa" etag="binop" xstr="((((((sizeof (struct 20) - sizeof (unsigned short)):unsigned long - sizeof (in_port_t)):unsigned long - sizeof (struct 42)):unsigned long">
+          <exp1 binop="minusa" etag="binop" xstr="((((sizeof (struct 20) - sizeof (unsigned short)):unsigned long - sizeof (in_port_t)):unsigned long">
+           <exp1 binop="minusa" etag="binop" xstr="((sizeof (struct 20) - sizeof (unsigned short)):unsigned long">
+            <exp1 etag="sizeof" xstr="sizeof (struct 20)">
+             <typ ckey="20" ttag="tcomp"/>
+            </exp1>
+            <exp2 etag="sizeof" xstr="sizeof (unsigned short)">
+             <typ ikind="iushort" ttag="tint"/>
+            </exp2>
+            <typ ikind="iulong" ttag="tint"/>
+           </exp1>
+           <exp2 etag="sizeof" xstr="sizeof (in_port_t)">
+            <typ tname="in_port_t" ttag="tnamed"/>
+           </exp2>
+           <typ ikind="iulong" ttag="tint"/>
+          </exp1>
+          <exp2 etag="sizeof" xstr="sizeof (struct 42)">
+           <typ ckey="42" ttag="tcomp"/>
+          </exp2>
+          <typ ikind="iulong" ttag="tint"/>
+         </exp>
+         <typ ikind="iuchar" ttag="tint"/>
+        </ftyp>
+        <floc byte="22122" file="/usr/include/netinet/in.h" line="246"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="14419" file="/usr/include/sys/socket.h" line="92"/>
+    </gcomptagdecl>
+    <gcomptagdecl>
+     <compinfo ckey="34" cname="sockaddr_in6" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="34" fname="sin6_family">
+        <ftyp tname="sa_family_t" ttag="tnamed"/>
+        <floc byte="22303" file="/usr/include/netinet/in.h" line="256"/>
+       </fieldinfo>
+       <fieldinfo ckey="34" fname="sin6_port">
+        <ftyp tname="in_port_t" ttag="tnamed"/>
+        <floc byte="22330" file="/usr/include/netinet/in.h" line="257"/>
+       </fieldinfo>
+       <fieldinfo ckey="34" fname="sin6_flowinfo">
+        <ftyp tname="uint32_t" ttag="tnamed"/>
+        <floc byte="22354" file="/usr/include/netinet/in.h" line="258"/>
+       </fieldinfo>
+       <fieldinfo ckey="34" fname="sin6_addr">
+        <ftyp ckey="46" ttag="tcomp"/>
+        <floc byte="22389" file="/usr/include/netinet/in.h" line="259"/>
+       </fieldinfo>
+       <fieldinfo ckey="34" fname="sin6_scope_id">
+        <ftyp tname="uint32_t" ttag="tnamed"/>
+        <floc byte="22413" file="/usr/include/netinet/in.h" line="260"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="14419" file="/usr/include/sys/socket.h" line="92"/>
+    </gcomptagdecl>
+    <gcomptagdecl>
+     <compinfo ckey="117" cname="_IO_FILE" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="117" fname="_flags">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="96459" file="/usr/include/libio.h" line="272"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_IO_read_ptr">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="96477" file="/usr/include/libio.h" line="277"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_IO_read_end">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="96499" file="/usr/include/libio.h" line="278"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_IO_read_base">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="96521" file="/usr/include/libio.h" line="279"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_IO_write_base">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="96544" file="/usr/include/libio.h" line="280"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_IO_write_ptr">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="96568" file="/usr/include/libio.h" line="281"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_IO_write_end">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="96591" file="/usr/include/libio.h" line="282"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_IO_buf_base">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="96614" file="/usr/include/libio.h" line="283"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_IO_buf_end">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="96636" file="/usr/include/libio.h" line="284"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_IO_save_base">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="96659" file="/usr/include/libio.h" line="286"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_IO_backup_base">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="96682" file="/usr/include/libio.h" line="287"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_IO_save_end">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="96707" file="/usr/include/libio.h" line="288"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_markers">
+        <ftyp ttag="tptr">
+         <typ ckey="123" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="96743" file="/usr/include/libio.h" line="290"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_chain">
+        <ftyp ttag="tptr">
+         <typ ckey="117" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="96773" file="/usr/include/libio.h" line="292"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_fileno">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="96789" file="/usr/include/libio.h" line="294"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_flags2">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="96807" file="/usr/include/libio.h" line="298"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_old_offset">
+        <ftyp tname="__off_t" ttag="tnamed"/>
+        <floc byte="96827" file="/usr/include/libio.h" line="300"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_cur_column">
+        <ftyp ikind="iushort" ttag="tint"/>
+        <floc byte="96860" file="/usr/include/libio.h" line="304"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_vtable_offset">
+        <ftyp ikind="ischar" ttag="tint"/>
+        <floc byte="96887" file="/usr/include/libio.h" line="305"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_shortbuf">
+        <ftyp ttag="tarray">
+         <exp etag="const" xstr="1">
+          <constant ctag="cint64" ikind="iint" intValue="1"/>
+         </exp>
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="96910" file="/usr/include/libio.h" line="306"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_lock">
+        <ftyp ttag="tptr">
+         <typ tname="_IO_lock_t" ttag="tnamed"/>
+        </ftyp>
+        <floc byte="96940" file="/usr/include/libio.h" line="310"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_offset">
+        <ftyp tname="__off64_t" ttag="tnamed"/>
+        <floc byte="96993" file="/usr/include/libio.h" line="319"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="__pad1">
+        <ftyp ttag="tptr">
+         <typ ttag="tvoid"/>
+        </ftyp>
+        <floc byte="97042" file="/usr/include/libio.h" line="328"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="__pad2">
+        <ftyp ttag="tptr">
+         <typ ttag="tvoid"/>
+        </ftyp>
+        <floc byte="97058" file="/usr/include/libio.h" line="329"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="__pad3">
+        <ftyp ttag="tptr">
+         <typ ttag="tvoid"/>
+        </ftyp>
+        <floc byte="97074" file="/usr/include/libio.h" line="330"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="__pad4">
+        <ftyp ttag="tptr">
+         <typ ttag="tvoid"/>
+        </ftyp>
+        <floc byte="97090" file="/usr/include/libio.h" line="331"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="__pad5">
+        <ftyp tname="size_t" ttag="tnamed"/>
+        <floc byte="97108" file="/usr/include/libio.h" line="332"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_mode">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="97123" file="/usr/include/libio.h" line="334"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_unused2">
+        <ftyp ttag="tarray">
+         <exp binop="minusa" etag="binop" xstr="((((((15 * sizeof (int)):unsigned long - ((4 * sizeof ((void*))):unsigned long):unsigned long - sizeof (size_t)):unsigned long">
+          <exp1 binop="minusa" etag="binop" xstr="((((15 * sizeof (int)):unsigned long - ((4 * sizeof ((void*))):unsigned long):unsigned long">
+           <exp1 binop="mult" etag="binop" xstr="((15 * sizeof (int)):unsigned long">
+            <exp1 etag="const" xstr="15">
+             <constant ctag="cint64" ikind="iulong" intValue="15"/>
+            </exp1>
+            <exp2 etag="sizeof" xstr="sizeof (int)">
+             <typ ikind="iint" ttag="tint"/>
+            </exp2>
+            <typ ikind="iulong" ttag="tint"/>
+           </exp1>
+           <exp2 binop="mult" etag="binop" xstr="((4 * sizeof ((void*))):unsigned long">
+            <exp1 etag="const" xstr="4">
+             <constant ctag="cint64" ikind="iulong" intValue="4"/>
+            </exp1>
+            <exp2 etag="sizeof" xstr="sizeof ((void*))">
+             <typ ttag="tptr">
+              <typ ttag="tvoid"/>
+             </typ>
+            </exp2>
+            <typ ikind="iulong" ttag="tint"/>
+           </exp2>
+           <typ ikind="iulong" ttag="tint"/>
+          </exp1>
+          <exp2 etag="sizeof" xstr="sizeof (size_t)">
+           <typ tname="size_t" ttag="tnamed"/>
+          </exp2>
+          <typ ikind="iulong" ttag="tint"/>
+         </exp>
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="97138" file="/usr/include/libio.h" line="336"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="94701" file="/usr/include/stdio.h" line="45"/>
+    </gcomptagdecl>
+    <gcomptagdecl>
+     <compinfo ckey="117" cname="_IO_FILE" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="117" fname="_flags">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="96459" file="/usr/include/libio.h" line="272"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_IO_read_ptr">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="96477" file="/usr/include/libio.h" line="277"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_IO_read_end">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="96499" file="/usr/include/libio.h" line="278"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_IO_read_base">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="96521" file="/usr/include/libio.h" line="279"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_IO_write_base">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="96544" file="/usr/include/libio.h" line="280"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_IO_write_ptr">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="96568" file="/usr/include/libio.h" line="281"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_IO_write_end">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="96591" file="/usr/include/libio.h" line="282"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_IO_buf_base">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="96614" file="/usr/include/libio.h" line="283"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_IO_buf_end">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="96636" file="/usr/include/libio.h" line="284"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_IO_save_base">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="96659" file="/usr/include/libio.h" line="286"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_IO_backup_base">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="96682" file="/usr/include/libio.h" line="287"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_IO_save_end">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="96707" file="/usr/include/libio.h" line="288"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_markers">
+        <ftyp ttag="tptr">
+         <typ ckey="123" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="96743" file="/usr/include/libio.h" line="290"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_chain">
+        <ftyp ttag="tptr">
+         <typ ckey="117" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="96773" file="/usr/include/libio.h" line="292"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_fileno">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="96789" file="/usr/include/libio.h" line="294"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_flags2">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="96807" file="/usr/include/libio.h" line="298"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_old_offset">
+        <ftyp tname="__off_t" ttag="tnamed"/>
+        <floc byte="96827" file="/usr/include/libio.h" line="300"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_cur_column">
+        <ftyp ikind="iushort" ttag="tint"/>
+        <floc byte="96860" file="/usr/include/libio.h" line="304"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_vtable_offset">
+        <ftyp ikind="ischar" ttag="tint"/>
+        <floc byte="96887" file="/usr/include/libio.h" line="305"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_shortbuf">
+        <ftyp ttag="tarray">
+         <exp etag="const" xstr="1">
+          <constant ctag="cint64" ikind="iint" intValue="1"/>
+         </exp>
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="96910" file="/usr/include/libio.h" line="306"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_lock">
+        <ftyp ttag="tptr">
+         <typ tname="_IO_lock_t" ttag="tnamed"/>
+        </ftyp>
+        <floc byte="96940" file="/usr/include/libio.h" line="310"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_offset">
+        <ftyp tname="__off64_t" ttag="tnamed"/>
+        <floc byte="96993" file="/usr/include/libio.h" line="319"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="__pad1">
+        <ftyp ttag="tptr">
+         <typ ttag="tvoid"/>
+        </ftyp>
+        <floc byte="97042" file="/usr/include/libio.h" line="328"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="__pad2">
+        <ftyp ttag="tptr">
+         <typ ttag="tvoid"/>
+        </ftyp>
+        <floc byte="97058" file="/usr/include/libio.h" line="329"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="__pad3">
+        <ftyp ttag="tptr">
+         <typ ttag="tvoid"/>
+        </ftyp>
+        <floc byte="97074" file="/usr/include/libio.h" line="330"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="__pad4">
+        <ftyp ttag="tptr">
+         <typ ttag="tvoid"/>
+        </ftyp>
+        <floc byte="97090" file="/usr/include/libio.h" line="331"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="__pad5">
+        <ftyp tname="size_t" ttag="tnamed"/>
+        <floc byte="97108" file="/usr/include/libio.h" line="332"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_mode">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="97123" file="/usr/include/libio.h" line="334"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_unused2">
+        <ftyp ttag="tarray">
+         <exp binop="minusa" etag="binop" xstr="((((((15 * sizeof (int)):unsigned long - ((4 * sizeof ((void*))):unsigned long):unsigned long - sizeof (size_t)):unsigned long">
+          <exp1 binop="minusa" etag="binop" xstr="((((15 * sizeof (int)):unsigned long - ((4 * sizeof ((void*))):unsigned long):unsigned long">
+           <exp1 binop="mult" etag="binop" xstr="((15 * sizeof (int)):unsigned long">
+            <exp1 etag="const" xstr="15">
+             <constant ctag="cint64" ikind="iulong" intValue="15"/>
+            </exp1>
+            <exp2 etag="sizeof" xstr="sizeof (int)">
+             <typ ikind="iint" ttag="tint"/>
+            </exp2>
+            <typ ikind="iulong" ttag="tint"/>
+           </exp1>
+           <exp2 binop="mult" etag="binop" xstr="((4 * sizeof ((void*))):unsigned long">
+            <exp1 etag="const" xstr="4">
+             <constant ctag="cint64" ikind="iulong" intValue="4"/>
+            </exp1>
+            <exp2 etag="sizeof" xstr="sizeof ((void*))">
+             <typ ttag="tptr">
+              <typ ttag="tvoid"/>
+             </typ>
+            </exp2>
+            <typ ikind="iulong" ttag="tint"/>
+           </exp2>
+           <typ ikind="iulong" ttag="tint"/>
+          </exp1>
+          <exp2 etag="sizeof" xstr="sizeof (size_t)">
+           <typ tname="size_t" ttag="tnamed"/>
+          </exp2>
+          <typ ikind="iulong" ttag="tint"/>
+         </exp>
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="97138" file="/usr/include/libio.h" line="336"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="94701" file="/usr/include/stdio.h" line="45"/>
+    </gcomptagdecl>
+    <gcomptagdecl>
+     <compinfo ckey="117" cname="_IO_FILE" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="117" fname="_flags">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="96459" file="/usr/include/libio.h" line="272"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_IO_read_ptr">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="96477" file="/usr/include/libio.h" line="277"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_IO_read_end">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="96499" file="/usr/include/libio.h" line="278"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_IO_read_base">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="96521" file="/usr/include/libio.h" line="279"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_IO_write_base">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="96544" file="/usr/include/libio.h" line="280"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_IO_write_ptr">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="96568" file="/usr/include/libio.h" line="281"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_IO_write_end">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="96591" file="/usr/include/libio.h" line="282"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_IO_buf_base">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="96614" file="/usr/include/libio.h" line="283"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_IO_buf_end">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="96636" file="/usr/include/libio.h" line="284"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_IO_save_base">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="96659" file="/usr/include/libio.h" line="286"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_IO_backup_base">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="96682" file="/usr/include/libio.h" line="287"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_IO_save_end">
+        <ftyp ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="96707" file="/usr/include/libio.h" line="288"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_markers">
+        <ftyp ttag="tptr">
+         <typ ckey="123" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="96743" file="/usr/include/libio.h" line="290"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_chain">
+        <ftyp ttag="tptr">
+         <typ ckey="117" ttag="tcomp"/>
+        </ftyp>
+        <floc byte="96773" file="/usr/include/libio.h" line="292"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_fileno">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="96789" file="/usr/include/libio.h" line="294"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_flags2">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="96807" file="/usr/include/libio.h" line="298"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_old_offset">
+        <ftyp tname="__off_t" ttag="tnamed"/>
+        <floc byte="96827" file="/usr/include/libio.h" line="300"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_cur_column">
+        <ftyp ikind="iushort" ttag="tint"/>
+        <floc byte="96860" file="/usr/include/libio.h" line="304"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_vtable_offset">
+        <ftyp ikind="ischar" ttag="tint"/>
+        <floc byte="96887" file="/usr/include/libio.h" line="305"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_shortbuf">
+        <ftyp ttag="tarray">
+         <exp etag="const" xstr="1">
+          <constant ctag="cint64" ikind="iint" intValue="1"/>
+         </exp>
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="96910" file="/usr/include/libio.h" line="306"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_lock">
+        <ftyp ttag="tptr">
+         <typ tname="_IO_lock_t" ttag="tnamed"/>
+        </ftyp>
+        <floc byte="96940" file="/usr/include/libio.h" line="310"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_offset">
+        <ftyp tname="__off64_t" ttag="tnamed"/>
+        <floc byte="96993" file="/usr/include/libio.h" line="319"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="__pad1">
+        <ftyp ttag="tptr">
+         <typ ttag="tvoid"/>
+        </ftyp>
+        <floc byte="97042" file="/usr/include/libio.h" line="328"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="__pad2">
+        <ftyp ttag="tptr">
+         <typ ttag="tvoid"/>
+        </ftyp>
+        <floc byte="97058" file="/usr/include/libio.h" line="329"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="__pad3">
+        <ftyp ttag="tptr">
+         <typ ttag="tvoid"/>
+        </ftyp>
+        <floc byte="97074" file="/usr/include/libio.h" line="330"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="__pad4">
+        <ftyp ttag="tptr">
+         <typ ttag="tvoid"/>
+        </ftyp>
+        <floc byte="97090" file="/usr/include/libio.h" line="331"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="__pad5">
+        <ftyp tname="size_t" ttag="tnamed"/>
+        <floc byte="97108" file="/usr/include/libio.h" line="332"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_mode">
+        <ftyp ikind="iint" ttag="tint"/>
+        <floc byte="97123" file="/usr/include/libio.h" line="334"/>
+       </fieldinfo>
+       <fieldinfo ckey="117" fname="_unused2">
+        <ftyp ttag="tarray">
+         <exp binop="minusa" etag="binop" xstr="((((((15 * sizeof (int)):unsigned long - ((4 * sizeof ((void*))):unsigned long):unsigned long - sizeof (size_t)):unsigned long">
+          <exp1 binop="minusa" etag="binop" xstr="((((15 * sizeof (int)):unsigned long - ((4 * sizeof ((void*))):unsigned long):unsigned long">
+           <exp1 binop="mult" etag="binop" xstr="((15 * sizeof (int)):unsigned long">
+            <exp1 etag="const" xstr="15">
+             <constant ctag="cint64" ikind="iulong" intValue="15"/>
+            </exp1>
+            <exp2 etag="sizeof" xstr="sizeof (int)">
+             <typ ikind="iint" ttag="tint"/>
+            </exp2>
+            <typ ikind="iulong" ttag="tint"/>
+           </exp1>
+           <exp2 binop="mult" etag="binop" xstr="((4 * sizeof ((void*))):unsigned long">
+            <exp1 etag="const" xstr="4">
+             <constant ctag="cint64" ikind="iulong" intValue="4"/>
+            </exp1>
+            <exp2 etag="sizeof" xstr="sizeof ((void*))">
+             <typ ttag="tptr">
+              <typ ttag="tvoid"/>
+             </typ>
+            </exp2>
+            <typ ikind="iulong" ttag="tint"/>
+           </exp2>
+           <typ ikind="iulong" ttag="tint"/>
+          </exp1>
+          <exp2 etag="sizeof" xstr="sizeof (size_t)">
+           <typ tname="size_t" ttag="tnamed"/>
+          </exp2>
+          <typ ikind="iulong" ttag="tint"/>
+         </exp>
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="97138" file="/usr/include/libio.h" line="336"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="96093" file="/usr/include/libio.h" line="170"/>
+    </gcomptagdecl>
+   </global-comptag-declarations>
+   <global-enumtag-definitions/>
+   <global-enumtag-declarations/>
+   <global-var-definitions/>
+   <global-var-declarations>
+    <gvardecl>
+     <varinfo vglob="true" vid="352" vname="sendto" vstorage="extern">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="__fd">
+         <typ ikind="iint" ttag="tint"/>
+        </arg>
+        <arg aname="__buf">
+         <typ ttag="tptr">
+          <typ ttag="tvoid">
+           <attributes>
+            <attr attrname="const"/>
+           </attributes>
+          </typ>
+         </typ>
+        </arg>
+        <arg aname="__n">
+         <typ tname="size_t" ttag="tnamed"/>
+        </arg>
+        <arg aname="__flags">
+         <typ ikind="iint" ttag="tint"/>
+        </arg>
+        <arg aname="__addr">
+         <typ ttag="tptr">
+          <attributes>
+           <attr attrname="restrict"/>
+          </attributes>
+          <typ ckey="20" ttag="tcomp">
+           <attributes>
+            <attr attrname="const"/>
+           </attributes>
+          </typ>
+         </typ>
+        </arg>
+        <arg aname="__addr_len">
+         <typ tname="socklen_t" ttag="tnamed"/>
+        </arg>
+       </args>
+       <typ tname="ssize_t" ttag="tnamed"/>
+      </vtyp>
+      <vdecl byte="16844" file="/usr/include/sys/socket.h" line="155"/>
+     </varinfo>
+     <loc byte="16829" file="/usr/include/sys/socket.h" line="155"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="1429" vname="strcpy" vstorage="extern">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="__dest">
+         <typ ttag="tptr">
+          <attributes>
+           <attr attrname="restrict"/>
+          </attributes>
+          <typ ikind="ichar" ttag="tint"/>
+         </typ>
+        </arg>
+        <arg aname="__src">
+         <typ ttag="tptr">
+          <attributes>
+           <attr attrname="restrict"/>
+          </attributes>
+          <typ ikind="ichar" ttag="tint">
+           <attributes>
+            <attr attrname="const"/>
+           </attributes>
+          </typ>
+         </typ>
+        </arg>
+       </args>
+       <attributes>
+        <attr attrname="nonnull"/>
+       </attributes>
+       <typ ttag="tptr">
+        <typ ikind="ichar" ttag="tint"/>
+       </typ>
+      </vtyp>
+      <vdecl byte="60674" file="/usr/include/string.h" line="128"/>
+      <vattr>
+       <attr attrname="nothrow"/>
+      </vattr>
+     </varinfo>
+     <loc byte="60662" file="/usr/include/string.h" line="128"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="1531" vname="strstr" vstorage="extern">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="__haystack">
+         <typ ttag="tptr">
+          <typ ikind="ichar" ttag="tint">
+           <attributes>
+            <attr attrname="const"/>
+           </attributes>
+          </typ>
+         </typ>
+        </arg>
+        <arg aname="__needle">
+         <typ ttag="tptr">
+          <typ ikind="ichar" ttag="tint">
+           <attributes>
+            <attr attrname="const"/>
+           </attributes>
+          </typ>
+         </typ>
+        </arg>
+       </args>
+       <attributes>
+        <attr attrname="nonnull"/>
+       </attributes>
+       <typ ttag="tptr">
+        <typ ikind="ichar" ttag="tint"/>
+       </typ>
+      </vtyp>
+      <vdecl byte="64151" file="/usr/include/string.h" line="342"/>
+      <vattr>
+       <attr attrname="nothrow"/>
+       <attr attrname="pure"/>
+      </vattr>
+     </varinfo>
+     <loc byte="64139" file="/usr/include/string.h" line="342"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="1581" vname="strlen" vstorage="extern">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="__s">
+         <typ ttag="tptr">
+          <typ ikind="ichar" ttag="tint">
+           <attributes>
+            <attr attrname="const"/>
+           </attributes>
+          </typ>
+         </typ>
+        </arg>
+       </args>
+       <attributes>
+        <attr attrname="nonnull"/>
+       </attributes>
+       <typ tname="size_t" ttag="tnamed"/>
+      </vtyp>
+      <vdecl byte="65648" file="/usr/include/string.h" line="399"/>
+      <vattr>
+       <attr attrname="nothrow"/>
+       <attr attrname="pure"/>
+      </vattr>
+     </varinfo>
+     <loc byte="65634" file="/usr/include/string.h" line="399"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="2569" vname="sprintf" vstorage="extern">
+      <vtyp ttag="tfun" vararg="true">
+       <args>
+        <arg aname="__s">
+         <typ ttag="tptr">
+          <attributes>
+           <attr attrname="restrict"/>
+          </attributes>
+          <typ ikind="ichar" ttag="tint"/>
+         </typ>
+        </arg>
+        <arg aname="__format">
+         <typ ttag="tptr">
+          <attributes>
+           <attr attrname="restrict"/>
+          </attributes>
+          <typ ikind="ichar" ttag="tint">
+           <attributes>
+            <attr attrname="const"/>
+           </attributes>
+          </typ>
+         </typ>
+        </arg>
+       </args>
+       <typ ikind="iint" ttag="tint"/>
+      </vtyp>
+      <vdecl byte="102466" file="/usr/include/stdio.h" line="363"/>
+      <vattr>
+       <attr attrname="nothrow"/>
+      </vattr>
+     </varinfo>
+     <loc byte="102455" file="/usr/include/stdio.h" line="363"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="2969" vname="strtol" vstorage="extern">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="__nptr">
+         <typ ttag="tptr">
+          <attributes>
+           <attr attrname="restrict"/>
+          </attributes>
+          <typ ikind="ichar" ttag="tint">
+           <attributes>
+            <attr attrname="const"/>
+           </attributes>
+          </typ>
+         </typ>
+        </arg>
+        <arg aname="__endptr">
+         <typ ttag="tptr">
+          <attributes>
+           <attr attrname="restrict"/>
+          </attributes>
+          <typ ttag="tptr">
+           <typ ikind="ichar" ttag="tint"/>
+          </typ>
+         </typ>
+        </arg>
+        <arg aname="__base">
+         <typ ikind="iint" ttag="tint"/>
+        </arg>
+       </args>
+       <attributes>
+        <attr attrname="nonnull"/>
+       </attributes>
+       <typ ikind="ilong" ttag="tint"/>
+      </vtyp>
+      <vdecl byte="111834" file="/usr/include/stdlib.h" line="184"/>
+      <vattr>
+       <attr attrname="nothrow"/>
+      </vattr>
+     </varinfo>
+     <loc byte="111818" file="/usr/include/stdlib.h" line="184"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="3708" vname="__ctype_b_loc" vstorage="extern">
+      <vtyp ttag="tfun" vararg="false">
+       <args/>
+       <typ ttag="tptr">
+        <typ ttag="tptr">
+         <typ ikind="iushort" ttag="tint">
+          <attributes>
+           <attr attrname="const"/>
+          </attributes>
+         </typ>
+        </typ>
+       </typ>
+      </vtyp>
+      <vdecl byte="132341" file="/usr/include/ctype.h" line="81"/>
+      <vattr>
+       <attr attrname="aconst"/>
+       <attr attrname="nothrow"/>
+      </vattr>
+     </varinfo>
+     <loc byte="132307" file="/usr/include/ctype.h" line="81"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="4341" vname="dnsmasq_daemon" vstorage="extern">
+      <vtyp ttag="tptr">
+       <typ ckey="238" ttag="tcomp"/>
+      </vtyp>
+      <vdecl byte="169423" file="src/dnsmasq.h" line="1065"/>
+     </varinfo>
+     <loc byte="165999" file="src/dnsmasq.h" line="922"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="4760" vname="rand16" vstorage="extern">
+      <vtyp ttag="tfun" vararg="false">
+       <args/>
+       <typ ikind="iushort" ttag="tint"/>
+      </vtyp>
+      <vdecl byte="173927" file="src/dnsmasq.h" line="1166"/>
+     </varinfo>
+     <loc byte="173912" file="src/dnsmasq.h" line="1166"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="4793" vname="sa_len" vstorage="extern">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="addr">
+         <typ ttag="tptr">
+          <typ ckey="203" ttag="tcomp"/>
+         </typ>
+        </arg>
+       </args>
+       <typ ikind="iint" ttag="tint"/>
+      </vtyp>
+      <vdecl byte="174221" file="src/dnsmasq.h" line="1175"/>
+     </varinfo>
+     <loc byte="174217" file="src/dnsmasq.h" line="1175"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="4834" vname="retry_send" vstorage="extern">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="rc">
+         <typ tname="ssize_t" ttag="tnamed"/>
+        </arg>
+       </args>
+       <typ ikind="iint" ttag="tint"/>
+      </vtyp>
+      <vdecl byte="174682" file="src/dnsmasq.h" line="1186"/>
+     </varinfo>
+     <loc byte="174678" file="src/dnsmasq.h" line="1186"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="5029" vname="allocate_rfd" vstorage="extern">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="family">
+         <typ ikind="iint" ttag="tint"/>
+        </arg>
+       </args>
+       <typ ttag="tptr">
+        <typ ckey="205" ttag="tcomp"/>
+       </typ>
+      </vtyp>
+      <vdecl byte="176637" file="src/dnsmasq.h" line="1233"/>
+     </varinfo>
+     <loc byte="176623" file="src/dnsmasq.h" line="1233"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="5032" vname="free_rfd" vstorage="extern">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="rfd">
+         <typ ttag="tptr">
+          <typ ckey="205" ttag="tcomp"/>
+         </typ>
+        </arg>
+       </args>
+       <typ ttag="tvoid"/>
+      </vtyp>
+      <vdecl byte="176669" file="src/dnsmasq.h" line="1234"/>
+     </varinfo>
+     <loc byte="176664" file="src/dnsmasq.h" line="1234"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="5077" vname="check_servers" vstorage="extern">
+      <vtyp ttag="tfun" vararg="false">
+       <args/>
+       <typ ttag="tvoid"/>
+      </vtyp>
+      <vdecl byte="177147" file="src/dnsmasq.h" line="1249"/>
+     </varinfo>
+     <loc byte="177142" file="src/dnsmasq.h" line="1249"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="5775" vname="loop_send_probes">
+      <vtyp ttag="tfun" vararg="false">
+       <args/>
+       <typ ttag="tvoid"/>
+      </vtyp>
+      <vdecl byte="186539" file="src/loop.c" line="22"/>
+     </varinfo>
+     <loc byte="185193" file="src/dnsmasq.h" line="1508"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="5780" vname="detect_loop">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="query">
+         <typ ttag="tptr">
+          <typ ikind="ichar" ttag="tint"/>
+         </typ>
+        </arg>
+        <arg aname="type">
+         <typ ikind="iint" ttag="tint"/>
+        </arg>
+       </args>
+       <typ ikind="iint" ttag="tint"/>
+      </vtyp>
+      <vdecl byte="188594" file="src/loop.c" line="84"/>
+     </varinfo>
+     <loc byte="185218" file="src/dnsmasq.h" line="1509"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="5902" vname="loop_make_probe" vstorage="static">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="uid">
+         <typ tname="u32" ttag="tnamed"/>
+        </arg>
+       </args>
+       <typ tname="ssize_t" ttag="tnamed"/>
+      </vtyp>
+      <vdecl byte="187249" file="src/loop.c" line="55"/>
+     </varinfo>
+     <loc byte="186497" file="src/loop.c" line="20"/>
+    </gvardecl>
+   </global-var-declarations>
+   <functions>
+    <gfun>
+     <svar vglob="true" vid="5775" vname="loop_send_probes">
+      <vtyp ttag="tfun" vararg="false">
+       <args/>
+       <typ ttag="tvoid"/>
+      </vtyp>
+      <vdecl byte="186539" file="src/loop.c" line="22"/>
+     </svar>
+     <loc byte="186539" file="src/loop.c" line="22"/>
+    </gfun>
+    <gfun>
+     <svar vglob="true" vid="5902" vname="loop_make_probe" vstorage="static">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="uid">
+         <typ tname="u32" ttag="tnamed"/>
+        </arg>
+       </args>
+       <typ tname="ssize_t" ttag="tnamed"/>
+      </vtyp>
+      <vdecl byte="187249" file="src/loop.c" line="55"/>
+     </svar>
+     <loc byte="187249" file="src/loop.c" line="55"/>
+    </gfun>
+    <gfun>
+     <svar vglob="true" vid="5780" vname="detect_loop">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="query">
+         <typ ttag="tptr">
+          <typ ikind="ichar" ttag="tint"/>
+         </typ>
+        </arg>
+        <arg aname="type">
+         <typ ikind="iint" ttag="tint"/>
+        </arg>
+       </args>
+       <typ ikind="iint" ttag="tint"/>
+      </vtyp>
+      <vdecl byte="188594" file="src/loop.c" line="84"/>
+     </svar>
+     <loc byte="188594" file="src/loop.c" line="84"/>
+    </gfun>
+   </functions>
+   <global-assembly-statements/>
+   <global-pragmas/>
+   <global-text/>
+  </c-file>
+  <header>
+   <linked filename="src/loop.c" time="01/09/2017 21:36:06"/>
+   <created file="src/loop" project-directory="/home/vagrant/git/dnsmasq" time="01/09/2017 21:32:22"/>
+  </header>
+ </c-analysis>

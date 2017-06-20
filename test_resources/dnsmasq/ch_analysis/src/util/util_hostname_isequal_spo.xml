@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function name="hostname_isequal">
+   <secondary-proof-obligations max-spo-id="41" num-ppo="41">
+    <indirect-calls/>
+    <callsite-obligations/>
+    <return-sites>
+     <return-site>
+      <exp etag="const" xstr="1">
+       <constant ctag="cint64" ikind="iint" intValue="1"/>
+      </exp>
+      <location byte="192150" file="src/util.c" line="324"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="205"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+     <return-site>
+      <exp etag="const" xstr="0">
+       <constant ctag="cint64" ikind="iint" intValue="0"/>
+      </exp>
+      <location byte="192121" file="src/util.c" line="321"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="202"/>
+        <node name="if-then"/>
+        <node name="stmt" num="201"/>
+        <node name="loop"/>
+        <node name="stmt" num="193"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+    </return-sites>
+    <post-expectations/>
+    <ds-expectations/>
+   </secondary-proof-obligations>
+  </function>
+  <header time="01/10/2017 05:33:38">
+   <application file="src/util.c" name="application"/>
+  </header>
+ </c-analysis>

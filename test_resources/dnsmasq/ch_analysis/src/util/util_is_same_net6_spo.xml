@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function name="is_same_net6">
+   <secondary-proof-obligations max-spo-id="64" num-ppo="64">
+    <indirect-calls/>
+    <callsite-obligations/>
+    <return-sites>
+     <return-site>
+      <exp etag="const" xstr="0">
+       <constant ctag="cint64" ikind="iint" intValue="0"/>
+      </exp>
+      <location byte="192960" file="src/util.c" line="373"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="224"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+     <return-site>
+      <exp etag="const" xstr="1">
+       <constant ctag="cint64" ikind="iint" intValue="1"/>
+      </exp>
+      <location byte="192947" file="src/util.c" line="371"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="223"/>
+        <node name="if-then"/>
+        <node name="stmt" num="222"/>
+        <node name="if-else"/>
+        <node name="stmt" num="220"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+     <return-site>
+      <exp etag="const" xstr="1">
+       <constant ctag="cint64" ikind="iint" intValue="1"/>
+      </exp>
+      <location byte="192947" file="src/util.c" line="371"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="221"/>
+        <node name="if-then"/>
+        <node name="stmt" num="220"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+     <return-site>
+      <exp etag="const" xstr="0">
+       <constant ctag="cint64" ikind="iint" intValue="0"/>
+      </exp>
+      <location byte="192805" file="src/util.c" line="367"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="219"/>
+        <node name="if-then"/>
+        <node name="stmt" num="218"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+    </return-sites>
+    <post-expectations/>
+    <ds-expectations/>
+   </secondary-proof-obligations>
+  </function>
+  <header time="01/10/2017 05:33:38">
+   <application file="src/util.c" name="application"/>
+  </header>
+ </c-analysis>

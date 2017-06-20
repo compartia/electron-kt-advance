@@ -1,0 +1,2134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function cfilename="src/cache.c" gvid="51" name="cache_reload" num-ppo="0">
+   <statistics api-assumptions="0" callers="1" ds-assumptions="0" field-assignments="14" global-assignments="4" global-assumptions="31" rv-assumptions="21"/>
+   <parameters/>
+   <callers>
+    <caller cfilename="src/dnsmasq.c" fname="clear_cache_and_reload" gvid="214" updated="01/09/2017 21:38:36" updated-f="1483997916.49">
+     <call-site byte="214070" file="src/dnsmasq.c" line="1454"/>
+     <args/>
+     <calling-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="701"/>
+      <node name="if-then"/>
+      <node name="stmt" num="700"/>
+     </calling-context>
+    </caller>
+   </callers>
+   <api-assumptions/>
+   <rv-assumptions>
+    <rv-assumption nr="1">
+     <predicate tag="pointer-cast">
+      <tfrom ttag="tvoid"/>
+      <tto ckey="66" ttag="tcomp"/>
+      <exp byte="206888" etag="fnapp" file="src/cache.c" line="1101" xstr="fn(whine_malloc)@ 1101[sizeof (struct 66)]">
+       <arg etag="sizeof" xstr="sizeof (struct 66)">
+        <typ ckey="66" ttag="tcomp"/>
+       </arg>
+       <fn etag="lval" xstr="whine_malloc">
+        <lval>
+         <lhost>
+          <var vid="5" vname="whine_malloc"/>
+         </lhost>
+        </lval>
+       </fn>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="326"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </rv-assumption>
+    <rv-assumption nr="2">
+     <predicate tag="pointer-cast">
+      <tfrom ttag="tvoid"/>
+      <tto ckey="66" ttag="tcomp"/>
+      <exp byte="207246" etag="fnapp" file="src/cache.c" line="1110" xstr="fn(whine_malloc)@ 1110[sizeof (struct 66)]">
+       <arg etag="sizeof" xstr="sizeof (struct 66)">
+        <typ ckey="66" ttag="tcomp"/>
+       </arg>
+       <fn etag="lval" xstr="whine_malloc">
+        <lval>
+         <lhost>
+          <var vid="5" vname="whine_malloc"/>
+         </lhost>
+        </lval>
+       </fn>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="458"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </rv-assumption>
+    <rv-assumption nr="3">
+     <predicate tag="pointer-cast">
+      <tfrom ttag="tvoid"/>
+      <tto ckey="66" ttag="tcomp"/>
+      <exp byte="206167" etag="fnapp" file="src/cache.c" line="1060" xstr="fn(whine_malloc)@ 1060[sizeof (struct 66)]">
+       <arg etag="sizeof" xstr="sizeof (struct 66)">
+        <typ ckey="66" ttag="tcomp"/>
+       </arg>
+       <fn etag="lval" xstr="whine_malloc">
+        <lval>
+         <lhost>
+          <var vid="5" vname="whine_malloc"/>
+         </lhost>
+        </lval>
+       </fn>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="179"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </rv-assumption>
+    <rv-assumption nr="4">
+     <predicate op="pluspi" tag="ptr-upper-bound">
+      <typ ttag="tvoid"/>
+      <exp1 byte="206888" etag="fnapp" file="src/cache.c" line="1101" xstr="fn(whine_malloc)@ 1101[sizeof (struct 66)]">
+       <arg etag="sizeof" xstr="sizeof (struct 66)">
+        <typ ckey="66" ttag="tcomp"/>
+       </arg>
+       <fn etag="lval" xstr="whine_malloc">
+        <lval>
+         <lhost>
+          <var vid="5" vname="whine_malloc"/>
+         </lhost>
+        </lval>
+       </fn>
+      </exp1>
+      <exp2 etag="const" xstr="4">
+       <constant ctag="cint64" ikind="iint" intValue="4"/>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="686"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </rv-assumption>
+    <rv-assumption nr="5">
+     <predicate tag="allocation-base">
+      <exp byte="206888" etag="fnapp" file="src/cache.c" line="1101" xstr="fn(whine_malloc)@ 1101[sizeof (struct 66)]">
+       <arg etag="sizeof" xstr="sizeof (struct 66)">
+        <typ ckey="66" ttag="tcomp"/>
+       </arg>
+       <fn etag="lval" xstr="whine_malloc">
+        <lval>
+         <lhost>
+          <var vid="5" vname="whine_malloc"/>
+         </lhost>
+        </lval>
+       </fn>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="687"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </rv-assumption>
+    <rv-assumption nr="6">
+     <predicate op="pluspi" tag="ptr-upper-bound">
+      <typ ttag="tvoid"/>
+      <exp1 byte="207246" etag="fnapp" file="src/cache.c" line="1110" xstr="fn(whine_malloc)@ 1110[sizeof (struct 66)]">
+       <arg etag="sizeof" xstr="sizeof (struct 66)">
+        <typ ckey="66" ttag="tcomp"/>
+       </arg>
+       <fn etag="lval" xstr="whine_malloc">
+        <lval>
+         <lhost>
+          <var vid="5" vname="whine_malloc"/>
+         </lhost>
+        </lval>
+       </fn>
+      </exp1>
+      <exp2 etag="const" xstr="16">
+       <constant ctag="cint64" ikind="iint" intValue="16"/>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="677"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </rv-assumption>
+    <rv-assumption nr="7">
+     <predicate tag="allocation-base">
+      <exp byte="207246" etag="fnapp" file="src/cache.c" line="1110" xstr="fn(whine_malloc)@ 1110[sizeof (struct 66)]">
+       <arg etag="sizeof" xstr="sizeof (struct 66)">
+        <typ ckey="66" ttag="tcomp"/>
+       </arg>
+       <fn etag="lval" xstr="whine_malloc">
+        <lval>
+         <lhost>
+          <var vid="5" vname="whine_malloc"/>
+         </lhost>
+        </lval>
+       </fn>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="678"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </rv-assumption>
+    <rv-assumption nr="8">
+     <predicate tag="global-mem">
+      <exp byte="206167" etag="fnapp" file="src/cache.c" line="1060" xstr="fn(whine_malloc)@ 1060[sizeof (struct 66)]">
+       <arg etag="sizeof" xstr="sizeof (struct 66)">
+        <typ ckey="66" ttag="tcomp"/>
+       </arg>
+       <fn etag="lval" xstr="whine_malloc">
+        <lval>
+         <lhost>
+          <var vid="5" vname="whine_malloc"/>
+         </lhost>
+        </lval>
+       </fn>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="700"/>
+      <po id="703"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </rv-assumption>
+    <rv-assumption nr="9">
+     <predicate tag="global-mem">
+      <exp byte="206888" etag="fnapp" file="src/cache.c" line="1101" xstr="fn(whine_malloc)@ 1101[sizeof (struct 66)]">
+       <arg etag="sizeof" xstr="sizeof (struct 66)">
+        <typ ckey="66" ttag="tcomp"/>
+       </arg>
+       <fn etag="lval" xstr="whine_malloc">
+        <lval>
+         <lhost>
+          <var vid="5" vname="whine_malloc"/>
+         </lhost>
+        </lval>
+       </fn>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="707"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </rv-assumption>
+    <rv-assumption nr="10">
+     <predicate tag="global-mem">
+      <exp etag="lval" xstr="*(fn(lval (whine_malloc))@ 1060[sizeof (struct 66)]).name.bname">
+       <lval>
+        <lhost>
+         <mem byte="206167" etag="fnapp" file="src/cache.c" line="1060" xstr="fn(whine_malloc)@ 1060[sizeof (struct 66)]">
+          <arg etag="sizeof" xstr="sizeof (struct 66)">
+           <typ ckey="66" ttag="tcomp"/>
+          </arg>
+          <fn etag="lval" xstr="whine_malloc">
+           <lval>
+            <lhost>
+             <var vid="5" vname="whine_malloc"/>
+            </lhost>
+           </lval>
+          </fn>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <field ckey="67" fname="bname"/>
+         </offset>
+         <field ckey="66" fname="name"/>
+        </offset>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="694"/>
+      <po id="704"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </rv-assumption>
+    <rv-assumption nr="11">
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="*(fn(lval (whine_malloc))@ 1060[sizeof (struct 66)]).name.bname">
+       <lval>
+        <lhost>
+         <mem byte="206167" etag="fnapp" file="src/cache.c" line="1060" xstr="fn(whine_malloc)@ 1060[sizeof (struct 66)]">
+          <arg etag="sizeof" xstr="sizeof (struct 66)">
+           <typ ckey="66" ttag="tcomp"/>
+          </arg>
+          <fn etag="lval" xstr="whine_malloc">
+           <lval>
+            <lhost>
+             <var vid="5" vname="whine_malloc"/>
+            </lhost>
+           </lval>
+          </fn>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <field ckey="67" fname="bname"/>
+         </offset>
+         <field ckey="66" fname="name"/>
+        </offset>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="695"/>
+      <po id="706"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </rv-assumption>
+    <rv-assumption nr="12">
+     <predicate tag="global-mem">
+      <exp byte="207246" etag="fnapp" file="src/cache.c" line="1110" xstr="fn(whine_malloc)@ 1110[sizeof (struct 66)]">
+       <arg etag="sizeof" xstr="sizeof (struct 66)">
+        <typ ckey="66" ttag="tcomp"/>
+       </arg>
+       <fn etag="lval" xstr="whine_malloc">
+        <lval>
+         <lhost>
+          <var vid="5" vname="whine_malloc"/>
+         </lhost>
+        </lval>
+       </fn>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="715"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </rv-assumption>
+    <rv-assumption nr="13">
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem byte="206167" etag="fnapp" file="src/cache.c" line="1060" xstr="fn(whine_malloc)@ 1060[sizeof (struct 66)]">
+         <arg etag="sizeof" xstr="sizeof (struct 66)">
+          <typ ckey="66" ttag="tcomp"/>
+         </arg>
+         <fn etag="lval" xstr="whine_malloc">
+          <lval>
+           <lhost>
+            <var vid="5" vname="whine_malloc"/>
+           </lhost>
+          </lval>
+         </fn>
+        </mem>
+       </lhost>
+       <offset>
+        <offset>
+         <field ckey="67" fname="bname"/>
+        </offset>
+        <field ckey="66" fname="name"/>
+       </offset>
+      </lval>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="696"/>
+      <po id="705"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </rv-assumption>
+    <rv-assumption nr="14">
+     <predicate op="pluspi" tag="ptr-upper-bound">
+      <typ ikind="ichar" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+      <exp1 byte="206167" etag="fnapp" file="src/cache.c" line="1060" xstr="fn(whine_malloc)@ 1060[sizeof (struct 66)]">
+       <arg etag="sizeof" xstr="sizeof (struct 66)">
+        <typ ckey="66" ttag="tcomp"/>
+       </arg>
+       <fn etag="lval" xstr="whine_malloc">
+        <lval>
+         <lhost>
+          <var vid="5" vname="whine_malloc"/>
+         </lhost>
+        </lval>
+       </fn>
+      </exp1>
+      <exp2 etag="const" xstr="256">
+       <constant ctag="cint64" ikind="iint" intValue="256"/>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="745"/>
+      <po id="749"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </rv-assumption>
+    <rv-assumption nr="15">
+     <predicate op="pluspi" tag="ptr-upper-bound">
+      <typ ikind="ichar" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+      <exp1 etag="lval" xstr="*(fn(lval (whine_malloc))@ 1060[sizeof (struct 66)]).name.bname">
+       <lval>
+        <lhost>
+         <mem byte="206167" etag="fnapp" file="src/cache.c" line="1060" xstr="fn(whine_malloc)@ 1060[sizeof (struct 66)]">
+          <arg etag="sizeof" xstr="sizeof (struct 66)">
+           <typ ckey="66" ttag="tcomp"/>
+          </arg>
+          <fn etag="lval" xstr="whine_malloc">
+           <lval>
+            <lhost>
+             <var vid="5" vname="whine_malloc"/>
+            </lhost>
+           </lval>
+          </fn>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <field ckey="67" fname="bname"/>
+         </offset>
+         <field ckey="66" fname="name"/>
+        </offset>
+       </lval>
+      </exp1>
+      <exp2 etag="const" xstr="256">
+       <constant ctag="cint64" ikind="iint" intValue="256"/>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="741"/>
+      <po id="748"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </rv-assumption>
+    <rv-assumption nr="16">
+     <predicate op="pluspi" tag="ptr-upper-bound">
+      <typ ikind="ichar" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+      <exp1 byte="206888" etag="fnapp" file="src/cache.c" line="1101" xstr="fn(whine_malloc)@ 1101[sizeof (struct 66)]">
+       <arg etag="sizeof" xstr="sizeof (struct 66)">
+        <typ ckey="66" ttag="tcomp"/>
+       </arg>
+       <fn etag="lval" xstr="whine_malloc">
+        <lval>
+         <lhost>
+          <var vid="5" vname="whine_malloc"/>
+         </lhost>
+        </lval>
+       </fn>
+      </exp1>
+      <exp2 etag="const" xstr="256">
+       <constant ctag="cint64" ikind="iint" intValue="256"/>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="739"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </rv-assumption>
+    <rv-assumption nr="17">
+     <predicate op="pluspi" tag="ptr-upper-bound">
+      <typ ikind="ichar" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+      <exp1 byte="207246" etag="fnapp" file="src/cache.c" line="1110" xstr="fn(whine_malloc)@ 1110[sizeof (struct 66)]">
+       <arg etag="sizeof" xstr="sizeof (struct 66)">
+        <typ ckey="66" ttag="tcomp"/>
+       </arg>
+       <fn etag="lval" xstr="whine_malloc">
+        <lval>
+         <lhost>
+          <var vid="5" vname="whine_malloc"/>
+         </lhost>
+        </lval>
+       </fn>
+      </exp1>
+      <exp2 etag="const" xstr="256">
+       <constant ctag="cint64" ikind="iint" intValue="256"/>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="734"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </rv-assumption>
+    <rv-assumption nr="18">
+     <predicate op="pluspi" tag="ptr-upper-bound-deref">
+      <typ ikind="ichar" ttag="tint"/>
+      <exp1 byte="206167" etag="fnapp" file="src/cache.c" line="1060" xstr="fn(whine_malloc)@ 1060[sizeof (struct 66)]">
+       <arg etag="sizeof" xstr="sizeof (struct 66)">
+        <typ ckey="66" ttag="tcomp"/>
+       </arg>
+       <fn etag="lval" xstr="whine_malloc">
+        <lval>
+         <lhost>
+          <var vid="5" vname="whine_malloc"/>
+         </lhost>
+        </lval>
+       </fn>
+      </exp1>
+      <exp2 etag="const" xstr="1024">
+       <constant ctag="cint64" ikind="iint" intValue="1024"/>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="758"/>
+      <po id="762"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </rv-assumption>
+    <rv-assumption nr="19">
+     <predicate op="pluspi" tag="ptr-upper-bound-deref">
+      <typ ikind="ichar" ttag="tint"/>
+      <exp1 etag="lval" xstr="*(fn(lval (whine_malloc))@ 1060[sizeof (struct 66)]).name.bname">
+       <lval>
+        <lhost>
+         <mem byte="206167" etag="fnapp" file="src/cache.c" line="1060" xstr="fn(whine_malloc)@ 1060[sizeof (struct 66)]">
+          <arg etag="sizeof" xstr="sizeof (struct 66)">
+           <typ ckey="66" ttag="tcomp"/>
+          </arg>
+          <fn etag="lval" xstr="whine_malloc">
+           <lval>
+            <lhost>
+             <var vid="5" vname="whine_malloc"/>
+            </lhost>
+           </lval>
+          </fn>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <field ckey="67" fname="bname"/>
+         </offset>
+         <field ckey="66" fname="name"/>
+        </offset>
+       </lval>
+      </exp1>
+      <exp2 etag="const" xstr="1024">
+       <constant ctag="cint64" ikind="iint" intValue="1024"/>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="759"/>
+      <po id="761"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </rv-assumption>
+    <rv-assumption nr="20">
+     <predicate op="pluspi" tag="ptr-upper-bound-deref">
+      <typ ikind="ichar" ttag="tint"/>
+      <exp1 byte="206888" etag="fnapp" file="src/cache.c" line="1101" xstr="fn(whine_malloc)@ 1101[sizeof (struct 66)]">
+       <arg etag="sizeof" xstr="sizeof (struct 66)">
+        <typ ckey="66" ttag="tcomp"/>
+       </arg>
+       <fn etag="lval" xstr="whine_malloc">
+        <lval>
+         <lhost>
+          <var vid="5" vname="whine_malloc"/>
+         </lhost>
+        </lval>
+       </fn>
+      </exp1>
+      <exp2 etag="const" xstr="1024">
+       <constant ctag="cint64" ikind="iint" intValue="1024"/>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="755"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </rv-assumption>
+    <rv-assumption nr="21">
+     <predicate op="pluspi" tag="ptr-upper-bound-deref">
+      <typ ikind="ichar" ttag="tint"/>
+      <exp1 byte="207246" etag="fnapp" file="src/cache.c" line="1110" xstr="fn(whine_malloc)@ 1110[sizeof (struct 66)]">
+       <arg etag="sizeof" xstr="sizeof (struct 66)">
+        <typ ckey="66" ttag="tcomp"/>
+       </arg>
+       <fn etag="lval" xstr="whine_malloc">
+        <lval>
+         <lhost>
+          <var vid="5" vname="whine_malloc"/>
+         </lhost>
+        </lval>
+       </fn>
+      </exp1>
+      <exp2 etag="const" xstr="1024">
+       <constant ctag="cint64" ikind="iint" intValue="1024"/>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="752"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </rv-assumption>
+   </rv-assumptions>
+   <ds-assumptions/>
+   <global-assumptions>
+    <global-assumption nr="1">
+     <predicate tag="valid-mem">
+      <exp etag="caste" xstr="caste (dnsmasq_daemon-&gt;packet:(void*))">
+       <typ ttag="tptr">
+        <typ ttag="tvoid"/>
+       </typ>
+       <exp etag="lval" xstr="dnsmasq_daemon-&gt;packet">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="dnsmasq_daemon">
+           <lval>
+            <lhost>
+             <var vid="317" vname="dnsmasq_daemon"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <field ckey="6" fname="packet"/>
+         </offset>
+        </lval>
+       </exp>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="272"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="2">
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="dnsmasq_daemon">
+       <lval>
+        <lhost>
+         <var vid="317" vname="dnsmasq_daemon"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="4"/>
+      <po id="131"/>
+      <po id="138"/>
+      <po id="269"/>
+      <po id="279"/>
+      <po id="287"/>
+      <po id="295"/>
+      <po id="309"/>
+      <po id="391"/>
+      <po id="523"/>
+      <po id="545"/>
+      <po id="553"/>
+      <po id="559"/>
+      <po id="568"/>
+      <po id="582"/>
+      <po id="591"/>
+      <po id="597"/>
+      <po id="606"/>
+      <po id="636"/>
+      <po id="654"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="3">
+     <predicate op="indexpi" tag="ptr-lower-bound">
+      <typ ttag="tptr">
+       <typ ckey="66" ttag="tcomp"/>
+      </typ>
+      <exp1 etag="lval" xstr="hash_table">
+       <lval>
+        <lhost>
+         <var vid="107" vname="hash_table"/>
+        </lhost>
+       </lval>
+      </exp1>
+      <exp2 etag="lval" xstr="i">
+       <lval>
+        <lhost>
+         <var vid="6215" vname="i"/>
+        </lhost>
+       </lval>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="15"/>
+      <po id="25"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="4">
+     <predicate tag="valid-mem">
+      <exp etag="caste" xstr="caste (dnsmasq_daemon-&gt;packet:((struct 66*)*))">
+       <typ ttag="tptr">
+        <typ ttag="tptr">
+         <typ ckey="66" ttag="tcomp"/>
+        </typ>
+       </typ>
+       <exp etag="lval" xstr="dnsmasq_daemon-&gt;packet">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="dnsmasq_daemon">
+           <lval>
+            <lhost>
+             <var vid="317" vname="dnsmasq_daemon"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <field ckey="6" fname="packet"/>
+         </offset>
+        </lval>
+       </exp>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="394"/>
+      <po id="526"/>
+      <po id="585"/>
+      <po id="639"/>
+      <po id="657"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="5">
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="dnsmasq_daemon">
+         <lval>
+          <lhost>
+           <var vid="317" vname="dnsmasq_daemon"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <field ckey="6" fname="packet"/>
+       </offset>
+      </lval>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="266"/>
+      <po id="388"/>
+      <po id="520"/>
+      <po id="579"/>
+      <po id="633"/>
+      <po id="651"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="6">
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="dnsmasq_daemon">
+       <lval>
+        <lhost>
+         <var vid="317" vname="dnsmasq_daemon"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="3"/>
+      <po id="130"/>
+      <po id="137"/>
+      <po id="268"/>
+      <po id="278"/>
+      <po id="286"/>
+      <po id="294"/>
+      <po id="308"/>
+      <po id="390"/>
+      <po id="522"/>
+      <po id="544"/>
+      <po id="552"/>
+      <po id="558"/>
+      <po id="567"/>
+      <po id="581"/>
+      <po id="590"/>
+      <po id="596"/>
+      <po id="605"/>
+      <po id="635"/>
+      <po id="653"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="7">
+     <predicate op="indexpi" tag="ptr-upper-bound-deref">
+      <typ ttag="tptr">
+       <typ ckey="66" ttag="tcomp"/>
+      </typ>
+      <exp1 etag="lval" xstr="hash_table">
+       <lval>
+        <lhost>
+         <var vid="107" vname="hash_table"/>
+        </lhost>
+       </lval>
+      </exp1>
+      <exp2 etag="lval" xstr="i">
+       <lval>
+        <lhost>
+         <var vid="6215" vname="i"/>
+        </lhost>
+       </lval>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="16"/>
+      <po id="26"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="8">
+     <predicate tag="pointer-cast">
+      <tfrom ikind="ichar" ttag="tint"/>
+      <tto ttag="tptr">
+       <typ ckey="66" ttag="tcomp"/>
+      </tto>
+      <exp etag="lval" xstr="dnsmasq_daemon-&gt;packet">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="dnsmasq_daemon">
+          <lval>
+           <lhost>
+            <var vid="317" vname="dnsmasq_daemon"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <field ckey="6" fname="packet"/>
+        </offset>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="387"/>
+      <po id="519"/>
+      <po id="578"/>
+      <po id="632"/>
+      <po id="650"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="9">
+     <predicate tag="lower-bound">
+      <exp etag="caste" xstr="caste (dnsmasq_daemon-&gt;packet:((struct 66*)*))">
+       <typ ttag="tptr">
+        <typ ttag="tptr">
+         <typ ckey="66" ttag="tcomp"/>
+        </typ>
+       </typ>
+       <exp etag="lval" xstr="dnsmasq_daemon-&gt;packet">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="dnsmasq_daemon">
+           <lval>
+            <lhost>
+             <var vid="317" vname="dnsmasq_daemon"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <field ckey="6" fname="packet"/>
+         </offset>
+        </lval>
+       </exp>
+      </exp>
+      <typ ttag="tptr">
+       <typ ckey="66" ttag="tcomp"/>
+      </typ>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="395"/>
+      <po id="527"/>
+      <po id="586"/>
+      <po id="640"/>
+      <po id="658"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="10">
+     <predicate op="pluspi" tag="ptr-upper-bound">
+      <typ ttag="tvoid"/>
+      <exp1 etag="caste" xstr="caste (dnsmasq_daemon-&gt;packet:(void*))">
+       <typ ttag="tptr">
+        <typ ttag="tvoid"/>
+       </typ>
+       <exp etag="lval" xstr="dnsmasq_daemon-&gt;packet">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="dnsmasq_daemon">
+           <lval>
+            <lhost>
+             <var vid="317" vname="dnsmasq_daemon"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <field ckey="6" fname="packet"/>
+         </offset>
+        </lval>
+       </exp>
+      </exp1>
+      <exp2 etag="caste" xstr="caste (dnsmasq_daemon-&gt;packet_buff_sz:unsigned long)">
+       <typ ikind="iulong" ttag="tint"/>
+       <exp etag="lval" xstr="dnsmasq_daemon-&gt;packet_buff_sz">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="dnsmasq_daemon">
+           <lval>
+            <lhost>
+             <var vid="317" vname="dnsmasq_daemon"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <field ckey="6" fname="packet_buff_sz"/>
+         </offset>
+        </lval>
+       </exp>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="264"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="11">
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="dnsmasq_daemon">
+         <lval>
+          <lhost>
+           <var vid="317" vname="dnsmasq_daemon"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <field ckey="6" fname="addn_hosts"/>
+       </offset>
+      </lval>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="550"/>
+      <po id="594"/>
+      <po id="603"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="12">
+     <predicate tag="upper-bound">
+      <exp etag="caste" xstr="caste (dnsmasq_daemon-&gt;packet:((struct 66*)*))">
+       <typ ttag="tptr">
+        <typ ttag="tptr">
+         <typ ckey="66" ttag="tcomp"/>
+        </typ>
+       </typ>
+       <exp etag="lval" xstr="dnsmasq_daemon-&gt;packet">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="dnsmasq_daemon">
+           <lval>
+            <lhost>
+             <var vid="317" vname="dnsmasq_daemon"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <field ckey="6" fname="packet"/>
+         </offset>
+        </lval>
+       </exp>
+      </exp>
+      <typ ttag="tptr">
+       <typ ckey="66" ttag="tcomp"/>
+      </typ>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="396"/>
+      <po id="528"/>
+      <po id="587"/>
+      <po id="641"/>
+      <po id="659"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="13">
+     <predicate tag="not-null">
+      <exp etag="caste" xstr="caste (dnsmasq_daemon-&gt;packet:(void*))">
+       <typ ttag="tptr">
+        <typ ttag="tvoid"/>
+       </typ>
+       <exp etag="lval" xstr="dnsmasq_daemon-&gt;packet">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="dnsmasq_daemon">
+           <lval>
+            <lhost>
+             <var vid="317" vname="dnsmasq_daemon"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <field ckey="6" fname="packet"/>
+         </offset>
+        </lval>
+       </exp>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="262"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="14">
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="dnsmasq_daemon-&gt;addn_hosts">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="dnsmasq_daemon">
+          <lval>
+           <lhost>
+            <var vid="317" vname="dnsmasq_daemon"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <field ckey="6" fname="addn_hosts"/>
+        </offset>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="600"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="15">
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="dnsmasq_daemon">
+         <lval>
+          <lhost>
+           <var vid="317" vname="dnsmasq_daemon"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <field ckey="6" fname="packet_buff_sz"/>
+       </offset>
+      </lval>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="276"/>
+      <po id="284"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="16">
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem binop="indexpi" etag="binop" xstr="((hash_table +i i):((struct 66*)*)">
+         <exp1 etag="lval" xstr="hash_table">
+          <lval>
+           <lhost>
+            <var vid="107" vname="hash_table"/>
+           </lhost>
+          </lval>
+         </exp1>
+         <exp2 etag="lval" xstr="i">
+          <lval>
+           <lhost>
+            <var vid="6215" vname="i"/>
+           </lhost>
+          </lval>
+         </exp2>
+         <typ ttag="tptr">
+          <typ ttag="tptr">
+           <typ ckey="66" ttag="tcomp"/>
+          </typ>
+         </typ>
+        </mem>
+       </lhost>
+      </lval>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="10"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="17">
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="dnsmasq_daemon">
+         <lval>
+          <lhost>
+           <var vid="317" vname="dnsmasq_daemon"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <field ckey="6" fname="options"/>
+       </offset>
+      </lval>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="542"/>
+      <po id="565"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="18">
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="hash_table">
+       <lval>
+        <lhost>
+         <var vid="107" vname="hash_table"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="14"/>
+      <po id="24"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="19">
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="dnsmasq_daemon">
+         <lval>
+          <lhost>
+           <var vid="317" vname="dnsmasq_daemon"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <field ckey="6" fname="cachesize"/>
+       </offset>
+      </lval>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="1"/>
+      <po id="556"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="20">
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="dnsmasq_daemon">
+         <lval>
+          <lhost>
+           <var vid="317" vname="dnsmasq_daemon"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <field ckey="6" fname="cnames"/>
+       </offset>
+      </lval>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="128"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="21">
+     <predicate tag="lower-bound">
+      <exp etag="caste" xstr="caste (dnsmasq_daemon-&gt;packet:(void*))">
+       <typ ttag="tptr">
+        <typ ttag="tvoid"/>
+       </typ>
+       <exp etag="lval" xstr="dnsmasq_daemon-&gt;packet">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="dnsmasq_daemon">
+           <lval>
+            <lhost>
+             <var vid="317" vname="dnsmasq_daemon"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <field ckey="6" fname="packet"/>
+         </offset>
+        </lval>
+       </exp>
+      </exp>
+      <typ ttag="tvoid"/>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="263"/>
+      <po id="273"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="22">
+     <predicate from="iint" tag="signed-to-unsigned-cast" to="iulong">
+      <exp etag="lval" xstr="dnsmasq_daemon-&gt;packet_buff_sz">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="dnsmasq_daemon">
+          <lval>
+           <lhost>
+            <var vid="317" vname="dnsmasq_daemon"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <field ckey="6" fname="packet_buff_sz"/>
+        </offset>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="275"/>
+      <po id="283"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="23">
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="big_free">
+       <lval>
+        <lhost>
+         <var vid="101" vname="big_free"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="104"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="24">
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="dnsmasq_daemon">
+         <lval>
+          <lhost>
+           <var vid="317" vname="dnsmasq_daemon"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <field ckey="6" fname="host_records"/>
+       </offset>
+      </lval>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="306"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="25">
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="dnsmasq_daemon">
+         <lval>
+          <lhost>
+           <var vid="317" vname="dnsmasq_daemon"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <field ckey="6" fname="int_names"/>
+       </offset>
+      </lval>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="135"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="26">
+     <predicate tag="upper-bound">
+      <exp etag="caste" xstr="caste (dnsmasq_daemon-&gt;packet:(void*))">
+       <typ ttag="tptr">
+        <typ ttag="tvoid"/>
+       </typ>
+       <exp etag="lval" xstr="dnsmasq_daemon-&gt;packet">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="dnsmasq_daemon">
+           <lval>
+            <lhost>
+             <var vid="317" vname="dnsmasq_daemon"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <field ckey="6" fname="packet"/>
+         </offset>
+        </lval>
+       </exp>
+      </exp>
+      <typ ttag="tvoid"/>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="274"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="27">
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="hash_table">
+       <lval>
+        <lhost>
+         <var vid="107" vname="hash_table"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="13"/>
+      <po id="23"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="28">
+     <predicate from="iulong" tag="unsigned-to-signed-cast" to="iint">
+      <exp binop="div" etag="binop" xstr="((caste (dnsmasq_daemon-&gt;packet_buff_sz:unsigned long) / sizeof ((struct 66*))):unsigned long">
+       <exp1 etag="caste" xstr="caste (dnsmasq_daemon-&gt;packet_buff_sz:unsigned long)">
+        <typ ikind="iulong" ttag="tint"/>
+        <exp etag="lval" xstr="dnsmasq_daemon-&gt;packet_buff_sz">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="dnsmasq_daemon">
+            <lval>
+             <lhost>
+              <var vid="317" vname="dnsmasq_daemon"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <field ckey="6" fname="packet_buff_sz"/>
+          </offset>
+         </lval>
+        </exp>
+       </exp1>
+       <exp2 etag="sizeof" xstr="sizeof ((struct 66*))">
+        <typ ttag="tptr">
+         <typ ckey="66" ttag="tcomp"/>
+        </typ>
+       </exp2>
+       <typ ikind="iulong" ttag="tint"/>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="282"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="29">
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="dnsmasq_daemon-&gt;addn_hosts">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="dnsmasq_daemon">
+          <lval>
+           <lhost>
+            <var vid="317" vname="dnsmasq_daemon"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <field ckey="6" fname="addn_hosts"/>
+        </offset>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="664"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="30">
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="dnsmasq_daemon-&gt;addn_hosts">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="dnsmasq_daemon">
+            <lval>
+             <lhost>
+              <var vid="317" vname="dnsmasq_daemon"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <field ckey="6" fname="addn_hosts"/>
+          </offset>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <field ckey="29" fname="index"/>
+       </offset>
+      </lval>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="726"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="31">
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="dnsmasq_daemon-&gt;addn_hosts">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="dnsmasq_daemon">
+            <lval>
+             <lhost>
+              <var vid="317" vname="dnsmasq_daemon"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <field ckey="6" fname="addn_hosts"/>
+          </offset>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <field ckey="29" fname="next"/>
+       </offset>
+      </lval>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="725"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+   </global-assumptions>
+   <global-assignments>
+    <global-assignment nr="1">
+     <lhs>
+      <lhost>
+       <var vid="103" vname="cache_live_freed"/>
+      </lhost>
+     </lhs>
+     <rhs etag="const" xstr="0">
+      <constant ctag="cint64" ikind="iint" intValue="0"/>
+     </rhs>
+     <loc byte="205501" file="src/cache.c" line="1029"/>
+    </global-assignment>
+    <global-assignment nr="4">
+     <lhs>
+      <lhost>
+       <mem etag="lval" xstr="dnsmasq_daemon">
+        <lval>
+         <lhost>
+          <var vid="317" vname="dnsmasq_daemon"/>
+         </lhost>
+        </lval>
+       </mem>
+      </lhost>
+      <offset>
+       <field ckey="6" fname="srv_save"/>
+      </offset>
+     </lhs>
+     <rhs etag="caste" xstr="caste (caste (0:(void*)):(struct 36*))">
+      <typ ttag="tptr">
+       <typ ckey="36" ttag="tcomp"/>
+      </typ>
+      <exp etag="caste" xstr="caste (0:(void*))">
+       <typ ttag="tptr">
+        <typ ttag="tvoid"/>
+       </typ>
+       <exp etag="const" xstr="0">
+        <constant ctag="cint64" ikind="iint" intValue="0"/>
+       </exp>
+      </exp>
+     </rhs>
+     <loc byte="206732" file="src/cache.c" line="1095"/>
+    </global-assignment>
+    <global-assignment nr="3">
+     <lhs>
+      <lhost>
+       <var vid="101" vname="big_free"/>
+      </lhost>
+     </lhs>
+     <rhs etag="lval" xstr="cache___0-&gt;name.bname">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="cache___0">
+         <lval>
+          <lhost>
+           <var vid="6211" vname="cache___0"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <offset>
+         <field ckey="67" fname="bname"/>
+        </offset>
+        <field ckey="66" fname="name"/>
+       </offset>
+      </lval>
+     </rhs>
+     <loc byte="205932" file="src/cache.c" line="1049"/>
+    </global-assignment>
+    <global-assignment nr="2">
+     <lhs>
+      <lhost>
+       <var vid="104" vname="cache_inserted"/>
+      </lhost>
+     </lhs>
+     <rhs etag="lval" xstr="cache_live_freed">
+      <lval>
+       <lhost>
+        <var vid="103" vname="cache_live_freed"/>
+       </lhost>
+      </lval>
+     </rhs>
+     <loc byte="205501" file="src/cache.c" line="1029"/>
+    </global-assignment>
+   </global-assignments>
+   <field-assignments>
+    <field-assignment ckey="74" field="next" nr="1">
+     <rhs etag="lval" xstr="big_free">
+      <lval>
+       <lhost>
+        <var vid="5908" vname="big_free"/>
+       </lhost>
+      </lval>
+     </rhs>
+     <loc byte="205894" file="src/cache.c" line="1048"/>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="510"/>
+       <node name="if-then"/>
+       <node name="stmt" num="509"/>
+       <node name="if-then"/>
+       <node name="stmt" num="507"/>
+       <node name="if-else"/>
+       <node name="stmt" num="505"/>
+       <node name="loop"/>
+       <node name="stmt" num="501"/>
+       <node name="loop"/>
+       <node name="stmt" num="497"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </field-assignment>
+    <field-assignment ckey="66" field="ttd" nr="10">
+     <rhs etag="caste" xstr="caste (hr-&gt;ttl:time_t)">
+      <typ tname="time_t" ttag="tnamed"/>
+      <exp etag="lval" xstr="hr-&gt;ttl">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="hr">
+          <lval>
+           <lhost>
+            <var vid="6218" vname="hr"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <field ckey="191" fname="ttl"/>
+        </offset>
+       </lval>
+      </exp>
+     </rhs>
+     <loc byte="207011" file="src/cache.c" line="1105"/>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="542"/>
+       <node name="if-then"/>
+       <node name="stmt" num="541"/>
+       <node name="if-then"/>
+       <node name="stmt" num="539"/>
+       <node name="loop"/>
+       <node name="stmt" num="536"/>
+       <node name="loop"/>
+       <node name="stmt" num="532"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </field-assignment>
+    <field-assignment ckey="66" field="flags" nr="11">
+     <rhs etag="caste" xstr="caste (((((((((((((((1 &lt;&lt; 6):unsigned int | 1):unsigned int | ((1 &lt;&lt; 3):unsigned int):unsigned int | ((1 &lt;&lt; 2):unsigned int):unsigned int | ((1 &lt;&lt; 7):unsigned int):unsigned int | ((1 &lt;&lt; 1):unsigned int):unsigned int | ((1 &lt;&lt; 13):unsigned int):unsigned int:unsigned short)">
+      <typ ikind="iushort" ttag="tint"/>
+      <exp binop="bor" etag="binop" xstr="((((((((((((((1 &lt;&lt; 6):unsigned int | 1):unsigned int | ((1 &lt;&lt; 3):unsigned int):unsigned int | ((1 &lt;&lt; 2):unsigned int):unsigned int | ((1 &lt;&lt; 7):unsigned int):unsigned int | ((1 &lt;&lt; 1):unsigned int):unsigned int | ((1 &lt;&lt; 13):unsigned int):unsigned int">
+       <exp1 binop="bor" etag="binop" xstr="((((((((((((1 &lt;&lt; 6):unsigned int | 1):unsigned int | ((1 &lt;&lt; 3):unsigned int):unsigned int | ((1 &lt;&lt; 2):unsigned int):unsigned int | ((1 &lt;&lt; 7):unsigned int):unsigned int | ((1 &lt;&lt; 1):unsigned int):unsigned int">
+        <exp1 binop="bor" etag="binop" xstr="((((((((((1 &lt;&lt; 6):unsigned int | 1):unsigned int | ((1 &lt;&lt; 3):unsigned int):unsigned int | ((1 &lt;&lt; 2):unsigned int):unsigned int | ((1 &lt;&lt; 7):unsigned int):unsigned int">
+         <exp1 binop="bor" etag="binop" xstr="((((((((1 &lt;&lt; 6):unsigned int | 1):unsigned int | ((1 &lt;&lt; 3):unsigned int):unsigned int | ((1 &lt;&lt; 2):unsigned int):unsigned int">
+          <exp1 binop="bor" etag="binop" xstr="((((((1 &lt;&lt; 6):unsigned int | 1):unsigned int | ((1 &lt;&lt; 3):unsigned int):unsigned int">
+           <exp1 binop="bor" etag="binop" xstr="((((1 &lt;&lt; 6):unsigned int | 1):unsigned int">
+            <exp1 binop="shiftlt" etag="binop" xstr="((1 &lt;&lt; 6):unsigned int">
+             <exp1 etag="const" xstr="1">
+              <constant ctag="cint64" ikind="iuint" intValue="1"/>
+             </exp1>
+             <exp2 etag="const" xstr="6">
+              <constant ctag="cint64" ikind="iint" intValue="6"/>
+             </exp2>
+             <typ ikind="iuint" ttag="tint"/>
+            </exp1>
+            <exp2 etag="const" xstr="1">
+             <constant ctag="cint64" ikind="iuint" intValue="1"/>
+            </exp2>
+            <typ ikind="iuint" ttag="tint"/>
+           </exp1>
+           <exp2 binop="shiftlt" etag="binop" xstr="((1 &lt;&lt; 3):unsigned int">
+            <exp1 etag="const" xstr="1">
+             <constant ctag="cint64" ikind="iuint" intValue="1"/>
+            </exp1>
+            <exp2 etag="const" xstr="3">
+             <constant ctag="cint64" ikind="iint" intValue="3"/>
+            </exp2>
+            <typ ikind="iuint" ttag="tint"/>
+           </exp2>
+           <typ ikind="iuint" ttag="tint"/>
+          </exp1>
+          <exp2 binop="shiftlt" etag="binop" xstr="((1 &lt;&lt; 2):unsigned int">
+           <exp1 etag="const" xstr="1">
+            <constant ctag="cint64" ikind="iuint" intValue="1"/>
+           </exp1>
+           <exp2 etag="const" xstr="2">
+            <constant ctag="cint64" ikind="iint" intValue="2"/>
+           </exp2>
+           <typ ikind="iuint" ttag="tint"/>
+          </exp2>
+          <typ ikind="iuint" ttag="tint"/>
+         </exp1>
+         <exp2 binop="shiftlt" etag="binop" xstr="((1 &lt;&lt; 7):unsigned int">
+          <exp1 etag="const" xstr="1">
+           <constant ctag="cint64" ikind="iuint" intValue="1"/>
+          </exp1>
+          <exp2 etag="const" xstr="7">
+           <constant ctag="cint64" ikind="iint" intValue="7"/>
+          </exp2>
+          <typ ikind="iuint" ttag="tint"/>
+         </exp2>
+         <typ ikind="iuint" ttag="tint"/>
+        </exp1>
+        <exp2 binop="shiftlt" etag="binop" xstr="((1 &lt;&lt; 1):unsigned int">
+         <exp1 etag="const" xstr="1">
+          <constant ctag="cint64" ikind="iuint" intValue="1"/>
+         </exp1>
+         <exp2 etag="const" xstr="1">
+          <constant ctag="cint64" ikind="iint" intValue="1"/>
+         </exp2>
+         <typ ikind="iuint" ttag="tint"/>
+        </exp2>
+        <typ ikind="iuint" ttag="tint"/>
+       </exp1>
+       <exp2 binop="shiftlt" etag="binop" xstr="((1 &lt;&lt; 13):unsigned int">
+        <exp1 etag="const" xstr="1">
+         <constant ctag="cint64" ikind="iuint" intValue="1"/>
+        </exp1>
+        <exp2 etag="const" xstr="13">
+         <constant ctag="cint64" ikind="iint" intValue="13"/>
+        </exp2>
+        <typ ikind="iuint" ttag="tint"/>
+       </exp2>
+       <typ ikind="iuint" ttag="tint"/>
+      </exp>
+     </rhs>
+     <loc byte="207038" file="src/cache.c" line="1106"/>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="542"/>
+       <node name="if-then"/>
+       <node name="stmt" num="541"/>
+       <node name="if-then"/>
+       <node name="stmt" num="539"/>
+       <node name="loop"/>
+       <node name="stmt" num="536"/>
+       <node name="loop"/>
+       <node name="stmt" num="532"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </field-assignment>
+    <field-assignment ckey="67" field="namep" nr="9">
+     <rhs etag="lval" xstr="nl-&gt;name">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="nl">
+         <lval>
+          <lhost>
+           <var vid="6219" vname="nl"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <field ckey="192" fname="name"/>
+       </offset>
+      </lval>
+     </rhs>
+     <loc byte="206976" file="src/cache.c" line="1104"/>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="542"/>
+       <node name="if-then"/>
+       <node name="stmt" num="541"/>
+       <node name="if-then"/>
+       <node name="stmt" num="539"/>
+       <node name="loop"/>
+       <node name="stmt" num="536"/>
+       <node name="loop"/>
+       <node name="stmt" num="532"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </field-assignment>
+    <field-assignment ckey="66" field="ttd" nr="4">
+     <rhs etag="caste" xstr="caste (a-&gt;ttl:time_t)">
+      <typ tname="time_t" ttag="tnamed"/>
+      <exp etag="lval" xstr="a-&gt;ttl">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="a">
+          <lval>
+           <lhost>
+            <var vid="6220" vname="a"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <field ckey="186" fname="ttl"/>
+        </offset>
+       </lval>
+      </exp>
+     </rhs>
+     <loc byte="206364" file="src/cache.c" line="1065"/>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="528"/>
+       <node name="if-then"/>
+       <node name="stmt" num="527"/>
+       <node name="if-then"/>
+       <node name="stmt" num="525"/>
+       <node name="if-then"/>
+       <node name="stmt" num="523"/>
+       <node name="loop"/>
+       <node name="stmt" num="520"/>
+       <node name="loop"/>
+       <node name="stmt" num="516"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </field-assignment>
+    <field-assignment ckey="67" field="namep" nr="5">
+     <rhs etag="lval" xstr="a-&gt;alias">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="a">
+         <lval>
+          <lhost>
+           <var vid="6220" vname="a"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <field ckey="186" fname="alias"/>
+       </offset>
+      </lval>
+     </rhs>
+     <loc byte="206388" file="src/cache.c" line="1066"/>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="528"/>
+       <node name="if-then"/>
+       <node name="stmt" num="527"/>
+       <node name="if-then"/>
+       <node name="stmt" num="525"/>
+       <node name="if-then"/>
+       <node name="stmt" num="523"/>
+       <node name="loop"/>
+       <node name="stmt" num="520"/>
+       <node name="loop"/>
+       <node name="stmt" num="516"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </field-assignment>
+    <field-assignment ckey="67" field="namep" nr="12">
+     <rhs etag="lval" xstr="nl-&gt;name">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="nl">
+         <lval>
+          <lhost>
+           <var vid="6219" vname="nl"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <field ckey="192" fname="name"/>
+       </offset>
+      </lval>
+     </rhs>
+     <loc byte="207501" file="src/cache.c" line="1113"/>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="552"/>
+       <node name="if-then"/>
+       <node name="stmt" num="551"/>
+       <node name="if-else"/>
+       <node name="stmt" num="543"/>
+       <node name="loop"/>
+       <node name="stmt" num="536"/>
+       <node name="loop"/>
+       <node name="stmt" num="532"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </field-assignment>
+    <field-assignment ckey="66" field="ttd" nr="13">
+     <rhs etag="caste" xstr="caste (hr-&gt;ttl:time_t)">
+      <typ tname="time_t" ttag="tnamed"/>
+      <exp etag="lval" xstr="hr-&gt;ttl">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="hr">
+          <lval>
+           <lhost>
+            <var vid="6218" vname="hr"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <field ckey="191" fname="ttl"/>
+        </offset>
+       </lval>
+      </exp>
+     </rhs>
+     <loc byte="207536" file="src/cache.c" line="1114"/>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="552"/>
+       <node name="if-then"/>
+       <node name="stmt" num="551"/>
+       <node name="if-else"/>
+       <node name="stmt" num="543"/>
+       <node name="loop"/>
+       <node name="stmt" num="536"/>
+       <node name="loop"/>
+       <node name="stmt" num="532"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </field-assignment>
+    <field-assignment ckey="66" field="flags" nr="3">
+     <rhs etag="caste" xstr="caste (((((((((((1 &lt;&lt; 3):unsigned int | ((1 &lt;&lt; 1):unsigned int):unsigned int | ((1 &lt;&lt; 11):unsigned int):unsigned int | 1):unsigned int | ((1 &lt;&lt; 13):unsigned int):unsigned int:unsigned short)">
+      <typ ikind="iushort" ttag="tint"/>
+      <exp binop="bor" etag="binop" xstr="((((((((((1 &lt;&lt; 3):unsigned int | ((1 &lt;&lt; 1):unsigned int):unsigned int | ((1 &lt;&lt; 11):unsigned int):unsigned int | 1):unsigned int | ((1 &lt;&lt; 13):unsigned int):unsigned int">
+       <exp1 binop="bor" etag="binop" xstr="((((((((1 &lt;&lt; 3):unsigned int | ((1 &lt;&lt; 1):unsigned int):unsigned int | ((1 &lt;&lt; 11):unsigned int):unsigned int | 1):unsigned int">
+        <exp1 binop="bor" etag="binop" xstr="((((((1 &lt;&lt; 3):unsigned int | ((1 &lt;&lt; 1):unsigned int):unsigned int | ((1 &lt;&lt; 11):unsigned int):unsigned int">
+         <exp1 binop="bor" etag="binop" xstr="((((1 &lt;&lt; 3):unsigned int | ((1 &lt;&lt; 1):unsigned int):unsigned int">
+          <exp1 binop="shiftlt" etag="binop" xstr="((1 &lt;&lt; 3):unsigned int">
+           <exp1 etag="const" xstr="1">
+            <constant ctag="cint64" ikind="iuint" intValue="1"/>
+           </exp1>
+           <exp2 etag="const" xstr="3">
+            <constant ctag="cint64" ikind="iint" intValue="3"/>
+           </exp2>
+           <typ ikind="iuint" ttag="tint"/>
+          </exp1>
+          <exp2 binop="shiftlt" etag="binop" xstr="((1 &lt;&lt; 1):unsigned int">
+           <exp1 etag="const" xstr="1">
+            <constant ctag="cint64" ikind="iuint" intValue="1"/>
+           </exp1>
+           <exp2 etag="const" xstr="1">
+            <constant ctag="cint64" ikind="iint" intValue="1"/>
+           </exp2>
+           <typ ikind="iuint" ttag="tint"/>
+          </exp2>
+          <typ ikind="iuint" ttag="tint"/>
+         </exp1>
+         <exp2 binop="shiftlt" etag="binop" xstr="((1 &lt;&lt; 11):unsigned int">
+          <exp1 etag="const" xstr="1">
+           <constant ctag="cint64" ikind="iuint" intValue="1"/>
+          </exp1>
+          <exp2 etag="const" xstr="11">
+           <constant ctag="cint64" ikind="iint" intValue="11"/>
+          </exp2>
+          <typ ikind="iuint" ttag="tint"/>
+         </exp2>
+         <typ ikind="iuint" ttag="tint"/>
+        </exp1>
+        <exp2 etag="const" xstr="1">
+         <constant ctag="cint64" ikind="iuint" intValue="1"/>
+        </exp2>
+        <typ ikind="iuint" ttag="tint"/>
+       </exp1>
+       <exp2 binop="shiftlt" etag="binop" xstr="((1 &lt;&lt; 13):unsigned int">
+        <exp1 etag="const" xstr="1">
+         <constant ctag="cint64" ikind="iuint" intValue="1"/>
+        </exp1>
+        <exp2 etag="const" xstr="13">
+         <constant ctag="cint64" ikind="iint" intValue="13"/>
+        </exp2>
+        <typ ikind="iuint" ttag="tint"/>
+       </exp2>
+       <typ ikind="iuint" ttag="tint"/>
+      </exp>
+     </rhs>
+     <loc byte="206295" file="src/cache.c" line="1064"/>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="528"/>
+       <node name="if-then"/>
+       <node name="stmt" num="527"/>
+       <node name="if-then"/>
+       <node name="stmt" num="525"/>
+       <node name="if-then"/>
+       <node name="stmt" num="523"/>
+       <node name="loop"/>
+       <node name="stmt" num="520"/>
+       <node name="loop"/>
+       <node name="stmt" num="516"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </field-assignment>
+    <field-assignment ckey="71" field="uid" nr="7">
+     <rhs etag="const" xstr="0">
+      <constant ctag="cint64" ikind="iuint" intValue="0"/>
+     </rhs>
+     <loc byte="206466" file="src/cache.c" line="1068"/>
+     <context>
+      <cfg-context>
+       <node name="instr" num="4"/>
+       <node name="stmt" num="528"/>
+       <node name="if-then"/>
+       <node name="stmt" num="527"/>
+       <node name="if-then"/>
+       <node name="stmt" num="525"/>
+       <node name="if-then"/>
+       <node name="stmt" num="523"/>
+       <node name="loop"/>
+       <node name="stmt" num="520"/>
+       <node name="loop"/>
+       <node name="stmt" num="516"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </field-assignment>
+    <field-assignment ckey="6" field="srv_save" nr="8">
+     <rhs etag="caste" xstr="caste (caste (0:(void*)):(struct 206*))">
+      <typ ttag="tptr">
+       <typ ckey="206" ttag="tcomp"/>
+      </typ>
+      <exp etag="caste" xstr="caste (0:(void*))">
+       <typ ttag="tptr">
+        <typ ttag="tvoid"/>
+       </typ>
+       <exp etag="const" xstr="0">
+        <constant ctag="cint64" ikind="iint" intValue="0"/>
+       </exp>
+      </exp>
+     </rhs>
+     <loc byte="206732" file="src/cache.c" line="1095"/>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="531"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </field-assignment>
+    <field-assignment ckey="66" field="flags" nr="14">
+     <rhs etag="caste" xstr="caste (((((((((((((((1 &lt;&lt; 6):unsigned int | 1):unsigned int | ((1 &lt;&lt; 3):unsigned int):unsigned int | ((1 &lt;&lt; 2):unsigned int):unsigned int | ((1 &lt;&lt; 8):unsigned int):unsigned int | ((1 &lt;&lt; 1):unsigned int):unsigned int | ((1 &lt;&lt; 13):unsigned int):unsigned int:unsigned short)">
+      <typ ikind="iushort" ttag="tint"/>
+      <exp binop="bor" etag="binop" xstr="((((((((((((((1 &lt;&lt; 6):unsigned int | 1):unsigned int | ((1 &lt;&lt; 3):unsigned int):unsigned int | ((1 &lt;&lt; 2):unsigned int):unsigned int | ((1 &lt;&lt; 8):unsigned int):unsigned int | ((1 &lt;&lt; 1):unsigned int):unsigned int | ((1 &lt;&lt; 13):unsigned int):unsigned int">
+       <exp1 binop="bor" etag="binop" xstr="((((((((((((1 &lt;&lt; 6):unsigned int | 1):unsigned int | ((1 &lt;&lt; 3):unsigned int):unsigned int | ((1 &lt;&lt; 2):unsigned int):unsigned int | ((1 &lt;&lt; 8):unsigned int):unsigned int | ((1 &lt;&lt; 1):unsigned int):unsigned int">
+        <exp1 binop="bor" etag="binop" xstr="((((((((((1 &lt;&lt; 6):unsigned int | 1):unsigned int | ((1 &lt;&lt; 3):unsigned int):unsigned int | ((1 &lt;&lt; 2):unsigned int):unsigned int | ((1 &lt;&lt; 8):unsigned int):unsigned int">
+         <exp1 binop="bor" etag="binop" xstr="((((((((1 &lt;&lt; 6):unsigned int | 1):unsigned int | ((1 &lt;&lt; 3):unsigned int):unsigned int | ((1 &lt;&lt; 2):unsigned int):unsigned int">
+          <exp1 binop="bor" etag="binop" xstr="((((((1 &lt;&lt; 6):unsigned int | 1):unsigned int | ((1 &lt;&lt; 3):unsigned int):unsigned int">
+           <exp1 binop="bor" etag="binop" xstr="((((1 &lt;&lt; 6):unsigned int | 1):unsigned int">
+            <exp1 binop="shiftlt" etag="binop" xstr="((1 &lt;&lt; 6):unsigned int">
+             <exp1 etag="const" xstr="1">
+              <constant ctag="cint64" ikind="iuint" intValue="1"/>
+             </exp1>
+             <exp2 etag="const" xstr="6">
+              <constant ctag="cint64" ikind="iint" intValue="6"/>
+             </exp2>
+             <typ ikind="iuint" ttag="tint"/>
+            </exp1>
+            <exp2 etag="const" xstr="1">
+             <constant ctag="cint64" ikind="iuint" intValue="1"/>
+            </exp2>
+            <typ ikind="iuint" ttag="tint"/>
+           </exp1>
+           <exp2 binop="shiftlt" etag="binop" xstr="((1 &lt;&lt; 3):unsigned int">
+            <exp1 etag="const" xstr="1">
+             <constant ctag="cint64" ikind="iuint" intValue="1"/>
+            </exp1>
+            <exp2 etag="const" xstr="3">
+             <constant ctag="cint64" ikind="iint" intValue="3"/>
+            </exp2>
+            <typ ikind="iuint" ttag="tint"/>
+           </exp2>
+           <typ ikind="iuint" ttag="tint"/>
+          </exp1>
+          <exp2 binop="shiftlt" etag="binop" xstr="((1 &lt;&lt; 2):unsigned int">
+           <exp1 etag="const" xstr="1">
+            <constant ctag="cint64" ikind="iuint" intValue="1"/>
+           </exp1>
+           <exp2 etag="const" xstr="2">
+            <constant ctag="cint64" ikind="iint" intValue="2"/>
+           </exp2>
+           <typ ikind="iuint" ttag="tint"/>
+          </exp2>
+          <typ ikind="iuint" ttag="tint"/>
+         </exp1>
+         <exp2 binop="shiftlt" etag="binop" xstr="((1 &lt;&lt; 8):unsigned int">
+          <exp1 etag="const" xstr="1">
+           <constant ctag="cint64" ikind="iuint" intValue="1"/>
+          </exp1>
+          <exp2 etag="const" xstr="8">
+           <constant ctag="cint64" ikind="iint" intValue="8"/>
+          </exp2>
+          <typ ikind="iuint" ttag="tint"/>
+         </exp2>
+         <typ ikind="iuint" ttag="tint"/>
+        </exp1>
+        <exp2 binop="shiftlt" etag="binop" xstr="((1 &lt;&lt; 1):unsigned int">
+         <exp1 etag="const" xstr="1">
+          <constant ctag="cint64" ikind="iuint" intValue="1"/>
+         </exp1>
+         <exp2 etag="const" xstr="1">
+          <constant ctag="cint64" ikind="iint" intValue="1"/>
+         </exp2>
+         <typ ikind="iuint" ttag="tint"/>
+        </exp2>
+        <typ ikind="iuint" ttag="tint"/>
+       </exp1>
+       <exp2 binop="shiftlt" etag="binop" xstr="((1 &lt;&lt; 13):unsigned int">
+        <exp1 etag="const" xstr="1">
+         <constant ctag="cint64" ikind="iuint" intValue="1"/>
+        </exp1>
+        <exp2 etag="const" xstr="13">
+         <constant ctag="cint64" ikind="iint" intValue="13"/>
+        </exp2>
+        <typ ikind="iuint" ttag="tint"/>
+       </exp2>
+       <typ ikind="iuint" ttag="tint"/>
+      </exp>
+     </rhs>
+     <loc byte="207563" file="src/cache.c" line="1115"/>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="552"/>
+       <node name="if-then"/>
+       <node name="stmt" num="551"/>
+       <node name="if-else"/>
+       <node name="stmt" num="543"/>
+       <node name="loop"/>
+       <node name="stmt" num="536"/>
+       <node name="loop"/>
+       <node name="stmt" num="532"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </field-assignment>
+    <field-assignment ckey="66" field="flags" nr="2">
+     <rhs etag="const" xstr="0">
+      <constant ctag="cint64" ikind="iushort" intValue="0"/>
+     </rhs>
+     <loc byte="205976" file="src/cache.c" line="1051"/>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="511"/>
+       <node name="if-then"/>
+       <node name="stmt" num="507"/>
+       <node name="if-else"/>
+       <node name="stmt" num="505"/>
+       <node name="loop"/>
+       <node name="stmt" num="501"/>
+       <node name="loop"/>
+       <node name="stmt" num="497"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </field-assignment>
+    <field-assignment ckey="72" field="int_name" nr="6">
+     <rhs etag="lval" xstr="intr">
+      <lval>
+       <lhost>
+        <var vid="6221" vname="intr"/>
+       </lhost>
+      </lval>
+     </rhs>
+     <loc byte="206421" file="src/cache.c" line="1067"/>
+     <context>
+      <cfg-context>
+       <node name="instr" num="3"/>
+       <node name="stmt" num="528"/>
+       <node name="if-then"/>
+       <node name="stmt" num="527"/>
+       <node name="if-then"/>
+       <node name="stmt" num="525"/>
+       <node name="if-then"/>
+       <node name="stmt" num="523"/>
+       <node name="loop"/>
+       <node name="stmt" num="520"/>
+       <node name="loop"/>
+       <node name="stmt" num="516"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </field-assignment>
+   </field-assignments>
+  </function>
+  <header time="01/10/2017 06:52:36">
+   <application file="src/cache.c" name="application"/>
+  </header>
+ </c-analysis>

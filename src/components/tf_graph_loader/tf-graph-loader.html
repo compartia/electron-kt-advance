@@ -1,0 +1,132 @@
+<dom-module id="tf-graph-loader"></dom-module>
+
+<script>
+    Polymer({
+
+        is: 'tf-graph-loader',
+
+        properties: {
+
+            progress: {
+                type: Object,
+                notify: true
+            },
+
+            filter: {
+                type: Object,
+                notify: true
+            },
+
+            outGraphHierarchy: {
+                type: Object,
+                readOnly: true, //readonly so outsider can't change this via binding
+                notify: true
+            },
+
+            outGraph: {
+                type: Object,
+                readOnly: true, //readonly so outsider can't change this via binding
+                notify: true
+            },
+
+            outHierarchyParams: {
+                type: Object,
+                readOnly: true,
+                notify: true
+            },
+
+            currentProject: {
+                type: Object,
+                notify: true,
+                observer: '_currentProjectChanged'
+            },
+
+            filteredProofObligations: {
+                type: Object,
+                notify: true,
+                observer: '_filteredProofObligationsChanged'
+            },
+
+            tabVisible: {
+                type: Boolean,
+                notify: true,
+                observer: '_onGraphVisibilityChanged'
+            }
+        },
+
+
+        _onGraphVisibilityChanged: function(newV, oldV) {
+            if (this.rebuildGraphPending && newV) {
+                this._filteredProofObligationsChanged(null, null);
+            }
+        },
+
+        _filteredProofObligationsChanged: function(newPOs, oldPOs) {
+            console.info("_filteredProofObligationsChanged: ");
+            this.set('progress', {
+                value: 0,
+                msg: ''
+            });
+            var graphTracker = graphutil.getTracker(this);
+            this.rebuildGraph(this.currentProject, graphTracker)
+        },
+
+        _currentProjectChanged: function(newProject, oldProject) {
+            var project = newProject;
+
+            console.info("_currentProjectChanged: " + project);
+            this.set('progress', {
+                value: 0,
+                msg: ''
+            });
+
+            var tracker = graphutil.getTracker(this);
+            var readDataTracker = graphutil.getSubtaskTracker(tracker, 100, 'Reading Data');
+
+            this.filter.reset();
+
+            newProject.readAndParse(readDataTracker)
+                .then(function(project) {
+                    this.fire("project-loaded", {});
+                }.bind(this));
+        },
+
+        rebuildGraph: function(project, tracker) {
+            if (!this.tabVisible) {
+                this.rebuildGraphPending = true;
+                tracker.updateProgress(100);
+                return;
+            }
+
+            this.rebuildGraphPending = false;
+
+            var hierarchyParams = {
+                // If a set of numbered op nodes has at least this number of nodes then group them into a series node.
+                seriesNodeMinSize: 6,
+                // A map of series node names to series grouping settings, to indicate if a series is to be rendered as grouped or ungrouped.
+                //Starts out empty which allows the renderer to decide which series are initially rendered grouped and which aren't.
+                seriesMap: {}
+            };
+
+            this._setOutHierarchyParams(hierarchyParams);
+
+
+            var graphTracker = graphutil.getSubtaskTracker(tracker, 50, 'Linking nodes');
+            var hierarchyTracker = graphutil.getSubtaskTracker(tracker, 50, 'Namespace hierarchy');
+
+            var nodes = project.buildGraph(this.filter);
+
+            graph.build(nodes, {}, graphTracker).then(function(graph) {
+                this._setOutGraph(graph);
+                return hierarchy.build(graph, hierarchyParams, hierarchyTracker);
+
+            }.bind(this)).then(function(graphHierarchy) {
+                // Update the properties which notify the parent with the graph hierarchy
+                this._setOutGraphHierarchy(graphHierarchy);
+            }.bind(this)).catch(function(e) {
+                // Generic error catch, for errors that happened outside asynchronous tasks.
+                tracker.reportError("Graph visualization failed: " + e, e);
+            });
+        }
+    });
+</script>

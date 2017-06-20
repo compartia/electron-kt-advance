@@ -1,0 +1,4395 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function name="log_start">
+   <statistics avg-context-complexity="1.22" avg-predicate-complexity="1.17" context-complexity="184" predicate-complexity="176" size="151"/>
+   <unconstrained-external-functions>
+    <efn name="unistd/fchown" num="1"/>
+    <efn name="dnsmasq/safe_malloc" num="1"/>
+    <efn name="dnsmasq/send_event" num="1"/>
+   </unconstrained-external-functions>
+   <primary-proof-obligations>
+    <proof-obligation c-complexity="0" id="1" origin="prim-exp" p-complexity="2">
+     <location byte="187077" file="src/log.c" line="62"/>
+     <predicate from="iuint" tag="unsigned-to-signed-cast" to="iint">
+      <exp binop="band" etag="binop" xstr="((dnsmasq_daemon-&gt;options &amp; ((1 &lt;&lt; 6):unsigned int):unsigned int">
+       <exp1 etag="lval" xstr="dnsmasq_daemon-&gt;options">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="dnsmasq_daemon">
+           <lval>
+            <lhost>
+             <var vid="4341" vname="dnsmasq_daemon"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <field ckey="238" fname="options"/>
+         </offset>
+        </lval>
+       </exp1>
+       <exp2 binop="shiftlt" etag="binop" xstr="((1 &lt;&lt; 6):unsigned int">
+        <exp1 etag="const" xstr="1">
+         <constant ctag="cint64" ikind="iuint" intValue="1"/>
+        </exp1>
+        <exp2 etag="const" xstr="6">
+         <constant ctag="cint64" ikind="iint" intValue="6"/>
+        </exp2>
+        <typ ikind="iuint" ttag="tint"/>
+       </exp2>
+       <typ ikind="iuint" ttag="tint"/>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="1"/>
+      </cfg-context>
+      <exp-context>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="2" origin="prim-exp" p-complexity="6">
+     <location byte="187077" file="src/log.c" line="62"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="dnsmasq_daemon">
+         <lval>
+          <lhost>
+           <var vid="4341" vname="dnsmasq_daemon"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <field ckey="238" fname="options"/>
+       </offset>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="1"/>
+      </cfg-context>
+      <exp-context>
+       <node name="2op" num="1"/>
+       <node name="cast"/>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="3" origin="prim-exp" p-complexity="0">
+     <location byte="187077" file="src/log.c" line="62"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="4341" vname="dnsmasq_daemon"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="1"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="2op" num="1"/>
+       <node name="cast"/>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="4" origin="prim-lval" p-complexity="1">
+     <location byte="187077" file="src/log.c" line="62"/>
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="dnsmasq_daemon">
+       <lval>
+        <lhost>
+         <var vid="4341" vname="dnsmasq_daemon"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="1"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="2op" num="1"/>
+       <node name="cast"/>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="5" origin="prim-lval" p-complexity="1">
+     <location byte="187077" file="src/log.c" line="62"/>
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="dnsmasq_daemon">
+       <lval>
+        <lhost>
+         <var vid="4341" vname="dnsmasq_daemon"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="1"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="2op" num="1"/>
+       <node name="cast"/>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="6" origin="prim-lval" p-complexity="1">
+     <location byte="187077" file="src/log.c" line="62"/>
+     <predicate tag="lower-bound">
+      <exp etag="lval" xstr="dnsmasq_daemon">
+       <lval>
+        <lhost>
+         <var vid="4341" vname="dnsmasq_daemon"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ckey="238" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="1"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="2op" num="1"/>
+       <node name="cast"/>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="7" origin="prim-lval" p-complexity="1">
+     <location byte="187077" file="src/log.c" line="62"/>
+     <predicate tag="upper-bound">
+      <exp etag="lval" xstr="dnsmasq_daemon">
+       <lval>
+        <lhost>
+         <var vid="4341" vname="dnsmasq_daemon"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ckey="238" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="1"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="2op" num="1"/>
+       <node name="cast"/>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="8" origin="prim-op" p-complexity="0">
+     <location byte="187077" file="src/log.c" line="62"/>
+     <predicate tag="non-negative">
+      <exp etag="const" xstr="6">
+       <constant ctag="cint64" ikind="iint" intValue="6"/>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="1"/>
+      </cfg-context>
+      <exp-context>
+       <node name="2op" num="2"/>
+       <node name="cast"/>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="9" origin="prim-op" p-complexity="1">
+     <location byte="187077" file="src/log.c" line="62"/>
+     <predicate size="iuint" tag="width-overflow">
+      <exp etag="const" xstr="6">
+       <constant ctag="cint64" ikind="iint" intValue="6"/>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="1"/>
+      </cfg-context>
+      <exp-context>
+       <node name="2op" num="2"/>
+       <node name="cast"/>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="10" origin="prim-exp" p-complexity="6">
+     <location byte="187196" file="src/log.c" line="64"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="dnsmasq_daemon">
+         <lval>
+          <lhost>
+           <var vid="4341" vname="dnsmasq_daemon"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <field ckey="238" fname="log_fac"/>
+       </offset>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="2"/>
+      </cfg-context>
+      <exp-context>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="11" origin="prim-exp" p-complexity="0">
+     <location byte="187196" file="src/log.c" line="64"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="4341" vname="dnsmasq_daemon"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="2"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="12" origin="prim-lval" p-complexity="1">
+     <location byte="187196" file="src/log.c" line="64"/>
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="dnsmasq_daemon">
+       <lval>
+        <lhost>
+         <var vid="4341" vname="dnsmasq_daemon"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="2"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="13" origin="prim-lval" p-complexity="1">
+     <location byte="187196" file="src/log.c" line="64"/>
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="dnsmasq_daemon">
+       <lval>
+        <lhost>
+         <var vid="4341" vname="dnsmasq_daemon"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="2"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="14" origin="prim-lval" p-complexity="1">
+     <location byte="187196" file="src/log.c" line="64"/>
+     <predicate tag="lower-bound">
+      <exp etag="lval" xstr="dnsmasq_daemon">
+       <lval>
+        <lhost>
+         <var vid="4341" vname="dnsmasq_daemon"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ckey="238" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="2"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="15" origin="prim-lval" p-complexity="1">
+     <location byte="187196" file="src/log.c" line="64"/>
+     <predicate tag="upper-bound">
+      <exp etag="lval" xstr="dnsmasq_daemon">
+       <lval>
+        <lhost>
+         <var vid="4341" vname="dnsmasq_daemon"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ckey="238" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="2"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="16" origin="prim-exp" p-complexity="6">
+     <location byte="187235" file="src/log.c" line="65"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="dnsmasq_daemon">
+         <lval>
+          <lhost>
+           <var vid="4341" vname="dnsmasq_daemon"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <field ckey="238" fname="log_fac"/>
+       </offset>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="3"/>
+       <node name="if-then"/>
+       <node name="stmt" num="2"/>
+      </cfg-context>
+      <exp-context>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="17" origin="prim-exp" p-complexity="0">
+     <location byte="187235" file="src/log.c" line="65"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="4341" vname="dnsmasq_daemon"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="3"/>
+       <node name="if-then"/>
+       <node name="stmt" num="2"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="18" origin="prim-lval" p-complexity="1">
+     <location byte="187235" file="src/log.c" line="65"/>
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="dnsmasq_daemon">
+       <lval>
+        <lhost>
+         <var vid="4341" vname="dnsmasq_daemon"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="3"/>
+       <node name="if-then"/>
+       <node name="stmt" num="2"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="19" origin="prim-lval" p-complexity="1">
+     <location byte="187235" file="src/log.c" line="65"/>
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="dnsmasq_daemon">
+       <lval>
+        <lhost>
+         <var vid="4341" vname="dnsmasq_daemon"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="3"/>
+       <node name="if-then"/>
+       <node name="stmt" num="2"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="20" origin="prim-lval" p-complexity="1">
+     <location byte="187235" file="src/log.c" line="65"/>
+     <predicate tag="lower-bound">
+      <exp etag="lval" xstr="dnsmasq_daemon">
+       <lval>
+        <lhost>
+         <var vid="4341" vname="dnsmasq_daemon"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ckey="238" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="3"/>
+       <node name="if-then"/>
+       <node name="stmt" num="2"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="21" origin="prim-lval" p-complexity="1">
+     <location byte="187235" file="src/log.c" line="65"/>
+     <predicate tag="upper-bound">
+      <exp etag="lval" xstr="dnsmasq_daemon">
+       <lval>
+        <lhost>
+         <var vid="4341" vname="dnsmasq_daemon"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ckey="238" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="3"/>
+       <node name="if-then"/>
+       <node name="stmt" num="2"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="22" origin="prim-exp" p-complexity="6">
+     <location byte="187278" file="src/log.c" line="67"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="dnsmasq_daemon">
+         <lval>
+          <lhost>
+           <var vid="4341" vname="dnsmasq_daemon"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <field ckey="238" fname="options"/>
+       </offset>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="4"/>
+       <node name="if-else"/>
+       <node name="stmt" num="2"/>
+      </cfg-context>
+      <exp-context>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="23" origin="prim-exp" p-complexity="0">
+     <location byte="187278" file="src/log.c" line="67"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="4341" vname="dnsmasq_daemon"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="4"/>
+       <node name="if-else"/>
+       <node name="stmt" num="2"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="24" origin="prim-lval" p-complexity="1">
+     <location byte="187278" file="src/log.c" line="67"/>
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="dnsmasq_daemon">
+       <lval>
+        <lhost>
+         <var vid="4341" vname="dnsmasq_daemon"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="4"/>
+       <node name="if-else"/>
+       <node name="stmt" num="2"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="25" origin="prim-lval" p-complexity="1">
+     <location byte="187278" file="src/log.c" line="67"/>
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="dnsmasq_daemon">
+       <lval>
+        <lhost>
+         <var vid="4341" vname="dnsmasq_daemon"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="4"/>
+       <node name="if-else"/>
+       <node name="stmt" num="2"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="26" origin="prim-lval" p-complexity="1">
+     <location byte="187278" file="src/log.c" line="67"/>
+     <predicate tag="lower-bound">
+      <exp etag="lval" xstr="dnsmasq_daemon">
+       <lval>
+        <lhost>
+         <var vid="4341" vname="dnsmasq_daemon"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ckey="238" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="4"/>
+       <node name="if-else"/>
+       <node name="stmt" num="2"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="27" origin="prim-lval" p-complexity="1">
+     <location byte="187278" file="src/log.c" line="67"/>
+     <predicate tag="upper-bound">
+      <exp etag="lval" xstr="dnsmasq_daemon">
+       <lval>
+        <lhost>
+         <var vid="4341" vname="dnsmasq_daemon"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ckey="238" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="4"/>
+       <node name="if-else"/>
+       <node name="stmt" num="2"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="28" origin="prim-op" p-complexity="0">
+     <location byte="187278" file="src/log.c" line="67"/>
+     <predicate tag="non-negative">
+      <exp etag="const" xstr="6">
+       <constant ctag="cint64" ikind="iint" intValue="6"/>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="4"/>
+       <node name="if-else"/>
+       <node name="stmt" num="2"/>
+      </cfg-context>
+      <exp-context>
+       <node name="2op" num="2"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="29" origin="prim-op" p-complexity="1">
+     <location byte="187278" file="src/log.c" line="67"/>
+     <predicate size="iuint" tag="width-overflow">
+      <exp etag="const" xstr="6">
+       <constant ctag="cint64" ikind="iint" intValue="6"/>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="4"/>
+       <node name="if-else"/>
+       <node name="stmt" num="2"/>
+      </cfg-context>
+      <exp-context>
+       <node name="2op" num="2"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="2" id="30" origin="prim-op" p-complexity="0">
+     <location byte="187388" file="src/log.c" line="68"/>
+     <predicate tag="non-negative">
+      <exp etag="const" xstr="3">
+       <constant ctag="cint64" ikind="iint" intValue="3"/>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="5"/>
+       <node name="if-then"/>
+       <node name="stmt" num="4"/>
+       <node name="if-else"/>
+       <node name="stmt" num="2"/>
+      </cfg-context>
+      <exp-context>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="2" id="31" origin="prim-op" p-complexity="1">
+     <location byte="187388" file="src/log.c" line="68"/>
+     <predicate size="iint" tag="width-overflow">
+      <exp etag="const" xstr="3">
+       <constant ctag="cint64" ikind="iint" intValue="3"/>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="5"/>
+       <node name="if-then"/>
+       <node name="stmt" num="4"/>
+       <node name="if-else"/>
+       <node name="stmt" num="2"/>
+      </cfg-context>
+      <exp-context>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="32" origin="prim-exp" p-complexity="6">
+     <location byte="187411" file="src/log.c" line="71"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="dnsmasq_daemon">
+         <lval>
+          <lhost>
+           <var vid="4341" vname="dnsmasq_daemon"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <field ckey="238" fname="log_file"/>
+       </offset>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="6"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="33" origin="prim-exp" p-complexity="0">
+     <location byte="187411" file="src/log.c" line="71"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="4341" vname="dnsmasq_daemon"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="6"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="34" origin="prim-lval" p-complexity="1">
+     <location byte="187411" file="src/log.c" line="71"/>
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="dnsmasq_daemon">
+       <lval>
+        <lhost>
+         <var vid="4341" vname="dnsmasq_daemon"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="6"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="35" origin="prim-lval" p-complexity="1">
+     <location byte="187411" file="src/log.c" line="71"/>
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="dnsmasq_daemon">
+       <lval>
+        <lhost>
+         <var vid="4341" vname="dnsmasq_daemon"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="6"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="36" origin="prim-lval" p-complexity="1">
+     <location byte="187411" file="src/log.c" line="71"/>
+     <predicate tag="lower-bound">
+      <exp etag="lval" xstr="dnsmasq_daemon">
+       <lval>
+        <lhost>
+         <var vid="4341" vname="dnsmasq_daemon"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ckey="238" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="6"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="37" origin="prim-lval" p-complexity="1">
+     <location byte="187411" file="src/log.c" line="71"/>
+     <predicate tag="upper-bound">
+      <exp etag="lval" xstr="dnsmasq_daemon">
+       <lval>
+        <lhost>
+         <var vid="4341" vname="dnsmasq_daemon"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ckey="238" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="6"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="38" origin="prim-exp" p-complexity="0">
+     <location byte="187476" file="src/log.c" line="74"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="4341" vname="dnsmasq_daemon"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="7"/>
+       <node name="if-then"/>
+       <node name="stmt" num="6"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="39" origin="prim-lval" p-complexity="1">
+     <location byte="187476" file="src/log.c" line="74"/>
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="dnsmasq_daemon">
+       <lval>
+        <lhost>
+         <var vid="4341" vname="dnsmasq_daemon"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="7"/>
+       <node name="if-then"/>
+       <node name="stmt" num="6"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="40" origin="prim-lval" p-complexity="1">
+     <location byte="187476" file="src/log.c" line="74"/>
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="dnsmasq_daemon">
+       <lval>
+        <lhost>
+         <var vid="4341" vname="dnsmasq_daemon"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="7"/>
+       <node name="if-then"/>
+       <node name="stmt" num="6"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="41" origin="prim-lval" p-complexity="1">
+     <location byte="187476" file="src/log.c" line="74"/>
+     <predicate tag="lower-bound">
+      <exp etag="lval" xstr="dnsmasq_daemon">
+       <lval>
+        <lhost>
+         <var vid="4341" vname="dnsmasq_daemon"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ckey="238" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="7"/>
+       <node name="if-then"/>
+       <node name="stmt" num="6"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="42" origin="prim-lval" p-complexity="1">
+     <location byte="187476" file="src/log.c" line="74"/>
+     <predicate tag="upper-bound">
+      <exp etag="lval" xstr="dnsmasq_daemon">
+       <lval>
+        <lhost>
+         <var vid="4341" vname="dnsmasq_daemon"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ckey="238" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="7"/>
+       <node name="if-then"/>
+       <node name="stmt" num="6"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" fname="strcmp" id="43" name="deref-read-nt" origin="f-pre" p-complexity="0">
+     <location byte="187512" file="src/log.c" line="75"/>
+     <predicate tag="not-null">
+      <exp etag="const" xstr="&quot;-&quot;">
+       <constant ctag="cstr" strValue="-"/>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="7"/>
+       <node name="if-then"/>
+       <node name="stmt" num="6"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+     <args>
+      <exp etag="const" name="s2" nr="2" xstr="&quot;-&quot;">
+       <constant ctag="cstr" strValue="-"/>
+      </exp>
+     </args>
+     <precondition name="deref-read-nt">
+      <math>
+       <apply>
+        <deref-read/>
+        <ci>s2</ci>
+        <apply>
+         <index-size/>
+         <apply>
+          <nullterminator-pos/>
+          <ci>s2</ci>
+         </apply>
+        </apply>
+       </apply>
+      </math>
+     </precondition>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" fname="strcmp" id="44" name="deref-read-nt" origin="f-pre" p-complexity="0">
+     <location byte="187512" file="src/log.c" line="75"/>
+     <predicate tag="null-terminated">
+      <exp etag="const" xstr="&quot;-&quot;">
+       <constant ctag="cstr" strValue="-"/>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="7"/>
+       <node name="if-then"/>
+       <node name="stmt" num="6"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+     <args>
+      <exp etag="const" name="s2" nr="2" xstr="&quot;-&quot;">
+       <constant ctag="cstr" strValue="-"/>
+      </exp>
+     </args>
+     <precondition name="deref-read-nt">
+      <math>
+       <apply>
+        <deref-read/>
+        <ci>s2</ci>
+        <apply>
+         <index-size/>
+         <apply>
+          <nullterminator-pos/>
+          <ci>s2</ci>
+         </apply>
+        </apply>
+       </apply>
+      </math>
+     </precondition>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" fname="strcmp" id="45" name="deref-read-nt" origin="f-pre" p-complexity="0">
+     <location byte="187512" file="src/log.c" line="75"/>
+     <predicate tag="lower-bound">
+      <exp etag="const" xstr="&quot;-&quot;">
+       <constant ctag="cstr" strValue="-"/>
+      </exp>
+      <typ ikind="ichar" ttag="tint"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="7"/>
+       <node name="if-then"/>
+       <node name="stmt" num="6"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+     <args>
+      <exp etag="const" name="s2" nr="2" xstr="&quot;-&quot;">
+       <constant ctag="cstr" strValue="-"/>
+      </exp>
+     </args>
+     <precondition name="deref-read-nt">
+      <math>
+       <apply>
+        <deref-read/>
+        <ci>s2</ci>
+        <apply>
+         <index-size/>
+         <apply>
+          <nullterminator-pos/>
+          <ci>s2</ci>
+         </apply>
+        </apply>
+       </apply>
+      </math>
+     </precondition>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" fname="strcmp" id="46" name="deref-read-nt" origin="f-pre" p-complexity="1">
+     <location byte="187512" file="src/log.c" line="75"/>
+     <predicate op="pluspi" tag="ptr-upper-bound">
+      <typ ikind="ichar" ttag="tint"/>
+      <exp1 etag="const" xstr="&quot;-&quot;">
+       <constant ctag="cstr" strValue="-"/>
+      </exp1>
+      <exp2 cn="null-terminator-pos" etag="cnapp" xstr="null-terminator-pos[&quot;-&quot;]">
+       <arg etag="const" xstr="&quot;-&quot;">
+        <constant ctag="cstr" strValue="-"/>
+       </arg>
+       <typ ikind="iint" ttag="tint"/>
+      </exp2>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="7"/>
+       <node name="if-then"/>
+       <node name="stmt" num="6"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+     <args>
+      <exp etag="const" name="s2" nr="2" xstr="&quot;-&quot;">
+       <constant ctag="cstr" strValue="-"/>
+      </exp>
+     </args>
+     <precondition name="deref-read-nt">
+      <math>
+       <apply>
+        <deref-read/>
+        <ci>s2</ci>
+        <apply>
+         <index-size/>
+         <apply>
+          <nullterminator-pos/>
+          <ci>s2</ci>
+         </apply>
+        </apply>
+       </apply>
+      </math>
+     </precondition>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" fname="strcmp" id="47" name="deref-read-nt" origin="f-pre" p-complexity="0">
+     <location byte="187512" file="src/log.c" line="75"/>
+     <predicate tag="initialized-range">
+      <base-exp etag="const" xstr="&quot;-&quot;">
+       <constant ctag="cstr" strValue="-"/>
+      </base-exp>
+      <len-exp cn="null-terminator-pos" etag="cnapp" xstr="null-terminator-pos[&quot;-&quot;]">
+       <arg etag="const" xstr="&quot;-&quot;">
+        <constant ctag="cstr" strValue="-"/>
+       </arg>
+       <typ ikind="iint" ttag="tint"/>
+      </len-exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="7"/>
+       <node name="if-then"/>
+       <node name="stmt" num="6"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+     <args>
+      <exp etag="const" name="s2" nr="2" xstr="&quot;-&quot;">
+       <constant ctag="cstr" strValue="-"/>
+      </exp>
+     </args>
+     <precondition name="deref-read-nt">
+      <math>
+       <apply>
+        <deref-read/>
+        <ci>s2</ci>
+        <apply>
+         <index-size/>
+         <apply>
+          <nullterminator-pos/>
+          <ci>s2</ci>
+         </apply>
+        </apply>
+       </apply>
+      </math>
+     </precondition>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" fname="strcmp" id="48" name="deref-read-nt" origin="f-pre" p-complexity="1">
+     <location byte="187512" file="src/log.c" line="75"/>
+     <predicate tag="not-null">
+      <exp etag="caste" xstr="caste (dnsmasq_daemon-&gt;log_file:(char*))">
+       <typ ttag="tptr">
+        <typ ikind="ichar" ttag="tint">
+         <attributes>
+          <attr attrname="const"/>
+         </attributes>
+        </typ>
+       </typ>
+       <exp etag="lval" xstr="dnsmasq_daemon-&gt;log_file">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="dnsmasq_daemon">
+           <lval>
+            <lhost>
+             <var vid="4341" vname="dnsmasq_daemon"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <field ckey="238" fname="log_file"/>
+         </offset>
+        </lval>
+       </exp>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="7"/>
+       <node name="if-then"/>
+       <node name="stmt" num="6"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+     <args>
+      <exp etag="caste" name="s1" nr="1" xstr="caste (dnsmasq_daemon-&gt;log_file:(char*))">
+       <typ ttag="tptr">
+        <typ ikind="ichar" ttag="tint">
+         <attributes>
+          <attr attrname="const"/>
+         </attributes>
+        </typ>
+       </typ>
+       <exp etag="lval" xstr="dnsmasq_daemon-&gt;log_file">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="dnsmasq_daemon">
+           <lval>
+            <lhost>
+             <var vid="4341" vname="dnsmasq_daemon"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <field ckey="238" fname="log_file"/>
+         </offset>
+        </lval>
+       </exp>
+      </exp>
+     </args>
+     <precondition name="deref-read-nt">
+      <math>
+       <apply>
+        <deref-read/>
+        <ci>s1</ci>
+        <apply>
+         <index-size/>
+         <apply>
+          <nullterminator-pos/>
+          <ci>s1</ci>
+         </apply>
+        </apply>
+       </apply>
+      </math>
+     </precondition>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" fname="strcmp" id="49" name="deref-read-nt" origin="f-pre" p-complexity="1">
+     <location byte="187512" file="src/log.c" line="75"/>
+     <predicate tag="null-terminated">
+      <exp etag="caste" xstr="caste (dnsmasq_daemon-&gt;log_file:(char*))">
+       <typ ttag="tptr">
+        <typ ikind="ichar" ttag="tint">
+         <attributes>
+          <attr attrname="const"/>
+         </attributes>
+        </typ>
+       </typ>
+       <exp etag="lval" xstr="dnsmasq_daemon-&gt;log_file">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="dnsmasq_daemon">
+           <lval>
+            <lhost>
+             <var vid="4341" vname="dnsmasq_daemon"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <field ckey="238" fname="log_file"/>
+         </offset>
+        </lval>
+       </exp>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="7"/>
+       <node name="if-then"/>
+       <node name="stmt" num="6"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+     <args>
+      <exp etag="caste" name="s1" nr="1" xstr="caste (dnsmasq_daemon-&gt;log_file:(char*))">
+       <typ ttag="tptr">
+        <typ ikind="ichar" ttag="tint">
+         <attributes>
+          <attr attrname="const"/>
+         </attributes>
+        </typ>
+       </typ>
+       <exp etag="lval" xstr="dnsmasq_daemon-&gt;log_file">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="dnsmasq_daemon">
+           <lval>
+            <lhost>
+             <var vid="4341" vname="dnsmasq_daemon"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <field ckey="238" fname="log_file"/>
+         </offset>
+        </lval>
+       </exp>
+      </exp>
+     </args>
+     <precondition name="deref-read-nt">
+      <math>
+       <apply>
+        <deref-read/>
+        <ci>s1</ci>
+        <apply>
+         <index-size/>
+         <apply>
+          <nullterminator-pos/>
+          <ci>s1</ci>
+         </apply>
+        </apply>
+       </apply>
+      </math>
+     </precondition>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" fname="strcmp" id="50" name="deref-read-nt" origin="f-pre" p-complexity="1">
+     <location byte="187512" file="src/log.c" line="75"/>
+     <predicate tag="lower-bound">
+      <exp etag="caste" xstr="caste (dnsmasq_daemon-&gt;log_file:(char*))">
+       <typ ttag="tptr">
+        <typ ikind="ichar" ttag="tint">
+         <attributes>
+          <attr attrname="const"/>
+         </attributes>
+        </typ>
+       </typ>
+       <exp etag="lval" xstr="dnsmasq_daemon-&gt;log_file">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="dnsmasq_daemon">
+           <lval>
+            <lhost>
+             <var vid="4341" vname="dnsmasq_daemon"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <field ckey="238" fname="log_file"/>
+         </offset>
+        </lval>
+       </exp>
+      </exp>
+      <typ ikind="ichar" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="7"/>
+       <node name="if-then"/>
+       <node name="stmt" num="6"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+     <args>
+      <exp etag="caste" name="s1" nr="1" xstr="caste (dnsmasq_daemon-&gt;log_file:(char*))">
+       <typ ttag="tptr">
+        <typ ikind="ichar" ttag="tint">
+         <attributes>
+          <attr attrname="const"/>
+         </attributes>
+        </typ>
+       </typ>
+       <exp etag="lval" xstr="dnsmasq_daemon-&gt;log_file">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="dnsmasq_daemon">
+           <lval>
+            <lhost>
+             <var vid="4341" vname="dnsmasq_daemon"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <field ckey="238" fname="log_file"/>
+         </offset>
+        </lval>
+       </exp>
+      </exp>
+     </args>
+     <precondition name="deref-read-nt">
+      <math>
+       <apply>
+        <deref-read/>
+        <ci>s1</ci>
+        <apply>
+         <index-size/>
+         <apply>
+          <nullterminator-pos/>
+          <ci>s1</ci>
+         </apply>
+        </apply>
+       </apply>
+      </math>
+     </precondition>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" fname="strcmp" id="51" name="deref-read-nt" origin="f-pre" p-complexity="2">
+     <location byte="187512" file="src/log.c" line="75"/>
+     <predicate op="pluspi" tag="ptr-upper-bound">
+      <typ ikind="ichar" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+      <exp1 etag="caste" xstr="caste (dnsmasq_daemon-&gt;log_file:(char*))">
+       <typ ttag="tptr">
+        <typ ikind="ichar" ttag="tint">
+         <attributes>
+          <attr attrname="const"/>
+         </attributes>
+        </typ>
+       </typ>
+       <exp etag="lval" xstr="dnsmasq_daemon-&gt;log_file">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="dnsmasq_daemon">
+           <lval>
+            <lhost>
+             <var vid="4341" vname="dnsmasq_daemon"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <field ckey="238" fname="log_file"/>
+         </offset>
+        </lval>
+       </exp>
+      </exp1>
+      <exp2 cn="null-terminator-pos" etag="cnapp" xstr="null-terminator-pos[caste (dnsmasq_daemon-&gt;log_file:(char*))]">
+       <arg etag="caste" xstr="caste (dnsmasq_daemon-&gt;log_file:(char*))">
+        <typ ttag="tptr">
+         <typ ikind="ichar" ttag="tint">
+          <attributes>
+           <attr attrname="const"/>
+          </attributes>
+         </typ>
+        </typ>
+        <exp etag="lval" xstr="dnsmasq_daemon-&gt;log_file">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="dnsmasq_daemon">
+            <lval>
+             <lhost>
+              <var vid="4341" vname="dnsmasq_daemon"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <field ckey="238" fname="log_file"/>
+          </offset>
+         </lval>
+        </exp>
+       </arg>
+       <typ ikind="iint" ttag="tint"/>
+      </exp2>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="7"/>
+       <node name="if-then"/>
+       <node name="stmt" num="6"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+     <args>
+      <exp etag="caste" name="s1" nr="1" xstr="caste (dnsmasq_daemon-&gt;log_file:(char*))">
+       <typ ttag="tptr">
+        <typ ikind="ichar" ttag="tint">
+         <attributes>
+          <attr attrname="const"/>
+         </attributes>
+        </typ>
+       </typ>
+       <exp etag="lval" xstr="dnsmasq_daemon-&gt;log_file">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="dnsmasq_daemon">
+           <lval>
+            <lhost>
+             <var vid="4341" vname="dnsmasq_daemon"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <field ckey="238" fname="log_file"/>
+         </offset>
+        </lval>
+       </exp>
+      </exp>
+     </args>
+     <precondition name="deref-read-nt">
+      <math>
+       <apply>
+        <deref-read/>
+        <ci>s1</ci>
+        <apply>
+         <index-size/>
+         <apply>
+          <nullterminator-pos/>
+          <ci>s1</ci>
+         </apply>
+        </apply>
+       </apply>
+      </math>
+     </precondition>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" fname="strcmp" id="52" name="deref-read-nt" origin="f-pre" p-complexity="1">
+     <location byte="187512" file="src/log.c" line="75"/>
+     <predicate tag="initialized-range">
+      <base-exp etag="caste" xstr="caste (dnsmasq_daemon-&gt;log_file:(char*))">
+       <typ ttag="tptr">
+        <typ ikind="ichar" ttag="tint">
+         <attributes>
+          <attr attrname="const"/>
+         </attributes>
+        </typ>
+       </typ>
+       <exp etag="lval" xstr="dnsmasq_daemon-&gt;log_file">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="dnsmasq_daemon">
+           <lval>
+            <lhost>
+             <var vid="4341" vname="dnsmasq_daemon"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <field ckey="238" fname="log_file"/>
+         </offset>
+        </lval>
+       </exp>
+      </base-exp>
+      <len-exp cn="null-terminator-pos" etag="cnapp" xstr="null-terminator-pos[caste (dnsmasq_daemon-&gt;log_file:(char*))]">
+       <arg etag="caste" xstr="caste (dnsmasq_daemon-&gt;log_file:(char*))">
+        <typ ttag="tptr">
+         <typ ikind="ichar" ttag="tint">
+          <attributes>
+           <attr attrname="const"/>
+          </attributes>
+         </typ>
+        </typ>
+        <exp etag="lval" xstr="dnsmasq_daemon-&gt;log_file">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="dnsmasq_daemon">
+            <lval>
+             <lhost>
+              <var vid="4341" vname="dnsmasq_daemon"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <field ckey="238" fname="log_file"/>
+          </offset>
+         </lval>
+        </exp>
+       </arg>
+       <typ ikind="iint" ttag="tint"/>
+      </len-exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="7"/>
+       <node name="if-then"/>
+       <node name="stmt" num="6"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+     <args>
+      <exp etag="caste" name="s1" nr="1" xstr="caste (dnsmasq_daemon-&gt;log_file:(char*))">
+       <typ ttag="tptr">
+        <typ ikind="ichar" ttag="tint">
+         <attributes>
+          <attr attrname="const"/>
+         </attributes>
+        </typ>
+       </typ>
+       <exp etag="lval" xstr="dnsmasq_daemon-&gt;log_file">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="dnsmasq_daemon">
+           <lval>
+            <lhost>
+             <var vid="4341" vname="dnsmasq_daemon"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <field ckey="238" fname="log_file"/>
+         </offset>
+        </lval>
+       </exp>
+      </exp>
+     </args>
+     <precondition name="deref-read-nt">
+      <math>
+       <apply>
+        <deref-read/>
+        <ci>s1</ci>
+        <apply>
+         <index-size/>
+         <apply>
+          <nullterminator-pos/>
+          <ci>s1</ci>
+         </apply>
+        </apply>
+       </apply>
+      </math>
+     </precondition>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="53" origin="prim-exp" p-complexity="1">
+     <location byte="187512" file="src/log.c" line="75"/>
+     <predicate tag="pointer-cast">
+      <tfrom ikind="ichar" ttag="tint"/>
+      <tto ikind="ichar" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </tto>
+      <exp etag="lval" xstr="dnsmasq_daemon-&gt;log_file">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="dnsmasq_daemon">
+          <lval>
+           <lhost>
+            <var vid="4341" vname="dnsmasq_daemon"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <field ckey="238" fname="log_file"/>
+        </offset>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="7"/>
+       <node name="if-then"/>
+       <node name="stmt" num="6"/>
+      </cfg-context>
+      <exp-context>
+       <node name="arg" num="0"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="54" origin="prim-exp" p-complexity="6">
+     <location byte="187512" file="src/log.c" line="75"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="dnsmasq_daemon">
+         <lval>
+          <lhost>
+           <var vid="4341" vname="dnsmasq_daemon"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <field ckey="238" fname="log_file"/>
+       </offset>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="7"/>
+       <node name="if-then"/>
+       <node name="stmt" num="6"/>
+      </cfg-context>
+      <exp-context>
+       <node name="cast"/>
+       <node name="arg" num="0"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="55" origin="prim-exp" p-complexity="0">
+     <location byte="187512" file="src/log.c" line="75"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="4341" vname="dnsmasq_daemon"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="7"/>
+       <node name="if-then"/>
+       <node name="stmt" num="6"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="arg" num="0"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="56" origin="prim-lval" p-complexity="1">
+     <location byte="187512" file="src/log.c" line="75"/>
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="dnsmasq_daemon">
+       <lval>
+        <lhost>
+         <var vid="4341" vname="dnsmasq_daemon"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="7"/>
+       <node name="if-then"/>
+       <node name="stmt" num="6"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="arg" num="0"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="57" origin="prim-lval" p-complexity="1">
+     <location byte="187512" file="src/log.c" line="75"/>
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="dnsmasq_daemon">
+       <lval>
+        <lhost>
+         <var vid="4341" vname="dnsmasq_daemon"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="7"/>
+       <node name="if-then"/>
+       <node name="stmt" num="6"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="arg" num="0"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="58" origin="prim-lval" p-complexity="1">
+     <location byte="187512" file="src/log.c" line="75"/>
+     <predicate tag="lower-bound">
+      <exp etag="lval" xstr="dnsmasq_daemon">
+       <lval>
+        <lhost>
+         <var vid="4341" vname="dnsmasq_daemon"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ckey="238" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="7"/>
+       <node name="if-then"/>
+       <node name="stmt" num="6"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="arg" num="0"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="59" origin="prim-lval" p-complexity="1">
+     <location byte="187512" file="src/log.c" line="75"/>
+     <predicate tag="upper-bound">
+      <exp etag="lval" xstr="dnsmasq_daemon">
+       <lval>
+        <lhost>
+         <var vid="4341" vname="dnsmasq_daemon"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ckey="238" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="7"/>
+       <node name="if-then"/>
+       <node name="stmt" num="6"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="arg" num="0"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="60" origin="prim-exp" p-complexity="1">
+     <location byte="187512" file="src/log.c" line="75"/>
+     <predicate tag="valid-mem">
+      <exp etag="caste" xstr="caste (dnsmasq_daemon-&gt;log_file:(char*))">
+       <typ ttag="tptr">
+        <typ ikind="ichar" ttag="tint">
+         <attributes>
+          <attr attrname="const"/>
+         </attributes>
+        </typ>
+       </typ>
+       <exp etag="lval" xstr="dnsmasq_daemon-&gt;log_file">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="dnsmasq_daemon">
+           <lval>
+            <lhost>
+             <var vid="4341" vname="dnsmasq_daemon"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <field ckey="238" fname="log_file"/>
+         </offset>
+        </lval>
+       </exp>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="7"/>
+       <node name="if-then"/>
+       <node name="stmt" num="6"/>
+      </cfg-context>
+      <exp-context>
+       <node name="arg" num="0"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="61" origin="prim-exp" p-complexity="1">
+     <location byte="187512" file="src/log.c" line="75"/>
+     <predicate tag="lower-bound">
+      <exp etag="caste" xstr="caste (dnsmasq_daemon-&gt;log_file:(char*))">
+       <typ ttag="tptr">
+        <typ ikind="ichar" ttag="tint">
+         <attributes>
+          <attr attrname="const"/>
+         </attributes>
+        </typ>
+       </typ>
+       <exp etag="lval" xstr="dnsmasq_daemon-&gt;log_file">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="dnsmasq_daemon">
+           <lval>
+            <lhost>
+             <var vid="4341" vname="dnsmasq_daemon"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <field ckey="238" fname="log_file"/>
+         </offset>
+        </lval>
+       </exp>
+      </exp>
+      <typ ikind="ichar" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="7"/>
+       <node name="if-then"/>
+       <node name="stmt" num="6"/>
+      </cfg-context>
+      <exp-context>
+       <node name="arg" num="0"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="62" origin="prim-exp" p-complexity="1">
+     <location byte="187512" file="src/log.c" line="75"/>
+     <predicate tag="upper-bound">
+      <exp etag="caste" xstr="caste (dnsmasq_daemon-&gt;log_file:(char*))">
+       <typ ttag="tptr">
+        <typ ikind="ichar" ttag="tint">
+         <attributes>
+          <attr attrname="const"/>
+         </attributes>
+        </typ>
+       </typ>
+       <exp etag="lval" xstr="dnsmasq_daemon-&gt;log_file">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="dnsmasq_daemon">
+           <lval>
+            <lhost>
+             <var vid="4341" vname="dnsmasq_daemon"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <field ckey="238" fname="log_file"/>
+         </offset>
+        </lval>
+       </exp>
+      </exp>
+      <typ ikind="ichar" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="7"/>
+       <node name="if-then"/>
+       <node name="stmt" num="6"/>
+      </cfg-context>
+      <exp-context>
+       <node name="arg" num="0"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="63" origin="prim-exp" p-complexity="0">
+     <location byte="187512" file="src/log.c" line="75"/>
+     <predicate tag="valid-mem">
+      <exp etag="const" xstr="&quot;-&quot;">
+       <constant ctag="cstr" strValue="-"/>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="7"/>
+       <node name="if-then"/>
+       <node name="stmt" num="6"/>
+      </cfg-context>
+      <exp-context>
+       <node name="arg" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="64" origin="prim-exp" p-complexity="0">
+     <location byte="187512" file="src/log.c" line="75"/>
+     <predicate tag="lower-bound">
+      <exp etag="const" xstr="&quot;-&quot;">
+       <constant ctag="cstr" strValue="-"/>
+      </exp>
+      <typ ikind="ichar" ttag="tint"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="7"/>
+       <node name="if-then"/>
+       <node name="stmt" num="6"/>
+      </cfg-context>
+      <exp-context>
+       <node name="arg" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="65" origin="prim-exp" p-complexity="0">
+     <location byte="187512" file="src/log.c" line="75"/>
+     <predicate tag="upper-bound">
+      <exp etag="const" xstr="&quot;-&quot;">
+       <constant ctag="cstr" strValue="-"/>
+      </exp>
+      <typ ikind="ichar" ttag="tint"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="7"/>
+       <node name="if-then"/>
+       <node name="stmt" num="6"/>
+      </cfg-context>
+      <exp-context>
+       <node name="arg" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="66" origin="prim-exp" p-complexity="0">
+     <location byte="187512" file="src/log.c" line="75"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="5918" vname="tmp"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="8"/>
+       <node name="if-then"/>
+       <node name="stmt" num="6"/>
+      </cfg-context>
+      <exp-context>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="67" origin="prim-exp" p-complexity="6">
+     <location byte="187634" file="src/log.c" line="83"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="dnsmasq_daemon">
+         <lval>
+          <lhost>
+           <var vid="4341" vname="dnsmasq_daemon"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <field ckey="238" fname="max_logs"/>
+       </offset>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="10"/>
+      </cfg-context>
+      <exp-context>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="68" origin="prim-exp" p-complexity="0">
+     <location byte="187634" file="src/log.c" line="83"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="4341" vname="dnsmasq_daemon"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="10"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="69" origin="prim-lval" p-complexity="1">
+     <location byte="187634" file="src/log.c" line="83"/>
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="dnsmasq_daemon">
+       <lval>
+        <lhost>
+         <var vid="4341" vname="dnsmasq_daemon"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="10"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="70" origin="prim-lval" p-complexity="1">
+     <location byte="187634" file="src/log.c" line="83"/>
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="dnsmasq_daemon">
+       <lval>
+        <lhost>
+         <var vid="4341" vname="dnsmasq_daemon"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="10"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="71" origin="prim-lval" p-complexity="1">
+     <location byte="187634" file="src/log.c" line="83"/>
+     <predicate tag="lower-bound">
+      <exp etag="lval" xstr="dnsmasq_daemon">
+       <lval>
+        <lhost>
+         <var vid="4341" vname="dnsmasq_daemon"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ckey="238" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="10"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="72" origin="prim-lval" p-complexity="1">
+     <location byte="187634" file="src/log.c" line="83"/>
+     <predicate tag="upper-bound">
+      <exp etag="lval" xstr="dnsmasq_daemon">
+       <lval>
+        <lhost>
+         <var vid="4341" vname="dnsmasq_daemon"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ckey="238" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="10"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="73" origin="prim-exp" p-complexity="6">
+     <location byte="187674" file="src/log.c" line="85"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="dnsmasq_daemon">
+         <lval>
+          <lhost>
+           <var vid="4341" vname="dnsmasq_daemon"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <field ckey="238" fname="log_file"/>
+       </offset>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="10"/>
+      </cfg-context>
+      <exp-context>
+       <node name="arg" num="0"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="74" origin="prim-exp" p-complexity="0">
+     <location byte="187674" file="src/log.c" line="85"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="4341" vname="dnsmasq_daemon"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="10"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="arg" num="0"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="75" origin="prim-lval" p-complexity="1">
+     <location byte="187674" file="src/log.c" line="85"/>
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="dnsmasq_daemon">
+       <lval>
+        <lhost>
+         <var vid="4341" vname="dnsmasq_daemon"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="10"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="arg" num="0"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="76" origin="prim-lval" p-complexity="1">
+     <location byte="187674" file="src/log.c" line="85"/>
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="dnsmasq_daemon">
+       <lval>
+        <lhost>
+         <var vid="4341" vname="dnsmasq_daemon"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="10"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="arg" num="0"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="77" origin="prim-lval" p-complexity="1">
+     <location byte="187674" file="src/log.c" line="85"/>
+     <predicate tag="lower-bound">
+      <exp etag="lval" xstr="dnsmasq_daemon">
+       <lval>
+        <lhost>
+         <var vid="4341" vname="dnsmasq_daemon"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ckey="238" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="10"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="arg" num="0"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="78" origin="prim-lval" p-complexity="1">
+     <location byte="187674" file="src/log.c" line="85"/>
+     <predicate tag="upper-bound">
+      <exp etag="lval" xstr="dnsmasq_daemon">
+       <lval>
+        <lhost>
+         <var vid="4341" vname="dnsmasq_daemon"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ckey="238" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="10"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="arg" num="0"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="79" origin="prim-exp" p-complexity="1">
+     <location byte="187674" file="src/log.c" line="85"/>
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="dnsmasq_daemon-&gt;log_file">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="dnsmasq_daemon">
+          <lval>
+           <lhost>
+            <var vid="4341" vname="dnsmasq_daemon"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <field ckey="238" fname="log_file"/>
+        </offset>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="10"/>
+      </cfg-context>
+      <exp-context>
+       <node name="arg" num="0"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="80" origin="prim-exp" p-complexity="1">
+     <location byte="187674" file="src/log.c" line="85"/>
+     <predicate tag="lower-bound">
+      <exp etag="lval" xstr="dnsmasq_daemon-&gt;log_file">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="dnsmasq_daemon">
+          <lval>
+           <lhost>
+            <var vid="4341" vname="dnsmasq_daemon"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <field ckey="238" fname="log_file"/>
+        </offset>
+       </lval>
+      </exp>
+      <typ ikind="ichar" ttag="tint"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="10"/>
+      </cfg-context>
+      <exp-context>
+       <node name="arg" num="0"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="81" origin="prim-exp" p-complexity="1">
+     <location byte="187674" file="src/log.c" line="85"/>
+     <predicate tag="upper-bound">
+      <exp etag="lval" xstr="dnsmasq_daemon-&gt;log_file">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="dnsmasq_daemon">
+          <lval>
+           <lhost>
+            <var vid="4341" vname="dnsmasq_daemon"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <field ckey="238" fname="log_file"/>
+        </offset>
+       </lval>
+      </exp>
+      <typ ikind="ichar" ttag="tint"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="10"/>
+      </cfg-context>
+      <exp-context>
+       <node name="arg" num="0"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="82" origin="prim-exp" p-complexity="0">
+     <location byte="187674" file="src/log.c" line="85"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="5924" vname="tmp___2"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="11"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="83" origin="prim-exp" p-complexity="6">
+     <location byte="187729" file="src/log.c" line="87"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="dnsmasq_daemon">
+         <lval>
+          <lhost>
+           <var vid="4341" vname="dnsmasq_daemon"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <field ckey="238" fname="log_file"/>
+       </offset>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="12"/>
+       <node name="if-else"/>
+       <node name="stmt" num="11"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="84" origin="prim-exp" p-complexity="0">
+     <location byte="187729" file="src/log.c" line="87"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="4341" vname="dnsmasq_daemon"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="12"/>
+       <node name="if-else"/>
+       <node name="stmt" num="11"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="85" origin="prim-lval" p-complexity="1">
+     <location byte="187729" file="src/log.c" line="87"/>
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="dnsmasq_daemon">
+       <lval>
+        <lhost>
+         <var vid="4341" vname="dnsmasq_daemon"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="12"/>
+       <node name="if-else"/>
+       <node name="stmt" num="11"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="86" origin="prim-lval" p-complexity="1">
+     <location byte="187729" file="src/log.c" line="87"/>
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="dnsmasq_daemon">
+       <lval>
+        <lhost>
+         <var vid="4341" vname="dnsmasq_daemon"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="12"/>
+       <node name="if-else"/>
+       <node name="stmt" num="11"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="87" origin="prim-lval" p-complexity="1">
+     <location byte="187729" file="src/log.c" line="87"/>
+     <predicate tag="lower-bound">
+      <exp etag="lval" xstr="dnsmasq_daemon">
+       <lval>
+        <lhost>
+         <var vid="4341" vname="dnsmasq_daemon"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ckey="238" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="12"/>
+       <node name="if-else"/>
+       <node name="stmt" num="11"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="88" origin="prim-lval" p-complexity="1">
+     <location byte="187729" file="src/log.c" line="87"/>
+     <predicate tag="upper-bound">
+      <exp etag="lval" xstr="dnsmasq_daemon">
+       <lval>
+        <lhost>
+         <var vid="4341" vname="dnsmasq_daemon"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ckey="238" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="12"/>
+       <node name="if-else"/>
+       <node name="stmt" num="11"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="2" id="89" origin="prim-exp" p-complexity="1">
+     <location byte="187729" file="src/log.c" line="87"/>
+     <predicate tag="pointer-cast">
+      <tfrom ikind="ichar" ttag="tint"/>
+      <tto ikind="ichar" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </tto>
+      <exp etag="lval" xstr="dnsmasq_daemon-&gt;log_file">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="dnsmasq_daemon">
+          <lval>
+           <lhost>
+            <var vid="4341" vname="dnsmasq_daemon"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <field ckey="238" fname="log_file"/>
+        </offset>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="13"/>
+       <node name="if-then"/>
+       <node name="stmt" num="12"/>
+       <node name="if-else"/>
+       <node name="stmt" num="11"/>
+      </cfg-context>
+      <exp-context>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="2" id="90" origin="prim-exp" p-complexity="6">
+     <location byte="187729" file="src/log.c" line="87"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="dnsmasq_daemon">
+         <lval>
+          <lhost>
+           <var vid="4341" vname="dnsmasq_daemon"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <field ckey="238" fname="log_file"/>
+       </offset>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="13"/>
+       <node name="if-then"/>
+       <node name="stmt" num="12"/>
+       <node name="if-else"/>
+       <node name="stmt" num="11"/>
+      </cfg-context>
+      <exp-context>
+       <node name="cast"/>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="2" id="91" origin="prim-exp" p-complexity="0">
+     <location byte="187729" file="src/log.c" line="87"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="4341" vname="dnsmasq_daemon"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="13"/>
+       <node name="if-then"/>
+       <node name="stmt" num="12"/>
+       <node name="if-else"/>
+       <node name="stmt" num="11"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="2" id="92" origin="prim-lval" p-complexity="1">
+     <location byte="187729" file="src/log.c" line="87"/>
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="dnsmasq_daemon">
+       <lval>
+        <lhost>
+         <var vid="4341" vname="dnsmasq_daemon"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="13"/>
+       <node name="if-then"/>
+       <node name="stmt" num="12"/>
+       <node name="if-else"/>
+       <node name="stmt" num="11"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="2" id="93" origin="prim-lval" p-complexity="1">
+     <location byte="187729" file="src/log.c" line="87"/>
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="dnsmasq_daemon">
+       <lval>
+        <lhost>
+         <var vid="4341" vname="dnsmasq_daemon"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="13"/>
+       <node name="if-then"/>
+       <node name="stmt" num="12"/>
+       <node name="if-else"/>
+       <node name="stmt" num="11"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="2" id="94" origin="prim-lval" p-complexity="1">
+     <location byte="187729" file="src/log.c" line="87"/>
+     <predicate tag="lower-bound">
+      <exp etag="lval" xstr="dnsmasq_daemon">
+       <lval>
+        <lhost>
+         <var vid="4341" vname="dnsmasq_daemon"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ckey="238" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="13"/>
+       <node name="if-then"/>
+       <node name="stmt" num="12"/>
+       <node name="if-else"/>
+       <node name="stmt" num="11"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="2" id="95" origin="prim-lval" p-complexity="1">
+     <location byte="187729" file="src/log.c" line="87"/>
+     <predicate tag="upper-bound">
+      <exp etag="lval" xstr="dnsmasq_daemon">
+       <lval>
+        <lhost>
+         <var vid="4341" vname="dnsmasq_daemon"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ckey="238" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="13"/>
+       <node name="if-then"/>
+       <node name="stmt" num="12"/>
+       <node name="if-else"/>
+       <node name="stmt" num="11"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="96" origin="prim-exp" p-complexity="0">
+     <location byte="187729" file="src/log.c" line="87"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="5916" vname="errfd"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="15"/>
+       <node name="if-else"/>
+       <node name="stmt" num="11"/>
+      </cfg-context>
+      <exp-context>
+       <node name="arg" num="0"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="97" origin="prim-exp" p-complexity="6">
+     <location byte="187729" file="src/log.c" line="87"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="tmp___1">
+         <lval>
+          <lhost>
+           <var vid="5922" vname="tmp___1"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="15"/>
+       <node name="if-else"/>
+       <node name="stmt" num="11"/>
+      </cfg-context>
+      <exp-context>
+       <node name="arg" num="2"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="98" origin="prim-exp" p-complexity="0">
+     <location byte="187729" file="src/log.c" line="87"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="5922" vname="tmp___1"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="15"/>
+       <node name="if-else"/>
+       <node name="stmt" num="11"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="arg" num="2"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="99" origin="prim-lval" p-complexity="1">
+     <location byte="187729" file="src/log.c" line="87"/>
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="tmp___1">
+       <lval>
+        <lhost>
+         <var vid="5922" vname="tmp___1"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="15"/>
+       <node name="if-else"/>
+       <node name="stmt" num="11"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="arg" num="2"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="100" origin="prim-lval" p-complexity="1">
+     <location byte="187729" file="src/log.c" line="87"/>
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="tmp___1">
+       <lval>
+        <lhost>
+         <var vid="5922" vname="tmp___1"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="15"/>
+       <node name="if-else"/>
+       <node name="stmt" num="11"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="arg" num="2"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="101" origin="prim-lval" p-complexity="1">
+     <location byte="187729" file="src/log.c" line="87"/>
+     <predicate tag="lower-bound">
+      <exp etag="lval" xstr="tmp___1">
+       <lval>
+        <lhost>
+         <var vid="5922" vname="tmp___1"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ikind="iint" ttag="tint"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="15"/>
+       <node name="if-else"/>
+       <node name="stmt" num="11"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="arg" num="2"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="102" origin="prim-lval" p-complexity="1">
+     <location byte="187729" file="src/log.c" line="87"/>
+     <predicate tag="upper-bound">
+      <exp etag="lval" xstr="tmp___1">
+       <lval>
+        <lhost>
+         <var vid="5922" vname="tmp___1"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ikind="iint" ttag="tint"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="15"/>
+       <node name="if-else"/>
+       <node name="stmt" num="11"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="arg" num="2"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="103" origin="prim-exp" p-complexity="1">
+     <location byte="187729" file="src/log.c" line="87"/>
+     <predicate tag="pointer-cast">
+      <tfrom ikind="ichar" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </tfrom>
+      <tto ikind="ichar" ttag="tint"/>
+      <exp etag="lval" xstr="tmp___0">
+       <lval>
+        <lhost>
+         <var vid="5920" vname="tmp___0"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="15"/>
+       <node name="if-else"/>
+       <node name="stmt" num="11"/>
+      </cfg-context>
+      <exp-context>
+       <node name="arg" num="3"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="104" origin="prim-exp" p-complexity="0">
+     <location byte="187729" file="src/log.c" line="87"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="5920" vname="tmp___0"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="15"/>
+       <node name="if-else"/>
+       <node name="stmt" num="11"/>
+      </cfg-context>
+      <exp-context>
+       <node name="cast"/>
+       <node name="arg" num="3"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="105" origin="prim-exp" p-complexity="1">
+     <location byte="187729" file="src/log.c" line="87"/>
+     <predicate tag="valid-mem">
+      <exp etag="caste" xstr="caste (tmp___0:(char*))">
+       <typ ttag="tptr">
+        <typ ikind="ichar" ttag="tint"/>
+       </typ>
+       <exp etag="lval" xstr="tmp___0">
+        <lval>
+         <lhost>
+          <var vid="5920" vname="tmp___0"/>
+         </lhost>
+        </lval>
+       </exp>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="15"/>
+       <node name="if-else"/>
+       <node name="stmt" num="11"/>
+      </cfg-context>
+      <exp-context>
+       <node name="arg" num="3"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="106" origin="prim-exp" p-complexity="1">
+     <location byte="187729" file="src/log.c" line="87"/>
+     <predicate tag="lower-bound">
+      <exp etag="caste" xstr="caste (tmp___0:(char*))">
+       <typ ttag="tptr">
+        <typ ikind="ichar" ttag="tint"/>
+       </typ>
+       <exp etag="lval" xstr="tmp___0">
+        <lval>
+         <lhost>
+          <var vid="5920" vname="tmp___0"/>
+         </lhost>
+        </lval>
+       </exp>
+      </exp>
+      <typ ikind="ichar" ttag="tint"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="15"/>
+       <node name="if-else"/>
+       <node name="stmt" num="11"/>
+      </cfg-context>
+      <exp-context>
+       <node name="arg" num="3"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="107" origin="prim-exp" p-complexity="1">
+     <location byte="187729" file="src/log.c" line="87"/>
+     <predicate tag="upper-bound">
+      <exp etag="caste" xstr="caste (tmp___0:(char*))">
+       <typ ttag="tptr">
+        <typ ikind="ichar" ttag="tint"/>
+       </typ>
+       <exp etag="lval" xstr="tmp___0">
+        <lval>
+         <lhost>
+          <var vid="5920" vname="tmp___0"/>
+         </lhost>
+        </lval>
+       </exp>
+      </exp>
+      <typ ikind="ichar" ttag="tint"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="15"/>
+       <node name="if-else"/>
+       <node name="stmt" num="11"/>
+      </cfg-context>
+      <exp-context>
+       <node name="arg" num="3"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="108" origin="prim-exp" p-complexity="0">
+     <location byte="187861" file="src/log.c" line="93"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="5908" vname="max_logs"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="16"/>
+      </cfg-context>
+      <exp-context>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="109" origin="prim-exp" p-complexity="1">
+     <location byte="187892" file="src/log.c" line="95"/>
+     <predicate tag="pointer-cast">
+      <tfrom ttag="tvoid"/>
+      <tto ckey="239" ttag="tcomp"/>
+      <exp etag="lval" xstr="tmp___3">
+       <lval>
+        <lhost>
+         <var vid="5926" vname="tmp___3"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="17"/>
+       <node name="if-then"/>
+       <node name="stmt" num="16"/>
+      </cfg-context>
+      <exp-context>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="110" origin="prim-exp" p-complexity="0">
+     <location byte="187892" file="src/log.c" line="95"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="5926" vname="tmp___3"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="17"/>
+       <node name="if-then"/>
+       <node name="stmt" num="16"/>
+      </cfg-context>
+      <exp-context>
+       <node name="cast"/>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="111" origin="prim-exp" p-complexity="1">
+     <location byte="187892" file="src/log.c" line="95"/>
+     <predicate tag="lower-bound">
+      <exp etag="caste" xstr="caste (tmp___3:(struct 239*))">
+       <typ ttag="tptr">
+        <typ ckey="239" ttag="tcomp"/>
+       </typ>
+       <exp etag="lval" xstr="tmp___3">
+        <lval>
+         <lhost>
+          <var vid="5926" vname="tmp___3"/>
+         </lhost>
+        </lval>
+       </exp>
+      </exp>
+      <typ ckey="239" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="17"/>
+       <node name="if-then"/>
+       <node name="stmt" num="16"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="112" origin="prim-exp" p-complexity="1">
+     <location byte="187892" file="src/log.c" line="95"/>
+     <predicate tag="lower-bound">
+      <exp etag="caste" xstr="caste (tmp___3:(struct 239*))">
+       <typ ttag="tptr">
+        <typ ckey="239" ttag="tcomp"/>
+       </typ>
+       <exp etag="lval" xstr="tmp___3">
+        <lval>
+         <lhost>
+          <var vid="5926" vname="tmp___3"/>
+         </lhost>
+        </lval>
+       </exp>
+      </exp>
+      <typ ckey="239" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="17"/>
+       <node name="if-then"/>
+       <node name="stmt" num="16"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="113" origin="prim-exp" p-complexity="1">
+     <location byte="187892" file="src/log.c" line="95"/>
+     <predicate tag="valid-mem">
+      <exp etag="caste" xstr="caste (tmp___3:(struct 239*))">
+       <typ ttag="tptr">
+        <typ ckey="239" ttag="tcomp"/>
+       </typ>
+       <exp etag="lval" xstr="tmp___3">
+        <lval>
+         <lhost>
+          <var vid="5926" vname="tmp___3"/>
+         </lhost>
+        </lval>
+       </exp>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="17"/>
+       <node name="if-then"/>
+       <node name="stmt" num="16"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="114" origin="prim-exp" p-complexity="0">
+     <location byte="187952" file="src/log.c" line="96"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="5911" vname="free_entries"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="17"/>
+       <node name="if-then"/>
+       <node name="stmt" num="16"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="115" origin="prim-lval" p-complexity="1">
+     <location byte="187952" file="src/log.c" line="96"/>
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="free_entries">
+       <lval>
+        <lhost>
+         <var vid="5911" vname="free_entries"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="17"/>
+       <node name="if-then"/>
+       <node name="stmt" num="16"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="116" origin="prim-lval" p-complexity="1">
+     <location byte="187952" file="src/log.c" line="96"/>
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="free_entries">
+       <lval>
+        <lhost>
+         <var vid="5911" vname="free_entries"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="17"/>
+       <node name="if-then"/>
+       <node name="stmt" num="16"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="117" origin="prim-lval" p-complexity="1">
+     <location byte="187952" file="src/log.c" line="96"/>
+     <predicate tag="lower-bound">
+      <exp etag="lval" xstr="free_entries">
+       <lval>
+        <lhost>
+         <var vid="5911" vname="free_entries"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ckey="239" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="17"/>
+       <node name="if-then"/>
+       <node name="stmt" num="16"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="118" origin="prim-lval" p-complexity="1">
+     <location byte="187952" file="src/log.c" line="96"/>
+     <predicate tag="upper-bound">
+      <exp etag="lval" xstr="free_entries">
+       <lval>
+        <lhost>
+         <var vid="5911" vname="free_entries"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ckey="239" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="17"/>
+       <node name="if-then"/>
+       <node name="stmt" num="16"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="119" origin="prim-exp" p-complexity="0">
+     <location byte="187952" file="src/log.c" line="96"/>
+     <predicate tag="pointer-cast">
+      <tfrom ttag="tvoid"/>
+      <tto ckey="239" ttag="tcomp"/>
+      <exp etag="caste" xstr="caste (0:(void*))">
+       <typ ttag="tptr">
+        <typ ttag="tvoid"/>
+       </typ>
+       <exp etag="const" xstr="0">
+        <constant ctag="cint64" ikind="iint" intValue="0"/>
+       </exp>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="17"/>
+       <node name="if-then"/>
+       <node name="stmt" num="16"/>
+      </cfg-context>
+      <exp-context>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="120" origin="prim-exp" p-complexity="0">
+     <location byte="187952" file="src/log.c" line="96"/>
+     <predicate tag="cast">
+      <tfrom ikind="iint" ttag="tint"/>
+      <tto ttag="tptr">
+       <typ ttag="tvoid"/>
+      </tto>
+      <exp etag="const" xstr="0">
+       <constant ctag="cint64" ikind="iint" intValue="0"/>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="17"/>
+       <node name="if-then"/>
+       <node name="stmt" num="16"/>
+      </cfg-context>
+      <exp-context>
+       <node name="cast"/>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="121" origin="prim-exp" p-complexity="0">
+     <location byte="187952" file="src/log.c" line="96"/>
+     <predicate tag="lower-bound">
+      <exp etag="caste" xstr="caste (caste (0:(void*)):(struct 239*))">
+       <typ ttag="tptr">
+        <typ ckey="239" ttag="tcomp"/>
+       </typ>
+       <exp etag="caste" xstr="caste (0:(void*))">
+        <typ ttag="tptr">
+         <typ ttag="tvoid"/>
+        </typ>
+        <exp etag="const" xstr="0">
+         <constant ctag="cint64" ikind="iint" intValue="0"/>
+        </exp>
+       </exp>
+      </exp>
+      <typ ckey="239" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="17"/>
+       <node name="if-then"/>
+       <node name="stmt" num="16"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="122" origin="prim-exp" p-complexity="0">
+     <location byte="187952" file="src/log.c" line="96"/>
+     <predicate tag="lower-bound">
+      <exp etag="caste" xstr="caste (caste (0:(void*)):(struct 239*))">
+       <typ ttag="tptr">
+        <typ ckey="239" ttag="tcomp"/>
+       </typ>
+       <exp etag="caste" xstr="caste (0:(void*))">
+        <typ ttag="tptr">
+         <typ ttag="tvoid"/>
+        </typ>
+        <exp etag="const" xstr="0">
+         <constant ctag="cint64" ikind="iint" intValue="0"/>
+        </exp>
+       </exp>
+      </exp>
+      <typ ckey="239" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="17"/>
+       <node name="if-then"/>
+       <node name="stmt" num="16"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="123" origin="prim-exp" p-complexity="0">
+     <location byte="187952" file="src/log.c" line="96"/>
+     <predicate tag="valid-mem">
+      <exp etag="caste" xstr="caste (caste (0:(void*)):(struct 239*))">
+       <typ ttag="tptr">
+        <typ ckey="239" ttag="tcomp"/>
+       </typ>
+       <exp etag="caste" xstr="caste (0:(void*))">
+        <typ ttag="tptr">
+         <typ ttag="tvoid"/>
+        </typ>
+        <exp etag="const" xstr="0">
+         <constant ctag="cint64" ikind="iint" intValue="0"/>
+        </exp>
+       </exp>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="17"/>
+       <node name="if-then"/>
+       <node name="stmt" num="16"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="124" origin="prim-exp" p-complexity="0">
+     <location byte="187952" file="src/log.c" line="96"/>
+     <predicate tag="lower-bound">
+      <exp etag="caste" xstr="caste (caste (0:(void*)):(struct 239*))">
+       <typ ttag="tptr">
+        <typ ckey="239" ttag="tcomp"/>
+       </typ>
+       <exp etag="caste" xstr="caste (0:(void*))">
+        <typ ttag="tptr">
+         <typ ttag="tvoid"/>
+        </typ>
+        <exp etag="const" xstr="0">
+         <constant ctag="cint64" ikind="iint" intValue="0"/>
+        </exp>
+       </exp>
+      </exp>
+      <typ ckey="239" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="17"/>
+       <node name="if-then"/>
+       <node name="stmt" num="16"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="125" origin="prim-exp" p-complexity="0">
+     <location byte="187952" file="src/log.c" line="96"/>
+     <predicate tag="lower-bound">
+      <exp etag="caste" xstr="caste (caste (0:(void*)):(struct 239*))">
+       <typ ttag="tptr">
+        <typ ckey="239" ttag="tcomp"/>
+       </typ>
+       <exp etag="caste" xstr="caste (0:(void*))">
+        <typ ttag="tptr">
+         <typ ttag="tvoid"/>
+        </typ>
+        <exp etag="const" xstr="0">
+         <constant ctag="cint64" ikind="iint" intValue="0"/>
+        </exp>
+       </exp>
+      </exp>
+      <typ ckey="239" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="17"/>
+       <node name="if-then"/>
+       <node name="stmt" num="16"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="126" origin="prim-exp" p-complexity="0">
+     <location byte="187952" file="src/log.c" line="96"/>
+     <predicate tag="valid-mem">
+      <exp etag="caste" xstr="caste (caste (0:(void*)):(struct 239*))">
+       <typ ttag="tptr">
+        <typ ckey="239" ttag="tcomp"/>
+       </typ>
+       <exp etag="caste" xstr="caste (0:(void*))">
+        <typ ttag="tptr">
+         <typ ttag="tvoid"/>
+        </typ>
+        <exp etag="const" xstr="0">
+         <constant ctag="cint64" ikind="iint" intValue="0"/>
+        </exp>
+       </exp>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="17"/>
+       <node name="if-then"/>
+       <node name="stmt" num="16"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="127" origin="prim-exp" p-complexity="0">
+     <location byte="188026" file="src/log.c" line="104"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="5904" vname="log_to_file"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="18"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="128" origin="prim-exp" p-complexity="0">
+     <location byte="188026" file="src/log.c" line="104"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="5901" vname="log_stderr"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="19"/>
+       <node name="if-then"/>
+       <node name="stmt" num="18"/>
+      </cfg-context>
+      <exp-context>
+       <node name="op"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="2" id="129" origin="prim-exp" p-complexity="0">
+     <location byte="188026" file="src/log.c" line="104"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="5915" vname="ent_pw"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="20"/>
+       <node name="if-then"/>
+       <node name="stmt" num="19"/>
+       <node name="if-then"/>
+       <node name="stmt" num="18"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="3" id="130" origin="prim-exp" p-complexity="6">
+     <location byte="188026" file="src/log.c" line="104"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="ent_pw">
+         <lval>
+          <lhost>
+           <var vid="5915" vname="ent_pw"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <field ckey="138" fname="pw_uid"/>
+       </offset>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="21"/>
+       <node name="if-then"/>
+       <node name="stmt" num="20"/>
+       <node name="if-then"/>
+       <node name="stmt" num="19"/>
+       <node name="if-then"/>
+       <node name="stmt" num="18"/>
+      </cfg-context>
+      <exp-context>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="3" id="131" origin="prim-exp" p-complexity="0">
+     <location byte="188026" file="src/log.c" line="104"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="5915" vname="ent_pw"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="21"/>
+       <node name="if-then"/>
+       <node name="stmt" num="20"/>
+       <node name="if-then"/>
+       <node name="stmt" num="19"/>
+       <node name="if-then"/>
+       <node name="stmt" num="18"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="3" id="132" origin="prim-lval" p-complexity="1">
+     <location byte="188026" file="src/log.c" line="104"/>
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="ent_pw">
+       <lval>
+        <lhost>
+         <var vid="5915" vname="ent_pw"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="21"/>
+       <node name="if-then"/>
+       <node name="stmt" num="20"/>
+       <node name="if-then"/>
+       <node name="stmt" num="19"/>
+       <node name="if-then"/>
+       <node name="stmt" num="18"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="3" id="133" origin="prim-lval" p-complexity="1">
+     <location byte="188026" file="src/log.c" line="104"/>
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="ent_pw">
+       <lval>
+        <lhost>
+         <var vid="5915" vname="ent_pw"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="21"/>
+       <node name="if-then"/>
+       <node name="stmt" num="20"/>
+       <node name="if-then"/>
+       <node name="stmt" num="19"/>
+       <node name="if-then"/>
+       <node name="stmt" num="18"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="3" id="134" origin="prim-lval" p-complexity="1">
+     <location byte="188026" file="src/log.c" line="104"/>
+     <predicate tag="lower-bound">
+      <exp etag="lval" xstr="ent_pw">
+       <lval>
+        <lhost>
+         <var vid="5915" vname="ent_pw"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ckey="138" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="21"/>
+       <node name="if-then"/>
+       <node name="stmt" num="20"/>
+       <node name="if-then"/>
+       <node name="stmt" num="19"/>
+       <node name="if-then"/>
+       <node name="stmt" num="18"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="3" id="135" origin="prim-lval" p-complexity="1">
+     <location byte="188026" file="src/log.c" line="104"/>
+     <predicate tag="upper-bound">
+      <exp etag="lval" xstr="ent_pw">
+       <lval>
+        <lhost>
+         <var vid="5915" vname="ent_pw"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ckey="138" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="21"/>
+       <node name="if-then"/>
+       <node name="stmt" num="20"/>
+       <node name="if-then"/>
+       <node name="stmt" num="19"/>
+       <node name="if-then"/>
+       <node name="stmt" num="18"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="4" id="136" origin="prim-exp" p-complexity="0">
+     <location byte="188026" file="src/log.c" line="104"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="5903" vname="log_fd"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="22"/>
+       <node name="if-then"/>
+       <node name="stmt" num="21"/>
+       <node name="if-then"/>
+       <node name="stmt" num="20"/>
+       <node name="if-then"/>
+       <node name="stmt" num="19"/>
+       <node name="if-then"/>
+       <node name="stmt" num="18"/>
+      </cfg-context>
+      <exp-context>
+       <node name="arg" num="0"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="4" id="137" origin="prim-exp" p-complexity="6">
+     <location byte="188026" file="src/log.c" line="104"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="ent_pw">
+         <lval>
+          <lhost>
+           <var vid="5915" vname="ent_pw"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <field ckey="138" fname="pw_uid"/>
+       </offset>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="22"/>
+       <node name="if-then"/>
+       <node name="stmt" num="21"/>
+       <node name="if-then"/>
+       <node name="stmt" num="20"/>
+       <node name="if-then"/>
+       <node name="stmt" num="19"/>
+       <node name="if-then"/>
+       <node name="stmt" num="18"/>
+      </cfg-context>
+      <exp-context>
+       <node name="arg" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="4" id="138" origin="prim-exp" p-complexity="0">
+     <location byte="188026" file="src/log.c" line="104"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="5915" vname="ent_pw"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="22"/>
+       <node name="if-then"/>
+       <node name="stmt" num="21"/>
+       <node name="if-then"/>
+       <node name="stmt" num="20"/>
+       <node name="if-then"/>
+       <node name="stmt" num="19"/>
+       <node name="if-then"/>
+       <node name="stmt" num="18"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="arg" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="4" id="139" origin="prim-lval" p-complexity="1">
+     <location byte="188026" file="src/log.c" line="104"/>
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="ent_pw">
+       <lval>
+        <lhost>
+         <var vid="5915" vname="ent_pw"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="22"/>
+       <node name="if-then"/>
+       <node name="stmt" num="21"/>
+       <node name="if-then"/>
+       <node name="stmt" num="20"/>
+       <node name="if-then"/>
+       <node name="stmt" num="19"/>
+       <node name="if-then"/>
+       <node name="stmt" num="18"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="arg" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="4" id="140" origin="prim-lval" p-complexity="1">
+     <location byte="188026" file="src/log.c" line="104"/>
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="ent_pw">
+       <lval>
+        <lhost>
+         <var vid="5915" vname="ent_pw"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="22"/>
+       <node name="if-then"/>
+       <node name="stmt" num="21"/>
+       <node name="if-then"/>
+       <node name="stmt" num="20"/>
+       <node name="if-then"/>
+       <node name="stmt" num="19"/>
+       <node name="if-then"/>
+       <node name="stmt" num="18"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="arg" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="4" id="141" origin="prim-lval" p-complexity="1">
+     <location byte="188026" file="src/log.c" line="104"/>
+     <predicate tag="lower-bound">
+      <exp etag="lval" xstr="ent_pw">
+       <lval>
+        <lhost>
+         <var vid="5915" vname="ent_pw"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ckey="138" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="22"/>
+       <node name="if-then"/>
+       <node name="stmt" num="21"/>
+       <node name="if-then"/>
+       <node name="stmt" num="20"/>
+       <node name="if-then"/>
+       <node name="stmt" num="19"/>
+       <node name="if-then"/>
+       <node name="stmt" num="18"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="arg" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="4" id="142" origin="prim-lval" p-complexity="1">
+     <location byte="188026" file="src/log.c" line="104"/>
+     <predicate tag="upper-bound">
+      <exp etag="lval" xstr="ent_pw">
+       <lval>
+        <lhost>
+         <var vid="5915" vname="ent_pw"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ckey="138" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="22"/>
+       <node name="if-then"/>
+       <node name="stmt" num="21"/>
+       <node name="if-then"/>
+       <node name="stmt" num="20"/>
+       <node name="if-then"/>
+       <node name="stmt" num="19"/>
+       <node name="if-then"/>
+       <node name="stmt" num="18"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="arg" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="4" id="143" origin="prim-exp" p-complexity="0">
+     <location byte="188026" file="src/log.c" line="104"/>
+     <predicate from="iint" tag="signed-to-unsigned-cast" to="iuint">
+      <exp etag="const" xstr="-1">
+       <constant ctag="cint64" ikind="iint" intValue="-1"/>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="22"/>
+       <node name="if-then"/>
+       <node name="stmt" num="21"/>
+       <node name="if-then"/>
+       <node name="stmt" num="20"/>
+       <node name="if-then"/>
+       <node name="stmt" num="19"/>
+       <node name="if-then"/>
+       <node name="stmt" num="18"/>
+      </cfg-context>
+      <exp-context>
+       <node name="arg" num="2"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="4" id="144" origin="prim-exp" p-complexity="0">
+     <location byte="188026" file="src/log.c" line="104"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="5930" vname="tmp___5"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="23"/>
+       <node name="if-then"/>
+       <node name="stmt" num="21"/>
+       <node name="if-then"/>
+       <node name="stmt" num="20"/>
+       <node name="if-then"/>
+       <node name="stmt" num="19"/>
+       <node name="if-then"/>
+       <node name="stmt" num="18"/>
+      </cfg-context>
+      <exp-context>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="145" origin="prim-exp" p-complexity="6">
+     <location byte="188144" file="src/log.c" line="106"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="tmp___4">
+         <lval>
+          <lhost>
+           <var vid="5928" vname="tmp___4"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="24"/>
+       <node name="if-then"/>
+       <node name="stmt" num="23"/>
+       <node name="if-then"/>
+       <node name="stmt" num="21"/>
+       <node name="if-then"/>
+       <node name="stmt" num="20"/>
+       <node name="if-then"/>
+       <node name="stmt" num="19"/>
+       <node name="if-then"/>
+       <node name="stmt" num="18"/>
+      </cfg-context>
+      <exp-context>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="146" origin="prim-exp" p-complexity="0">
+     <location byte="188144" file="src/log.c" line="106"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="5928" vname="tmp___4"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="24"/>
+       <node name="if-then"/>
+       <node name="stmt" num="23"/>
+       <node name="if-then"/>
+       <node name="stmt" num="21"/>
+       <node name="if-then"/>
+       <node name="stmt" num="20"/>
+       <node name="if-then"/>
+       <node name="stmt" num="19"/>
+       <node name="if-then"/>
+       <node name="stmt" num="18"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="147" origin="prim-lval" p-complexity="1">
+     <location byte="188144" file="src/log.c" line="106"/>
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="tmp___4">
+       <lval>
+        <lhost>
+         <var vid="5928" vname="tmp___4"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="24"/>
+       <node name="if-then"/>
+       <node name="stmt" num="23"/>
+       <node name="if-then"/>
+       <node name="stmt" num="21"/>
+       <node name="if-then"/>
+       <node name="stmt" num="20"/>
+       <node name="if-then"/>
+       <node name="stmt" num="19"/>
+       <node name="if-then"/>
+       <node name="stmt" num="18"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="148" origin="prim-lval" p-complexity="1">
+     <location byte="188144" file="src/log.c" line="106"/>
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="tmp___4">
+       <lval>
+        <lhost>
+         <var vid="5928" vname="tmp___4"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="24"/>
+       <node name="if-then"/>
+       <node name="stmt" num="23"/>
+       <node name="if-then"/>
+       <node name="stmt" num="21"/>
+       <node name="if-then"/>
+       <node name="stmt" num="20"/>
+       <node name="if-then"/>
+       <node name="stmt" num="19"/>
+       <node name="if-then"/>
+       <node name="stmt" num="18"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="149" origin="prim-lval" p-complexity="1">
+     <location byte="188144" file="src/log.c" line="106"/>
+     <predicate tag="lower-bound">
+      <exp etag="lval" xstr="tmp___4">
+       <lval>
+        <lhost>
+         <var vid="5928" vname="tmp___4"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ikind="iint" ttag="tint"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="24"/>
+       <node name="if-then"/>
+       <node name="stmt" num="23"/>
+       <node name="if-then"/>
+       <node name="stmt" num="21"/>
+       <node name="if-then"/>
+       <node name="stmt" num="20"/>
+       <node name="if-then"/>
+       <node name="stmt" num="19"/>
+       <node name="if-then"/>
+       <node name="stmt" num="18"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="5" id="150" origin="prim-lval" p-complexity="1">
+     <location byte="188144" file="src/log.c" line="106"/>
+     <predicate tag="upper-bound">
+      <exp etag="lval" xstr="tmp___4">
+       <lval>
+        <lhost>
+         <var vid="5928" vname="tmp___4"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ikind="iint" ttag="tint"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="24"/>
+       <node name="if-then"/>
+       <node name="stmt" num="23"/>
+       <node name="if-then"/>
+       <node name="stmt" num="21"/>
+       <node name="if-then"/>
+       <node name="stmt" num="20"/>
+       <node name="if-then"/>
+       <node name="stmt" num="19"/>
+       <node name="if-then"/>
+       <node name="stmt" num="18"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="151" origin="prim-exp" p-complexity="0">
+     <location byte="188177" file="src/log.c" line="108"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="5917" vname="ret"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="return"/>
+       <node name="stmt" num="25"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </proof-obligation>
+   </primary-proof-obligations>
+  </function>
+  <header time="01/09/2017 21:38:38">
+   <application file="src/log.xml" name="application"/>
+  </header>
+ </c-analysis>

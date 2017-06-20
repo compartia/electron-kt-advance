@@ -1,0 +1,718 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function name="cache_unlink" stable="yes">
+   <program-locations>
+    <program-location>
+     <locations>
+      <loc byte="190458" file="src/cache.c" line="240"/>
+     </locations>
+     <cfg-context>
+      <node name="if-expr"/>
+      <node name="stmt" num="86"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="0" pv="0"/>
+      <inv nrv="10" pv="0"/>
+      <inv nrv="9" pv="0"/>
+      <inv nrv="4" pv="8"/>
+      <inv nrv="1" pv="8"/>
+      <inv nrv="5" pv="9"/>
+      <inv nrv="2" pv="9"/>
+      <inv nrv="15" pv="19"/>
+      <inv nrv="7" pv="19"/>
+      <inv nrv="12" pv="19"/>
+      <inv nrv="6" pv="18"/>
+      <inv nrv="8" pv="18"/>
+      <inv nrv="13" pv="18"/>
+      <inv nrv="3" pv="10"/>
+      <inv nrv="3" pv="23"/>
+      <inv nrv="3" pv="22"/>
+      <inv nrv="3" pv="21"/>
+      <inv nrv="3" pv="20"/>
+      <inv nrv="5" pv="11"/>
+      <inv nrv="2" pv="11"/>
+      <inv nrv="0" pv="2"/>
+      <inv nrv="10" pv="2"/>
+      <inv nrv="9" pv="2"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="190479" file="src/cache.c" line="241"/>
+     </locations>
+     <cfg-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="87"/>
+      <node name="if-then"/>
+      <node name="stmt" num="86"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="0" pv="0"/>
+      <inv nrv="10" pv="0"/>
+      <inv nrv="9" pv="0"/>
+      <inv nrv="4" pv="8"/>
+      <inv nrv="1" pv="8"/>
+      <inv nrv="5" pv="9"/>
+      <inv nrv="2" pv="9"/>
+      <inv nrv="15" pv="19"/>
+      <inv nrv="7" pv="19"/>
+      <inv nrv="12" pv="19"/>
+      <inv nrv="6" pv="18"/>
+      <inv nrv="8" pv="18"/>
+      <inv nrv="13" pv="18"/>
+      <inv nrv="3" pv="10"/>
+      <inv nrv="3" pv="23"/>
+      <inv nrv="3" pv="22"/>
+      <inv nrv="3" pv="21"/>
+      <inv nrv="3" pv="20"/>
+      <inv nrv="4" pv="17"/>
+      <inv nrv="10" pv="17"/>
+      <inv nrv="1" pv="17"/>
+      <inv nrv="5" pv="16"/>
+      <inv nrv="11" pv="16"/>
+      <inv nrv="2" pv="16"/>
+      <inv nrv="0" pv="6"/>
+      <inv nrv="10" pv="6"/>
+      <inv nrv="9" pv="6"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="190523" file="src/cache.c" line="243"/>
+     </locations>
+     <cfg-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="88"/>
+      <node name="if-else"/>
+      <node name="stmt" num="86"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="0" pv="0"/>
+      <inv nrv="10" pv="0"/>
+      <inv nrv="9" pv="0"/>
+      <inv nrv="4" pv="8"/>
+      <inv nrv="1" pv="8"/>
+      <inv nrv="5" pv="9"/>
+      <inv nrv="2" pv="9"/>
+      <inv nrv="15" pv="19"/>
+      <inv nrv="7" pv="19"/>
+      <inv nrv="12" pv="19"/>
+      <inv nrv="6" pv="18"/>
+      <inv nrv="8" pv="18"/>
+      <inv nrv="13" pv="18"/>
+      <inv nrv="3" pv="10"/>
+      <inv nrv="3" pv="23"/>
+      <inv nrv="3" pv="22"/>
+      <inv nrv="3" pv="21"/>
+      <inv nrv="3" pv="20"/>
+      <inv nrv="4" pv="7"/>
+      <inv nrv="10" pv="7"/>
+      <inv nrv="1" pv="7"/>
+      <inv nrv="0" pv="1"/>
+      <inv nrv="10" pv="1"/>
+      <inv nrv="9" pv="1"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="190552" file="src/cache.c" line="245"/>
+     </locations>
+     <cfg-context>
+      <node name="if-expr"/>
+      <node name="stmt" num="89"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="0" pv="0"/>
+      <inv nrv="10" pv="0"/>
+      <inv nrv="9" pv="0"/>
+      <inv nrv="4" pv="8"/>
+      <inv nrv="1" pv="8"/>
+      <inv nrv="5" pv="9"/>
+      <inv nrv="2" pv="9"/>
+      <inv nrv="15" pv="19"/>
+      <inv nrv="7" pv="19"/>
+      <inv nrv="12" pv="19"/>
+      <inv nrv="8" pv="18"/>
+      <inv nrv="14" pv="18"/>
+      <inv nrv="16" pv="18"/>
+      <inv nrv="3" pv="10"/>
+      <inv nrv="3" pv="23"/>
+      <inv nrv="3" pv="22"/>
+      <inv nrv="3" pv="21"/>
+      <inv nrv="3" pv="20"/>
+      <inv nrv="4" pv="12"/>
+      <inv nrv="10" pv="12"/>
+      <inv nrv="1" pv="12"/>
+      <inv nrv="0" pv="3"/>
+      <inv nrv="10" pv="3"/>
+      <inv nrv="9" pv="3"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="190573" file="src/cache.c" line="246"/>
+     </locations>
+     <cfg-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="90"/>
+      <node name="if-then"/>
+      <node name="stmt" num="89"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="0" pv="0"/>
+      <inv nrv="10" pv="0"/>
+      <inv nrv="9" pv="0"/>
+      <inv nrv="4" pv="8"/>
+      <inv nrv="1" pv="8"/>
+      <inv nrv="5" pv="9"/>
+      <inv nrv="2" pv="9"/>
+      <inv nrv="15" pv="19"/>
+      <inv nrv="7" pv="19"/>
+      <inv nrv="12" pv="19"/>
+      <inv nrv="8" pv="18"/>
+      <inv nrv="14" pv="18"/>
+      <inv nrv="16" pv="18"/>
+      <inv nrv="3" pv="10"/>
+      <inv nrv="3" pv="23"/>
+      <inv nrv="3" pv="22"/>
+      <inv nrv="3" pv="21"/>
+      <inv nrv="3" pv="20"/>
+      <inv nrv="5" pv="14"/>
+      <inv nrv="10" pv="14"/>
+      <inv nrv="2" pv="14"/>
+      <inv nrv="4" pv="15"/>
+      <inv nrv="11" pv="15"/>
+      <inv nrv="1" pv="15"/>
+      <inv nrv="0" pv="5"/>
+      <inv nrv="10" pv="5"/>
+      <inv nrv="9" pv="5"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="190617" file="src/cache.c" line="248"/>
+     </locations>
+     <cfg-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="91"/>
+      <node name="if-else"/>
+      <node name="stmt" num="89"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="0" pv="0"/>
+      <inv nrv="10" pv="0"/>
+      <inv nrv="9" pv="0"/>
+      <inv nrv="4" pv="8"/>
+      <inv nrv="1" pv="8"/>
+      <inv nrv="5" pv="9"/>
+      <inv nrv="2" pv="9"/>
+      <inv nrv="15" pv="19"/>
+      <inv nrv="7" pv="19"/>
+      <inv nrv="12" pv="19"/>
+      <inv nrv="8" pv="18"/>
+      <inv nrv="14" pv="18"/>
+      <inv nrv="16" pv="18"/>
+      <inv nrv="3" pv="10"/>
+      <inv nrv="3" pv="23"/>
+      <inv nrv="3" pv="22"/>
+      <inv nrv="3" pv="21"/>
+      <inv nrv="3" pv="20"/>
+      <inv nrv="5" pv="13"/>
+      <inv nrv="10" pv="13"/>
+      <inv nrv="2" pv="13"/>
+      <inv nrv="0" pv="4"/>
+      <inv nrv="10" pv="4"/>
+      <inv nrv="9" pv="4"/>
+     </invariants>
+    </program-location>
+   </program-locations>
+   <program-value-table size="24">
+    <pvals index="0">
+     <pval>
+      <lhost>
+       <var vid="5971" vname="crecp"/>
+      </lhost>
+     </pval>
+    </pvals>
+    <pvals index="1">
+     <pval arg="1" id="27"/>
+     <pval arg="1" id="28"/>
+     <pval arg="1" id="29"/>
+     <pval arg="2" id="30"/>
+     <pval arg="2" id="31"/>
+    </pvals>
+    <pvals index="2">
+     <pval arg="1" id="2"/>
+     <pval arg="1" id="3"/>
+     <pval arg="1" id="4"/>
+     <pval arg="2" id="5"/>
+     <pval arg="2" id="6"/>
+    </pvals>
+    <pvals index="3">
+     <pval arg="1" id="36"/>
+     <pval arg="1" id="37"/>
+     <pval arg="1" id="38"/>
+     <pval arg="2" id="39"/>
+     <pval arg="2" id="40"/>
+    </pvals>
+    <pvals index="4">
+     <pval arg="1" id="61"/>
+     <pval arg="1" id="62"/>
+     <pval arg="1" id="63"/>
+     <pval arg="2" id="64"/>
+     <pval arg="2" id="65"/>
+    </pvals>
+    <pvals index="5">
+     <pval arg="1" id="42"/>
+     <pval arg="1" id="43"/>
+     <pval arg="1" id="44"/>
+     <pval arg="2" id="45"/>
+     <pval arg="2" id="46"/>
+     <pval arg="1" id="52"/>
+     <pval arg="1" id="53"/>
+     <pval arg="1" id="54"/>
+     <pval arg="2" id="55"/>
+     <pval arg="2" id="56"/>
+    </pvals>
+    <pvals index="6">
+     <pval arg="1" id="8"/>
+     <pval arg="1" id="9"/>
+     <pval arg="1" id="10"/>
+     <pval arg="2" id="11"/>
+     <pval arg="2" id="12"/>
+     <pval arg="1" id="18"/>
+     <pval arg="1" id="19"/>
+     <pval arg="1" id="20"/>
+     <pval arg="2" id="21"/>
+     <pval arg="2" id="22"/>
+    </pvals>
+    <pvals index="7">
+     <pval arg="1" id="26"/>
+     <pval arg="2" id="32"/>
+     <pval arg="2" id="33"/>
+     <pval arg="1" id="34"/>
+    </pvals>
+    <pvals index="8">
+     <pval>
+      <lhost>
+       <mem etag="lval" xstr="crecp">
+        <lval>
+         <lhost>
+          <var vid="5971" vname="crecp"/>
+         </lhost>
+        </lval>
+       </mem>
+      </lhost>
+      <offset>
+       <field ckey="196" fname="next"/>
+      </offset>
+     </pval>
+    </pvals>
+    <pvals index="9">
+     <pval>
+      <lhost>
+       <mem etag="lval" xstr="crecp">
+        <lval>
+         <lhost>
+          <var vid="5971" vname="crecp"/>
+         </lhost>
+        </lval>
+       </mem>
+      </lhost>
+      <offset>
+       <field ckey="196" fname="prev"/>
+      </offset>
+     </pval>
+    </pvals>
+    <pvals index="10">
+     <pval etag="lval" external="yes" property="vm" xstr="crecp">
+      <lval>
+       <lhost>
+        <var vid="5971" vname="crecp"/>
+       </lhost>
+      </lval>
+     </pval>
+    </pvals>
+    <pvals index="11">
+     <pval arg="1" id="1"/>
+    </pvals>
+    <pvals index="12">
+     <pval arg="1" id="35"/>
+    </pvals>
+    <pvals index="13">
+     <pval arg="1" id="60"/>
+     <pval arg="2" id="66"/>
+     <pval arg="2" id="67"/>
+     <pval arg="1" id="68"/>
+    </pvals>
+    <pvals index="14">
+     <pval arg="1" id="51"/>
+     <pval arg="2" id="57"/>
+     <pval arg="2" id="58"/>
+     <pval arg="1" id="59"/>
+    </pvals>
+    <pvals index="15">
+     <pval arg="1" id="41"/>
+     <pval arg="1" id="47"/>
+     <pval arg="1" id="48"/>
+     <pval arg="2" id="49"/>
+     <pval arg="2" id="50"/>
+    </pvals>
+    <pvals index="16">
+     <pval arg="1" id="7"/>
+     <pval arg="1" id="13"/>
+     <pval arg="1" id="14"/>
+     <pval arg="2" id="15"/>
+     <pval arg="2" id="16"/>
+    </pvals>
+    <pvals index="17">
+     <pval arg="1" id="17"/>
+     <pval arg="2" id="23"/>
+     <pval arg="2" id="24"/>
+     <pval arg="1" id="25"/>
+    </pvals>
+    <pvals index="18">
+     <pval>
+      <lhost>
+       <mem etag="lval" xstr="crecp-&gt;prev">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="crecp">
+           <lval>
+            <lhost>
+             <var vid="5971" vname="crecp"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <field ckey="196" fname="prev"/>
+         </offset>
+        </lval>
+       </mem>
+      </lhost>
+      <offset>
+       <field ckey="196" fname="next"/>
+      </offset>
+     </pval>
+    </pvals>
+    <pvals index="19">
+     <pval>
+      <lhost>
+       <mem etag="lval" xstr="crecp-&gt;next">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="crecp">
+           <lval>
+            <lhost>
+             <var vid="5971" vname="crecp"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <field ckey="196" fname="next"/>
+         </offset>
+        </lval>
+       </mem>
+      </lhost>
+      <offset>
+       <field ckey="196" fname="prev"/>
+      </offset>
+     </pval>
+    </pvals>
+    <pvals index="20">
+     <pval etag="lval" external="yes" property="vm" xstr="crecp-&gt;prev-&gt;next">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="crecp-&gt;prev">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="crecp">
+            <lval>
+             <lhost>
+              <var vid="5971" vname="crecp"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <field ckey="196" fname="prev"/>
+          </offset>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <field ckey="196" fname="next"/>
+       </offset>
+      </lval>
+     </pval>
+    </pvals>
+    <pvals index="21">
+     <pval etag="lval" external="yes" property="vm" xstr="crecp-&gt;next-&gt;prev">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="crecp-&gt;next">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="crecp">
+            <lval>
+             <lhost>
+              <var vid="5971" vname="crecp"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <field ckey="196" fname="next"/>
+          </offset>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <field ckey="196" fname="prev"/>
+       </offset>
+      </lval>
+     </pval>
+    </pvals>
+    <pvals index="22">
+     <pval etag="lval" external="yes" property="vm" xstr="crecp-&gt;prev">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="crecp">
+         <lval>
+          <lhost>
+           <var vid="5971" vname="crecp"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <field ckey="196" fname="prev"/>
+       </offset>
+      </lval>
+     </pval>
+    </pvals>
+    <pvals index="23">
+     <pval etag="lval" external="yes" property="vm" xstr="crecp-&gt;next">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="crecp">
+         <lval>
+          <lhost>
+           <var vid="5971" vname="crecp"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <field ckey="196" fname="next"/>
+       </offset>
+      </lval>
+     </pval>
+    </pvals>
+   </program-value-table>
+   <non-relational-value-table size="17">
+    <nrv etag="lval" index="0" tag="fv" xstr="crecp">
+     <lval>
+      <lhost>
+       <var vid="5971" vname="crecp"/>
+      </lhost>
+     </lval>
+    </nrv>
+    <nrv index="1" tag="ss">
+     <sym name="parameter">
+      <attr value="crecp-&gt;next"/>
+     </sym>
+    </nrv>
+    <nrv index="2" tag="ss">
+     <sym name="parameter">
+      <attr value="crecp-&gt;prev"/>
+     </sym>
+    </nrv>
+    <nrv index="3" tag="ss">
+     <sym name="valid"/>
+    </nrv>
+    <nrv etag="lval" index="4" tag="fv" xstr="crecp-&gt;next">
+     <lval>
+      <lhost>
+       <mem etag="lval" xstr="crecp">
+        <lval>
+         <lhost>
+          <var vid="5971" vname="crecp"/>
+         </lhost>
+        </lval>
+       </mem>
+      </lhost>
+      <offset>
+       <field ckey="196" fname="next"/>
+      </offset>
+     </lval>
+    </nrv>
+    <nrv etag="lval" index="5" tag="fv" xstr="crecp-&gt;prev">
+     <lval>
+      <lhost>
+       <mem etag="lval" xstr="crecp">
+        <lval>
+         <lhost>
+          <var vid="5971" vname="crecp"/>
+         </lhost>
+        </lval>
+       </mem>
+      </lhost>
+      <offset>
+       <field ckey="196" fname="prev"/>
+      </offset>
+     </lval>
+    </nrv>
+    <nrv etag="lval" index="6" tag="fv" xstr="crecp-&gt;prev-&gt;next">
+     <lval>
+      <lhost>
+       <mem etag="lval" xstr="crecp-&gt;prev">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="crecp">
+           <lval>
+            <lhost>
+             <var vid="5971" vname="crecp"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <field ckey="196" fname="prev"/>
+         </offset>
+        </lval>
+       </mem>
+      </lhost>
+      <offset>
+       <field ckey="196" fname="next"/>
+      </offset>
+     </lval>
+    </nrv>
+    <nrv address-type="external" index="7" tag="vs" value="0">
+     <base etag="lval" xstr="crecp-&gt;next-&gt;prev">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="crecp-&gt;next">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="crecp">
+            <lval>
+             <lhost>
+              <var vid="5971" vname="crecp"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <field ckey="196" fname="next"/>
+          </offset>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <field ckey="196" fname="prev"/>
+       </offset>
+      </lval>
+     </base>
+    </nrv>
+    <nrv address-type="external" index="8" tag="vs" value="0">
+     <base etag="lval" xstr="crecp-&gt;prev-&gt;next">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="crecp-&gt;prev">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="crecp">
+            <lval>
+             <lhost>
+              <var vid="5971" vname="crecp"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <field ckey="196" fname="prev"/>
+          </offset>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <field ckey="196" fname="next"/>
+       </offset>
+      </lval>
+     </base>
+    </nrv>
+    <nrv address-type="external" index="9" tag="vs" value="0">
+     <base etag="lval" xstr="crecp">
+      <lval>
+       <lhost>
+        <var vid="5971" vname="crecp"/>
+       </lhost>
+      </lval>
+     </base>
+    </nrv>
+    <nrv index="10" lb="0" tag="range"/>
+    <nrv index="11" lb="1" tag="range"/>
+    <nrv index="12" tag="ss">
+     <sym name="parameter">
+      <attr value="crecp-&gt;next-&gt;prev"/>
+     </sym>
+    </nrv>
+    <nrv index="13" tag="ss">
+     <sym name="parameter">
+      <attr value="crecp-&gt;prev-&gt;next"/>
+     </sym>
+    </nrv>
+    <nrv index="14" tag="ss">
+     <sym name="assignedAt#241">
+      <attr value="field"/>
+      <attr value="next"/>
+      <attr value="196"/>
+     </sym>
+     <sym name="parameter">
+      <attr value="crecp-&gt;prev-&gt;next"/>
+     </sym>
+    </nrv>
+    <nrv etag="lval" index="15" tag="fv" xstr="crecp-&gt;next-&gt;prev">
+     <lval>
+      <lhost>
+       <mem etag="lval" xstr="crecp-&gt;next">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="crecp">
+           <lval>
+            <lhost>
+             <var vid="5971" vname="crecp"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <field ckey="196" fname="next"/>
+         </offset>
+        </lval>
+       </mem>
+      </lhost>
+      <offset>
+       <field ckey="196" fname="prev"/>
+      </offset>
+     </lval>
+    </nrv>
+    <nrv index="16" tag="ss">
+     <sym name="parameter">
+      <attr value="crecp-&gt;prev-&gt;next"/>
+     </sym>
+     <sym name="assignedAt#241">
+      <attr value="field"/>
+      <attr value="next"/>
+      <attr value="196"/>
+     </sym>
+    </nrv>
+   </non-relational-value-table>
+  </function>
+  <header time="01/09/2017 22:55:33">
+   <application file="src/cache.c" name="application"/>
+  </header>
+ </c-analysis>

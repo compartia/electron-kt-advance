@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function name="check_log_writer">
+   <secondary-proof-obligations max-spo-id="4" num-ppo="4">
+    <indirect-calls/>
+    <callsite-obligations>
+     <callsite-obligation api-max-id="3" fname="log_write" fvid="5938">
+      <location byte="193332" file="src/log.c" line="433"/>
+      <args/>
+      <obligations/>
+      <context>
+       <cfg-context>
+        <node name="instr" num="0"/>
+        <node name="stmt" num="200"/>
+        <node name="if-then"/>
+        <node name="stmt" num="199"/>
+        <node name="if-else"/>
+        <node name="stmt" num="196"/>
+        <node name="if-then"/>
+        <node name="stmt" num="195"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="0" fname="poll_check" fvid="5801">
+      <location byte="193270" file="src/log.c" line="432"/>
+      <args>
+       <arg etag="lval" xstr="log_fd">
+        <lval>
+         <lhost>
+          <var vid="5903" vname="log_fd"/>
+         </lhost>
+        </lval>
+       </arg>
+       <arg etag="const" xstr="4">
+        <constant ctag="cint64" ikind="ishort" intValue="4"/>
+       </arg>
+      </args>
+      <obligations/>
+      <context>
+       <cfg-context>
+        <node name="instr" num="0"/>
+        <node name="stmt" num="198"/>
+        <node name="if-else"/>
+        <node name="stmt" num="196"/>
+        <node name="if-then"/>
+        <node name="stmt" num="195"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="3" fname="log_write" fvid="5938">
+      <location byte="193332" file="src/log.c" line="433"/>
+      <args/>
+      <obligations/>
+      <context>
+       <cfg-context>
+        <node name="instr" num="0"/>
+        <node name="stmt" num="197"/>
+        <node name="if-then"/>
+        <node name="stmt" num="196"/>
+        <node name="if-then"/>
+        <node name="stmt" num="195"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+    </callsite-obligations>
+    <return-sites/>
+    <post-expectations/>
+    <ds-expectations/>
+   </secondary-proof-obligations>
+  </function>
+  <header time="01/10/2017 05:33:34">
+   <application file="src/log.c" name="application"/>
+  </header>
+ </c-analysis>

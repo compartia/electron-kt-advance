@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function name="my_syslog">
+   <secondary-proof-obligations max-spo-id="398" num-ppo="398">
+    <indirect-calls/>
+    <callsite-obligations>
+     <callsite-obligation api-max-id="3" fname="log_write" fvid="5938">
+      <location byte="193095" file="src/log.c" line="419"/>
+      <args/>
+      <obligations/>
+      <context>
+       <cfg-context>
+        <node name="instr" num="3"/>
+        <node name="stmt" num="188"/>
+        <node name="if-then"/>
+        <node name="stmt" num="187"/>
+        <node name="if-then"/>
+        <node name="stmt" num="177"/>
+        <node name="if-then"/>
+        <node name="stmt" num="176"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="3" fname="log_write" fvid="5938">
+      <location byte="192714" file="src/log.c" line="387"/>
+      <args/>
+      <obligations/>
+      <context>
+       <cfg-context>
+        <node name="instr" num="0"/>
+        <node name="stmt" num="175"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="0" fname="__builtin_va_end" fvid="114">
+      <location byte="192585" file="src/log.c" line="379"/>
+      <args>
+       <arg etag="lval" xstr="ap">
+        <lval>
+         <lhost>
+          <var vid="5994" vname="ap"/>
+         </lhost>
+        </lval>
+       </arg>
+      </args>
+      <obligations/>
+      <context>
+       <cfg-context>
+        <node name="instr" num="6"/>
+        <node name="stmt" num="170"/>
+        <node name="if-else"/>
+        <node name="stmt" num="152"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="0" fname="vsnprintf" fvid="2604">
+      <location byte="192530" file="src/log.c" line="378"/>
+      <args>
+       <arg etag="caste" xstr="caste (p:(char*))">
+        <typ ttag="tptr">
+         <attributes>
+          <attr attrname="restrict"/>
+         </attributes>
+         <typ ikind="ichar" ttag="tint"/>
+        </typ>
+        <exp etag="lval" xstr="p">
+         <lval>
+          <lhost>
+           <var vid="5997" vname="p"/>
+          </lhost>
+         </lval>
+        </exp>
+       </arg>
+       <arg binop="minusa" etag="binop" xstr="((1024 - len):size_t">
+        <exp1 etag="const" xstr="1024">
+         <constant ctag="cint64" ikind="iulong" intValue="1024"/>
+        </exp1>
+        <exp2 etag="lval" xstr="len">
+         <lval>
+          <lhost>
+           <var vid="5998" vname="len"/>
+          </lhost>
+         </lval>
+        </exp2>
+        <typ tname="size_t" ttag="tnamed"/>
+       </arg>
+       <arg etag="caste" xstr="caste (format:(char*))">
+        <typ ttag="tptr">
+         <attributes>
+          <attr attrname="restrict"/>
+         </attributes>
+         <typ ikind="ichar" ttag="tint">
+          <attributes>
+           <attr attrname="const"/>
+          </attributes>
+         </typ>
+        </typ>
+        <exp etag="lval" xstr="format">
+         <lval>
+          <lhost>
+           <var vid="5993" vname="format"/>
+          </lhost>
+         </lval>
+        </exp>
+       </arg>
+       <arg etag="lval" xstr="ap">
+        <lval>
+         <lhost>
+          <var vid="5994" vname="ap"/>
+         </lhost>
+        </lval>
+       </arg>
+      </args>
+      <obligations/>
+      <context>
+       <cfg-context>
+        <node name="instr" num="4"/>
+        <node name="stmt" num="170"/>
+        <node name="if-else"/>
+        <node name="stmt" num="152"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="0" fname="__builtin_va_start" fvid="83">
+      <location byte="192493" file="src/log.c" line="377"/>
+      <args>
+       <arg etag="lval" xstr="ap">
+        <lval>
+         <lhost>
+          <var vid="5994" vname="ap"/>
+         </lhost>
+        </lval>
+       </arg>
+      </args>
+      <obligations/>
+      <context>
+       <cfg-context>
+        <node name="instr" num="3"/>
+        <node name="stmt" num="170"/>
+        <node name="if-else"/>
+        <node name="stmt" num="152"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="0" fname="__builtin_va_end" fvid="114">
+      <location byte="191640" file="src/log.c" line="339"/>
+      <args>
+       <arg etag="lval" xstr="ap">
+        <lval>
+         <lhost>
+          <var vid="5994" vname="ap"/>
+         </lhost>
+        </lval>
+       </arg>
+      </args>
+      <obligations/>
+      <context>
+       <cfg-context>
+        <node name="instr" num="2"/>
+        <node name="stmt" num="143"/>
+        <node name="if-then"/>
+        <node name="stmt" num="140"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="0" fname="vsyslog" fvid="4211">
+      <location byte="191603" file="src/log.c" line="338"/>
+      <args>
+       <arg etag="lval" xstr="priority">
+        <lval>
+         <lhost>
+          <var vid="5992" vname="priority"/>
+         </lhost>
+        </lval>
+       </arg>
+       <arg etag="lval" xstr="format">
+        <lval>
+         <lhost>
+          <var vid="5993" vname="format"/>
+         </lhost>
+        </lval>
+       </arg>
+       <arg etag="lval" xstr="ap">
+        <lval>
+         <lhost>
+          <var vid="5994" vname="ap"/>
+         </lhost>
+        </lval>
+       </arg>
+      </args>
+      <obligations/>
+      <context>
+       <cfg-context>
+        <node name="instr" num="1"/>
+        <node name="stmt" num="143"/>
+        <node name="if-then"/>
+        <node name="stmt" num="140"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="0" fname="__builtin_va_start" fvid="83">
+      <location byte="191566" file="src/log.c" line="337"/>
+      <args>
+       <arg etag="lval" xstr="ap">
+        <lval>
+         <lhost>
+          <var vid="5994" vname="ap"/>
+         </lhost>
+        </lval>
+       </arg>
+      </args>
+      <obligations/>
+      <context>
+       <cfg-context>
+        <node name="instr" num="0"/>
+        <node name="stmt" num="143"/>
+        <node name="if-then"/>
+        <node name="stmt" num="140"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="0" fname="__builtin_va_end" fvid="114">
+      <location byte="191356" file="src/log.c" line="304"/>
+      <args>
+       <arg etag="lval" xstr="ap">
+        <lval>
+         <lhost>
+          <var vid="5994" vname="ap"/>
+         </lhost>
+        </lval>
+       </arg>
+      </args>
+      <obligations/>
+      <context>
+       <cfg-context>
+        <node name="instr" num="3"/>
+        <node name="stmt" num="139"/>
+        <node name="if-then"/>
+        <node name="stmt" num="138"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="0" fname="__builtin_va_start" fvid="83">
+      <location byte="191283" file="src/log.c" line="302"/>
+      <args>
+       <arg etag="lval" xstr="ap">
+        <lval>
+         <lhost>
+          <var vid="5994" vname="ap"/>
+         </lhost>
+        </lval>
+       </arg>
+      </args>
+      <obligations/>
+      <context>
+       <cfg-context>
+        <node name="instr" num="1"/>
+        <node name="stmt" num="139"/>
+        <node name="if-then"/>
+        <node name="stmt" num="138"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+    </callsite-obligations>
+    <return-sites/>
+    <post-expectations/>
+    <ds-expectations/>
+   </secondary-proof-obligations>
+  </function>
+  <header time="01/10/2017 05:33:34">
+   <application file="src/log.c" name="application"/>
+  </header>
+ </c-analysis>

@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <log>
+   <log-entry time="01/10/2017 06:57:10"/>
+   <log-entry time="01/10/2017 05:33:05"/>
+   <log-entry time="01/10/2017 05:21:42"/>
+   <log-entry time="01/10/2017 04:59:56"/>
+   <log-entry time="01/10/2017 04:36:40"/>
+   <log-entry time="01/10/2017 03:42:55"/>
+   <log-entry time="01/10/2017 02:54:45"/>
+   <log-entry time="01/09/2017 22:53:12"/>
+   <log-entry delta-checkvalid="19" delta-invariant="34" delta-lifted="3" time="01/09/2017 22:06:25"/>
+  </log>
+  <function name="do_rfc1035_name">
+   <statistics checkvalid="19" invariant="34" invariant_with_api="3" total="76" total-proven="56"/>
+   <open-proof-obligations>
+    <open id="2" line="225" predicate="initialized"/>
+    <open id="7" line="225" predicate="upper-bound"/>
+    <open id="13" line="227" predicate="ptr-upper-bound-deref"/>
+    <open id="15" line="228" predicate="initialized"/>
+    <open id="20" line="228" predicate="upper-bound"/>
+    <open id="22" line="228" predicate="initialized"/>
+    <open id="27" line="228" predicate="upper-bound"/>
+    <open id="33" line="235" predicate="ptr-upper-bound-deref"/>
+    <open id="38" line="235" predicate="upper-bound"/>
+    <open id="39" line="235" predicate="cast"/>
+    <open id="40" line="235" predicate="initialized"/>
+    <open id="45" line="235" predicate="upper-bound"/>
+    <open id="50" line="228" predicate="ptr-upper-bound-deref"/>
+    <open id="53" line="228" predicate="int-overflow"/>
+    <open id="58" line="237" predicate="upper-bound"/>
+    <open id="59" line="237" predicate="signed-to-unsigned-cast"/>
+    <open id="61" line="238" predicate="initialized"/>
+    <open id="66" line="238" predicate="upper-bound"/>
+    <open id="71" line="239" predicate="ptr-upper-bound-deref"/>
+    <open id="76" line="241" predicate="upper-bound"/>
+   </open-proof-obligations>
+   <proof-obligations-discharged>
+    <discharged id="1" method="check-valid" time="01/09/2017 22:06:25" type="initialized">
+     <evidence comment="sval is a function parameter"/>
+    </discharged>
+    <discharged id="3" method="check-valid" time="01/09/2017 22:06:25" type="initialized">
+     <evidence comment="sval is a function parameter"/>
+    </discharged>
+    <discharged domain="intervals" id="4" method="invariants" time="01/09/2017 22:06:25" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="5" method="invariants" time="01/09/2017 22:06:25" type="valid-mem">
+     <evidence comment="external address provided by parameter still points to valid memory"/>
+    </discharged>
+    <discharged domain="valuesets" id="6" method="invariants" time="01/09/2017 22:06:25" type="lower-bound">
+     <evidence comment="non-negative offset from base value: sval"/>
+    </discharged>
+    <discharged id="8" method="check-valid" time="01/09/2017 22:06:25" type="initialized">
+     <evidence comment="p is a function parameter"/>
+    </discharged>
+    <discharged id="9" method="check-valid" time="01/09/2017 22:06:25" type="initialized">
+     <evidence comment="p is a function parameter"/>
+    </discharged>
+    <discharged domain="linear equalities" id="10" method="invariants" time="01/09/2017 22:06:25" type="not-null">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="1" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="symbolic sets" id="11" method="invariants" time="01/09/2017 22:06:25" type="valid-mem">
+     <evidence comment="external address provided by parameter still points to valid memory"/>
+    </discharged>
+    <discharged id="12" method="check-valid" time="01/09/2017 22:06:25" type="ptr-lower-bound">
+     <evidence comment="add non-negative number: value is 1"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="14" method="invariants" time="01/09/2017 22:06:25" type="initialized">
+     <evidence comment="assignedAt#227"/>
+    </discharged>
+    <discharged id="16" method="check-valid" time="01/09/2017 22:06:25" type="initialized">
+     <evidence comment="sval is a function parameter"/>
+    </discharged>
+    <discharged domain="intervals" id="17" method="invariants" time="01/09/2017 22:06:25" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="18" method="invariants" time="01/09/2017 22:06:25" type="valid-mem">
+     <evidence comment="external address provided by parameter still points to valid memory"/>
+    </discharged>
+    <discharged domain="valuesets" id="19" method="invariants" time="01/09/2017 22:06:25" type="lower-bound">
+     <evidence comment="non-negative offset from base value: sval"/>
+    </discharged>
+    <discharged id="21" method="check-valid" time="01/09/2017 22:06:25" type="cast">
+     <evidence comment="casting from char to int is safe"/>
+    </discharged>
+    <discharged id="23" method="check-valid" time="01/09/2017 22:06:25" type="initialized">
+     <evidence comment="sval is a function parameter"/>
+    </discharged>
+    <discharged domain="intervals" id="24" method="invariants" time="01/09/2017 22:06:25" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="25" method="invariants" time="01/09/2017 22:06:25" type="valid-mem">
+     <evidence comment="external address provided by parameter still points to valid memory"/>
+    </discharged>
+    <discharged domain="valuesets" id="26" method="invariants" time="01/09/2017 22:06:25" type="lower-bound">
+     <evidence comment="non-negative offset from base value: sval"/>
+    </discharged>
+    <discharged id="28" method="check-valid" time="01/09/2017 22:06:25" type="initialized">
+     <evidence comment="p is a function parameter"/>
+    </discharged>
+    <discharged id="29" method="check-valid" time="01/09/2017 22:06:25" type="initialized">
+     <evidence comment="p is a function parameter"/>
+    </discharged>
+    <discharged domain="intervals" id="30" method="invariants" time="01/09/2017 22:06:25" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="31" method="invariants" time="01/09/2017 22:06:25" type="valid-mem">
+     <evidence comment="external address provided by parameter still points to valid memory"/>
+    </discharged>
+    <discharged id="32" method="check-valid" time="01/09/2017 22:06:25" type="ptr-lower-bound">
+     <evidence comment="add non-negative number: value is 1"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="34" method="invariants" time="01/09/2017 22:06:25" type="initialized">
+     <evidence comment="assignedAt#235"/>
+    </discharged>
+    <discharged domain="intervals" id="35" method="invariants" time="01/09/2017 22:06:25" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="36" method="invariants" time="01/09/2017 22:06:25" type="valid-mem">
+     <evidence comment="external address provided by parameter still points to valid memory"/>
+    </discharged>
+    <discharged domain="valuesets" id="37" method="invariants" time="01/09/2017 22:06:25" type="lower-bound">
+     <evidence comment="non-negative offset from base value: p"/>
+    </discharged>
+    <discharged id="41" method="check-valid" time="01/09/2017 22:06:25" type="initialized">
+     <evidence comment="sval is a function parameter"/>
+    </discharged>
+    <discharged domain="intervals" id="42" method="invariants" time="01/09/2017 22:06:25" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="43" method="invariants" time="01/09/2017 22:06:25" type="valid-mem">
+     <evidence comment="external address provided by parameter still points to valid memory"/>
+    </discharged>
+    <discharged domain="valuesets" id="44" method="invariants" time="01/09/2017 22:06:25" type="lower-bound">
+     <evidence comment="non-negative offset from base value: sval"/>
+    </discharged>
+    <discharged id="46" method="check-valid" time="01/09/2017 22:06:25" type="initialized">
+     <evidence comment="sval is a function parameter"/>
+    </discharged>
+    <discharged domain="intervals" id="47" method="invariants" time="01/09/2017 22:06:25" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="48" method="invariants" time="01/09/2017 22:06:25" type="valid-mem">
+     <evidence comment="external address provided by parameter still points to valid memory"/>
+    </discharged>
+    <discharged id="49" method="check-valid" time="01/09/2017 22:06:25" type="ptr-lower-bound">
+     <evidence comment="add non-negative number: value is 1"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="51" method="invariants" time="01/09/2017 22:06:25" type="initialized">
+     <evidence comment="assignedAt#228"/>
+    </discharged>
+    <discharged id="52" method="check-valid" time="01/09/2017 22:06:25" type="int-underflow">
+     <evidence comment="add non-negative number: value is 1"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="54" method="invariants" time="01/09/2017 22:06:25" type="initialized">
+     <evidence comment="assignedAt#227"/>
+    </discharged>
+    <discharged domain="linear equalities" id="55" method="invariants" time="01/09/2017 22:06:25" type="not-null">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="1" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="symbolic sets" id="56" method="invariants" time="01/09/2017 22:06:25" type="valid-mem">
+     <evidence comment="external address provided by parameter still points to valid memory"/>
+    </discharged>
+    <discharged domain="valuesets" id="57" method="invariants" time="01/09/2017 22:06:25" type="lower-bound">
+     <evidence comment="non-negative offset from base value: p"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="60" method="invariants" time="01/09/2017 22:06:25" type="initialized">
+     <evidence comment="assignedAt#228"/>
+    </discharged>
+    <discharged id="62" method="check-valid" time="01/09/2017 22:06:25" type="initialized">
+     <evidence comment="sval is a function parameter"/>
+    </discharged>
+    <discharged domain="intervals" id="63" method="invariants" time="01/09/2017 22:06:25" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="64" method="invariants" time="01/09/2017 22:06:25" type="valid-mem">
+     <evidence comment="external address provided by parameter still points to valid memory"/>
+    </discharged>
+    <discharged domain="valuesets" id="65" method="invariants" time="01/09/2017 22:06:25" type="lower-bound">
+     <evidence comment="non-negative offset from base value: sval"/>
+    </discharged>
+    <discharged id="67" method="check-valid" time="01/09/2017 22:06:25" type="initialized">
+     <evidence comment="sval is a function parameter"/>
+    </discharged>
+    <discharged domain="intervals" id="68" method="invariants" time="01/09/2017 22:06:25" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="69" method="invariants" time="01/09/2017 22:06:25" type="valid-mem">
+     <evidence comment="external address provided by parameter still points to valid memory"/>
+    </discharged>
+    <discharged id="70" method="check-valid" time="01/09/2017 22:06:25" type="ptr-lower-bound">
+     <evidence comment="add non-negative number: value is 1"/>
+    </discharged>
+    <discharged id="72" method="check-valid" time="01/09/2017 22:06:25" type="initialized">
+     <evidence comment="p is a function parameter"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="73" method="invariants" time="01/09/2017 22:06:25" type="valid-mem">
+     <evidence comment="external address provided by parameter still points to valid memory"/>
+    </discharged>
+    <discharged domain="valuesets" id="74" method="invariants" time="01/09/2017 22:06:25" type="global-mem">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="2" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="valuesets" id="75" method="invariants" time="01/09/2017 22:06:25" type="lower-bound">
+     <evidence comment="non-negative offset from base value: p"/>
+    </discharged>
+   </proof-obligations-discharged>
+  </function>
+  <header time="01/10/2017 06:57:10">
+   <application file="src//util.c" name="application"/>
+  </header>
+ </c-analysis>

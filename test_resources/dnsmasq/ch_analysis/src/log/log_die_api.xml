@@ -1,0 +1,730 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function cfilename="src/log.c" gvid="134" name="die" num-ppo="0">
+   <statistics api-assumptions="2" callers="23" ds-assumptions="0" field-assignments="0" global-assignments="2" global-assumptions="3" rv-assumptions="0"/>
+   <parameters>
+    <param formal-vid="6032" index="1" vname="message"/>
+    <param formal-vid="6033" index="2" vname="arg1"/>
+    <param formal-vid="6034" index="3" vname="exit_code"/>
+   </parameters>
+   <callers>
+    <caller cfilename="src/dhcp-common.c" fname="bindtodevice" gvid="117" updated="01/09/2017 21:38:35" updated-f="1483997915.4">
+     <call-site byte="196878" file="src/dhcp-common.c" line="494"/>
+     <args>
+      <arg etag="caste" xstr="caste (&quot;failed to set SO_BINDTODEVICE on DHCP socket: %s&quot;:(char*))">
+       <typ ttag="tptr">
+        <typ ikind="ichar" ttag="tint"/>
+       </typ>
+       <exp etag="const" xstr="&quot;failed to set SO_BINDTODEVICE on DHCP socket: %s&quot;">
+        <constant ctag="cstr" strValue="failed to set SO_BINDTODEVICE on DHCP socket: %s"/>
+       </exp>
+      </arg>
+      <arg/>
+      <arg etag="const" xstr="2">
+       <constant ctag="cint64" ikind="iint" intValue="2"/>
+      </arg>
+     </args>
+     <calling-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="391"/>
+      <node name="if-then"/>
+      <node name="stmt" num="390"/>
+      <node name="if-then"/>
+      <node name="stmt" num="388"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/dhcp.c" fname="make_fd" gvid="159" updated="01/09/2017 21:38:35" updated-f="1483997915.93">
+     <call-site byte="187396" file="src/dhcp.c" line="53"/>
+     <args>
+      <arg etag="caste" xstr="caste (&quot;cannot create DHCP socket: %s&quot;:(char*))">
+       <typ ttag="tptr">
+        <typ ikind="ichar" ttag="tint"/>
+       </typ>
+       <exp etag="const" xstr="&quot;cannot create DHCP socket: %s&quot;">
+        <constant ctag="cstr" strValue="cannot create DHCP socket: %s"/>
+       </exp>
+      </arg>
+      <arg/>
+      <arg etag="const" xstr="2">
+       <constant ctag="cint64" ikind="iint" intValue="2"/>
+      </arg>
+     </args>
+     <calling-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="3"/>
+      <node name="if-then"/>
+      <node name="stmt" num="2"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/dhcp6.c" fname="dhcp6_init" gvid="195" updated="01/09/2017 21:38:36" updated-f="1483997916.36">
+     <call-site byte="191765" file="src/dhcp6.c" line="52"/>
+     <args>
+      <arg etag="caste" xstr="caste (&quot;cannot create DHCPv6 socket: %s&quot;:(char*))">
+       <typ ttag="tptr">
+        <typ ikind="ichar" ttag="tint"/>
+       </typ>
+       <exp etag="const" xstr="&quot;cannot create DHCPv6 socket: %s&quot;">
+        <constant ctag="cstr" strValue="cannot create DHCPv6 socket: %s"/>
+       </exp>
+      </arg>
+      <arg/>
+      <arg etag="const" xstr="2">
+       <constant ctag="cint64" ikind="iint" intValue="2"/>
+      </arg>
+     </args>
+     <calling-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="3"/>
+      <node name="if-then"/>
+      <node name="stmt" num="2"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/dhcp6.c" fname="make_duid" gvid="187" updated="01/09/2017 21:38:36" updated-f="1483997916.1">
+     <call-site byte="208925" file="src/dhcp6.c" line="568"/>
+     <args>
+      <arg etag="caste" xstr="caste (&quot;Cannot create DHCPv6 server DUID: %s&quot;:(char*))">
+       <typ ttag="tptr">
+        <typ ikind="ichar" ttag="tint"/>
+       </typ>
+       <exp etag="const" xstr="&quot;Cannot create DHCPv6 server DUID: %s&quot;">
+        <constant ctag="cstr" strValue="Cannot create DHCPv6 server DUID: %s"/>
+       </exp>
+      </arg>
+      <arg/>
+      <arg etag="const" xstr="5">
+       <constant ctag="cint64" ikind="iint" intValue="5"/>
+      </arg>
+     </args>
+     <calling-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="359"/>
+      <node name="if-then"/>
+      <node name="stmt" num="358"/>
+      <node name="if-else"/>
+      <node name="stmt" num="350"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/dnsmasq.c" fname="fatal_event" gvid="217" updated="01/09/2017 21:38:36" updated-f="1483997916.54">
+     <call-site byte="209143" file="src/dnsmasq.c" line="1184"/>
+     <args>
+      <arg etag="caste" xstr="caste (&quot;cannot fork into background: %s&quot;:(char*))">
+       <typ ttag="tptr">
+        <typ ikind="ichar" ttag="tint"/>
+       </typ>
+       <exp etag="const" xstr="&quot;cannot fork into background: %s&quot;">
+        <constant ctag="cstr" strValue="cannot fork into background: %s"/>
+       </exp>
+      </arg>
+      <arg/>
+      <arg etag="const" xstr="5">
+       <constant ctag="cint64" ikind="iint" intValue="5"/>
+      </arg>
+     </args>
+     <calling-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="567"/>
+      <node name="stmt" num="565"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/dnsmasq.c" fname="main" gvid="222" updated="01/09/2017 21:38:36" updated-f="1483997916.63">
+     <call-site byte="189326" file="src/dnsmasq.c" line="186"/>
+     <args>
+      <arg etag="caste" xstr="caste (&quot;DNSSEC not available: set HAVE_DNSSEC in src/config.h&quot;:(char*))">
+       <typ ttag="tptr">
+        <typ ikind="ichar" ttag="tint"/>
+       </typ>
+       <exp etag="const" xstr="&quot;DNSSEC not available: set HAVE_DNSSEC in src/config.h&quot;">
+        <constant ctag="cstr" strValue="DNSSEC not available: set HAVE_DNSSEC in src/config.h"/>
+       </exp>
+      </arg>
+      <arg/>
+      <arg etag="const" xstr="1">
+       <constant ctag="cint64" ikind="iint" intValue="1"/>
+      </arg>
+     </args>
+     <calling-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="25"/>
+      <node name="if-then"/>
+      <node name="stmt" num="24"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/inotify.c" fname="inotify_dnsmasq_init" gvid="228" updated="01/09/2017 21:38:38" updated-f="1483997918.08">
+     <call-site byte="188643" file="src/inotify.c" line="95"/>
+     <args>
+      <arg etag="caste" xstr="caste (&quot;failed to create inotify: %s&quot;:(char*))">
+       <typ ttag="tptr">
+        <typ ikind="ichar" ttag="tint"/>
+       </typ>
+       <exp etag="const" xstr="&quot;failed to create inotify: %s&quot;">
+        <constant ctag="cstr" strValue="failed to create inotify: %s"/>
+       </exp>
+      </arg>
+      <arg/>
+      <arg etag="const" xstr="5">
+       <constant ctag="cint64" ikind="iint" intValue="5"/>
+      </arg>
+     </args>
+     <calling-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="24"/>
+      <node name="if-then"/>
+      <node name="stmt" num="23"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/inotify.c" fname="my_readlink" gvid="385" updated="01/09/2017 21:38:38" updated-f="1483997918.1">
+     <call-site byte="187978" file="src/inotify.c" line="62"/>
+     <args>
+      <arg etag="caste" xstr="caste (&quot;cannot access path %s: %s&quot;:(char*))">
+       <typ ttag="tptr">
+        <typ ikind="ichar" ttag="tint"/>
+       </typ>
+       <exp etag="const" xstr="&quot;cannot access path %s: %s&quot;">
+        <constant ctag="cstr" strValue="cannot access path %s: %s"/>
+       </exp>
+      </arg>
+      <arg/>
+      <arg etag="const" xstr="5">
+       <constant ctag="cint64" ikind="iint" intValue="5"/>
+      </arg>
+     </args>
+     <calling-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="13"/>
+      <node name="if-else"/>
+      <node name="stmt" num="10"/>
+      <node name="if-else"/>
+      <node name="stmt" num="6"/>
+      <node name="if-then"/>
+      <node name="stmt" num="4"/>
+      <node name="loop"/>
+      <node name="stmt" num="2"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/ipset.c" fname="ipset_init" gvid="237" updated="01/09/2017 21:38:38" updated-f="1483997918.16">
+     <call-site byte="188883" file="src/ipset.c" line="95"/>
+     <args>
+      <arg etag="caste" xstr="caste (&quot;failed to find kernel version: %s&quot;:(char*))">
+       <typ ttag="tptr">
+        <typ ikind="ichar" ttag="tint"/>
+       </typ>
+       <exp etag="const" xstr="&quot;failed to find kernel version: %s&quot;">
+        <constant ctag="cstr" strValue="failed to find kernel version: %s"/>
+       </exp>
+      </arg>
+      <arg/>
+      <arg etag="const" xstr="5">
+       <constant ctag="cint64" ikind="iint" intValue="5"/>
+      </arg>
+     </args>
+     <calling-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="5"/>
+      <node name="if-then"/>
+      <node name="stmt" num="4"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/lease.c" fname="lease_init" gvid="245" updated="01/09/2017 21:38:38" updated-f="1483997918.55">
+     <call-site byte="187400" file="src/lease.c" line="61"/>
+     <args>
+      <arg etag="caste" xstr="caste (&quot;cannot open or create lease file %s: %s&quot;:(char*))">
+       <typ ttag="tptr">
+        <typ ikind="ichar" ttag="tint"/>
+       </typ>
+       <exp etag="const" xstr="&quot;cannot open or create lease file %s: %s&quot;">
+        <constant ctag="cstr" strValue="cannot open or create lease file %s: %s"/>
+       </exp>
+      </arg>
+      <arg/>
+      <arg etag="const" xstr="3">
+       <constant ctag="cint64" ikind="iint" intValue="3"/>
+      </arg>
+     </args>
+     <calling-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="9"/>
+      <node name="if-then"/>
+      <node name="stmt" num="8"/>
+      <node name="if-else"/>
+      <node name="stmt" num="2"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/netlink.c" fname="netlink_init" gvid="239" updated="01/09/2017 21:38:39" updated-f="1483997919.01">
+     <call-site byte="201800" file="src/netlink.c" line="77"/>
+     <args>
+      <arg etag="caste" xstr="caste (&quot;cannot create netlink socket: %s&quot;:(char*))">
+       <typ ttag="tptr">
+        <typ ikind="ichar" ttag="tint"/>
+       </typ>
+       <exp etag="const" xstr="&quot;cannot create netlink socket: %s&quot;">
+        <constant ctag="cstr" strValue="cannot create netlink socket: %s"/>
+       </exp>
+      </arg>
+      <arg/>
+      <arg etag="const" xstr="5">
+       <constant ctag="cint64" ikind="iint" intValue="5"/>
+      </arg>
+     </args>
+     <calling-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="22"/>
+      <node name="if-then"/>
+      <node name="stmt" num="21"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/network.c" fname="join_multicast" gvid="247" updated="01/09/2017 21:38:39" updated-f="1483997919.24">
+     <call-site byte="211746" file="src/network.c" line="1110"/>
+     <args>
+      <arg/>
+      <arg/>
+      <arg etag="const" xstr="2">
+       <constant ctag="cint64" ikind="iint" intValue="2"/>
+      </arg>
+     </args>
+     <calling-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="548"/>
+      <node name="if-then"/>
+      <node name="stmt" num="547"/>
+      <node name="if-then"/>
+      <node name="stmt" num="543"/>
+      <node name="if-then"/>
+      <node name="stmt" num="525"/>
+      <node name="if-then"/>
+      <node name="stmt" num="515"/>
+      <node name="if-then"/>
+      <node name="stmt" num="514"/>
+      <node name="if-then"/>
+      <node name="stmt" num="513"/>
+      <node name="loop"/>
+      <node name="stmt" num="510"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/network.c" fname="make_sock" gvid="481" updated="01/09/2017 21:38:39" updated-f="1483997919.42">
+     <call-site byte="202638" file="src/network.c" line="728"/>
+     <args>
+      <arg/>
+      <arg/>
+      <arg etag="const" xstr="2">
+       <constant ctag="cint64" ikind="iint" intValue="2"/>
+      </arg>
+     </args>
+     <calling-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="365"/>
+      <node name="if-then"/>
+      <node name="stmt" num="364"/>
+      <node name="if-then"/>
+      <node name="stmt" num="363"/>
+      <node name="if-then"/>
+      <node name="stmt" num="345"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/network.c" fname="pre_allocate_sfds" gvid="258" updated="01/09/2017 21:38:39" updated-f="1483997919.16">
+     <call-site byte="217241" file="src/network.c" line="1309"/>
+     <args>
+      <arg etag="caste" xstr="caste (&quot;failed to bind server socket for %s: %s&quot;:(char*))">
+       <typ ttag="tptr">
+        <typ ikind="ichar" ttag="tint"/>
+       </typ>
+       <exp etag="const" xstr="&quot;failed to bind server socket for %s: %s&quot;">
+        <constant ctag="cstr" strValue="failed to bind server socket for %s: %s"/>
+       </exp>
+      </arg>
+      <arg/>
+      <arg etag="const" xstr="2">
+       <constant ctag="cint64" ikind="iint" intValue="2"/>
+      </arg>
+     </args>
+     <calling-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="656"/>
+      <node name="if-then"/>
+      <node name="stmt" num="652"/>
+      <node name="if-then"/>
+      <node name="stmt" num="651"/>
+      <node name="if-else"/>
+      <node name="stmt" num="649"/>
+      <node name="if-then"/>
+      <node name="stmt" num="647"/>
+      <node name="loop"/>
+      <node name="stmt" num="644"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/option.c" fname="canonicalise_opt" gvid="507" updated="01/09/2017 21:38:42" updated-f="1483997922.66">
+     <call-site byte="210555" file="src/option.c" line="616"/>
+     <args>
+      <arg etag="caste" xstr="caste (&quot;could not get memory&quot;:(char*))">
+       <typ ttag="tptr">
+        <typ ikind="ichar" ttag="tint"/>
+       </typ>
+       <exp etag="const" xstr="&quot;could not get memory&quot;">
+        <constant ctag="cstr" strValue="could not get memory"/>
+       </exp>
+      </arg>
+      <arg/>
+      <arg etag="const" xstr="4">
+       <constant ctag="cint64" ikind="iint" intValue="4"/>
+      </arg>
+     </args>
+     <calling-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="57"/>
+      <node name="if-else"/>
+      <node name="stmt" num="55"/>
+      <node name="if-then"/>
+      <node name="stmt" num="54"/>
+      <node name="if-else"/>
+      <node name="stmt" num="53"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/option.c" fname="one_file" gvid="491" updated="01/09/2017 21:38:40" updated-f="1483997920.06">
+     <call-site byte="292705" file="src/option.c" line="4292"/>
+     <args>
+      <arg/>
+      <arg/>
+      <arg etag="const" xstr="3">
+       <constant ctag="cint64" ikind="iint" intValue="3"/>
+      </arg>
+     </args>
+     <calling-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="2575"/>
+      <node name="if-else"/>
+      <node name="stmt" num="2572"/>
+      <node name="if-else"/>
+      <node name="stmt" num="2567"/>
+      <node name="if-else"/>
+      <node name="stmt" num="2565"/>
+      <node name="if-else"/>
+      <node name="stmt" num="2545"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/option.c" fname="one_opt" gvid="493" updated="01/09/2017 21:38:40" updated-f="1483997920.41">
+     <call-site byte="230937" file="src/option.c" line="1558"/>
+     <args>
+      <arg etag="caste" xstr="caste (&quot;cannot access directory %s: %s&quot;:(char*))">
+       <typ ttag="tptr">
+        <typ ikind="ichar" ttag="tint"/>
+       </typ>
+       <exp etag="const" xstr="&quot;cannot access directory %s: %s&quot;">
+        <constant ctag="cstr" strValue="cannot access directory %s: %s"/>
+       </exp>
+      </arg>
+      <arg/>
+      <arg etag="const" xstr="3">
+       <constant ctag="cint64" ikind="iint" intValue="3"/>
+      </arg>
+     </args>
+     <calling-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="649"/>
+      <node name="if-else"/>
+      <node name="stmt" num="648"/>
+      <node name="stmt" num="626"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/option.c" fname="read_file" gvid="492" updated="01/09/2017 21:38:40" updated-f="1483997920.09">
+     <call-site byte="291268" file="src/option.c" line="4211"/>
+     <args>
+      <arg etag="caste" xstr="caste (&quot;%s&quot;:(char*))">
+       <typ ttag="tptr">
+        <typ ikind="ichar" ttag="tint"/>
+       </typ>
+       <exp etag="const" xstr="&quot;%s&quot;">
+        <constant ctag="cstr" strValue="%s"/>
+       </exp>
+      </arg>
+      <arg/>
+      <arg etag="const" xstr="1">
+       <constant ctag="cint64" ikind="iint" intValue="1"/>
+      </arg>
+     </args>
+     <calling-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="2531"/>
+      <node name="if-else"/>
+      <node name="stmt" num="2529"/>
+      <node name="if-else"/>
+      <node name="stmt" num="2527"/>
+      <node name="if-else"/>
+      <node name="stmt" num="2524"/>
+      <node name="loop"/>
+      <node name="stmt" num="2410"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/option.c" fname="read_opts" gvid="266" updated="01/09/2017 21:38:39" updated-f="1483997919.82">
+     <call-site byte="299077" file="src/option.c" line="4574"/>
+     <args>
+      <arg etag="caste" xstr="caste (&quot;junk found in command line&quot;:(char*))">
+       <typ ttag="tptr">
+        <typ ikind="ichar" ttag="tint"/>
+       </typ>
+       <exp etag="const" xstr="&quot;junk found in command line&quot;">
+        <constant ctag="cstr" strValue="junk found in command line"/>
+       </exp>
+      </arg>
+      <arg/>
+      <arg etag="const" xstr="1">
+       <constant ctag="cint64" ikind="iint" intValue="1"/>
+      </arg>
+     </args>
+     <calling-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="2724"/>
+      <node name="if-else"/>
+      <node name="stmt" num="2723"/>
+      <node name="loop"/>
+      <node name="stmt" num="2719"/>
+      <node name="loop"/>
+      <node name="stmt" num="2715"/>
+      <node name="if-then"/>
+      <node name="stmt" num="2714"/>
+      <node name="loop"/>
+      <node name="stmt" num="2712"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/radv.c" fname="ra_init" gvid="230" updated="01/09/2017 21:38:45" updated-f="1483997925.6">
+     <call-site byte="193569" file="src/radv.c" line="110"/>
+     <args>
+      <arg etag="caste" xstr="caste (&quot;cannot create ICMPv6 socket: %s&quot;:(char*))">
+       <typ ttag="tptr">
+        <typ ikind="ichar" ttag="tint"/>
+       </typ>
+       <exp etag="const" xstr="&quot;cannot create ICMPv6 socket: %s&quot;">
+        <constant ctag="cstr" strValue="cannot create ICMPv6 socket: %s"/>
+       </exp>
+      </arg>
+      <arg/>
+      <arg etag="const" xstr="2">
+       <constant ctag="cint64" ikind="iint" intValue="2"/>
+      </arg>
+     </args>
+     <calling-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="15"/>
+      <node name="if-then"/>
+      <node name="stmt" num="14"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/util.c" fname="rand_init" gvid="276" updated="01/09/2017 21:38:51" updated-f="1483997931.4">
+     <call-site byte="186798" file="src/util.c" line="45"/>
+     <args>
+      <arg etag="caste" xstr="caste (&quot;failed to seed the random number generator: %s&quot;:(char*))">
+       <typ ttag="tptr">
+        <typ ikind="ichar" ttag="tint"/>
+       </typ>
+       <exp etag="const" xstr="&quot;failed to seed the random number generator: %s&quot;">
+        <constant ctag="cstr" strValue="failed to seed the random number generator: %s"/>
+       </exp>
+      </arg>
+      <arg/>
+      <arg etag="const" xstr="5">
+       <constant ctag="cint64" ikind="iint" intValue="5"/>
+      </arg>
+     </args>
+     <calling-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="3"/>
+      <node name="if-then"/>
+      <node name="stmt" num="2"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/util.c" fname="safe_malloc" gvid="75" updated="01/09/2017 21:38:51" updated-f="1483997931.31">
+     <call-site byte="190446" file="src/util.c" line="250"/>
+     <args>
+      <arg etag="caste" xstr="caste (&quot;could not get memory&quot;:(char*))">
+       <typ ttag="tptr">
+        <typ ikind="ichar" ttag="tint"/>
+       </typ>
+       <exp etag="const" xstr="&quot;could not get memory&quot;">
+        <constant ctag="cstr" strValue="could not get memory"/>
+       </exp>
+      </arg>
+      <arg/>
+      <arg etag="const" xstr="4">
+       <constant ctag="cint64" ikind="iint" intValue="4"/>
+      </arg>
+     </args>
+     <calling-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="159"/>
+      <node name="if-then"/>
+      <node name="stmt" num="158"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/util.c" fname="safe_pipe" gvid="274" updated="01/09/2017 21:38:51" updated-f="1483997931.31">
+     <call-site byte="190647" file="src/util.c" line="260"/>
+     <args>
+      <arg etag="caste" xstr="caste (&quot;cannot create pipe: %s&quot;:(char*))">
+       <typ ttag="tptr">
+        <typ ikind="ichar" ttag="tint"/>
+       </typ>
+       <exp etag="const" xstr="&quot;cannot create pipe: %s&quot;">
+        <constant ctag="cstr" strValue="cannot create pipe: %s"/>
+       </exp>
+      </arg>
+      <arg/>
+      <arg etag="const" xstr="5">
+       <constant ctag="cint64" ikind="iint" intValue="5"/>
+      </arg>
+     </args>
+     <calling-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="163"/>
+      <node name="if-then"/>
+      <node name="stmt" num="162"/>
+     </calling-context>
+    </caller>
+   </callers>
+   <api-assumptions>
+    <api-assumption nr="1">
+     <predicate op="pluspi" tag="ptr-upper-bound">
+      <typ ikind="ichar" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+      <exp1 etag="lval" xstr="message">
+       <lval>
+        <lhost>
+         <var vid="6032" vname="message"/>
+        </lhost>
+       </lval>
+      </exp1>
+      <exp2 cn="null-terminator-pos" etag="cnapp" xstr="null-terminator-pos[caste (caste (message:(char*)):(char*))]">
+       <arg etag="caste" xstr="caste (caste (message:(char*)):(char*))">
+        <typ ttag="tptr">
+         <attributes>
+          <attr attrname="restrict"/>
+         </attributes>
+         <typ ikind="ichar" ttag="tint">
+          <attributes>
+           <attr attrname="const"/>
+          </attributes>
+         </typ>
+        </typ>
+        <exp etag="caste" xstr="caste (message:(char*))">
+         <typ ttag="tptr">
+          <typ ikind="ichar" ttag="tint">
+           <attributes>
+            <attr attrname="const"/>
+           </attributes>
+          </typ>
+         </typ>
+         <exp etag="lval" xstr="message">
+          <lval>
+           <lhost>
+            <var vid="6032" vname="message"/>
+           </lhost>
+          </lval>
+         </exp>
+        </exp>
+       </arg>
+       <typ ikind="iint" ttag="tint"/>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="41"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </api-assumption>
+    <api-assumption nr="2">
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="message">
+       <lval>
+        <lhost>
+         <var vid="6032" vname="message"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="39"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </api-assumption>
+   </api-assumptions>
+   <rv-assumptions/>
+   <ds-assumptions/>
+   <global-assumptions>
+    <global-assumption nr="1">
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="stderr">
+       <lval>
+        <lhost>
+         <var vid="649" vname="stderr"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="16"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="2">
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="stderr">
+         <lval>
+          <lhost>
+           <var vid="649" vname="stderr"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+      </lval>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="14"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="3">
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="stderr">
+       <lval>
+        <lhost>
+         <var vid="649" vname="stderr"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="11"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+   </global-assumptions>
+   <global-assignments>
+    <global-assignment nr="1">
+     <lhs>
+      <lhost>
+       <var vid="465" vname="echo_stderr"/>
+      </lhost>
+     </lhs>
+     <rhs etag="const" xstr="1">
+      <constant ctag="cint64" ikind="iint" intValue="1"/>
+     </rhs>
+     <loc byte="193801" file="src/log.c" line="464"/>
+    </global-assignment>
+    <global-assignment nr="2">
+     <lhs>
+      <lhost>
+       <var vid="465" vname="echo_stderr"/>
+      </lhost>
+     </lhs>
+     <rhs etag="const" xstr="0">
+      <constant ctag="cint64" ikind="iint" intValue="0"/>
+     </rhs>
+     <loc byte="193893" file="src/log.c" line="468"/>
+    </global-assignment>
+   </global-assignments>
+   <field-assignments/>
+  </function>
+  <header time="01/10/2017 06:52:56">
+   <application file="src/log.c" name="application"/>
+  </header>
+ </c-analysis>

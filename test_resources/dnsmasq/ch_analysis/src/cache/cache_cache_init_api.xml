@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function cfilename="src/cache.c" gvid="70" name="cache_init" num-ppo="0">
+   <statistics api-assumptions="0" callers="1" ds-assumptions="0" field-assignments="1" global-assignments="1" global-assumptions="5" rv-assumptions="2"/>
+   <parameters/>
+   <callers>
+    <caller cfilename="src/dnsmasq.c" fname="main" gvid="222" updated="01/09/2017 21:38:36" updated-f="1483997916.63">
+     <call-site byte="192976" file="src/dnsmasq.c" line="353"/>
+     <args/>
+     <calling-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="123"/>
+      <node name="if-then"/>
+      <node name="stmt" num="122"/>
+     </calling-context>
+    </caller>
+   </callers>
+   <api-assumptions/>
+   <rv-assumptions>
+    <rv-assumption nr="1">
+     <predicate tag="pointer-cast">
+      <tfrom ttag="tvoid"/>
+      <tto ckey="66" ttag="tcomp"/>
+      <exp byte="188030" etag="fnapp" file="src/cache.c" line="97" xstr="fn(safe_malloc)@ 97[_]">
+       <arg/>
+       <fn etag="lval" xstr="safe_malloc">
+        <lval>
+         <lhost>
+          <var vid="75" vname="safe_malloc"/>
+         </lhost>
+        </lval>
+       </fn>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="25"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </rv-assumption>
+    <rv-assumption communicated="yes" nr="2">
+     <predicate tag="not-null">
+      <exp byte="188030" etag="fnapp" file="src/cache.c" line="97" xstr="fn(safe_malloc)@ 97[_]">
+       <arg/>
+       <fn etag="lval" xstr="safe_malloc">
+        <lval>
+         <lhost>
+          <var vid="75" vname="safe_malloc"/>
+         </lhost>
+        </lval>
+       </fn>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="62"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </rv-assumption>
+   </rv-assumptions>
+   <ds-assumptions/>
+   <global-assumptions>
+    <global-assumption nr="1">
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="dnsmasq_daemon">
+       <lval>
+        <lhost>
+         <var vid="317" vname="dnsmasq_daemon"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="3"/>
+      <po id="12"/>
+      <po id="19"/>
+      <po id="30"/>
+      <po id="58"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="2">
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="dnsmasq_daemon">
+         <lval>
+          <lhost>
+           <var vid="317" vname="dnsmasq_daemon"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <field ckey="6" fname="cachesize"/>
+       </offset>
+      </lval>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="1"/>
+      <po id="10"/>
+      <po id="17"/>
+      <po id="28"/>
+      <po id="56"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="3">
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="dnsmasq_daemon">
+       <lval>
+        <lhost>
+         <var vid="317" vname="dnsmasq_daemon"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="4"/>
+      <po id="13"/>
+      <po id="20"/>
+      <po id="31"/>
+      <po id="59"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="4">
+     <predicate from="iint" tag="signed-to-unsigned-cast" to="iulong">
+      <exp etag="lval" xstr="dnsmasq_daemon-&gt;cachesize">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="dnsmasq_daemon">
+          <lval>
+           <lhost>
+            <var vid="317" vname="dnsmasq_daemon"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <field ckey="6" fname="cachesize"/>
+        </offset>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="16"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="5">
+     <predicate op="div" size="iint" tag="int-underflow">
+      <exp1 etag="lval" xstr="dnsmasq_daemon-&gt;cachesize">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="dnsmasq_daemon">
+          <lval>
+           <lhost>
+            <var vid="317" vname="dnsmasq_daemon"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <field ckey="6" fname="cachesize"/>
+        </offset>
+       </lval>
+      </exp1>
+      <exp2 etag="const" xstr="10">
+       <constant ctag="cint64" ikind="iint" intValue="10"/>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="7"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+   </global-assumptions>
+   <global-assignments>
+    <global-assignment nr="1">
+     <lhs>
+      <lhost>
+       <var vid="100" vname="bignames_left"/>
+      </lhost>
+     </lhs>
+     <rhs binop="div" etag="binop" xstr="((dnsmasq_daemon-&gt;cachesize / 10):int">
+      <exp1 etag="lval" xstr="dnsmasq_daemon-&gt;cachesize">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="dnsmasq_daemon">
+          <lval>
+           <lhost>
+            <var vid="317" vname="dnsmasq_daemon"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <field ckey="6" fname="cachesize"/>
+        </offset>
+       </lval>
+      </exp1>
+      <exp2 etag="const" xstr="10">
+       <constant ctag="cint64" ikind="iint" intValue="10"/>
+      </exp2>
+      <typ ikind="iint" ttag="tint"/>
+     </rhs>
+     <loc byte="187934" file="src/cache.c" line="93"/>
+    </global-assignment>
+   </global-assignments>
+   <field-assignments>
+    <field-assignment ckey="66" field="flags" nr="1">
+     <rhs etag="const" xstr="0">
+      <constant ctag="cint64" ikind="iushort" intValue="0"/>
+     </rhs>
+     <loc byte="188188" file="src/cache.c" line="102"/>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="11"/>
+       <node name="loop"/>
+       <node name="stmt" num="8"/>
+       <node name="if-then"/>
+       <node name="stmt" num="6"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </field-assignment>
+   </field-assignments>
+  </function>
+  <header time="01/10/2017 06:52:38">
+   <application file="src/cache.c" name="application"/>
+  </header>
+ </c-analysis>

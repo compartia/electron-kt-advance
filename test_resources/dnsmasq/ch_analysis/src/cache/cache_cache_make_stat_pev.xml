@@ -1,0 +1,1805 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <log>
+   <log-entry time="01/10/2017 06:52:35"/>
+   <log-entry time="01/10/2017 05:29:23"/>
+   <log-entry time="01/10/2017 05:18:07"/>
+   <log-entry time="01/10/2017 04:56:04"/>
+   <log-entry time="01/10/2017 04:32:22"/>
+   <log-entry time="01/10/2017 03:39:01"/>
+   <log-entry time="01/10/2017 02:50:38"/>
+   <log-entry time="01/09/2017 22:49:44"/>
+   <log-entry delta-checkvalid="214" delta-invariant="110" delta-lifted="119" time="01/09/2017 22:03:41"/>
+  </log>
+  <function name="cache_make_stat">
+   <statistics checkvalid="214" invariant="110" invariant_with_api="119" total="538" total-proven="443"/>
+   <open-proof-obligations>
+    <open id="8" line="1305" predicate="null-terminated"/>
+    <open id="14" line="1310" predicate="valid-mem"/>
+    <open id="184" line="1341" predicate="valid-mem"/>
+    <open id="187" line="1341" predicate="initialized"/>
+    <open id="190" line="1341" predicate="valid-mem"/>
+    <open id="193" line="1340" predicate="initialized"/>
+    <open id="196" line="1340" predicate="valid-mem"/>
+    <open id="206" line="1344" predicate="initialized"/>
+    <open id="209" line="1344" predicate="valid-mem"/>
+    <open id="214" line="1351" predicate="initialized"/>
+    <open id="217" line="1351" predicate="valid-mem"/>
+    <open id="218" line="1351" predicate="lower-bound"/>
+    <open id="219" line="1351" predicate="upper-bound"/>
+    <open id="222" line="1351" predicate="valid-mem"/>
+    <open id="225" line="1351" predicate="valid-mem"/>
+    <open id="226" line="1351" predicate="lower-bound"/>
+    <open id="227" line="1351" predicate="upper-bound"/>
+    <open id="230" line="1351" predicate="valid-mem"/>
+    <open id="231" line="1351" predicate="lower-bound"/>
+    <open id="232" line="1351" predicate="upper-bound"/>
+    <open id="233" line="1351" predicate="valid-mem"/>
+    <open id="234" line="1351" predicate="lower-bound"/>
+    <open id="235" line="1351" predicate="upper-bound"/>
+    <open id="239" line="1355" predicate="valid-mem"/>
+    <open id="240" line="1355" predicate="lower-bound"/>
+    <open id="241" line="1355" predicate="upper-bound"/>
+    <open id="242" line="1355" predicate="initialized"/>
+    <open id="245" line="1355" predicate="valid-mem"/>
+    <open id="246" line="1355" predicate="lower-bound"/>
+    <open id="247" line="1355" predicate="upper-bound"/>
+    <open id="249" line="1356" predicate="initialized"/>
+    <open id="252" line="1356" predicate="valid-mem"/>
+    <open id="253" line="1356" predicate="lower-bound"/>
+    <open id="254" line="1356" predicate="upper-bound"/>
+    <open id="258" line="1357" predicate="initialized"/>
+    <open id="261" line="1357" predicate="valid-mem"/>
+    <open id="262" line="1357" predicate="lower-bound"/>
+    <open id="263" line="1357" predicate="upper-bound"/>
+    <open id="266" line="1350" predicate="initialized"/>
+    <open id="269" line="1350" predicate="valid-mem"/>
+    <open id="270" line="1350" predicate="lower-bound"/>
+    <open id="271" line="1350" predicate="upper-bound"/>
+    <open id="274" line="1359" predicate="valid-mem"/>
+    <open id="277" line="1359" predicate="valid-mem"/>
+    <open id="278" line="1359" predicate="lower-bound"/>
+    <open id="279" line="1359" predicate="upper-bound"/>
+    <open id="291" line="1360" predicate="not-null"/>
+    <open id="292" line="1360" predicate="valid-mem"/>
+    <open id="294" line="1360" predicate="ptr-upper-bound-deref"/>
+    <open id="303" line="1361" predicate="valid-mem"/>
+    <open id="316" line="1362" predicate="lower-bound"/>
+    <open id="317" line="1362" predicate="ptr-upper-bound"/>
+    <open id="320" line="1362" predicate="valid-mem"/>
+    <open id="321" line="1362" predicate="lower-bound"/>
+    <open id="322" line="1362" predicate="upper-bound"/>
+    <open id="323" line="1362" predicate="signed-to-unsigned-cast"/>
+    <open id="345" line="1366" predicate="int-overflow"/>
+    <open id="352" line="1367" predicate="signed-to-unsigned-cast"/>
+    <open id="388" line="1371" predicate="valid-mem"/>
+    <open id="393" line="1371" predicate="valid-mem"/>
+    <open id="397" line="1372" predicate="not-null"/>
+    <open id="398" line="1372" predicate="valid-mem"/>
+    <open id="399" line="1372" predicate="ptr-lower-bound"/>
+    <open id="404" line="1373" predicate="valid-mem"/>
+    <open id="405" line="1373" predicate="null-terminated"/>
+    <open id="412" line="1375" predicate="not-null"/>
+    <open id="414" line="1375" predicate="valid-mem"/>
+    <open id="426" line="1376" predicate="not-null"/>
+    <open id="427" line="1376" predicate="lower-bound"/>
+    <open id="428" line="1376" predicate="ptr-upper-bound"/>
+    <open id="431" line="1376" predicate="valid-mem"/>
+    <open id="432" line="1376" predicate="lower-bound"/>
+    <open id="433" line="1376" predicate="upper-bound"/>
+    <open id="434" line="1376" predicate="signed-to-unsigned-cast"/>
+    <open id="453" line="1378" predicate="not-null"/>
+    <open id="454" line="1378" predicate="valid-mem"/>
+    <open id="455" line="1378" predicate="lower-bound"/>
+    <open id="456" line="1378" predicate="upper-bound"/>
+    <open id="457" line="1378" predicate="cast"/>
+    <open id="461" line="1379" predicate="not-null"/>
+    <open id="462" line="1379" predicate="valid-mem"/>
+    <open id="463" line="1379" predicate="ptr-lower-bound"/>
+    <open id="464" line="1379" predicate="ptr-upper-bound-deref"/>
+    <open id="465" line="1343" predicate="initialized"/>
+    <open id="468" line="1343" predicate="valid-mem"/>
+    <open id="473" line="1381" predicate="valid-mem"/>
+    <open id="484" line="1382" predicate="valid-mem"/>
+    <open id="490" line="1382" predicate="not-null"/>
+    <open id="492" line="1382" predicate="valid-mem"/>
+    <open id="510" line="1386" predicate="unsigned-to-signed-cast"/>
+    <open id="514" line="1387" predicate="valid-mem"/>
+    <open id="525" line="1388" predicate="valid-mem"/>
+    <open id="528" line="1388" predicate="signed-to-unsigned-cast"/>
+    <open id="531" line="1388" predicate="int-overflow"/>
+    <open id="537" line="1389" predicate="cast"/>
+   </open-proof-obligations>
+   <proof-obligations-discharged>
+    <discharged id="1" method="check-valid" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="buff is global"/>
+    </discharged>
+    <discharged id="2" method="check-valid" time="01/09/2017 22:03:41" type="signed-to-unsigned-cast">
+     <evidence comment="constant value 60 fits in type unsigned long"/>
+    </discharged>
+    <discharged id="3" method="check-valid" time="01/09/2017 22:03:41" type="pointer-cast">
+     <evidence comment="cast to character type"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="4" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1305"/>
+    </discharged>
+    <discharged domain="linear equalities" id="5" method="invariants" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="non-negative offset from return value from whine_malloc at 1305"/>
+    </discharged>
+    <discharged domain="linear equalities" id="6" method="invariants" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="non-negative offset from return value from whine_malloc at 1305"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="7" method="invariants" time="01/09/2017 22:03:41" type="valid-mem">
+     <evidence comment="external address provided by whine_malloc still points to valid memory"/>
+    </discharged>
+    <discharged id="9" method="check-valid" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="buff is global"/>
+    </discharged>
+    <discharged id="10" method="check-valid" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="buff is global"/>
+    </discharged>
+    <discharged domain="linear equalities" id="11" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="1" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged id="12" method="check-valid" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="t is a function parameter"/>
+    </discharged>
+    <discharged domain="linear equalities" id="13" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="2" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="valuesets" id="15" method="invariants" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="non-negative offset from base value: t"/>
+    </discharged>
+    <discharged domain="valuesets" id="16" method="invariants" time="01/09/2017 22:03:41" type="upper-bound">
+     <evidence comment="externally provided address; dereferencability is checked as part of precondition"/>
+    </discharged>
+    <discharged id="17" method="check-valid" time="01/09/2017 22:03:41" type="format-string">
+     <evidence comment="%d is a string literal"/>
+    </discharged>
+    <discharged id="18" method="check-valid" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="string-literal"/>
+    </discharged>
+    <discharged id="19" method="check-valid" time="01/09/2017 22:03:41" type="null-terminated">
+     <evidence comment="string literal"/>
+    </discharged>
+    <discharged id="20" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="constant string is allocated by compiler"/>
+    </discharged>
+    <discharged id="21" method="check-valid" time="01/09/2017 22:03:41" type="ptr-upper-bound">
+     <evidence comment="upperbound of constant string argument: %d"/>
+    </discharged>
+    <discharged id="22" method="check-valid" time="01/09/2017 22:03:41" type="initialized-range">
+     <evidence comment="constant string"/>
+    </discharged>
+    <discharged id="23" method="check-valid" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="arguments of pointer arithmetic are checked for null"/>
+    </discharged>
+    <discharged id="24" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="result of pointer arithmetic is guaranteed to satisfy lowerbound by inductive hypothesis"/>
+    </discharged>
+    <discharged domain="none" id="25" method="invariants" time="01/09/2017 22:03:41" type="ptr-upper-bound">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="21" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="26" method="check-valid" time="01/09/2017 22:03:41" type="pointer-cast">
+     <evidence comment="source and target type are the same"/>
+    </discharged>
+    <discharged id="27" method="check-valid" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="buff is global"/>
+    </discharged>
+    <discharged domain="none" id="28" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="2" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="29" method="invariants" time="01/09/2017 22:03:41" type="valid-mem">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="1" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="30" method="check-valid" time="01/09/2017 22:03:41" type="ptr-lower-bound">
+     <evidence comment="add non-negative number: value is 1"/>
+    </discharged>
+    <discharged domain="none" id="31" method="invariants" time="01/09/2017 22:03:41" type="ptr-upper-bound-deref">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="6" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="32" method="check-valid" time="01/09/2017 22:03:41" type="valid-mem">
+     <evidence comment="pointer arithmetic stays within memory region"/>
+    </discharged>
+    <discharged id="33" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="result of pointer arithmetic is guaranteed to satisfy lowerbound by inductive hypothesis"/>
+    </discharged>
+    <discharged domain="none" id="34" method="invariants" time="01/09/2017 22:03:41" type="upper-bound">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="5" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="35" method="check-valid" time="01/09/2017 22:03:41" type="pointer-cast">
+     <evidence comment="source and target type are the same"/>
+    </discharged>
+    <discharged id="36" method="check-valid" time="01/09/2017 22:03:41" type="valid-mem">
+     <evidence comment="constant string is allocated by compiler"/>
+    </discharged>
+    <discharged id="37" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="constant string is allocated by compiler"/>
+    </discharged>
+    <discharged id="38" method="check-valid" time="01/09/2017 22:03:41" type="upper-bound">
+     <evidence comment="constant string is allocated by compiler"/>
+    </discharged>
+    <discharged domain="none" id="39" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="predicate depends on global variables dnsmasq_daemon, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="16" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="40" method="check-valid" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="dnsmasq_daemon is global"/>
+    </discharged>
+    <discharged domain="none" id="41" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="predicate depends on global variables dnsmasq_daemon, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="20" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="42" method="invariants" time="01/09/2017 22:03:41" type="valid-mem">
+     <evidence comment="predicate depends on global variables dnsmasq_daemon, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="23" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="43" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="global variable dnsmasq_daemon is assigned a value with valid lower bound by inductive hypothesis (checked at assignment)"/>
+    </discharged>
+    <discharged id="44" method="check-valid" time="01/09/2017 22:03:41" type="upper-bound">
+     <evidence comment="global variable dnsmasq_daemon is assigned a value with valid upper bound by inductive hypothesis (checked at assignment)"/>
+    </discharged>
+    <discharged id="45" method="check-valid" time="01/09/2017 22:03:41" type="format-string">
+     <evidence comment="%d is a string literal"/>
+    </discharged>
+    <discharged id="46" method="check-valid" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="string-literal"/>
+    </discharged>
+    <discharged id="47" method="check-valid" time="01/09/2017 22:03:41" type="null-terminated">
+     <evidence comment="string literal"/>
+    </discharged>
+    <discharged id="48" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="constant string is allocated by compiler"/>
+    </discharged>
+    <discharged id="49" method="check-valid" time="01/09/2017 22:03:41" type="ptr-upper-bound">
+     <evidence comment="upperbound of constant string argument: %d"/>
+    </discharged>
+    <discharged id="50" method="check-valid" time="01/09/2017 22:03:41" type="initialized-range">
+     <evidence comment="constant string"/>
+    </discharged>
+    <discharged id="51" method="check-valid" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="arguments of pointer arithmetic are checked for null"/>
+    </discharged>
+    <discharged id="52" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="result of pointer arithmetic is guaranteed to satisfy lowerbound by inductive hypothesis"/>
+    </discharged>
+    <discharged domain="none" id="53" method="invariants" time="01/09/2017 22:03:41" type="ptr-upper-bound">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="21" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="54" method="check-valid" time="01/09/2017 22:03:41" type="pointer-cast">
+     <evidence comment="source and target type are the same"/>
+    </discharged>
+    <discharged id="55" method="check-valid" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="buff is global"/>
+    </discharged>
+    <discharged domain="none" id="56" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="2" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="57" method="invariants" time="01/09/2017 22:03:41" type="valid-mem">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="1" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="58" method="check-valid" time="01/09/2017 22:03:41" type="ptr-lower-bound">
+     <evidence comment="add non-negative number: value is 1"/>
+    </discharged>
+    <discharged domain="none" id="59" method="invariants" time="01/09/2017 22:03:41" type="ptr-upper-bound-deref">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="6" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="60" method="check-valid" time="01/09/2017 22:03:41" type="valid-mem">
+     <evidence comment="pointer arithmetic stays within memory region"/>
+    </discharged>
+    <discharged id="61" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="result of pointer arithmetic is guaranteed to satisfy lowerbound by inductive hypothesis"/>
+    </discharged>
+    <discharged domain="none" id="62" method="invariants" time="01/09/2017 22:03:41" type="upper-bound">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="5" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="63" method="check-valid" time="01/09/2017 22:03:41" type="pointer-cast">
+     <evidence comment="source and target type are the same"/>
+    </discharged>
+    <discharged id="64" method="check-valid" time="01/09/2017 22:03:41" type="valid-mem">
+     <evidence comment="constant string is allocated by compiler"/>
+    </discharged>
+    <discharged id="65" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="constant string is allocated by compiler"/>
+    </discharged>
+    <discharged id="66" method="check-valid" time="01/09/2017 22:03:41" type="upper-bound">
+     <evidence comment="constant string is allocated by compiler"/>
+    </discharged>
+    <discharged id="67" method="check-valid" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="cache_inserted is global"/>
+    </discharged>
+    <discharged id="68" method="check-valid" time="01/09/2017 22:03:41" type="format-string">
+     <evidence comment="%d is a string literal"/>
+    </discharged>
+    <discharged id="69" method="check-valid" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="string-literal"/>
+    </discharged>
+    <discharged id="70" method="check-valid" time="01/09/2017 22:03:41" type="null-terminated">
+     <evidence comment="string literal"/>
+    </discharged>
+    <discharged id="71" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="constant string is allocated by compiler"/>
+    </discharged>
+    <discharged id="72" method="check-valid" time="01/09/2017 22:03:41" type="ptr-upper-bound">
+     <evidence comment="upperbound of constant string argument: %d"/>
+    </discharged>
+    <discharged id="73" method="check-valid" time="01/09/2017 22:03:41" type="initialized-range">
+     <evidence comment="constant string"/>
+    </discharged>
+    <discharged id="74" method="check-valid" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="arguments of pointer arithmetic are checked for null"/>
+    </discharged>
+    <discharged id="75" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="result of pointer arithmetic is guaranteed to satisfy lowerbound by inductive hypothesis"/>
+    </discharged>
+    <discharged domain="none" id="76" method="invariants" time="01/09/2017 22:03:41" type="ptr-upper-bound">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="21" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="77" method="check-valid" time="01/09/2017 22:03:41" type="pointer-cast">
+     <evidence comment="source and target type are the same"/>
+    </discharged>
+    <discharged id="78" method="check-valid" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="buff is global"/>
+    </discharged>
+    <discharged domain="none" id="79" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="2" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="80" method="invariants" time="01/09/2017 22:03:41" type="valid-mem">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="1" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="81" method="check-valid" time="01/09/2017 22:03:41" type="ptr-lower-bound">
+     <evidence comment="add non-negative number: value is 1"/>
+    </discharged>
+    <discharged domain="none" id="82" method="invariants" time="01/09/2017 22:03:41" type="ptr-upper-bound-deref">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="6" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="83" method="check-valid" time="01/09/2017 22:03:41" type="valid-mem">
+     <evidence comment="pointer arithmetic stays within memory region"/>
+    </discharged>
+    <discharged id="84" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="result of pointer arithmetic is guaranteed to satisfy lowerbound by inductive hypothesis"/>
+    </discharged>
+    <discharged domain="none" id="85" method="invariants" time="01/09/2017 22:03:41" type="upper-bound">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="5" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="86" method="check-valid" time="01/09/2017 22:03:41" type="pointer-cast">
+     <evidence comment="source and target type are the same"/>
+    </discharged>
+    <discharged id="87" method="check-valid" time="01/09/2017 22:03:41" type="valid-mem">
+     <evidence comment="constant string is allocated by compiler"/>
+    </discharged>
+    <discharged id="88" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="constant string is allocated by compiler"/>
+    </discharged>
+    <discharged id="89" method="check-valid" time="01/09/2017 22:03:41" type="upper-bound">
+     <evidence comment="constant string is allocated by compiler"/>
+    </discharged>
+    <discharged id="90" method="check-valid" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="cache_live_freed is global"/>
+    </discharged>
+    <discharged id="91" method="check-valid" time="01/09/2017 22:03:41" type="format-string">
+     <evidence comment="%u is a string literal"/>
+    </discharged>
+    <discharged id="92" method="check-valid" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="string-literal"/>
+    </discharged>
+    <discharged id="93" method="check-valid" time="01/09/2017 22:03:41" type="null-terminated">
+     <evidence comment="string literal"/>
+    </discharged>
+    <discharged id="94" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="constant string is allocated by compiler"/>
+    </discharged>
+    <discharged id="95" method="check-valid" time="01/09/2017 22:03:41" type="ptr-upper-bound">
+     <evidence comment="upperbound of constant string argument: %u"/>
+    </discharged>
+    <discharged id="96" method="check-valid" time="01/09/2017 22:03:41" type="initialized-range">
+     <evidence comment="constant string"/>
+    </discharged>
+    <discharged id="97" method="check-valid" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="arguments of pointer arithmetic are checked for null"/>
+    </discharged>
+    <discharged id="98" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="result of pointer arithmetic is guaranteed to satisfy lowerbound by inductive hypothesis"/>
+    </discharged>
+    <discharged domain="none" id="99" method="invariants" time="01/09/2017 22:03:41" type="ptr-upper-bound">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="21" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="100" method="check-valid" time="01/09/2017 22:03:41" type="pointer-cast">
+     <evidence comment="source and target type are the same"/>
+    </discharged>
+    <discharged id="101" method="check-valid" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="buff is global"/>
+    </discharged>
+    <discharged domain="none" id="102" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="2" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="103" method="invariants" time="01/09/2017 22:03:41" type="valid-mem">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="1" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="104" method="check-valid" time="01/09/2017 22:03:41" type="ptr-lower-bound">
+     <evidence comment="add non-negative number: value is 1"/>
+    </discharged>
+    <discharged domain="none" id="105" method="invariants" time="01/09/2017 22:03:41" type="ptr-upper-bound-deref">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="6" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="106" method="check-valid" time="01/09/2017 22:03:41" type="valid-mem">
+     <evidence comment="pointer arithmetic stays within memory region"/>
+    </discharged>
+    <discharged id="107" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="result of pointer arithmetic is guaranteed to satisfy lowerbound by inductive hypothesis"/>
+    </discharged>
+    <discharged domain="none" id="108" method="invariants" time="01/09/2017 22:03:41" type="upper-bound">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="5" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="109" method="check-valid" time="01/09/2017 22:03:41" type="pointer-cast">
+     <evidence comment="source and target type are the same"/>
+    </discharged>
+    <discharged id="110" method="check-valid" time="01/09/2017 22:03:41" type="valid-mem">
+     <evidence comment="constant string is allocated by compiler"/>
+    </discharged>
+    <discharged id="111" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="constant string is allocated by compiler"/>
+    </discharged>
+    <discharged id="112" method="check-valid" time="01/09/2017 22:03:41" type="upper-bound">
+     <evidence comment="constant string is allocated by compiler"/>
+    </discharged>
+    <discharged domain="none" id="113" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="predicate depends on global variables dnsmasq_daemon, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="39" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="114" method="check-valid" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="dnsmasq_daemon is global"/>
+    </discharged>
+    <discharged domain="none" id="115" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="predicate depends on global variables dnsmasq_daemon, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="20" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="116" method="invariants" time="01/09/2017 22:03:41" type="valid-mem">
+     <evidence comment="predicate depends on global variables dnsmasq_daemon, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="23" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="117" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="global variable dnsmasq_daemon is assigned a value with valid lower bound by inductive hypothesis (checked at assignment)"/>
+    </discharged>
+    <discharged id="118" method="check-valid" time="01/09/2017 22:03:41" type="upper-bound">
+     <evidence comment="global variable dnsmasq_daemon is assigned a value with valid upper bound by inductive hypothesis (checked at assignment)"/>
+    </discharged>
+    <discharged id="119" method="check-valid" time="01/09/2017 22:03:41" type="format-string">
+     <evidence comment="%u is a string literal"/>
+    </discharged>
+    <discharged id="120" method="check-valid" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="string-literal"/>
+    </discharged>
+    <discharged id="121" method="check-valid" time="01/09/2017 22:03:41" type="null-terminated">
+     <evidence comment="string literal"/>
+    </discharged>
+    <discharged id="122" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="constant string is allocated by compiler"/>
+    </discharged>
+    <discharged id="123" method="check-valid" time="01/09/2017 22:03:41" type="ptr-upper-bound">
+     <evidence comment="upperbound of constant string argument: %u"/>
+    </discharged>
+    <discharged id="124" method="check-valid" time="01/09/2017 22:03:41" type="initialized-range">
+     <evidence comment="constant string"/>
+    </discharged>
+    <discharged id="125" method="check-valid" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="arguments of pointer arithmetic are checked for null"/>
+    </discharged>
+    <discharged id="126" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="result of pointer arithmetic is guaranteed to satisfy lowerbound by inductive hypothesis"/>
+    </discharged>
+    <discharged domain="none" id="127" method="invariants" time="01/09/2017 22:03:41" type="ptr-upper-bound">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="21" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="128" method="check-valid" time="01/09/2017 22:03:41" type="pointer-cast">
+     <evidence comment="source and target type are the same"/>
+    </discharged>
+    <discharged id="129" method="check-valid" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="buff is global"/>
+    </discharged>
+    <discharged domain="none" id="130" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="2" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="131" method="invariants" time="01/09/2017 22:03:41" type="valid-mem">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="1" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="132" method="check-valid" time="01/09/2017 22:03:41" type="ptr-lower-bound">
+     <evidence comment="add non-negative number: value is 1"/>
+    </discharged>
+    <discharged domain="none" id="133" method="invariants" time="01/09/2017 22:03:41" type="ptr-upper-bound-deref">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="6" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="134" method="check-valid" time="01/09/2017 22:03:41" type="valid-mem">
+     <evidence comment="pointer arithmetic stays within memory region"/>
+    </discharged>
+    <discharged id="135" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="result of pointer arithmetic is guaranteed to satisfy lowerbound by inductive hypothesis"/>
+    </discharged>
+    <discharged domain="none" id="136" method="invariants" time="01/09/2017 22:03:41" type="upper-bound">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="5" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="137" method="check-valid" time="01/09/2017 22:03:41" type="pointer-cast">
+     <evidence comment="source and target type are the same"/>
+    </discharged>
+    <discharged id="138" method="check-valid" time="01/09/2017 22:03:41" type="valid-mem">
+     <evidence comment="constant string is allocated by compiler"/>
+    </discharged>
+    <discharged id="139" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="constant string is allocated by compiler"/>
+    </discharged>
+    <discharged id="140" method="check-valid" time="01/09/2017 22:03:41" type="upper-bound">
+     <evidence comment="constant string is allocated by compiler"/>
+    </discharged>
+    <discharged domain="none" id="141" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="predicate depends on global variables dnsmasq_daemon, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="29" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="142" method="check-valid" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="dnsmasq_daemon is global"/>
+    </discharged>
+    <discharged domain="none" id="143" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="predicate depends on global variables dnsmasq_daemon, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="20" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="144" method="invariants" time="01/09/2017 22:03:41" type="valid-mem">
+     <evidence comment="predicate depends on global variables dnsmasq_daemon, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="23" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="145" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="global variable dnsmasq_daemon is assigned a value with valid lower bound by inductive hypothesis (checked at assignment)"/>
+    </discharged>
+    <discharged id="146" method="check-valid" time="01/09/2017 22:03:41" type="upper-bound">
+     <evidence comment="global variable dnsmasq_daemon is assigned a value with valid upper bound by inductive hypothesis (checked at assignment)"/>
+    </discharged>
+    <discharged id="147" method="check-valid" time="01/09/2017 22:03:41" type="format-string">
+     <evidence comment="%u is a string literal"/>
+    </discharged>
+    <discharged id="148" method="check-valid" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="string-literal"/>
+    </discharged>
+    <discharged id="149" method="check-valid" time="01/09/2017 22:03:41" type="null-terminated">
+     <evidence comment="string literal"/>
+    </discharged>
+    <discharged id="150" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="constant string is allocated by compiler"/>
+    </discharged>
+    <discharged id="151" method="check-valid" time="01/09/2017 22:03:41" type="ptr-upper-bound">
+     <evidence comment="upperbound of constant string argument: %u"/>
+    </discharged>
+    <discharged id="152" method="check-valid" time="01/09/2017 22:03:41" type="initialized-range">
+     <evidence comment="constant string"/>
+    </discharged>
+    <discharged id="153" method="check-valid" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="arguments of pointer arithmetic are checked for null"/>
+    </discharged>
+    <discharged id="154" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="result of pointer arithmetic is guaranteed to satisfy lowerbound by inductive hypothesis"/>
+    </discharged>
+    <discharged domain="none" id="155" method="invariants" time="01/09/2017 22:03:41" type="ptr-upper-bound">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="21" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="156" method="check-valid" time="01/09/2017 22:03:41" type="pointer-cast">
+     <evidence comment="source and target type are the same"/>
+    </discharged>
+    <discharged id="157" method="check-valid" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="buff is global"/>
+    </discharged>
+    <discharged domain="none" id="158" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="2" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="159" method="invariants" time="01/09/2017 22:03:41" type="valid-mem">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="1" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="160" method="check-valid" time="01/09/2017 22:03:41" type="ptr-lower-bound">
+     <evidence comment="add non-negative number: value is 1"/>
+    </discharged>
+    <discharged domain="none" id="161" method="invariants" time="01/09/2017 22:03:41" type="ptr-upper-bound-deref">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="6" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="162" method="check-valid" time="01/09/2017 22:03:41" type="valid-mem">
+     <evidence comment="pointer arithmetic stays within memory region"/>
+    </discharged>
+    <discharged id="163" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="result of pointer arithmetic is guaranteed to satisfy lowerbound by inductive hypothesis"/>
+    </discharged>
+    <discharged domain="none" id="164" method="invariants" time="01/09/2017 22:03:41" type="upper-bound">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="5" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="165" method="check-valid" time="01/09/2017 22:03:41" type="pointer-cast">
+     <evidence comment="source and target type are the same"/>
+    </discharged>
+    <discharged id="166" method="check-valid" time="01/09/2017 22:03:41" type="valid-mem">
+     <evidence comment="constant string is allocated by compiler"/>
+    </discharged>
+    <discharged id="167" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="constant string is allocated by compiler"/>
+    </discharged>
+    <discharged id="168" method="check-valid" time="01/09/2017 22:03:41" type="upper-bound">
+     <evidence comment="constant string is allocated by compiler"/>
+    </discharged>
+    <discharged domain="none" id="169" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="predicate depends on global variables dnsmasq_daemon, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="13" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="170" method="check-valid" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="dnsmasq_daemon is global"/>
+    </discharged>
+    <discharged domain="none" id="171" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="predicate depends on global variables dnsmasq_daemon, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="20" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="172" method="invariants" time="01/09/2017 22:03:41" type="valid-mem">
+     <evidence comment="predicate depends on global variables dnsmasq_daemon, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="23" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="173" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="global variable dnsmasq_daemon is assigned a value with valid lower bound by inductive hypothesis (checked at assignment)"/>
+    </discharged>
+    <discharged id="174" method="check-valid" time="01/09/2017 22:03:41" type="upper-bound">
+     <evidence comment="global variable dnsmasq_daemon is assigned a value with valid upper bound by inductive hypothesis (checked at assignment)"/>
+    </discharged>
+    <discharged domain="none" id="175" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="predicate depends on global variables dnsmasq_daemon, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="9" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="176" method="check-valid" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="dnsmasq_daemon is global"/>
+    </discharged>
+    <discharged domain="none" id="177" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="predicate depends on global variables dnsmasq_daemon, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="20" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="178" method="invariants" time="01/09/2017 22:03:41" type="valid-mem">
+     <evidence comment="predicate depends on global variables dnsmasq_daemon, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="23" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="179" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="global variable dnsmasq_daemon is assigned a value with valid lower bound by inductive hypothesis (checked at assignment)"/>
+    </discharged>
+    <discharged id="180" method="check-valid" time="01/09/2017 22:03:41" type="upper-bound">
+     <evidence comment="global variable dnsmasq_daemon is assigned a value with valid upper bound by inductive hypothesis (checked at assignment)"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="181" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1340_xx_assignedAt#1340"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="182" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1340_xx_assignedAt#1340"/>
+    </discharged>
+    <discharged domain="intervals" id="183" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="185" method="invariants" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="value received from {field servers (key: 238), field next (key: 206)}, which satisfy the lower bound requirement by inductive hypothesis"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="186" method="invariants" time="01/09/2017 22:03:41" type="upper-bound">
+     <evidence comment="value received from {field servers (key: 238), field next (key: 206)}, which satisfy the upper bound requirement by inductive hypothesis"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="188" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1340_xx_assignedAt#1340"/>
+    </discharged>
+    <discharged domain="intervals" id="189" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="191" method="invariants" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="value received from {field servers (key: 238), field next (key: 206)}, which satisfy the lower bound requirement by inductive hypothesis"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="192" method="invariants" time="01/09/2017 22:03:41" type="upper-bound">
+     <evidence comment="value received from {field servers (key: 238), field next (key: 206)}, which satisfy the upper bound requirement by inductive hypothesis"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="194" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1340_xx_assignedAt#1340"/>
+    </discharged>
+    <discharged domain="intervals" id="195" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="197" method="invariants" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="value received from {field servers (key: 238), field next (key: 206)}, which satisfy the lower bound requirement by inductive hypothesis"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="198" method="invariants" time="01/09/2017 22:03:41" type="upper-bound">
+     <evidence comment="value received from {field servers (key: 238), field next (key: 206)}, which satisfy the upper bound requirement by inductive hypothesis"/>
+    </discharged>
+    <discharged domain="none" id="199" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="predicate depends on global variables dnsmasq_daemon, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="9" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="200" method="check-valid" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="dnsmasq_daemon is global"/>
+    </discharged>
+    <discharged domain="none" id="201" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="predicate depends on global variables dnsmasq_daemon, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="20" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="202" method="invariants" time="01/09/2017 22:03:41" type="valid-mem">
+     <evidence comment="predicate depends on global variables dnsmasq_daemon, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="23" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="203" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="global variable dnsmasq_daemon is assigned a value with valid lower bound by inductive hypothesis (checked at assignment)"/>
+    </discharged>
+    <discharged id="204" method="check-valid" time="01/09/2017 22:03:41" type="upper-bound">
+     <evidence comment="global variable dnsmasq_daemon is assigned a value with valid upper bound by inductive hypothesis (checked at assignment)"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="205" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1343_xx_assignedAt#1343"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="207" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1343_xx_assignedAt#1343"/>
+    </discharged>
+    <discharged domain="intervals" id="208" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="210" method="invariants" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="value received from {field servers (key: 238), field next (key: 206)}, which satisfy the lower bound requirement by inductive hypothesis"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="211" method="invariants" time="01/09/2017 22:03:41" type="upper-bound">
+     <evidence comment="value received from {field servers (key: 238), field next (key: 206)}, which satisfy the upper bound requirement by inductive hypothesis"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="212" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1343_xx_assignedAt#1343"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="213" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1350_xx_assignedAt#1350"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="215" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1350_xx_assignedAt#1350"/>
+    </discharged>
+    <discharged domain="intervals" id="216" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="220" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1343_xx_assignedAt#1343"/>
+    </discharged>
+    <discharged domain="intervals" id="221" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="223" method="invariants" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="value received from {field servers (key: 238), field next (key: 206)}, which satisfy the lower bound requirement by inductive hypothesis"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="224" method="invariants" time="01/09/2017 22:03:41" type="upper-bound">
+     <evidence comment="value received from {field servers (key: 238), field next (key: 206)}, which satisfy the upper bound requirement by inductive hypothesis"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="228" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1350_xx_assignedAt#1350"/>
+    </discharged>
+    <discharged domain="intervals" id="229" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="236" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1351"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="237" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1350_xx_assignedAt#1350"/>
+    </discharged>
+    <discharged domain="intervals" id="238" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="243" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1350_xx_assignedAt#1350"/>
+    </discharged>
+    <discharged domain="intervals" id="244" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="248" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1349_xx_assignedAt#1356"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="250" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1350_xx_assignedAt#1350"/>
+    </discharged>
+    <discharged domain="intervals" id="251" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged id="255" method="check-valid" time="01/09/2017 22:03:41" type="int-underflow">
+     <evidence comment="underflow is well defined for unsigned types"/>
+    </discharged>
+    <discharged id="256" method="check-valid" time="01/09/2017 22:03:41" type="int-overflow">
+     <evidence comment="overflow is well defined for unsigned types"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="257" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1349_xx_assignedAt#1357"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="259" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1350_xx_assignedAt#1350"/>
+    </discharged>
+    <discharged domain="intervals" id="260" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged id="264" method="check-valid" time="01/09/2017 22:03:41" type="int-underflow">
+     <evidence comment="underflow is well defined for unsigned types"/>
+    </discharged>
+    <discharged id="265" method="check-valid" time="01/09/2017 22:03:41" type="int-overflow">
+     <evidence comment="overflow is well defined for unsigned types"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="267" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1350_xx_assignedAt#1350"/>
+    </discharged>
+    <discharged domain="intervals" id="268" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="272" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1343_xx_assignedAt#1343"/>
+    </discharged>
+    <discharged domain="intervals" id="273" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="275" method="invariants" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="value received from {field servers (key: 238), field next (key: 206)}, which satisfy the lower bound requirement by inductive hypothesis"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="276" method="invariants" time="01/09/2017 22:03:41" type="upper-bound">
+     <evidence comment="value received from {field servers (key: 238), field next (key: 206)}, which satisfy the upper bound requirement by inductive hypothesis"/>
+    </discharged>
+    <discharged domain="none" id="280" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="predicate depends on global variables dnsmasq_daemon, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="15" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="281" method="check-valid" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="dnsmasq_daemon is global"/>
+    </discharged>
+    <discharged domain="none" id="282" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="predicate depends on global variables dnsmasq_daemon, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="20" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="283" method="invariants" time="01/09/2017 22:03:41" type="valid-mem">
+     <evidence comment="predicate depends on global variables dnsmasq_daemon, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="23" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="284" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="global variable dnsmasq_daemon is assigned a value with valid lower bound by inductive hypothesis (checked at assignment)"/>
+    </discharged>
+    <discharged id="285" method="check-valid" time="01/09/2017 22:03:41" type="upper-bound">
+     <evidence comment="global variable dnsmasq_daemon is assigned a value with valid upper bound by inductive hypothesis (checked at assignment)"/>
+    </discharged>
+    <discharged domain="none" id="286" method="invariants" time="01/09/2017 22:03:41" type="valid-mem">
+     <evidence comment="predicate depends on global variables dnsmasq_daemon, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="14" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="287" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="field addrbuff (238) is assigned a value with a valid lower bound by inductive hypothesis (checked at assignment)"/>
+    </discharged>
+    <discharged id="288" method="check-valid" time="01/09/2017 22:03:41" type="upper-bound">
+     <evidence comment="field addrbuff (238) is assigned a value with a valid upper bound by inductive hypothesis (checked at assignment)"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="289" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1308_xx_assignedAt#1379"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="290" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1308_xx_assignedAt#1379"/>
+    </discharged>
+    <discharged id="293" method="check-valid" time="01/09/2017 22:03:41" type="ptr-lower-bound">
+     <evidence comment="add non-negative number: value is 1"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="295" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1360"/>
+    </discharged>
+    <discharged domain="none" id="296" method="invariants" time="01/09/2017 22:03:41" type="cast">
+     <evidence comment="predicate depends on global variables bufflen, buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="18" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="297" method="check-valid" time="01/09/2017 22:03:41" type="cast">
+     <evidence comment="casting from int to long is safe"/>
+    </discharged>
+    <discharged id="298" method="check-valid" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="bufflen is global"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="299" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1360"/>
+    </discharged>
+    <discharged id="300" method="check-valid" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="buff is global"/>
+    </discharged>
+    <discharged domain="intervals" id="301" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="none" id="302" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="2" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="304" method="invariants" time="01/09/2017 22:03:41" type="valid-mem">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="1" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="305" method="invariants" time="01/09/2017 22:03:41" type="common-base">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="3" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="306" method="invariants" time="01/09/2017 22:03:41" type="common-base">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="3" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="307" method="invariants" time="01/09/2017 22:03:41" type="int-underflow">
+     <evidence comment="predicate depends on global variables bufflen, buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="30" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="308" method="invariants" time="01/09/2017 22:03:41" type="int-overflow">
+     <evidence comment="predicate depends on global variables bufflen, buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="22" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="309" method="check-valid" time="01/09/2017 22:03:41" type="format-string">
+     <evidence comment="%s#%d %u %u is a string literal"/>
+    </discharged>
+    <discharged id="310" method="check-valid" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="string-literal"/>
+    </discharged>
+    <discharged id="311" method="check-valid" time="01/09/2017 22:03:41" type="null-terminated">
+     <evidence comment="string literal"/>
+    </discharged>
+    <discharged id="312" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="constant string is allocated by compiler"/>
+    </discharged>
+    <discharged id="313" method="check-valid" time="01/09/2017 22:03:41" type="ptr-upper-bound">
+     <evidence comment="upperbound of constant string argument: %s#%d %u %u"/>
+    </discharged>
+    <discharged id="314" method="check-valid" time="01/09/2017 22:03:41" type="initialized-range">
+     <evidence comment="constant string"/>
+    </discharged>
+    <discharged domain="intervals" id="315" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged id="318" method="check-valid" time="01/09/2017 22:03:41" type="pointer-cast">
+     <evidence comment="source and target type are the same"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="319" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1360"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="324" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1361"/>
+    </discharged>
+    <discharged id="325" method="check-valid" time="01/09/2017 22:03:41" type="pointer-cast">
+     <evidence comment="source and target type are the same"/>
+    </discharged>
+    <discharged id="326" method="check-valid" time="01/09/2017 22:03:41" type="valid-mem">
+     <evidence comment="constant string is allocated by compiler"/>
+    </discharged>
+    <discharged id="327" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="constant string is allocated by compiler"/>
+    </discharged>
+    <discharged id="328" method="check-valid" time="01/09/2017 22:03:41" type="upper-bound">
+     <evidence comment="constant string is allocated by compiler"/>
+    </discharged>
+    <discharged domain="none" id="329" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="predicate depends on global variables dnsmasq_daemon, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="15" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="330" method="check-valid" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="dnsmasq_daemon is global"/>
+    </discharged>
+    <discharged domain="none" id="331" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="predicate depends on global variables dnsmasq_daemon, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="20" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="332" method="invariants" time="01/09/2017 22:03:41" type="valid-mem">
+     <evidence comment="predicate depends on global variables dnsmasq_daemon, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="23" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="333" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="global variable dnsmasq_daemon is assigned a value with valid lower bound by inductive hypothesis (checked at assignment)"/>
+    </discharged>
+    <discharged id="334" method="check-valid" time="01/09/2017 22:03:41" type="upper-bound">
+     <evidence comment="global variable dnsmasq_daemon is assigned a value with valid upper bound by inductive hypothesis (checked at assignment)"/>
+    </discharged>
+    <discharged domain="none" id="335" method="invariants" time="01/09/2017 22:03:41" type="valid-mem">
+     <evidence comment="predicate depends on global variables dnsmasq_daemon, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="14" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="336" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="field addrbuff (238) is assigned a value with a valid lower bound by inductive hypothesis (checked at assignment)"/>
+    </discharged>
+    <discharged id="337" method="check-valid" time="01/09/2017 22:03:41" type="upper-bound">
+     <evidence comment="field addrbuff (238) is assigned a value with a valid upper bound by inductive hypothesis (checked at assignment)"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="338" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1359"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="339" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1349_xx_assignedAt#1356"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="340" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1349_xx_assignedAt#1357"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="341" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1362"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="342" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1361"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="343" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1362"/>
+    </discharged>
+    <discharged id="344" method="check-valid" time="01/09/2017 22:03:41" type="int-underflow">
+     <evidence comment="add non-negative number: value is 1"/>
+    </discharged>
+    <discharged id="346" method="check-valid" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="bufflen is global"/>
+    </discharged>
+    <discharged domain="none" id="347" method="invariants" time="01/09/2017 22:03:41" type="int-underflow">
+     <evidence comment="predicate depends on global variables bufflen, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="37" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="348" method="invariants" time="01/09/2017 22:03:41" type="int-overflow">
+     <evidence comment="predicate depends on global variables bufflen, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="24" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="symbolic sets" id="349" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1361"/>
+    </discharged>
+    <discharged domain="none" id="350" method="invariants" time="01/09/2017 22:03:41" type="int-underflow">
+     <evidence comment="predicate depends on global variables bufflen, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="34" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="351" method="invariants" time="01/09/2017 22:03:41" type="int-overflow">
+     <evidence comment="predicate depends on global variables bufflen, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="35" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="symbolic sets" id="353" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1366"/>
+    </discharged>
+    <discharged id="354" method="check-valid" time="01/09/2017 22:03:41" type="pointer-cast">
+     <evidence comment="cast to character type"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="355" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1367"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="356" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1367"/>
+    </discharged>
+    <discharged domain="none" id="357" method="invariants" time="01/09/2017 22:03:41" type="no-overlap">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="8" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="intervals" id="358" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="linear equalities" id="359" method="invariants" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="non-negative offset from return value from whine_malloc at 1367"/>
+    </discharged>
+    <discharged domain="none" id="360" method="invariants" time="01/09/2017 22:03:41" type="ptr-upper-bound">
+     <evidence comment="predicate depends on global variables bufflen, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="36" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="361" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="33" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="362" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="global variable buff is assigned a value with valid lower bound by inductive hypothesis (checked at assignment)"/>
+    </discharged>
+    <discharged domain="none" id="363" method="invariants" time="01/09/2017 22:03:41" type="ptr-upper-bound">
+     <evidence comment="predicate depends on global variables buff, bufflen, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="28" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="364" method="invariants" time="01/09/2017 22:03:41" type="initialized-range">
+     <evidence comment="predicate depends on global variables buff, bufflen, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="12" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="365" method="check-valid" time="01/09/2017 22:03:41" type="pointer-cast">
+     <evidence comment="cast to void pointer"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="366" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1367"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="367" method="invariants" time="01/09/2017 22:03:41" type="valid-mem">
+     <evidence comment="external address provided by whine_malloc still points to valid memory"/>
+    </discharged>
+    <discharged domain="linear equalities" id="368" method="invariants" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="non-negative offset from return value from whine_malloc at 1367"/>
+    </discharged>
+    <discharged domain="linear equalities" id="369" method="invariants" time="01/09/2017 22:03:41" type="upper-bound">
+     <evidence comment="address received from return value from whine_malloc at 1367dereferencability is checked as part of postcondition"/>
+    </discharged>
+    <discharged id="370" method="check-valid" time="01/09/2017 22:03:41" type="pointer-cast">
+     <evidence comment="cast to void pointer"/>
+    </discharged>
+    <discharged id="371" method="check-valid" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="buff is global"/>
+    </discharged>
+    <discharged domain="none" id="372" method="invariants" time="01/09/2017 22:03:41" type="valid-mem">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="27" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="373" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="global variable buff is assigned a value with valid lower bound by inductive hypothesis (checked at assignment)"/>
+    </discharged>
+    <discharged domain="none" id="374" method="invariants" time="01/09/2017 22:03:41" type="upper-bound">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="25" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="375" method="invariants" time="01/09/2017 22:03:41" type="signed-to-unsigned-cast">
+     <evidence comment="predicate depends on global variables bufflen, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="19" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="376" method="check-valid" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="bufflen is global"/>
+    </discharged>
+    <discharged domain="none" id="377" method="invariants" time="01/09/2017 22:03:41" type="allocation-base">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="7" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="378" method="check-valid" time="01/09/2017 22:03:41" type="pointer-cast">
+     <evidence comment="cast to void pointer"/>
+    </discharged>
+    <discharged id="379" method="check-valid" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="buff is global"/>
+    </discharged>
+    <discharged domain="none" id="380" method="invariants" time="01/09/2017 22:03:41" type="valid-mem">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="27" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="381" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="global variable buff is assigned a value with valid lower bound by inductive hypothesis (checked at assignment)"/>
+    </discharged>
+    <discharged domain="none" id="382" method="invariants" time="01/09/2017 22:03:41" type="upper-bound">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="25" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="symbolic sets" id="383" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1367"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="384" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1360"/>
+    </discharged>
+    <discharged id="385" method="check-valid" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="buff is global"/>
+    </discharged>
+    <discharged domain="intervals" id="386" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="none" id="387" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="2" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="389" method="invariants" time="01/09/2017 22:03:41" type="valid-mem">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="1" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="390" method="invariants" time="01/09/2017 22:03:41" type="common-base">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="3" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="391" method="invariants" time="01/09/2017 22:03:41" type="common-base">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="3" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="intervals" id="392" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="none" id="394" method="invariants" time="01/09/2017 22:03:41" type="ptr-lower-bound">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="32" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="395" method="invariants" time="01/09/2017 22:03:41" type="ptr-upper-bound-deref">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="11" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="symbolic sets" id="396" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1371"/>
+    </discharged>
+    <discharged id="400" method="check-valid" time="01/09/2017 22:03:41" type="ptr-upper-bound-deref">
+     <evidence comment="subtract positive number: value is 1"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="401" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1367"/>
+    </discharged>
+    <discharged domain="linear equalities" id="402" method="invariants" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="non-negative offset from return value from whine_malloc at 1367"/>
+    </discharged>
+    <discharged domain="linear equalities" id="403" method="invariants" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="non-negative offset from return value from whine_malloc at 1367"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="406" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1366"/>
+    </discharged>
+    <discharged domain="none" id="407" method="invariants" time="01/09/2017 22:03:41" type="cast">
+     <evidence comment="predicate depends on global variables bufflen, buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="18" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="408" method="check-valid" time="01/09/2017 22:03:41" type="cast">
+     <evidence comment="casting from int to long is safe"/>
+    </discharged>
+    <discharged id="409" method="check-valid" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="bufflen is global"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="410" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1371"/>
+    </discharged>
+    <discharged id="411" method="check-valid" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="buff is global"/>
+    </discharged>
+    <discharged domain="none" id="413" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="2" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="415" method="invariants" time="01/09/2017 22:03:41" type="valid-mem">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="1" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="416" method="invariants" time="01/09/2017 22:03:41" type="common-base">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="3" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="417" method="invariants" time="01/09/2017 22:03:41" type="common-base">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="3" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="418" method="invariants" time="01/09/2017 22:03:41" type="int-underflow">
+     <evidence comment="predicate depends on global variables bufflen, buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="30" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="419" method="invariants" time="01/09/2017 22:03:41" type="int-overflow">
+     <evidence comment="predicate depends on global variables bufflen, buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="22" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="420" method="check-valid" time="01/09/2017 22:03:41" type="format-string">
+     <evidence comment="%s#%d %u %u is a string literal"/>
+    </discharged>
+    <discharged id="421" method="check-valid" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="string-literal"/>
+    </discharged>
+    <discharged id="422" method="check-valid" time="01/09/2017 22:03:41" type="null-terminated">
+     <evidence comment="string literal"/>
+    </discharged>
+    <discharged id="423" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="constant string is allocated by compiler"/>
+    </discharged>
+    <discharged id="424" method="check-valid" time="01/09/2017 22:03:41" type="ptr-upper-bound">
+     <evidence comment="upperbound of constant string argument: %s#%d %u %u"/>
+    </discharged>
+    <discharged id="425" method="check-valid" time="01/09/2017 22:03:41" type="initialized-range">
+     <evidence comment="constant string"/>
+    </discharged>
+    <discharged id="429" method="check-valid" time="01/09/2017 22:03:41" type="pointer-cast">
+     <evidence comment="source and target type are the same"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="430" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1371"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="435" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1375"/>
+    </discharged>
+    <discharged id="436" method="check-valid" time="01/09/2017 22:03:41" type="pointer-cast">
+     <evidence comment="source and target type are the same"/>
+    </discharged>
+    <discharged id="437" method="check-valid" time="01/09/2017 22:03:41" type="valid-mem">
+     <evidence comment="constant string is allocated by compiler"/>
+    </discharged>
+    <discharged id="438" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="constant string is allocated by compiler"/>
+    </discharged>
+    <discharged id="439" method="check-valid" time="01/09/2017 22:03:41" type="upper-bound">
+     <evidence comment="constant string is allocated by compiler"/>
+    </discharged>
+    <discharged domain="none" id="440" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="predicate depends on global variables dnsmasq_daemon, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="15" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="441" method="check-valid" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="dnsmasq_daemon is global"/>
+    </discharged>
+    <discharged domain="none" id="442" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="predicate depends on global variables dnsmasq_daemon, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="20" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="443" method="invariants" time="01/09/2017 22:03:41" type="valid-mem">
+     <evidence comment="predicate depends on global variables dnsmasq_daemon, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="23" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="444" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="global variable dnsmasq_daemon is assigned a value with valid lower bound by inductive hypothesis (checked at assignment)"/>
+    </discharged>
+    <discharged id="445" method="check-valid" time="01/09/2017 22:03:41" type="upper-bound">
+     <evidence comment="global variable dnsmasq_daemon is assigned a value with valid upper bound by inductive hypothesis (checked at assignment)"/>
+    </discharged>
+    <discharged domain="none" id="446" method="invariants" time="01/09/2017 22:03:41" type="valid-mem">
+     <evidence comment="predicate depends on global variables dnsmasq_daemon, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="14" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="447" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="field addrbuff (238) is assigned a value with a valid lower bound by inductive hypothesis (checked at assignment)"/>
+    </discharged>
+    <discharged id="448" method="check-valid" time="01/09/2017 22:03:41" type="upper-bound">
+     <evidence comment="field addrbuff (238) is assigned a value with a valid upper bound by inductive hypothesis (checked at assignment)"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="449" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1359"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="450" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1349_xx_assignedAt#1356"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="451" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1349_xx_assignedAt#1357"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="452" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1360_xx_assignedAt#1372"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="458" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1362_xx_assignedAt#1376"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="459" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1360_xx_assignedAt#1371"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="460" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1362_xx_assignedAt#1376"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="466" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1343_xx_assignedAt#1343"/>
+    </discharged>
+    <discharged domain="intervals" id="467" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="469" method="invariants" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="value received from {field servers (key: 238), field next (key: 206)}, which satisfy the lower bound requirement by inductive hypothesis"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="470" method="invariants" time="01/09/2017 22:03:41" type="upper-bound">
+     <evidence comment="value received from {field servers (key: 238), field next (key: 206)}, which satisfy the upper bound requirement by inductive hypothesis"/>
+    </discharged>
+    <discharged id="471" method="check-valid" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="t is a function parameter"/>
+    </discharged>
+    <discharged domain="linear equalities" id="472" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="2" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="valuesets" id="474" method="invariants" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="non-negative offset from base value: t"/>
+    </discharged>
+    <discharged domain="valuesets" id="475" method="invariants" time="01/09/2017 22:03:41" type="upper-bound">
+     <evidence comment="externally provided address; dereferencability is checked as part of precondition"/>
+    </discharged>
+    <discharged id="476" method="check-valid" time="01/09/2017 22:03:41" type="pointer-cast">
+     <evidence comment="cast to character type"/>
+    </discharged>
+    <discharged id="477" method="check-valid" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="buff is global"/>
+    </discharged>
+    <discharged id="478" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="global variable buff is assigned a value with valid lower bound by inductive hypothesis (checked at assignment)"/>
+    </discharged>
+    <discharged id="479" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="global variable buff is assigned a value with valid lower bound by inductive hypothesis (checked at assignment)"/>
+    </discharged>
+    <discharged domain="none" id="480" method="invariants" time="01/09/2017 22:03:41" type="valid-mem">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="4" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="481" method="invariants" time="01/09/2017 22:03:41" type="null-terminated">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="26" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="482" method="check-valid" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="t is a function parameter"/>
+    </discharged>
+    <discharged domain="linear equalities" id="483" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="2" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="valuesets" id="485" method="invariants" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="non-negative offset from base value: t"/>
+    </discharged>
+    <discharged domain="valuesets" id="486" method="invariants" time="01/09/2017 22:03:41" type="upper-bound">
+     <evidence comment="externally provided address; dereferencability is checked as part of precondition"/>
+    </discharged>
+    <discharged domain="none" id="487" method="invariants" time="01/09/2017 22:03:41" type="signed-to-unsigned-cast">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="17" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="symbolic sets" id="488" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1308_xx_assignedAt#1379"/>
+    </discharged>
+    <discharged id="489" method="check-valid" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="buff is global"/>
+    </discharged>
+    <discharged domain="none" id="491" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="2" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="493" method="invariants" time="01/09/2017 22:03:41" type="valid-mem">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="1" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="494" method="invariants" time="01/09/2017 22:03:41" type="common-base">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="3" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="495" method="invariants" time="01/09/2017 22:03:41" type="common-base">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="3" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="496" method="check-valid" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="arguments of pointer arithmetic are checked for null"/>
+    </discharged>
+    <discharged domain="none" id="497" method="invariants" time="01/09/2017 22:03:41" type="null-terminated">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="31" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="498" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="result of pointer arithmetic is guaranteed to satisfy lowerbound by inductive hypothesis"/>
+    </discharged>
+    <discharged domain="none" id="499" method="invariants" time="01/09/2017 22:03:41" type="ptr-upper-bound">
+     <evidence comment="predicate depends on global variables buff, buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="10" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="500" method="invariants" time="01/09/2017 22:03:41" type="initialized-range">
+     <evidence comment="predicate depends on global variables buff, buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="38" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="501" method="check-valid" time="01/09/2017 22:03:41" type="pointer-cast">
+     <evidence comment="source and target type are the same"/>
+    </discharged>
+    <discharged id="502" method="check-valid" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="buff is global"/>
+    </discharged>
+    <discharged domain="none" id="503" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="2" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="504" method="invariants" time="01/09/2017 22:03:41" type="valid-mem">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="1" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="505" method="check-valid" time="01/09/2017 22:03:41" type="ptr-lower-bound">
+     <evidence comment="add non-negative number: value is 1"/>
+    </discharged>
+    <discharged domain="none" id="506" method="invariants" time="01/09/2017 22:03:41" type="ptr-upper-bound-deref">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="6" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="507" method="check-valid" time="01/09/2017 22:03:41" type="valid-mem">
+     <evidence comment="pointer arithmetic stays within memory region"/>
+    </discharged>
+    <discharged id="508" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="result of pointer arithmetic is guaranteed to satisfy lowerbound by inductive hypothesis"/>
+    </discharged>
+    <discharged domain="none" id="509" method="invariants" time="01/09/2017 22:03:41" type="upper-bound">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="5" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="symbolic sets" id="511" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1386"/>
+    </discharged>
+    <discharged id="512" method="check-valid" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="t is a function parameter"/>
+    </discharged>
+    <discharged domain="linear equalities" id="513" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="2" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="valuesets" id="515" method="invariants" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="non-negative offset from base value: t"/>
+    </discharged>
+    <discharged domain="valuesets" id="516" method="invariants" time="01/09/2017 22:03:41" type="upper-bound">
+     <evidence comment="externally provided address; dereferencability is checked as part of precondition"/>
+    </discharged>
+    <discharged id="517" method="check-valid" time="01/09/2017 22:03:41" type="pointer-cast">
+     <evidence comment="cast to character type"/>
+    </discharged>
+    <discharged id="518" method="check-valid" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="buff is global"/>
+    </discharged>
+    <discharged id="519" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="global variable buff is assigned a value with valid lower bound by inductive hypothesis (checked at assignment)"/>
+    </discharged>
+    <discharged id="520" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="global variable buff is assigned a value with valid lower bound by inductive hypothesis (checked at assignment)"/>
+    </discharged>
+    <discharged domain="none" id="521" method="invariants" time="01/09/2017 22:03:41" type="valid-mem">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="4" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="522" method="invariants" time="01/09/2017 22:03:41" type="null-terminated">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="26" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="523" method="check-valid" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="t is a function parameter"/>
+    </discharged>
+    <discharged domain="linear equalities" id="524" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="2" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="valuesets" id="526" method="invariants" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="non-negative offset from base value: t"/>
+    </discharged>
+    <discharged domain="valuesets" id="527" method="invariants" time="01/09/2017 22:03:41" type="upper-bound">
+     <evidence comment="externally provided address; dereferencability is checked as part of precondition"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="529" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1386"/>
+    </discharged>
+    <discharged id="530" method="check-valid" time="01/09/2017 22:03:41" type="int-underflow">
+     <evidence comment="add non-negative number: value is 1"/>
+    </discharged>
+    <discharged id="532" method="check-valid" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="buff is global"/>
+    </discharged>
+    <discharged domain="none" id="533" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="2" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="534" method="invariants" time="01/09/2017 22:03:41" type="valid-mem">
+     <evidence comment="predicate depends on global variables buff, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="1" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="535" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="global variable buff is assigned a value with valid lower bound by inductive hypothesis (checked at assignment)"/>
+    </discharged>
+    <discharged id="536" method="check-valid" time="01/09/2017 22:03:41" type="upper-bound">
+     <evidence comment="global variable buff is assigned a value with valid upper bound by inductive hypothesis (checked at assignment)"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="538" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1386"/>
+    </discharged>
+   </proof-obligations-discharged>
+  </function>
+  <header time="01/10/2017 06:52:35">
+   <application file="src//cache.c" name="application"/>
+  </header>
+ </c-analysis>

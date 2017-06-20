@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <codehawk-c-analysis>
+  <header>
+   <created file="src/util" project-directory="/home/vagrant/git/dnsmasq" time="01/09/2017 21:32:10"/>
+  </header>
+  <function filename="src/util">
+   <svar vglob="true" vid="4806" vname="dnsmasq_time">
+    <vtyp ttag="tfun" vararg="false">
+     <args/>
+     <typ tname="time_t" ttag="tnamed"/>
+    </vtyp>
+    <vdecl byte="192163" file="src/util.c" line="327"/>
+   </svar>
+   <sformals/>
+   <slocals>
+    <varinfo vid="6005" vname="tmp">
+     <vtyp tname="time_t" ttag="tnamed"/>
+     <vdecl byte="-1" file="" line="-1"/>
+    </varinfo>
+   </slocals>
+   <sbody>
+    <bstmts>
+     <stmt sid="206">
+      <skind stag="instr">
+       <instrs>
+        <instr itag="call">
+         <exp etag="lval">
+          <lval>
+           <lhost>
+            <var vid="3859" vname="time"/>
+           </lhost>
+          </lval>
+         </exp>
+         <args>
+          <exp etag="caste">
+           <typ ttag="tptr">
+            <typ tname="time_t" ttag="tnamed"/>
+           </typ>
+           <exp etag="caste">
+            <typ ttag="tptr">
+             <typ ttag="tvoid"/>
+            </typ>
+            <exp etag="const">
+             <constant ctag="cint64" ikind="iint" intValue="0"/>
+            </exp>
+           </exp>
+          </exp>
+         </args>
+         <loc byte="192208" file="src/util.c" line="338"/>
+         <lval>
+          <lhost>
+           <var vid="6005" vname="tmp"/>
+          </lhost>
+         </lval>
+        </instr>
+       </instrs>
+      </skind>
+      <succs>
+       <int intValue="207"/>
+      </succs>
+      <preds/>
+     </stmt>
+     <stmt sid="207">
+      <skind stag="return">
+       <loc byte="192208" file="src/util.c" line="338"/>
+       <exp etag="lval">
+        <lval>
+         <lhost>
+          <var vid="6005" vname="tmp"/>
+         </lhost>
+        </lval>
+       </exp>
+      </skind>
+      <succs/>
+      <preds>
+       <int intValue="206"/>
+      </preds>
+     </stmt>
+    </bstmts>
+   </sbody>
+  </function>
+ </codehawk-c-analysis>

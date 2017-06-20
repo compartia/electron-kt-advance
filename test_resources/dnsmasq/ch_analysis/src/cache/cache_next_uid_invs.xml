@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function name="next_uid" stable="yes">
+   <program-locations>
+    <program-location>
+     <locations>
+      <loc byte="187822" file="src/cache.c" line="79"/>
+     </locations>
+     <cfg-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="1"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="0" pv="3"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="187833" file="src/cache.c" line="82"/>
+     </locations>
+     <cfg-context>
+      <node name="if-expr"/>
+      <node name="stmt" num="2"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="2" pv="2"/>
+      <inv nrv="2" pv="5"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="187851" file="src/cache.c" line="83"/>
+     </locations>
+     <cfg-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="3"/>
+      <node name="if-then"/>
+      <node name="stmt" num="2"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="1" pv="2"/>
+      <inv nrv="2" pv="2"/>
+      <inv nrv="0" pv="0"/>
+      <inv nrv="1" pv="1"/>
+      <inv nrv="2" pv="1"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="187861" file="src/cache.c" line="85"/>
+     </locations>
+     <cfg-context>
+      <node name="return"/>
+      <node name="stmt" num="4"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="3" pv="2"/>
+      <inv nrv="3" pv="4"/>
+     </invariants>
+    </program-location>
+   </program-locations>
+   <program-value-table size="6">
+    <pvals index="0">
+     <pval arg="3" id="6"/>
+     <pval arg="3" id="7"/>
+    </pvals>
+    <pvals index="1">
+     <pval arg="1" id="5"/>
+     <pval arg="2" id="6"/>
+     <pval arg="2" id="7"/>
+    </pvals>
+    <pvals index="2">
+     <pval>
+      <lhost>
+       <var vid="5929" vname="uid"/>
+      </lhost>
+     </pval>
+    </pvals>
+    <pvals index="3">
+     <pval arg="3" id="2"/>
+     <pval arg="3" id="3"/>
+    </pvals>
+    <pvals index="4">
+     <pval arg="1" id="8"/>
+    </pvals>
+    <pvals index="5">
+     <pval arg="1" id="4"/>
+    </pvals>
+   </program-value-table>
+   <non-relational-value-table size="4">
+    <nrv index="0" tag="range" value="1"/>
+    <nrv index="1" tag="range" value="0"/>
+    <nrv index="2" tag="ss">
+     <sym name="assignedAt#79"/>
+    </nrv>
+    <nrv index="3" tag="ss">
+     <sym name="assignedAt#79"/>
+     <sym name="assignedAt#83"/>
+    </nrv>
+   </non-relational-value-table>
+  </function>
+  <header time="01/09/2017 22:08:31">
+   <application file="src/cache.c" name="application"/>
+  </header>
+ </c-analysis>

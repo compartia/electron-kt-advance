@@ -1,0 +1,143 @@
+<link rel="import" href="../../../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../../../bower_components/iron-list/iron-list.html">
+
+<dom-module id="kt-list-selection">
+    <template>
+        <div class$="[[getListClass(grid)]]">
+            <template is="dom-if" if="[[showSelectAllBox]]">
+                <h3>
+                    <paper-checkbox class="select-all-checkbox" on-change="selectAllNoValues" title="Select all/none" checked$="[[allSelected(allValues.length, selectedValues.length)]]">
+                        [[caption]]
+                    </paper-checkbox>
+                </h3>
+            </template>
+
+            <template is="dom-repeat" items="[[_items]]">
+                <paper-checkbox checked$="[[item.selected]]" value="{{item.id}}" style$="{{styleOf(item.id)}}" on-change="_checkboxChanged">
+                    [[item.name]]
+                </paper-checkbox>
+            </template>
+        </div>
+    </template>
+
+    <style is="kt-list-selection">
+        .list-container {
+            overflow: scroll;
+            max-height: 200px;
+            min-height: 20px;
+        }
+
+        .grid-container {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+        }
+
+        .list-container paper-checkbox {
+            display: block;
+        }
+
+        .grid-container paper-checkbox {
+            flex-basis: 0.25;
+            display: inline-block;
+            width: 100px;
+        }
+
+    </style>
+
+    <script>
+        Polymer({
+            is: 'kt-list-selection',
+
+            properties: {
+                caption: String,
+                showSelectAllBox: Boolean,
+                selectedValues: {
+                    type: Object,
+                    notify: true
+                },
+
+                grid: {
+                    type: Boolean,
+                    notify: true,
+                    value: false
+                },
+
+                _items: {
+                    type: Array,
+                    notify: true,
+                    computed: "makeItems(allValues, selectedValues, itemNames)"
+                },
+
+                allValues: {
+                    type: Object,
+                    notify: true
+                },
+
+                itemNames: {
+                    type: Object,
+                    notify: true,
+                    value: null
+                },
+
+                styles: {
+                    type: Object,
+                    notify: true
+                }
+            },
+
+            getListClass: function(grid) {
+                if (!grid) {
+                    return "list-container";
+                } else {
+                    return "grid-container";
+                }
+
+            },
+            makeItems: function(allValues, selectedValues, itemNames) {
+                var ret = [];
+                for (var i = 0; i < allValues.length; i++) {
+                    ret.push({
+                        id: allValues[i],
+                        name: itemNames
+                            ? itemNames[allValues[i]]
+                            : allValues[i],
+                        selected: selectedValues.contains(allValues[i])
+                    });
+                }
+                return ret;
+            },
+
+            styleOf: function(item) {
+                if (this.styles)
+                    return this.styles[item];
+                return "";
+            },
+
+            selectAllNoValues: function(event) {
+                if (this.allSelected(this.allValues.length, this.selectedValues.length)) {
+                    this.set("selectedValues", new util.StringSet([]));
+                } else {
+                    this.set("selectedValues", new util.StringSet(this.allValues));
+                }
+
+                this.notifyPath("selectedValues.length");
+            },
+
+            allSelected: function(len1, len2) {
+                return len1 == len2;
+            },
+
+            _checkboxChanged: function(event) {
+                if (event.target.checked) {
+                    this.selectedValues.add(event.target.value);
+                } else {
+                    this.selectedValues.delete(event.target.value);
+                }
+
+                this.notifyPath("selectedValues.length");
+            }
+
+        });
+    </script>
+</dom-module>

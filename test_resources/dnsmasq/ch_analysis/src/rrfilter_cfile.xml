@@ -1,0 +1,1627 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <c-file filename="src/rrfilter">
+   <linked-into linkname="dnsmasq">
+    <enumtag-xreferences/>
+    <comptag-xreferences>
+     <compxref ckey="58" gckey="75"/>
+    </comptag-xreferences>
+    <var-xreferences>
+     <varxref gvid="5" vid="4790"/>
+     <varxref gvid="8" vid="1375"/>
+     <varxref gvid="82" vid="3210"/>
+     <varxref gvid="335" vid="5816"/>
+     <varxref gvid="337" vid="4484"/>
+     <varxref gvid="380" vid="1382"/>
+     <varxref gvid="618" vid="5826"/>
+     <varxref gvid="619" vid="5819"/>
+     <varxref gvid="620" vid="5935"/>
+     <varxref gvid="621" vid="5900"/>
+     <varxref gvid="622" vid="6085"/>
+     <varxref gvid="623" vid="5983"/>
+     <varxref gvid="624" vid="5982"/>
+    </var-xreferences>
+   </linked-into>
+   <global-type-definitions>
+    <gtype>
+     <typeinfo tname="size_t">
+      <ttype ikind="iulong" ttag="tint"/>
+     </typeinfo>
+     <loc byte="3980" file="/usr/lib/gcc/x86_64-redhat-linux/4.4.7/include/stddef.h" line="211"/>
+    </gtype>
+    <gtype>
+     <typeinfo tname="u8">
+      <ttype ikind="iuchar" ttag="tint"/>
+     </typeinfo>
+     <loc byte="28962" file="src/dnsmasq.h" line="55"/>
+    </gtype>
+    <gtype>
+     <typeinfo tname="u16">
+      <ttype ikind="iushort" ttag="tint"/>
+     </typeinfo>
+     <loc byte="28988" file="src/dnsmasq.h" line="56"/>
+    </gtype>
+   </global-type-definitions>
+   <global-comptag-definitions>
+    <gcomptag>
+     <compinfo ckey="58" cname="dns_header" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="58" fname="id">
+        <ftyp tname="u16" ttag="tnamed"/>
+        <floc byte="29149" file="src/dns-protocol.h" line="85"/>
+       </fieldinfo>
+       <fieldinfo ckey="58" fname="hb3">
+        <ftyp tname="u8" ttag="tnamed"/>
+        <floc byte="29158" file="src/dns-protocol.h" line="86"/>
+       </fieldinfo>
+       <fieldinfo ckey="58" fname="hb4">
+        <ftyp tname="u8" ttag="tnamed"/>
+        <floc byte="29162" file="src/dns-protocol.h" line="86"/>
+       </fieldinfo>
+       <fieldinfo ckey="58" fname="qdcount">
+        <ftyp tname="u16" ttag="tnamed"/>
+        <floc byte="29173" file="src/dns-protocol.h" line="87"/>
+       </fieldinfo>
+       <fieldinfo ckey="58" fname="ancount">
+        <ftyp tname="u16" ttag="tnamed"/>
+        <floc byte="29181" file="src/dns-protocol.h" line="87"/>
+       </fieldinfo>
+       <fieldinfo ckey="58" fname="nscount">
+        <ftyp tname="u16" ttag="tnamed"/>
+        <floc byte="29189" file="src/dns-protocol.h" line="87"/>
+       </fieldinfo>
+       <fieldinfo ckey="58" fname="arcount">
+        <ftyp tname="u16" ttag="tnamed"/>
+        <floc byte="29197" file="src/dns-protocol.h" line="87"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="29123" file="src/dns-protocol.h" line="84"/>
+    </gcomptag>
+   </global-comptag-definitions>
+   <global-comptag-declarations/>
+   <global-enumtag-definitions/>
+   <global-enumtag-declarations/>
+   <global-var-definitions>
+    <gvar>
+     <varinfo vaddrof="true" vglob="true" vid="5982" vname="rrs" vstorage="static">
+      <vtyp ttag="tptr">
+       <typ ttag="tptr">
+        <typ ikind="iuchar" ttag="tint"/>
+       </typ>
+      </vtyp>
+      <vdecl byte="190155" file="src/rrfilter.c" line="162"/>
+     </varinfo>
+     <loc byte="190134" file="src/rrfilter.c" line="162"/>
+    </gvar>
+    <gvar>
+     <varinfo vaddrof="true" vglob="true" vid="5983" vname="rr_sz" vstorage="static">
+      <vtyp ikind="iint" ttag="tint"/>
+      <vdecl byte="190175" file="src/rrfilter.c" line="163"/>
+     </varinfo>
+     <loc byte="190164" file="src/rrfilter.c" line="163"/>
+     <init itag="singleinit">
+      <exp etag="const" xstr="0">
+       <constant ctag="cint64" ikind="iint" intValue="0"/>
+      </exp>
+     </init>
+    </gvar>
+    <gvar>
+     <varinfo vaddrof="true" vglob="true" vid="6085" vname="rr_desc" vstorage="static">
+      <vtyp ttag="tarray">
+       <exp etag="const" xstr="73">
+        <constant ctag="cint64" ikind="iint" intValue="73"/>
+       </exp>
+       <typ tname="u16" ttag="tnamed"/>
+      </vtyp>
+      <vdecl byte="197001" file="src/rrfilter.c" line="280"/>
+     </varinfo>
+     <loc byte="196990" file="src/rrfilter.c" line="280"/>
+     <init itag="compoundinit">
+      <typ ttag="tarray">
+       <exp etag="const" xstr="73">
+        <constant ctag="cint64" ikind="iint" intValue="73"/>
+       </exp>
+       <typ tname="u16" ttag="tnamed"/>
+      </typ>
+      <inits>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (2:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="2">
+           <constant ctag="cint64" ikind="iint" intValue="2"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="0">
+          <constant ctag="cint64" ikind="iint" intValue="0"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (0:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="0">
+           <constant ctag="cint64" ikind="iint" intValue="0"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="1">
+          <constant ctag="cint64" ikind="iint" intValue="1"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (-1:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="-1">
+           <constant ctag="cint64" ikind="iint" intValue="-1"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="2">
+          <constant ctag="cint64" ikind="iint" intValue="2"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (3:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="3">
+           <constant ctag="cint64" ikind="iint" intValue="3"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="3">
+          <constant ctag="cint64" ikind="iint" intValue="3"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (0:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="0">
+           <constant ctag="cint64" ikind="iint" intValue="0"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="4">
+          <constant ctag="cint64" ikind="iint" intValue="4"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (-1:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="-1">
+           <constant ctag="cint64" ikind="iint" intValue="-1"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="5">
+          <constant ctag="cint64" ikind="iint" intValue="5"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (4:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="4">
+           <constant ctag="cint64" ikind="iint" intValue="4"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="6">
+          <constant ctag="cint64" ikind="iint" intValue="6"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (0:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="0">
+           <constant ctag="cint64" ikind="iint" intValue="0"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="7">
+          <constant ctag="cint64" ikind="iint" intValue="7"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (-1:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="-1">
+           <constant ctag="cint64" ikind="iint" intValue="-1"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="8">
+          <constant ctag="cint64" ikind="iint" intValue="8"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (5:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="5">
+           <constant ctag="cint64" ikind="iint" intValue="5"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="9">
+          <constant ctag="cint64" ikind="iint" intValue="9"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (0:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="0">
+           <constant ctag="cint64" ikind="iint" intValue="0"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="10">
+          <constant ctag="cint64" ikind="iint" intValue="10"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (-1:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="-1">
+           <constant ctag="cint64" ikind="iint" intValue="-1"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="11">
+          <constant ctag="cint64" ikind="iint" intValue="11"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (6:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="6">
+           <constant ctag="cint64" ikind="iint" intValue="6"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="12">
+          <constant ctag="cint64" ikind="iint" intValue="12"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (0:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="0">
+           <constant ctag="cint64" ikind="iint" intValue="0"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="13">
+          <constant ctag="cint64" ikind="iint" intValue="13"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (0:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="0">
+           <constant ctag="cint64" ikind="iint" intValue="0"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="14">
+          <constant ctag="cint64" ikind="iint" intValue="14"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (-1:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="-1">
+           <constant ctag="cint64" ikind="iint" intValue="-1"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="15">
+          <constant ctag="cint64" ikind="iint" intValue="15"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (7:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="7">
+           <constant ctag="cint64" ikind="iint" intValue="7"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="16">
+          <constant ctag="cint64" ikind="iint" intValue="16"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (0:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="0">
+           <constant ctag="cint64" ikind="iint" intValue="0"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="17">
+          <constant ctag="cint64" ikind="iint" intValue="17"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (-1:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="-1">
+           <constant ctag="cint64" ikind="iint" intValue="-1"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="18">
+          <constant ctag="cint64" ikind="iint" intValue="18"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (8:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="8">
+           <constant ctag="cint64" ikind="iint" intValue="8"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="19">
+          <constant ctag="cint64" ikind="iint" intValue="19"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (0:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="0">
+           <constant ctag="cint64" ikind="iint" intValue="0"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="20">
+          <constant ctag="cint64" ikind="iint" intValue="20"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (-1:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="-1">
+           <constant ctag="cint64" ikind="iint" intValue="-1"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="21">
+          <constant ctag="cint64" ikind="iint" intValue="21"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (9:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="9">
+           <constant ctag="cint64" ikind="iint" intValue="9"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="22">
+          <constant ctag="cint64" ikind="iint" intValue="22"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (0:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="0">
+           <constant ctag="cint64" ikind="iint" intValue="0"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="23">
+          <constant ctag="cint64" ikind="iint" intValue="23"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (-1:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="-1">
+           <constant ctag="cint64" ikind="iint" intValue="-1"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="24">
+          <constant ctag="cint64" ikind="iint" intValue="24"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (12:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="12">
+           <constant ctag="cint64" ikind="iint" intValue="12"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="25">
+          <constant ctag="cint64" ikind="iint" intValue="25"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (0:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="0">
+           <constant ctag="cint64" ikind="iint" intValue="0"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="26">
+          <constant ctag="cint64" ikind="iint" intValue="26"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (-1:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="-1">
+           <constant ctag="cint64" ikind="iint" intValue="-1"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="27">
+          <constant ctag="cint64" ikind="iint" intValue="27"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (14:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="14">
+           <constant ctag="cint64" ikind="iint" intValue="14"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="28">
+          <constant ctag="cint64" ikind="iint" intValue="28"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (0:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="0">
+           <constant ctag="cint64" ikind="iint" intValue="0"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="29">
+          <constant ctag="cint64" ikind="iint" intValue="29"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (0:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="0">
+           <constant ctag="cint64" ikind="iint" intValue="0"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="30">
+          <constant ctag="cint64" ikind="iint" intValue="30"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (-1:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="-1">
+           <constant ctag="cint64" ikind="iint" intValue="-1"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="31">
+          <constant ctag="cint64" ikind="iint" intValue="31"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (15:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="15">
+           <constant ctag="cint64" ikind="iint" intValue="15"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="32">
+          <constant ctag="cint64" ikind="iint" intValue="32"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (2:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="2">
+           <constant ctag="cint64" ikind="iint" intValue="2"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="33">
+          <constant ctag="cint64" ikind="iint" intValue="33"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (0:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="0">
+           <constant ctag="cint64" ikind="iint" intValue="0"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="34">
+          <constant ctag="cint64" ikind="iint" intValue="34"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (-1:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="-1">
+           <constant ctag="cint64" ikind="iint" intValue="-1"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="35">
+          <constant ctag="cint64" ikind="iint" intValue="35"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (17:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="17">
+           <constant ctag="cint64" ikind="iint" intValue="17"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="36">
+          <constant ctag="cint64" ikind="iint" intValue="36"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (0:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="0">
+           <constant ctag="cint64" ikind="iint" intValue="0"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="37">
+          <constant ctag="cint64" ikind="iint" intValue="37"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (0:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="0">
+           <constant ctag="cint64" ikind="iint" intValue="0"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="38">
+          <constant ctag="cint64" ikind="iint" intValue="38"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (-1:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="-1">
+           <constant ctag="cint64" ikind="iint" intValue="-1"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="39">
+          <constant ctag="cint64" ikind="iint" intValue="39"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (18:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="18">
+           <constant ctag="cint64" ikind="iint" intValue="18"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="40">
+          <constant ctag="cint64" ikind="iint" intValue="40"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (2:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="2">
+           <constant ctag="cint64" ikind="iint" intValue="2"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="41">
+          <constant ctag="cint64" ikind="iint" intValue="41"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (0:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="0">
+           <constant ctag="cint64" ikind="iint" intValue="0"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="42">
+          <constant ctag="cint64" ikind="iint" intValue="42"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (-1:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="-1">
+           <constant ctag="cint64" ikind="iint" intValue="-1"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="43">
+          <constant ctag="cint64" ikind="iint" intValue="43"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (21:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="21">
+           <constant ctag="cint64" ikind="iint" intValue="21"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="44">
+          <constant ctag="cint64" ikind="iint" intValue="44"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (2:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="2">
+           <constant ctag="cint64" ikind="iint" intValue="2"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="45">
+          <constant ctag="cint64" ikind="iint" intValue="45"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (0:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="0">
+           <constant ctag="cint64" ikind="iint" intValue="0"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="46">
+          <constant ctag="cint64" ikind="iint" intValue="46"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (-1:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="-1">
+           <constant ctag="cint64" ikind="iint" intValue="-1"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="47">
+          <constant ctag="cint64" ikind="iint" intValue="47"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (24:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="24">
+           <constant ctag="cint64" ikind="iint" intValue="24"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="48">
+          <constant ctag="cint64" ikind="iint" intValue="48"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (18:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="18">
+           <constant ctag="cint64" ikind="iint" intValue="18"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="49">
+          <constant ctag="cint64" ikind="iint" intValue="49"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (0:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="0">
+           <constant ctag="cint64" ikind="iint" intValue="0"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="50">
+          <constant ctag="cint64" ikind="iint" intValue="50"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (-1:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="-1">
+           <constant ctag="cint64" ikind="iint" intValue="-1"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="51">
+          <constant ctag="cint64" ikind="iint" intValue="51"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (26:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="26">
+           <constant ctag="cint64" ikind="iint" intValue="26"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="52">
+          <constant ctag="cint64" ikind="iint" intValue="52"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (2:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="2">
+           <constant ctag="cint64" ikind="iint" intValue="2"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="53">
+          <constant ctag="cint64" ikind="iint" intValue="53"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (0:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="0">
+           <constant ctag="cint64" ikind="iint" intValue="0"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="54">
+          <constant ctag="cint64" ikind="iint" intValue="54"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (0:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="0">
+           <constant ctag="cint64" ikind="iint" intValue="0"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="55">
+          <constant ctag="cint64" ikind="iint" intValue="55"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (-1:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="-1">
+           <constant ctag="cint64" ikind="iint" intValue="-1"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="56">
+          <constant ctag="cint64" ikind="iint" intValue="56"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (30:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="30">
+           <constant ctag="cint64" ikind="iint" intValue="30"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="57">
+          <constant ctag="cint64" ikind="iint" intValue="57"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (0:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="0">
+           <constant ctag="cint64" ikind="iint" intValue="0"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="58">
+          <constant ctag="cint64" ikind="iint" intValue="58"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (-1:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="-1">
+           <constant ctag="cint64" ikind="iint" intValue="-1"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="59">
+          <constant ctag="cint64" ikind="iint" intValue="59"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (36:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="36">
+           <constant ctag="cint64" ikind="iint" intValue="36"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="60">
+          <constant ctag="cint64" ikind="iint" intValue="60"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (2:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="2">
+           <constant ctag="cint64" ikind="iint" intValue="2"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="61">
+          <constant ctag="cint64" ikind="iint" intValue="61"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (0:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="0">
+           <constant ctag="cint64" ikind="iint" intValue="0"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="62">
+          <constant ctag="cint64" ikind="iint" intValue="62"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (-1:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="-1">
+           <constant ctag="cint64" ikind="iint" intValue="-1"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="63">
+          <constant ctag="cint64" ikind="iint" intValue="63"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (33:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="33">
+           <constant ctag="cint64" ikind="iint" intValue="33"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="64">
+          <constant ctag="cint64" ikind="iint" intValue="64"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (6:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="6">
+           <constant ctag="cint64" ikind="iint" intValue="6"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="65">
+          <constant ctag="cint64" ikind="iint" intValue="65"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (0:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="0">
+           <constant ctag="cint64" ikind="iint" intValue="0"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="66">
+          <constant ctag="cint64" ikind="iint" intValue="66"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (-1:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="-1">
+           <constant ctag="cint64" ikind="iint" intValue="-1"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="67">
+          <constant ctag="cint64" ikind="iint" intValue="67"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (39:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="39">
+           <constant ctag="cint64" ikind="iint" intValue="39"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="68">
+          <constant ctag="cint64" ikind="iint" intValue="68"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (0:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="0">
+           <constant ctag="cint64" ikind="iint" intValue="0"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="69">
+          <constant ctag="cint64" ikind="iint" intValue="69"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (-1:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="-1">
+           <constant ctag="cint64" ikind="iint" intValue="-1"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="70">
+          <constant ctag="cint64" ikind="iint" intValue="70"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (0:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="0">
+           <constant ctag="cint64" ikind="iint" intValue="0"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="71">
+          <constant ctag="cint64" ikind="iint" intValue="71"/>
+         </index>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (-1:u16)">
+          <typ tname="u16" ttag="tnamed"/>
+          <exp etag="const" xstr="-1">
+           <constant ctag="cint64" ikind="iint" intValue="-1"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <index etag="const" xstr="72">
+          <constant ctag="cint64" ikind="iint" intValue="72"/>
+         </index>
+        </offset>
+       </offinit>
+      </inits>
+     </init>
+    </gvar>
+   </global-var-definitions>
+   <global-var-declarations>
+    <gvardecl>
+     <varinfo vglob="true" vid="1375" vname="memcpy" vstorage="extern">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="__dest">
+         <typ ttag="tptr">
+          <attributes>
+           <attr attrname="restrict"/>
+          </attributes>
+          <typ ttag="tvoid"/>
+         </typ>
+        </arg>
+        <arg aname="__src">
+         <typ ttag="tptr">
+          <attributes>
+           <attr attrname="restrict"/>
+          </attributes>
+          <typ ttag="tvoid">
+           <attributes>
+            <attr attrname="const"/>
+           </attributes>
+          </typ>
+         </typ>
+        </arg>
+        <arg aname="__n">
+         <typ tname="size_t" ttag="tnamed"/>
+        </arg>
+       </args>
+       <attributes>
+        <attr attrname="nonnull"/>
+       </attributes>
+       <typ ttag="tptr">
+        <typ ttag="tvoid"/>
+       </typ>
+      </vtyp>
+      <vdecl byte="59312" file="/usr/include/string.h" line="44"/>
+      <vattr>
+       <attr attrname="nothrow"/>
+      </vattr>
+     </varinfo>
+     <loc byte="59300" file="/usr/include/string.h" line="44"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="1382" vname="memmove" vstorage="extern">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="__dest">
+         <typ ttag="tptr">
+          <typ ttag="tvoid"/>
+         </typ>
+        </arg>
+        <arg aname="__src">
+         <typ ttag="tptr">
+          <typ ttag="tvoid">
+           <attributes>
+            <attr attrname="const"/>
+           </attributes>
+          </typ>
+         </typ>
+        </arg>
+        <arg aname="__n">
+         <typ tname="size_t" ttag="tnamed"/>
+        </arg>
+       </args>
+       <attributes>
+        <attr attrname="nonnull"/>
+       </attributes>
+       <typ ttag="tptr">
+        <typ ttag="tvoid"/>
+       </typ>
+      </vtyp>
+      <vdecl byte="59484" file="/usr/include/string.h" line="49"/>
+      <vattr>
+       <attr attrname="nothrow"/>
+      </vattr>
+     </varinfo>
+     <loc byte="59472" file="/usr/include/string.h" line="49"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="3210" vname="free" vstorage="extern">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="__ptr">
+         <typ ttag="tptr">
+          <typ ttag="tvoid"/>
+         </typ>
+        </arg>
+       </args>
+       <typ ttag="tvoid"/>
+      </vtyp>
+      <vdecl byte="119314" file="/usr/include/stdlib.h" line="488"/>
+      <vattr>
+       <attr attrname="nothrow"/>
+      </vattr>
+     </varinfo>
+     <loc byte="119302" file="/usr/include/stdlib.h" line="488"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="4484" vname="skip_name" vstorage="extern">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="ansp">
+         <typ ttag="tptr">
+          <typ ikind="iuchar" ttag="tint"/>
+         </typ>
+        </arg>
+        <arg aname="header">
+         <typ ttag="tptr">
+          <typ ckey="58" ttag="tcomp"/>
+         </typ>
+        </arg>
+        <arg aname="plen">
+         <typ tname="size_t" ttag="tnamed"/>
+        </arg>
+        <arg aname="extrabytes">
+         <typ ikind="iint" ttag="tint"/>
+        </arg>
+       </args>
+       <typ ttag="tptr">
+        <typ ikind="iuchar" ttag="tint"/>
+       </typ>
+      </vtyp>
+      <vdecl byte="170960" file="src/dnsmasq.h" line="1115"/>
+     </varinfo>
+     <loc byte="170946" file="src/dnsmasq.h" line="1115"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="4790" vname="whine_malloc" vstorage="extern">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="size">
+         <typ tname="size_t" ttag="tnamed"/>
+        </arg>
+       </args>
+       <typ ttag="tptr">
+        <typ ttag="tvoid"/>
+       </typ>
+      </vtyp>
+      <vdecl byte="174201" file="src/dnsmasq.h" line="1174"/>
+     </varinfo>
+     <loc byte="174196" file="src/dnsmasq.h" line="1174"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="5816" vname="rrfilter">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="header">
+         <typ ttag="tptr">
+          <typ ckey="58" ttag="tcomp"/>
+         </typ>
+        </arg>
+        <arg aname="plen">
+         <typ tname="size_t" ttag="tnamed"/>
+        </arg>
+        <arg aname="mode">
+         <typ ikind="iint" ttag="tint"/>
+        </arg>
+       </args>
+       <typ tname="size_t" ttag="tnamed"/>
+      </vtyp>
+      <vdecl byte="190064" file="src/rrfilter.c" line="160"/>
+     </varinfo>
+     <loc byte="185552" file="src/dnsmasq.h" line="1526"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="5819" vname="rrfilter_desc">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="type">
+         <typ ikind="iint" ttag="tint"/>
+        </arg>
+       </args>
+       <typ ttag="tptr">
+        <typ tname="u16" ttag="tnamed"/>
+       </typ>
+      </vtyp>
+      <vdecl byte="196938" file="src/rrfilter.c" line="269"/>
+     </varinfo>
+     <loc byte="185619" file="src/dnsmasq.h" line="1527"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="5826" vname="expand_workspace">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="wkspc">
+         <typ ttag="tptr">
+          <typ ttag="tptr">
+           <typ ttag="tptr">
+            <typ ikind="iuchar" ttag="tint"/>
+           </typ>
+          </typ>
+         </typ>
+        </arg>
+        <arg aname="szp">
+         <typ ttag="tptr">
+          <typ ikind="iint" ttag="tint"/>
+         </typ>
+        </arg>
+        <arg aname="new">
+         <typ ikind="iint" ttag="tint"/>
+        </arg>
+       </args>
+       <typ ikind="iint" ttag="tint"/>
+      </vtyp>
+      <vdecl byte="197505" file="src/rrfilter.c" line="313"/>
+     </varinfo>
+     <loc byte="185649" file="src/dnsmasq.h" line="1528"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="5816" vname="rrfilter">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="header">
+         <typ ttag="tptr">
+          <typ ckey="58" ttag="tcomp"/>
+         </typ>
+        </arg>
+        <arg aname="plen">
+         <typ tname="size_t" ttag="tnamed"/>
+        </arg>
+        <arg aname="mode">
+         <typ ikind="iint" ttag="tint"/>
+        </arg>
+       </args>
+       <typ tname="size_t" ttag="tnamed"/>
+      </vtyp>
+      <vdecl byte="190064" file="src/rrfilter.c" line="160"/>
+     </varinfo>
+     <loc byte="190164" file="src/rrfilter.c" line="163"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="5819" vname="rrfilter_desc">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="type">
+         <typ ikind="iint" ttag="tint"/>
+        </arg>
+       </args>
+       <typ ttag="tptr">
+        <typ tname="u16" ttag="tnamed"/>
+       </typ>
+      </vtyp>
+      <vdecl byte="196938" file="src/rrfilter.c" line="269"/>
+     </varinfo>
+     <loc byte="196990" file="src/rrfilter.c" line="280"/>
+    </gvardecl>
+   </global-var-declarations>
+   <functions>
+    <gfun>
+     <svar vglob="true" vid="5900" vname="check_name" vstorage="static">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="namep">
+         <typ ttag="tptr">
+          <typ ttag="tptr">
+           <typ ikind="iuchar" ttag="tint"/>
+          </typ>
+         </typ>
+        </arg>
+        <arg aname="header">
+         <typ ttag="tptr">
+          <typ ckey="58" ttag="tcomp"/>
+         </typ>
+        </arg>
+        <arg aname="plen">
+         <typ tname="size_t" ttag="tnamed"/>
+        </arg>
+        <arg aname="fixup">
+         <typ ikind="iint" ttag="tint"/>
+        </arg>
+        <arg aname="rrs">
+         <typ ttag="tptr">
+          <typ ttag="tptr">
+           <typ ikind="iuchar" ttag="tint"/>
+          </typ>
+         </typ>
+        </arg>
+        <arg aname="rr_count">
+         <typ ikind="iint" ttag="tint"/>
+        </arg>
+       </args>
+       <typ ikind="iint" ttag="tint"/>
+      </vtyp>
+      <vdecl byte="186514" file="src/rrfilter.c" line="23"/>
+     </svar>
+     <loc byte="186514" file="src/rrfilter.c" line="23"/>
+    </gfun>
+    <gfun>
+     <svar vglob="true" vid="5935" vname="check_rrs" vstorage="static">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="p">
+         <typ ttag="tptr">
+          <typ ikind="iuchar" ttag="tint"/>
+         </typ>
+        </arg>
+        <arg aname="header">
+         <typ ttag="tptr">
+          <typ ckey="58" ttag="tcomp"/>
+         </typ>
+        </arg>
+        <arg aname="plen">
+         <typ tname="size_t" ttag="tnamed"/>
+        </arg>
+        <arg aname="fixup">
+         <typ ikind="iint" ttag="tint"/>
+        </arg>
+        <arg aname="rrs">
+         <typ ttag="tptr">
+          <typ ttag="tptr">
+           <typ ikind="iuchar" ttag="tint"/>
+          </typ>
+         </typ>
+        </arg>
+        <arg aname="rr_count">
+         <typ ikind="iint" ttag="tint"/>
+        </arg>
+       </args>
+       <typ ikind="iint" ttag="tint"/>
+      </vtyp>
+      <vdecl byte="188019" file="src/rrfilter.c" line="109"/>
+     </svar>
+     <loc byte="188019" file="src/rrfilter.c" line="109"/>
+    </gfun>
+    <gfun>
+     <svar vglob="true" vid="5816" vname="rrfilter">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="header">
+         <typ ttag="tptr">
+          <typ ckey="58" ttag="tcomp"/>
+         </typ>
+        </arg>
+        <arg aname="plen">
+         <typ tname="size_t" ttag="tnamed"/>
+        </arg>
+        <arg aname="mode">
+         <typ ikind="iint" ttag="tint"/>
+        </arg>
+       </args>
+       <typ tname="size_t" ttag="tnamed"/>
+      </vtyp>
+      <vdecl byte="190064" file="src/rrfilter.c" line="160"/>
+     </svar>
+     <loc byte="190064" file="src/rrfilter.c" line="160"/>
+    </gfun>
+    <gfun>
+     <svar vglob="true" vid="5819" vname="rrfilter_desc">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="type">
+         <typ ikind="iint" ttag="tint"/>
+        </arg>
+       </args>
+       <typ ttag="tptr">
+        <typ tname="u16" ttag="tnamed"/>
+       </typ>
+      </vtyp>
+      <vdecl byte="196938" file="src/rrfilter.c" line="269"/>
+     </svar>
+     <loc byte="196938" file="src/rrfilter.c" line="269"/>
+    </gfun>
+    <gfun>
+     <svar vglob="true" vid="5826" vname="expand_workspace">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="wkspc">
+         <typ ttag="tptr">
+          <typ ttag="tptr">
+           <typ ttag="tptr">
+            <typ ikind="iuchar" ttag="tint"/>
+           </typ>
+          </typ>
+         </typ>
+        </arg>
+        <arg aname="szp">
+         <typ ttag="tptr">
+          <typ ikind="iint" ttag="tint"/>
+         </typ>
+        </arg>
+        <arg aname="new">
+         <typ ikind="iint" ttag="tint"/>
+        </arg>
+       </args>
+       <typ ikind="iint" ttag="tint"/>
+      </vtyp>
+      <vdecl byte="197505" file="src/rrfilter.c" line="313"/>
+     </svar>
+     <loc byte="197505" file="src/rrfilter.c" line="313"/>
+    </gfun>
+   </functions>
+   <global-assembly-statements/>
+   <global-pragmas/>
+   <global-text/>
+  </c-file>
+  <header>
+   <linked filename="src/rrfilter.c" time="01/09/2017 21:36:05"/>
+   <created file="src/rrfilter" project-directory="/home/vagrant/git/dnsmasq" time="01/09/2017 21:32:22"/>
+  </header>
+ </c-analysis>

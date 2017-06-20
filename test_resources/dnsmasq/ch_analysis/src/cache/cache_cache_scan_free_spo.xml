@@ -1,0 +1,2337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function name="cache_scan_free">
+   <secondary-proof-obligations max-spo-id="437" num-ppo="364">
+    <indirect-calls/>
+    <callsite-obligations>
+     <callsite-obligation api-max-id="4" fname="cache_free" fvid="5914">
+      <location byte="193684" file="src/cache.c" line="410"/>
+      <args>
+       <arg etag="lval" xstr="crecp">
+        <lval>
+         <lhost>
+          <var vid="6003" vname="crecp"/>
+         </lhost>
+        </lval>
+       </arg>
+      </args>
+      <obligations>
+       <obligation api-id="2" id="368">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="crecp">
+            <lval>
+             <lhost>
+              <var vid="6003" vname="crecp"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <field ckey="196" fname="flags"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="3" id="367">
+        <predicate tag="not-null">
+         <exp etag="lval" xstr="crecp-&gt;name.bname">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="crecp">
+             <lval>
+              <lhost>
+               <var vid="6003" vname="crecp"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="bname"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="4" id="366">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="crecp">
+            <lval>
+             <lhost>
+              <var vid="6003" vname="crecp"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <offset>
+            <field ckey="202" fname="bname"/>
+           </offset>
+           <field ckey="196" fname="name"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="1" id="365">
+        <predicate tag="not-null">
+         <exp etag="lval" xstr="crecp">
+          <lval>
+           <lhost>
+            <var vid="6003" vname="crecp"/>
+           </lhost>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+      </obligations>
+      <context>
+       <cfg-context>
+        <node name="instr" num="2"/>
+        <node name="stmt" num="182"/>
+        <node name="if-then"/>
+        <node name="stmt" num="181"/>
+        <node name="if-then"/>
+        <node name="stmt" num="179"/>
+        <node name="if-then"/>
+        <node name="stmt" num="178"/>
+        <node name="if-then"/>
+        <node name="stmt" num="177"/>
+        <node name="if-else"/>
+        <node name="stmt" num="173"/>
+        <node name="loop"/>
+        <node name="stmt" num="166"/>
+        <node name="loop"/>
+        <node name="stmt" num="162"/>
+        <node name="if-else"/>
+        <node name="stmt" num="131"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="3" fname="cache_unlink" fvid="5917">
+      <location byte="193656" file="src/cache.c" line="409"/>
+      <args>
+       <arg etag="lval" xstr="crecp">
+        <lval>
+         <lhost>
+          <var vid="6003" vname="crecp"/>
+         </lhost>
+        </lval>
+       </arg>
+      </args>
+      <obligations>
+       <obligation api-id="2" id="371">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="crecp">
+            <lval>
+             <lhost>
+              <var vid="6003" vname="crecp"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <field ckey="196" fname="next"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="3" id="370">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="crecp">
+            <lval>
+             <lhost>
+              <var vid="6003" vname="crecp"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <field ckey="196" fname="prev"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="1" id="369">
+        <predicate tag="not-null">
+         <exp etag="lval" xstr="crecp">
+          <lval>
+           <lhost>
+            <var vid="6003" vname="crecp"/>
+           </lhost>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+      </obligations>
+      <context>
+       <cfg-context>
+        <node name="instr" num="1"/>
+        <node name="stmt" num="182"/>
+        <node name="if-then"/>
+        <node name="stmt" num="181"/>
+        <node name="if-then"/>
+        <node name="stmt" num="179"/>
+        <node name="if-then"/>
+        <node name="stmt" num="178"/>
+        <node name="if-then"/>
+        <node name="stmt" num="177"/>
+        <node name="if-else"/>
+        <node name="stmt" num="173"/>
+        <node name="loop"/>
+        <node name="stmt" num="166"/>
+        <node name="loop"/>
+        <node name="stmt" num="162"/>
+        <node name="if-else"/>
+        <node name="stmt" num="131"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="4" fname="cache_free" fvid="5914">
+      <location byte="193371" file="src/cache.c" line="400"/>
+      <args>
+       <arg etag="lval" xstr="crecp">
+        <lval>
+         <lhost>
+          <var vid="6003" vname="crecp"/>
+         </lhost>
+        </lval>
+       </arg>
+      </args>
+      <obligations>
+       <obligation api-id="2" id="375">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="crecp">
+            <lval>
+             <lhost>
+              <var vid="6003" vname="crecp"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <field ckey="196" fname="flags"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="3" id="374">
+        <predicate tag="not-null">
+         <exp etag="lval" xstr="crecp-&gt;name.bname">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="crecp">
+             <lval>
+              <lhost>
+               <var vid="6003" vname="crecp"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="bname"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="4" id="373">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="crecp">
+            <lval>
+             <lhost>
+              <var vid="6003" vname="crecp"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <offset>
+            <field ckey="202" fname="bname"/>
+           </offset>
+           <field ckey="196" fname="name"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="1" id="372">
+        <predicate tag="not-null">
+         <exp etag="lval" xstr="crecp">
+          <lval>
+           <lhost>
+            <var vid="6003" vname="crecp"/>
+           </lhost>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+      </obligations>
+      <context>
+       <cfg-context>
+        <node name="instr" num="1"/>
+        <node name="stmt" num="176"/>
+        <node name="if-then"/>
+        <node name="stmt" num="175"/>
+        <node name="if-then"/>
+        <node name="stmt" num="173"/>
+        <node name="loop"/>
+        <node name="stmt" num="166"/>
+        <node name="loop"/>
+        <node name="stmt" num="162"/>
+        <node name="if-else"/>
+        <node name="stmt" num="131"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="3" fname="cache_unlink" fvid="5917">
+      <location byte="193346" file="src/cache.c" line="399"/>
+      <args>
+       <arg etag="lval" xstr="crecp">
+        <lval>
+         <lhost>
+          <var vid="6003" vname="crecp"/>
+         </lhost>
+        </lval>
+       </arg>
+      </args>
+      <obligations>
+       <obligation api-id="2" id="378">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="crecp">
+            <lval>
+             <lhost>
+              <var vid="6003" vname="crecp"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <field ckey="196" fname="next"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="3" id="377">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="crecp">
+            <lval>
+             <lhost>
+              <var vid="6003" vname="crecp"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <field ckey="196" fname="prev"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="1" id="376">
+        <predicate tag="not-null">
+         <exp etag="lval" xstr="crecp">
+          <lval>
+           <lhost>
+            <var vid="6003" vname="crecp"/>
+           </lhost>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+      </obligations>
+      <context>
+       <cfg-context>
+        <node name="instr" num="0"/>
+        <node name="stmt" num="176"/>
+        <node name="if-then"/>
+        <node name="stmt" num="175"/>
+        <node name="if-then"/>
+        <node name="stmt" num="173"/>
+        <node name="loop"/>
+        <node name="stmt" num="166"/>
+        <node name="loop"/>
+        <node name="stmt" num="162"/>
+        <node name="if-else"/>
+        <node name="stmt" num="131"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="3" fname="is_expired" fvid="5988">
+      <location byte="193211" file="src/cache.c" line="394"/>
+      <args>
+       <arg etag="lval" xstr="now">
+        <lval>
+         <lhost>
+          <var vid="6001" vname="now"/>
+         </lhost>
+        </lval>
+       </arg>
+       <arg etag="lval" xstr="crecp">
+        <lval>
+         <lhost>
+          <var vid="6003" vname="crecp"/>
+         </lhost>
+        </lval>
+       </arg>
+      </args>
+      <obligations>
+       <obligation api-id="2" id="381">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="crecp">
+            <lval>
+             <lhost>
+              <var vid="6003" vname="crecp"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <field ckey="196" fname="ttd"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="3" id="380">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="crecp">
+            <lval>
+             <lhost>
+              <var vid="6003" vname="crecp"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <field ckey="196" fname="flags"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="1" id="379">
+        <predicate tag="not-null">
+         <exp etag="lval" xstr="crecp">
+          <lval>
+           <lhost>
+            <var vid="6003" vname="crecp"/>
+           </lhost>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+      </obligations>
+      <context>
+       <cfg-context>
+        <node name="instr" num="0"/>
+        <node name="stmt" num="172"/>
+        <node name="loop"/>
+        <node name="stmt" num="166"/>
+        <node name="loop"/>
+        <node name="stmt" num="162"/>
+        <node name="if-else"/>
+        <node name="stmt" num="131"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="4" fname="cache_free" fvid="5914">
+      <location byte="192842" file="src/cache.c" line="362"/>
+      <args>
+       <arg etag="lval" xstr="crecp">
+        <lval>
+         <lhost>
+          <var vid="6003" vname="crecp"/>
+         </lhost>
+        </lval>
+       </arg>
+      </args>
+      <obligations>
+       <obligation api-id="2" id="385">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="crecp">
+            <lval>
+             <lhost>
+              <var vid="6003" vname="crecp"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <field ckey="196" fname="flags"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="3" id="384">
+        <predicate tag="not-null">
+         <exp etag="lval" xstr="crecp-&gt;name.bname">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="crecp">
+             <lval>
+              <lhost>
+               <var vid="6003" vname="crecp"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="bname"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="4" id="383">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="crecp">
+            <lval>
+             <lhost>
+              <var vid="6003" vname="crecp"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <offset>
+            <field ckey="202" fname="bname"/>
+           </offset>
+           <field ckey="196" fname="name"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="1" id="382">
+        <predicate tag="not-null">
+         <exp etag="lval" xstr="crecp">
+          <lval>
+           <lhost>
+            <var vid="6003" vname="crecp"/>
+           </lhost>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+      </obligations>
+      <context>
+       <cfg-context>
+        <node name="instr" num="2"/>
+        <node name="stmt" num="154"/>
+        <node name="if-then"/>
+        <node name="stmt" num="151"/>
+        <node name="if-then"/>
+        <node name="stmt" num="150"/>
+        <node name="if-else"/>
+        <node name="stmt" num="148"/>
+        <node name="if-then"/>
+        <node name="stmt" num="147"/>
+        <node name="if-then"/>
+        <node name="stmt" num="145"/>
+        <node name="loop"/>
+        <node name="stmt" num="133"/>
+        <node name="if-then"/>
+        <node name="stmt" num="131"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="3" fname="cache_unlink" fvid="5917">
+      <location byte="192817" file="src/cache.c" line="361"/>
+      <args>
+       <arg etag="lval" xstr="crecp">
+        <lval>
+         <lhost>
+          <var vid="6003" vname="crecp"/>
+         </lhost>
+        </lval>
+       </arg>
+      </args>
+      <obligations>
+       <obligation api-id="2" id="388">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="crecp">
+            <lval>
+             <lhost>
+              <var vid="6003" vname="crecp"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <field ckey="196" fname="next"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="3" id="387">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="crecp">
+            <lval>
+             <lhost>
+              <var vid="6003" vname="crecp"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <field ckey="196" fname="prev"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="1" id="386">
+        <predicate tag="not-null">
+         <exp etag="lval" xstr="crecp">
+          <lval>
+           <lhost>
+            <var vid="6003" vname="crecp"/>
+           </lhost>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+      </obligations>
+      <context>
+       <cfg-context>
+        <node name="instr" num="1"/>
+        <node name="stmt" num="154"/>
+        <node name="if-then"/>
+        <node name="stmt" num="151"/>
+        <node name="if-then"/>
+        <node name="stmt" num="150"/>
+        <node name="if-else"/>
+        <node name="stmt" num="148"/>
+        <node name="if-then"/>
+        <node name="stmt" num="147"/>
+        <node name="if-then"/>
+        <node name="stmt" num="145"/>
+        <node name="loop"/>
+        <node name="stmt" num="133"/>
+        <node name="if-then"/>
+        <node name="stmt" num="131"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="2" fname="hostname_isequal" fvid="4803">
+      <location byte="192474" file="src/cache.c" line="352"/>
+      <args>
+       <arg etag="caste" xstr="caste (tmp___1:(char*))">
+        <typ ttag="tptr">
+         <typ ikind="ichar" ttag="tint">
+          <attributes>
+           <attr attrname="const"/>
+          </attributes>
+         </typ>
+        </typ>
+        <exp etag="lval" xstr="tmp___1">
+         <lval>
+          <lhost>
+           <var vid="6009" vname="tmp___1"/>
+          </lhost>
+         </lval>
+        </exp>
+       </arg>
+       <arg etag="caste" xstr="caste (name:(char*))">
+        <typ ttag="tptr">
+         <typ ikind="ichar" ttag="tint">
+          <attributes>
+           <attr attrname="const"/>
+          </attributes>
+         </typ>
+        </typ>
+        <exp etag="lval" xstr="name">
+         <lval>
+          <lhost>
+           <var vid="5999" vname="name"/>
+          </lhost>
+         </lval>
+        </exp>
+       </arg>
+      </args>
+      <obligations>
+       <obligation api-id="2" id="390">
+        <predicate tag="not-null">
+         <exp etag="caste" xstr="caste (tmp___1:(char*))">
+          <typ ttag="tptr">
+           <typ ikind="ichar" ttag="tint">
+            <attributes>
+             <attr attrname="const"/>
+            </attributes>
+           </typ>
+          </typ>
+          <exp etag="lval" xstr="tmp___1">
+           <lval>
+            <lhost>
+             <var vid="6009" vname="tmp___1"/>
+            </lhost>
+           </lval>
+          </exp>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="1" id="389">
+        <predicate tag="not-null">
+         <exp etag="caste" xstr="caste (name:(char*))">
+          <typ ttag="tptr">
+           <typ ikind="ichar" ttag="tint">
+            <attributes>
+             <attr attrname="const"/>
+            </attributes>
+           </typ>
+          </typ>
+          <exp etag="lval" xstr="name">
+           <lval>
+            <lhost>
+             <var vid="5999" vname="name"/>
+            </lhost>
+           </lval>
+          </exp>
+         </exp>
+        </predicate>
+       </obligation>
+      </obligations>
+      <context>
+       <cfg-context>
+        <node name="instr" num="1"/>
+        <node name="stmt" num="146"/>
+        <node name="if-then"/>
+        <node name="stmt" num="145"/>
+        <node name="loop"/>
+        <node name="stmt" num="133"/>
+        <node name="if-then"/>
+        <node name="stmt" num="131"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="16" fname="cache_get_name" fvid="4425">
+      <location byte="192474" file="src/cache.c" line="352"/>
+      <args>
+       <arg etag="lval" xstr="crecp">
+        <lval>
+         <lhost>
+          <var vid="6003" vname="crecp"/>
+         </lhost>
+        </lval>
+       </arg>
+      </args>
+      <obligations>
+       <obligation api-id="6" id="398">
+        <predicate tag="global-mem">
+         <exp etag="lval" xstr="crecp-&gt;name.bname">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="crecp">
+             <lval>
+              <lhost>
+               <var vid="6003" vname="crecp"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="bname"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="2" id="397">
+        <predicate tag="global-mem">
+         <exp etag="lval" xstr="crecp-&gt;name.namep">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="crecp">
+             <lval>
+              <lhost>
+               <var vid="6003" vname="crecp"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="namep"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="8" id="396">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="crecp">
+            <lval>
+             <lhost>
+              <var vid="6003" vname="crecp"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <offset>
+            <field ckey="202" fname="bname"/>
+           </offset>
+           <field ckey="196" fname="name"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="7" id="395">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="crecp">
+            <lval>
+             <lhost>
+              <var vid="6003" vname="crecp"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <offset>
+            <field ckey="202" fname="namep"/>
+           </offset>
+           <field ckey="196" fname="name"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="3" id="394">
+        <predicate tag="not-null">
+         <exp etag="lval" xstr="crecp">
+          <lval>
+           <lhost>
+            <var vid="6003" vname="crecp"/>
+           </lhost>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="5" id="393">
+        <predicate tag="not-null">
+         <exp etag="lval" xstr="crecp-&gt;name.bname">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="crecp">
+             <lval>
+              <lhost>
+               <var vid="6003" vname="crecp"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="bname"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="4" id="392">
+        <predicate tag="global-mem">
+         <exp etag="lval" xstr="crecp">
+          <lval>
+           <lhost>
+            <var vid="6003" vname="crecp"/>
+           </lhost>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="1" id="391">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="crecp">
+            <lval>
+             <lhost>
+              <var vid="6003" vname="crecp"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <field ckey="196" fname="flags"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="13" id="434">
+        <predicate op="pluspi" tag="ptr-upper-bound">
+         <typ ikind="ichar" ttag="tint">
+          <attributes>
+           <attr attrname="const"/>
+          </attributes>
+         </typ>
+         <exp1 etag="lval" xstr="crecp">
+          <lval>
+           <lhost>
+            <var vid="6003" vname="crecp"/>
+           </lhost>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="256">
+          <constant ctag="cint64" ikind="iint" intValue="256"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="12" id="433">
+        <predicate op="pluspi" tag="ptr-upper-bound">
+         <typ ikind="ichar" ttag="tint">
+          <attributes>
+           <attr attrname="const"/>
+          </attributes>
+         </typ>
+         <exp1 etag="lval" xstr="crecp-&gt;name.bname">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="crecp">
+             <lval>
+              <lhost>
+               <var vid="6003" vname="crecp"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="bname"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="256">
+          <constant ctag="cint64" ikind="iint" intValue="256"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="9" id="432">
+        <predicate op="pluspi" tag="ptr-upper-bound">
+         <typ ikind="ichar" ttag="tint">
+          <attributes>
+           <attr attrname="const"/>
+          </attributes>
+         </typ>
+         <exp1 etag="lval" xstr="crecp-&gt;name.namep">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="crecp">
+             <lval>
+              <lhost>
+               <var vid="6003" vname="crecp"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="namep"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp1>
+         <exp2 cn="null-terminator-pos" etag="cnapp" xstr="null-terminator-pos[caste (crecp-&gt;name.namep:(char*))]">
+          <arg etag="caste" xstr="caste (crecp-&gt;name.namep:(char*))">
+           <typ ttag="tptr">
+            <typ ikind="ichar" ttag="tint">
+             <attributes>
+              <attr attrname="const"/>
+             </attributes>
+            </typ>
+           </typ>
+           <exp etag="lval" xstr="crecp-&gt;name.namep">
+            <lval>
+             <lhost>
+              <mem etag="lval" xstr="crecp">
+               <lval>
+                <lhost>
+                 <var vid="6003" vname="crecp"/>
+                </lhost>
+               </lval>
+              </mem>
+             </lhost>
+             <offset>
+              <offset>
+               <field ckey="202" fname="namep"/>
+              </offset>
+              <field ckey="196" fname="name"/>
+             </offset>
+            </lval>
+           </exp>
+          </arg>
+          <typ ikind="iint" ttag="tint"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="11" id="431">
+        <predicate op="pluspi" tag="ptr-upper-bound">
+         <typ ikind="ichar" ttag="tint">
+          <attributes>
+           <attr attrname="const"/>
+          </attributes>
+         </typ>
+         <exp1 etag="lval" xstr="crecp-&gt;name.namep">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="crecp">
+             <lval>
+              <lhost>
+               <var vid="6003" vname="crecp"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="namep"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="256">
+          <constant ctag="cint64" ikind="iint" intValue="256"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="10" id="430">
+        <predicate tag="not-null">
+         <exp etag="lval" xstr="crecp-&gt;name.namep">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="crecp">
+             <lval>
+              <lhost>
+               <var vid="6003" vname="crecp"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="namep"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="15" id="437">
+        <predicate op="pluspi" tag="ptr-upper-bound-deref">
+         <typ ikind="ichar" ttag="tint"/>
+         <exp1 etag="lval" xstr="crecp">
+          <lval>
+           <lhost>
+            <var vid="6003" vname="crecp"/>
+           </lhost>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="1024">
+          <constant ctag="cint64" ikind="iint" intValue="1024"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="14" id="436">
+        <predicate op="pluspi" tag="ptr-upper-bound-deref">
+         <typ ikind="ichar" ttag="tint"/>
+         <exp1 etag="lval" xstr="crecp-&gt;name.namep">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="crecp">
+             <lval>
+              <lhost>
+               <var vid="6003" vname="crecp"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="namep"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="1024">
+          <constant ctag="cint64" ikind="iint" intValue="1024"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="16" id="435">
+        <predicate op="pluspi" tag="ptr-upper-bound-deref">
+         <typ ikind="ichar" ttag="tint"/>
+         <exp1 etag="lval" xstr="crecp-&gt;name.bname">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="crecp">
+             <lval>
+              <lhost>
+               <var vid="6003" vname="crecp"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="bname"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="1024">
+          <constant ctag="cint64" ikind="iint" intValue="1024"/>
+         </exp2>
+        </predicate>
+       </obligation>
+      </obligations>
+      <context>
+       <cfg-context>
+        <node name="instr" num="0"/>
+        <node name="stmt" num="146"/>
+        <node name="if-then"/>
+        <node name="stmt" num="145"/>
+        <node name="loop"/>
+        <node name="stmt" num="133"/>
+        <node name="if-then"/>
+        <node name="stmt" num="131"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="4" fname="cache_free" fvid="5914">
+      <location byte="192423" file="src/cache.c" line="347"/>
+      <args>
+       <arg etag="lval" xstr="crecp">
+        <lval>
+         <lhost>
+          <var vid="6003" vname="crecp"/>
+         </lhost>
+        </lval>
+       </arg>
+      </args>
+      <obligations>
+       <obligation api-id="2" id="402">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="crecp">
+            <lval>
+             <lhost>
+              <var vid="6003" vname="crecp"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <field ckey="196" fname="flags"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="3" id="401">
+        <predicate tag="not-null">
+         <exp etag="lval" xstr="crecp-&gt;name.bname">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="crecp">
+             <lval>
+              <lhost>
+               <var vid="6003" vname="crecp"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="bname"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="4" id="400">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="crecp">
+            <lval>
+             <lhost>
+              <var vid="6003" vname="crecp"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <offset>
+            <field ckey="202" fname="bname"/>
+           </offset>
+           <field ckey="196" fname="name"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="1" id="399">
+        <predicate tag="not-null">
+         <exp etag="lval" xstr="crecp">
+          <lval>
+           <lhost>
+            <var vid="6003" vname="crecp"/>
+           </lhost>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+      </obligations>
+      <context>
+       <cfg-context>
+        <node name="instr" num="1"/>
+        <node name="stmt" num="143"/>
+        <node name="if-then"/>
+        <node name="stmt" num="142"/>
+        <node name="if-then"/>
+        <node name="stmt" num="140"/>
+        <node name="if-else"/>
+        <node name="stmt" num="137"/>
+        <node name="loop"/>
+        <node name="stmt" num="133"/>
+        <node name="if-then"/>
+        <node name="stmt" num="131"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="3" fname="cache_unlink" fvid="5917">
+      <location byte="192398" file="src/cache.c" line="346"/>
+      <args>
+       <arg etag="lval" xstr="crecp">
+        <lval>
+         <lhost>
+          <var vid="6003" vname="crecp"/>
+         </lhost>
+        </lval>
+       </arg>
+      </args>
+      <obligations>
+       <obligation api-id="2" id="405">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="crecp">
+            <lval>
+             <lhost>
+              <var vid="6003" vname="crecp"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <field ckey="196" fname="next"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="3" id="404">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="crecp">
+            <lval>
+             <lhost>
+              <var vid="6003" vname="crecp"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <field ckey="196" fname="prev"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="1" id="403">
+        <predicate tag="not-null">
+         <exp etag="lval" xstr="crecp">
+          <lval>
+           <lhost>
+            <var vid="6003" vname="crecp"/>
+           </lhost>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+      </obligations>
+      <context>
+       <cfg-context>
+        <node name="instr" num="0"/>
+        <node name="stmt" num="143"/>
+        <node name="if-then"/>
+        <node name="stmt" num="142"/>
+        <node name="if-then"/>
+        <node name="stmt" num="140"/>
+        <node name="if-else"/>
+        <node name="stmt" num="137"/>
+        <node name="loop"/>
+        <node name="stmt" num="133"/>
+        <node name="if-then"/>
+        <node name="stmt" num="131"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="6" fname="is_outdated_cname_pointer" fvid="5985">
+      <location byte="192227" file="src/cache.c" line="341"/>
+      <args>
+       <arg etag="lval" xstr="crecp">
+        <lval>
+         <lhost>
+          <var vid="6003" vname="crecp"/>
+         </lhost>
+        </lval>
+       </arg>
+      </args>
+      <obligations>
+       <obligation api-id="6" id="411">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="crecp">
+            <lval>
+             <lhost>
+              <var vid="6003" vname="crecp"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <field ckey="196" fname="flags"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="2" id="410">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="crecp-&gt;addr.cname.target.cache">
+            <lval>
+             <lhost>
+              <mem etag="lval" xstr="crecp">
+               <lval>
+                <lhost>
+                 <var vid="6003" vname="crecp"/>
+                </lhost>
+               </lval>
+              </mem>
+             </lhost>
+             <offset>
+              <offset>
+               <offset>
+                <offset>
+                 <field ckey="199" fname="cache"/>
+                </offset>
+                <field ckey="198" fname="target"/>
+               </offset>
+               <field ckey="197" fname="cname"/>
+              </offset>
+              <field ckey="196" fname="addr"/>
+             </offset>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <field ckey="196" fname="flags"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="3" id="409">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="crecp">
+            <lval>
+             <lhost>
+              <var vid="6003" vname="crecp"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <offset>
+            <offset>
+             <field ckey="198" fname="uid"/>
+            </offset>
+            <field ckey="197" fname="cname"/>
+           </offset>
+           <field ckey="196" fname="addr"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="5" id="408">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="crecp-&gt;addr.cname.target.cache">
+            <lval>
+             <lhost>
+              <mem etag="lval" xstr="crecp">
+               <lval>
+                <lhost>
+                 <var vid="6003" vname="crecp"/>
+                </lhost>
+               </lval>
+              </mem>
+             </lhost>
+             <offset>
+              <offset>
+               <offset>
+                <offset>
+                 <field ckey="199" fname="cache"/>
+                </offset>
+                <field ckey="198" fname="target"/>
+               </offset>
+               <field ckey="197" fname="cname"/>
+              </offset>
+              <field ckey="196" fname="addr"/>
+             </offset>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <field ckey="196" fname="uid"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="4" id="407">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="crecp">
+            <lval>
+             <lhost>
+              <var vid="6003" vname="crecp"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <offset>
+            <offset>
+             <offset>
+              <field ckey="199" fname="cache"/>
+             </offset>
+             <field ckey="198" fname="target"/>
+            </offset>
+            <field ckey="197" fname="cname"/>
+           </offset>
+           <field ckey="196" fname="addr"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="1" id="406">
+        <predicate tag="not-null">
+         <exp etag="lval" xstr="crecp">
+          <lval>
+           <lhost>
+            <var vid="6003" vname="crecp"/>
+           </lhost>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+      </obligations>
+      <context>
+       <cfg-context>
+        <node name="instr" num="0"/>
+        <node name="stmt" num="139"/>
+        <node name="if-else"/>
+        <node name="stmt" num="137"/>
+        <node name="loop"/>
+        <node name="stmt" num="133"/>
+        <node name="if-then"/>
+        <node name="stmt" num="131"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="3" fname="is_expired" fvid="5988">
+      <location byte="192227" file="src/cache.c" line="341"/>
+      <args>
+       <arg etag="lval" xstr="now">
+        <lval>
+         <lhost>
+          <var vid="6001" vname="now"/>
+         </lhost>
+        </lval>
+       </arg>
+       <arg etag="lval" xstr="crecp">
+        <lval>
+         <lhost>
+          <var vid="6003" vname="crecp"/>
+         </lhost>
+        </lval>
+       </arg>
+      </args>
+      <obligations>
+       <obligation api-id="2" id="414">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="crecp">
+            <lval>
+             <lhost>
+              <var vid="6003" vname="crecp"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <field ckey="196" fname="ttd"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="3" id="413">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="crecp">
+            <lval>
+             <lhost>
+              <var vid="6003" vname="crecp"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <field ckey="196" fname="flags"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="1" id="412">
+        <predicate tag="not-null">
+         <exp etag="lval" xstr="crecp">
+          <lval>
+           <lhost>
+            <var vid="6003" vname="crecp"/>
+           </lhost>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+      </obligations>
+      <context>
+       <cfg-context>
+        <node name="instr" num="0"/>
+        <node name="stmt" num="136"/>
+        <node name="loop"/>
+        <node name="stmt" num="133"/>
+        <node name="if-then"/>
+        <node name="stmt" num="131"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="1" fname="hash_bucket" fvid="5949">
+      <location byte="192146" file="src/cache.c" line="339"/>
+      <args>
+       <arg etag="lval" xstr="name">
+        <lval>
+         <lhost>
+          <var vid="5999" vname="name"/>
+         </lhost>
+        </lval>
+       </arg>
+      </args>
+      <obligations>
+       <obligation api-id="1" id="415">
+        <predicate tag="not-null">
+         <exp etag="lval" xstr="name">
+          <lval>
+           <lhost>
+            <var vid="5999" vname="name"/>
+           </lhost>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+      </obligations>
+      <context>
+       <cfg-context>
+        <node name="instr" num="0"/>
+        <node name="stmt" num="132"/>
+        <node name="if-then"/>
+        <node name="stmt" num="131"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+    </callsite-obligations>
+    <return-sites>
+     <return-site>
+      <exp etag="caste" xstr="caste (caste (0:(void*)):(struct 196*))">
+       <typ ttag="tptr">
+        <typ ckey="196" ttag="tcomp"/>
+       </typ>
+       <exp etag="caste" xstr="caste (0:(void*))">
+        <typ ttag="tptr">
+         <typ ttag="tvoid"/>
+        </typ>
+        <exp etag="const" xstr="0">
+         <constant ctag="cint64" ikind="iint" intValue="0"/>
+        </exp>
+       </exp>
+      </exp>
+      <location byte="193756" file="src/cache.c" line="416"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="189"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+     <return-site>
+      <exp etag="lval" xstr="crecp">
+       <lval>
+        <lhost>
+         <var vid="6003" vname="crecp"/>
+        </lhost>
+       </lval>
+      </exp>
+      <location byte="192771" file="src/cache.c" line="359"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="153"/>
+        <node name="if-then"/>
+        <node name="stmt" num="152"/>
+        <node name="if-then"/>
+        <node name="stmt" num="151"/>
+        <node name="if-then"/>
+        <node name="stmt" num="150"/>
+        <node name="if-else"/>
+        <node name="stmt" num="148"/>
+        <node name="if-then"/>
+        <node name="stmt" num="147"/>
+        <node name="if-then"/>
+        <node name="stmt" num="145"/>
+        <node name="loop"/>
+        <node name="stmt" num="133"/>
+        <node name="if-then"/>
+        <node name="stmt" num="131"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+    </return-sites>
+    <post-expectations>
+     <post-expectation id="416">
+      <callers>
+       <caller api-id="6" fname="cache_insert" fvid="58"/>
+       <caller api-id="6" fname="cache_insert" fvid="58"/>
+       <caller api-id="6" fname="cache_insert" fvid="58"/>
+       <caller api-id="6" fname="cache_insert" fvid="58"/>
+       <caller api-id="6" fname="cache_insert" fvid="58"/>
+       <caller api-id="6" fname="cache_insert" fvid="58"/>
+       <caller api-id="6" fname="cache_insert" fvid="58"/>
+       <caller api-id="6" fname="cache_insert" fvid="58"/>
+      </callers>
+      <predicate tag="global-mem">
+       <exp etag="caste" xstr="caste (caste (0:(void*)):(struct 196*))">
+        <typ ttag="tptr">
+         <typ ckey="196" ttag="tcomp"/>
+        </typ>
+        <exp etag="caste" xstr="caste (0:(void*))">
+         <typ ttag="tptr">
+          <typ ttag="tvoid"/>
+         </typ>
+         <exp etag="const" xstr="0">
+          <constant ctag="cint64" ikind="iint" intValue="0"/>
+         </exp>
+        </exp>
+       </exp>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="189"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="193756" file="src/cache.c" line="416"/>
+     </post-expectation>
+     <post-expectation id="421">
+      <callers>
+       <caller api-id="11" fname="cache_insert" fvid="58"/>
+       <caller api-id="11" fname="cache_insert" fvid="58"/>
+       <caller api-id="11" fname="cache_insert" fvid="58"/>
+       <caller api-id="11" fname="cache_insert" fvid="58"/>
+       <caller api-id="11" fname="cache_insert" fvid="58"/>
+       <caller api-id="11" fname="cache_insert" fvid="58"/>
+       <caller api-id="11" fname="cache_insert" fvid="58"/>
+       <caller api-id="11" fname="cache_insert" fvid="58"/>
+      </callers>
+      <predicate tag="initialized">
+       <lval>
+        <lhost>
+         <mem etag="caste" xstr="caste (caste (0:(void*)):(struct 196*))">
+          <typ ttag="tptr">
+           <typ ckey="196" ttag="tcomp"/>
+          </typ>
+          <exp etag="caste" xstr="caste (0:(void*))">
+           <typ ttag="tptr">
+            <typ ttag="tvoid"/>
+           </typ>
+           <exp etag="const" xstr="0">
+            <constant ctag="cint64" ikind="iint" intValue="0"/>
+           </exp>
+          </exp>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <offset>
+           <offset>
+            <offset>
+             <field ckey="42" fname="s_addr"/>
+            </offset>
+            <field ckey="177" fname="addr4"/>
+           </offset>
+           <field ckey="176" fname="addr"/>
+          </offset>
+          <field ckey="197" fname="addr"/>
+         </offset>
+         <field ckey="196" fname="addr"/>
+        </offset>
+       </lval>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="189"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="193756" file="src/cache.c" line="416"/>
+     </post-expectation>
+     <post-expectation id="427">
+      <callers>
+       <caller api-id="4" fname="cache_insert" fvid="58"/>
+       <caller api-id="4" fname="cache_insert" fvid="58"/>
+       <caller api-id="4" fname="cache_insert" fvid="58"/>
+       <caller api-id="4" fname="cache_insert" fvid="58"/>
+       <caller api-id="4" fname="cache_insert" fvid="58"/>
+       <caller api-id="4" fname="cache_insert" fvid="58"/>
+       <caller api-id="4" fname="cache_insert" fvid="58"/>
+       <caller api-id="4" fname="cache_insert" fvid="58"/>
+      </callers>
+      <predicate op="pluspi" tag="ptr-upper-bound-deref">
+       <typ ikind="iuint" ttag="tint"/>
+       <exp1 etag="lval" xstr="crecp">
+        <lval>
+         <lhost>
+          <var vid="6003" vname="crecp"/>
+         </lhost>
+        </lval>
+       </exp1>
+       <exp2 etag="const" xstr="3">
+        <constant ctag="cint64" ikind="iint" intValue="3"/>
+       </exp2>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="153"/>
+        <node name="if-then"/>
+        <node name="stmt" num="152"/>
+        <node name="if-then"/>
+        <node name="stmt" num="151"/>
+        <node name="if-then"/>
+        <node name="stmt" num="150"/>
+        <node name="if-else"/>
+        <node name="stmt" num="148"/>
+        <node name="if-then"/>
+        <node name="stmt" num="147"/>
+        <node name="if-then"/>
+        <node name="stmt" num="145"/>
+        <node name="loop"/>
+        <node name="stmt" num="133"/>
+        <node name="if-then"/>
+        <node name="stmt" num="131"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="192771" file="src/cache.c" line="359"/>
+     </post-expectation>
+     <post-expectation id="422">
+      <callers>
+       <caller api-id="1" fname="cache_insert" fvid="58"/>
+       <caller api-id="1" fname="cache_insert" fvid="58"/>
+       <caller api-id="1" fname="cache_insert" fvid="58"/>
+       <caller api-id="1" fname="cache_insert" fvid="58"/>
+       <caller api-id="1" fname="cache_insert" fvid="58"/>
+       <caller api-id="1" fname="cache_insert" fvid="58"/>
+       <caller api-id="1" fname="cache_insert" fvid="58"/>
+       <caller api-id="1" fname="cache_insert" fvid="58"/>
+      </callers>
+      <predicate tag="pointer-cast">
+       <tfrom ckey="46" ttag="tcomp"/>
+       <tto ikind="iuint" ttag="tint"/>
+       <exp etag="caste" xstr="caste (caste (0:(void*)):(struct 196*))">
+        <typ ttag="tptr">
+         <typ ckey="196" ttag="tcomp"/>
+        </typ>
+        <exp etag="caste" xstr="caste (0:(void*))">
+         <typ ttag="tptr">
+          <typ ttag="tvoid"/>
+         </typ>
+         <exp etag="const" xstr="0">
+          <constant ctag="cint64" ikind="iint" intValue="0"/>
+         </exp>
+        </exp>
+       </exp>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="189"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="193756" file="src/cache.c" line="416"/>
+     </post-expectation>
+     <post-expectation id="428">
+      <callers>
+       <caller api-id="11" fname="cache_insert" fvid="58"/>
+       <caller api-id="11" fname="cache_insert" fvid="58"/>
+       <caller api-id="11" fname="cache_insert" fvid="58"/>
+       <caller api-id="11" fname="cache_insert" fvid="58"/>
+       <caller api-id="11" fname="cache_insert" fvid="58"/>
+       <caller api-id="11" fname="cache_insert" fvid="58"/>
+       <caller api-id="11" fname="cache_insert" fvid="58"/>
+       <caller api-id="11" fname="cache_insert" fvid="58"/>
+      </callers>
+      <predicate tag="initialized">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="crecp">
+          <lval>
+           <lhost>
+            <var vid="6003" vname="crecp"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <offset>
+           <offset>
+            <offset>
+             <field ckey="42" fname="s_addr"/>
+            </offset>
+            <field ckey="177" fname="addr4"/>
+           </offset>
+           <field ckey="176" fname="addr"/>
+          </offset>
+          <field ckey="197" fname="addr"/>
+         </offset>
+         <field ckey="196" fname="addr"/>
+        </offset>
+       </lval>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="153"/>
+        <node name="if-then"/>
+        <node name="stmt" num="152"/>
+        <node name="if-then"/>
+        <node name="stmt" num="151"/>
+        <node name="if-then"/>
+        <node name="stmt" num="150"/>
+        <node name="if-else"/>
+        <node name="stmt" num="148"/>
+        <node name="if-then"/>
+        <node name="stmt" num="147"/>
+        <node name="if-then"/>
+        <node name="stmt" num="145"/>
+        <node name="loop"/>
+        <node name="stmt" num="133"/>
+        <node name="if-then"/>
+        <node name="stmt" num="131"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="192771" file="src/cache.c" line="359"/>
+     </post-expectation>
+     <post-expectation id="417">
+      <callers>
+       <caller api-id="2" fname="cache_insert" fvid="58"/>
+       <caller api-id="2" fname="cache_insert" fvid="58"/>
+       <caller api-id="2" fname="cache_insert" fvid="58"/>
+       <caller api-id="2" fname="cache_insert" fvid="58"/>
+       <caller api-id="2" fname="cache_insert" fvid="58"/>
+       <caller api-id="2" fname="cache_insert" fvid="58"/>
+       <caller api-id="2" fname="cache_insert" fvid="58"/>
+       <caller api-id="2" fname="cache_insert" fvid="58"/>
+      </callers>
+      <predicate op="pluspi" tag="ptr-upper-bound-deref">
+       <typ ikind="iuint" ttag="tint"/>
+       <exp1 etag="caste" xstr="caste (caste (0:(void*)):(struct 196*))">
+        <typ ttag="tptr">
+         <typ ckey="196" ttag="tcomp"/>
+        </typ>
+        <exp etag="caste" xstr="caste (0:(void*))">
+         <typ ttag="tptr">
+          <typ ttag="tvoid"/>
+         </typ>
+         <exp etag="const" xstr="0">
+          <constant ctag="cint64" ikind="iint" intValue="0"/>
+         </exp>
+        </exp>
+       </exp1>
+       <exp2 etag="const" xstr="2">
+        <constant ctag="cint64" ikind="iint" intValue="2"/>
+       </exp2>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="189"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="193756" file="src/cache.c" line="416"/>
+     </post-expectation>
+     <post-expectation id="420">
+      <callers>
+       <caller api-id="4" fname="cache_insert" fvid="58"/>
+       <caller api-id="4" fname="cache_insert" fvid="58"/>
+       <caller api-id="4" fname="cache_insert" fvid="58"/>
+       <caller api-id="4" fname="cache_insert" fvid="58"/>
+       <caller api-id="4" fname="cache_insert" fvid="58"/>
+       <caller api-id="4" fname="cache_insert" fvid="58"/>
+       <caller api-id="4" fname="cache_insert" fvid="58"/>
+       <caller api-id="4" fname="cache_insert" fvid="58"/>
+      </callers>
+      <predicate op="pluspi" tag="ptr-upper-bound-deref">
+       <typ ikind="iuint" ttag="tint"/>
+       <exp1 etag="caste" xstr="caste (caste (0:(void*)):(struct 196*))">
+        <typ ttag="tptr">
+         <typ ckey="196" ttag="tcomp"/>
+        </typ>
+        <exp etag="caste" xstr="caste (0:(void*))">
+         <typ ttag="tptr">
+          <typ ttag="tvoid"/>
+         </typ>
+         <exp etag="const" xstr="0">
+          <constant ctag="cint64" ikind="iint" intValue="0"/>
+         </exp>
+        </exp>
+       </exp1>
+       <exp2 etag="const" xstr="3">
+        <constant ctag="cint64" ikind="iint" intValue="3"/>
+       </exp2>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="189"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="193756" file="src/cache.c" line="416"/>
+     </post-expectation>
+     <post-expectation id="423">
+      <callers>
+       <caller api-id="6" fname="cache_insert" fvid="58"/>
+       <caller api-id="6" fname="cache_insert" fvid="58"/>
+       <caller api-id="6" fname="cache_insert" fvid="58"/>
+       <caller api-id="6" fname="cache_insert" fvid="58"/>
+       <caller api-id="6" fname="cache_insert" fvid="58"/>
+       <caller api-id="6" fname="cache_insert" fvid="58"/>
+       <caller api-id="6" fname="cache_insert" fvid="58"/>
+       <caller api-id="6" fname="cache_insert" fvid="58"/>
+      </callers>
+      <predicate tag="global-mem">
+       <exp etag="lval" xstr="crecp">
+        <lval>
+         <lhost>
+          <var vid="6003" vname="crecp"/>
+         </lhost>
+        </lval>
+       </exp>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="153"/>
+        <node name="if-then"/>
+        <node name="stmt" num="152"/>
+        <node name="if-then"/>
+        <node name="stmt" num="151"/>
+        <node name="if-then"/>
+        <node name="stmt" num="150"/>
+        <node name="if-else"/>
+        <node name="stmt" num="148"/>
+        <node name="if-then"/>
+        <node name="stmt" num="147"/>
+        <node name="if-then"/>
+        <node name="stmt" num="145"/>
+        <node name="loop"/>
+        <node name="stmt" num="133"/>
+        <node name="if-then"/>
+        <node name="stmt" num="131"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="192771" file="src/cache.c" line="359"/>
+     </post-expectation>
+     <post-expectation id="425">
+      <callers>
+       <caller api-id="3" fname="cache_insert" fvid="58"/>
+       <caller api-id="3" fname="cache_insert" fvid="58"/>
+       <caller api-id="3" fname="cache_insert" fvid="58"/>
+       <caller api-id="3" fname="cache_insert" fvid="58"/>
+       <caller api-id="3" fname="cache_insert" fvid="58"/>
+       <caller api-id="3" fname="cache_insert" fvid="58"/>
+       <caller api-id="3" fname="cache_insert" fvid="58"/>
+       <caller api-id="3" fname="cache_insert" fvid="58"/>
+      </callers>
+      <predicate tag="initialized">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="crecp">
+          <lval>
+           <lhost>
+            <var vid="6003" vname="crecp"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <field ckey="196" fname="flags"/>
+        </offset>
+       </lval>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="153"/>
+        <node name="if-then"/>
+        <node name="stmt" num="152"/>
+        <node name="if-then"/>
+        <node name="stmt" num="151"/>
+        <node name="if-then"/>
+        <node name="stmt" num="150"/>
+        <node name="if-else"/>
+        <node name="stmt" num="148"/>
+        <node name="if-then"/>
+        <node name="stmt" num="147"/>
+        <node name="if-then"/>
+        <node name="stmt" num="145"/>
+        <node name="loop"/>
+        <node name="stmt" num="133"/>
+        <node name="if-then"/>
+        <node name="stmt" num="131"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="192771" file="src/cache.c" line="359"/>
+     </post-expectation>
+     <post-expectation id="424">
+      <callers>
+       <caller api-id="2" fname="cache_insert" fvid="58"/>
+       <caller api-id="2" fname="cache_insert" fvid="58"/>
+       <caller api-id="2" fname="cache_insert" fvid="58"/>
+       <caller api-id="2" fname="cache_insert" fvid="58"/>
+       <caller api-id="2" fname="cache_insert" fvid="58"/>
+       <caller api-id="2" fname="cache_insert" fvid="58"/>
+       <caller api-id="2" fname="cache_insert" fvid="58"/>
+       <caller api-id="2" fname="cache_insert" fvid="58"/>
+      </callers>
+      <predicate op="pluspi" tag="ptr-upper-bound-deref">
+       <typ ikind="iuint" ttag="tint"/>
+       <exp1 etag="lval" xstr="crecp">
+        <lval>
+         <lhost>
+          <var vid="6003" vname="crecp"/>
+         </lhost>
+        </lval>
+       </exp1>
+       <exp2 etag="const" xstr="2">
+        <constant ctag="cint64" ikind="iint" intValue="2"/>
+       </exp2>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="153"/>
+        <node name="if-then"/>
+        <node name="stmt" num="152"/>
+        <node name="if-then"/>
+        <node name="stmt" num="151"/>
+        <node name="if-then"/>
+        <node name="stmt" num="150"/>
+        <node name="if-else"/>
+        <node name="stmt" num="148"/>
+        <node name="if-then"/>
+        <node name="stmt" num="147"/>
+        <node name="if-then"/>
+        <node name="stmt" num="145"/>
+        <node name="loop"/>
+        <node name="stmt" num="133"/>
+        <node name="if-then"/>
+        <node name="stmt" num="131"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="192771" file="src/cache.c" line="359"/>
+     </post-expectation>
+     <post-expectation id="418">
+      <callers>
+       <caller api-id="3" fname="cache_insert" fvid="58"/>
+       <caller api-id="3" fname="cache_insert" fvid="58"/>
+       <caller api-id="3" fname="cache_insert" fvid="58"/>
+       <caller api-id="3" fname="cache_insert" fvid="58"/>
+       <caller api-id="3" fname="cache_insert" fvid="58"/>
+       <caller api-id="3" fname="cache_insert" fvid="58"/>
+       <caller api-id="3" fname="cache_insert" fvid="58"/>
+       <caller api-id="3" fname="cache_insert" fvid="58"/>
+      </callers>
+      <predicate tag="initialized">
+       <lval>
+        <lhost>
+         <mem etag="caste" xstr="caste (caste (0:(void*)):(struct 196*))">
+          <typ ttag="tptr">
+           <typ ckey="196" ttag="tcomp"/>
+          </typ>
+          <exp etag="caste" xstr="caste (0:(void*))">
+           <typ ttag="tptr">
+            <typ ttag="tvoid"/>
+           </typ>
+           <exp etag="const" xstr="0">
+            <constant ctag="cint64" ikind="iint" intValue="0"/>
+           </exp>
+          </exp>
+         </mem>
+        </lhost>
+        <offset>
+         <field ckey="196" fname="flags"/>
+        </offset>
+       </lval>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="189"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="193756" file="src/cache.c" line="416"/>
+     </post-expectation>
+     <post-expectation id="419">
+      <callers>
+       <caller api-id="5" fname="cache_insert" fvid="58"/>
+       <caller api-id="5" fname="cache_insert" fvid="58"/>
+       <caller api-id="5" fname="cache_insert" fvid="58"/>
+       <caller api-id="5" fname="cache_insert" fvid="58"/>
+       <caller api-id="5" fname="cache_insert" fvid="58"/>
+       <caller api-id="5" fname="cache_insert" fvid="58"/>
+       <caller api-id="5" fname="cache_insert" fvid="58"/>
+       <caller api-id="5" fname="cache_insert" fvid="58"/>
+      </callers>
+      <predicate op="pluspi" tag="ptr-upper-bound-deref">
+       <typ ikind="iuint" ttag="tint"/>
+       <exp1 etag="caste" xstr="caste (caste (0:(void*)):(struct 196*))">
+        <typ ttag="tptr">
+         <typ ckey="196" ttag="tcomp"/>
+        </typ>
+        <exp etag="caste" xstr="caste (0:(void*))">
+         <typ ttag="tptr">
+          <typ ttag="tvoid"/>
+         </typ>
+         <exp etag="const" xstr="0">
+          <constant ctag="cint64" ikind="iint" intValue="0"/>
+         </exp>
+        </exp>
+       </exp1>
+       <exp2 etag="const" xstr="1">
+        <constant ctag="cint64" ikind="iint" intValue="1"/>
+       </exp2>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="189"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="193756" file="src/cache.c" line="416"/>
+     </post-expectation>
+     <post-expectation id="429">
+      <callers>
+       <caller api-id="1" fname="cache_insert" fvid="58"/>
+       <caller api-id="1" fname="cache_insert" fvid="58"/>
+       <caller api-id="1" fname="cache_insert" fvid="58"/>
+       <caller api-id="1" fname="cache_insert" fvid="58"/>
+       <caller api-id="1" fname="cache_insert" fvid="58"/>
+       <caller api-id="1" fname="cache_insert" fvid="58"/>
+       <caller api-id="1" fname="cache_insert" fvid="58"/>
+       <caller api-id="1" fname="cache_insert" fvid="58"/>
+      </callers>
+      <predicate tag="pointer-cast">
+       <tfrom ckey="46" ttag="tcomp"/>
+       <tto ikind="iuint" ttag="tint"/>
+       <exp etag="lval" xstr="crecp">
+        <lval>
+         <lhost>
+          <var vid="6003" vname="crecp"/>
+         </lhost>
+        </lval>
+       </exp>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="153"/>
+        <node name="if-then"/>
+        <node name="stmt" num="152"/>
+        <node name="if-then"/>
+        <node name="stmt" num="151"/>
+        <node name="if-then"/>
+        <node name="stmt" num="150"/>
+        <node name="if-else"/>
+        <node name="stmt" num="148"/>
+        <node name="if-then"/>
+        <node name="stmt" num="147"/>
+        <node name="if-then"/>
+        <node name="stmt" num="145"/>
+        <node name="loop"/>
+        <node name="stmt" num="133"/>
+        <node name="if-then"/>
+        <node name="stmt" num="131"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="192771" file="src/cache.c" line="359"/>
+     </post-expectation>
+     <post-expectation id="426">
+      <callers>
+       <caller api-id="5" fname="cache_insert" fvid="58"/>
+       <caller api-id="5" fname="cache_insert" fvid="58"/>
+       <caller api-id="5" fname="cache_insert" fvid="58"/>
+       <caller api-id="5" fname="cache_insert" fvid="58"/>
+       <caller api-id="5" fname="cache_insert" fvid="58"/>
+       <caller api-id="5" fname="cache_insert" fvid="58"/>
+       <caller api-id="5" fname="cache_insert" fvid="58"/>
+       <caller api-id="5" fname="cache_insert" fvid="58"/>
+      </callers>
+      <predicate op="pluspi" tag="ptr-upper-bound-deref">
+       <typ ikind="iuint" ttag="tint"/>
+       <exp1 etag="lval" xstr="crecp">
+        <lval>
+         <lhost>
+          <var vid="6003" vname="crecp"/>
+         </lhost>
+        </lval>
+       </exp1>
+       <exp2 etag="const" xstr="1">
+        <constant ctag="cint64" ikind="iint" intValue="1"/>
+       </exp2>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="153"/>
+        <node name="if-then"/>
+        <node name="stmt" num="152"/>
+        <node name="if-then"/>
+        <node name="stmt" num="151"/>
+        <node name="if-then"/>
+        <node name="stmt" num="150"/>
+        <node name="if-else"/>
+        <node name="stmt" num="148"/>
+        <node name="if-then"/>
+        <node name="stmt" num="147"/>
+        <node name="if-then"/>
+        <node name="stmt" num="145"/>
+        <node name="loop"/>
+        <node name="stmt" num="133"/>
+        <node name="if-then"/>
+        <node name="stmt" num="131"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="192771" file="src/cache.c" line="359"/>
+     </post-expectation>
+    </post-expectations>
+    <ds-expectations/>
+   </secondary-proof-obligations>
+  </function>
+  <header time="01/10/2017 05:33:32">
+   <application file="src/cache.c" name="application"/>
+  </header>
+ </c-analysis>

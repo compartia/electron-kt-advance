@@ -1,0 +1,2278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function cfilename="src/cache.c" gvid="68" name="hash_bucket" num-ppo="0">
+   <statistics api-assumptions="1" callers="3" ds-assumptions="0" field-assignments="0" global-assignments="0" global-assumptions="32" rv-assumptions="0"/>
+   <parameters>
+    <param formal-vid="5951" index="1" vname="name"/>
+   </parameters>
+   <callers>
+    <caller cfilename="src/cache.c" fname="cache_find_by_name" gvid="31" updated="01/09/2017 21:38:35" updated-f="1483997915.01">
+     <call-site byte="197665" file="src/cache.c" line="635"/>
+     <args>
+      <arg/>
+     </args>
+     <calling-context>
+      <node name="instr" num="3"/>
+      <node name="stmt" num="285"/>
+      <node name="if-else"/>
+      <node name="stmt" num="283"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/cache.c" fname="cache_hash" gvid="67" updated="01/09/2017 21:38:35" updated-f="1483997915.16">
+     <call-site byte="189401" file="src/cache.c" line="173"/>
+     <args>
+      <arg/>
+     </args>
+     <calling-context>
+      <node name="instr" num="1"/>
+      <node name="stmt" num="55"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/cache.c" fname="cache_scan_free" gvid="60" updated="01/09/2017 21:38:35" updated-f="1483997915.09">
+     <call-site byte="192146" file="src/cache.c" line="339"/>
+     <args>
+      <arg/>
+     </args>
+     <calling-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="132"/>
+      <node name="if-then"/>
+      <node name="stmt" num="131"/>
+     </calling-context>
+    </caller>
+   </callers>
+   <api-assumptions>
+    <api-assumption nr="1">
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="name">
+       <lval>
+        <lhost>
+         <var vid="5951" vname="name"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="4"/>
+      <po id="12"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </api-assumption>
+   </api-assumptions>
+   <rv-assumptions/>
+   <ds-assumptions/>
+   <global-assumptions>
+    <global-assumption nr="1">
+     <predicate op="minusa" size="iint" tag="int-underflow">
+      <exp1 etag="lval" xstr="hash_size">
+       <lval>
+        <lhost>
+         <var vid="99" vname="hash_size"/>
+        </lhost>
+       </lval>
+      </exp1>
+      <exp2 etag="const" xstr="1">
+       <constant ctag="cint64" ikind="iint" intValue="1"/>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="53"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="2">
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="hash_table">
+       <lval>
+        <lhost>
+         <var vid="107" vname="hash_table"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="55"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="3">
+     <predicate tag="global-mem">
+      <exp binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 66*)*)">
+       <exp1 etag="lval" xstr="hash_table">
+        <lval>
+         <lhost>
+          <var vid="107" vname="hash_table"/>
+         </lhost>
+        </lval>
+       </exp1>
+       <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+        <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+         <exp1 etag="lval" xstr="val">
+          <lval>
+           <lhost>
+            <var vid="5953" vname="val"/>
+           </lhost>
+          </lval>
+         </exp1>
+         <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+          <exp1 etag="lval" xstr="val">
+           <lval>
+            <lhost>
+             <var vid="5953" vname="val"/>
+            </lhost>
+           </lval>
+          </exp1>
+          <exp2 etag="const" xstr="16">
+           <constant ctag="cint64" ikind="iint" intValue="16"/>
+          </exp2>
+          <typ ikind="iuint" ttag="tint"/>
+         </exp2>
+         <typ ikind="iuint" ttag="tint"/>
+        </exp1>
+        <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+         <typ ikind="iuint" ttag="tint"/>
+         <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+          <exp1 etag="lval" xstr="hash_size">
+           <lval>
+            <lhost>
+             <var vid="99" vname="hash_size"/>
+            </lhost>
+           </lval>
+          </exp1>
+          <exp2 etag="const" xstr="1">
+           <constant ctag="cint64" ikind="iint" intValue="1"/>
+          </exp2>
+          <typ ikind="iint" ttag="tint"/>
+         </exp>
+        </exp2>
+        <typ ikind="iuint" ttag="tint"/>
+       </exp2>
+       <typ ttag="tptr">
+        <typ ttag="tptr">
+         <typ ckey="66" ttag="tcomp"/>
+        </typ>
+       </typ>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="60"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="4">
+     <predicate op="pluspi" tag="ptr-lower-bound">
+      <typ ttag="tptr">
+       <typ ckey="66" ttag="tcomp"/>
+      </typ>
+      <exp1 etag="lval" xstr="hash_table">
+       <lval>
+        <lhost>
+         <var vid="107" vname="hash_table"/>
+        </lhost>
+       </lval>
+      </exp1>
+      <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+       <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+        <exp1 etag="lval" xstr="val">
+         <lval>
+          <lhost>
+           <var vid="5953" vname="val"/>
+          </lhost>
+         </lval>
+        </exp1>
+        <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+         <exp1 etag="lval" xstr="val">
+          <lval>
+           <lhost>
+            <var vid="5953" vname="val"/>
+           </lhost>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="16">
+          <constant ctag="cint64" ikind="iint" intValue="16"/>
+         </exp2>
+         <typ ikind="iuint" ttag="tint"/>
+        </exp2>
+        <typ ikind="iuint" ttag="tint"/>
+       </exp1>
+       <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+        <typ ikind="iuint" ttag="tint"/>
+        <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+         <exp1 etag="lval" xstr="hash_size">
+          <lval>
+           <lhost>
+            <var vid="99" vname="hash_size"/>
+           </lhost>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="1">
+          <constant ctag="cint64" ikind="iint" intValue="1"/>
+         </exp2>
+         <typ ikind="iint" ttag="tint"/>
+        </exp>
+       </exp2>
+       <typ ikind="iuint" ttag="tint"/>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="57"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="5">
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="hash_table">
+       <lval>
+        <lhost>
+         <var vid="107" vname="hash_table"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="56"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="6">
+     <predicate op="pluspi" tag="ptr-upper-bound-deref">
+      <typ ttag="tptr">
+       <typ ckey="66" ttag="tcomp"/>
+      </typ>
+      <exp1 etag="lval" xstr="hash_table">
+       <lval>
+        <lhost>
+         <var vid="107" vname="hash_table"/>
+        </lhost>
+       </lval>
+      </exp1>
+      <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+       <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+        <exp1 etag="lval" xstr="val">
+         <lval>
+          <lhost>
+           <var vid="5953" vname="val"/>
+          </lhost>
+         </lval>
+        </exp1>
+        <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+         <exp1 etag="lval" xstr="val">
+          <lval>
+           <lhost>
+            <var vid="5953" vname="val"/>
+           </lhost>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="16">
+          <constant ctag="cint64" ikind="iint" intValue="16"/>
+         </exp2>
+         <typ ikind="iuint" ttag="tint"/>
+        </exp2>
+        <typ ikind="iuint" ttag="tint"/>
+       </exp1>
+       <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+        <typ ikind="iuint" ttag="tint"/>
+        <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+         <exp1 etag="lval" xstr="hash_size">
+          <lval>
+           <lhost>
+            <var vid="99" vname="hash_size"/>
+           </lhost>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="1">
+          <constant ctag="cint64" ikind="iint" intValue="1"/>
+         </exp2>
+         <typ ikind="iint" ttag="tint"/>
+        </exp>
+       </exp2>
+       <typ ikind="iuint" ttag="tint"/>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="58"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="7">
+     <predicate from="iint" tag="signed-to-unsigned-cast" to="iuint">
+      <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+       <exp1 etag="lval" xstr="hash_size">
+        <lval>
+         <lhost>
+          <var vid="99" vname="hash_size"/>
+         </lhost>
+        </lval>
+       </exp1>
+       <exp2 etag="const" xstr="1">
+        <constant ctag="cint64" ikind="iint" intValue="1"/>
+       </exp2>
+       <typ ikind="iint" ttag="tint"/>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="51"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="8">
+     <predicate tag="upper-bound">
+      <exp etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 66*)*))">
+       <lval>
+        <lhost>
+         <mem binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 66*)*)">
+          <exp1 etag="lval" xstr="hash_table">
+           <lval>
+            <lhost>
+             <var vid="107" vname="hash_table"/>
+            </lhost>
+           </lval>
+          </exp1>
+          <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+           <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+            <exp1 etag="lval" xstr="val">
+             <lval>
+              <lhost>
+               <var vid="5953" vname="val"/>
+              </lhost>
+             </lval>
+            </exp1>
+            <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+             <exp1 etag="lval" xstr="val">
+              <lval>
+               <lhost>
+                <var vid="5953" vname="val"/>
+               </lhost>
+              </lval>
+             </exp1>
+             <exp2 etag="const" xstr="16">
+              <constant ctag="cint64" ikind="iint" intValue="16"/>
+             </exp2>
+             <typ ikind="iuint" ttag="tint"/>
+            </exp2>
+            <typ ikind="iuint" ttag="tint"/>
+           </exp1>
+           <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+            <typ ikind="iuint" ttag="tint"/>
+            <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+             <exp1 etag="lval" xstr="hash_size">
+              <lval>
+               <lhost>
+                <var vid="99" vname="hash_size"/>
+               </lhost>
+              </lval>
+             </exp1>
+             <exp2 etag="const" xstr="1">
+              <constant ctag="cint64" ikind="iint" intValue="1"/>
+             </exp2>
+             <typ ikind="iint" ttag="tint"/>
+            </exp>
+           </exp2>
+           <typ ikind="iuint" ttag="tint"/>
+          </exp2>
+          <typ ttag="tptr">
+           <typ ttag="tptr">
+            <typ ckey="66" ttag="tcomp"/>
+           </typ>
+          </typ>
+         </mem>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ckey="66" ttag="tcomp"/>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="65"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="9">
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 66*)*)">
+         <exp1 etag="lval" xstr="hash_table">
+          <lval>
+           <lhost>
+            <var vid="107" vname="hash_table"/>
+           </lhost>
+          </lval>
+         </exp1>
+         <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+          <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+           <exp1 etag="lval" xstr="val">
+            <lval>
+             <lhost>
+              <var vid="5953" vname="val"/>
+             </lhost>
+            </lval>
+           </exp1>
+           <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+            <exp1 etag="lval" xstr="val">
+             <lval>
+              <lhost>
+               <var vid="5953" vname="val"/>
+              </lhost>
+             </lval>
+            </exp1>
+            <exp2 etag="const" xstr="16">
+             <constant ctag="cint64" ikind="iint" intValue="16"/>
+            </exp2>
+            <typ ikind="iuint" ttag="tint"/>
+           </exp2>
+           <typ ikind="iuint" ttag="tint"/>
+          </exp1>
+          <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+           <typ ikind="iuint" ttag="tint"/>
+           <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+            <exp1 etag="lval" xstr="hash_size">
+             <lval>
+              <lhost>
+               <var vid="99" vname="hash_size"/>
+              </lhost>
+             </lval>
+            </exp1>
+            <exp2 etag="const" xstr="1">
+             <constant ctag="cint64" ikind="iint" intValue="1"/>
+            </exp2>
+            <typ ikind="iint" ttag="tint"/>
+           </exp>
+          </exp2>
+          <typ ikind="iuint" ttag="tint"/>
+         </exp2>
+         <typ ttag="tptr">
+          <typ ttag="tptr">
+           <typ ckey="66" ttag="tcomp"/>
+          </typ>
+         </typ>
+        </mem>
+       </lhost>
+      </lval>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="67"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="10">
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 66*)*))">
+       <lval>
+        <lhost>
+         <mem binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 66*)*)">
+          <exp1 etag="lval" xstr="hash_table">
+           <lval>
+            <lhost>
+             <var vid="107" vname="hash_table"/>
+            </lhost>
+           </lval>
+          </exp1>
+          <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+           <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+            <exp1 etag="lval" xstr="val">
+             <lval>
+              <lhost>
+               <var vid="5953" vname="val"/>
+              </lhost>
+             </lval>
+            </exp1>
+            <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+             <exp1 etag="lval" xstr="val">
+              <lval>
+               <lhost>
+                <var vid="5953" vname="val"/>
+               </lhost>
+              </lval>
+             </exp1>
+             <exp2 etag="const" xstr="16">
+              <constant ctag="cint64" ikind="iint" intValue="16"/>
+             </exp2>
+             <typ ikind="iuint" ttag="tint"/>
+            </exp2>
+            <typ ikind="iuint" ttag="tint"/>
+           </exp1>
+           <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+            <typ ikind="iuint" ttag="tint"/>
+            <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+             <exp1 etag="lval" xstr="hash_size">
+              <lval>
+               <lhost>
+                <var vid="99" vname="hash_size"/>
+               </lhost>
+              </lval>
+             </exp1>
+             <exp2 etag="const" xstr="1">
+              <constant ctag="cint64" ikind="iint" intValue="1"/>
+             </exp2>
+             <typ ikind="iint" ttag="tint"/>
+            </exp>
+           </exp2>
+           <typ ikind="iuint" ttag="tint"/>
+          </exp2>
+          <typ ttag="tptr">
+           <typ ttag="tptr">
+            <typ ckey="66" ttag="tcomp"/>
+           </typ>
+          </typ>
+         </mem>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="66"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="11">
+     <predicate tag="lower-bound">
+      <exp etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 66*)*))">
+       <lval>
+        <lhost>
+         <mem binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 66*)*)">
+          <exp1 etag="lval" xstr="hash_table">
+           <lval>
+            <lhost>
+             <var vid="107" vname="hash_table"/>
+            </lhost>
+           </lval>
+          </exp1>
+          <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+           <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+            <exp1 etag="lval" xstr="val">
+             <lval>
+              <lhost>
+               <var vid="5953" vname="val"/>
+              </lhost>
+             </lval>
+            </exp1>
+            <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+             <exp1 etag="lval" xstr="val">
+              <lval>
+               <lhost>
+                <var vid="5953" vname="val"/>
+               </lhost>
+              </lval>
+             </exp1>
+             <exp2 etag="const" xstr="16">
+              <constant ctag="cint64" ikind="iint" intValue="16"/>
+             </exp2>
+             <typ ikind="iuint" ttag="tint"/>
+            </exp2>
+            <typ ikind="iuint" ttag="tint"/>
+           </exp1>
+           <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+            <typ ikind="iuint" ttag="tint"/>
+            <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+             <exp1 etag="lval" xstr="hash_size">
+              <lval>
+               <lhost>
+                <var vid="99" vname="hash_size"/>
+               </lhost>
+              </lval>
+             </exp1>
+             <exp2 etag="const" xstr="1">
+              <constant ctag="cint64" ikind="iint" intValue="1"/>
+             </exp2>
+             <typ ikind="iint" ttag="tint"/>
+            </exp>
+           </exp2>
+           <typ ikind="iuint" ttag="tint"/>
+          </exp2>
+          <typ ttag="tptr">
+           <typ ttag="tptr">
+            <typ ckey="66" ttag="tcomp"/>
+           </typ>
+          </typ>
+         </mem>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ckey="66" ttag="tcomp"/>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="64"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="12">
+     <predicate tag="global-mem">
+      <exp etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 66*)*))">
+       <lval>
+        <lhost>
+         <mem binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 66*)*)">
+          <exp1 etag="lval" xstr="hash_table">
+           <lval>
+            <lhost>
+             <var vid="107" vname="hash_table"/>
+            </lhost>
+           </lval>
+          </exp1>
+          <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+           <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+            <exp1 etag="lval" xstr="val">
+             <lval>
+              <lhost>
+               <var vid="5953" vname="val"/>
+              </lhost>
+             </lval>
+            </exp1>
+            <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+             <exp1 etag="lval" xstr="val">
+              <lval>
+               <lhost>
+                <var vid="5953" vname="val"/>
+               </lhost>
+              </lval>
+             </exp1>
+             <exp2 etag="const" xstr="16">
+              <constant ctag="cint64" ikind="iint" intValue="16"/>
+             </exp2>
+             <typ ikind="iuint" ttag="tint"/>
+            </exp2>
+            <typ ikind="iuint" ttag="tint"/>
+           </exp1>
+           <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+            <typ ikind="iuint" ttag="tint"/>
+            <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+             <exp1 etag="lval" xstr="hash_size">
+              <lval>
+               <lhost>
+                <var vid="99" vname="hash_size"/>
+               </lhost>
+              </lval>
+             </exp1>
+             <exp2 etag="const" xstr="1">
+              <constant ctag="cint64" ikind="iint" intValue="1"/>
+             </exp2>
+             <typ ikind="iint" ttag="tint"/>
+            </exp>
+           </exp2>
+           <typ ikind="iuint" ttag="tint"/>
+          </exp2>
+          <typ ttag="tptr">
+           <typ ttag="tptr">
+            <typ ckey="66" ttag="tcomp"/>
+           </typ>
+          </typ>
+         </mem>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="68"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="13">
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 66*)*))">
+         <lval>
+          <lhost>
+           <mem binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 66*)*)">
+            <exp1 etag="lval" xstr="hash_table">
+             <lval>
+              <lhost>
+               <var vid="107" vname="hash_table"/>
+              </lhost>
+             </lval>
+            </exp1>
+            <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+             <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+              <exp1 etag="lval" xstr="val">
+               <lval>
+                <lhost>
+                 <var vid="5953" vname="val"/>
+                </lhost>
+               </lval>
+              </exp1>
+              <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+               <exp1 etag="lval" xstr="val">
+                <lval>
+                 <lhost>
+                  <var vid="5953" vname="val"/>
+                 </lhost>
+                </lval>
+               </exp1>
+               <exp2 etag="const" xstr="16">
+                <constant ctag="cint64" ikind="iint" intValue="16"/>
+               </exp2>
+               <typ ikind="iuint" ttag="tint"/>
+              </exp2>
+              <typ ikind="iuint" ttag="tint"/>
+             </exp1>
+             <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+              <typ ikind="iuint" ttag="tint"/>
+              <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+               <exp1 etag="lval" xstr="hash_size">
+                <lval>
+                 <lhost>
+                  <var vid="99" vname="hash_size"/>
+                 </lhost>
+                </lval>
+               </exp1>
+               <exp2 etag="const" xstr="1">
+                <constant ctag="cint64" ikind="iint" intValue="1"/>
+               </exp2>
+               <typ ikind="iint" ttag="tint"/>
+              </exp>
+             </exp2>
+             <typ ikind="iuint" ttag="tint"/>
+            </exp2>
+            <typ ttag="tptr">
+             <typ ttag="tptr">
+              <typ ckey="66" ttag="tcomp"/>
+             </typ>
+            </typ>
+           </mem>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <offset>
+         <offset>
+          <offset>
+           <field ckey="72" fname="cache"/>
+          </offset>
+          <field ckey="71" fname="target"/>
+         </offset>
+         <field ckey="68" fname="cname"/>
+        </offset>
+        <field ckey="66" fname="addr"/>
+       </offset>
+      </lval>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="70"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="14">
+     <predicate op="pluspi" tag="ptr-upper-bound">
+      <typ ikind="ichar" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+      <exp1 etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 66*)*))">
+       <lval>
+        <lhost>
+         <mem binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 66*)*)">
+          <exp1 etag="lval" xstr="hash_table">
+           <lval>
+            <lhost>
+             <var vid="107" vname="hash_table"/>
+            </lhost>
+           </lval>
+          </exp1>
+          <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+           <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+            <exp1 etag="lval" xstr="val">
+             <lval>
+              <lhost>
+               <var vid="5953" vname="val"/>
+              </lhost>
+             </lval>
+            </exp1>
+            <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+             <exp1 etag="lval" xstr="val">
+              <lval>
+               <lhost>
+                <var vid="5953" vname="val"/>
+               </lhost>
+              </lval>
+             </exp1>
+             <exp2 etag="const" xstr="16">
+              <constant ctag="cint64" ikind="iint" intValue="16"/>
+             </exp2>
+             <typ ikind="iuint" ttag="tint"/>
+            </exp2>
+            <typ ikind="iuint" ttag="tint"/>
+           </exp1>
+           <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+            <typ ikind="iuint" ttag="tint"/>
+            <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+             <exp1 etag="lval" xstr="hash_size">
+              <lval>
+               <lhost>
+                <var vid="99" vname="hash_size"/>
+               </lhost>
+              </lval>
+             </exp1>
+             <exp2 etag="const" xstr="1">
+              <constant ctag="cint64" ikind="iint" intValue="1"/>
+             </exp2>
+             <typ ikind="iint" ttag="tint"/>
+            </exp>
+           </exp2>
+           <typ ikind="iuint" ttag="tint"/>
+          </exp2>
+          <typ ttag="tptr">
+           <typ ttag="tptr">
+            <typ ckey="66" ttag="tcomp"/>
+           </typ>
+          </typ>
+         </mem>
+        </lhost>
+       </lval>
+      </exp1>
+      <exp2 etag="const" xstr="256">
+       <constant ctag="cint64" ikind="iint" intValue="256"/>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="69"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="15">
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 66*)*))-&gt;name.bname">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 66*)*))">
+          <lval>
+           <lhost>
+            <mem binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 66*)*)">
+             <exp1 etag="lval" xstr="hash_table">
+              <lval>
+               <lhost>
+                <var vid="107" vname="hash_table"/>
+               </lhost>
+              </lval>
+             </exp1>
+             <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+              <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+               <exp1 etag="lval" xstr="val">
+                <lval>
+                 <lhost>
+                  <var vid="5953" vname="val"/>
+                 </lhost>
+                </lval>
+               </exp1>
+               <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+                <exp1 etag="lval" xstr="val">
+                 <lval>
+                  <lhost>
+                   <var vid="5953" vname="val"/>
+                  </lhost>
+                 </lval>
+                </exp1>
+                <exp2 etag="const" xstr="16">
+                 <constant ctag="cint64" ikind="iint" intValue="16"/>
+                </exp2>
+                <typ ikind="iuint" ttag="tint"/>
+               </exp2>
+               <typ ikind="iuint" ttag="tint"/>
+              </exp1>
+              <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+               <typ ikind="iuint" ttag="tint"/>
+               <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+                <exp1 etag="lval" xstr="hash_size">
+                 <lval>
+                  <lhost>
+                   <var vid="99" vname="hash_size"/>
+                  </lhost>
+                 </lval>
+                </exp1>
+                <exp2 etag="const" xstr="1">
+                 <constant ctag="cint64" ikind="iint" intValue="1"/>
+                </exp2>
+                <typ ikind="iint" ttag="tint"/>
+               </exp>
+              </exp2>
+              <typ ikind="iuint" ttag="tint"/>
+             </exp2>
+             <typ ttag="tptr">
+              <typ ttag="tptr">
+               <typ ckey="66" ttag="tcomp"/>
+              </typ>
+             </typ>
+            </mem>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <field ckey="67" fname="bname"/>
+         </offset>
+         <field ckey="66" fname="name"/>
+        </offset>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="82"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="16">
+     <predicate op="pluspi" tag="ptr-upper-bound">
+      <typ ikind="ichar" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+      <exp1 etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 66*)*))-&gt;name.bname">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 66*)*))">
+          <lval>
+           <lhost>
+            <mem binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 66*)*)">
+             <exp1 etag="lval" xstr="hash_table">
+              <lval>
+               <lhost>
+                <var vid="107" vname="hash_table"/>
+               </lhost>
+              </lval>
+             </exp1>
+             <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+              <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+               <exp1 etag="lval" xstr="val">
+                <lval>
+                 <lhost>
+                  <var vid="5953" vname="val"/>
+                 </lhost>
+                </lval>
+               </exp1>
+               <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+                <exp1 etag="lval" xstr="val">
+                 <lval>
+                  <lhost>
+                   <var vid="5953" vname="val"/>
+                  </lhost>
+                 </lval>
+                </exp1>
+                <exp2 etag="const" xstr="16">
+                 <constant ctag="cint64" ikind="iint" intValue="16"/>
+                </exp2>
+                <typ ikind="iuint" ttag="tint"/>
+               </exp2>
+               <typ ikind="iuint" ttag="tint"/>
+              </exp1>
+              <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+               <typ ikind="iuint" ttag="tint"/>
+               <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+                <exp1 etag="lval" xstr="hash_size">
+                 <lval>
+                  <lhost>
+                   <var vid="99" vname="hash_size"/>
+                  </lhost>
+                 </lval>
+                </exp1>
+                <exp2 etag="const" xstr="1">
+                 <constant ctag="cint64" ikind="iint" intValue="1"/>
+                </exp2>
+                <typ ikind="iint" ttag="tint"/>
+               </exp>
+              </exp2>
+              <typ ikind="iuint" ttag="tint"/>
+             </exp2>
+             <typ ttag="tptr">
+              <typ ttag="tptr">
+               <typ ckey="66" ttag="tcomp"/>
+              </typ>
+             </typ>
+            </mem>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <field ckey="67" fname="bname"/>
+         </offset>
+         <field ckey="66" fname="name"/>
+        </offset>
+       </lval>
+      </exp1>
+      <exp2 etag="const" xstr="256">
+       <constant ctag="cint64" ikind="iint" intValue="256"/>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="78"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="17">
+     <predicate op="pluspi" tag="ptr-upper-bound">
+      <typ ikind="ichar" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+      <exp1 etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 66*)*))-&gt;name.namep">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 66*)*))">
+          <lval>
+           <lhost>
+            <mem binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 66*)*)">
+             <exp1 etag="lval" xstr="hash_table">
+              <lval>
+               <lhost>
+                <var vid="107" vname="hash_table"/>
+               </lhost>
+              </lval>
+             </exp1>
+             <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+              <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+               <exp1 etag="lval" xstr="val">
+                <lval>
+                 <lhost>
+                  <var vid="5953" vname="val"/>
+                 </lhost>
+                </lval>
+               </exp1>
+               <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+                <exp1 etag="lval" xstr="val">
+                 <lval>
+                  <lhost>
+                   <var vid="5953" vname="val"/>
+                  </lhost>
+                 </lval>
+                </exp1>
+                <exp2 etag="const" xstr="16">
+                 <constant ctag="cint64" ikind="iint" intValue="16"/>
+                </exp2>
+                <typ ikind="iuint" ttag="tint"/>
+               </exp2>
+               <typ ikind="iuint" ttag="tint"/>
+              </exp1>
+              <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+               <typ ikind="iuint" ttag="tint"/>
+               <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+                <exp1 etag="lval" xstr="hash_size">
+                 <lval>
+                  <lhost>
+                   <var vid="99" vname="hash_size"/>
+                  </lhost>
+                 </lval>
+                </exp1>
+                <exp2 etag="const" xstr="1">
+                 <constant ctag="cint64" ikind="iint" intValue="1"/>
+                </exp2>
+                <typ ikind="iint" ttag="tint"/>
+               </exp>
+              </exp2>
+              <typ ikind="iuint" ttag="tint"/>
+             </exp2>
+             <typ ttag="tptr">
+              <typ ttag="tptr">
+               <typ ckey="66" ttag="tcomp"/>
+              </typ>
+             </typ>
+            </mem>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <field ckey="67" fname="namep"/>
+         </offset>
+         <field ckey="66" fname="name"/>
+        </offset>
+       </lval>
+      </exp1>
+      <exp2 etag="const" xstr="256">
+       <constant ctag="cint64" ikind="iint" intValue="256"/>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="80"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="18">
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 66*)*))">
+         <lval>
+          <lhost>
+           <mem binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 66*)*)">
+            <exp1 etag="lval" xstr="hash_table">
+             <lval>
+              <lhost>
+               <var vid="107" vname="hash_table"/>
+              </lhost>
+             </lval>
+            </exp1>
+            <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+             <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+              <exp1 etag="lval" xstr="val">
+               <lval>
+                <lhost>
+                 <var vid="5953" vname="val"/>
+                </lhost>
+               </lval>
+              </exp1>
+              <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+               <exp1 etag="lval" xstr="val">
+                <lval>
+                 <lhost>
+                  <var vid="5953" vname="val"/>
+                 </lhost>
+                </lval>
+               </exp1>
+               <exp2 etag="const" xstr="16">
+                <constant ctag="cint64" ikind="iint" intValue="16"/>
+               </exp2>
+               <typ ikind="iuint" ttag="tint"/>
+              </exp2>
+              <typ ikind="iuint" ttag="tint"/>
+             </exp1>
+             <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+              <typ ikind="iuint" ttag="tint"/>
+              <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+               <exp1 etag="lval" xstr="hash_size">
+                <lval>
+                 <lhost>
+                  <var vid="99" vname="hash_size"/>
+                 </lhost>
+                </lval>
+               </exp1>
+               <exp2 etag="const" xstr="1">
+                <constant ctag="cint64" ikind="iint" intValue="1"/>
+               </exp2>
+               <typ ikind="iint" ttag="tint"/>
+              </exp>
+             </exp2>
+             <typ ikind="iuint" ttag="tint"/>
+            </exp2>
+            <typ ttag="tptr">
+             <typ ttag="tptr">
+              <typ ckey="66" ttag="tcomp"/>
+             </typ>
+            </typ>
+           </mem>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <offset>
+         <field ckey="67" fname="namep"/>
+        </offset>
+        <field ckey="66" fname="name"/>
+       </offset>
+      </lval>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="79"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="19">
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 66*)*))">
+         <lval>
+          <lhost>
+           <mem binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 66*)*)">
+            <exp1 etag="lval" xstr="hash_table">
+             <lval>
+              <lhost>
+               <var vid="107" vname="hash_table"/>
+              </lhost>
+             </lval>
+            </exp1>
+            <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+             <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+              <exp1 etag="lval" xstr="val">
+               <lval>
+                <lhost>
+                 <var vid="5953" vname="val"/>
+                </lhost>
+               </lval>
+              </exp1>
+              <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+               <exp1 etag="lval" xstr="val">
+                <lval>
+                 <lhost>
+                  <var vid="5953" vname="val"/>
+                 </lhost>
+                </lval>
+               </exp1>
+               <exp2 etag="const" xstr="16">
+                <constant ctag="cint64" ikind="iint" intValue="16"/>
+               </exp2>
+               <typ ikind="iuint" ttag="tint"/>
+              </exp2>
+              <typ ikind="iuint" ttag="tint"/>
+             </exp1>
+             <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+              <typ ikind="iuint" ttag="tint"/>
+              <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+               <exp1 etag="lval" xstr="hash_size">
+                <lval>
+                 <lhost>
+                  <var vid="99" vname="hash_size"/>
+                 </lhost>
+                </lval>
+               </exp1>
+               <exp2 etag="const" xstr="1">
+                <constant ctag="cint64" ikind="iint" intValue="1"/>
+               </exp2>
+               <typ ikind="iint" ttag="tint"/>
+              </exp>
+             </exp2>
+             <typ ikind="iuint" ttag="tint"/>
+            </exp2>
+            <typ ttag="tptr">
+             <typ ttag="tptr">
+              <typ ckey="66" ttag="tcomp"/>
+             </typ>
+            </typ>
+           </mem>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <offset>
+         <field ckey="67" fname="bname"/>
+        </offset>
+        <field ckey="66" fname="name"/>
+       </offset>
+      </lval>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="81"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="20">
+     <predicate op="pluspi" tag="ptr-upper-bound-deref">
+      <typ ikind="iuint" ttag="tint"/>
+      <exp1 etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 66*)*))">
+       <lval>
+        <lhost>
+         <mem binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 66*)*)">
+          <exp1 etag="lval" xstr="hash_table">
+           <lval>
+            <lhost>
+             <var vid="107" vname="hash_table"/>
+            </lhost>
+           </lval>
+          </exp1>
+          <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+           <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+            <exp1 etag="lval" xstr="val">
+             <lval>
+              <lhost>
+               <var vid="5953" vname="val"/>
+              </lhost>
+             </lval>
+            </exp1>
+            <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+             <exp1 etag="lval" xstr="val">
+              <lval>
+               <lhost>
+                <var vid="5953" vname="val"/>
+               </lhost>
+              </lval>
+             </exp1>
+             <exp2 etag="const" xstr="16">
+              <constant ctag="cint64" ikind="iint" intValue="16"/>
+             </exp2>
+             <typ ikind="iuint" ttag="tint"/>
+            </exp2>
+            <typ ikind="iuint" ttag="tint"/>
+           </exp1>
+           <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+            <typ ikind="iuint" ttag="tint"/>
+            <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+             <exp1 etag="lval" xstr="hash_size">
+              <lval>
+               <lhost>
+                <var vid="99" vname="hash_size"/>
+               </lhost>
+              </lval>
+             </exp1>
+             <exp2 etag="const" xstr="1">
+              <constant ctag="cint64" ikind="iint" intValue="1"/>
+             </exp2>
+             <typ ikind="iint" ttag="tint"/>
+            </exp>
+           </exp2>
+           <typ ikind="iuint" ttag="tint"/>
+          </exp2>
+          <typ ttag="tptr">
+           <typ ttag="tptr">
+            <typ ckey="66" ttag="tcomp"/>
+           </typ>
+          </typ>
+         </mem>
+        </lhost>
+       </lval>
+      </exp1>
+      <exp2 etag="const" xstr="1">
+       <constant ctag="cint64" ikind="iint" intValue="1"/>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="77"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="21">
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 66*)*))">
+         <lval>
+          <lhost>
+           <mem binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 66*)*)">
+            <exp1 etag="lval" xstr="hash_table">
+             <lval>
+              <lhost>
+               <var vid="107" vname="hash_table"/>
+              </lhost>
+             </lval>
+            </exp1>
+            <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+             <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+              <exp1 etag="lval" xstr="val">
+               <lval>
+                <lhost>
+                 <var vid="5953" vname="val"/>
+                </lhost>
+               </lval>
+              </exp1>
+              <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+               <exp1 etag="lval" xstr="val">
+                <lval>
+                 <lhost>
+                  <var vid="5953" vname="val"/>
+                 </lhost>
+                </lval>
+               </exp1>
+               <exp2 etag="const" xstr="16">
+                <constant ctag="cint64" ikind="iint" intValue="16"/>
+               </exp2>
+               <typ ikind="iuint" ttag="tint"/>
+              </exp2>
+              <typ ikind="iuint" ttag="tint"/>
+             </exp1>
+             <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+              <typ ikind="iuint" ttag="tint"/>
+              <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+               <exp1 etag="lval" xstr="hash_size">
+                <lval>
+                 <lhost>
+                  <var vid="99" vname="hash_size"/>
+                 </lhost>
+                </lval>
+               </exp1>
+               <exp2 etag="const" xstr="1">
+                <constant ctag="cint64" ikind="iint" intValue="1"/>
+               </exp2>
+               <typ ikind="iint" ttag="tint"/>
+              </exp>
+             </exp2>
+             <typ ikind="iuint" ttag="tint"/>
+            </exp2>
+            <typ ttag="tptr">
+             <typ ttag="tptr">
+              <typ ckey="66" ttag="tcomp"/>
+             </typ>
+            </typ>
+           </mem>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <field ckey="66" fname="next"/>
+       </offset>
+      </lval>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="73"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="22">
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 66*)*))">
+         <lval>
+          <lhost>
+           <mem binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 66*)*)">
+            <exp1 etag="lval" xstr="hash_table">
+             <lval>
+              <lhost>
+               <var vid="107" vname="hash_table"/>
+              </lhost>
+             </lval>
+            </exp1>
+            <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+             <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+              <exp1 etag="lval" xstr="val">
+               <lval>
+                <lhost>
+                 <var vid="5953" vname="val"/>
+                </lhost>
+               </lval>
+              </exp1>
+              <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+               <exp1 etag="lval" xstr="val">
+                <lval>
+                 <lhost>
+                  <var vid="5953" vname="val"/>
+                 </lhost>
+                </lval>
+               </exp1>
+               <exp2 etag="const" xstr="16">
+                <constant ctag="cint64" ikind="iint" intValue="16"/>
+               </exp2>
+               <typ ikind="iuint" ttag="tint"/>
+              </exp2>
+              <typ ikind="iuint" ttag="tint"/>
+             </exp1>
+             <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+              <typ ikind="iuint" ttag="tint"/>
+              <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+               <exp1 etag="lval" xstr="hash_size">
+                <lval>
+                 <lhost>
+                  <var vid="99" vname="hash_size"/>
+                 </lhost>
+                </lval>
+               </exp1>
+               <exp2 etag="const" xstr="1">
+                <constant ctag="cint64" ikind="iint" intValue="1"/>
+               </exp2>
+               <typ ikind="iint" ttag="tint"/>
+              </exp>
+             </exp2>
+             <typ ikind="iuint" ttag="tint"/>
+            </exp2>
+            <typ ttag="tptr">
+             <typ ttag="tptr">
+              <typ ckey="66" ttag="tcomp"/>
+             </typ>
+            </typ>
+           </mem>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <field ckey="66" fname="hash_next"/>
+       </offset>
+      </lval>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="84"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="23">
+     <predicate op="pluspi" tag="ptr-upper-bound-deref">
+      <typ ikind="iuint" ttag="tint"/>
+      <exp1 etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 66*)*))">
+       <lval>
+        <lhost>
+         <mem binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 66*)*)">
+          <exp1 etag="lval" xstr="hash_table">
+           <lval>
+            <lhost>
+             <var vid="107" vname="hash_table"/>
+            </lhost>
+           </lval>
+          </exp1>
+          <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+           <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+            <exp1 etag="lval" xstr="val">
+             <lval>
+              <lhost>
+               <var vid="5953" vname="val"/>
+              </lhost>
+             </lval>
+            </exp1>
+            <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+             <exp1 etag="lval" xstr="val">
+              <lval>
+               <lhost>
+                <var vid="5953" vname="val"/>
+               </lhost>
+              </lval>
+             </exp1>
+             <exp2 etag="const" xstr="16">
+              <constant ctag="cint64" ikind="iint" intValue="16"/>
+             </exp2>
+             <typ ikind="iuint" ttag="tint"/>
+            </exp2>
+            <typ ikind="iuint" ttag="tint"/>
+           </exp1>
+           <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+            <typ ikind="iuint" ttag="tint"/>
+            <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+             <exp1 etag="lval" xstr="hash_size">
+              <lval>
+               <lhost>
+                <var vid="99" vname="hash_size"/>
+               </lhost>
+              </lval>
+             </exp1>
+             <exp2 etag="const" xstr="1">
+              <constant ctag="cint64" ikind="iint" intValue="1"/>
+             </exp2>
+             <typ ikind="iint" ttag="tint"/>
+            </exp>
+           </exp2>
+           <typ ikind="iuint" ttag="tint"/>
+          </exp2>
+          <typ ttag="tptr">
+           <typ ttag="tptr">
+            <typ ckey="66" ttag="tcomp"/>
+           </typ>
+          </typ>
+         </mem>
+        </lhost>
+       </lval>
+      </exp1>
+      <exp2 etag="const" xstr="2">
+       <constant ctag="cint64" ikind="iint" intValue="2"/>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="83"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="24">
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 66*)*))-&gt;name.namep">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 66*)*))">
+          <lval>
+           <lhost>
+            <mem binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 66*)*)">
+             <exp1 etag="lval" xstr="hash_table">
+              <lval>
+               <lhost>
+                <var vid="107" vname="hash_table"/>
+               </lhost>
+              </lval>
+             </exp1>
+             <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+              <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+               <exp1 etag="lval" xstr="val">
+                <lval>
+                 <lhost>
+                  <var vid="5953" vname="val"/>
+                 </lhost>
+                </lval>
+               </exp1>
+               <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+                <exp1 etag="lval" xstr="val">
+                 <lval>
+                  <lhost>
+                   <var vid="5953" vname="val"/>
+                  </lhost>
+                 </lval>
+                </exp1>
+                <exp2 etag="const" xstr="16">
+                 <constant ctag="cint64" ikind="iint" intValue="16"/>
+                </exp2>
+                <typ ikind="iuint" ttag="tint"/>
+               </exp2>
+               <typ ikind="iuint" ttag="tint"/>
+              </exp1>
+              <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+               <typ ikind="iuint" ttag="tint"/>
+               <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+                <exp1 etag="lval" xstr="hash_size">
+                 <lval>
+                  <lhost>
+                   <var vid="99" vname="hash_size"/>
+                  </lhost>
+                 </lval>
+                </exp1>
+                <exp2 etag="const" xstr="1">
+                 <constant ctag="cint64" ikind="iint" intValue="1"/>
+                </exp2>
+                <typ ikind="iint" ttag="tint"/>
+               </exp>
+              </exp2>
+              <typ ikind="iuint" ttag="tint"/>
+             </exp2>
+             <typ ttag="tptr">
+              <typ ttag="tptr">
+               <typ ckey="66" ttag="tcomp"/>
+              </typ>
+             </typ>
+            </mem>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <field ckey="67" fname="namep"/>
+         </offset>
+         <field ckey="66" fname="name"/>
+        </offset>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="74"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="25">
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 66*)*))">
+         <lval>
+          <lhost>
+           <mem binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 66*)*)">
+            <exp1 etag="lval" xstr="hash_table">
+             <lval>
+              <lhost>
+               <var vid="107" vname="hash_table"/>
+              </lhost>
+             </lval>
+            </exp1>
+            <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+             <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+              <exp1 etag="lval" xstr="val">
+               <lval>
+                <lhost>
+                 <var vid="5953" vname="val"/>
+                </lhost>
+               </lval>
+              </exp1>
+              <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+               <exp1 etag="lval" xstr="val">
+                <lval>
+                 <lhost>
+                  <var vid="5953" vname="val"/>
+                 </lhost>
+                </lval>
+               </exp1>
+               <exp2 etag="const" xstr="16">
+                <constant ctag="cint64" ikind="iint" intValue="16"/>
+               </exp2>
+               <typ ikind="iuint" ttag="tint"/>
+              </exp2>
+              <typ ikind="iuint" ttag="tint"/>
+             </exp1>
+             <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+              <typ ikind="iuint" ttag="tint"/>
+              <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+               <exp1 etag="lval" xstr="hash_size">
+                <lval>
+                 <lhost>
+                  <var vid="99" vname="hash_size"/>
+                 </lhost>
+                </lval>
+               </exp1>
+               <exp2 etag="const" xstr="1">
+                <constant ctag="cint64" ikind="iint" intValue="1"/>
+               </exp2>
+               <typ ikind="iint" ttag="tint"/>
+              </exp>
+             </exp2>
+             <typ ikind="iuint" ttag="tint"/>
+            </exp2>
+            <typ ttag="tptr">
+             <typ ttag="tptr">
+              <typ ckey="66" ttag="tcomp"/>
+             </typ>
+            </typ>
+           </mem>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <field ckey="66" fname="prev"/>
+       </offset>
+      </lval>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="72"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="26">
+     <predicate tag="global-mem">
+      <exp etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 66*)*))-&gt;name.namep">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 66*)*))">
+          <lval>
+           <lhost>
+            <mem binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 66*)*)">
+             <exp1 etag="lval" xstr="hash_table">
+              <lval>
+               <lhost>
+                <var vid="107" vname="hash_table"/>
+               </lhost>
+              </lval>
+             </exp1>
+             <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+              <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+               <exp1 etag="lval" xstr="val">
+                <lval>
+                 <lhost>
+                  <var vid="5953" vname="val"/>
+                 </lhost>
+                </lval>
+               </exp1>
+               <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+                <exp1 etag="lval" xstr="val">
+                 <lval>
+                  <lhost>
+                   <var vid="5953" vname="val"/>
+                  </lhost>
+                 </lval>
+                </exp1>
+                <exp2 etag="const" xstr="16">
+                 <constant ctag="cint64" ikind="iint" intValue="16"/>
+                </exp2>
+                <typ ikind="iuint" ttag="tint"/>
+               </exp2>
+               <typ ikind="iuint" ttag="tint"/>
+              </exp1>
+              <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+               <typ ikind="iuint" ttag="tint"/>
+               <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+                <exp1 etag="lval" xstr="hash_size">
+                 <lval>
+                  <lhost>
+                   <var vid="99" vname="hash_size"/>
+                  </lhost>
+                 </lval>
+                </exp1>
+                <exp2 etag="const" xstr="1">
+                 <constant ctag="cint64" ikind="iint" intValue="1"/>
+                </exp2>
+                <typ ikind="iint" ttag="tint"/>
+               </exp>
+              </exp2>
+              <typ ikind="iuint" ttag="tint"/>
+             </exp2>
+             <typ ttag="tptr">
+              <typ ttag="tptr">
+               <typ ckey="66" ttag="tcomp"/>
+              </typ>
+             </typ>
+            </mem>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <field ckey="67" fname="namep"/>
+         </offset>
+         <field ckey="66" fname="name"/>
+        </offset>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="75"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="27">
+     <predicate op="pluspi" tag="ptr-upper-bound-deref">
+      <typ ikind="iuint" ttag="tint"/>
+      <exp1 etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 66*)*))">
+       <lval>
+        <lhost>
+         <mem binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 66*)*)">
+          <exp1 etag="lval" xstr="hash_table">
+           <lval>
+            <lhost>
+             <var vid="107" vname="hash_table"/>
+            </lhost>
+           </lval>
+          </exp1>
+          <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+           <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+            <exp1 etag="lval" xstr="val">
+             <lval>
+              <lhost>
+               <var vid="5953" vname="val"/>
+              </lhost>
+             </lval>
+            </exp1>
+            <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+             <exp1 etag="lval" xstr="val">
+              <lval>
+               <lhost>
+                <var vid="5953" vname="val"/>
+               </lhost>
+              </lval>
+             </exp1>
+             <exp2 etag="const" xstr="16">
+              <constant ctag="cint64" ikind="iint" intValue="16"/>
+             </exp2>
+             <typ ikind="iuint" ttag="tint"/>
+            </exp2>
+            <typ ikind="iuint" ttag="tint"/>
+           </exp1>
+           <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+            <typ ikind="iuint" ttag="tint"/>
+            <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+             <exp1 etag="lval" xstr="hash_size">
+              <lval>
+               <lhost>
+                <var vid="99" vname="hash_size"/>
+               </lhost>
+              </lval>
+             </exp1>
+             <exp2 etag="const" xstr="1">
+              <constant ctag="cint64" ikind="iint" intValue="1"/>
+             </exp2>
+             <typ ikind="iint" ttag="tint"/>
+            </exp>
+           </exp2>
+           <typ ikind="iuint" ttag="tint"/>
+          </exp2>
+          <typ ttag="tptr">
+           <typ ttag="tptr">
+            <typ ckey="66" ttag="tcomp"/>
+           </typ>
+          </typ>
+         </mem>
+        </lhost>
+       </lval>
+      </exp1>
+      <exp2 etag="const" xstr="3">
+       <constant ctag="cint64" ikind="iint" intValue="3"/>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="76"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="28">
+     <predicate tag="global-mem">
+      <exp etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 66*)*))-&gt;name.bname">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 66*)*))">
+          <lval>
+           <lhost>
+            <mem binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 66*)*)">
+             <exp1 etag="lval" xstr="hash_table">
+              <lval>
+               <lhost>
+                <var vid="107" vname="hash_table"/>
+               </lhost>
+              </lval>
+             </exp1>
+             <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+              <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+               <exp1 etag="lval" xstr="val">
+                <lval>
+                 <lhost>
+                  <var vid="5953" vname="val"/>
+                 </lhost>
+                </lval>
+               </exp1>
+               <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+                <exp1 etag="lval" xstr="val">
+                 <lval>
+                  <lhost>
+                   <var vid="5953" vname="val"/>
+                  </lhost>
+                 </lval>
+                </exp1>
+                <exp2 etag="const" xstr="16">
+                 <constant ctag="cint64" ikind="iint" intValue="16"/>
+                </exp2>
+                <typ ikind="iuint" ttag="tint"/>
+               </exp2>
+               <typ ikind="iuint" ttag="tint"/>
+              </exp1>
+              <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+               <typ ikind="iuint" ttag="tint"/>
+               <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+                <exp1 etag="lval" xstr="hash_size">
+                 <lval>
+                  <lhost>
+                   <var vid="99" vname="hash_size"/>
+                  </lhost>
+                 </lval>
+                </exp1>
+                <exp2 etag="const" xstr="1">
+                 <constant ctag="cint64" ikind="iint" intValue="1"/>
+                </exp2>
+                <typ ikind="iint" ttag="tint"/>
+               </exp>
+              </exp2>
+              <typ ikind="iuint" ttag="tint"/>
+             </exp2>
+             <typ ttag="tptr">
+              <typ ttag="tptr">
+               <typ ckey="66" ttag="tcomp"/>
+              </typ>
+             </typ>
+            </mem>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <field ckey="67" fname="bname"/>
+         </offset>
+         <field ckey="66" fname="name"/>
+        </offset>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="71"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="29">
+     <predicate op="pluspi" tag="ptr-upper-bound-deref">
+      <typ ikind="ichar" ttag="tint"/>
+      <exp1 etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 66*)*))">
+       <lval>
+        <lhost>
+         <mem binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 66*)*)">
+          <exp1 etag="lval" xstr="hash_table">
+           <lval>
+            <lhost>
+             <var vid="107" vname="hash_table"/>
+            </lhost>
+           </lval>
+          </exp1>
+          <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+           <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+            <exp1 etag="lval" xstr="val">
+             <lval>
+              <lhost>
+               <var vid="5953" vname="val"/>
+              </lhost>
+             </lval>
+            </exp1>
+            <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+             <exp1 etag="lval" xstr="val">
+              <lval>
+               <lhost>
+                <var vid="5953" vname="val"/>
+               </lhost>
+              </lval>
+             </exp1>
+             <exp2 etag="const" xstr="16">
+              <constant ctag="cint64" ikind="iint" intValue="16"/>
+             </exp2>
+             <typ ikind="iuint" ttag="tint"/>
+            </exp2>
+            <typ ikind="iuint" ttag="tint"/>
+           </exp1>
+           <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+            <typ ikind="iuint" ttag="tint"/>
+            <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+             <exp1 etag="lval" xstr="hash_size">
+              <lval>
+               <lhost>
+                <var vid="99" vname="hash_size"/>
+               </lhost>
+              </lval>
+             </exp1>
+             <exp2 etag="const" xstr="1">
+              <constant ctag="cint64" ikind="iint" intValue="1"/>
+             </exp2>
+             <typ ikind="iint" ttag="tint"/>
+            </exp>
+           </exp2>
+           <typ ikind="iuint" ttag="tint"/>
+          </exp2>
+          <typ ttag="tptr">
+           <typ ttag="tptr">
+            <typ ckey="66" ttag="tcomp"/>
+           </typ>
+          </typ>
+         </mem>
+        </lhost>
+       </lval>
+      </exp1>
+      <exp2 etag="const" xstr="1024">
+       <constant ctag="cint64" ikind="iint" intValue="1024"/>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="85"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="30">
+     <predicate tag="pointer-cast">
+      <tfrom ckey="61" ttag="tcomp"/>
+      <tto ikind="iuint" ttag="tint"/>
+      <exp etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 66*)*))">
+       <lval>
+        <lhost>
+         <mem binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 66*)*)">
+          <exp1 etag="lval" xstr="hash_table">
+           <lval>
+            <lhost>
+             <var vid="107" vname="hash_table"/>
+            </lhost>
+           </lval>
+          </exp1>
+          <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+           <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+            <exp1 etag="lval" xstr="val">
+             <lval>
+              <lhost>
+               <var vid="5953" vname="val"/>
+              </lhost>
+             </lval>
+            </exp1>
+            <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+             <exp1 etag="lval" xstr="val">
+              <lval>
+               <lhost>
+                <var vid="5953" vname="val"/>
+               </lhost>
+              </lval>
+             </exp1>
+             <exp2 etag="const" xstr="16">
+              <constant ctag="cint64" ikind="iint" intValue="16"/>
+             </exp2>
+             <typ ikind="iuint" ttag="tint"/>
+            </exp2>
+            <typ ikind="iuint" ttag="tint"/>
+           </exp1>
+           <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+            <typ ikind="iuint" ttag="tint"/>
+            <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+             <exp1 etag="lval" xstr="hash_size">
+              <lval>
+               <lhost>
+                <var vid="99" vname="hash_size"/>
+               </lhost>
+              </lval>
+             </exp1>
+             <exp2 etag="const" xstr="1">
+              <constant ctag="cint64" ikind="iint" intValue="1"/>
+             </exp2>
+             <typ ikind="iint" ttag="tint"/>
+            </exp>
+           </exp2>
+           <typ ikind="iuint" ttag="tint"/>
+          </exp2>
+          <typ ttag="tptr">
+           <typ ttag="tptr">
+            <typ ckey="66" ttag="tcomp"/>
+           </typ>
+          </typ>
+         </mem>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="87"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="31">
+     <predicate op="pluspi" tag="ptr-upper-bound-deref">
+      <typ ikind="ichar" ttag="tint"/>
+      <exp1 etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 66*)*))-&gt;name.namep">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 66*)*))">
+          <lval>
+           <lhost>
+            <mem binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 66*)*)">
+             <exp1 etag="lval" xstr="hash_table">
+              <lval>
+               <lhost>
+                <var vid="107" vname="hash_table"/>
+               </lhost>
+              </lval>
+             </exp1>
+             <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+              <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+               <exp1 etag="lval" xstr="val">
+                <lval>
+                 <lhost>
+                  <var vid="5953" vname="val"/>
+                 </lhost>
+                </lval>
+               </exp1>
+               <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+                <exp1 etag="lval" xstr="val">
+                 <lval>
+                  <lhost>
+                   <var vid="5953" vname="val"/>
+                  </lhost>
+                 </lval>
+                </exp1>
+                <exp2 etag="const" xstr="16">
+                 <constant ctag="cint64" ikind="iint" intValue="16"/>
+                </exp2>
+                <typ ikind="iuint" ttag="tint"/>
+               </exp2>
+               <typ ikind="iuint" ttag="tint"/>
+              </exp1>
+              <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+               <typ ikind="iuint" ttag="tint"/>
+               <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+                <exp1 etag="lval" xstr="hash_size">
+                 <lval>
+                  <lhost>
+                   <var vid="99" vname="hash_size"/>
+                  </lhost>
+                 </lval>
+                </exp1>
+                <exp2 etag="const" xstr="1">
+                 <constant ctag="cint64" ikind="iint" intValue="1"/>
+                </exp2>
+                <typ ikind="iint" ttag="tint"/>
+               </exp>
+              </exp2>
+              <typ ikind="iuint" ttag="tint"/>
+             </exp2>
+             <typ ttag="tptr">
+              <typ ttag="tptr">
+               <typ ckey="66" ttag="tcomp"/>
+              </typ>
+             </typ>
+            </mem>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <field ckey="67" fname="namep"/>
+         </offset>
+         <field ckey="66" fname="name"/>
+        </offset>
+       </lval>
+      </exp1>
+      <exp2 etag="const" xstr="1024">
+       <constant ctag="cint64" ikind="iint" intValue="1024"/>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="88"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="32">
+     <predicate op="pluspi" tag="ptr-upper-bound-deref">
+      <typ ikind="ichar" ttag="tint"/>
+      <exp1 etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 66*)*))-&gt;name.bname">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="*(((lval (hash_table) +i ((((lval (val) ^ ((lval (val) &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((lval (hash_size) - 1):int:unsigned int)):unsigned int):((struct 66*)*))">
+          <lval>
+           <lhost>
+            <mem binop="pluspi" etag="binop" xstr="((hash_table +i ((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int):((struct 66*)*)">
+             <exp1 etag="lval" xstr="hash_table">
+              <lval>
+               <lhost>
+                <var vid="107" vname="hash_table"/>
+               </lhost>
+              </lval>
+             </exp1>
+             <exp2 binop="band" etag="binop" xstr="((((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int &amp; caste (((hash_size - 1):int:unsigned int)):unsigned int">
+              <exp1 binop="bxor" etag="binop" xstr="((val ^ ((val &gt;&gt; 16):unsigned int):unsigned int">
+               <exp1 etag="lval" xstr="val">
+                <lval>
+                 <lhost>
+                  <var vid="5953" vname="val"/>
+                 </lhost>
+                </lval>
+               </exp1>
+               <exp2 binop="shiftrt" etag="binop" xstr="((val &gt;&gt; 16):unsigned int">
+                <exp1 etag="lval" xstr="val">
+                 <lval>
+                  <lhost>
+                   <var vid="5953" vname="val"/>
+                  </lhost>
+                 </lval>
+                </exp1>
+                <exp2 etag="const" xstr="16">
+                 <constant ctag="cint64" ikind="iint" intValue="16"/>
+                </exp2>
+                <typ ikind="iuint" ttag="tint"/>
+               </exp2>
+               <typ ikind="iuint" ttag="tint"/>
+              </exp1>
+              <exp2 etag="caste" xstr="caste (((hash_size - 1):int:unsigned int)">
+               <typ ikind="iuint" ttag="tint"/>
+               <exp binop="minusa" etag="binop" xstr="((hash_size - 1):int">
+                <exp1 etag="lval" xstr="hash_size">
+                 <lval>
+                  <lhost>
+                   <var vid="99" vname="hash_size"/>
+                  </lhost>
+                 </lval>
+                </exp1>
+                <exp2 etag="const" xstr="1">
+                 <constant ctag="cint64" ikind="iint" intValue="1"/>
+                </exp2>
+                <typ ikind="iint" ttag="tint"/>
+               </exp>
+              </exp2>
+              <typ ikind="iuint" ttag="tint"/>
+             </exp2>
+             <typ ttag="tptr">
+              <typ ttag="tptr">
+               <typ ckey="66" ttag="tcomp"/>
+              </typ>
+             </typ>
+            </mem>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <field ckey="67" fname="bname"/>
+         </offset>
+         <field ckey="66" fname="name"/>
+        </offset>
+       </lval>
+      </exp1>
+      <exp2 etag="const" xstr="1024">
+       <constant ctag="cint64" ikind="iint" intValue="1024"/>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="86"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+   </global-assumptions>
+   <global-assignments/>
+   <field-assignments/>
+  </function>
+  <header time="01/10/2017 06:52:38">
+   <application file="src/cache.c" name="application"/>
+  </header>
+ </c-analysis>

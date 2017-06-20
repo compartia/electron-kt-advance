@@ -1,0 +1,1644 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function name="cache_add_dhcp_entry">
+   <secondary-proof-obligations max-spo-id="391" num-ppo="340">
+    <indirect-calls/>
+    <callsite-obligations>
+     <callsite-obligation api-max-id="15" fname="add_dhcp_cname" fvid="6243">
+      <location byte="212207" file="src/cache.c" line="1291"/>
+      <args>
+       <arg etag="lval" xstr="crec">
+        <lval>
+         <lhost>
+          <var vid="6264" vname="crec"/>
+         </lhost>
+        </lval>
+       </arg>
+       <arg etag="lval" xstr="ttd">
+        <lval>
+         <lhost>
+          <var vid="6263" vname="ttd"/>
+         </lhost>
+        </lval>
+       </arg>
+      </args>
+      <obligations>
+       <obligation api-id="1" id="341">
+        <predicate tag="not-null">
+         <exp etag="lval" xstr="crec">
+          <lval>
+           <lhost>
+            <var vid="6264" vname="crec"/>
+           </lhost>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="6" id="375">
+        <predicate tag="global-mem">
+         <exp etag="lval" xstr="crec-&gt;name.bname">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="crec">
+             <lval>
+              <lhost>
+               <var vid="6264" vname="crec"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="bname"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="2" id="374">
+        <predicate tag="not-null">
+         <exp etag="lval" xstr="crec-&gt;name.bname">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="crec">
+             <lval>
+              <lhost>
+               <var vid="6264" vname="crec"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="bname"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="7" id="373">
+        <predicate tag="global-mem">
+         <exp etag="lval" xstr="crec">
+          <lval>
+           <lhost>
+            <var vid="6264" vname="crec"/>
+           </lhost>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="3" id="372">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="crec">
+            <lval>
+             <lhost>
+              <var vid="6264" vname="crec"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <offset>
+            <field ckey="202" fname="namep"/>
+           </offset>
+           <field ckey="196" fname="name"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="5" id="371">
+        <predicate tag="global-mem">
+         <exp etag="lval" xstr="crec-&gt;name.namep">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="crec">
+             <lval>
+              <lhost>
+               <var vid="6264" vname="crec"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="namep"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="4" id="370">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="crec">
+            <lval>
+             <lhost>
+              <var vid="6264" vname="crec"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <offset>
+            <field ckey="202" fname="bname"/>
+           </offset>
+           <field ckey="196" fname="name"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="8" id="380">
+        <predicate op="pluspi" tag="ptr-upper-bound">
+         <typ ikind="ichar" ttag="tint">
+          <attributes>
+           <attr attrname="const"/>
+          </attributes>
+         </typ>
+         <exp1 etag="lval" xstr="crec">
+          <lval>
+           <lhost>
+            <var vid="6264" vname="crec"/>
+           </lhost>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="256">
+          <constant ctag="cint64" ikind="iint" intValue="256"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="12" id="379">
+        <predicate op="pluspi" tag="ptr-upper-bound">
+         <typ ikind="ichar" ttag="tint">
+          <attributes>
+           <attr attrname="const"/>
+          </attributes>
+         </typ>
+         <exp1 etag="lval" xstr="crec-&gt;name.bname">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="crec">
+             <lval>
+              <lhost>
+               <var vid="6264" vname="crec"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="bname"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="256">
+          <constant ctag="cint64" ikind="iint" intValue="256"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="9" id="378">
+        <predicate op="pluspi" tag="ptr-upper-bound">
+         <typ ikind="ichar" ttag="tint">
+          <attributes>
+           <attr attrname="const"/>
+          </attributes>
+         </typ>
+         <exp1 etag="lval" xstr="crec-&gt;name.namep">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="crec">
+             <lval>
+              <lhost>
+               <var vid="6264" vname="crec"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="namep"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp1>
+         <exp2 cn="null-terminator-pos" etag="cnapp" xstr="null-terminator-pos[caste (crec-&gt;name.namep:(char*))]">
+          <arg etag="caste" xstr="caste (crec-&gt;name.namep:(char*))">
+           <typ ttag="tptr">
+            <typ ikind="ichar" ttag="tint">
+             <attributes>
+              <attr attrname="const"/>
+             </attributes>
+            </typ>
+           </typ>
+           <exp etag="lval" xstr="crec-&gt;name.namep">
+            <lval>
+             <lhost>
+              <mem etag="lval" xstr="crec">
+               <lval>
+                <lhost>
+                 <var vid="6264" vname="crec"/>
+                </lhost>
+               </lval>
+              </mem>
+             </lhost>
+             <offset>
+              <offset>
+               <field ckey="202" fname="namep"/>
+              </offset>
+              <field ckey="196" fname="name"/>
+             </offset>
+            </lval>
+           </exp>
+          </arg>
+          <typ ikind="iint" ttag="tint"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="11" id="377">
+        <predicate tag="not-null">
+         <exp etag="lval" xstr="crec-&gt;name.namep">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="crec">
+             <lval>
+              <lhost>
+               <var vid="6264" vname="crec"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="namep"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="10" id="376">
+        <predicate op="pluspi" tag="ptr-upper-bound">
+         <typ ikind="ichar" ttag="tint">
+          <attributes>
+           <attr attrname="const"/>
+          </attributes>
+         </typ>
+         <exp1 etag="lval" xstr="crec-&gt;name.namep">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="crec">
+             <lval>
+              <lhost>
+               <var vid="6264" vname="crec"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="namep"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="256">
+          <constant ctag="cint64" ikind="iint" intValue="256"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="14" id="388">
+        <predicate op="pluspi" tag="ptr-upper-bound-deref">
+         <typ ikind="ichar" ttag="tint"/>
+         <exp1 etag="lval" xstr="crec-&gt;name.bname">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="crec">
+             <lval>
+              <lhost>
+               <var vid="6264" vname="crec"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="bname"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="1024">
+          <constant ctag="cint64" ikind="iint" intValue="1024"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="13" id="387">
+        <predicate op="pluspi" tag="ptr-upper-bound-deref">
+         <typ ikind="ichar" ttag="tint"/>
+         <exp1 etag="lval" xstr="crec-&gt;name.namep">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="crec">
+             <lval>
+              <lhost>
+               <var vid="6264" vname="crec"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="namep"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="1024">
+          <constant ctag="cint64" ikind="iint" intValue="1024"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="15" id="386">
+        <predicate op="pluspi" tag="ptr-upper-bound-deref">
+         <typ ikind="ichar" ttag="tint"/>
+         <exp1 etag="lval" xstr="crec">
+          <lval>
+           <lhost>
+            <var vid="6264" vname="crec"/>
+           </lhost>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="1024">
+          <constant ctag="cint64" ikind="iint" intValue="1024"/>
+         </exp2>
+        </predicate>
+       </obligation>
+      </obligations>
+      <context>
+       <cfg-context>
+        <node name="instr" num="4"/>
+        <node name="stmt" num="650"/>
+        <node name="if-then"/>
+        <node name="stmt" num="645"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="16" fname="cache_hash" fvid="5926">
+      <location byte="212182" file="src/cache.c" line="1289"/>
+      <args>
+       <arg etag="lval" xstr="crec">
+        <lval>
+         <lhost>
+          <var vid="6264" vname="crec"/>
+         </lhost>
+        </lval>
+       </arg>
+      </args>
+      <obligations>
+       <obligation api-id="1" id="342">
+        <predicate tag="not-null">
+         <exp etag="lval" xstr="crec">
+          <lval>
+           <lhost>
+            <var vid="6264" vname="crec"/>
+           </lhost>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="6" id="369">
+        <predicate tag="global-mem">
+         <exp etag="lval" xstr="crec">
+          <lval>
+           <lhost>
+            <var vid="6264" vname="crec"/>
+           </lhost>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="2" id="368">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="crec">
+            <lval>
+             <lhost>
+              <var vid="6264" vname="crec"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <field ckey="196" fname="flags"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="8" id="367">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="crec">
+            <lval>
+             <lhost>
+              <var vid="6264" vname="crec"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <offset>
+            <field ckey="202" fname="namep"/>
+           </offset>
+           <field ckey="196" fname="name"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="7" id="366">
+        <predicate tag="global-mem">
+         <exp etag="lval" xstr="crec-&gt;name.namep">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="crec">
+             <lval>
+              <lhost>
+               <var vid="6264" vname="crec"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="namep"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="3" id="365">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="crec">
+            <lval>
+             <lhost>
+              <var vid="6264" vname="crec"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <offset>
+            <field ckey="202" fname="bname"/>
+           </offset>
+           <field ckey="196" fname="name"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="5" id="364">
+        <predicate tag="not-null">
+         <exp etag="lval" xstr="crec-&gt;name.bname">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="crec">
+             <lval>
+              <lhost>
+               <var vid="6264" vname="crec"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="bname"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="4" id="363">
+        <predicate tag="global-mem">
+         <exp etag="lval" xstr="crec-&gt;name.bname">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="crec">
+             <lval>
+              <lhost>
+               <var vid="6264" vname="crec"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="bname"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="13" id="385">
+        <predicate op="pluspi" tag="ptr-upper-bound">
+         <typ ikind="ichar" ttag="tint">
+          <attributes>
+           <attr attrname="const"/>
+          </attributes>
+         </typ>
+         <exp1 etag="lval" xstr="crec-&gt;name.namep">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="crec">
+             <lval>
+              <lhost>
+               <var vid="6264" vname="crec"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="namep"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="256">
+          <constant ctag="cint64" ikind="iint" intValue="256"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="12" id="384">
+        <predicate op="pluspi" tag="ptr-upper-bound">
+         <typ ikind="ichar" ttag="tint">
+          <attributes>
+           <attr attrname="const"/>
+          </attributes>
+         </typ>
+         <exp1 etag="lval" xstr="crec">
+          <lval>
+           <lhost>
+            <var vid="6264" vname="crec"/>
+           </lhost>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="256">
+          <constant ctag="cint64" ikind="iint" intValue="256"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="9" id="383">
+        <predicate op="pluspi" tag="ptr-upper-bound">
+         <typ ikind="ichar" ttag="tint">
+          <attributes>
+           <attr attrname="const"/>
+          </attributes>
+         </typ>
+         <exp1 etag="lval" xstr="crec-&gt;name.bname">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="crec">
+             <lval>
+              <lhost>
+               <var vid="6264" vname="crec"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="bname"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="256">
+          <constant ctag="cint64" ikind="iint" intValue="256"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="11" id="382">
+        <predicate tag="not-null">
+         <exp etag="lval" xstr="crec-&gt;name.namep">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="crec">
+             <lval>
+              <lhost>
+               <var vid="6264" vname="crec"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="namep"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="10" id="381">
+        <predicate op="pluspi" tag="ptr-upper-bound">
+         <typ ikind="ichar" ttag="tint">
+          <attributes>
+           <attr attrname="const"/>
+          </attributes>
+         </typ>
+         <exp1 etag="lval" xstr="crec-&gt;name.namep">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="crec">
+             <lval>
+              <lhost>
+               <var vid="6264" vname="crec"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="namep"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp1>
+         <exp2 cn="null-terminator-pos" etag="cnapp" xstr="null-terminator-pos[caste (crec-&gt;name.namep:(char*))]">
+          <arg etag="caste" xstr="caste (crec-&gt;name.namep:(char*))">
+           <typ ttag="tptr">
+            <typ ikind="ichar" ttag="tint">
+             <attributes>
+              <attr attrname="const"/>
+             </attributes>
+            </typ>
+           </typ>
+           <exp etag="lval" xstr="crec-&gt;name.namep">
+            <lval>
+             <lhost>
+              <mem etag="lval" xstr="crec">
+               <lval>
+                <lhost>
+                 <var vid="6264" vname="crec"/>
+                </lhost>
+               </lval>
+              </mem>
+             </lhost>
+             <offset>
+              <offset>
+               <field ckey="202" fname="namep"/>
+              </offset>
+              <field ckey="196" fname="name"/>
+             </offset>
+            </lval>
+           </exp>
+          </arg>
+          <typ ikind="iint" ttag="tint"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="15" id="391">
+        <predicate op="pluspi" tag="ptr-upper-bound-deref">
+         <typ ikind="ichar" ttag="tint"/>
+         <exp1 etag="lval" xstr="crec">
+          <lval>
+           <lhost>
+            <var vid="6264" vname="crec"/>
+           </lhost>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="1024">
+          <constant ctag="cint64" ikind="iint" intValue="1024"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="14" id="390">
+        <predicate op="pluspi" tag="ptr-upper-bound-deref">
+         <typ ikind="ichar" ttag="tint"/>
+         <exp1 etag="lval" xstr="crec-&gt;name.bname">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="crec">
+             <lval>
+              <lhost>
+               <var vid="6264" vname="crec"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="bname"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="1024">
+          <constant ctag="cint64" ikind="iint" intValue="1024"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="16" id="389">
+        <predicate op="pluspi" tag="ptr-upper-bound-deref">
+         <typ ikind="ichar" ttag="tint"/>
+         <exp1 etag="lval" xstr="crec-&gt;name.namep">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="crec">
+             <lval>
+              <lhost>
+               <var vid="6264" vname="crec"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="namep"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="1024">
+          <constant ctag="cint64" ikind="iint" intValue="1024"/>
+         </exp2>
+        </predicate>
+       </obligation>
+      </obligations>
+      <context>
+       <cfg-context>
+        <node name="instr" num="3"/>
+        <node name="stmt" num="650"/>
+        <node name="if-then"/>
+        <node name="stmt" num="645"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="0" fname="next_uid" fvid="5927">
+      <location byte="212152" file="src/cache.c" line="1288"/>
+      <args/>
+      <obligations/>
+      <context>
+       <cfg-context>
+        <node name="instr" num="2"/>
+        <node name="stmt" num="650"/>
+        <node name="if-then"/>
+        <node name="stmt" num="645"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="1" fname="whine_malloc" fvid="4790">
+      <location byte="211879" file="src/cache.c" line="1277"/>
+      <args>
+       <arg etag="sizeof" xstr="sizeof (struct 196)">
+        <typ ckey="196" ttag="tcomp"/>
+       </arg>
+      </args>
+      <obligations>
+       <obligation api-id="1" id="343">
+        <predicate from="iulong" tag="unsigned-to-signed-cast" to="iint">
+         <exp etag="sizeof" xstr="sizeof (struct 196)">
+          <typ ckey="196" ttag="tcomp"/>
+         </exp>
+        </predicate>
+       </obligation>
+      </obligations>
+      <context>
+       <cfg-context>
+        <node name="instr" num="0"/>
+        <node name="stmt" num="644"/>
+        <node name="if-else"/>
+        <node name="stmt" num="642"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="4" fname="cache_scan_free" fvid="5994">
+      <location byte="211694" file="src/cache.c" line="1268"/>
+      <args>
+       <arg etag="caste" xstr="caste (caste (0:(void*)):(char*))">
+        <typ ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </typ>
+        <exp etag="caste" xstr="caste (0:(void*))">
+         <typ ttag="tptr">
+          <typ ttag="tvoid"/>
+         </typ>
+         <exp etag="const" xstr="0">
+          <constant ctag="cint64" ikind="iint" intValue="0"/>
+         </exp>
+        </exp>
+       </arg>
+       <arg etag="lval" xstr="host_address">
+        <lval>
+         <lhost>
+          <var vid="6262" vname="host_address"/>
+         </lhost>
+        </lval>
+       </arg>
+       <arg etag="caste" xstr="caste (0:time_t)">
+        <typ tname="time_t" ttag="tnamed"/>
+        <exp etag="const" xstr="0">
+         <constant ctag="cint64" ikind="iint" intValue="0"/>
+        </exp>
+       </arg>
+       <arg etag="lval" xstr="flags">
+        <lval>
+         <lhost>
+          <var vid="6266" vname="flags"/>
+         </lhost>
+        </lval>
+       </arg>
+      </args>
+      <obligations>
+       <obligation api-id="2" id="346">
+        <predicate op="pluspi" tag="ptr-upper-bound">
+         <typ ttag="tvoid">
+          <attributes>
+           <attr attrname="const"/>
+          </attributes>
+         </typ>
+         <exp1 etag="lval" xstr="host_address">
+          <lval>
+           <lhost>
+            <var vid="6262" vname="host_address"/>
+           </lhost>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="16">
+          <constant ctag="cint64" ikind="iint" intValue="16"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="3" id="345">
+        <predicate tag="not-null">
+         <exp etag="lval" xstr="host_address">
+          <lval>
+           <lhost>
+            <var vid="6262" vname="host_address"/>
+           </lhost>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="1" id="344">
+        <predicate from="iushort" tag="unsigned-to-signed-cast" to="iint">
+         <exp etag="lval" xstr="flags">
+          <lval>
+           <lhost>
+            <var vid="6266" vname="flags"/>
+           </lhost>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="4" id="362">
+        <predicate tag="not-null">
+         <exp etag="caste" xstr="caste (caste (0:(void*)):(char*))">
+          <typ ttag="tptr">
+           <typ ikind="ichar" ttag="tint"/>
+          </typ>
+          <exp etag="caste" xstr="caste (0:(void*))">
+           <typ ttag="tptr">
+            <typ ttag="tvoid"/>
+           </typ>
+           <exp etag="const" xstr="0">
+            <constant ctag="cint64" ikind="iint" intValue="0"/>
+           </exp>
+          </exp>
+         </exp>
+        </predicate>
+       </obligation>
+      </obligations>
+      <context>
+       <cfg-context>
+        <node name="instr" num="1"/>
+        <node name="stmt" num="639"/>
+        <node name="if-then"/>
+        <node name="stmt" num="638"/>
+        <node name="if-then"/>
+        <node name="stmt" num="637"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="3" fname="cache_find_by_addr" fvid="4370">
+      <location byte="211539" file="src/cache.c" line="1263"/>
+      <args>
+       <arg etag="caste" xstr="caste (caste (0:(void*)):(struct 196*))">
+        <typ ttag="tptr">
+         <typ ckey="196" ttag="tcomp"/>
+        </typ>
+        <exp etag="caste" xstr="caste (0:(void*))">
+         <typ ttag="tptr">
+          <typ ttag="tvoid"/>
+         </typ>
+         <exp etag="const" xstr="0">
+          <constant ctag="cint64" ikind="iint" intValue="0"/>
+         </exp>
+        </exp>
+       </arg>
+       <arg etag="lval" xstr="host_address">
+        <lval>
+         <lhost>
+          <var vid="6262" vname="host_address"/>
+         </lhost>
+        </lval>
+       </arg>
+       <arg etag="caste" xstr="caste (0:time_t)">
+        <typ tname="time_t" ttag="tnamed"/>
+        <exp etag="const" xstr="0">
+         <constant ctag="cint64" ikind="iint" intValue="0"/>
+        </exp>
+       </arg>
+       <arg etag="caste" xstr="caste (flags:unsigned int)">
+        <typ ikind="iuint" ttag="tint"/>
+        <exp etag="lval" xstr="flags">
+         <lval>
+          <lhost>
+           <var vid="6266" vname="flags"/>
+          </lhost>
+         </lval>
+        </exp>
+       </arg>
+      </args>
+      <obligations>
+       <obligation api-id="2" id="349">
+        <predicate tag="not-null">
+         <exp etag="lval" xstr="host_address">
+          <lval>
+           <lhost>
+            <var vid="6262" vname="host_address"/>
+           </lhost>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="3" id="348">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="caste" xstr="caste (caste (0:(void*)):(struct 196*))">
+            <typ ttag="tptr">
+             <typ ckey="196" ttag="tcomp"/>
+            </typ>
+            <exp etag="caste" xstr="caste (0:(void*))">
+             <typ ttag="tptr">
+              <typ ttag="tvoid"/>
+             </typ>
+             <exp etag="const" xstr="0">
+              <constant ctag="cint64" ikind="iint" intValue="0"/>
+             </exp>
+            </exp>
+           </mem>
+          </lhost>
+          <offset>
+           <field ckey="196" fname="next"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="1" id="347">
+        <predicate op="pluspi" tag="ptr-upper-bound">
+         <typ ttag="tvoid">
+          <attributes>
+           <attr attrname="const"/>
+          </attributes>
+         </typ>
+         <exp1 etag="lval" xstr="host_address">
+          <lval>
+           <lhost>
+            <var vid="6262" vname="host_address"/>
+           </lhost>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="16">
+          <constant ctag="cint64" ikind="iint" intValue="16"/>
+         </exp2>
+        </predicate>
+       </obligation>
+      </obligations>
+      <context>
+       <cfg-context>
+        <node name="instr" num="0"/>
+        <node name="stmt" num="636"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="3" fname="my_syslog" fvid="4917">
+      <location byte="211251" file="src/cache.c" line="1255"/>
+      <args>
+       <arg binop="bor" etag="binop" xstr="((((3 &lt;&lt; 3):int | 4):int">
+        <exp1 binop="shiftlt" etag="binop" xstr="((3 &lt;&lt; 3):int">
+         <exp1 etag="const" xstr="3">
+          <constant ctag="cint64" ikind="iint" intValue="3"/>
+         </exp1>
+         <exp2 etag="const" xstr="3">
+          <constant ctag="cint64" ikind="iint" intValue="3"/>
+         </exp2>
+         <typ ikind="iint" ttag="tint"/>
+        </exp1>
+        <exp2 etag="const" xstr="4">
+         <constant ctag="cint64" ikind="iint" intValue="4"/>
+        </exp2>
+        <typ ikind="iint" ttag="tint"/>
+       </arg>
+       <arg etag="const" xstr="&quot;not giving name %s to the DHCP lease of %s because the name exists in %s with address %s&quot;">
+        <constant ctag="cstr" strValue="not giving name %s to the DHCP lease of %s because the name exists in %s with address %s"/>
+       </arg>
+       <arg etag="lval" xstr="host_name">
+        <lval>
+         <lhost>
+          <var vid="6260" vname="host_name"/>
+         </lhost>
+        </lval>
+       </arg>
+       <arg etag="lval" xstr="dnsmasq_daemon-&gt;addrbuff">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="dnsmasq_daemon">
+           <lval>
+            <lhost>
+             <var vid="4341" vname="dnsmasq_daemon"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <field ckey="238" fname="addrbuff"/>
+         </offset>
+        </lval>
+       </arg>
+       <arg etag="lval" xstr="tmp___0">
+        <lval>
+         <lhost>
+          <var vid="6271" vname="tmp___0"/>
+         </lhost>
+        </lval>
+       </arg>
+       <arg etag="lval" xstr="dnsmasq_daemon-&gt;namebuff">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="dnsmasq_daemon">
+           <lval>
+            <lhost>
+             <var vid="4341" vname="dnsmasq_daemon"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <field ckey="238" fname="namebuff"/>
+         </offset>
+        </lval>
+       </arg>
+      </args>
+      <obligations>
+       <obligation api-id="2" id="352">
+        <predicate op="pluspi" tag="ptr-upper-bound">
+         <typ ikind="ichar" ttag="tint">
+          <attributes>
+           <attr attrname="const"/>
+          </attributes>
+         </typ>
+         <exp1 etag="const" xstr="&quot;not giving name %s to the DHCP lease of %s because the name exists in %s with address %s&quot;">
+          <constant ctag="cstr" strValue="not giving name %s to the DHCP lease of %s because the name exists in %s with address %s"/>
+         </exp1>
+         <exp2 cn="null-terminator-pos" etag="cnapp" xstr="null-terminator-pos[caste (&quot;not giving name %s to the DHCP lease of %s because the name exists in %s with address %s&quot;:(char*))]">
+          <arg etag="caste" xstr="caste (&quot;not giving name %s to the DHCP lease of %s because the name exists in %s with address %s&quot;:(char*))">
+           <typ ttag="tptr">
+            <attributes>
+             <attr attrname="restrict"/>
+            </attributes>
+            <typ ikind="ichar" ttag="tint">
+             <attributes>
+              <attr attrname="const"/>
+             </attributes>
+            </typ>
+           </typ>
+           <exp etag="const" xstr="&quot;not giving name %s to the DHCP lease of %s because the name exists in %s with address %s&quot;">
+            <constant ctag="cstr" strValue="not giving name %s to the DHCP lease of %s because the name exists in %s with address %s"/>
+           </exp>
+          </arg>
+          <typ ikind="iint" ttag="tint"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="3" id="351">
+        <predicate tag="initialized-range">
+         <base-exp etag="const" xstr="&quot;not giving name %s to the DHCP lease of %s because the name exists in %s with address %s&quot;">
+          <constant ctag="cstr" strValue="not giving name %s to the DHCP lease of %s because the name exists in %s with address %s"/>
+         </base-exp>
+         <len-exp etag="const" xstr="&quot;not giving name %s to the DHCP lease of %s because the name exists in %s with address %s&quot;">
+          <constant ctag="cstr" strValue="not giving name %s to the DHCP lease of %s because the name exists in %s with address %s"/>
+         </len-exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="1" id="350">
+        <predicate tag="not-null">
+         <exp etag="const" xstr="&quot;not giving name %s to the DHCP lease of %s because the name exists in %s with address %s&quot;">
+          <constant ctag="cstr" strValue="not giving name %s to the DHCP lease of %s because the name exists in %s with address %s"/>
+         </exp>
+        </predicate>
+       </obligation>
+      </obligations>
+      <context>
+       <cfg-context>
+        <node name="instr" num="2"/>
+        <node name="stmt" num="634"/>
+        <node name="if-then"/>
+        <node name="stmt" num="633"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="0" fname="record_source" fvid="4356">
+      <location byte="211251" file="src/cache.c" line="1255"/>
+      <args>
+       <arg etag="lval" xstr="fail_crec-&gt;uid">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="fail_crec">
+           <lval>
+            <lhost>
+             <var vid="6265" vname="fail_crec"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <field ckey="196" fname="uid"/>
+         </offset>
+        </lval>
+       </arg>
+      </args>
+      <obligations/>
+      <context>
+       <cfg-context>
+        <node name="instr" num="1"/>
+        <node name="stmt" num="634"/>
+        <node name="if-then"/>
+        <node name="stmt" num="633"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="4" fname="cache_scan_free" fvid="5994">
+      <location byte="211004" file="src/cache.c" line="1241"/>
+      <args>
+       <arg etag="lval" xstr="host_name">
+        <lval>
+         <lhost>
+          <var vid="6260" vname="host_name"/>
+         </lhost>
+        </lval>
+       </arg>
+       <arg etag="caste" xstr="caste (caste (0:(void*)):(struct 176*))">
+        <typ ttag="tptr">
+         <typ ckey="176" ttag="tcomp"/>
+        </typ>
+        <exp etag="caste" xstr="caste (0:(void*))">
+         <typ ttag="tptr">
+          <typ ttag="tvoid"/>
+         </typ>
+         <exp etag="const" xstr="0">
+          <constant ctag="cint64" ikind="iint" intValue="0"/>
+         </exp>
+        </exp>
+       </arg>
+       <arg etag="caste" xstr="caste (0:time_t)">
+        <typ tname="time_t" ttag="tnamed"/>
+        <exp etag="const" xstr="0">
+         <constant ctag="cint64" ikind="iint" intValue="0"/>
+        </exp>
+       </arg>
+       <arg etag="caste" xstr="caste (((caste (crec-&gt;flags:unsigned int) &amp; ((((caste (flags:unsigned int) | ((1 &lt;&lt; 11):unsigned int):unsigned int | ((1 &lt;&lt; 3):unsigned int):unsigned int):unsigned int:unsigned short)">
+        <typ ikind="iushort" ttag="tint"/>
+        <exp binop="band" etag="binop" xstr="((caste (crec-&gt;flags:unsigned int) &amp; ((((caste (flags:unsigned int) | ((1 &lt;&lt; 11):unsigned int):unsigned int | ((1 &lt;&lt; 3):unsigned int):unsigned int):unsigned int">
+         <exp1 etag="caste" xstr="caste (crec-&gt;flags:unsigned int)">
+          <typ ikind="iuint" ttag="tint"/>
+          <exp etag="lval" xstr="crec-&gt;flags">
+           <lval>
+            <lhost>
+             <mem etag="lval" xstr="crec">
+              <lval>
+               <lhost>
+                <var vid="6264" vname="crec"/>
+               </lhost>
+              </lval>
+             </mem>
+            </lhost>
+            <offset>
+             <field ckey="196" fname="flags"/>
+            </offset>
+           </lval>
+          </exp>
+         </exp1>
+         <exp2 binop="bor" etag="binop" xstr="((((caste (flags:unsigned int) | ((1 &lt;&lt; 11):unsigned int):unsigned int | ((1 &lt;&lt; 3):unsigned int):unsigned int">
+          <exp1 binop="bor" etag="binop" xstr="((caste (flags:unsigned int) | ((1 &lt;&lt; 11):unsigned int):unsigned int">
+           <exp1 etag="caste" xstr="caste (flags:unsigned int)">
+            <typ ikind="iuint" ttag="tint"/>
+            <exp etag="lval" xstr="flags">
+             <lval>
+              <lhost>
+               <var vid="6266" vname="flags"/>
+              </lhost>
+             </lval>
+            </exp>
+           </exp1>
+           <exp2 binop="shiftlt" etag="binop" xstr="((1 &lt;&lt; 11):unsigned int">
+            <exp1 etag="const" xstr="1">
+             <constant ctag="cint64" ikind="iuint" intValue="1"/>
+            </exp1>
+            <exp2 etag="const" xstr="11">
+             <constant ctag="cint64" ikind="iint" intValue="11"/>
+            </exp2>
+            <typ ikind="iuint" ttag="tint"/>
+           </exp2>
+           <typ ikind="iuint" ttag="tint"/>
+          </exp1>
+          <exp2 binop="shiftlt" etag="binop" xstr="((1 &lt;&lt; 3):unsigned int">
+           <exp1 etag="const" xstr="1">
+            <constant ctag="cint64" ikind="iuint" intValue="1"/>
+           </exp1>
+           <exp2 etag="const" xstr="3">
+            <constant ctag="cint64" ikind="iint" intValue="3"/>
+           </exp2>
+           <typ ikind="iuint" ttag="tint"/>
+          </exp2>
+          <typ ikind="iuint" ttag="tint"/>
+         </exp2>
+         <typ ikind="iuint" ttag="tint"/>
+        </exp>
+       </arg>
+      </args>
+      <obligations>
+       <obligation api-id="2" id="355">
+        <predicate op="pluspi" tag="ptr-upper-bound">
+         <typ ttag="tvoid">
+          <attributes>
+           <attr attrname="const"/>
+          </attributes>
+         </typ>
+         <exp1 etag="caste" xstr="caste (caste (0:(void*)):(struct 176*))">
+          <typ ttag="tptr">
+           <typ ckey="176" ttag="tcomp"/>
+          </typ>
+          <exp etag="caste" xstr="caste (0:(void*))">
+           <typ ttag="tptr">
+            <typ ttag="tvoid"/>
+           </typ>
+           <exp etag="const" xstr="0">
+            <constant ctag="cint64" ikind="iint" intValue="0"/>
+           </exp>
+          </exp>
+         </exp1>
+         <exp2 etag="const" xstr="16">
+          <constant ctag="cint64" ikind="iint" intValue="16"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="3" id="354">
+        <predicate tag="not-null">
+         <exp etag="caste" xstr="caste (caste (0:(void*)):(struct 176*))">
+          <typ ttag="tptr">
+           <typ ckey="176" ttag="tcomp"/>
+          </typ>
+          <exp etag="caste" xstr="caste (0:(void*))">
+           <typ ttag="tptr">
+            <typ ttag="tvoid"/>
+           </typ>
+           <exp etag="const" xstr="0">
+            <constant ctag="cint64" ikind="iint" intValue="0"/>
+           </exp>
+          </exp>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="1" id="353">
+        <predicate from="iushort" tag="unsigned-to-signed-cast" to="iint">
+         <exp etag="caste" xstr="caste (((caste (crec-&gt;flags:unsigned int) &amp; ((((caste (flags:unsigned int) | ((1 &lt;&lt; 11):unsigned int):unsigned int | ((1 &lt;&lt; 3):unsigned int):unsigned int):unsigned int:unsigned short)">
+          <typ ikind="iushort" ttag="tint"/>
+          <exp binop="band" etag="binop" xstr="((caste (crec-&gt;flags:unsigned int) &amp; ((((caste (flags:unsigned int) | ((1 &lt;&lt; 11):unsigned int):unsigned int | ((1 &lt;&lt; 3):unsigned int):unsigned int):unsigned int">
+           <exp1 etag="caste" xstr="caste (crec-&gt;flags:unsigned int)">
+            <typ ikind="iuint" ttag="tint"/>
+            <exp etag="lval" xstr="crec-&gt;flags">
+             <lval>
+              <lhost>
+               <mem etag="lval" xstr="crec">
+                <lval>
+                 <lhost>
+                  <var vid="6264" vname="crec"/>
+                 </lhost>
+                </lval>
+               </mem>
+              </lhost>
+              <offset>
+               <field ckey="196" fname="flags"/>
+              </offset>
+             </lval>
+            </exp>
+           </exp1>
+           <exp2 binop="bor" etag="binop" xstr="((((caste (flags:unsigned int) | ((1 &lt;&lt; 11):unsigned int):unsigned int | ((1 &lt;&lt; 3):unsigned int):unsigned int">
+            <exp1 binop="bor" etag="binop" xstr="((caste (flags:unsigned int) | ((1 &lt;&lt; 11):unsigned int):unsigned int">
+             <exp1 etag="caste" xstr="caste (flags:unsigned int)">
+              <typ ikind="iuint" ttag="tint"/>
+              <exp etag="lval" xstr="flags">
+               <lval>
+                <lhost>
+                 <var vid="6266" vname="flags"/>
+                </lhost>
+               </lval>
+              </exp>
+             </exp1>
+             <exp2 binop="shiftlt" etag="binop" xstr="((1 &lt;&lt; 11):unsigned int">
+              <exp1 etag="const" xstr="1">
+               <constant ctag="cint64" ikind="iuint" intValue="1"/>
+              </exp1>
+              <exp2 etag="const" xstr="11">
+               <constant ctag="cint64" ikind="iint" intValue="11"/>
+              </exp2>
+              <typ ikind="iuint" ttag="tint"/>
+             </exp2>
+             <typ ikind="iuint" ttag="tint"/>
+            </exp1>
+            <exp2 binop="shiftlt" etag="binop" xstr="((1 &lt;&lt; 3):unsigned int">
+             <exp1 etag="const" xstr="1">
+              <constant ctag="cint64" ikind="iuint" intValue="1"/>
+             </exp1>
+             <exp2 etag="const" xstr="3">
+              <constant ctag="cint64" ikind="iint" intValue="3"/>
+             </exp2>
+             <typ ikind="iuint" ttag="tint"/>
+            </exp2>
+            <typ ikind="iuint" ttag="tint"/>
+           </exp2>
+           <typ ikind="iuint" ttag="tint"/>
+          </exp>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="4" id="361">
+        <predicate tag="not-null">
+         <exp etag="lval" xstr="host_name">
+          <lval>
+           <lhost>
+            <var vid="6260" vname="host_name"/>
+           </lhost>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+      </obligations>
+      <context>
+       <cfg-context>
+        <node name="instr" num="0"/>
+        <node name="stmt" num="629"/>
+        <node name="if-then"/>
+        <node name="stmt" num="628"/>
+        <node name="if-else"/>
+        <node name="stmt" num="621"/>
+        <node name="loop"/>
+        <node name="stmt" num="617"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="3" fname="my_syslog" fvid="4917">
+      <location byte="210704" file="src/cache.c" line="1231"/>
+      <args>
+       <arg binop="bor" etag="binop" xstr="((((3 &lt;&lt; 3):int | 4):int">
+        <exp1 binop="shiftlt" etag="binop" xstr="((3 &lt;&lt; 3):int">
+         <exp1 etag="const" xstr="3">
+          <constant ctag="cint64" ikind="iint" intValue="3"/>
+         </exp1>
+         <exp2 etag="const" xstr="3">
+          <constant ctag="cint64" ikind="iint" intValue="3"/>
+         </exp2>
+         <typ ikind="iint" ttag="tint"/>
+        </exp1>
+        <exp2 etag="const" xstr="4">
+         <constant ctag="cint64" ikind="iint" intValue="4"/>
+        </exp2>
+        <typ ikind="iint" ttag="tint"/>
+       </arg>
+       <arg etag="const" xstr="&quot;%s is a CNAME, not giving it to the DHCP lease of %s&quot;">
+        <constant ctag="cstr" strValue="%s is a CNAME, not giving it to the DHCP lease of %s"/>
+       </arg>
+       <arg etag="lval" xstr="host_name">
+        <lval>
+         <lhost>
+          <var vid="6260" vname="host_name"/>
+         </lhost>
+        </lval>
+       </arg>
+       <arg etag="lval" xstr="dnsmasq_daemon-&gt;addrbuff">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="dnsmasq_daemon">
+           <lval>
+            <lhost>
+             <var vid="4341" vname="dnsmasq_daemon"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <field ckey="238" fname="addrbuff"/>
+         </offset>
+        </lval>
+       </arg>
+      </args>
+      <obligations>
+       <obligation api-id="2" id="358">
+        <predicate op="pluspi" tag="ptr-upper-bound">
+         <typ ikind="ichar" ttag="tint">
+          <attributes>
+           <attr attrname="const"/>
+          </attributes>
+         </typ>
+         <exp1 etag="const" xstr="&quot;%s is a CNAME, not giving it to the DHCP lease of %s&quot;">
+          <constant ctag="cstr" strValue="%s is a CNAME, not giving it to the DHCP lease of %s"/>
+         </exp1>
+         <exp2 cn="null-terminator-pos" etag="cnapp" xstr="null-terminator-pos[caste (&quot;%s is a CNAME, not giving it to the DHCP lease of %s&quot;:(char*))]">
+          <arg etag="caste" xstr="caste (&quot;%s is a CNAME, not giving it to the DHCP lease of %s&quot;:(char*))">
+           <typ ttag="tptr">
+            <attributes>
+             <attr attrname="restrict"/>
+            </attributes>
+            <typ ikind="ichar" ttag="tint">
+             <attributes>
+              <attr attrname="const"/>
+             </attributes>
+            </typ>
+           </typ>
+           <exp etag="const" xstr="&quot;%s is a CNAME, not giving it to the DHCP lease of %s&quot;">
+            <constant ctag="cstr" strValue="%s is a CNAME, not giving it to the DHCP lease of %s"/>
+           </exp>
+          </arg>
+          <typ ikind="iint" ttag="tint"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="3" id="357">
+        <predicate tag="initialized-range">
+         <base-exp etag="const" xstr="&quot;%s is a CNAME, not giving it to the DHCP lease of %s&quot;">
+          <constant ctag="cstr" strValue="%s is a CNAME, not giving it to the DHCP lease of %s"/>
+         </base-exp>
+         <len-exp etag="const" xstr="&quot;%s is a CNAME, not giving it to the DHCP lease of %s&quot;">
+          <constant ctag="cstr" strValue="%s is a CNAME, not giving it to the DHCP lease of %s"/>
+         </len-exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="1" id="356">
+        <predicate tag="not-null">
+         <exp etag="const" xstr="&quot;%s is a CNAME, not giving it to the DHCP lease of %s&quot;">
+          <constant ctag="cstr" strValue="%s is a CNAME, not giving it to the DHCP lease of %s"/>
+         </exp>
+        </predicate>
+       </obligation>
+      </obligations>
+      <context>
+       <cfg-context>
+        <node name="instr" num="0"/>
+        <node name="stmt" num="623"/>
+        <node name="if-then"/>
+        <node name="stmt" num="622"/>
+        <node name="if-then"/>
+        <node name="stmt" num="621"/>
+        <node name="loop"/>
+        <node name="stmt" num="617"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="2" fname="cache_find_by_name" fvid="4379">
+      <location byte="210538" file="src/cache.c" line="1225"/>
+      <args>
+       <arg etag="lval" xstr="crec">
+        <lval>
+         <lhost>
+          <var vid="6264" vname="crec"/>
+         </lhost>
+        </lval>
+       </arg>
+       <arg etag="lval" xstr="host_name">
+        <lval>
+         <lhost>
+          <var vid="6260" vname="host_name"/>
+         </lhost>
+        </lval>
+       </arg>
+       <arg etag="caste" xstr="caste (0:time_t)">
+        <typ tname="time_t" ttag="tnamed"/>
+        <exp etag="const" xstr="0">
+         <constant ctag="cint64" ikind="iint" intValue="0"/>
+        </exp>
+       </arg>
+       <arg binop="bor" etag="binop" xstr="((caste (flags:unsigned int) | ((1 &lt;&lt; 11):unsigned int):unsigned int">
+        <exp1 etag="caste" xstr="caste (flags:unsigned int)">
+         <typ ikind="iuint" ttag="tint"/>
+         <exp etag="lval" xstr="flags">
+          <lval>
+           <lhost>
+            <var vid="6266" vname="flags"/>
+           </lhost>
+          </lval>
+         </exp>
+        </exp1>
+        <exp2 binop="shiftlt" etag="binop" xstr="((1 &lt;&lt; 11):unsigned int">
+         <exp1 etag="const" xstr="1">
+          <constant ctag="cint64" ikind="iuint" intValue="1"/>
+         </exp1>
+         <exp2 etag="const" xstr="11">
+          <constant ctag="cint64" ikind="iint" intValue="11"/>
+         </exp2>
+         <typ ikind="iuint" ttag="tint"/>
+        </exp2>
+        <typ ikind="iuint" ttag="tint"/>
+       </arg>
+      </args>
+      <obligations>
+       <obligation api-id="1" id="359">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="crec">
+            <lval>
+             <lhost>
+              <var vid="6264" vname="crec"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <field ckey="196" fname="next"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="2" id="360">
+        <predicate tag="not-null">
+         <exp etag="lval" xstr="host_name">
+          <lval>
+           <lhost>
+            <var vid="6260" vname="host_name"/>
+           </lhost>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+      </obligations>
+      <context>
+       <cfg-context>
+        <node name="instr" num="0"/>
+        <node name="stmt" num="618"/>
+        <node name="loop"/>
+        <node name="stmt" num="617"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+    </callsite-obligations>
+    <return-sites/>
+    <post-expectations/>
+    <ds-expectations/>
+   </secondary-proof-obligations>
+  </function>
+  <header time="01/10/2017 05:33:32">
+   <application file="src/cache.c" name="application"/>
+  </header>
+ </c-analysis>

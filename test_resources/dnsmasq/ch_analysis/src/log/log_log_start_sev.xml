@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <log>
+   <log-entry time="01/10/2017 06:52:57"/>
+   <log-entry time="01/10/2017 05:29:42"/>
+   <log-entry time="01/10/2017 05:18:28"/>
+   <log-entry time="01/10/2017 04:56:27"/>
+   <log-entry time="01/10/2017 04:32:42"/>
+   <log-entry time="01/10/2017 03:39:22"/>
+   <log-entry time="01/10/2017 02:50:58"/>
+   <log-entry delta-lifted="2" time="01/09/2017 22:50:04"/>
+   <log-entry time="01/09/2017 22:03:57"/>
+  </log>
+  <function name="log_start">
+   <statistics checkvalid="0" invariant="0" invariant_with_api="2" total="4" total-proven="2"/>
+   <open-proof-obligations>
+    <open id="152" line="87" predicate="ptr-upper-bound"/>
+    <open id="153" line="87" predicate="initialized-range"/>
+   </open-proof-obligations>
+   <proof-obligations-discharged>
+    <discharged domain="none" id="154" method="invariants" time="01/09/2017 22:50:04" type="initialized-range">
+     <evidence comment="predicate depends on global variables dnsmasq_daemon, dnsmasq_daemon, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="18" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="155" method="invariants" time="01/09/2017 22:50:04" type="ptr-upper-bound">
+     <evidence comment="predicate depends on global variables dnsmasq_daemon, dnsmasq_daemon, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="19" a-type="global"/>
+     </assumptions>
+    </discharged>
+   </proof-obligations-discharged>
+  </function>
+  <header time="01/10/2017 06:52:57">
+   <application file="src//log.c" name="application"/>
+  </header>
+ </c-analysis>

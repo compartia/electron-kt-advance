@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function name="check_log_writer" stable="yes">
+   <program-locations>
+    <program-location>
+     <locations>
+      <loc byte="193270" file="src/log.c" line="432"/>
+     </locations>
+     <cfg-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="198"/>
+      <node name="if-else"/>
+      <node name="stmt" num="196"/>
+      <node name="if-then"/>
+      <node name="stmt" num="195"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="0" pv="0"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="193270" file="src/log.c" line="432"/>
+     </locations>
+     <cfg-context>
+      <node name="if-expr"/>
+      <node name="stmt" num="199"/>
+      <node name="if-else"/>
+      <node name="stmt" num="196"/>
+      <node name="if-then"/>
+      <node name="stmt" num="195"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="0" pv="0"/>
+      <inv nrv="1" pv="1"/>
+      <inv nrv="2" pv="1"/>
+      <inv nrv="1" pv="2"/>
+      <inv nrv="2" pv="2"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="193270" file="src/log.c" line="432"/>
+     </locations>
+     <cfg-context>
+      <node name="if-expr"/>
+      <node name="stmt" num="196"/>
+      <node name="if-then"/>
+      <node name="stmt" num="195"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="0" pv="0"/>
+      <inv nrv="0" pv="3"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="193270" file="src/log.c" line="432"/>
+     </locations>
+     <cfg-context>
+      <node name="if-expr"/>
+      <node name="stmt" num="195"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="0" pv="0"/>
+     </invariants>
+    </program-location>
+   </program-locations>
+   <program-value-table size="4">
+    <pvals index="0">
+     <pval>
+      <lhost>
+       <var vid="6023" vname="force"/>
+      </lhost>
+     </pval>
+    </pvals>
+    <pvals index="1">
+     <pval>
+      <lhost>
+       <var vid="6024" vname="tmp"/>
+      </lhost>
+     </pval>
+    </pvals>
+    <pvals index="2">
+     <pval arg="1" id="4"/>
+    </pvals>
+    <pvals index="3">
+     <pval arg="1" id="2"/>
+    </pvals>
+   </program-value-table>
+   <non-relational-value-table size="3">
+    <nrv etag="lval" index="0" tag="fv" xstr="force">
+     <lval>
+      <lhost>
+       <var vid="6023" vname="force"/>
+      </lhost>
+     </lval>
+    </nrv>
+    <nrv byte="193270" etag="fnapp" file="src/log.c" index="1" line="432" tag="fv" xstr="fn(poll_check)@ 432[_, 4]">
+     <arg/>
+     <arg etag="const" xstr="4">
+      <constant ctag="cint64" ikind="ishort" intValue="4"/>
+     </arg>
+     <fn etag="lval" xstr="poll_check">
+      <lval>
+       <lhost>
+        <var vid="5801" vname="poll_check"/>
+       </lhost>
+      </lval>
+     </fn>
+    </nrv>
+    <nrv index="2" tag="ss">
+     <sym name="assignedAt#432">
+      <attr value="return-value"/>
+      <attr value="poll_check"/>
+     </sym>
+    </nrv>
+   </non-relational-value-table>
+  </function>
+  <header time="01/09/2017 22:09:54">
+   <application file="src/log.c" name="application"/>
+  </header>
+ </c-analysis>

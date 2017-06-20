@@ -1,0 +1,962 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <codehawk-c-analysis>
+  <header>
+   <created file="src/util" project-directory="/home/vagrant/git/dnsmasq" time="01/09/2017 21:32:10"/>
+  </header>
+  <function filename="src/util">
+   <svar vglob="true" vid="4798" vname="sockaddr_isequal">
+    <vtyp ttag="tfun" vararg="false">
+     <args>
+      <arg aname="s1">
+       <typ ttag="tptr">
+        <typ ckey="203" ttag="tcomp"/>
+       </typ>
+      </arg>
+      <arg aname="s2">
+       <typ ttag="tptr">
+        <typ ckey="203" ttag="tcomp"/>
+       </typ>
+      </arg>
+     </args>
+     <typ ikind="iint" ttag="tint"/>
+    </vtyp>
+    <vdecl byte="190858" file="src/util.c" line="273"/>
+   </svar>
+   <sformals>
+    <varinfo vid="5988" vname="s1">
+     <vtyp ttag="tptr">
+      <typ ckey="203" ttag="tcomp"/>
+     </vtyp>
+     <vdecl byte="190896" file="src/util.c" line="273"/>
+    </varinfo>
+    <varinfo vid="5989" vname="s2">
+     <vtyp ttag="tptr">
+      <typ ckey="203" ttag="tcomp"/>
+     </vtyp>
+     <vdecl byte="190918" file="src/util.c" line="273"/>
+    </varinfo>
+   </sformals>
+   <slocals/>
+   <sbody>
+    <bstmts>
+     <stmt sid="176">
+      <skind stag="if">
+       <exp binop="eq" etag="binop">
+        <exp1 etag="caste">
+         <typ ikind="iint" ttag="tint"/>
+         <exp etag="lval">
+          <lval>
+           <offset>
+            <field ckey="203" fname="sa"/>
+            <offset>
+             <field ckey="20" fname="sa_family"/>
+            </offset>
+           </offset>
+           <lhost>
+            <mem etag="lval">
+             <lval>
+              <lhost>
+               <var vid="5988" vname="s1"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+          </lval>
+         </exp>
+        </exp1>
+        <exp2 etag="caste">
+         <typ ikind="iint" ttag="tint"/>
+         <exp etag="lval">
+          <lval>
+           <offset>
+            <field ckey="203" fname="sa"/>
+            <offset>
+             <field ckey="20" fname="sa_family"/>
+            </offset>
+           </offset>
+           <lhost>
+            <mem etag="lval">
+             <lval>
+              <lhost>
+               <var vid="5989" vname="s2"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+          </lval>
+         </exp>
+        </exp2>
+        <typ ikind="iint" ttag="tint"/>
+       </exp>
+       <thenblock>
+        <bstmts>
+         <stmt sid="177">
+          <skind stag="if">
+           <exp binop="eq" etag="binop">
+            <exp1 etag="caste">
+             <typ ikind="iint" ttag="tint"/>
+             <exp etag="lval">
+              <lval>
+               <offset>
+                <field ckey="203" fname="sa"/>
+                <offset>
+                 <field ckey="20" fname="sa_family"/>
+                </offset>
+               </offset>
+               <lhost>
+                <mem etag="lval">
+                 <lval>
+                  <lhost>
+                   <var vid="5988" vname="s1"/>
+                  </lhost>
+                 </lval>
+                </mem>
+               </lhost>
+              </lval>
+             </exp>
+            </exp1>
+            <exp2 etag="const">
+             <constant ctag="cint64" ikind="iint" intValue="2"/>
+            </exp2>
+            <typ ikind="iint" ttag="tint"/>
+           </exp>
+           <thenblock>
+            <bstmts>
+             <stmt sid="178">
+              <skind stag="if">
+               <exp binop="eq" etag="binop">
+                <exp1 etag="caste">
+                 <typ ikind="iint" ttag="tint"/>
+                 <exp etag="lval">
+                  <lval>
+                   <offset>
+                    <field ckey="203" fname="in"/>
+                    <offset>
+                     <field ckey="33" fname="sin_port"/>
+                    </offset>
+                   </offset>
+                   <lhost>
+                    <mem etag="lval">
+                     <lval>
+                      <lhost>
+                       <var vid="5988" vname="s1"/>
+                      </lhost>
+                     </lval>
+                    </mem>
+                   </lhost>
+                  </lval>
+                 </exp>
+                </exp1>
+                <exp2 etag="caste">
+                 <typ ikind="iint" ttag="tint"/>
+                 <exp etag="lval">
+                  <lval>
+                   <offset>
+                    <field ckey="203" fname="in"/>
+                    <offset>
+                     <field ckey="33" fname="sin_port"/>
+                    </offset>
+                   </offset>
+                   <lhost>
+                    <mem etag="lval">
+                     <lval>
+                      <lhost>
+                       <var vid="5989" vname="s2"/>
+                      </lhost>
+                     </lval>
+                    </mem>
+                   </lhost>
+                  </lval>
+                 </exp>
+                </exp2>
+                <typ ikind="iint" ttag="tint"/>
+               </exp>
+               <thenblock>
+                <bstmts>
+                 <stmt sid="179">
+                  <skind stag="if">
+                   <exp binop="eq" etag="binop">
+                    <exp1 etag="lval">
+                     <lval>
+                      <offset>
+                       <field ckey="203" fname="in"/>
+                       <offset>
+                        <field ckey="33" fname="sin_addr"/>
+                        <offset>
+                         <field ckey="42" fname="s_addr"/>
+                        </offset>
+                       </offset>
+                      </offset>
+                      <lhost>
+                       <mem etag="lval">
+                        <lval>
+                         <lhost>
+                          <var vid="5988" vname="s1"/>
+                         </lhost>
+                        </lval>
+                       </mem>
+                      </lhost>
+                     </lval>
+                    </exp1>
+                    <exp2 etag="lval">
+                     <lval>
+                      <offset>
+                       <field ckey="203" fname="in"/>
+                       <offset>
+                        <field ckey="33" fname="sin_addr"/>
+                        <offset>
+                         <field ckey="42" fname="s_addr"/>
+                        </offset>
+                       </offset>
+                      </offset>
+                      <lhost>
+                       <mem etag="lval">
+                        <lval>
+                         <lhost>
+                          <var vid="5989" vname="s2"/>
+                         </lhost>
+                        </lval>
+                       </mem>
+                      </lhost>
+                     </lval>
+                    </exp2>
+                    <typ ikind="iint" ttag="tint"/>
+                   </exp>
+                   <thenblock>
+                    <bstmts>
+                     <stmt sid="180">
+                      <skind stag="return">
+                       <loc byte="191105" file="src/util.c" line="280"/>
+                       <exp etag="const">
+                        <constant ctag="cint64" ikind="iint" intValue="1"/>
+                       </exp>
+                      </skind>
+                      <succs/>
+                      <preds>
+                       <int intValue="179"/>
+                      </preds>
+                     </stmt>
+                    </bstmts>
+                   </thenblock>
+                   <elseblock>
+                    <bstmts/>
+                   </elseblock>
+                   <loc byte="190981" file="src/util.c" line="277"/>
+                  </skind>
+                  <succs>
+                   <int intValue="180"/>
+                   <int intValue="181"/>
+                  </succs>
+                  <preds>
+                   <int intValue="178"/>
+                  </preds>
+                 </stmt>
+                </bstmts>
+               </thenblock>
+               <elseblock>
+                <bstmts/>
+               </elseblock>
+               <loc byte="190981" file="src/util.c" line="277"/>
+              </skind>
+              <succs>
+               <int intValue="179"/>
+               <int intValue="181"/>
+              </succs>
+              <preds>
+               <int intValue="177"/>
+              </preds>
+             </stmt>
+            </bstmts>
+           </thenblock>
+           <elseblock>
+            <bstmts/>
+           </elseblock>
+           <loc byte="190981" file="src/util.c" line="277"/>
+          </skind>
+          <succs>
+           <int intValue="178"/>
+           <int intValue="181"/>
+          </succs>
+          <preds>
+           <int intValue="176"/>
+          </preds>
+         </stmt>
+         <stmt sid="181">
+          <skind stag="if">
+           <exp binop="eq" etag="binop">
+            <exp1 etag="caste">
+             <typ ikind="iint" ttag="tint"/>
+             <exp etag="lval">
+              <lval>
+               <offset>
+                <field ckey="203" fname="sa"/>
+                <offset>
+                 <field ckey="20" fname="sa_family"/>
+                </offset>
+               </offset>
+               <lhost>
+                <mem etag="lval">
+                 <lval>
+                  <lhost>
+                   <var vid="5988" vname="s1"/>
+                  </lhost>
+                 </lval>
+                </mem>
+               </lhost>
+              </lval>
+             </exp>
+            </exp1>
+            <exp2 etag="const">
+             <constant ctag="cint64" ikind="iint" intValue="10"/>
+            </exp2>
+            <typ ikind="iint" ttag="tint"/>
+           </exp>
+           <thenblock>
+            <bstmts>
+             <stmt sid="182">
+              <skind stag="if">
+               <exp binop="eq" etag="binop">
+                <exp1 etag="caste">
+                 <typ ikind="iint" ttag="tint"/>
+                 <exp etag="lval">
+                  <lval>
+                   <offset>
+                    <field ckey="203" fname="in6"/>
+                    <offset>
+                     <field ckey="34" fname="sin6_port"/>
+                    </offset>
+                   </offset>
+                   <lhost>
+                    <mem etag="lval">
+                     <lval>
+                      <lhost>
+                       <var vid="5988" vname="s1"/>
+                      </lhost>
+                     </lval>
+                    </mem>
+                   </lhost>
+                  </lval>
+                 </exp>
+                </exp1>
+                <exp2 etag="caste">
+                 <typ ikind="iint" ttag="tint"/>
+                 <exp etag="lval">
+                  <lval>
+                   <offset>
+                    <field ckey="203" fname="in6"/>
+                    <offset>
+                     <field ckey="34" fname="sin6_port"/>
+                    </offset>
+                   </offset>
+                   <lhost>
+                    <mem etag="lval">
+                     <lval>
+                      <lhost>
+                       <var vid="5989" vname="s2"/>
+                      </lhost>
+                     </lval>
+                    </mem>
+                   </lhost>
+                  </lval>
+                 </exp>
+                </exp2>
+                <typ ikind="iint" ttag="tint"/>
+               </exp>
+               <thenblock>
+                <bstmts>
+                 <stmt sid="183">
+                  <skind stag="if">
+                   <exp binop="eq" etag="binop">
+                    <exp1 etag="lval">
+                     <lval>
+                      <offset>
+                       <field ckey="203" fname="in6"/>
+                       <offset>
+                        <field ckey="34" fname="sin6_scope_id"/>
+                       </offset>
+                      </offset>
+                      <lhost>
+                       <mem etag="lval">
+                        <lval>
+                         <lhost>
+                          <var vid="5988" vname="s1"/>
+                         </lhost>
+                        </lval>
+                       </mem>
+                      </lhost>
+                     </lval>
+                    </exp1>
+                    <exp2 etag="lval">
+                     <lval>
+                      <offset>
+                       <field ckey="203" fname="in6"/>
+                       <offset>
+                        <field ckey="34" fname="sin6_scope_id"/>
+                       </offset>
+                      </offset>
+                      <lhost>
+                       <mem etag="lval">
+                        <lval>
+                         <lhost>
+                          <var vid="5989" vname="s2"/>
+                         </lhost>
+                        </lval>
+                       </mem>
+                      </lhost>
+                     </lval>
+                    </exp2>
+                    <typ ikind="iint" ttag="tint"/>
+                   </exp>
+                   <thenblock>
+                    <bstmts>
+                     <stmt sid="184">
+                      <skind stag="if">
+                       <exp binop="eq" etag="binop">
+                        <exp1 etag="lval">
+                         <lval>
+                          <lhost>
+                           <mem binop="indexpi" etag="binop">
+                            <exp1 etag="caste">
+                             <typ ttag="tptr">
+                              <typ tname="uint32_t" ttag="tnamed">
+                               <attributes>
+                                <attr attrname="const"/>
+                               </attributes>
+                              </typ>
+                             </typ>
+                             <exp etag="addrof">
+                              <lval>
+                               <offset>
+                                <field ckey="203" fname="in6"/>
+                                <offset>
+                                 <field ckey="34" fname="sin6_addr"/>
+                                </offset>
+                               </offset>
+                               <lhost>
+                                <mem etag="lval">
+                                 <lval>
+                                  <lhost>
+                                   <var vid="5988" vname="s1"/>
+                                  </lhost>
+                                 </lval>
+                                </mem>
+                               </lhost>
+                              </lval>
+                             </exp>
+                            </exp1>
+                            <exp2 etag="const">
+                             <constant ctag="cint64" ikind="iint" intValue="0"/>
+                            </exp2>
+                            <typ ttag="tptr">
+                             <typ tname="uint32_t" ttag="tnamed">
+                              <attributes>
+                               <attr attrname="const"/>
+                              </attributes>
+                             </typ>
+                            </typ>
+                           </mem>
+                          </lhost>
+                         </lval>
+                        </exp1>
+                        <exp2 etag="lval">
+                         <lval>
+                          <lhost>
+                           <mem binop="indexpi" etag="binop">
+                            <exp1 etag="caste">
+                             <typ ttag="tptr">
+                              <typ tname="uint32_t" ttag="tnamed">
+                               <attributes>
+                                <attr attrname="const"/>
+                               </attributes>
+                              </typ>
+                             </typ>
+                             <exp etag="addrof">
+                              <lval>
+                               <offset>
+                                <field ckey="203" fname="in6"/>
+                                <offset>
+                                 <field ckey="34" fname="sin6_addr"/>
+                                </offset>
+                               </offset>
+                               <lhost>
+                                <mem etag="lval">
+                                 <lval>
+                                  <lhost>
+                                   <var vid="5989" vname="s2"/>
+                                  </lhost>
+                                 </lval>
+                                </mem>
+                               </lhost>
+                              </lval>
+                             </exp>
+                            </exp1>
+                            <exp2 etag="const">
+                             <constant ctag="cint64" ikind="iint" intValue="0"/>
+                            </exp2>
+                            <typ ttag="tptr">
+                             <typ tname="uint32_t" ttag="tnamed">
+                              <attributes>
+                               <attr attrname="const"/>
+                              </attributes>
+                             </typ>
+                            </typ>
+                           </mem>
+                          </lhost>
+                         </lval>
+                        </exp2>
+                        <typ ikind="iint" ttag="tint"/>
+                       </exp>
+                       <thenblock>
+                        <bstmts>
+                         <stmt sid="185">
+                          <skind stag="if">
+                           <exp binop="eq" etag="binop">
+                            <exp1 etag="lval">
+                             <lval>
+                              <lhost>
+                               <mem binop="indexpi" etag="binop">
+                                <exp1 etag="caste">
+                                 <typ ttag="tptr">
+                                  <typ tname="uint32_t" ttag="tnamed">
+                                   <attributes>
+                                    <attr attrname="const"/>
+                                   </attributes>
+                                  </typ>
+                                 </typ>
+                                 <exp etag="addrof">
+                                  <lval>
+                                   <offset>
+                                    <field ckey="203" fname="in6"/>
+                                    <offset>
+                                     <field ckey="34" fname="sin6_addr"/>
+                                    </offset>
+                                   </offset>
+                                   <lhost>
+                                    <mem etag="lval">
+                                     <lval>
+                                      <lhost>
+                                       <var vid="5988" vname="s1"/>
+                                      </lhost>
+                                     </lval>
+                                    </mem>
+                                   </lhost>
+                                  </lval>
+                                 </exp>
+                                </exp1>
+                                <exp2 etag="const">
+                                 <constant ctag="cint64" ikind="iint" intValue="1"/>
+                                </exp2>
+                                <typ ttag="tptr">
+                                 <typ tname="uint32_t" ttag="tnamed">
+                                  <attributes>
+                                   <attr attrname="const"/>
+                                  </attributes>
+                                 </typ>
+                                </typ>
+                               </mem>
+                              </lhost>
+                             </lval>
+                            </exp1>
+                            <exp2 etag="lval">
+                             <lval>
+                              <lhost>
+                               <mem binop="indexpi" etag="binop">
+                                <exp1 etag="caste">
+                                 <typ ttag="tptr">
+                                  <typ tname="uint32_t" ttag="tnamed">
+                                   <attributes>
+                                    <attr attrname="const"/>
+                                   </attributes>
+                                  </typ>
+                                 </typ>
+                                 <exp etag="addrof">
+                                  <lval>
+                                   <offset>
+                                    <field ckey="203" fname="in6"/>
+                                    <offset>
+                                     <field ckey="34" fname="sin6_addr"/>
+                                    </offset>
+                                   </offset>
+                                   <lhost>
+                                    <mem etag="lval">
+                                     <lval>
+                                      <lhost>
+                                       <var vid="5989" vname="s2"/>
+                                      </lhost>
+                                     </lval>
+                                    </mem>
+                                   </lhost>
+                                  </lval>
+                                 </exp>
+                                </exp1>
+                                <exp2 etag="const">
+                                 <constant ctag="cint64" ikind="iint" intValue="1"/>
+                                </exp2>
+                                <typ ttag="tptr">
+                                 <typ tname="uint32_t" ttag="tnamed">
+                                  <attributes>
+                                   <attr attrname="const"/>
+                                  </attributes>
+                                 </typ>
+                                </typ>
+                               </mem>
+                              </lhost>
+                             </lval>
+                            </exp2>
+                            <typ ikind="iint" ttag="tint"/>
+                           </exp>
+                           <thenblock>
+                            <bstmts>
+                             <stmt sid="186">
+                              <skind stag="if">
+                               <exp binop="eq" etag="binop">
+                                <exp1 etag="lval">
+                                 <lval>
+                                  <lhost>
+                                   <mem binop="indexpi" etag="binop">
+                                    <exp1 etag="caste">
+                                     <typ ttag="tptr">
+                                      <typ tname="uint32_t" ttag="tnamed">
+                                       <attributes>
+                                        <attr attrname="const"/>
+                                       </attributes>
+                                      </typ>
+                                     </typ>
+                                     <exp etag="addrof">
+                                      <lval>
+                                       <offset>
+                                        <field ckey="203" fname="in6"/>
+                                        <offset>
+                                         <field ckey="34" fname="sin6_addr"/>
+                                        </offset>
+                                       </offset>
+                                       <lhost>
+                                        <mem etag="lval">
+                                         <lval>
+                                          <lhost>
+                                           <var vid="5988" vname="s1"/>
+                                          </lhost>
+                                         </lval>
+                                        </mem>
+                                       </lhost>
+                                      </lval>
+                                     </exp>
+                                    </exp1>
+                                    <exp2 etag="const">
+                                     <constant ctag="cint64" ikind="iint" intValue="2"/>
+                                    </exp2>
+                                    <typ ttag="tptr">
+                                     <typ tname="uint32_t" ttag="tnamed">
+                                      <attributes>
+                                       <attr attrname="const"/>
+                                      </attributes>
+                                     </typ>
+                                    </typ>
+                                   </mem>
+                                  </lhost>
+                                 </lval>
+                                </exp1>
+                                <exp2 etag="lval">
+                                 <lval>
+                                  <lhost>
+                                   <mem binop="indexpi" etag="binop">
+                                    <exp1 etag="caste">
+                                     <typ ttag="tptr">
+                                      <typ tname="uint32_t" ttag="tnamed">
+                                       <attributes>
+                                        <attr attrname="const"/>
+                                       </attributes>
+                                      </typ>
+                                     </typ>
+                                     <exp etag="addrof">
+                                      <lval>
+                                       <offset>
+                                        <field ckey="203" fname="in6"/>
+                                        <offset>
+                                         <field ckey="34" fname="sin6_addr"/>
+                                        </offset>
+                                       </offset>
+                                       <lhost>
+                                        <mem etag="lval">
+                                         <lval>
+                                          <lhost>
+                                           <var vid="5989" vname="s2"/>
+                                          </lhost>
+                                         </lval>
+                                        </mem>
+                                       </lhost>
+                                      </lval>
+                                     </exp>
+                                    </exp1>
+                                    <exp2 etag="const">
+                                     <constant ctag="cint64" ikind="iint" intValue="2"/>
+                                    </exp2>
+                                    <typ ttag="tptr">
+                                     <typ tname="uint32_t" ttag="tnamed">
+                                      <attributes>
+                                       <attr attrname="const"/>
+                                      </attributes>
+                                     </typ>
+                                    </typ>
+                                   </mem>
+                                  </lhost>
+                                 </lval>
+                                </exp2>
+                                <typ ikind="iint" ttag="tint"/>
+                               </exp>
+                               <thenblock>
+                                <bstmts>
+                                 <stmt sid="187">
+                                  <skind stag="if">
+                                   <exp binop="eq" etag="binop">
+                                    <exp1 etag="lval">
+                                     <lval>
+                                      <lhost>
+                                       <mem binop="indexpi" etag="binop">
+                                        <exp1 etag="caste">
+                                         <typ ttag="tptr">
+                                          <typ tname="uint32_t" ttag="tnamed">
+                                           <attributes>
+                                            <attr attrname="const"/>
+                                           </attributes>
+                                          </typ>
+                                         </typ>
+                                         <exp etag="addrof">
+                                          <lval>
+                                           <offset>
+                                            <field ckey="203" fname="in6"/>
+                                            <offset>
+                                             <field ckey="34" fname="sin6_addr"/>
+                                            </offset>
+                                           </offset>
+                                           <lhost>
+                                            <mem etag="lval">
+                                             <lval>
+                                              <lhost>
+                                               <var vid="5988" vname="s1"/>
+                                              </lhost>
+                                             </lval>
+                                            </mem>
+                                           </lhost>
+                                          </lval>
+                                         </exp>
+                                        </exp1>
+                                        <exp2 etag="const">
+                                         <constant ctag="cint64" ikind="iint" intValue="3"/>
+                                        </exp2>
+                                        <typ ttag="tptr">
+                                         <typ tname="uint32_t" ttag="tnamed">
+                                          <attributes>
+                                           <attr attrname="const"/>
+                                          </attributes>
+                                         </typ>
+                                        </typ>
+                                       </mem>
+                                      </lhost>
+                                     </lval>
+                                    </exp1>
+                                    <exp2 etag="lval">
+                                     <lval>
+                                      <lhost>
+                                       <mem binop="indexpi" etag="binop">
+                                        <exp1 etag="caste">
+                                         <typ ttag="tptr">
+                                          <typ tname="uint32_t" ttag="tnamed">
+                                           <attributes>
+                                            <attr attrname="const"/>
+                                           </attributes>
+                                          </typ>
+                                         </typ>
+                                         <exp etag="addrof">
+                                          <lval>
+                                           <offset>
+                                            <field ckey="203" fname="in6"/>
+                                            <offset>
+                                             <field ckey="34" fname="sin6_addr"/>
+                                            </offset>
+                                           </offset>
+                                           <lhost>
+                                            <mem etag="lval">
+                                             <lval>
+                                              <lhost>
+                                               <var vid="5989" vname="s2"/>
+                                              </lhost>
+                                             </lval>
+                                            </mem>
+                                           </lhost>
+                                          </lval>
+                                         </exp>
+                                        </exp1>
+                                        <exp2 etag="const">
+                                         <constant ctag="cint64" ikind="iint" intValue="3"/>
+                                        </exp2>
+                                        <typ ttag="tptr">
+                                         <typ tname="uint32_t" ttag="tnamed">
+                                          <attributes>
+                                           <attr attrname="const"/>
+                                          </attributes>
+                                         </typ>
+                                        </typ>
+                                       </mem>
+                                      </lhost>
+                                     </lval>
+                                    </exp2>
+                                    <typ ikind="iint" ttag="tint"/>
+                                   </exp>
+                                   <thenblock>
+                                    <bstmts>
+                                     <stmt sid="188">
+                                      <skind stag="return">
+                                       <loc byte="191662" file="src/util.c" line="286"/>
+                                       <exp etag="const">
+                                        <constant ctag="cint64" ikind="iint" intValue="1"/>
+                                       </exp>
+                                      </skind>
+                                      <succs/>
+                                      <preds>
+                                       <int intValue="187"/>
+                                      </preds>
+                                     </stmt>
+                                    </bstmts>
+                                   </thenblock>
+                                   <elseblock>
+                                    <bstmts/>
+                                   </elseblock>
+                                   <loc byte="191122" file="src/util.c" line="282"/>
+                                  </skind>
+                                  <succs>
+                                   <int intValue="188"/>
+                                   <int intValue="189"/>
+                                  </succs>
+                                  <preds>
+                                   <int intValue="186"/>
+                                  </preds>
+                                 </stmt>
+                                </bstmts>
+                               </thenblock>
+                               <elseblock>
+                                <bstmts/>
+                               </elseblock>
+                               <loc byte="191122" file="src/util.c" line="282"/>
+                              </skind>
+                              <succs>
+                               <int intValue="187"/>
+                               <int intValue="189"/>
+                              </succs>
+                              <preds>
+                               <int intValue="185"/>
+                              </preds>
+                             </stmt>
+                            </bstmts>
+                           </thenblock>
+                           <elseblock>
+                            <bstmts/>
+                           </elseblock>
+                           <loc byte="191122" file="src/util.c" line="282"/>
+                          </skind>
+                          <succs>
+                           <int intValue="186"/>
+                           <int intValue="189"/>
+                          </succs>
+                          <preds>
+                           <int intValue="184"/>
+                          </preds>
+                         </stmt>
+                        </bstmts>
+                       </thenblock>
+                       <elseblock>
+                        <bstmts/>
+                       </elseblock>
+                       <loc byte="191122" file="src/util.c" line="282"/>
+                      </skind>
+                      <succs>
+                       <int intValue="185"/>
+                       <int intValue="189"/>
+                      </succs>
+                      <preds>
+                       <int intValue="183"/>
+                      </preds>
+                     </stmt>
+                    </bstmts>
+                   </thenblock>
+                   <elseblock>
+                    <bstmts/>
+                   </elseblock>
+                   <loc byte="191122" file="src/util.c" line="282"/>
+                  </skind>
+                  <succs>
+                   <int intValue="184"/>
+                   <int intValue="189"/>
+                  </succs>
+                  <preds>
+                   <int intValue="182"/>
+                  </preds>
+                 </stmt>
+                </bstmts>
+               </thenblock>
+               <elseblock>
+                <bstmts/>
+               </elseblock>
+               <loc byte="191122" file="src/util.c" line="282"/>
+              </skind>
+              <succs>
+               <int intValue="183"/>
+               <int intValue="189"/>
+              </succs>
+              <preds>
+               <int intValue="181"/>
+              </preds>
+             </stmt>
+            </bstmts>
+           </thenblock>
+           <elseblock>
+            <bstmts/>
+           </elseblock>
+           <loc byte="191122" file="src/util.c" line="282"/>
+          </skind>
+          <succs>
+           <int intValue="182"/>
+           <int intValue="189"/>
+          </succs>
+          <preds>
+           <int intValue="179"/>
+           <int intValue="178"/>
+           <int intValue="177"/>
+          </preds>
+         </stmt>
+        </bstmts>
+       </thenblock>
+       <elseblock>
+        <bstmts/>
+       </elseblock>
+       <loc byte="190927" file="src/util.c" line="275"/>
+      </skind>
+      <succs>
+       <int intValue="177"/>
+       <int intValue="189"/>
+      </succs>
+      <preds/>
+     </stmt>
+     <stmt sid="189">
+      <skind stag="return">
+       <loc byte="191681" file="src/util.c" line="289"/>
+       <exp etag="const">
+        <constant ctag="cint64" ikind="iint" intValue="0"/>
+       </exp>
+      </skind>
+      <succs/>
+      <preds>
+       <int intValue="187"/>
+       <int intValue="186"/>
+       <int intValue="185"/>
+       <int intValue="184"/>
+       <int intValue="183"/>
+       <int intValue="182"/>
+       <int intValue="181"/>
+       <int intValue="176"/>
+      </preds>
+     </stmt>
+    </bstmts>
+   </sbody>
+  </function>
+ </codehawk-c-analysis>

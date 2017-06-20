@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <codehawk-c-analysis>
+  <header>
+   <created file="src/util" project-directory="/home/vagrant/git/dnsmasq" time="01/09/2017 21:32:10"/>
+  </header>
+  <function filename="src/util">
+   <svar vglob="true" vid="4757" vname="rand_init">
+    <vtyp ttag="tfun" vararg="false">
+     <args/>
+     <typ ttag="tvoid"/>
+    </vtyp>
+    <vdecl byte="186593" file="src/util.c" line="38"/>
+   </svar>
+   <sformals/>
+   <slocals>
+    <varinfo vid="5905" vname="fd">
+     <vtyp ikind="iint" ttag="tint"/>
+     <vdecl byte="186618" file="src/util.c" line="40"/>
+    </varinfo>
+    <varinfo vid="5906" vname="tmp">
+     <vtyp ikind="iint" ttag="tint"/>
+     <vdecl byte="-1" file="" line="-1"/>
+    </varinfo>
+    <varinfo vid="5908" vname="tmp___0">
+     <vtyp ikind="iint" ttag="tint"/>
+     <vdecl byte="-1" file="" line="-1"/>
+    </varinfo>
+    <varinfo vid="5910" vname="tmp___1">
+     <vtyp ikind="iint" ttag="tint"/>
+     <vdecl byte="-1" file="" line="-1"/>
+    </varinfo>
+   </slocals>
+   <sbody>
+    <bstmts>
+     <stmt sid="1">
+      <skind stag="instr">
+       <instrs>
+        <instr itag="call">
+         <exp etag="lval">
+          <lval>
+           <lhost>
+            <var vid="3644" vname="open"/>
+           </lhost>
+          </lval>
+         </exp>
+         <args>
+          <exp etag="const">
+           <constant ctag="cstr" strValue="/dev/urandom"/>
+          </exp>
+          <exp etag="const">
+           <constant ctag="cint64" ikind="iint" intValue="0"/>
+          </exp>
+         </args>
+         <loc byte="186614" file="src/util.c" line="40"/>
+         <lval>
+          <lhost>
+           <var vid="5906" vname="tmp"/>
+          </lhost>
+         </lval>
+        </instr>
+        <instr itag="set">
+         <lval>
+          <lhost>
+           <var vid="5905" vname="fd"/>
+          </lhost>
+         </lval>
+         <exp etag="lval">
+          <lval>
+           <lhost>
+            <var vid="5906" vname="tmp"/>
+           </lhost>
+          </lval>
+         </exp>
+         <loc byte="186614" file="src/util.c" line="40"/>
+        </instr>
+       </instrs>
+      </skind>
+      <succs>
+       <int intValue="2"/>
+      </succs>
+      <preds/>
+     </stmt>
+     <stmt sid="2">
+      <skind stag="if">
+       <exp binop="eq" etag="binop">
+        <exp1 etag="lval">
+         <lval>
+          <lhost>
+           <var vid="5905" vname="fd"/>
+          </lhost>
+         </lval>
+        </exp1>
+        <exp2 etag="const">
+         <constant ctag="cint64" ikind="iint" intValue="-1"/>
+        </exp2>
+        <typ ikind="iint" ttag="tint"/>
+       </exp>
+       <thenblock>
+        <bstmts>
+         <stmt sid="3">
+          <skind stag="instr">
+           <instrs>
+            <instr itag="call">
+             <exp etag="lval">
+              <lval>
+               <lhost>
+                <var vid="4904" vname="die"/>
+               </lhost>
+              </lval>
+             </exp>
+             <args>
+              <exp etag="caste">
+               <typ ttag="tptr">
+                <typ ikind="ichar" ttag="tint"/>
+               </typ>
+               <exp etag="const">
+                <constant ctag="cstr" strValue="failed to seed the random number generator: %s"/>
+               </exp>
+              </exp>
+              <exp etag="caste">
+               <typ ttag="tptr">
+                <typ ikind="ichar" ttag="tint"/>
+               </typ>
+               <exp etag="caste">
+                <typ ttag="tptr">
+                 <typ ttag="tvoid"/>
+                </typ>
+                <exp etag="const">
+                 <constant ctag="cint64" ikind="iint" intValue="0"/>
+                </exp>
+               </exp>
+              </exp>
+              <exp etag="const">
+               <constant ctag="cint64" ikind="iint" intValue="5"/>
+              </exp>
+             </args>
+             <loc byte="186798" file="src/util.c" line="45"/>
+            </instr>
+           </instrs>
+          </skind>
+          <succs>
+           <int intValue="10"/>
+          </succs>
+          <preds>
+           <int intValue="2"/>
+          </preds>
+         </stmt>
+        </bstmts>
+       </thenblock>
+       <elseblock>
+        <bstmts>
+         <stmt sid="4">
+          <skind stag="instr">
+           <instrs>
+            <instr itag="call">
+             <exp etag="lval">
+              <lval>
+               <lhost>
+                <var vid="4885" vname="read_write"/>
+               </lhost>
+              </lval>
+             </exp>
+             <args>
+              <exp etag="lval">
+               <lval>
+                <lhost>
+                 <var vid="5905" vname="fd"/>
+                </lhost>
+               </lval>
+              </exp>
+              <exp etag="caste">
+               <typ ttag="tptr">
+                <typ ikind="iuchar" ttag="tint"/>
+               </typ>
+               <exp etag="addrof">
+                <lval>
+                 <lhost>
+                  <var vid="5900" vname="seed"/>
+                 </lhost>
+                </lval>
+               </exp>
+              </exp>
+              <exp etag="caste">
+               <typ ikind="iint" ttag="tint"/>
+               <exp etag="sizeofe">
+                <exp etag="lval">
+                 <lval>
+                  <lhost>
+                   <var vid="5900" vname="seed"/>
+                  </lhost>
+                 </lval>
+                </exp>
+               </exp>
+              </exp>
+              <exp etag="const">
+               <constant ctag="cint64" ikind="iint" intValue="1"/>
+              </exp>
+             </args>
+             <loc byte="186652" file="src/util.c" line="42"/>
+             <lval>
+              <lhost>
+               <var vid="5908" vname="tmp___0"/>
+              </lhost>
+             </lval>
+            </instr>
+           </instrs>
+          </skind>
+          <succs>
+           <int intValue="5"/>
+          </succs>
+          <preds>
+           <int intValue="2"/>
+          </preds>
+         </stmt>
+         <stmt sid="5">
+          <skind stag="if">
+           <exp etag="lval">
+            <lval>
+             <lhost>
+              <var vid="5908" vname="tmp___0"/>
+             </lhost>
+            </lval>
+           </exp>
+           <thenblock>
+            <bstmts>
+             <stmt sid="6">
+              <skind stag="instr">
+               <instrs>
+                <instr itag="call">
+                 <exp etag="lval">
+                  <lval>
+                   <lhost>
+                    <var vid="4885" vname="read_write"/>
+                   </lhost>
+                  </lval>
+                 </exp>
+                 <args>
+                  <exp etag="lval">
+                   <lval>
+                    <lhost>
+                     <var vid="5905" vname="fd"/>
+                    </lhost>
+                   </lval>
+                  </exp>
+                  <exp etag="caste">
+                   <typ ttag="tptr">
+                    <typ ikind="iuchar" ttag="tint"/>
+                   </typ>
+                   <exp etag="addrof">
+                    <lval>
+                     <lhost>
+                      <var vid="5901" vname="in"/>
+                     </lhost>
+                    </lval>
+                   </exp>
+                  </exp>
+                  <exp etag="caste">
+                   <typ ikind="iint" ttag="tint"/>
+                   <exp etag="sizeofe">
+                    <exp etag="lval">
+                     <lval>
+                      <lhost>
+                       <var vid="5901" vname="in"/>
+                      </lhost>
+                     </lval>
+                    </exp>
+                   </exp>
+                  </exp>
+                  <exp etag="const">
+                   <constant ctag="cint64" ikind="iint" intValue="1"/>
+                  </exp>
+                 </args>
+                 <loc byte="186652" file="src/util.c" line="42"/>
+                 <lval>
+                  <lhost>
+                   <var vid="5910" vname="tmp___1"/>
+                  </lhost>
+                 </lval>
+                </instr>
+               </instrs>
+              </skind>
+              <succs>
+               <int intValue="7"/>
+              </succs>
+              <preds>
+               <int intValue="5"/>
+              </preds>
+             </stmt>
+             <stmt sid="7">
+              <skind stag="if">
+               <exp etag="lval">
+                <lval>
+                 <lhost>
+                  <var vid="5910" vname="tmp___1"/>
+                 </lhost>
+                </lval>
+               </exp>
+               <thenblock>
+                <bstmts/>
+               </thenblock>
+               <elseblock>
+                <bstmts>
+                 <stmt sid="8">
+                  <skind stag="instr">
+                   <instrs>
+                    <instr itag="call">
+                     <exp etag="lval">
+                      <lval>
+                       <lhost>
+                        <var vid="4904" vname="die"/>
+                       </lhost>
+                      </lval>
+                     </exp>
+                     <args>
+                      <exp etag="caste">
+                       <typ ttag="tptr">
+                        <typ ikind="ichar" ttag="tint"/>
+                       </typ>
+                       <exp etag="const">
+                        <constant ctag="cstr" strValue="failed to seed the random number generator: %s"/>
+                       </exp>
+                      </exp>
+                      <exp etag="caste">
+                       <typ ttag="tptr">
+                        <typ ikind="ichar" ttag="tint"/>
+                       </typ>
+                       <exp etag="caste">
+                        <typ ttag="tptr">
+                         <typ ttag="tvoid"/>
+                        </typ>
+                        <exp etag="const">
+                         <constant ctag="cint64" ikind="iint" intValue="0"/>
+                        </exp>
+                       </exp>
+                      </exp>
+                      <exp etag="const">
+                       <constant ctag="cint64" ikind="iint" intValue="5"/>
+                      </exp>
+                     </args>
+                     <loc byte="186798" file="src/util.c" line="45"/>
+                    </instr>
+                   </instrs>
+                  </skind>
+                  <succs>
+                   <int intValue="10"/>
+                  </succs>
+                  <preds>
+                   <int intValue="7"/>
+                  </preds>
+                 </stmt>
+                </bstmts>
+               </elseblock>
+               <loc byte="186652" file="src/util.c" line="42"/>
+              </skind>
+              <succs>
+               <int intValue="10"/>
+               <int intValue="8"/>
+              </succs>
+              <preds>
+               <int intValue="6"/>
+              </preds>
+             </stmt>
+            </bstmts>
+           </thenblock>
+           <elseblock>
+            <bstmts>
+             <stmt sid="9">
+              <skind stag="instr">
+               <instrs>
+                <instr itag="call">
+                 <exp etag="lval">
+                  <lval>
+                   <lhost>
+                    <var vid="4904" vname="die"/>
+                   </lhost>
+                  </lval>
+                 </exp>
+                 <args>
+                  <exp etag="caste">
+                   <typ ttag="tptr">
+                    <typ ikind="ichar" ttag="tint"/>
+                   </typ>
+                   <exp etag="const">
+                    <constant ctag="cstr" strValue="failed to seed the random number generator: %s"/>
+                   </exp>
+                  </exp>
+                  <exp etag="caste">
+                   <typ ttag="tptr">
+                    <typ ikind="ichar" ttag="tint"/>
+                   </typ>
+                   <exp etag="caste">
+                    <typ ttag="tptr">
+                     <typ ttag="tvoid"/>
+                    </typ>
+                    <exp etag="const">
+                     <constant ctag="cint64" ikind="iint" intValue="0"/>
+                    </exp>
+                   </exp>
+                  </exp>
+                  <exp etag="const">
+                   <constant ctag="cint64" ikind="iint" intValue="5"/>
+                  </exp>
+                 </args>
+                 <loc byte="186798" file="src/util.c" line="45"/>
+                </instr>
+               </instrs>
+              </skind>
+              <succs>
+               <int intValue="10"/>
+              </succs>
+              <preds>
+               <int intValue="5"/>
+              </preds>
+             </stmt>
+            </bstmts>
+           </elseblock>
+           <loc byte="186652" file="src/util.c" line="42"/>
+          </skind>
+          <succs>
+           <int intValue="6"/>
+           <int intValue="9"/>
+          </succs>
+          <preds>
+           <int intValue="4"/>
+          </preds>
+         </stmt>
+        </bstmts>
+       </elseblock>
+       <loc byte="186652" file="src/util.c" line="42"/>
+      </skind>
+      <succs>
+       <int intValue="3"/>
+       <int intValue="4"/>
+      </succs>
+      <preds>
+       <int intValue="1"/>
+      </preds>
+     </stmt>
+     <stmt sid="10">
+      <skind stag="instr">
+       <instrs>
+        <instr itag="call">
+         <exp etag="lval">
+          <lval>
+           <lhost>
+            <var vid="1775" vname="close"/>
+           </lhost>
+          </lval>
+         </exp>
+         <args>
+          <exp etag="lval">
+           <lval>
+            <lhost>
+             <var vid="5905" vname="fd"/>
+            </lhost>
+           </lval>
+          </exp>
+         </args>
+         <loc byte="186874" file="src/util.c" line="47"/>
+        </instr>
+       </instrs>
+      </skind>
+      <succs>
+       <int intValue="11"/>
+      </succs>
+      <preds>
+       <int intValue="9"/>
+       <int intValue="8"/>
+       <int intValue="7"/>
+       <int intValue="3"/>
+      </preds>
+     </stmt>
+     <stmt sid="11">
+      <skind stag="return">
+       <loc byte="186885" file="src/util.c" line="48"/>
+      </skind>
+      <succs/>
+      <preds>
+       <int intValue="10"/>
+      </preds>
+     </stmt>
+    </bstmts>
+   </sbody>
+  </function>
+ </codehawk-c-analysis>

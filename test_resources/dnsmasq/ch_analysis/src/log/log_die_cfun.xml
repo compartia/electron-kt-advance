@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <codehawk-c-analysis>
+  <header>
+   <created file="src/log" project-directory="/home/vagrant/git/dnsmasq" time="01/09/2017 21:32:17"/>
+  </header>
+  <function filename="src/log">
+   <svar vglob="true" vid="4904" vname="die">
+    <vtyp ttag="tfun" vararg="false">
+     <args>
+      <arg aname="message">
+       <typ ttag="tptr">
+        <typ ikind="ichar" ttag="tint"/>
+       </typ>
+      </arg>
+      <arg aname="arg1">
+       <typ ttag="tptr">
+        <typ ikind="ichar" ttag="tint"/>
+       </typ>
+      </arg>
+      <arg aname="exit_code">
+       <typ ikind="iint" ttag="tint"/>
+      </arg>
+     </args>
+     <typ ttag="tvoid"/>
+    </vtyp>
+    <vdecl byte="193630" file="src/log.c" line="455"/>
+   </svar>
+   <sformals>
+    <varinfo vid="6032" vname="message">
+     <vtyp ttag="tptr">
+      <typ ikind="ichar" ttag="tint"/>
+     </vtyp>
+     <vdecl byte="193644" file="src/log.c" line="455"/>
+    </varinfo>
+    <varinfo vid="6033" vname="arg1">
+     <vtyp ttag="tptr">
+      <typ ikind="ichar" ttag="tint"/>
+     </vtyp>
+     <vdecl byte="193659" file="src/log.c" line="455"/>
+    </varinfo>
+    <varinfo vid="6034" vname="exit_code">
+     <vtyp ikind="iint" ttag="tint"/>
+     <vdecl byte="193670" file="src/log.c" line="455"/>
+    </varinfo>
+   </sformals>
+   <slocals>
+    <varinfo vid="6035" vname="errmess">
+     <vtyp ttag="tptr">
+      <typ ikind="ichar" ttag="tint"/>
+     </vtyp>
+     <vdecl byte="193690" file="src/log.c" line="457"/>
+    </varinfo>
+    <varinfo vid="6036" vname="tmp">
+     <vtyp ttag="tptr">
+      <typ ikind="iint" ttag="tint"/>
+     </vtyp>
+     <vdecl byte="-1" file="" line="-1"/>
+    </varinfo>
+    <varinfo vid="6038" vname="tmp___0">
+     <vtyp ttag="tptr">
+      <typ ikind="ichar" ttag="tint"/>
+     </vtyp>
+     <vdecl byte="-1" file="" line="-1"/>
+    </varinfo>
+   </slocals>
+   <sbody>
+    <bstmts>
+     <stmt sid="214">
+      <skind stag="instr">
+       <instrs>
+        <instr itag="call">
+         <exp etag="lval">
+          <lval>
+           <lhost>
+            <var vid="4029" vname="__errno_location"/>
+           </lhost>
+          </lval>
+         </exp>
+         <args/>
+         <loc byte="193685" file="src/log.c" line="457"/>
+         <lval>
+          <lhost>
+           <var vid="6036" vname="tmp"/>
+          </lhost>
+         </lval>
+        </instr>
+        <instr itag="call">
+         <exp etag="lval">
+          <lval>
+           <lhost>
+            <var vid="1589" vname="strerror"/>
+           </lhost>
+          </lval>
+         </exp>
+         <args>
+          <exp etag="lval">
+           <lval>
+            <lhost>
+             <mem etag="lval">
+              <lval>
+               <lhost>
+                <var vid="6036" vname="tmp"/>
+               </lhost>
+              </lval>
+             </mem>
+            </lhost>
+           </lval>
+          </exp>
+         </args>
+         <loc byte="193685" file="src/log.c" line="457"/>
+         <lval>
+          <lhost>
+           <var vid="6038" vname="tmp___0"/>
+          </lhost>
+         </lval>
+        </instr>
+        <instr itag="set">
+         <lval>
+          <lhost>
+           <var vid="6035" vname="errmess"/>
+          </lhost>
+         </lval>
+         <exp etag="lval">
+          <lval>
+           <lhost>
+            <var vid="6038" vname="tmp___0"/>
+           </lhost>
+          </lval>
+         </exp>
+         <loc byte="193685" file="src/log.c" line="457"/>
+        </instr>
+       </instrs>
+      </skind>
+      <succs>
+       <int intValue="215"/>
+      </succs>
+      <preds/>
+     </stmt>
+     <stmt sid="215">
+      <skind stag="if">
+       <exp etag="unop" unop="lnot">
+        <exp etag="lval">
+         <lval>
+          <lhost>
+           <var vid="6033" vname="arg1"/>
+          </lhost>
+         </lval>
+        </exp>
+        <typ ikind="iint" ttag="tint"/>
+       </exp>
+       <thenblock>
+        <bstmts>
+         <stmt sid="216">
+          <skind stag="instr">
+           <instrs>
+            <instr itag="set">
+             <lval>
+              <lhost>
+               <var vid="6033" vname="arg1"/>
+              </lhost>
+             </lval>
+             <exp etag="lval">
+              <lval>
+               <lhost>
+                <var vid="6035" vname="errmess"/>
+               </lhost>
+              </lval>
+             </exp>
+             <loc byte="193753" file="src/log.c" line="460"/>
+            </instr>
+           </instrs>
+          </skind>
+          <succs>
+           <int intValue="217"/>
+          </succs>
+          <preds>
+           <int intValue="215"/>
+          </preds>
+         </stmt>
+        </bstmts>
+       </thenblock>
+       <elseblock>
+        <bstmts/>
+       </elseblock>
+       <loc byte="193738" file="src/log.c" line="459"/>
+      </skind>
+      <succs>
+       <int intValue="216"/>
+       <int intValue="217"/>
+      </succs>
+      <preds>
+       <int intValue="214"/>
+      </preds>
+     </stmt>
+     <stmt sid="217">
+      <skind stag="if">
+       <exp etag="unop" unop="lnot">
+        <exp etag="lval">
+         <lval>
+          <lhost>
+           <var vid="5901" vname="log_stderr"/>
+          </lhost>
+         </lval>
+        </exp>
+        <typ ikind="iint" ttag="tint"/>
+       </exp>
+       <thenblock>
+        <bstmts>
+         <stmt sid="218">
+          <skind stag="instr">
+           <instrs>
+            <instr itag="set">
+             <lval>
+              <lhost>
+               <var vid="5902" vname="echo_stderr"/>
+              </lhost>
+             </lval>
+             <exp etag="const">
+              <constant ctag="cint64" ikind="iint" intValue="1"/>
+             </exp>
+             <loc byte="193801" file="src/log.c" line="464"/>
+            </instr>
+            <instr itag="call">
+             <exp etag="lval">
+              <lval>
+               <lhost>
+                <var vid="2688" vname="fputc"/>
+               </lhost>
+              </lval>
+             </exp>
+             <args>
+              <exp etag="const">
+               <constant charValue="10" ctag="cchr"/>
+              </exp>
+              <exp etag="lval">
+               <lval>
+                <lhost>
+                 <var vid="2438" vname="stderr"/>
+                </lhost>
+               </lval>
+              </exp>
+             </args>
+             <loc byte="193824" file="src/log.c" line="465"/>
+            </instr>
+           </instrs>
+          </skind>
+          <succs>
+           <int intValue="219"/>
+          </succs>
+          <preds>
+           <int intValue="217"/>
+          </preds>
+         </stmt>
+        </bstmts>
+       </thenblock>
+       <elseblock>
+        <bstmts/>
+       </elseblock>
+       <loc byte="193772" file="src/log.c" line="462"/>
+      </skind>
+      <succs>
+       <int intValue="218"/>
+       <int intValue="219"/>
+      </succs>
+      <preds>
+       <int intValue="216"/>
+       <int intValue="215"/>
+      </preds>
+     </stmt>
+     <stmt sid="219">
+      <skind stag="instr">
+       <instrs>
+        <instr itag="call">
+         <exp etag="lval">
+          <lval>
+           <lhost>
+            <var vid="4917" vname="my_syslog"/>
+           </lhost>
+          </lval>
+         </exp>
+         <args>
+          <exp etag="const">
+           <constant ctag="cint64" ikind="iint" intValue="2"/>
+          </exp>
+          <exp etag="caste">
+           <typ ttag="tptr">
+            <typ ikind="ichar" ttag="tint">
+             <attributes>
+              <attr attrname="const"/>
+             </attributes>
+            </typ>
+           </typ>
+           <exp etag="lval">
+            <lval>
+             <lhost>
+              <var vid="6032" vname="message"/>
+             </lhost>
+            </lval>
+           </exp>
+          </exp>
+          <exp etag="lval">
+           <lval>
+            <lhost>
+             <var vid="6033" vname="arg1"/>
+            </lhost>
+           </lval>
+          </exp>
+          <exp etag="lval">
+           <lval>
+            <lhost>
+             <var vid="6035" vname="errmess"/>
+            </lhost>
+           </lval>
+          </exp>
+         </args>
+         <loc byte="193853" file="src/log.c" line="467"/>
+        </instr>
+        <instr itag="set">
+         <lval>
+          <lhost>
+           <var vid="5902" vname="echo_stderr"/>
+          </lhost>
+         </lval>
+         <exp etag="const">
+          <constant ctag="cint64" ikind="iint" intValue="0"/>
+         </exp>
+         <loc byte="193893" file="src/log.c" line="468"/>
+        </instr>
+        <instr itag="call">
+         <exp etag="lval">
+          <lval>
+           <lhost>
+            <var vid="4917" vname="my_syslog"/>
+           </lhost>
+          </lval>
+         </exp>
+         <args>
+          <exp etag="const">
+           <constant ctag="cint64" ikind="iint" intValue="2"/>
+          </exp>
+          <exp etag="const">
+           <constant ctag="cstr" strValue="FAILED to start up"/>
+          </exp>
+         </args>
+         <loc byte="193912" file="src/log.c" line="469"/>
+        </instr>
+        <instr itag="call">
+         <exp etag="lval">
+          <lval>
+           <lhost>
+            <var vid="4926" vname="flush_log"/>
+           </lhost>
+          </lval>
+         </exp>
+         <args/>
+         <loc byte="193952" file="src/log.c" line="470"/>
+        </instr>
+        <instr itag="call">
+         <exp etag="lval">
+          <lval>
+           <lhost>
+            <var vid="3251" vname="exit"/>
+           </lhost>
+          </lval>
+         </exp>
+         <args>
+          <exp etag="lval">
+           <lval>
+            <lhost>
+             <var vid="6034" vname="exit_code"/>
+            </lhost>
+           </lval>
+          </exp>
+         </args>
+         <loc byte="193968" file="src/log.c" line="472"/>
+        </instr>
+       </instrs>
+      </skind>
+      <succs/>
+      <preds>
+       <int intValue="218"/>
+       <int intValue="217"/>
+      </preds>
+     </stmt>
+    </bstmts>
+   </sbody>
+  </function>
+ </codehawk-c-analysis>

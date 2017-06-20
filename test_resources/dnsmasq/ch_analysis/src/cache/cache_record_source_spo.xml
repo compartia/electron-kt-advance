@@ -1,0 +1,1133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function name="record_source">
+   <secondary-proof-obligations max-spo-id="87" num-ppo="77">
+    <indirect-calls/>
+    <callsite-obligations/>
+    <return-sites>
+     <return-site>
+      <exp etag="caste" xstr="caste (&quot;&lt;unknown&gt;&quot;:(char*))">
+       <typ ttag="tptr">
+        <typ ikind="ichar" ttag="tint"/>
+       </typ>
+       <exp etag="const" xstr="&quot;&lt;unknown&gt;&quot;">
+        <constant ctag="cstr" strValue="&lt;unknown&gt;"/>
+       </exp>
+      </exp>
+      <location byte="218310" file="src/cache.c" line="1538"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="816"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+     <return-site>
+      <exp etag="lval" xstr="ah-&gt;fname">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="ah">
+          <lval>
+           <lhost>
+            <var vid="6361" vname="ah"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <field ckey="213" fname="fname"/>
+        </offset>
+       </lval>
+      </exp>
+      <location byte="218288" file="src/cache.c" line="1535"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="814"/>
+        <node name="if-then"/>
+        <node name="stmt" num="813"/>
+        <node name="loop"/>
+        <node name="stmt" num="810"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+     <return-site>
+      <exp etag="lval" xstr="ah-&gt;fname">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="ah">
+          <lval>
+           <lhost>
+            <var vid="6361" vname="ah"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <field ckey="213" fname="fname"/>
+        </offset>
+       </lval>
+      </exp>
+      <location byte="218171" file="src/cache.c" line="1530"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="807"/>
+        <node name="if-then"/>
+        <node name="stmt" num="806"/>
+        <node name="loop"/>
+        <node name="stmt" num="803"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+     <return-site>
+      <exp etag="caste" xstr="caste (&quot;/etc/hosts&quot;:(char*))">
+       <typ ttag="tptr">
+        <typ ikind="ichar" ttag="tint"/>
+       </typ>
+       <exp etag="const" xstr="&quot;/etc/hosts&quot;">
+        <constant ctag="cstr" strValue="/etc/hosts"/>
+       </exp>
+      </exp>
+      <location byte="218056" file="src/cache.c" line="1526"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="801"/>
+        <node name="if-then"/>
+        <node name="stmt" num="800"/>
+        <node name="if-else"/>
+        <node name="stmt" num="798"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+     <return-site>
+      <exp etag="caste" xstr="caste (&quot;config&quot;:(char*))">
+       <typ ttag="tptr">
+        <typ ikind="ichar" ttag="tint"/>
+       </typ>
+       <exp etag="const" xstr="&quot;config&quot;">
+        <constant ctag="cstr" strValue="config"/>
+       </exp>
+      </exp>
+      <location byte="218012" file="src/cache.c" line="1524"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="799"/>
+        <node name="if-then"/>
+        <node name="stmt" num="798"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+    </return-sites>
+    <post-expectations>
+     <post-expectation id="82">
+      <callers>
+       <caller api-id="14" fname="answer_request" fvid="359"/>
+       <caller api-id="6" fname="answer_request" fvid="359"/>
+       <caller api-id="9" fname="answer_request" fvid="359"/>
+       <caller api-id="12" fname="answer_request" fvid="359"/>
+       <caller api-id="25" fname="answer_auth" fvid="13"/>
+       <caller api-id="12" fname="answer_auth" fvid="13"/>
+       <caller api-id="21" fname="answer_auth" fvid="13"/>
+       <caller api-id="26" fname="answer_auth" fvid="13"/>
+       <caller api-id="14" fname="answer_request" fvid="359"/>
+       <caller api-id="6" fname="answer_request" fvid="359"/>
+       <caller api-id="9" fname="answer_request" fvid="359"/>
+       <caller api-id="12" fname="answer_request" fvid="359"/>
+       <caller api-id="25" fname="answer_auth" fvid="13"/>
+       <caller api-id="12" fname="answer_auth" fvid="13"/>
+       <caller api-id="21" fname="answer_auth" fvid="13"/>
+       <caller api-id="26" fname="answer_auth" fvid="13"/>
+       <caller api-id="14" fname="answer_request" fvid="359"/>
+       <caller api-id="6" fname="answer_request" fvid="359"/>
+       <caller api-id="9" fname="answer_request" fvid="359"/>
+       <caller api-id="12" fname="answer_request" fvid="359"/>
+       <caller api-id="25" fname="answer_auth" fvid="13"/>
+       <caller api-id="12" fname="answer_auth" fvid="13"/>
+       <caller api-id="21" fname="answer_auth" fvid="13"/>
+       <caller api-id="26" fname="answer_auth" fvid="13"/>
+       <caller api-id="14" fname="answer_request" fvid="359"/>
+       <caller api-id="6" fname="answer_request" fvid="359"/>
+       <caller api-id="9" fname="answer_request" fvid="359"/>
+       <caller api-id="12" fname="answer_request" fvid="359"/>
+       <caller api-id="25" fname="answer_auth" fvid="13"/>
+       <caller api-id="12" fname="answer_auth" fvid="13"/>
+       <caller api-id="21" fname="answer_auth" fvid="13"/>
+       <caller api-id="26" fname="answer_auth" fvid="13"/>
+       <caller api-id="14" fname="answer_request" fvid="359"/>
+       <caller api-id="6" fname="answer_request" fvid="359"/>
+       <caller api-id="9" fname="answer_request" fvid="359"/>
+       <caller api-id="12" fname="answer_request" fvid="359"/>
+       <caller api-id="25" fname="answer_auth" fvid="13"/>
+       <caller api-id="12" fname="answer_auth" fvid="13"/>
+       <caller api-id="21" fname="answer_auth" fvid="13"/>
+       <caller api-id="26" fname="answer_auth" fvid="13"/>
+       <caller api-id="14" fname="answer_request" fvid="359"/>
+       <caller api-id="6" fname="answer_request" fvid="359"/>
+       <caller api-id="9" fname="answer_request" fvid="359"/>
+       <caller api-id="12" fname="answer_request" fvid="359"/>
+       <caller api-id="25" fname="answer_auth" fvid="13"/>
+       <caller api-id="12" fname="answer_auth" fvid="13"/>
+       <caller api-id="21" fname="answer_auth" fvid="13"/>
+       <caller api-id="26" fname="answer_auth" fvid="13"/>
+       <caller api-id="14" fname="answer_request" fvid="359"/>
+       <caller api-id="6" fname="answer_request" fvid="359"/>
+       <caller api-id="9" fname="answer_request" fvid="359"/>
+       <caller api-id="12" fname="answer_request" fvid="359"/>
+       <caller api-id="25" fname="answer_auth" fvid="13"/>
+       <caller api-id="21" fname="answer_auth" fvid="13"/>
+       <caller api-id="26" fname="answer_auth" fvid="13"/>
+       <caller api-id="12" fname="answer_auth" fvid="13"/>
+      </callers>
+      <predicate op="pluspi" tag="ptr-upper-bound">
+       <typ ikind="ichar" ttag="tint">
+        <attributes>
+         <attr attrname="const"/>
+        </attributes>
+       </typ>
+       <exp1 etag="lval" xstr="ah-&gt;fname">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="ah">
+           <lval>
+            <lhost>
+             <var vid="6361" vname="ah"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <field ckey="213" fname="fname"/>
+         </offset>
+        </lval>
+       </exp1>
+       <exp2 cn="null-terminator-pos" etag="cnapp" xstr="null-terminator-pos[caste (ah-&gt;fname:(char*))]">
+        <arg etag="caste" xstr="caste (ah-&gt;fname:(char*))">
+         <typ ttag="tptr">
+          <attributes>
+           <attr attrname="restrict"/>
+          </attributes>
+          <typ ikind="ichar" ttag="tint">
+           <attributes>
+            <attr attrname="const"/>
+           </attributes>
+          </typ>
+         </typ>
+         <exp etag="lval" xstr="ah-&gt;fname">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="ah">
+             <lval>
+              <lhost>
+               <var vid="6361" vname="ah"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <field ckey="213" fname="fname"/>
+           </offset>
+          </lval>
+         </exp>
+        </arg>
+        <typ ikind="iint" ttag="tint"/>
+       </exp2>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="807"/>
+        <node name="if-then"/>
+        <node name="stmt" num="806"/>
+        <node name="loop"/>
+        <node name="stmt" num="803"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="218171" file="src/cache.c" line="1530"/>
+     </post-expectation>
+     <post-expectation id="78">
+      <callers>
+       <caller api-id="14" fname="answer_request" fvid="359"/>
+       <caller api-id="6" fname="answer_request" fvid="359"/>
+       <caller api-id="9" fname="answer_request" fvid="359"/>
+       <caller api-id="12" fname="answer_request" fvid="359"/>
+       <caller api-id="25" fname="answer_auth" fvid="13"/>
+       <caller api-id="12" fname="answer_auth" fvid="13"/>
+       <caller api-id="21" fname="answer_auth" fvid="13"/>
+       <caller api-id="26" fname="answer_auth" fvid="13"/>
+       <caller api-id="14" fname="answer_request" fvid="359"/>
+       <caller api-id="6" fname="answer_request" fvid="359"/>
+       <caller api-id="9" fname="answer_request" fvid="359"/>
+       <caller api-id="12" fname="answer_request" fvid="359"/>
+       <caller api-id="25" fname="answer_auth" fvid="13"/>
+       <caller api-id="12" fname="answer_auth" fvid="13"/>
+       <caller api-id="21" fname="answer_auth" fvid="13"/>
+       <caller api-id="26" fname="answer_auth" fvid="13"/>
+       <caller api-id="14" fname="answer_request" fvid="359"/>
+       <caller api-id="6" fname="answer_request" fvid="359"/>
+       <caller api-id="9" fname="answer_request" fvid="359"/>
+       <caller api-id="12" fname="answer_request" fvid="359"/>
+       <caller api-id="25" fname="answer_auth" fvid="13"/>
+       <caller api-id="12" fname="answer_auth" fvid="13"/>
+       <caller api-id="21" fname="answer_auth" fvid="13"/>
+       <caller api-id="26" fname="answer_auth" fvid="13"/>
+       <caller api-id="14" fname="answer_request" fvid="359"/>
+       <caller api-id="6" fname="answer_request" fvid="359"/>
+       <caller api-id="9" fname="answer_request" fvid="359"/>
+       <caller api-id="12" fname="answer_request" fvid="359"/>
+       <caller api-id="25" fname="answer_auth" fvid="13"/>
+       <caller api-id="12" fname="answer_auth" fvid="13"/>
+       <caller api-id="21" fname="answer_auth" fvid="13"/>
+       <caller api-id="26" fname="answer_auth" fvid="13"/>
+       <caller api-id="14" fname="answer_request" fvid="359"/>
+       <caller api-id="6" fname="answer_request" fvid="359"/>
+       <caller api-id="9" fname="answer_request" fvid="359"/>
+       <caller api-id="12" fname="answer_request" fvid="359"/>
+       <caller api-id="25" fname="answer_auth" fvid="13"/>
+       <caller api-id="12" fname="answer_auth" fvid="13"/>
+       <caller api-id="21" fname="answer_auth" fvid="13"/>
+       <caller api-id="26" fname="answer_auth" fvid="13"/>
+       <caller api-id="14" fname="answer_request" fvid="359"/>
+       <caller api-id="6" fname="answer_request" fvid="359"/>
+       <caller api-id="9" fname="answer_request" fvid="359"/>
+       <caller api-id="12" fname="answer_request" fvid="359"/>
+       <caller api-id="25" fname="answer_auth" fvid="13"/>
+       <caller api-id="12" fname="answer_auth" fvid="13"/>
+       <caller api-id="21" fname="answer_auth" fvid="13"/>
+       <caller api-id="26" fname="answer_auth" fvid="13"/>
+       <caller api-id="14" fname="answer_request" fvid="359"/>
+       <caller api-id="6" fname="answer_request" fvid="359"/>
+       <caller api-id="9" fname="answer_request" fvid="359"/>
+       <caller api-id="12" fname="answer_request" fvid="359"/>
+       <caller api-id="25" fname="answer_auth" fvid="13"/>
+       <caller api-id="21" fname="answer_auth" fvid="13"/>
+       <caller api-id="26" fname="answer_auth" fvid="13"/>
+       <caller api-id="12" fname="answer_auth" fvid="13"/>
+      </callers>
+      <predicate op="pluspi" tag="ptr-upper-bound">
+       <typ ikind="ichar" ttag="tint">
+        <attributes>
+         <attr attrname="const"/>
+        </attributes>
+       </typ>
+       <exp1 etag="caste" xstr="caste (&quot;&lt;unknown&gt;&quot;:(char*))">
+        <typ ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </typ>
+        <exp etag="const" xstr="&quot;&lt;unknown&gt;&quot;">
+         <constant ctag="cstr" strValue="&lt;unknown&gt;"/>
+        </exp>
+       </exp1>
+       <exp2 cn="null-terminator-pos" etag="cnapp" xstr="null-terminator-pos[caste (caste (&quot;&lt;unknown&gt;&quot;:(char*)):(char*))]">
+        <arg etag="caste" xstr="caste (caste (&quot;&lt;unknown&gt;&quot;:(char*)):(char*))">
+         <typ ttag="tptr">
+          <attributes>
+           <attr attrname="restrict"/>
+          </attributes>
+          <typ ikind="ichar" ttag="tint">
+           <attributes>
+            <attr attrname="const"/>
+           </attributes>
+          </typ>
+         </typ>
+         <exp etag="caste" xstr="caste (&quot;&lt;unknown&gt;&quot;:(char*))">
+          <typ ttag="tptr">
+           <typ ikind="ichar" ttag="tint"/>
+          </typ>
+          <exp etag="const" xstr="&quot;&lt;unknown&gt;&quot;">
+           <constant ctag="cstr" strValue="&lt;unknown&gt;"/>
+          </exp>
+         </exp>
+        </arg>
+        <typ ikind="iint" ttag="tint"/>
+       </exp2>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="816"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="218310" file="src/cache.c" line="1538"/>
+     </post-expectation>
+     <post-expectation id="85">
+      <callers>
+       <caller api-id="22" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_request" fvid="359"/>
+       <caller api-id="17" fname="answer_request" fvid="359"/>
+       <caller api-id="13" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_auth" fvid="13"/>
+       <caller api-id="19" fname="answer_auth" fvid="13"/>
+       <caller api-id="15" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_request" fvid="359"/>
+       <caller api-id="17" fname="answer_request" fvid="359"/>
+       <caller api-id="13" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_auth" fvid="13"/>
+       <caller api-id="19" fname="answer_auth" fvid="13"/>
+       <caller api-id="15" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_request" fvid="359"/>
+       <caller api-id="17" fname="answer_request" fvid="359"/>
+       <caller api-id="13" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_auth" fvid="13"/>
+       <caller api-id="19" fname="answer_auth" fvid="13"/>
+       <caller api-id="15" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_request" fvid="359"/>
+       <caller api-id="17" fname="answer_request" fvid="359"/>
+       <caller api-id="13" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_auth" fvid="13"/>
+       <caller api-id="19" fname="answer_auth" fvid="13"/>
+       <caller api-id="15" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_request" fvid="359"/>
+       <caller api-id="17" fname="answer_request" fvid="359"/>
+       <caller api-id="13" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_auth" fvid="13"/>
+       <caller api-id="19" fname="answer_auth" fvid="13"/>
+       <caller api-id="15" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_request" fvid="359"/>
+       <caller api-id="17" fname="answer_request" fvid="359"/>
+       <caller api-id="13" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_auth" fvid="13"/>
+       <caller api-id="19" fname="answer_auth" fvid="13"/>
+       <caller api-id="15" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_request" fvid="359"/>
+       <caller api-id="17" fname="answer_request" fvid="359"/>
+       <caller api-id="13" fname="answer_request" fvid="359"/>
+       <caller api-id="22" fname="answer_auth" fvid="13"/>
+       <caller api-id="18" fname="answer_auth" fvid="13"/>
+       <caller api-id="19" fname="answer_auth" fvid="13"/>
+       <caller api-id="15" fname="answer_auth" fvid="13"/>
+      </callers>
+      <predicate tag="not-null">
+       <exp etag="caste" xstr="caste (&quot;/etc/hosts&quot;:(char*))">
+        <typ ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </typ>
+        <exp etag="const" xstr="&quot;/etc/hosts&quot;">
+         <constant ctag="cstr" strValue="/etc/hosts"/>
+        </exp>
+       </exp>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="801"/>
+        <node name="if-then"/>
+        <node name="stmt" num="800"/>
+        <node name="if-else"/>
+        <node name="stmt" num="798"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="218056" file="src/cache.c" line="1526"/>
+     </post-expectation>
+     <post-expectation id="80">
+      <callers>
+       <caller api-id="14" fname="answer_request" fvid="359"/>
+       <caller api-id="6" fname="answer_request" fvid="359"/>
+       <caller api-id="9" fname="answer_request" fvid="359"/>
+       <caller api-id="12" fname="answer_request" fvid="359"/>
+       <caller api-id="25" fname="answer_auth" fvid="13"/>
+       <caller api-id="12" fname="answer_auth" fvid="13"/>
+       <caller api-id="21" fname="answer_auth" fvid="13"/>
+       <caller api-id="26" fname="answer_auth" fvid="13"/>
+       <caller api-id="14" fname="answer_request" fvid="359"/>
+       <caller api-id="6" fname="answer_request" fvid="359"/>
+       <caller api-id="9" fname="answer_request" fvid="359"/>
+       <caller api-id="12" fname="answer_request" fvid="359"/>
+       <caller api-id="25" fname="answer_auth" fvid="13"/>
+       <caller api-id="12" fname="answer_auth" fvid="13"/>
+       <caller api-id="21" fname="answer_auth" fvid="13"/>
+       <caller api-id="26" fname="answer_auth" fvid="13"/>
+       <caller api-id="14" fname="answer_request" fvid="359"/>
+       <caller api-id="6" fname="answer_request" fvid="359"/>
+       <caller api-id="9" fname="answer_request" fvid="359"/>
+       <caller api-id="12" fname="answer_request" fvid="359"/>
+       <caller api-id="25" fname="answer_auth" fvid="13"/>
+       <caller api-id="12" fname="answer_auth" fvid="13"/>
+       <caller api-id="21" fname="answer_auth" fvid="13"/>
+       <caller api-id="26" fname="answer_auth" fvid="13"/>
+       <caller api-id="14" fname="answer_request" fvid="359"/>
+       <caller api-id="6" fname="answer_request" fvid="359"/>
+       <caller api-id="9" fname="answer_request" fvid="359"/>
+       <caller api-id="12" fname="answer_request" fvid="359"/>
+       <caller api-id="25" fname="answer_auth" fvid="13"/>
+       <caller api-id="12" fname="answer_auth" fvid="13"/>
+       <caller api-id="21" fname="answer_auth" fvid="13"/>
+       <caller api-id="26" fname="answer_auth" fvid="13"/>
+       <caller api-id="14" fname="answer_request" fvid="359"/>
+       <caller api-id="6" fname="answer_request" fvid="359"/>
+       <caller api-id="9" fname="answer_request" fvid="359"/>
+       <caller api-id="12" fname="answer_request" fvid="359"/>
+       <caller api-id="25" fname="answer_auth" fvid="13"/>
+       <caller api-id="12" fname="answer_auth" fvid="13"/>
+       <caller api-id="21" fname="answer_auth" fvid="13"/>
+       <caller api-id="26" fname="answer_auth" fvid="13"/>
+       <caller api-id="14" fname="answer_request" fvid="359"/>
+       <caller api-id="6" fname="answer_request" fvid="359"/>
+       <caller api-id="9" fname="answer_request" fvid="359"/>
+       <caller api-id="12" fname="answer_request" fvid="359"/>
+       <caller api-id="25" fname="answer_auth" fvid="13"/>
+       <caller api-id="12" fname="answer_auth" fvid="13"/>
+       <caller api-id="21" fname="answer_auth" fvid="13"/>
+       <caller api-id="26" fname="answer_auth" fvid="13"/>
+       <caller api-id="14" fname="answer_request" fvid="359"/>
+       <caller api-id="6" fname="answer_request" fvid="359"/>
+       <caller api-id="9" fname="answer_request" fvid="359"/>
+       <caller api-id="12" fname="answer_request" fvid="359"/>
+       <caller api-id="25" fname="answer_auth" fvid="13"/>
+       <caller api-id="21" fname="answer_auth" fvid="13"/>
+       <caller api-id="26" fname="answer_auth" fvid="13"/>
+       <caller api-id="12" fname="answer_auth" fvid="13"/>
+      </callers>
+      <predicate op="pluspi" tag="ptr-upper-bound">
+       <typ ikind="ichar" ttag="tint">
+        <attributes>
+         <attr attrname="const"/>
+        </attributes>
+       </typ>
+       <exp1 etag="lval" xstr="ah-&gt;fname">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="ah">
+           <lval>
+            <lhost>
+             <var vid="6361" vname="ah"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <field ckey="213" fname="fname"/>
+         </offset>
+        </lval>
+       </exp1>
+       <exp2 cn="null-terminator-pos" etag="cnapp" xstr="null-terminator-pos[caste (ah-&gt;fname:(char*))]">
+        <arg etag="caste" xstr="caste (ah-&gt;fname:(char*))">
+         <typ ttag="tptr">
+          <attributes>
+           <attr attrname="restrict"/>
+          </attributes>
+          <typ ikind="ichar" ttag="tint">
+           <attributes>
+            <attr attrname="const"/>
+           </attributes>
+          </typ>
+         </typ>
+         <exp etag="lval" xstr="ah-&gt;fname">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="ah">
+             <lval>
+              <lhost>
+               <var vid="6361" vname="ah"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <field ckey="213" fname="fname"/>
+           </offset>
+          </lval>
+         </exp>
+        </arg>
+        <typ ikind="iint" ttag="tint"/>
+       </exp2>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="814"/>
+        <node name="if-then"/>
+        <node name="stmt" num="813"/>
+        <node name="loop"/>
+        <node name="stmt" num="810"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="218288" file="src/cache.c" line="1535"/>
+     </post-expectation>
+     <post-expectation id="79">
+      <callers>
+       <caller api-id="22" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_request" fvid="359"/>
+       <caller api-id="17" fname="answer_request" fvid="359"/>
+       <caller api-id="13" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_auth" fvid="13"/>
+       <caller api-id="19" fname="answer_auth" fvid="13"/>
+       <caller api-id="15" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_request" fvid="359"/>
+       <caller api-id="17" fname="answer_request" fvid="359"/>
+       <caller api-id="13" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_auth" fvid="13"/>
+       <caller api-id="19" fname="answer_auth" fvid="13"/>
+       <caller api-id="15" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_request" fvid="359"/>
+       <caller api-id="17" fname="answer_request" fvid="359"/>
+       <caller api-id="13" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_auth" fvid="13"/>
+       <caller api-id="19" fname="answer_auth" fvid="13"/>
+       <caller api-id="15" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_request" fvid="359"/>
+       <caller api-id="17" fname="answer_request" fvid="359"/>
+       <caller api-id="13" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_auth" fvid="13"/>
+       <caller api-id="19" fname="answer_auth" fvid="13"/>
+       <caller api-id="15" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_request" fvid="359"/>
+       <caller api-id="17" fname="answer_request" fvid="359"/>
+       <caller api-id="13" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_auth" fvid="13"/>
+       <caller api-id="19" fname="answer_auth" fvid="13"/>
+       <caller api-id="15" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_request" fvid="359"/>
+       <caller api-id="17" fname="answer_request" fvid="359"/>
+       <caller api-id="13" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_auth" fvid="13"/>
+       <caller api-id="19" fname="answer_auth" fvid="13"/>
+       <caller api-id="15" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_request" fvid="359"/>
+       <caller api-id="17" fname="answer_request" fvid="359"/>
+       <caller api-id="13" fname="answer_request" fvid="359"/>
+       <caller api-id="22" fname="answer_auth" fvid="13"/>
+       <caller api-id="18" fname="answer_auth" fvid="13"/>
+       <caller api-id="19" fname="answer_auth" fvid="13"/>
+       <caller api-id="15" fname="answer_auth" fvid="13"/>
+      </callers>
+      <predicate tag="not-null">
+       <exp etag="caste" xstr="caste (&quot;&lt;unknown&gt;&quot;:(char*))">
+        <typ ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </typ>
+        <exp etag="const" xstr="&quot;&lt;unknown&gt;&quot;">
+         <constant ctag="cstr" strValue="&lt;unknown&gt;"/>
+        </exp>
+       </exp>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="816"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="218310" file="src/cache.c" line="1538"/>
+     </post-expectation>
+     <post-expectation id="81">
+      <callers>
+       <caller api-id="22" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_request" fvid="359"/>
+       <caller api-id="17" fname="answer_request" fvid="359"/>
+       <caller api-id="13" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_auth" fvid="13"/>
+       <caller api-id="19" fname="answer_auth" fvid="13"/>
+       <caller api-id="15" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_request" fvid="359"/>
+       <caller api-id="17" fname="answer_request" fvid="359"/>
+       <caller api-id="13" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_auth" fvid="13"/>
+       <caller api-id="19" fname="answer_auth" fvid="13"/>
+       <caller api-id="15" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_request" fvid="359"/>
+       <caller api-id="17" fname="answer_request" fvid="359"/>
+       <caller api-id="13" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_auth" fvid="13"/>
+       <caller api-id="19" fname="answer_auth" fvid="13"/>
+       <caller api-id="15" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_request" fvid="359"/>
+       <caller api-id="17" fname="answer_request" fvid="359"/>
+       <caller api-id="13" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_auth" fvid="13"/>
+       <caller api-id="19" fname="answer_auth" fvid="13"/>
+       <caller api-id="15" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_request" fvid="359"/>
+       <caller api-id="17" fname="answer_request" fvid="359"/>
+       <caller api-id="13" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_auth" fvid="13"/>
+       <caller api-id="19" fname="answer_auth" fvid="13"/>
+       <caller api-id="15" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_request" fvid="359"/>
+       <caller api-id="17" fname="answer_request" fvid="359"/>
+       <caller api-id="13" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_auth" fvid="13"/>
+       <caller api-id="19" fname="answer_auth" fvid="13"/>
+       <caller api-id="15" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_request" fvid="359"/>
+       <caller api-id="17" fname="answer_request" fvid="359"/>
+       <caller api-id="13" fname="answer_request" fvid="359"/>
+       <caller api-id="22" fname="answer_auth" fvid="13"/>
+       <caller api-id="18" fname="answer_auth" fvid="13"/>
+       <caller api-id="19" fname="answer_auth" fvid="13"/>
+       <caller api-id="15" fname="answer_auth" fvid="13"/>
+      </callers>
+      <predicate tag="not-null">
+       <exp etag="lval" xstr="ah-&gt;fname">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="ah">
+           <lval>
+            <lhost>
+             <var vid="6361" vname="ah"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <field ckey="213" fname="fname"/>
+         </offset>
+        </lval>
+       </exp>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="814"/>
+        <node name="if-then"/>
+        <node name="stmt" num="813"/>
+        <node name="loop"/>
+        <node name="stmt" num="810"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="218288" file="src/cache.c" line="1535"/>
+     </post-expectation>
+     <post-expectation id="87">
+      <callers>
+       <caller api-id="22" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_request" fvid="359"/>
+       <caller api-id="17" fname="answer_request" fvid="359"/>
+       <caller api-id="13" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_auth" fvid="13"/>
+       <caller api-id="19" fname="answer_auth" fvid="13"/>
+       <caller api-id="15" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_request" fvid="359"/>
+       <caller api-id="17" fname="answer_request" fvid="359"/>
+       <caller api-id="13" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_auth" fvid="13"/>
+       <caller api-id="19" fname="answer_auth" fvid="13"/>
+       <caller api-id="15" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_request" fvid="359"/>
+       <caller api-id="17" fname="answer_request" fvid="359"/>
+       <caller api-id="13" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_auth" fvid="13"/>
+       <caller api-id="19" fname="answer_auth" fvid="13"/>
+       <caller api-id="15" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_request" fvid="359"/>
+       <caller api-id="17" fname="answer_request" fvid="359"/>
+       <caller api-id="13" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_auth" fvid="13"/>
+       <caller api-id="19" fname="answer_auth" fvid="13"/>
+       <caller api-id="15" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_request" fvid="359"/>
+       <caller api-id="17" fname="answer_request" fvid="359"/>
+       <caller api-id="13" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_auth" fvid="13"/>
+       <caller api-id="19" fname="answer_auth" fvid="13"/>
+       <caller api-id="15" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_request" fvid="359"/>
+       <caller api-id="17" fname="answer_request" fvid="359"/>
+       <caller api-id="13" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_auth" fvid="13"/>
+       <caller api-id="19" fname="answer_auth" fvid="13"/>
+       <caller api-id="15" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_request" fvid="359"/>
+       <caller api-id="17" fname="answer_request" fvid="359"/>
+       <caller api-id="13" fname="answer_request" fvid="359"/>
+       <caller api-id="22" fname="answer_auth" fvid="13"/>
+       <caller api-id="18" fname="answer_auth" fvid="13"/>
+       <caller api-id="19" fname="answer_auth" fvid="13"/>
+       <caller api-id="15" fname="answer_auth" fvid="13"/>
+      </callers>
+      <predicate tag="not-null">
+       <exp etag="caste" xstr="caste (&quot;config&quot;:(char*))">
+        <typ ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </typ>
+        <exp etag="const" xstr="&quot;config&quot;">
+         <constant ctag="cstr" strValue="config"/>
+        </exp>
+       </exp>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="799"/>
+        <node name="if-then"/>
+        <node name="stmt" num="798"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="218012" file="src/cache.c" line="1524"/>
+     </post-expectation>
+     <post-expectation id="84">
+      <callers>
+       <caller api-id="14" fname="answer_request" fvid="359"/>
+       <caller api-id="6" fname="answer_request" fvid="359"/>
+       <caller api-id="9" fname="answer_request" fvid="359"/>
+       <caller api-id="12" fname="answer_request" fvid="359"/>
+       <caller api-id="25" fname="answer_auth" fvid="13"/>
+       <caller api-id="12" fname="answer_auth" fvid="13"/>
+       <caller api-id="21" fname="answer_auth" fvid="13"/>
+       <caller api-id="26" fname="answer_auth" fvid="13"/>
+       <caller api-id="14" fname="answer_request" fvid="359"/>
+       <caller api-id="6" fname="answer_request" fvid="359"/>
+       <caller api-id="9" fname="answer_request" fvid="359"/>
+       <caller api-id="12" fname="answer_request" fvid="359"/>
+       <caller api-id="25" fname="answer_auth" fvid="13"/>
+       <caller api-id="12" fname="answer_auth" fvid="13"/>
+       <caller api-id="21" fname="answer_auth" fvid="13"/>
+       <caller api-id="26" fname="answer_auth" fvid="13"/>
+       <caller api-id="14" fname="answer_request" fvid="359"/>
+       <caller api-id="6" fname="answer_request" fvid="359"/>
+       <caller api-id="9" fname="answer_request" fvid="359"/>
+       <caller api-id="12" fname="answer_request" fvid="359"/>
+       <caller api-id="25" fname="answer_auth" fvid="13"/>
+       <caller api-id="12" fname="answer_auth" fvid="13"/>
+       <caller api-id="21" fname="answer_auth" fvid="13"/>
+       <caller api-id="26" fname="answer_auth" fvid="13"/>
+       <caller api-id="14" fname="answer_request" fvid="359"/>
+       <caller api-id="6" fname="answer_request" fvid="359"/>
+       <caller api-id="9" fname="answer_request" fvid="359"/>
+       <caller api-id="12" fname="answer_request" fvid="359"/>
+       <caller api-id="25" fname="answer_auth" fvid="13"/>
+       <caller api-id="12" fname="answer_auth" fvid="13"/>
+       <caller api-id="21" fname="answer_auth" fvid="13"/>
+       <caller api-id="26" fname="answer_auth" fvid="13"/>
+       <caller api-id="14" fname="answer_request" fvid="359"/>
+       <caller api-id="6" fname="answer_request" fvid="359"/>
+       <caller api-id="9" fname="answer_request" fvid="359"/>
+       <caller api-id="12" fname="answer_request" fvid="359"/>
+       <caller api-id="25" fname="answer_auth" fvid="13"/>
+       <caller api-id="12" fname="answer_auth" fvid="13"/>
+       <caller api-id="21" fname="answer_auth" fvid="13"/>
+       <caller api-id="26" fname="answer_auth" fvid="13"/>
+       <caller api-id="14" fname="answer_request" fvid="359"/>
+       <caller api-id="6" fname="answer_request" fvid="359"/>
+       <caller api-id="9" fname="answer_request" fvid="359"/>
+       <caller api-id="12" fname="answer_request" fvid="359"/>
+       <caller api-id="25" fname="answer_auth" fvid="13"/>
+       <caller api-id="12" fname="answer_auth" fvid="13"/>
+       <caller api-id="21" fname="answer_auth" fvid="13"/>
+       <caller api-id="26" fname="answer_auth" fvid="13"/>
+       <caller api-id="14" fname="answer_request" fvid="359"/>
+       <caller api-id="6" fname="answer_request" fvid="359"/>
+       <caller api-id="9" fname="answer_request" fvid="359"/>
+       <caller api-id="12" fname="answer_request" fvid="359"/>
+       <caller api-id="25" fname="answer_auth" fvid="13"/>
+       <caller api-id="21" fname="answer_auth" fvid="13"/>
+       <caller api-id="26" fname="answer_auth" fvid="13"/>
+       <caller api-id="12" fname="answer_auth" fvid="13"/>
+      </callers>
+      <predicate op="pluspi" tag="ptr-upper-bound">
+       <typ ikind="ichar" ttag="tint">
+        <attributes>
+         <attr attrname="const"/>
+        </attributes>
+       </typ>
+       <exp1 etag="caste" xstr="caste (&quot;/etc/hosts&quot;:(char*))">
+        <typ ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </typ>
+        <exp etag="const" xstr="&quot;/etc/hosts&quot;">
+         <constant ctag="cstr" strValue="/etc/hosts"/>
+        </exp>
+       </exp1>
+       <exp2 cn="null-terminator-pos" etag="cnapp" xstr="null-terminator-pos[caste (caste (&quot;/etc/hosts&quot;:(char*)):(char*))]">
+        <arg etag="caste" xstr="caste (caste (&quot;/etc/hosts&quot;:(char*)):(char*))">
+         <typ ttag="tptr">
+          <attributes>
+           <attr attrname="restrict"/>
+          </attributes>
+          <typ ikind="ichar" ttag="tint">
+           <attributes>
+            <attr attrname="const"/>
+           </attributes>
+          </typ>
+         </typ>
+         <exp etag="caste" xstr="caste (&quot;/etc/hosts&quot;:(char*))">
+          <typ ttag="tptr">
+           <typ ikind="ichar" ttag="tint"/>
+          </typ>
+          <exp etag="const" xstr="&quot;/etc/hosts&quot;">
+           <constant ctag="cstr" strValue="/etc/hosts"/>
+          </exp>
+         </exp>
+        </arg>
+        <typ ikind="iint" ttag="tint"/>
+       </exp2>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="801"/>
+        <node name="if-then"/>
+        <node name="stmt" num="800"/>
+        <node name="if-else"/>
+        <node name="stmt" num="798"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="218056" file="src/cache.c" line="1526"/>
+     </post-expectation>
+     <post-expectation id="83">
+      <callers>
+       <caller api-id="22" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_request" fvid="359"/>
+       <caller api-id="17" fname="answer_request" fvid="359"/>
+       <caller api-id="13" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_auth" fvid="13"/>
+       <caller api-id="19" fname="answer_auth" fvid="13"/>
+       <caller api-id="15" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_request" fvid="359"/>
+       <caller api-id="17" fname="answer_request" fvid="359"/>
+       <caller api-id="13" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_auth" fvid="13"/>
+       <caller api-id="19" fname="answer_auth" fvid="13"/>
+       <caller api-id="15" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_request" fvid="359"/>
+       <caller api-id="17" fname="answer_request" fvid="359"/>
+       <caller api-id="13" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_auth" fvid="13"/>
+       <caller api-id="19" fname="answer_auth" fvid="13"/>
+       <caller api-id="15" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_request" fvid="359"/>
+       <caller api-id="17" fname="answer_request" fvid="359"/>
+       <caller api-id="13" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_auth" fvid="13"/>
+       <caller api-id="19" fname="answer_auth" fvid="13"/>
+       <caller api-id="15" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_request" fvid="359"/>
+       <caller api-id="17" fname="answer_request" fvid="359"/>
+       <caller api-id="13" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_auth" fvid="13"/>
+       <caller api-id="19" fname="answer_auth" fvid="13"/>
+       <caller api-id="15" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_request" fvid="359"/>
+       <caller api-id="17" fname="answer_request" fvid="359"/>
+       <caller api-id="13" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_auth" fvid="13"/>
+       <caller api-id="19" fname="answer_auth" fvid="13"/>
+       <caller api-id="15" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_auth" fvid="13"/>
+       <caller api-id="22" fname="answer_request" fvid="359"/>
+       <caller api-id="18" fname="answer_request" fvid="359"/>
+       <caller api-id="17" fname="answer_request" fvid="359"/>
+       <caller api-id="13" fname="answer_request" fvid="359"/>
+       <caller api-id="22" fname="answer_auth" fvid="13"/>
+       <caller api-id="18" fname="answer_auth" fvid="13"/>
+       <caller api-id="19" fname="answer_auth" fvid="13"/>
+       <caller api-id="15" fname="answer_auth" fvid="13"/>
+      </callers>
+      <predicate tag="not-null">
+       <exp etag="lval" xstr="ah-&gt;fname">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="ah">
+           <lval>
+            <lhost>
+             <var vid="6361" vname="ah"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <field ckey="213" fname="fname"/>
+         </offset>
+        </lval>
+       </exp>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="807"/>
+        <node name="if-then"/>
+        <node name="stmt" num="806"/>
+        <node name="loop"/>
+        <node name="stmt" num="803"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="218171" file="src/cache.c" line="1530"/>
+     </post-expectation>
+     <post-expectation id="86">
+      <callers>
+       <caller api-id="14" fname="answer_request" fvid="359"/>
+       <caller api-id="6" fname="answer_request" fvid="359"/>
+       <caller api-id="9" fname="answer_request" fvid="359"/>
+       <caller api-id="12" fname="answer_request" fvid="359"/>
+       <caller api-id="25" fname="answer_auth" fvid="13"/>
+       <caller api-id="12" fname="answer_auth" fvid="13"/>
+       <caller api-id="21" fname="answer_auth" fvid="13"/>
+       <caller api-id="26" fname="answer_auth" fvid="13"/>
+       <caller api-id="14" fname="answer_request" fvid="359"/>
+       <caller api-id="6" fname="answer_request" fvid="359"/>
+       <caller api-id="9" fname="answer_request" fvid="359"/>
+       <caller api-id="12" fname="answer_request" fvid="359"/>
+       <caller api-id="25" fname="answer_auth" fvid="13"/>
+       <caller api-id="12" fname="answer_auth" fvid="13"/>
+       <caller api-id="21" fname="answer_auth" fvid="13"/>
+       <caller api-id="26" fname="answer_auth" fvid="13"/>
+       <caller api-id="14" fname="answer_request" fvid="359"/>
+       <caller api-id="6" fname="answer_request" fvid="359"/>
+       <caller api-id="9" fname="answer_request" fvid="359"/>
+       <caller api-id="12" fname="answer_request" fvid="359"/>
+       <caller api-id="25" fname="answer_auth" fvid="13"/>
+       <caller api-id="12" fname="answer_auth" fvid="13"/>
+       <caller api-id="21" fname="answer_auth" fvid="13"/>
+       <caller api-id="26" fname="answer_auth" fvid="13"/>
+       <caller api-id="14" fname="answer_request" fvid="359"/>
+       <caller api-id="6" fname="answer_request" fvid="359"/>
+       <caller api-id="9" fname="answer_request" fvid="359"/>
+       <caller api-id="12" fname="answer_request" fvid="359"/>
+       <caller api-id="25" fname="answer_auth" fvid="13"/>
+       <caller api-id="12" fname="answer_auth" fvid="13"/>
+       <caller api-id="21" fname="answer_auth" fvid="13"/>
+       <caller api-id="26" fname="answer_auth" fvid="13"/>
+       <caller api-id="14" fname="answer_request" fvid="359"/>
+       <caller api-id="6" fname="answer_request" fvid="359"/>
+       <caller api-id="9" fname="answer_request" fvid="359"/>
+       <caller api-id="12" fname="answer_request" fvid="359"/>
+       <caller api-id="25" fname="answer_auth" fvid="13"/>
+       <caller api-id="12" fname="answer_auth" fvid="13"/>
+       <caller api-id="21" fname="answer_auth" fvid="13"/>
+       <caller api-id="26" fname="answer_auth" fvid="13"/>
+       <caller api-id="14" fname="answer_request" fvid="359"/>
+       <caller api-id="6" fname="answer_request" fvid="359"/>
+       <caller api-id="9" fname="answer_request" fvid="359"/>
+       <caller api-id="12" fname="answer_request" fvid="359"/>
+       <caller api-id="25" fname="answer_auth" fvid="13"/>
+       <caller api-id="12" fname="answer_auth" fvid="13"/>
+       <caller api-id="21" fname="answer_auth" fvid="13"/>
+       <caller api-id="26" fname="answer_auth" fvid="13"/>
+       <caller api-id="14" fname="answer_request" fvid="359"/>
+       <caller api-id="6" fname="answer_request" fvid="359"/>
+       <caller api-id="9" fname="answer_request" fvid="359"/>
+       <caller api-id="12" fname="answer_request" fvid="359"/>
+       <caller api-id="25" fname="answer_auth" fvid="13"/>
+       <caller api-id="21" fname="answer_auth" fvid="13"/>
+       <caller api-id="26" fname="answer_auth" fvid="13"/>
+       <caller api-id="12" fname="answer_auth" fvid="13"/>
+      </callers>
+      <predicate op="pluspi" tag="ptr-upper-bound">
+       <typ ikind="ichar" ttag="tint">
+        <attributes>
+         <attr attrname="const"/>
+        </attributes>
+       </typ>
+       <exp1 etag="caste" xstr="caste (&quot;config&quot;:(char*))">
+        <typ ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </typ>
+        <exp etag="const" xstr="&quot;config&quot;">
+         <constant ctag="cstr" strValue="config"/>
+        </exp>
+       </exp1>
+       <exp2 cn="null-terminator-pos" etag="cnapp" xstr="null-terminator-pos[caste (caste (&quot;config&quot;:(char*)):(char*))]">
+        <arg etag="caste" xstr="caste (caste (&quot;config&quot;:(char*)):(char*))">
+         <typ ttag="tptr">
+          <attributes>
+           <attr attrname="restrict"/>
+          </attributes>
+          <typ ikind="ichar" ttag="tint">
+           <attributes>
+            <attr attrname="const"/>
+           </attributes>
+          </typ>
+         </typ>
+         <exp etag="caste" xstr="caste (&quot;config&quot;:(char*))">
+          <typ ttag="tptr">
+           <typ ikind="ichar" ttag="tint"/>
+          </typ>
+          <exp etag="const" xstr="&quot;config&quot;">
+           <constant ctag="cstr" strValue="config"/>
+          </exp>
+         </exp>
+        </arg>
+        <typ ikind="iint" ttag="tint"/>
+       </exp2>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="799"/>
+        <node name="if-then"/>
+        <node name="stmt" num="798"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="218012" file="src/cache.c" line="1524"/>
+     </post-expectation>
+    </post-expectations>
+    <ds-expectations/>
+   </secondary-proof-obligations>
+  </function>
+  <header time="01/10/2017 05:33:32">
+   <application file="src/cache.c" name="application"/>
+  </header>
+ </c-analysis>

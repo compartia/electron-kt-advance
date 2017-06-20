@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function name="cache_enumerate">
+   <secondary-proof-obligations max-spo-id="66" num-ppo="53">
+    <indirect-calls/>
+    <callsite-obligations/>
+    <return-sites>
+     <return-site>
+      <exp etag="lval" xstr="cache">
+       <lval>
+        <lhost>
+         <var vid="5983" vname="cache"/>
+        </lhost>
+       </lval>
+      </exp>
+      <location byte="191414" file="src/cache.c" line="291"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="115"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+    </return-sites>
+    <post-expectations>
+     <post-expectation id="57">
+      <callers>
+       <caller api-id="16" fname="answer_auth" fvid="13"/>
+       <caller api-id="16" fname="answer_auth" fvid="13"/>
+       <caller api-id="16" fname="answer_auth" fvid="13"/>
+       <caller api-id="16" fname="answer_auth" fvid="13"/>
+       <caller api-id="16" fname="answer_auth" fvid="13"/>
+       <caller api-id="16" fname="answer_auth" fvid="13"/>
+       <caller api-id="16" fname="answer_auth" fvid="13"/>
+      </callers>
+      <predicate tag="global-mem">
+       <exp etag="lval" xstr="cache">
+        <lval>
+         <lhost>
+          <var vid="5983" vname="cache"/>
+         </lhost>
+        </lval>
+       </exp>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="115"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="191414" file="src/cache.c" line="291"/>
+     </post-expectation>
+     <post-expectation id="54">
+      <callers>
+       <caller api-id="20" fname="answer_auth" fvid="13"/>
+       <caller api-id="20" fname="answer_auth" fvid="13"/>
+       <caller api-id="20" fname="answer_auth" fvid="13"/>
+       <caller api-id="20" fname="answer_auth" fvid="13"/>
+       <caller api-id="20" fname="answer_auth" fvid="13"/>
+       <caller api-id="20" fname="answer_auth" fvid="13"/>
+       <caller api-id="20" fname="answer_auth" fvid="13"/>
+      </callers>
+      <predicate tag="initialized">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="cache">
+          <lval>
+           <lhost>
+            <var vid="5983" vname="cache"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <field ckey="202" fname="namep"/>
+         </offset>
+         <field ckey="196" fname="name"/>
+        </offset>
+       </lval>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="115"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="191414" file="src/cache.c" line="291"/>
+     </post-expectation>
+     <post-expectation id="56">
+      <callers>
+       <caller api-id="14" fname="answer_auth" fvid="13"/>
+       <caller api-id="14" fname="answer_auth" fvid="13"/>
+       <caller api-id="14" fname="answer_auth" fvid="13"/>
+       <caller api-id="14" fname="answer_auth" fvid="13"/>
+       <caller api-id="14" fname="answer_auth" fvid="13"/>
+       <caller api-id="14" fname="answer_auth" fvid="13"/>
+       <caller api-id="14" fname="answer_auth" fvid="13"/>
+      </callers>
+      <predicate tag="initialized">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="cache">
+          <lval>
+           <lhost>
+            <var vid="5983" vname="cache"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <field ckey="202" fname="bname"/>
+         </offset>
+         <field ckey="196" fname="name"/>
+        </offset>
+       </lval>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="115"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="191414" file="src/cache.c" line="291"/>
+     </post-expectation>
+     <post-expectation id="61">
+      <callers>
+       <caller api-id="28" fname="answer_auth" fvid="13"/>
+       <caller api-id="28" fname="answer_auth" fvid="13"/>
+       <caller api-id="28" fname="answer_auth" fvid="13"/>
+       <caller api-id="28" fname="answer_auth" fvid="13"/>
+       <caller api-id="28" fname="answer_auth" fvid="13"/>
+       <caller api-id="28" fname="answer_auth" fvid="13"/>
+      </callers>
+      <predicate op="pluspi" tag="ptr-upper-bound">
+       <typ ikind="ichar" ttag="tint">
+        <attributes>
+         <attr attrname="const"/>
+        </attributes>
+       </typ>
+       <exp1 etag="lval" xstr="cache-&gt;name.namep">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="cache">
+           <lval>
+            <lhost>
+             <var vid="5983" vname="cache"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <offset>
+           <field ckey="202" fname="namep"/>
+          </offset>
+          <field ckey="196" fname="name"/>
+         </offset>
+        </lval>
+       </exp1>
+       <exp2 etag="const" xstr="256">
+        <constant ctag="cint64" ikind="iint" intValue="256"/>
+       </exp2>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="115"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="191414" file="src/cache.c" line="291"/>
+     </post-expectation>
+     <post-expectation id="65">
+      <callers>
+       <caller api-id="36" fname="answer_auth" fvid="13"/>
+       <caller api-id="36" fname="answer_auth" fvid="13"/>
+       <caller api-id="36" fname="answer_auth" fvid="13"/>
+       <caller api-id="36" fname="answer_auth" fvid="13"/>
+      </callers>
+      <predicate op="pluspi" tag="ptr-upper-bound-deref">
+       <typ ikind="ichar" ttag="tint"/>
+       <exp1 etag="lval" xstr="cache-&gt;name.bname">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="cache">
+           <lval>
+            <lhost>
+             <var vid="5983" vname="cache"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <offset>
+           <field ckey="202" fname="bname"/>
+          </offset>
+          <field ckey="196" fname="name"/>
+         </offset>
+        </lval>
+       </exp1>
+       <exp2 etag="const" xstr="1024">
+        <constant ctag="cint64" ikind="iint" intValue="1024"/>
+       </exp2>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="115"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="191414" file="src/cache.c" line="291"/>
+     </post-expectation>
+     <post-expectation id="55">
+      <callers>
+       <caller api-id="13" fname="answer_auth" fvid="13"/>
+       <caller api-id="13" fname="answer_auth" fvid="13"/>
+       <caller api-id="13" fname="answer_auth" fvid="13"/>
+       <caller api-id="13" fname="answer_auth" fvid="13"/>
+       <caller api-id="13" fname="answer_auth" fvid="13"/>
+       <caller api-id="13" fname="answer_auth" fvid="13"/>
+       <caller api-id="13" fname="answer_auth" fvid="13"/>
+      </callers>
+      <predicate tag="not-null">
+       <exp etag="lval" xstr="cache-&gt;name.bname">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="cache">
+           <lval>
+            <lhost>
+             <var vid="5983" vname="cache"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <offset>
+           <field ckey="202" fname="bname"/>
+          </offset>
+          <field ckey="196" fname="name"/>
+         </offset>
+        </lval>
+       </exp>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="115"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="191414" file="src/cache.c" line="291"/>
+     </post-expectation>
+     <post-expectation id="58">
+      <callers>
+       <caller api-id="23" fname="answer_auth" fvid="13"/>
+       <caller api-id="23" fname="answer_auth" fvid="13"/>
+       <caller api-id="23" fname="answer_auth" fvid="13"/>
+       <caller api-id="23" fname="answer_auth" fvid="13"/>
+       <caller api-id="23" fname="answer_auth" fvid="13"/>
+       <caller api-id="23" fname="answer_auth" fvid="13"/>
+       <caller api-id="23" fname="answer_auth" fvid="13"/>
+      </callers>
+      <predicate tag="global-mem">
+       <exp etag="lval" xstr="cache-&gt;name.namep">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="cache">
+           <lval>
+            <lhost>
+             <var vid="5983" vname="cache"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <offset>
+           <field ckey="202" fname="namep"/>
+          </offset>
+          <field ckey="196" fname="name"/>
+         </offset>
+        </lval>
+       </exp>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="115"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="191414" file="src/cache.c" line="291"/>
+     </post-expectation>
+     <post-expectation id="63">
+      <callers>
+       <caller api-id="32" fname="answer_auth" fvid="13"/>
+       <caller api-id="32" fname="answer_auth" fvid="13"/>
+       <caller api-id="32" fname="answer_auth" fvid="13"/>
+       <caller api-id="32" fname="answer_auth" fvid="13"/>
+       <caller api-id="32" fname="answer_auth" fvid="13"/>
+       <caller api-id="32" fname="answer_auth" fvid="13"/>
+      </callers>
+      <predicate tag="not-null">
+       <exp etag="lval" xstr="cache-&gt;name.namep">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="cache">
+           <lval>
+            <lhost>
+             <var vid="5983" vname="cache"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <offset>
+           <field ckey="202" fname="namep"/>
+          </offset>
+          <field ckey="196" fname="name"/>
+         </offset>
+        </lval>
+       </exp>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="115"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="191414" file="src/cache.c" line="291"/>
+     </post-expectation>
+     <post-expectation id="66">
+      <callers>
+       <caller api-id="34" fname="answer_auth" fvid="13"/>
+       <caller api-id="34" fname="answer_auth" fvid="13"/>
+       <caller api-id="34" fname="answer_auth" fvid="13"/>
+       <caller api-id="34" fname="answer_auth" fvid="13"/>
+      </callers>
+      <predicate op="pluspi" tag="ptr-upper-bound-deref">
+       <typ ikind="ichar" ttag="tint"/>
+       <exp1 etag="lval" xstr="cache-&gt;name.namep">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="cache">
+           <lval>
+            <lhost>
+             <var vid="5983" vname="cache"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <offset>
+           <field ckey="202" fname="namep"/>
+          </offset>
+          <field ckey="196" fname="name"/>
+         </offset>
+        </lval>
+       </exp1>
+       <exp2 etag="const" xstr="1024">
+        <constant ctag="cint64" ikind="iint" intValue="1024"/>
+       </exp2>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="115"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="191414" file="src/cache.c" line="291"/>
+     </post-expectation>
+     <post-expectation id="62">
+      <callers>
+       <caller api-id="30" fname="answer_auth" fvid="13"/>
+       <caller api-id="30" fname="answer_auth" fvid="13"/>
+       <caller api-id="30" fname="answer_auth" fvid="13"/>
+       <caller api-id="30" fname="answer_auth" fvid="13"/>
+       <caller api-id="30" fname="answer_auth" fvid="13"/>
+       <caller api-id="30" fname="answer_auth" fvid="13"/>
+      </callers>
+      <predicate op="pluspi" tag="ptr-upper-bound">
+       <typ ikind="ichar" ttag="tint">
+        <attributes>
+         <attr attrname="const"/>
+        </attributes>
+       </typ>
+       <exp1 etag="lval" xstr="cache-&gt;name.bname">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="cache">
+           <lval>
+            <lhost>
+             <var vid="5983" vname="cache"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <offset>
+           <field ckey="202" fname="bname"/>
+          </offset>
+          <field ckey="196" fname="name"/>
+         </offset>
+        </lval>
+       </exp1>
+       <exp2 etag="const" xstr="256">
+        <constant ctag="cint64" ikind="iint" intValue="256"/>
+       </exp2>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="115"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="191414" file="src/cache.c" line="291"/>
+     </post-expectation>
+     <post-expectation id="60">
+      <callers>
+       <caller api-id="29" fname="answer_auth" fvid="13"/>
+       <caller api-id="29" fname="answer_auth" fvid="13"/>
+       <caller api-id="29" fname="answer_auth" fvid="13"/>
+       <caller api-id="29" fname="answer_auth" fvid="13"/>
+       <caller api-id="29" fname="answer_auth" fvid="13"/>
+       <caller api-id="29" fname="answer_auth" fvid="13"/>
+      </callers>
+      <predicate op="pluspi" tag="ptr-upper-bound">
+       <typ ikind="ichar" ttag="tint">
+        <attributes>
+         <attr attrname="const"/>
+        </attributes>
+       </typ>
+       <exp1 etag="lval" xstr="cache">
+        <lval>
+         <lhost>
+          <var vid="5983" vname="cache"/>
+         </lhost>
+        </lval>
+       </exp1>
+       <exp2 etag="const" xstr="256">
+        <constant ctag="cint64" ikind="iint" intValue="256"/>
+       </exp2>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="115"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="191414" file="src/cache.c" line="291"/>
+     </post-expectation>
+     <post-expectation id="59">
+      <callers>
+       <caller api-id="17" fname="answer_auth" fvid="13"/>
+       <caller api-id="17" fname="answer_auth" fvid="13"/>
+       <caller api-id="17" fname="answer_auth" fvid="13"/>
+       <caller api-id="17" fname="answer_auth" fvid="13"/>
+       <caller api-id="17" fname="answer_auth" fvid="13"/>
+       <caller api-id="17" fname="answer_auth" fvid="13"/>
+       <caller api-id="17" fname="answer_auth" fvid="13"/>
+      </callers>
+      <predicate tag="global-mem">
+       <exp etag="lval" xstr="cache-&gt;name.bname">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="cache">
+           <lval>
+            <lhost>
+             <var vid="5983" vname="cache"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <offset>
+           <field ckey="202" fname="bname"/>
+          </offset>
+          <field ckey="196" fname="name"/>
+         </offset>
+        </lval>
+       </exp>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="115"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="191414" file="src/cache.c" line="291"/>
+     </post-expectation>
+     <post-expectation id="64">
+      <callers>
+       <caller api-id="35" fname="answer_auth" fvid="13"/>
+       <caller api-id="35" fname="answer_auth" fvid="13"/>
+       <caller api-id="35" fname="answer_auth" fvid="13"/>
+       <caller api-id="35" fname="answer_auth" fvid="13"/>
+      </callers>
+      <predicate op="pluspi" tag="ptr-upper-bound-deref">
+       <typ ikind="ichar" ttag="tint"/>
+       <exp1 etag="lval" xstr="cache">
+        <lval>
+         <lhost>
+          <var vid="5983" vname="cache"/>
+         </lhost>
+        </lval>
+       </exp1>
+       <exp2 etag="const" xstr="1024">
+        <constant ctag="cint64" ikind="iint" intValue="1024"/>
+       </exp2>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="115"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="191414" file="src/cache.c" line="291"/>
+     </post-expectation>
+    </post-expectations>
+    <ds-expectations/>
+   </secondary-proof-obligations>
+  </function>
+  <header time="01/10/2017 05:33:32">
+   <application file="src/cache.c" name="application"/>
+  </header>
+ </c-analysis>

@@ -1,0 +1,599 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function name="whine_malloc" stable="yes">
+   <program-locations>
+    <program-location>
+     <locations>
+      <loc byte="190735" file="src/util.c" line="265"/>
+     </locations>
+     <cfg-context>
+      <node name="instr" num="1"/>
+      <node name="stmt" num="172"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="10" pv="0"/>
+      <inv nrv="1" pv="2"/>
+      <inv nrv="8" pv="1"/>
+      <inv nrv="0" pv="1"/>
+      <inv nrv="10" pv="1"/>
+      <inv nrv="9" pv="1"/>
+      <inv nrv="4" pv="1"/>
+      <inv nrv="6" pv="19"/>
+      <inv nrv="5" pv="9"/>
+      <inv nrv="6" pv="10"/>
+      <inv nrv="8" pv="8"/>
+      <inv nrv="0" pv="8"/>
+      <inv nrv="10" pv="8"/>
+      <inv nrv="9" pv="8"/>
+      <inv nrv="4" pv="8"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="190735" file="src/util.c" line="265"/>
+     </locations>
+     <cfg-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="172"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="10" pv="0"/>
+      <inv nrv="1" pv="2"/>
+      <inv nrv="10" pv="1"/>
+      <inv nrv="7" pv="19"/>
+      <inv nrv="7" pv="9"/>
+      <inv nrv="7" pv="10"/>
+      <inv nrv="2" pv="4"/>
+      <inv nrv="1" pv="5"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="190767" file="src/util.c" line="267"/>
+     </locations>
+     <cfg-context>
+      <node name="if-expr"/>
+      <node name="stmt" num="173"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="8" pv="0"/>
+      <inv nrv="0" pv="0"/>
+      <inv nrv="10" pv="0"/>
+      <inv nrv="9" pv="0"/>
+      <inv nrv="3" pv="0"/>
+      <inv nrv="1" pv="2"/>
+      <inv nrv="8" pv="1"/>
+      <inv nrv="0" pv="1"/>
+      <inv nrv="10" pv="1"/>
+      <inv nrv="9" pv="1"/>
+      <inv nrv="4" pv="1"/>
+      <inv nrv="6" pv="19"/>
+      <inv nrv="5" pv="9"/>
+      <inv nrv="6" pv="10"/>
+      <inv nrv="8" pv="3"/>
+      <inv nrv="0" pv="3"/>
+      <inv nrv="10" pv="3"/>
+      <inv nrv="9" pv="3"/>
+      <inv nrv="3" pv="3"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="190781" file="src/util.c" line="268"/>
+     </locations>
+     <cfg-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="174"/>
+      <node name="if-then"/>
+      <node name="stmt" num="173"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="8" pv="0"/>
+      <inv nrv="0" pv="0"/>
+      <inv nrv="10" pv="0"/>
+      <inv nrv="9" pv="0"/>
+      <inv nrv="3" pv="0"/>
+      <inv nrv="1" pv="2"/>
+      <inv nrv="8" pv="1"/>
+      <inv nrv="0" pv="1"/>
+      <inv nrv="10" pv="1"/>
+      <inv nrv="9" pv="1"/>
+      <inv nrv="4" pv="1"/>
+      <inv nrv="6" pv="19"/>
+      <inv nrv="5" pv="9"/>
+      <inv nrv="6" pv="10"/>
+      <inv nrv="13" pv="12"/>
+      <inv nrv="1" pv="6"/>
+      <inv nrv="11" pv="11"/>
+      <inv nrv="11" pv="20"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="190843" file="src/util.c" line="270"/>
+     </locations>
+     <cfg-context>
+      <node name="return"/>
+      <node name="stmt" num="175"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="8" pv="0"/>
+      <inv nrv="0" pv="0"/>
+      <inv nrv="10" pv="0"/>
+      <inv nrv="9" pv="0"/>
+      <inv nrv="3" pv="0"/>
+      <inv nrv="1" pv="2"/>
+      <inv nrv="8" pv="1"/>
+      <inv nrv="0" pv="1"/>
+      <inv nrv="10" pv="1"/>
+      <inv nrv="9" pv="1"/>
+      <inv nrv="4" pv="1"/>
+      <inv nrv="6" pv="19"/>
+      <inv nrv="5" pv="9"/>
+      <inv nrv="12" pv="9"/>
+      <inv nrv="6" pv="10"/>
+      <inv nrv="14" pv="13"/>
+      <inv nrv="18" pv="18"/>
+      <inv nrv="20" pv="18"/>
+      <inv nrv="19" pv="18"/>
+      <inv nrv="17" pv="16"/>
+      <inv nrv="21" pv="21"/>
+      <inv nrv="16" pv="15"/>
+      <inv nrv="15" pv="14"/>
+      <inv nrv="8" pv="7"/>
+      <inv nrv="0" pv="7"/>
+      <inv nrv="10" pv="7"/>
+      <inv nrv="9" pv="7"/>
+      <inv nrv="3" pv="7"/>
+      <inv nrv="8" pv="17"/>
+      <inv nrv="10" pv="17"/>
+      <inv nrv="9" pv="17"/>
+      <inv nrv="3" pv="17"/>
+      <inv nrv="8" pv="22"/>
+      <inv nrv="10" pv="22"/>
+      <inv nrv="9" pv="22"/>
+      <inv nrv="3" pv="22"/>
+     </invariants>
+    </program-location>
+   </program-locations>
+   <program-value-table size="23">
+    <pvals index="0">
+     <pval>
+      <lhost>
+       <var vid="5983" vname="ret"/>
+      </lhost>
+     </pval>
+    </pvals>
+    <pvals index="1">
+     <pval>
+      <lhost>
+       <var vid="5984" vname="tmp"/>
+      </lhost>
+     </pval>
+    </pvals>
+    <pvals index="2">
+     <pval>
+      <lhost>
+       <var vid="5982" vname="size"/>
+      </lhost>
+     </pval>
+    </pvals>
+    <pvals index="3">
+     <pval arg="1" id="4"/>
+    </pvals>
+    <pvals index="4">
+     <pval arg="3" id="1"/>
+    </pvals>
+    <pvals index="5">
+     <pval arg="1" id="2"/>
+    </pvals>
+    <pvals index="6">
+     <pval arg="3" id="8"/>
+     <pval arg="1" id="9"/>
+    </pvals>
+    <pvals index="7">
+     <pval arg="1" id="10"/>
+     <pval arg="1" id="11"/>
+     <pval arg="1" id="12"/>
+     <pval arg="2" id="13"/>
+     <pval arg="2" id="14"/>
+    </pvals>
+    <pvals index="8">
+     <pval arg="1" id="3"/>
+    </pvals>
+    <pvals index="9">
+     <pval byte="190735" etag="fnapp" external="yes" file="src/util.c" line="265" property="vm" xstr="fn(calloc)@ 265[caste (1:size_t), size]">
+      <arg etag="caste" xstr="caste (1:size_t)">
+       <typ tname="size_t" ttag="tnamed"/>
+       <exp etag="const" xstr="1">
+        <constant ctag="cint64" ikind="iint" intValue="1"/>
+       </exp>
+      </arg>
+      <arg etag="lval" xstr="size">
+       <lval>
+        <lhost>
+         <var vid="5982" vname="size"/>
+        </lhost>
+       </lval>
+      </arg>
+      <fn etag="lval" xstr="calloc">
+       <lval>
+        <lhost>
+         <var vid="3202" vname="calloc"/>
+        </lhost>
+       </lval>
+      </fn>
+     </pval>
+    </pvals>
+    <pvals index="10">
+     <pval byte="190735" etag="fnapp" external="yes" file="src/util.c" line="265" property="vm" xstr="fn(calloc)@ 265[caste (1:size_t), _]">
+      <arg etag="caste" xstr="caste (1:size_t)">
+       <typ tname="size_t" ttag="tnamed"/>
+       <exp etag="const" xstr="1">
+        <constant ctag="cint64" ikind="iint" intValue="1"/>
+       </exp>
+      </arg>
+      <arg/>
+      <fn etag="lval" xstr="calloc">
+       <lval>
+        <lhost>
+         <var vid="3202" vname="calloc"/>
+        </lhost>
+       </lval>
+      </fn>
+     </pval>
+    </pvals>
+    <pvals index="11">
+     <pval arg="1" id="5"/>
+     <pval arg="2" id="6"/>
+     <pval arg="2" id="7"/>
+    </pvals>
+    <pvals index="12">
+     <pval arg="4" id="17"/>
+    </pvals>
+    <pvals index="13">
+     <pval arg="4" id="26"/>
+    </pvals>
+    <pvals index="14">
+     <pval arg="2" id="18"/>
+     <pval arg="2" id="20"/>
+     <pval arg="4" id="24"/>
+     <pval arg="2" id="28"/>
+    </pvals>
+    <pvals index="15">
+     <pval arg="3" id="18"/>
+     <pval arg="3" id="20"/>
+    </pvals>
+    <pvals index="16">
+     <pval arg="3" id="28"/>
+    </pvals>
+    <pvals index="17">
+     <pval arg="1" id="10"/>
+     <pval arg="1" id="11"/>
+     <pval arg="1" id="12"/>
+     <pval arg="2" id="13"/>
+     <pval arg="2" id="14"/>
+     <pval arg="1" id="19"/>
+     <pval arg="1" id="21"/>
+     <pval arg="3" id="22"/>
+     <pval arg="1" id="23"/>
+     <pval arg="2" id="23"/>
+     <pval arg="3" id="24"/>
+     <pval arg="1" id="25"/>
+     <pval arg="3" id="26"/>
+     <pval arg="3" id="29"/>
+    </pvals>
+    <pvals index="18">
+     <pval arg="2" id="27"/>
+    </pvals>
+    <pvals index="19">
+     <pval binop="pluspi" etag="binop" external="yes" property="vm" xstr="((fn(calloc)@ 265[caste (1:size_t), size] +i 2):(void*)">
+      <exp1 byte="190735" etag="fnapp" file="src/util.c" line="265" xstr="fn(calloc)@ 265[caste (1:size_t), size]">
+       <arg etag="caste" xstr="caste (1:size_t)">
+        <typ tname="size_t" ttag="tnamed"/>
+        <exp etag="const" xstr="1">
+         <constant ctag="cint64" ikind="iint" intValue="1"/>
+        </exp>
+       </arg>
+       <arg etag="lval" xstr="size">
+        <lval>
+         <lhost>
+          <var vid="5982" vname="size"/>
+         </lhost>
+        </lval>
+       </arg>
+       <fn etag="lval" xstr="calloc">
+        <lval>
+         <lhost>
+          <var vid="3202" vname="calloc"/>
+         </lhost>
+        </lval>
+       </fn>
+      </exp1>
+      <exp2 etag="const" xstr="2">
+       <constant ctag="cint64" ikind="iint" intValue="2"/>
+      </exp2>
+      <typ ttag="tptr">
+       <typ ttag="tvoid"/>
+      </typ>
+     </pval>
+    </pvals>
+    <pvals index="20">
+     <pval arg="1" id="5"/>
+     <pval arg="2" id="6"/>
+     <pval arg="2" id="7"/>
+     <pval arg="1" id="15"/>
+     <pval arg="1" id="16"/>
+     <pval arg="2" id="16"/>
+     <pval arg="3" id="17"/>
+    </pvals>
+    <pvals index="21">
+     <pval arg="4" id="30"/>
+    </pvals>
+    <pvals index="22">
+     <pval arg="1" id="10"/>
+     <pval arg="1" id="11"/>
+     <pval arg="1" id="12"/>
+     <pval arg="2" id="13"/>
+     <pval arg="2" id="14"/>
+     <pval arg="1" id="19"/>
+     <pval arg="1" id="21"/>
+     <pval arg="3" id="22"/>
+     <pval arg="1" id="23"/>
+     <pval arg="2" id="23"/>
+     <pval arg="3" id="24"/>
+     <pval arg="1" id="25"/>
+     <pval arg="3" id="26"/>
+     <pval arg="3" id="29"/>
+     <pval arg="3" id="30"/>
+    </pvals>
+   </program-value-table>
+   <non-relational-value-table size="22">
+    <nrv byte="190735" etag="fnapp" file="src/util.c" index="0" line="265" tag="fv" xstr="fn(calloc)@ 265[caste (1:size_t), _]">
+     <arg etag="caste" xstr="caste (1:size_t)">
+      <typ tname="size_t" ttag="tnamed"/>
+      <exp etag="const" xstr="1">
+       <constant ctag="cint64" ikind="iint" intValue="1"/>
+      </exp>
+     </arg>
+     <arg/>
+     <fn etag="lval" xstr="calloc">
+      <lval>
+       <lhost>
+        <var vid="3202" vname="calloc"/>
+       </lhost>
+      </lval>
+     </fn>
+    </nrv>
+    <nrv etag="lval" index="1" tag="fv" xstr="size">
+     <lval>
+      <lhost>
+       <var vid="5982" vname="size"/>
+      </lhost>
+     </lval>
+    </nrv>
+    <nrv index="2" tag="range" value="1"/>
+    <nrv index="3" tag="ss">
+     <sym name="assignedAt#265"/>
+    </nrv>
+    <nrv index="4" tag="ss">
+     <sym name="assignedAt#265">
+      <attr value="return-value"/>
+      <attr value="calloc"/>
+     </sym>
+    </nrv>
+    <nrv index="5" tag="ss">
+     <sym name="valid">
+      <attr value="calloc"/>
+     </sym>
+    </nrv>
+    <nrv index="6" tag="ss">
+     <sym name="invalid"/>
+    </nrv>
+    <nrv index="7" tag="ss">
+     <sym name="valid"/>
+    </nrv>
+    <nrv byte="190735" etag="fnapp" file="src/util.c" index="8" line="265" tag="fv" xstr="fn(calloc)@ 265[caste (1:size_t), size]">
+     <arg etag="caste" xstr="caste (1:size_t)">
+      <typ tname="size_t" ttag="tnamed"/>
+      <exp etag="const" xstr="1">
+       <constant ctag="cint64" ikind="iint" intValue="1"/>
+      </exp>
+     </arg>
+     <arg etag="lval" xstr="size">
+      <lval>
+       <lhost>
+        <var vid="5982" vname="size"/>
+       </lhost>
+      </lval>
+     </arg>
+     <fn etag="lval" xstr="calloc">
+      <lval>
+       <lhost>
+        <var vid="3202" vname="calloc"/>
+       </lhost>
+      </lval>
+     </fn>
+    </nrv>
+    <nrv address-type="external" index="9" tag="vs" value="0">
+     <base byte="190735" etag="fnapp" file="src/util.c" line="265" xstr="fn(calloc)@ 265[caste (1:size_t), size]">
+      <arg etag="caste" xstr="caste (1:size_t)">
+       <typ tname="size_t" ttag="tnamed"/>
+       <exp etag="const" xstr="1">
+        <constant ctag="cint64" ikind="iint" intValue="1"/>
+       </exp>
+      </arg>
+      <arg etag="lval" xstr="size">
+       <lval>
+        <lhost>
+         <var vid="5982" vname="size"/>
+        </lhost>
+       </lval>
+      </arg>
+      <fn etag="lval" xstr="calloc">
+       <lval>
+        <lhost>
+         <var vid="3202" vname="calloc"/>
+        </lhost>
+       </lval>
+      </fn>
+     </base>
+    </nrv>
+    <nrv index="10" lb="0" tag="range"/>
+    <nrv index="11" lb="1" tag="range"/>
+    <nrv index="12" tag="ss">
+     <sym name="invalid"/>
+     <sym name="valid">
+      <attr value="calloc"/>
+     </sym>
+    </nrv>
+    <nrv cn="null-terminator-pos" etag="cnapp" index="13" tag="fv" xstr="null-terminator-pos[caste (&quot;failed to allocate %d bytes&quot;:(char*))]">
+     <arg etag="caste" xstr="caste (&quot;failed to allocate %d bytes&quot;:(char*))">
+      <typ ttag="tptr">
+       <attributes>
+        <attr attrname="restrict"/>
+       </attributes>
+       <typ ikind="ichar" ttag="tint">
+        <attributes>
+         <attr attrname="const"/>
+        </attributes>
+       </typ>
+      </typ>
+      <exp etag="const" xstr="&quot;failed to allocate %d bytes&quot;">
+       <constant ctag="cstr" strValue="failed to allocate %d bytes"/>
+      </exp>
+     </arg>
+     <typ ikind="iint" ttag="tint"/>
+    </nrv>
+    <nrv index="14" tag="range" value="2"/>
+    <nrv cn="null-terminator-pos" etag="cnapp" index="15" tag="fv" xstr="null-terminator-pos[caste (fn(calloc)@ 265[caste (1:size_t), size]:(char*))]">
+     <arg etag="caste" xstr="caste (fn(calloc)@ 265[caste (1:size_t), size]:(char*))">
+      <typ ttag="tptr">
+       <attributes>
+        <attr attrname="restrict"/>
+       </attributes>
+       <typ ikind="ichar" ttag="tint"/>
+      </typ>
+      <exp byte="190735" etag="fnapp" file="src/util.c" line="265" xstr="fn(calloc)@ 265[caste (1:size_t), size]">
+       <arg etag="caste" xstr="caste (1:size_t)">
+        <typ tname="size_t" ttag="tnamed"/>
+        <exp etag="const" xstr="1">
+         <constant ctag="cint64" ikind="iint" intValue="1"/>
+        </exp>
+       </arg>
+       <arg etag="lval" xstr="size">
+        <lval>
+         <lhost>
+          <var vid="5982" vname="size"/>
+         </lhost>
+        </lval>
+       </arg>
+       <fn etag="lval" xstr="calloc">
+        <lval>
+         <lhost>
+          <var vid="3202" vname="calloc"/>
+         </lhost>
+        </lval>
+       </fn>
+      </exp>
+     </arg>
+     <typ ikind="iint" ttag="tint"/>
+    </nrv>
+    <nrv cn="null-terminator-pos" etag="cnapp" index="16" tag="fv" xstr="null-terminator-pos[caste (&quot;/&quot;:(char*))]">
+     <arg etag="caste" xstr="caste (&quot;/&quot;:(char*))">
+      <typ ttag="tptr">
+       <attributes>
+        <attr attrname="restrict"/>
+       </attributes>
+       <typ ikind="ichar" ttag="tint">
+        <attributes>
+         <attr attrname="const"/>
+        </attributes>
+       </typ>
+      </typ>
+      <exp etag="const" xstr="&quot;/&quot;">
+       <constant ctag="cstr" strValue="/"/>
+      </exp>
+     </arg>
+     <typ ikind="iint" ttag="tint"/>
+    </nrv>
+    <nrv cn="null-terminator-pos" etag="cnapp" index="17" tag="fv" xstr="null-terminator-pos[caste (&quot;.&quot;:(char*))]">
+     <arg etag="caste" xstr="caste (&quot;.&quot;:(char*))">
+      <typ ttag="tptr">
+       <attributes>
+        <attr attrname="restrict"/>
+       </attributes>
+       <typ ikind="ichar" ttag="tint">
+        <attributes>
+         <attr attrname="const"/>
+        </attributes>
+       </typ>
+      </typ>
+      <exp etag="const" xstr="&quot;.&quot;">
+       <constant ctag="cstr" strValue="."/>
+      </exp>
+     </arg>
+     <typ ikind="iint" ttag="tint"/>
+    </nrv>
+    <nrv binop="pluspi" etag="binop" index="18" tag="fv" xstr="((fn(calloc)@ 265[caste (1:size_t), size] +i 2):(void*)">
+     <exp1 byte="190735" etag="fnapp" file="src/util.c" line="265" xstr="fn(calloc)@ 265[caste (1:size_t), size]">
+      <arg etag="caste" xstr="caste (1:size_t)">
+       <typ tname="size_t" ttag="tnamed"/>
+       <exp etag="const" xstr="1">
+        <constant ctag="cint64" ikind="iint" intValue="1"/>
+       </exp>
+      </arg>
+      <arg etag="lval" xstr="size">
+       <lval>
+        <lhost>
+         <var vid="5982" vname="size"/>
+        </lhost>
+       </lval>
+      </arg>
+      <fn etag="lval" xstr="calloc">
+       <lval>
+        <lhost>
+         <var vid="3202" vname="calloc"/>
+        </lhost>
+       </lval>
+      </fn>
+     </exp1>
+     <exp2 etag="const" xstr="2">
+      <constant ctag="cint64" ikind="iint" intValue="2"/>
+     </exp2>
+     <typ ttag="tptr">
+      <typ ttag="tvoid"/>
+     </typ>
+    </nrv>
+    <nrv address-type="external" index="19" not-null="true" tag="vs" value="2">
+     <base byte="190735" etag="fnapp" file="src/util.c" line="265" xstr="fn(calloc)@ 265[caste (1:size_t), size]">
+      <arg etag="caste" xstr="caste (1:size_t)">
+       <typ tname="size_t" ttag="tnamed"/>
+       <exp etag="const" xstr="1">
+        <constant ctag="cint64" ikind="iint" intValue="1"/>
+       </exp>
+      </arg>
+      <arg etag="lval" xstr="size">
+       <lval>
+        <lhost>
+         <var vid="5982" vname="size"/>
+        </lhost>
+       </lval>
+      </arg>
+      <fn etag="lval" xstr="calloc">
+       <lval>
+        <lhost>
+         <var vid="3202" vname="calloc"/>
+        </lhost>
+       </lval>
+      </fn>
+     </base>
+    </nrv>
+    <nrv index="20" lb="2" tag="range"/>
+    <nrv index="21" tag="range" value="1024"/>
+   </non-relational-value-table>
+  </function>
+  <header time="01/10/2017 04:55:56">
+   <application file="src/util.c" name="application"/>
+  </header>
+ </c-analysis>

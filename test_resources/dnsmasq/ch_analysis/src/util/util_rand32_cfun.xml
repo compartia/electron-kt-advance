@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <codehawk-c-analysis>
+  <header>
+   <created file="src/util" project-directory="/home/vagrant/git/dnsmasq" time="01/09/2017 21:32:10"/>
+  </header>
+  <function filename="src/util">
+   <svar vglob="true" vid="4763" vname="rand32">
+    <vtyp ttag="tfun" vararg="false">
+     <args/>
+     <typ tname="u32" ttag="tnamed"/>
+    </vtyp>
+    <vdecl byte="188372" file="src/util.c" line="84"/>
+   </svar>
+   <sformals/>
+   <slocals/>
+   <sbody>
+    <bstmts>
+     <stmt sid="49">
+      <skind stag="if">
+       <exp etag="unop" unop="lnot">
+        <exp etag="lval">
+         <lval>
+          <lhost>
+           <var vid="5903" vname="outleft"/>
+          </lhost>
+         </lval>
+        </exp>
+        <typ ikind="iint" ttag="tint"/>
+       </exp>
+       <thenblock>
+        <bstmts>
+         <stmt sid="50">
+          <skind stag="instr">
+           <instrs>
+            <instr itag="set">
+             <lval>
+              <offset>
+               <index etag="const">
+                <constant ctag="cint64" ikind="iint" intValue="0"/>
+               </index>
+              </offset>
+              <lhost>
+               <var vid="5901" vname="in"/>
+              </lhost>
+             </lval>
+             <exp binop="plusa" etag="binop">
+              <exp1 etag="lval">
+               <lval>
+                <offset>
+                 <index etag="const">
+                  <constant ctag="cint64" ikind="iint" intValue="0"/>
+                 </index>
+                </offset>
+                <lhost>
+                 <var vid="5901" vname="in"/>
+                </lhost>
+               </lval>
+              </exp1>
+              <exp2 etag="const">
+               <constant ctag="cint64" ikind="iuint" intValue="1"/>
+              </exp2>
+              <typ tname="u32" ttag="tnamed"/>
+             </exp>
+             <loc byte="188418" file="src/util.c" line="88"/>
+            </instr>
+           </instrs>
+          </skind>
+          <succs>
+           <int intValue="51"/>
+          </succs>
+          <preds>
+           <int intValue="49"/>
+          </preds>
+         </stmt>
+         <stmt sid="51">
+          <skind stag="if">
+           <exp etag="lval">
+            <lval>
+             <offset>
+              <index etag="const">
+               <constant ctag="cint64" ikind="iint" intValue="0"/>
+              </index>
+             </offset>
+             <lhost>
+              <var vid="5901" vname="in"/>
+             </lhost>
+            </lval>
+           </exp>
+           <thenblock>
+            <bstmts/>
+           </thenblock>
+           <elseblock>
+            <bstmts>
+             <stmt sid="52">
+              <skind stag="instr">
+               <instrs>
+                <instr itag="set">
+                 <lval>
+                  <offset>
+                   <index etag="const">
+                    <constant ctag="cint64" ikind="iint" intValue="1"/>
+                   </index>
+                  </offset>
+                  <lhost>
+                   <var vid="5901" vname="in"/>
+                  </lhost>
+                 </lval>
+                 <exp binop="plusa" etag="binop">
+                  <exp1 etag="lval">
+                   <lval>
+                    <offset>
+                     <index etag="const">
+                      <constant ctag="cint64" ikind="iint" intValue="1"/>
+                     </index>
+                    </offset>
+                    <lhost>
+                     <var vid="5901" vname="in"/>
+                    </lhost>
+                   </lval>
+                  </exp1>
+                  <exp2 etag="const">
+                   <constant ctag="cint64" ikind="iuint" intValue="1"/>
+                  </exp2>
+                  <typ tname="u32" ttag="tnamed"/>
+                 </exp>
+                 <loc byte="188432" file="src/util.c" line="88"/>
+                </instr>
+               </instrs>
+              </skind>
+              <succs>
+               <int intValue="53"/>
+              </succs>
+              <preds>
+               <int intValue="51"/>
+              </preds>
+             </stmt>
+             <stmt sid="53">
+              <skind stag="if">
+               <exp etag="lval">
+                <lval>
+                 <offset>
+                  <index etag="const">
+                   <constant ctag="cint64" ikind="iint" intValue="1"/>
+                  </index>
+                 </offset>
+                 <lhost>
+                  <var vid="5901" vname="in"/>
+                 </lhost>
+                </lval>
+               </exp>
+               <thenblock>
+                <bstmts/>
+               </thenblock>
+               <elseblock>
+                <bstmts>
+                 <stmt sid="54">
+                  <skind stag="instr">
+                   <instrs>
+                    <instr itag="set">
+                     <lval>
+                      <offset>
+                       <index etag="const">
+                        <constant ctag="cint64" ikind="iint" intValue="2"/>
+                       </index>
+                      </offset>
+                      <lhost>
+                       <var vid="5901" vname="in"/>
+                      </lhost>
+                     </lval>
+                     <exp binop="plusa" etag="binop">
+                      <exp1 etag="lval">
+                       <lval>
+                        <offset>
+                         <index etag="const">
+                          <constant ctag="cint64" ikind="iint" intValue="2"/>
+                         </index>
+                        </offset>
+                        <lhost>
+                         <var vid="5901" vname="in"/>
+                        </lhost>
+                       </lval>
+                      </exp1>
+                      <exp2 etag="const">
+                       <constant ctag="cint64" ikind="iuint" intValue="1"/>
+                      </exp2>
+                      <typ tname="u32" ttag="tnamed"/>
+                     </exp>
+                     <loc byte="188446" file="src/util.c" line="88"/>
+                    </instr>
+                   </instrs>
+                  </skind>
+                  <succs>
+                   <int intValue="55"/>
+                  </succs>
+                  <preds>
+                   <int intValue="53"/>
+                  </preds>
+                 </stmt>
+                 <stmt sid="55">
+                  <skind stag="if">
+                   <exp etag="lval">
+                    <lval>
+                     <offset>
+                      <index etag="const">
+                       <constant ctag="cint64" ikind="iint" intValue="2"/>
+                      </index>
+                     </offset>
+                     <lhost>
+                      <var vid="5901" vname="in"/>
+                     </lhost>
+                    </lval>
+                   </exp>
+                   <thenblock>
+                    <bstmts/>
+                   </thenblock>
+                   <elseblock>
+                    <bstmts>
+                     <stmt sid="56">
+                      <skind stag="instr">
+                       <instrs>
+                        <instr itag="set">
+                         <lval>
+                          <offset>
+                           <index etag="const">
+                            <constant ctag="cint64" ikind="iint" intValue="3"/>
+                           </index>
+                          </offset>
+                          <lhost>
+                           <var vid="5901" vname="in"/>
+                          </lhost>
+                         </lval>
+                         <exp binop="plusa" etag="binop">
+                          <exp1 etag="lval">
+                           <lval>
+                            <offset>
+                             <index etag="const">
+                              <constant ctag="cint64" ikind="iint" intValue="3"/>
+                             </index>
+                            </offset>
+                            <lhost>
+                             <var vid="5901" vname="in"/>
+                            </lhost>
+                           </lval>
+                          </exp1>
+                          <exp2 etag="const">
+                           <constant ctag="cint64" ikind="iuint" intValue="1"/>
+                          </exp2>
+                          <typ tname="u32" ttag="tnamed"/>
+                         </exp>
+                         <loc byte="188460" file="src/util.c" line="88"/>
+                        </instr>
+                       </instrs>
+                      </skind>
+                      <succs>
+                       <int intValue="57"/>
+                      </succs>
+                      <preds>
+                       <int intValue="55"/>
+                      </preds>
+                     </stmt>
+                    </bstmts>
+                   </elseblock>
+                   <loc byte="188446" file="src/util.c" line="88"/>
+                  </skind>
+                  <succs>
+                   <int intValue="57"/>
+                   <int intValue="56"/>
+                  </succs>
+                  <preds>
+                   <int intValue="54"/>
+                  </preds>
+                 </stmt>
+                </bstmts>
+               </elseblock>
+               <loc byte="188432" file="src/util.c" line="88"/>
+              </skind>
+              <succs>
+               <int intValue="57"/>
+               <int intValue="54"/>
+              </succs>
+              <preds>
+               <int intValue="52"/>
+              </preds>
+             </stmt>
+            </bstmts>
+           </elseblock>
+           <loc byte="188418" file="src/util.c" line="88"/>
+          </skind>
+          <succs>
+           <int intValue="57"/>
+           <int intValue="52"/>
+          </succs>
+          <preds>
+           <int intValue="50"/>
+          </preds>
+         </stmt>
+         <stmt sid="57">
+          <skind stag="instr">
+           <instrs>
+            <instr itag="call">
+             <exp etag="lval">
+              <lval>
+               <lhost>
+                <var vid="5911" vname="surf"/>
+               </lhost>
+              </lval>
+             </exp>
+             <args/>
+             <loc byte="188475" file="src/util.c" line="89"/>
+            </instr>
+            <instr itag="set">
+             <lval>
+              <lhost>
+               <var vid="5903" vname="outleft"/>
+              </lhost>
+             </lval>
+             <exp etag="const">
+              <constant ctag="cint64" ikind="iint" intValue="8"/>
+             </exp>
+             <loc byte="188489" file="src/util.c" line="90"/>
+            </instr>
+           </instrs>
+          </skind>
+          <succs>
+           <int intValue="58"/>
+          </succs>
+          <preds>
+           <int intValue="56"/>
+           <int intValue="55"/>
+           <int intValue="53"/>
+           <int intValue="51"/>
+          </preds>
+         </stmt>
+        </bstmts>
+       </thenblock>
+       <elseblock>
+        <bstmts/>
+       </elseblock>
+       <loc byte="188392" file="src/util.c" line="86"/>
+      </skind>
+      <succs>
+       <int intValue="50"/>
+       <int intValue="58"/>
+      </succs>
+      <preds/>
+     </stmt>
+     <stmt sid="58">
+      <skind stag="instr">
+       <instrs>
+        <instr itag="set">
+         <lval>
+          <lhost>
+           <var vid="5903" vname="outleft"/>
+          </lhost>
+         </lval>
+         <exp binop="minusa" etag="binop">
+          <exp1 etag="lval">
+           <lval>
+            <lhost>
+             <var vid="5903" vname="outleft"/>
+            </lhost>
+           </lval>
+          </exp1>
+          <exp2 etag="const">
+           <constant ctag="cint64" ikind="iint" intValue="1"/>
+          </exp2>
+          <typ ikind="iint" ttag="tint"/>
+         </exp>
+         <loc byte="188511" file="src/util.c" line="93"/>
+        </instr>
+       </instrs>
+      </skind>
+      <succs>
+       <int intValue="59"/>
+      </succs>
+      <preds>
+       <int intValue="57"/>
+       <int intValue="49"/>
+      </preds>
+     </stmt>
+     <stmt sid="59">
+      <skind stag="return">
+       <loc byte="188511" file="src/util.c" line="93"/>
+       <exp etag="lval">
+        <lval>
+         <offset>
+          <index etag="lval">
+           <lval>
+            <lhost>
+             <var vid="5903" vname="outleft"/>
+            </lhost>
+           </lval>
+          </index>
+         </offset>
+         <lhost>
+          <var vid="5902" vname="out"/>
+         </lhost>
+        </lval>
+       </exp>
+      </skind>
+      <succs/>
+      <preds>
+       <int intValue="58"/>
+      </preds>
+     </stmt>
+    </bstmts>
+   </sbody>
+  </function>
+ </codehawk-c-analysis>

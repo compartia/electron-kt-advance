@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function cfilename="src/util.c" gvid="275" name="rand16" num-ppo="0">
+   <statistics api-assumptions="0" callers="9" ds-assumptions="0" field-assignments="0" global-assignments="6" global-assumptions="5" rv-assumptions="0"/>
+   <parameters/>
+   <callers>
+    <caller cfilename="src/dnsmasq.c" fname="icmp_ping" gvid="160" updated="01/09/2017 21:38:36" updated-f="1483997916.41">
+     <call-site byte="220431" file="src/dnsmasq.c" line="1764"/>
+     <args/>
+     <calling-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="905"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/forward.c" fname="get_id" gvid="338" updated="01/09/2017 21:38:37" updated-f="1483997917.16">
+     <call-site byte="230200" file="src/forward.c" line="2222"/>
+     <args/>
+     <calling-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="863"/>
+      <node name="loop"/>
+      <node name="stmt" num="862"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/loop.c" fname="loop_make_probe" gvid="468" updated="01/09/2017 21:38:38" updated-f="1483997918.78">
+     <call-site byte="187463" file="src/loop.c" line="63"/>
+     <args/>
+     <calling-context>
+      <node name="instr" num="3"/>
+      <node name="stmt" num="22"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/network.c" fname="random_sock" gvid="351" updated="01/09/2017 21:38:39" updated-f="1483997919.23">
+     <call-site byte="212307" file="src/network.c" line="1139"/>
+     <args/>
+     <calling-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="564"/>
+      <node name="loop"/>
+      <node name="stmt" num="560"/>
+      <node name="if-then"/>
+      <node name="stmt" num="559"/>
+      <node name="if-then"/>
+      <node name="stmt" num="553"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/radv.c" fname="new_timeout" gvid="551" updated="01/09/2017 21:38:42" updated-f="1483997922.91">
+     <call-site byte="219192" file="src/radv.c" line="925"/>
+     <args/>
+     <calling-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="517"/>
+      <node name="if-then"/>
+      <node name="stmt" num="516"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/radv.c" fname="ra_start_unsolicted" gvid="196" updated="01/09/2017 21:38:45" updated-f="1483997925.59">
+     <call-site byte="194022" file="src/radv.c" line="131"/>
+     <args/>
+     <calling-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="48"/>
+      <node name="if-then"/>
+      <node name="stmt" num="47"/>
+      <node name="loop"/>
+      <node name="stmt" num="44"/>
+      <node name="if-else"/>
+      <node name="stmt" num="41"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/rfc2131.c" fname="dhcp_reply" gvid="161" updated="01/09/2017 21:38:48" updated-f="1483997928.46">
+     <call-site byte="225374" file="src/rfc2131.c" line="1169"/>
+     <args/>
+     <calling-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="757"/>
+      <node name="if-else"/>
+      <node name="stmt" num="708"/>
+      <node name="stmt" num="582"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/rfc3315.c" fname="end_ia" gvid="610" updated="01/09/2017 21:38:49" updated-f="1483997929.57">
+     <call-site byte="228619" file="src/rfc3315.c" line="1621"/>
+     <args/>
+     <calling-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="923"/>
+      <node name="if-then"/>
+      <node name="stmt" num="922"/>
+      <node name="if-then"/>
+      <node name="stmt" num="920"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/slaac.c" fname="periodic_slaac" gvid="424" updated="01/09/2017 21:38:50" updated-f="1483997930.66">
+     <call-site byte="193679" file="src/slaac.c" line="135"/>
+     <args/>
+     <calling-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="77"/>
+      <node name="loop"/>
+      <node name="stmt" num="74"/>
+     </calling-context>
+    </caller>
+   </callers>
+   <api-assumptions/>
+   <rv-assumptions/>
+   <ds-assumptions/>
+   <global-assumptions>
+    <global-assumption nr="1">
+     <predicate tag="index-upper-bound">
+      <exp etag="lval" xstr="outleft">
+       <lval>
+        <lhost>
+         <var vid="644" vname="outleft"/>
+        </lhost>
+       </lval>
+      </exp>
+      <len-exp etag="const" xstr="8">
+       <constant ctag="cint64" ikind="iint" intValue="8"/>
+      </len-exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="45"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="2">
+     <predicate op="minusa" size="iint" tag="int-underflow">
+      <exp1 etag="lval" xstr="outleft">
+       <lval>
+        <lhost>
+         <var vid="644" vname="outleft"/>
+        </lhost>
+       </lval>
+      </exp1>
+      <exp2 etag="const" xstr="1">
+       <constant ctag="cint64" ikind="iint" intValue="1"/>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="40"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="3">
+     <predicate tag="index-lower-bound">
+      <exp etag="lval" xstr="outleft">
+       <lval>
+        <lhost>
+         <var vid="644" vname="outleft"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="44"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="4">
+     <predicate tag="cast">
+      <tfrom ikind="iuint" ttag="tint"/>
+      <tto ikind="iushort" ttag="tint"/>
+      <exp etag="lval" xstr="out[outleft]">
+       <lval>
+        <lhost>
+         <var vid="645" vname="out"/>
+        </lhost>
+        <offset>
+         <index etag="lval" xstr="outleft">
+          <lval>
+           <lhost>
+            <var vid="644" vname="outleft"/>
+           </lhost>
+          </lval>
+         </index>
+        </offset>
+       </lval>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="42"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+    <global-assumption nr="5">
+     <predicate from="iushort" tag="unsigned-to-signed-cast" to="iint">
+      <exp etag="caste" xstr="caste (out[outleft]:unsigned short)">
+       <typ ikind="iushort" ttag="tint"/>
+       <exp etag="lval" xstr="out[outleft]">
+        <lval>
+         <lhost>
+          <var vid="645" vname="out"/>
+         </lhost>
+         <offset>
+          <index etag="lval" xstr="outleft">
+           <lval>
+            <lhost>
+             <var vid="644" vname="outleft"/>
+            </lhost>
+           </lval>
+          </index>
+         </offset>
+        </lval>
+       </exp>
+      </exp>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="47"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+   </global-assumptions>
+   <global-assignments>
+    <global-assignment nr="1">
+     <lhs>
+      <lhost>
+       <var vid="646" vname="in"/>
+      </lhost>
+      <offset>
+       <index etag="const" xstr="0">
+        <constant ctag="cint64" ikind="iint" intValue="0"/>
+       </index>
+      </offset>
+     </lhs>
+     <rhs binop="plusa" etag="binop" xstr="((in[0] + 1):unsigned int">
+      <exp1 etag="lval" xstr="in[0]">
+       <lval>
+        <lhost>
+         <var vid="646" vname="in"/>
+        </lhost>
+        <offset>
+         <index etag="const" xstr="0">
+          <constant ctag="cint64" ikind="iint" intValue="0"/>
+         </index>
+        </offset>
+       </lval>
+      </exp1>
+      <exp2 etag="const" xstr="1">
+       <constant ctag="cint64" ikind="iuint" intValue="1"/>
+      </exp2>
+      <typ ikind="iuint" ttag="tint"/>
+     </rhs>
+     <loc byte="188236" file="src/util.c" line="76"/>
+    </global-assignment>
+    <global-assignment nr="4">
+     <lhs>
+      <lhost>
+       <var vid="646" vname="in"/>
+      </lhost>
+      <offset>
+       <index etag="const" xstr="3">
+        <constant ctag="cint64" ikind="iint" intValue="3"/>
+       </index>
+      </offset>
+     </lhs>
+     <rhs binop="plusa" etag="binop" xstr="((in[3] + 1):unsigned int">
+      <exp1 etag="lval" xstr="in[3]">
+       <lval>
+        <lhost>
+         <var vid="646" vname="in"/>
+        </lhost>
+        <offset>
+         <index etag="const" xstr="3">
+          <constant ctag="cint64" ikind="iint" intValue="3"/>
+         </index>
+        </offset>
+       </lval>
+      </exp1>
+      <exp2 etag="const" xstr="1">
+       <constant ctag="cint64" ikind="iuint" intValue="1"/>
+      </exp2>
+      <typ ikind="iuint" ttag="tint"/>
+     </rhs>
+     <loc byte="188278" file="src/util.c" line="76"/>
+    </global-assignment>
+    <global-assignment nr="5">
+     <lhs>
+      <lhost>
+       <var vid="644" vname="outleft"/>
+      </lhost>
+     </lhs>
+     <rhs etag="const" xstr="8">
+      <constant ctag="cint64" ikind="iint" intValue="8"/>
+     </rhs>
+     <loc byte="188307" file="src/util.c" line="78"/>
+    </global-assignment>
+    <global-assignment nr="3">
+     <lhs>
+      <lhost>
+       <var vid="646" vname="in"/>
+      </lhost>
+      <offset>
+       <index etag="const" xstr="2">
+        <constant ctag="cint64" ikind="iint" intValue="2"/>
+       </index>
+      </offset>
+     </lhs>
+     <rhs binop="plusa" etag="binop" xstr="((in[2] + 1):unsigned int">
+      <exp1 etag="lval" xstr="in[2]">
+       <lval>
+        <lhost>
+         <var vid="646" vname="in"/>
+        </lhost>
+        <offset>
+         <index etag="const" xstr="2">
+          <constant ctag="cint64" ikind="iint" intValue="2"/>
+         </index>
+        </offset>
+       </lval>
+      </exp1>
+      <exp2 etag="const" xstr="1">
+       <constant ctag="cint64" ikind="iuint" intValue="1"/>
+      </exp2>
+      <typ ikind="iuint" ttag="tint"/>
+     </rhs>
+     <loc byte="188264" file="src/util.c" line="76"/>
+    </global-assignment>
+    <global-assignment nr="2">
+     <lhs>
+      <lhost>
+       <var vid="646" vname="in"/>
+      </lhost>
+      <offset>
+       <index etag="const" xstr="1">
+        <constant ctag="cint64" ikind="iint" intValue="1"/>
+       </index>
+      </offset>
+     </lhs>
+     <rhs binop="plusa" etag="binop" xstr="((in[1] + 1):unsigned int">
+      <exp1 etag="lval" xstr="in[1]">
+       <lval>
+        <lhost>
+         <var vid="646" vname="in"/>
+        </lhost>
+        <offset>
+         <index etag="const" xstr="1">
+          <constant ctag="cint64" ikind="iint" intValue="1"/>
+         </index>
+        </offset>
+       </lval>
+      </exp1>
+      <exp2 etag="const" xstr="1">
+       <constant ctag="cint64" ikind="iuint" intValue="1"/>
+      </exp2>
+      <typ ikind="iuint" ttag="tint"/>
+     </rhs>
+     <loc byte="188250" file="src/util.c" line="76"/>
+    </global-assignment>
+    <global-assignment nr="6">
+     <lhs>
+      <lhost>
+       <var vid="644" vname="outleft"/>
+      </lhost>
+     </lhs>
+     <rhs binop="minusa" etag="binop" xstr="((outleft - 1):int">
+      <exp1 etag="lval" xstr="outleft">
+       <lval>
+        <lhost>
+         <var vid="644" vname="outleft"/>
+        </lhost>
+       </lval>
+      </exp1>
+      <exp2 etag="const" xstr="1">
+       <constant ctag="cint64" ikind="iint" intValue="1"/>
+      </exp2>
+      <typ ikind="iint" ttag="tint"/>
+     </rhs>
+     <loc byte="188329" file="src/util.c" line="81"/>
+    </global-assignment>
+   </global-assignments>
+   <field-assignments/>
+  </function>
+  <header time="01/10/2017 06:57:10">
+   <application file="src/util.c" name="application"/>
+  </header>
+ </c-analysis>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function cfilename="src/cache.c" gvid="71" name="next_uid" num-ppo="0">
+   <statistics api-assumptions="0" callers="6" ds-assumptions="0" field-assignments="0" global-assignments="2" global-assumptions="0" rv-assumptions="0"/>
+   <parameters/>
+   <callers>
+    <caller cfilename="src/cache.c" fname="add_dhcp_cname" gvid="48" updated="01/09/2017 21:38:34" updated-f="1483997914.72">
+     <call-site byte="210012" file="src/cache.c" line="1200"/>
+     <args/>
+     <calling-context>
+      <node name="instr" num="3"/>
+      <node name="stmt" num="610"/>
+      <node name="if-then"/>
+      <node name="stmt" num="605"/>
+      <node name="if-then"/>
+      <node name="stmt" num="600"/>
+      <node name="if-then"/>
+      <node name="stmt" num="598"/>
+      <node name="loop"/>
+      <node name="stmt" num="595"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/cache.c" fname="add_hosts_cname" gvid="56" updated="01/09/2017 21:38:34" updated-f="1483997914.97">
+     <call-site byte="200694" file="src/cache.c" line="786"/>
+     <args/>
+     <calling-context>
+      <node name="instr" num="5"/>
+      <node name="stmt" num="371"/>
+      <node name="if-then"/>
+      <node name="stmt" num="370"/>
+      <node name="if-then"/>
+      <node name="stmt" num="368"/>
+      <node name="if-then"/>
+      <node name="stmt" num="366"/>
+      <node name="loop"/>
+      <node name="stmt" num="363"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/cache.c" fname="cache_add_dhcp_entry" gvid="47" updated="01/09/2017 21:38:34" updated-f="1483997914.69">
+     <call-site byte="212152" file="src/cache.c" line="1288"/>
+     <args/>
+     <calling-context>
+      <node name="instr" num="2"/>
+      <node name="stmt" num="650"/>
+      <node name="if-then"/>
+      <node name="stmt" num="645"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/cache.c" fname="cache_free" gvid="66" updated="01/09/2017 21:38:35" updated-f="1483997915.15">
+     <call-site byte="189843" file="src/cache.c" line="202"/>
+     <args/>
+     <calling-context>
+      <node name="instr" num="2"/>
+      <node name="stmt" num="72"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/cache.c" fname="cache_init" gvid="70" updated="01/09/2017 21:38:35" updated-f="1483997915.17">
+     <call-site byte="188209" file="src/cache.c" line="103"/>
+     <args/>
+     <calling-context>
+      <node name="instr" num="2"/>
+      <node name="stmt" num="11"/>
+      <node name="loop"/>
+      <node name="stmt" num="8"/>
+      <node name="if-then"/>
+      <node name="stmt" num="6"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/cache.c" fname="cache_reload" gvid="51" updated="01/09/2017 21:38:34" updated-f="1483997914.75">
+     <call-site byte="206496" file="src/cache.c" line="1069"/>
+     <args/>
+     <calling-context>
+      <node name="instr" num="5"/>
+      <node name="stmt" num="528"/>
+      <node name="if-then"/>
+      <node name="stmt" num="527"/>
+      <node name="if-then"/>
+      <node name="stmt" num="525"/>
+      <node name="if-then"/>
+      <node name="stmt" num="523"/>
+      <node name="loop"/>
+      <node name="stmt" num="520"/>
+      <node name="loop"/>
+      <node name="stmt" num="516"/>
+     </calling-context>
+    </caller>
+   </callers>
+   <api-assumptions/>
+   <rv-assumptions/>
+   <ds-assumptions/>
+   <global-assumptions/>
+   <global-assignments>
+    <global-assignment nr="1">
+     <lhs>
+      <lhost>
+       <var vid="97" vname="uid"/>
+      </lhost>
+     </lhs>
+     <rhs binop="plusa" etag="binop" xstr="((uid + 1):unsigned int">
+      <exp1 etag="lval" xstr="uid">
+       <lval>
+        <lhost>
+         <var vid="97" vname="uid"/>
+        </lhost>
+       </lval>
+      </exp1>
+      <exp2 etag="const" xstr="1">
+       <constant ctag="cint64" ikind="iuint" intValue="1"/>
+      </exp2>
+      <typ ikind="iuint" ttag="tint"/>
+     </rhs>
+     <loc byte="187822" file="src/cache.c" line="79"/>
+    </global-assignment>
+    <global-assignment nr="2">
+     <lhs>
+      <lhost>
+       <var vid="97" vname="uid"/>
+      </lhost>
+     </lhs>
+     <rhs binop="plusa" etag="binop" xstr="((uid + 1):unsigned int">
+      <exp1 etag="lval" xstr="uid">
+       <lval>
+        <lhost>
+         <var vid="97" vname="uid"/>
+        </lhost>
+       </lval>
+      </exp1>
+      <exp2 etag="const" xstr="1">
+       <constant ctag="cint64" ikind="iuint" intValue="1"/>
+      </exp2>
+      <typ ikind="iuint" ttag="tint"/>
+     </rhs>
+     <loc byte="187851" file="src/cache.c" line="83"/>
+    </global-assignment>
+   </global-assignments>
+   <field-assignments/>
+  </function>
+  <header time="01/10/2017 06:52:38">
+   <application file="src/cache.c" name="application"/>
+  </header>
+ </c-analysis>

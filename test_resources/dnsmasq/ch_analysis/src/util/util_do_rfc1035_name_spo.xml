@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function name="do_rfc1035_name">
+   <secondary-proof-obligations max-spo-id="79" num-ppo="76">
+    <indirect-calls/>
+    <callsite-obligations/>
+    <return-sites>
+     <return-site>
+      <exp etag="lval" xstr="p">
+       <lval>
+        <lhost>
+         <var vid="5958" vname="p"/>
+        </lhost>
+       </lval>
+      </exp>
+      <location byte="190351" file="src/util.c" line="241"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="156"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+    </return-sites>
+    <post-expectations>
+     <post-expectation id="78">
+      <callers>
+       <caller api-id="10" fname="do_options" fvid="564"/>
+       <caller api-id="1" fname="add_resource_record" fvid="26"/>
+       <caller api-id="10" fname="do_options" fvid="564"/>
+       <caller api-id="1" fname="add_resource_record" fvid="26"/>
+       <caller api-id="10" fname="do_options" fvid="564"/>
+       <caller api-id="1" fname="add_resource_record" fvid="26"/>
+       <caller api-id="10" fname="do_options" fvid="564"/>
+       <caller api-id="1" fname="add_resource_record" fvid="26"/>
+       <caller api-id="10" fname="do_options" fvid="564"/>
+       <caller api-id="1" fname="add_resource_record" fvid="26"/>
+       <caller api-id="10" fname="do_options" fvid="564"/>
+       <caller api-id="1" fname="add_resource_record" fvid="26"/>
+       <caller api-id="10" fname="do_options" fvid="564"/>
+       <caller api-id="1" fname="add_resource_record" fvid="26"/>
+       <caller api-id="10" fname="do_options" fvid="564"/>
+       <caller api-id="1" fname="add_resource_record" fvid="26"/>
+      </callers>
+      <predicate op="pluspi" tag="ptr-upper-bound-deref">
+       <typ ikind="iuchar" ttag="tint"/>
+       <exp1 etag="lval" xstr="p">
+        <lval>
+         <lhost>
+          <var vid="5958" vname="p"/>
+         </lhost>
+        </lval>
+       </exp1>
+       <exp2 etag="const" xstr="1">
+        <constant ctag="cint64" ikind="iint" intValue="1"/>
+       </exp2>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="156"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="190351" file="src/util.c" line="241"/>
+     </post-expectation>
+     <post-expectation id="79">
+      <callers>
+       <caller api-id="24" fname="do_options" fvid="564"/>
+       <caller api-id="26" fname="add_options" fvid="615"/>
+       <caller api-id="24" fname="do_options" fvid="564"/>
+       <caller api-id="26" fname="add_options" fvid="615"/>
+       <caller api-id="24" fname="do_options" fvid="564"/>
+       <caller api-id="26" fname="add_options" fvid="615"/>
+       <caller api-id="24" fname="do_options" fvid="564"/>
+       <caller api-id="26" fname="add_options" fvid="615"/>
+       <caller api-id="24" fname="do_options" fvid="564"/>
+       <caller api-id="26" fname="add_options" fvid="615"/>
+       <caller api-id="24" fname="do_options" fvid="564"/>
+       <caller api-id="26" fname="add_options" fvid="615"/>
+       <caller api-id="24" fname="do_options" fvid="564"/>
+       <caller api-id="26" fname="add_options" fvid="615"/>
+      </callers>
+      <predicate tag="global-mem">
+       <exp etag="lval" xstr="p">
+        <lval>
+         <lhost>
+          <var vid="5958" vname="p"/>
+         </lhost>
+        </lval>
+       </exp>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="156"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="190351" file="src/util.c" line="241"/>
+     </post-expectation>
+     <post-expectation id="77">
+      <callers>
+       <caller api-id="5" fname="do_options" fvid="564"/>
+       <caller api-id="21" fname="do_options" fvid="564"/>
+       <caller api-id="16" fname="add_options" fvid="615"/>
+       <caller api-id="29" fname="add_options" fvid="615"/>
+       <caller api-id="2" fname="add_resource_record" fvid="26"/>
+       <caller api-id="5" fname="do_options" fvid="564"/>
+       <caller api-id="21" fname="do_options" fvid="564"/>
+       <caller api-id="16" fname="add_options" fvid="615"/>
+       <caller api-id="29" fname="add_options" fvid="615"/>
+       <caller api-id="2" fname="add_resource_record" fvid="26"/>
+       <caller api-id="5" fname="do_options" fvid="564"/>
+       <caller api-id="21" fname="do_options" fvid="564"/>
+       <caller api-id="16" fname="add_options" fvid="615"/>
+       <caller api-id="29" fname="add_options" fvid="615"/>
+       <caller api-id="2" fname="add_resource_record" fvid="26"/>
+       <caller api-id="5" fname="do_options" fvid="564"/>
+       <caller api-id="21" fname="do_options" fvid="564"/>
+       <caller api-id="16" fname="add_options" fvid="615"/>
+       <caller api-id="29" fname="add_options" fvid="615"/>
+       <caller api-id="2" fname="add_resource_record" fvid="26"/>
+       <caller api-id="5" fname="do_options" fvid="564"/>
+       <caller api-id="21" fname="do_options" fvid="564"/>
+       <caller api-id="16" fname="add_options" fvid="615"/>
+       <caller api-id="29" fname="add_options" fvid="615"/>
+       <caller api-id="2" fname="add_resource_record" fvid="26"/>
+       <caller api-id="5" fname="do_options" fvid="564"/>
+       <caller api-id="21" fname="do_options" fvid="564"/>
+       <caller api-id="16" fname="add_options" fvid="615"/>
+       <caller api-id="29" fname="add_options" fvid="615"/>
+       <caller api-id="2" fname="add_resource_record" fvid="26"/>
+       <caller api-id="5" fname="do_options" fvid="564"/>
+       <caller api-id="21" fname="do_options" fvid="564"/>
+       <caller api-id="16" fname="add_options" fvid="615"/>
+       <caller api-id="29" fname="add_options" fvid="615"/>
+       <caller api-id="2" fname="add_resource_record" fvid="26"/>
+       <caller api-id="5" fname="do_options" fvid="564"/>
+       <caller api-id="16" fname="add_options" fvid="615"/>
+       <caller api-id="2" fname="add_resource_record" fvid="26"/>
+      </callers>
+      <predicate tag="not-null">
+       <exp etag="lval" xstr="p">
+        <lval>
+         <lhost>
+          <var vid="5958" vname="p"/>
+         </lhost>
+        </lval>
+       </exp>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="156"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="190351" file="src/util.c" line="241"/>
+     </post-expectation>
+    </post-expectations>
+    <ds-expectations/>
+   </secondary-proof-obligations>
+  </function>
+  <header time="01/10/2017 05:33:38">
+   <application file="src/util.c" name="application"/>
+  </header>
+ </c-analysis>

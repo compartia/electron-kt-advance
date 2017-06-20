@@ -1,0 +1,759 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function name="a_record_from_hosts" stable="yes">
+   <program-locations>
+    <program-location>
+     <locations>
+      <loc byte="208693" file="src/cache.c" line="1146"/>
+     </locations>
+     <cfg-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="571"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="19" pv="1"/>
+      <inv nrv="2" pv="3"/>
+      <inv nrv="19" pv="3"/>
+      <inv nrv="18" pv="3"/>
+      <inv nrv="1" pv="2"/>
+      <inv nrv="17" pv="24"/>
+      <inv nrv="21" pv="24"/>
+      <inv nrv="16" pv="18"/>
+      <inv nrv="7" pv="18"/>
+      <inv nrv="11" pv="21"/>
+      <inv nrv="11" pv="19"/>
+      <inv nrv="11" pv="20"/>
+      <inv nrv="3" pv="4"/>
+      <inv nrv="3" pv="5"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="208752" file="src/cache.c" line="1149"/>
+     </locations>
+     <cfg-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="573"/>
+      <node name="loop"/>
+      <node name="stmt" num="572"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="19" pv="1"/>
+      <inv nrv="13" pv="1"/>
+      <inv nrv="24" pv="1"/>
+      <inv nrv="2" pv="3"/>
+      <inv nrv="19" pv="3"/>
+      <inv nrv="18" pv="3"/>
+      <inv nrv="1" pv="2"/>
+      <inv nrv="21" pv="24"/>
+      <inv nrv="7" pv="18"/>
+      <inv nrv="14" pv="21"/>
+      <inv nrv="25" pv="21"/>
+      <inv nrv="22" pv="19"/>
+      <inv nrv="14" pv="20"/>
+      <inv nrv="25" pv="20"/>
+      <inv nrv="1" pv="17"/>
+      <inv nrv="6" pv="15"/>
+      <inv nrv="19" pv="23"/>
+      <inv nrv="13" pv="23"/>
+      <inv nrv="24" pv="23"/>
+      <inv nrv="2" pv="16"/>
+      <inv nrv="19" pv="16"/>
+      <inv nrv="18" pv="16"/>
+      <inv nrv="2" pv="28"/>
+      <inv nrv="19" pv="28"/>
+      <inv nrv="18" pv="28"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="208752" file="src/cache.c" line="1149"/>
+     </locations>
+     <cfg-context>
+      <node name="if-expr"/>
+      <node name="stmt" num="574"/>
+      <node name="loop"/>
+      <node name="stmt" num="572"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="15" pv="1"/>
+      <inv nrv="0" pv="1"/>
+      <inv nrv="19" pv="1"/>
+      <inv nrv="8" pv="1"/>
+      <inv nrv="2" pv="3"/>
+      <inv nrv="19" pv="3"/>
+      <inv nrv="18" pv="3"/>
+      <inv nrv="1" pv="2"/>
+      <inv nrv="21" pv="24"/>
+      <inv nrv="7" pv="18"/>
+      <inv nrv="10" pv="21"/>
+      <inv nrv="9" pv="19"/>
+      <inv nrv="10" pv="20"/>
+      <inv nrv="15" pv="0"/>
+      <inv nrv="0" pv="0"/>
+      <inv nrv="19" pv="0"/>
+      <inv nrv="8" pv="0"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="208820" file="src/cache.c" line="1150"/>
+     </locations>
+     <cfg-context>
+      <node name="if-expr"/>
+      <node name="stmt" num="576"/>
+      <node name="loop"/>
+      <node name="stmt" num="572"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="15" pv="1"/>
+      <inv nrv="0" pv="1"/>
+      <inv nrv="20" pv="1"/>
+      <inv nrv="8" pv="1"/>
+      <inv nrv="2" pv="3"/>
+      <inv nrv="19" pv="3"/>
+      <inv nrv="18" pv="3"/>
+      <inv nrv="1" pv="2"/>
+      <inv nrv="21" pv="24"/>
+      <inv nrv="7" pv="18"/>
+      <inv nrv="10" pv="21"/>
+      <inv nrv="9" pv="19"/>
+      <inv nrv="10" pv="20"/>
+      <inv nrv="7" pv="22"/>
+      <inv nrv="21" pv="22"/>
+      <inv nrv="4" pv="6"/>
+      <inv nrv="15" pv="7"/>
+      <inv nrv="0" pv="7"/>
+      <inv nrv="20" pv="7"/>
+      <inv nrv="8" pv="7"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="208854" file="src/cache.c" line="1151"/>
+     </locations>
+     <cfg-context>
+      <node name="return"/>
+      <node name="stmt" num="577"/>
+      <node name="if-then"/>
+      <node name="stmt" num="576"/>
+      <node name="loop"/>
+      <node name="stmt" num="572"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="15" pv="1"/>
+      <inv nrv="0" pv="1"/>
+      <inv nrv="20" pv="1"/>
+      <inv nrv="8" pv="1"/>
+      <inv nrv="2" pv="3"/>
+      <inv nrv="19" pv="3"/>
+      <inv nrv="18" pv="3"/>
+      <inv nrv="1" pv="2"/>
+      <inv nrv="21" pv="24"/>
+      <inv nrv="7" pv="18"/>
+      <inv nrv="10" pv="21"/>
+      <inv nrv="9" pv="19"/>
+      <inv nrv="10" pv="20"/>
+      <inv nrv="15" pv="12"/>
+      <inv nrv="0" pv="12"/>
+      <inv nrv="20" pv="12"/>
+      <inv nrv="15" pv="13"/>
+      <inv nrv="0" pv="13"/>
+      <inv nrv="20" pv="13"/>
+      <inv nrv="15" pv="14"/>
+      <inv nrv="0" pv="14"/>
+      <inv nrv="20" pv="14"/>
+      <inv nrv="8" pv="14"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="208897" file="src/cache.c" line="1153"/>
+     </locations>
+     <cfg-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="578"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="15" pv="1"/>
+      <inv nrv="0" pv="1"/>
+      <inv nrv="19" pv="1"/>
+      <inv nrv="8" pv="1"/>
+      <inv nrv="2" pv="3"/>
+      <inv nrv="19" pv="3"/>
+      <inv nrv="18" pv="3"/>
+      <inv nrv="1" pv="2"/>
+      <inv nrv="21" pv="24"/>
+      <inv nrv="7" pv="18"/>
+      <inv nrv="10" pv="21"/>
+      <inv nrv="9" pv="19"/>
+      <inv nrv="10" pv="20"/>
+      <inv nrv="23" pv="26"/>
+      <inv nrv="5" pv="8"/>
+      <inv nrv="20" pv="25"/>
+      <inv nrv="2" pv="9"/>
+      <inv nrv="19" pv="9"/>
+      <inv nrv="18" pv="9"/>
+      <inv nrv="20" pv="27"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="208963" file="src/cache.c" line="1155"/>
+     </locations>
+     <cfg-context>
+      <node name="instr" num="1"/>
+      <node name="stmt" num="578"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="15" pv="1"/>
+      <inv nrv="0" pv="1"/>
+      <inv nrv="19" pv="1"/>
+      <inv nrv="8" pv="1"/>
+      <inv nrv="2" pv="3"/>
+      <inv nrv="19" pv="3"/>
+      <inv nrv="18" pv="3"/>
+      <inv nrv="1" pv="2"/>
+      <inv nrv="21" pv="24"/>
+      <inv nrv="7" pv="18"/>
+      <inv nrv="10" pv="21"/>
+      <inv nrv="10" pv="19"/>
+      <inv nrv="9" pv="19"/>
+      <inv nrv="10" pv="20"/>
+      <inv nrv="3" pv="10"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="208981" file="src/cache.c" line="1156"/>
+     </locations>
+     <cfg-context>
+      <node name="return"/>
+      <node name="stmt" num="579"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="15" pv="1"/>
+      <inv nrv="0" pv="1"/>
+      <inv nrv="19" pv="1"/>
+      <inv nrv="8" pv="1"/>
+      <inv nrv="2" pv="3"/>
+      <inv nrv="19" pv="3"/>
+      <inv nrv="18" pv="3"/>
+      <inv nrv="1" pv="2"/>
+      <inv nrv="3" pv="11"/>
+      <inv nrv="12" pv="11"/>
+      <inv nrv="21" pv="24"/>
+      <inv nrv="7" pv="18"/>
+      <inv nrv="10" pv="21"/>
+      <inv nrv="10" pv="19"/>
+      <inv nrv="9" pv="19"/>
+      <inv nrv="10" pv="20"/>
+     </invariants>
+    </program-location>
+   </program-locations>
+   <program-value-table size="29">
+    <pvals index="0">
+     <pval arg="1" id="14"/>
+    </pvals>
+    <pvals index="1">
+     <pval>
+      <lhost>
+       <var vid="6235" vname="crecp"/>
+      </lhost>
+     </pval>
+    </pvals>
+    <pvals index="2">
+     <pval>
+      <lhost>
+       <var vid="6234" vname="now"/>
+      </lhost>
+     </pval>
+    </pvals>
+    <pvals index="3">
+     <pval>
+      <lhost>
+       <var vid="6233" vname="name"/>
+      </lhost>
+     </pval>
+    </pvals>
+    <pvals index="4">
+     <pval arg="3" id="1"/>
+    </pvals>
+    <pvals index="5">
+     <pval arg="3" id="2"/>
+    </pvals>
+    <pvals index="6">
+     <pval arg="1" id="22"/>
+     <pval arg="1" id="23"/>
+    </pvals>
+    <pvals index="7">
+     <pval arg="1" id="17"/>
+     <pval arg="1" id="18"/>
+     <pval arg="1" id="19"/>
+     <pval arg="2" id="20"/>
+     <pval arg="2" id="21"/>
+    </pvals>
+    <pvals index="8">
+     <pval arg="1" id="35"/>
+     <pval arg="1" id="36"/>
+    </pvals>
+    <pvals index="9">
+     <pval arg="1" id="40"/>
+     <pval arg="1" id="41"/>
+     <pval arg="2" id="42"/>
+     <pval arg="2" id="43"/>
+    </pvals>
+    <pvals index="10">
+     <pval arg="3" id="44"/>
+    </pvals>
+    <pvals index="11">
+     <pval>
+      <lhost>
+       <var vid="6236" vname="ret"/>
+      </lhost>
+      <offset>
+       <field ckey="42" fname="s_addr"/>
+      </offset>
+     </pval>
+    </pvals>
+    <pvals index="12">
+     <pval arg="3" id="25"/>
+    </pvals>
+    <pvals index="13">
+     <pval arg="1" id="31"/>
+     <pval arg="1" id="32"/>
+     <pval arg="2" id="33"/>
+     <pval arg="2" id="34"/>
+    </pvals>
+    <pvals index="14">
+     <pval arg="1" id="26"/>
+     <pval arg="1" id="27"/>
+     <pval arg="1" id="28"/>
+     <pval arg="2" id="29"/>
+     <pval arg="2" id="30"/>
+    </pvals>
+    <pvals index="15">
+     <pval arg="1" id="12"/>
+     <pval arg="1" id="13"/>
+    </pvals>
+    <pvals index="16">
+     <pval arg="1" id="7"/>
+     <pval arg="1" id="8"/>
+     <pval arg="2" id="9"/>
+     <pval arg="2" id="10"/>
+    </pvals>
+    <pvals index="17">
+     <pval arg="1" id="11"/>
+    </pvals>
+    <pvals index="18">
+     <pval>
+      <lhost>
+       <mem byte="208752" etag="fnapp" file="src/cache.c" line="1149" xstr="fn(cache_find_by_name)@ 1149[_, _, _, ((1 &lt;&lt; 7):unsigned int]">
+        <arg/>
+        <arg/>
+        <arg/>
+        <arg binop="shiftlt" etag="binop" xstr="((1 &lt;&lt; 7):unsigned int">
+         <exp1 etag="const" xstr="1">
+          <constant ctag="cint64" ikind="iuint" intValue="1"/>
+         </exp1>
+         <exp2 etag="const" xstr="7">
+          <constant ctag="cint64" ikind="iint" intValue="7"/>
+         </exp2>
+         <typ ikind="iuint" ttag="tint"/>
+        </arg>
+        <fn etag="lval" xstr="cache_find_by_name">
+         <lval>
+          <lhost>
+           <var vid="4379" vname="cache_find_by_name"/>
+          </lhost>
+         </lval>
+        </fn>
+       </mem>
+      </lhost>
+      <offset>
+       <field ckey="196" fname="flags"/>
+      </offset>
+     </pval>
+    </pvals>
+    <pvals index="19">
+     <pval byte="208752" etag="fnapp" external="yes" file="src/cache.c" line="1149" property="vm" xstr="fn(cache_find_by_name)@ 1149[_, name, now, ((1 &lt;&lt; 7):unsigned int]">
+      <arg/>
+      <arg etag="lval" xstr="name">
+       <lval>
+        <lhost>
+         <var vid="6233" vname="name"/>
+        </lhost>
+       </lval>
+      </arg>
+      <arg etag="lval" xstr="now">
+       <lval>
+        <lhost>
+         <var vid="6234" vname="now"/>
+        </lhost>
+       </lval>
+      </arg>
+      <arg binop="shiftlt" etag="binop" xstr="((1 &lt;&lt; 7):unsigned int">
+       <exp1 etag="const" xstr="1">
+        <constant ctag="cint64" ikind="iuint" intValue="1"/>
+       </exp1>
+       <exp2 etag="const" xstr="7">
+        <constant ctag="cint64" ikind="iint" intValue="7"/>
+       </exp2>
+       <typ ikind="iuint" ttag="tint"/>
+      </arg>
+      <fn etag="lval" xstr="cache_find_by_name">
+       <lval>
+        <lhost>
+         <var vid="4379" vname="cache_find_by_name"/>
+        </lhost>
+       </lval>
+      </fn>
+     </pval>
+    </pvals>
+    <pvals index="20">
+     <pval byte="208752" etag="fnapp" external="yes" file="src/cache.c" line="1149" property="vm" xstr="fn(cache_find_by_name)@ 1149[_, _, _, ((1 &lt;&lt; 7):unsigned int]">
+      <arg/>
+      <arg/>
+      <arg/>
+      <arg binop="shiftlt" etag="binop" xstr="((1 &lt;&lt; 7):unsigned int">
+       <exp1 etag="const" xstr="1">
+        <constant ctag="cint64" ikind="iuint" intValue="1"/>
+       </exp1>
+       <exp2 etag="const" xstr="7">
+        <constant ctag="cint64" ikind="iint" intValue="7"/>
+       </exp2>
+       <typ ikind="iuint" ttag="tint"/>
+      </arg>
+      <fn etag="lval" xstr="cache_find_by_name">
+       <lval>
+        <lhost>
+         <var vid="4379" vname="cache_find_by_name"/>
+        </lhost>
+       </lval>
+      </fn>
+     </pval>
+    </pvals>
+    <pvals index="21">
+     <pval etag="lval" external="yes" property="vm" xstr="name">
+      <lval>
+       <lhost>
+        <var vid="6233" vname="name"/>
+       </lhost>
+      </lval>
+     </pval>
+    </pvals>
+    <pvals index="22">
+     <pval arg="3" id="15"/>
+     <pval arg="1" id="16"/>
+    </pvals>
+    <pvals index="23">
+     <pval arg="1" id="3"/>
+     <pval arg="1" id="4"/>
+     <pval arg="2" id="5"/>
+     <pval arg="2" id="6"/>
+    </pvals>
+    <pvals index="24">
+     <pval>
+      <lhost>
+       <mem byte="208752" etag="fnapp" file="src/cache.c" line="1149" xstr="fn(cache_find_by_name)@ 1149[_, name, now, ((1 &lt;&lt; 7):unsigned int]">
+        <arg/>
+        <arg etag="lval" xstr="name">
+         <lval>
+          <lhost>
+           <var vid="6233" vname="name"/>
+          </lhost>
+         </lval>
+        </arg>
+        <arg etag="lval" xstr="now">
+         <lval>
+          <lhost>
+           <var vid="6234" vname="now"/>
+          </lhost>
+         </lval>
+        </arg>
+        <arg binop="shiftlt" etag="binop" xstr="((1 &lt;&lt; 7):unsigned int">
+         <exp1 etag="const" xstr="1">
+          <constant ctag="cint64" ikind="iuint" intValue="1"/>
+         </exp1>
+         <exp2 etag="const" xstr="7">
+          <constant ctag="cint64" ikind="iint" intValue="7"/>
+         </exp2>
+         <typ ikind="iuint" ttag="tint"/>
+        </arg>
+        <fn etag="lval" xstr="cache_find_by_name">
+         <lval>
+          <lhost>
+           <var vid="4379" vname="cache_find_by_name"/>
+          </lhost>
+         </lval>
+        </fn>
+       </mem>
+      </lhost>
+      <offset>
+       <field ckey="196" fname="flags"/>
+      </offset>
+     </pval>
+    </pvals>
+    <pvals index="25">
+     <pval arg="1" id="37"/>
+     <pval arg="2" id="38"/>
+     <pval arg="2" id="39"/>
+    </pvals>
+    <pvals index="26">
+     <pval arg="4" id="48"/>
+    </pvals>
+    <pvals index="27">
+     <pval arg="1" id="37"/>
+     <pval arg="2" id="38"/>
+     <pval arg="2" id="39"/>
+     <pval arg="1" id="46"/>
+     <pval arg="1" id="47"/>
+     <pval arg="2" id="47"/>
+     <pval arg="3" id="48"/>
+    </pvals>
+    <pvals index="28">
+     <pval arg="1" id="7"/>
+     <pval arg="1" id="8"/>
+     <pval arg="2" id="9"/>
+     <pval arg="2" id="10"/>
+     <pval arg="1" id="50"/>
+    </pvals>
+   </program-value-table>
+   <non-relational-value-table size="26">
+    <nrv byte="208752" etag="fnapp" file="src/cache.c" index="0" line="1149" tag="fv" xstr="fn(cache_find_by_name)@ 1149[_, _, _, ((1 &lt;&lt; 7):unsigned int]">
+     <arg/>
+     <arg/>
+     <arg/>
+     <arg binop="shiftlt" etag="binop" xstr="((1 &lt;&lt; 7):unsigned int">
+      <exp1 etag="const" xstr="1">
+       <constant ctag="cint64" ikind="iuint" intValue="1"/>
+      </exp1>
+      <exp2 etag="const" xstr="7">
+       <constant ctag="cint64" ikind="iint" intValue="7"/>
+      </exp2>
+      <typ ikind="iuint" ttag="tint"/>
+     </arg>
+     <fn etag="lval" xstr="cache_find_by_name">
+      <lval>
+       <lhost>
+        <var vid="4379" vname="cache_find_by_name"/>
+       </lhost>
+      </lval>
+     </fn>
+    </nrv>
+    <nrv etag="lval" index="1" tag="fv" xstr="now">
+     <lval>
+      <lhost>
+       <var vid="6234" vname="now"/>
+      </lhost>
+     </lval>
+    </nrv>
+    <nrv etag="lval" index="2" tag="fv" xstr="name">
+     <lval>
+      <lhost>
+       <var vid="6233" vname="name"/>
+      </lhost>
+     </lval>
+    </nrv>
+    <nrv index="3" tag="range" value="0"/>
+    <nrv index="4" tag="range" value="6"/>
+    <nrv index="5" tag="range" value="3"/>
+    <nrv index="6" tag="range" value="7"/>
+    <nrv index="7" tag="ss">
+     <sym name="parameter">
+      <attr value="*(fn(lval (cache_find_by_name))@ 1149[_, _, _, ((1 &lt;&lt; 7):unsigned int]).flags"/>
+     </sym>
+    </nrv>
+    <nrv index="8" tag="ss">
+     <sym name="assignedAt#1149">
+      <attr value="return-value"/>
+      <attr value="cache_find_by_name"/>
+     </sym>
+    </nrv>
+    <nrv index="9" tag="ss">
+     <sym name="valid">
+      <attr value="cache_find_by_name"/>
+     </sym>
+    </nrv>
+    <nrv index="10" tag="ss">
+     <sym name="invalid"/>
+    </nrv>
+    <nrv index="11" tag="ss">
+     <sym name="valid"/>
+    </nrv>
+    <nrv index="12" tag="ss">
+     <sym name="assignedAt#1155"/>
+    </nrv>
+    <nrv index="13" tag="ss">
+     <sym name="assignedAt#1146"/>
+     <sym name="assignedAt#1149">
+      <attr value="return-value"/>
+      <attr value="cache_find_by_name"/>
+     </sym>
+    </nrv>
+    <nrv index="14" tag="ss">
+     <sym name="invalid"/>
+     <sym name="valid"/>
+    </nrv>
+    <nrv byte="208752" etag="fnapp" file="src/cache.c" index="15" line="1149" tag="fv" xstr="fn(cache_find_by_name)@ 1149[_, name, now, ((1 &lt;&lt; 7):unsigned int]">
+     <arg/>
+     <arg etag="lval" xstr="name">
+      <lval>
+       <lhost>
+        <var vid="6233" vname="name"/>
+       </lhost>
+      </lval>
+     </arg>
+     <arg etag="lval" xstr="now">
+      <lval>
+       <lhost>
+        <var vid="6234" vname="now"/>
+       </lhost>
+      </lval>
+     </arg>
+     <arg binop="shiftlt" etag="binop" xstr="((1 &lt;&lt; 7):unsigned int">
+      <exp1 etag="const" xstr="1">
+       <constant ctag="cint64" ikind="iuint" intValue="1"/>
+      </exp1>
+      <exp2 etag="const" xstr="7">
+       <constant ctag="cint64" ikind="iint" intValue="7"/>
+      </exp2>
+      <typ ikind="iuint" ttag="tint"/>
+     </arg>
+     <fn etag="lval" xstr="cache_find_by_name">
+      <lval>
+       <lhost>
+        <var vid="4379" vname="cache_find_by_name"/>
+       </lhost>
+      </lval>
+     </fn>
+    </nrv>
+    <nrv etag="lval" index="16" tag="fv" xstr="*(fn(lval (cache_find_by_name))@ 1149[_, _, _, ((1 &lt;&lt; 7):unsigned int]).flags">
+     <lval>
+      <lhost>
+       <mem byte="208752" etag="fnapp" file="src/cache.c" line="1149" xstr="fn(cache_find_by_name)@ 1149[_, _, _, ((1 &lt;&lt; 7):unsigned int]">
+        <arg/>
+        <arg/>
+        <arg/>
+        <arg binop="shiftlt" etag="binop" xstr="((1 &lt;&lt; 7):unsigned int">
+         <exp1 etag="const" xstr="1">
+          <constant ctag="cint64" ikind="iuint" intValue="1"/>
+         </exp1>
+         <exp2 etag="const" xstr="7">
+          <constant ctag="cint64" ikind="iint" intValue="7"/>
+         </exp2>
+         <typ ikind="iuint" ttag="tint"/>
+        </arg>
+        <fn etag="lval" xstr="cache_find_by_name">
+         <lval>
+          <lhost>
+           <var vid="4379" vname="cache_find_by_name"/>
+          </lhost>
+         </lval>
+        </fn>
+       </mem>
+      </lhost>
+      <offset>
+       <field ckey="196" fname="flags"/>
+      </offset>
+     </lval>
+    </nrv>
+    <nrv etag="lval" index="17" tag="fv" xstr="*(fn(lval (cache_find_by_name))@ 1149[_, name, now, ((1 &lt;&lt; 7):unsigned int]).flags">
+     <lval>
+      <lhost>
+       <mem byte="208752" etag="fnapp" file="src/cache.c" line="1149" xstr="fn(cache_find_by_name)@ 1149[_, name, now, ((1 &lt;&lt; 7):unsigned int]">
+        <arg/>
+        <arg etag="lval" xstr="name">
+         <lval>
+          <lhost>
+           <var vid="6233" vname="name"/>
+          </lhost>
+         </lval>
+        </arg>
+        <arg etag="lval" xstr="now">
+         <lval>
+          <lhost>
+           <var vid="6234" vname="now"/>
+          </lhost>
+         </lval>
+        </arg>
+        <arg binop="shiftlt" etag="binop" xstr="((1 &lt;&lt; 7):unsigned int">
+         <exp1 etag="const" xstr="1">
+          <constant ctag="cint64" ikind="iuint" intValue="1"/>
+         </exp1>
+         <exp2 etag="const" xstr="7">
+          <constant ctag="cint64" ikind="iint" intValue="7"/>
+         </exp2>
+         <typ ikind="iuint" ttag="tint"/>
+        </arg>
+        <fn etag="lval" xstr="cache_find_by_name">
+         <lval>
+          <lhost>
+           <var vid="4379" vname="cache_find_by_name"/>
+          </lhost>
+         </lval>
+        </fn>
+       </mem>
+      </lhost>
+      <offset>
+       <field ckey="196" fname="flags"/>
+      </offset>
+     </lval>
+    </nrv>
+    <nrv address-type="external" index="18" tag="vs" value="0">
+     <base etag="lval" xstr="name">
+      <lval>
+       <lhost>
+        <var vid="6233" vname="name"/>
+       </lhost>
+      </lval>
+     </base>
+    </nrv>
+    <nrv index="19" lb="0" tag="range"/>
+    <nrv index="20" lb="1" tag="range"/>
+    <nrv index="21" tag="ss">
+     <sym name="parameter">
+      <attr value="*(fn(lval (cache_find_by_name))@ 1149[_, name, now, ((1 &lt;&lt; 7):unsigned int]).flags"/>
+     </sym>
+    </nrv>
+    <nrv index="22" tag="ss">
+     <sym name="valid"/>
+     <sym name="valid">
+      <attr value="cache_find_by_name"/>
+     </sym>
+    </nrv>
+    <nrv cn="null-terminator-pos" etag="cnapp" index="23" tag="fv" xstr="null-terminator-pos[caste (&quot;No IPv4 address found for %s&quot;:(char*))]">
+     <arg etag="caste" xstr="caste (&quot;No IPv4 address found for %s&quot;:(char*))">
+      <typ ttag="tptr">
+       <attributes>
+        <attr attrname="restrict"/>
+       </attributes>
+       <typ ikind="ichar" ttag="tint">
+        <attributes>
+         <attr attrname="const"/>
+        </attributes>
+       </typ>
+      </typ>
+      <exp etag="const" xstr="&quot;No IPv4 address found for %s&quot;">
+       <constant ctag="cstr" strValue="No IPv4 address found for %s"/>
+      </exp>
+     </arg>
+     <typ ikind="iint" ttag="tint"/>
+    </nrv>
+    <nrv index="24" tag="ss">
+     <sym name="assignedAt#1149">
+      <attr value="return-value"/>
+      <attr value="cache_find_by_name"/>
+     </sym>
+     <sym name="assignedAt#1146"/>
+    </nrv>
+    <nrv index="25" tag="ss">
+     <sym name="valid"/>
+     <sym name="invalid"/>
+    </nrv>
+   </non-relational-value-table>
+  </function>
+  <header time="01/10/2017 02:56:55">
+   <application file="src/cache.c" name="application"/>
+  </header>
+ </c-analysis>

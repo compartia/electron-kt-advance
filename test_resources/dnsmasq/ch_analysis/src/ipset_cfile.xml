@@ -1,0 +1,1297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <c-file filename="src/ipset">
+   <linked-into linkname="dnsmasq">
+    <enumtag-xreferences/>
+    <comptag-xreferences>
+     <compxref ckey="176" gckey="53"/>
+     <compxref ckey="177" gckey="54"/>
+     <compxref ckey="179" gckey="55"/>
+     <compxref ckey="178" gckey="56"/>
+     <compxref ckey="46" gckey="61"/>
+     <compxref ckey="47" gckey="62"/>
+     <compxref ckey="42" gckey="63"/>
+     <compxref ckey="20" gckey="64"/>
+     <compxref ckey="251" gckey="140"/>
+     <compxref ckey="249" gckey="141"/>
+     <compxref ckey="250" gckey="142"/>
+     <compxref ckey="248" gckey="143"/>
+     <compxref ckey="247" gckey="144"/>
+     <compxref ckey="243" gckey="145"/>
+     <compxref ckey="242" gckey="146"/>
+     <compxref ckey="239" gckey="147"/>
+    </comptag-xreferences>
+    <var-xreferences>
+     <varxref gvid="8" vid="1375"/>
+     <varxref gvid="20" vid="4917"/>
+     <varxref gvid="36" vid="1581"/>
+     <varxref gvid="40" vid="1429"/>
+     <varxref gvid="41" vid="1398"/>
+     <varxref gvid="75" vid="4782"/>
+     <varxref gvid="79" vid="4029"/>
+     <varxref gvid="88" vid="1589"/>
+     <varxref gvid="134" vid="4904"/>
+     <varxref gvid="144" vid="401"/>
+     <varxref gvid="173" vid="4834"/>
+     <varxref gvid="181" vid="300"/>
+     <varxref gvid="182" vid="284"/>
+     <varxref gvid="210" vid="352"/>
+     <varxref gvid="237" vid="5412"/>
+     <varxref gvid="393" vid="5421"/>
+     <varxref gvid="394" vid="5974"/>
+     <varxref gvid="395" vid="5938"/>
+     <varxref gvid="396" vid="5907"/>
+     <varxref gvid="397" vid="5902"/>
+     <varxref gvid="398" vid="2941"/>
+     <varxref gvid="399" vid="1536"/>
+     <varxref gvid="400" vid="390"/>
+     <varxref gvid="401" vid="5906"/>
+     <varxref gvid="402" vid="5905"/>
+     <varxref gvid="403" vid="5904"/>
+     <varxref gvid="404" vid="5903"/>
+    </var-xreferences>
+   </linked-into>
+   <global-type-definitions>
+    <gtype>
+     <typeinfo tname="__ssize_t">
+      <ttype ikind="ilong" ttag="tint"/>
+     </typeinfo>
+     <loc byte="2538" file="/usr/include/bits/types.h" line="180"/>
+    </gtype>
+    <gtype>
+     <typeinfo tname="__socklen_t">
+      <ttype ikind="iuint" ttag="tint"/>
+     </typeinfo>
+     <loc byte="2684" file="/usr/include/bits/types.h" line="192"/>
+    </gtype>
+    <gtype>
+     <typeinfo tname="ssize_t">
+      <ttype tname="__ssize_t" ttag="tnamed"/>
+     </typeinfo>
+     <loc byte="3289" file="/usr/include/sys/types.h" line="110"/>
+    </gtype>
+    <gtype>
+     <typeinfo tname="size_t">
+      <ttype ikind="iulong" ttag="tint"/>
+     </typeinfo>
+     <loc byte="3971" file="/usr/lib/gcc/x86_64-redhat-linux/4.4.7/include/stddef.h" line="211"/>
+    </gtype>
+    <gtype>
+     <typeinfo tname="socklen_t">
+      <ttype tname="__socklen_t" ttag="tnamed"/>
+     </typeinfo>
+     <loc byte="11576" file="/usr/include/bits/socket.h" line="35"/>
+    </gtype>
+    <gtype>
+     <typeinfo tname="sa_family_t">
+      <ttype ikind="iushort" ttag="tint"/>
+     </typeinfo>
+     <loc byte="11954" file="/usr/include/bits/sockaddr.h" line="29"/>
+    </gtype>
+    <gtype>
+     <typeinfo tname="uint8_t">
+      <ttype ikind="iuchar" ttag="tint"/>
+     </typeinfo>
+     <loc byte="18630" file="/usr/include/stdint.h" line="49"/>
+    </gtype>
+    <gtype>
+     <typeinfo tname="uint16_t">
+      <ttype ikind="iushort" ttag="tint"/>
+     </typeinfo>
+     <loc byte="18661" file="/usr/include/stdint.h" line="50"/>
+    </gtype>
+    <gtype>
+     <typeinfo tname="uint32_t">
+      <ttype ikind="iuint" ttag="tint"/>
+     </typeinfo>
+     <loc byte="18699" file="/usr/include/stdint.h" line="52"/>
+    </gtype>
+    <gtype>
+     <typeinfo tname="in_addr_t">
+      <ttype tname="uint32_t" ttag="tnamed"/>
+     </typeinfo>
+     <loc byte="19693" file="/usr/include/netinet/in.h" line="32"/>
+    </gtype>
+    <gtype>
+     <typeinfo tname="__u8">
+      <ttype ikind="iuchar" ttag="tint"/>
+     </typeinfo>
+     <loc byte="145232" file="/usr/include/asm-generic/int-ll64.h" line="20"/>
+    </gtype>
+    <gtype>
+     <typeinfo tname="__u16">
+      <ttype ikind="iushort" ttag="tint"/>
+     </typeinfo>
+     <loc byte="145293" file="/usr/include/asm-generic/int-ll64.h" line="23"/>
+    </gtype>
+    <gtype>
+     <typeinfo tname="__u32">
+      <ttype ikind="iuint" ttag="tint"/>
+     </typeinfo>
+     <loc byte="145354" file="/usr/include/asm-generic/int-ll64.h" line="26"/>
+    </gtype>
+    <gtype>
+     <typeinfo tname="__be16">
+      <ttype tname="__u16" ttag="tnamed"/>
+     </typeinfo>
+     <loc byte="147331" file="/usr/include/linux/types.h" line="28"/>
+    </gtype>
+   </global-type-definitions>
+   <global-comptag-definitions>
+    <gcomptag>
+     <compinfo ckey="20" cname="sockaddr" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="20" fname="sa_family">
+        <ftyp tname="sa_family_t" ttag="tnamed"/>
+        <floc byte="12073" file="/usr/include/bits/socket.h" line="176"/>
+       </fieldinfo>
+       <fieldinfo ckey="20" fname="sa_data">
+        <ftyp ttag="tarray">
+         <exp etag="const" xstr="14">
+          <constant ctag="cint64" ikind="iint" intValue="14"/>
+         </exp>
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="12093" file="/usr/include/bits/socket.h" line="177"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="12037" file="/usr/include/bits/socket.h" line="174"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="42" cname="in_addr" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="42" fname="s_addr">
+        <ftyp tname="in_addr_t" ttag="tnamed"/>
+        <floc byte="19754" file="/usr/include/netinet/in.h" line="35"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="19721" file="/usr/include/netinet/in.h" line="33"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="47" cname="__anonunion___in6_u_23" cstruct="false">
+      <cfields>
+       <fieldinfo ckey="47" fname="__u6_addr8">
+        <ftyp ttag="tarray">
+         <exp etag="const" xstr="16">
+          <constant ctag="cint64" ikind="iint" intValue="16"/>
+         </exp>
+         <typ tname="uint8_t" ttag="tnamed"/>
+        </ftyp>
+        <floc byte="21775" file="/usr/include/netinet/in.h" line="215"/>
+       </fieldinfo>
+       <fieldinfo ckey="47" fname="__u6_addr16">
+        <ftyp ttag="tarray">
+         <exp etag="const" xstr="8">
+          <constant ctag="cint64" ikind="iint" intValue="8"/>
+         </exp>
+         <typ tname="uint16_t" ttag="tnamed"/>
+        </ftyp>
+        <floc byte="21802" file="/usr/include/netinet/in.h" line="217"/>
+       </fieldinfo>
+       <fieldinfo ckey="47" fname="__u6_addr32">
+        <ftyp ttag="tarray">
+         <exp etag="const" xstr="4">
+          <constant ctag="cint64" ikind="iint" intValue="4"/>
+         </exp>
+         <typ tname="uint32_t" ttag="tnamed"/>
+        </ftyp>
+        <floc byte="21828" file="/usr/include/netinet/in.h" line="218"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="21728" file="/usr/include/netinet/in.h" line="211"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="46" cname="in6_addr" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="46" fname="__in6_u">
+        <ftyp ckey="47" ttag="tcomp"/>
+        <floc byte="21853" file="/usr/include/netinet/in.h" line="220"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="21728" file="/usr/include/netinet/in.h" line="211"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="178" cname="__anonstruct_log_79" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="178" fname="keytag">
+        <ftyp ikind="iushort" ttag="tint"/>
+        <floc byte="158078" file="src/dnsmasq.h" line="256"/>
+       </fieldinfo>
+       <fieldinfo ckey="178" fname="algo">
+        <ftyp ikind="iushort" ttag="tint"/>
+        <floc byte="158086" file="src/dnsmasq.h" line="256"/>
+       </fieldinfo>
+       <fieldinfo ckey="178" fname="digest">
+        <ftyp ikind="iushort" ttag="tint"/>
+        <floc byte="158092" file="src/dnsmasq.h" line="256"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="157960" file="src/dnsmasq.h" line="248"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="179" cname="__anonstruct_dnssec_80" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="179" fname="class">
+        <ftyp ikind="iushort" ttag="tint"/>
+        <floc byte="158146" file="src/dnsmasq.h" line="260"/>
+       </fieldinfo>
+       <fieldinfo ckey="179" fname="type">
+        <ftyp ikind="iushort" ttag="tint"/>
+        <floc byte="158153" file="src/dnsmasq.h" line="260"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="157960" file="src/dnsmasq.h" line="248"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="177" cname="__anonunion_addr_78" cstruct="false">
+      <cfields>
+       <fieldinfo ckey="177" fname="addr4">
+        <ftyp ckey="42" ttag="tcomp"/>
+        <floc byte="158007" file="src/dnsmasq.h" line="250"/>
+       </fieldinfo>
+       <fieldinfo ckey="177" fname="addr6">
+        <ftyp ckey="46" ttag="tcomp"/>
+        <floc byte="158035" file="src/dnsmasq.h" line="252"/>
+       </fieldinfo>
+       <fieldinfo ckey="177" fname="log">
+        <ftyp ckey="178" ttag="tcomp"/>
+        <floc byte="158106" file="src/dnsmasq.h" line="257"/>
+       </fieldinfo>
+       <fieldinfo ckey="177" fname="dnssec">
+        <ftyp ckey="179" ttag="tcomp"/>
+        <floc byte="158165" file="src/dnsmasq.h" line="261"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="157960" file="src/dnsmasq.h" line="248"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="176" cname="all_addr" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="176" fname="addr">
+        <ftyp ckey="177" ttag="tcomp"/>
+        <floc byte="158177" file="src/dnsmasq.h" line="262"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="157960" file="src/dnsmasq.h" line="248"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="239" cname="utsname" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="239" fname="sysname">
+        <ftyp ttag="tarray">
+         <exp etag="const" xstr="65">
+          <constant ctag="cint64" ikind="iint" intValue="65"/>
+         </exp>
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="186781" file="/usr/include/sys/utsname.h" line="52"/>
+       </fieldinfo>
+       <fieldinfo ckey="239" fname="nodename">
+        <ftyp ttag="tarray">
+         <exp etag="const" xstr="65">
+          <constant ctag="cint64" ikind="iint" intValue="65"/>
+         </exp>
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="186805" file="/usr/include/sys/utsname.h" line="55"/>
+       </fieldinfo>
+       <fieldinfo ckey="239" fname="release">
+        <ftyp ttag="tarray">
+         <exp etag="const" xstr="65">
+          <constant ctag="cint64" ikind="iint" intValue="65"/>
+         </exp>
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="186830" file="/usr/include/sys/utsname.h" line="58"/>
+       </fieldinfo>
+       <fieldinfo ckey="239" fname="version">
+        <ftyp ttag="tarray">
+         <exp etag="const" xstr="65">
+          <constant ctag="cint64" ikind="iint" intValue="65"/>
+         </exp>
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="186853" file="/usr/include/sys/utsname.h" line="60"/>
+       </fieldinfo>
+       <fieldinfo ckey="239" fname="machine">
+        <ftyp ttag="tarray">
+         <exp etag="const" xstr="65">
+          <constant ctag="cint64" ikind="iint" intValue="65"/>
+         </exp>
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="186877" file="/usr/include/sys/utsname.h" line="63"/>
+       </fieldinfo>
+       <fieldinfo ckey="239" fname="domainname">
+        <ftyp ttag="tarray">
+         <exp etag="const" xstr="65">
+          <constant ctag="cint64" ikind="iint" intValue="65"/>
+         </exp>
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="186903" file="/usr/include/sys/utsname.h" line="68"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="186752" file="/usr/include/sys/utsname.h" line="49"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="242" cname="sockaddr_nl" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="242" fname="nl_family">
+        <ftyp tname="sa_family_t" ttag="tnamed"/>
+        <floc byte="187542" file="/usr/include/linux/netlink.h" line="35"/>
+       </fieldinfo>
+       <fieldinfo ckey="242" fname="nl_pad">
+        <ftyp ikind="iushort" ttag="tint"/>
+        <floc byte="187569" file="/usr/include/linux/netlink.h" line="36"/>
+       </fieldinfo>
+       <fieldinfo ckey="242" fname="nl_pid">
+        <ftyp tname="__u32" ttag="tnamed"/>
+        <floc byte="187584" file="/usr/include/linux/netlink.h" line="37"/>
+       </fieldinfo>
+       <fieldinfo ckey="242" fname="nl_groups">
+        <ftyp tname="__u32" ttag="tnamed"/>
+        <floc byte="187606" file="/usr/include/linux/netlink.h" line="38"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="187508" file="/usr/include/linux/netlink.h" line="33"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="243" cname="nlmsghdr" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="243" fname="nlmsg_len">
+        <ftyp tname="__u32" ttag="tnamed"/>
+        <floc byte="187646" file="/usr/include/linux/netlink.h" line="43"/>
+       </fieldinfo>
+       <fieldinfo ckey="243" fname="nlmsg_type">
+        <ftyp tname="__u16" ttag="tnamed"/>
+        <floc byte="187664" file="/usr/include/linux/netlink.h" line="44"/>
+       </fieldinfo>
+       <fieldinfo ckey="243" fname="nlmsg_flags">
+        <ftyp tname="__u16" ttag="tnamed"/>
+        <floc byte="187683" file="/usr/include/linux/netlink.h" line="45"/>
+       </fieldinfo>
+       <fieldinfo ckey="243" fname="nlmsg_seq">
+        <ftyp tname="__u32" ttag="tnamed"/>
+        <floc byte="187703" file="/usr/include/linux/netlink.h" line="46"/>
+       </fieldinfo>
+       <fieldinfo ckey="243" fname="nlmsg_pid">
+        <ftyp tname="__u32" ttag="tnamed"/>
+        <floc byte="187721" file="/usr/include/linux/netlink.h" line="47"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="187621" file="/usr/include/linux/netlink.h" line="41"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="247" cname="my_nlattr" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="247" fname="nla_len">
+        <ftyp tname="__u16" ttag="tnamed"/>
+        <floc byte="188091" file="src/ipset.c" line="59"/>
+       </fieldinfo>
+       <fieldinfo ckey="247" fname="nla_type">
+        <ftyp tname="__u16" ttag="tnamed"/>
+        <floc byte="188114" file="src/ipset.c" line="60"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="188058" file="src/ipset.c" line="58"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="248" cname="my_nfgenmsg" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="248" fname="nfgen_family">
+        <ftyp tname="__u8" ttag="tnamed"/>
+        <floc byte="188162" file="src/ipset.c" line="64"/>
+       </fieldinfo>
+       <fieldinfo ckey="248" fname="version">
+        <ftyp tname="__u8" ttag="tnamed"/>
+        <floc byte="188189" file="src/ipset.c" line="65"/>
+       </fieldinfo>
+       <fieldinfo ckey="248" fname="res_id">
+        <ftyp tname="__be16" ttag="tnamed"/>
+        <floc byte="188213" file="src/ipset.c" line="66"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="188128" file="src/ipset.c" line="63"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="250" cname="__anonunion_set_89" cstruct="false">
+      <cfields>
+       <fieldinfo ckey="250" fname="name">
+        <ftyp ttag="tarray">
+         <exp etag="const" xstr="32">
+          <constant ctag="cint64" ikind="iint" intValue="32"/>
+         </exp>
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="191710" file="src/ipset.c" line="178"/>
+       </fieldinfo>
+       <fieldinfo ckey="250" fname="index">
+        <ftyp tname="uint16_t" ttag="tnamed"/>
+        <floc byte="191735" file="src/ipset.c" line="179"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="191620" file="src/ipset.c" line="174"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="249" cname="ip_set_req_adt_get" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="249" fname="op">
+        <ftyp ikind="iuint" ttag="tint"/>
+        <floc byte="191661" file="src/ipset.c" line="175"/>
+       </fieldinfo>
+       <fieldinfo ckey="249" fname="version">
+        <ftyp ikind="iuint" ttag="tint"/>
+        <floc byte="191678" file="src/ipset.c" line="176"/>
+       </fieldinfo>
+       <fieldinfo ckey="249" fname="set">
+        <ftyp ckey="250" ttag="tcomp"/>
+        <floc byte="191748" file="src/ipset.c" line="180"/>
+       </fieldinfo>
+       <fieldinfo ckey="249" fname="typename">
+        <ftyp ttag="tarray">
+         <exp etag="const" xstr="32">
+          <constant ctag="cint64" ikind="iint" intValue="32"/>
+         </exp>
+         <typ ikind="ichar" ttag="tint"/>
+        </ftyp>
+        <floc byte="191762" file="src/ipset.c" line="181"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="191620" file="src/ipset.c" line="174"/>
+    </gcomptag>
+    <gcomptag>
+     <compinfo ckey="251" cname="ip_set_req_adt" cstruct="true">
+      <cfields>
+       <fieldinfo ckey="251" fname="op">
+        <ftyp ikind="iuint" ttag="tint"/>
+        <floc byte="191832" file="src/ipset.c" line="184"/>
+       </fieldinfo>
+       <fieldinfo ckey="251" fname="index">
+        <ftyp tname="uint16_t" ttag="tnamed"/>
+        <floc byte="191849" file="src/ipset.c" line="185"/>
+       </fieldinfo>
+       <fieldinfo ckey="251" fname="ip">
+        <ftyp tname="uint32_t" ttag="tnamed"/>
+        <floc byte="191869" file="src/ipset.c" line="186"/>
+       </fieldinfo>
+      </cfields>
+     </compinfo>
+     <loc byte="191795" file="src/ipset.c" line="183"/>
+    </gcomptag>
+   </global-comptag-definitions>
+   <global-comptag-declarations/>
+   <global-enumtag-definitions/>
+   <global-enumtag-declarations/>
+   <global-var-definitions>
+    <gvar>
+     <varinfo vaddrof="true" vglob="true" vid="5903" vname="snl" vstorage="static">
+      <vtyp ckey="242" ttag="tcomp">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </vtyp>
+      <vdecl byte="188262" file="src/ipset.c" line="74"/>
+     </varinfo>
+     <loc byte="188230" file="src/ipset.c" line="74"/>
+     <init itag="compoundinit">
+      <typ ckey="242" ttag="tcomp">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+      <inits>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="caste" xstr="caste (16:sa_family_t)">
+          <typ tname="sa_family_t" ttag="tnamed"/>
+          <exp etag="const" xstr="16">
+           <constant ctag="cint64" ikind="iint" intValue="16"/>
+          </exp>
+         </exp>
+        </init>
+        <offset>
+         <field ckey="242" fname="nl_family"/>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="const" xstr="0">
+          <constant ctag="cint64" ikind="iushort" intValue="0"/>
+         </exp>
+        </init>
+        <offset>
+         <field ckey="242" fname="nl_pad"/>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="const" xstr="0">
+          <constant ctag="cint64" ikind="iuint" intValue="0"/>
+         </exp>
+        </init>
+        <offset>
+         <field ckey="242" fname="nl_pid"/>
+        </offset>
+       </offinit>
+       <offinit>
+        <init itag="singleinit">
+         <exp etag="const" xstr="0">
+          <constant ctag="cint64" ikind="iuint" intValue="0"/>
+         </exp>
+        </init>
+        <offset>
+         <field ckey="242" fname="nl_groups"/>
+        </offset>
+       </offinit>
+      </inits>
+     </init>
+    </gvar>
+    <gvar>
+     <varinfo vglob="true" vid="5904" vname="ipset_sock" vstorage="static">
+      <vtyp ikind="iint" ttag="tint"/>
+      <vdecl byte="188300" file="src/ipset.c" line="75"/>
+     </varinfo>
+     <loc byte="188289" file="src/ipset.c" line="75"/>
+    </gvar>
+    <gvar>
+     <varinfo vglob="true" vid="5905" vname="old_kernel" vstorage="static">
+      <vtyp ikind="iint" ttag="tint"/>
+      <vdecl byte="188312" file="src/ipset.c" line="75"/>
+     </varinfo>
+     <loc byte="188289" file="src/ipset.c" line="75"/>
+    </gvar>
+    <gvar>
+     <varinfo vglob="true" vid="5906" vname="buffer" vstorage="static">
+      <vtyp ttag="tptr">
+       <typ ikind="ichar" ttag="tint"/>
+      </vtyp>
+      <vdecl byte="188336" file="src/ipset.c" line="76"/>
+     </varinfo>
+     <loc byte="188324" file="src/ipset.c" line="76"/>
+    </gvar>
+   </global-var-definitions>
+   <global-var-declarations>
+    <gvardecl>
+     <varinfo vglob="true" vid="284" vname="socket" vstorage="extern">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="__domain">
+         <typ ikind="iint" ttag="tint"/>
+        </arg>
+        <arg aname="__type">
+         <typ ikind="iint" ttag="tint"/>
+        </arg>
+        <arg aname="__protocol">
+         <typ ikind="iint" ttag="tint"/>
+        </arg>
+       </args>
+       <typ ikind="iint" ttag="tint"/>
+      </vtyp>
+      <vdecl byte="15990" file="/usr/include/sys/socket.h" line="105"/>
+      <vattr>
+       <attr attrname="nothrow"/>
+      </vattr>
+     </varinfo>
+     <loc byte="15979" file="/usr/include/sys/socket.h" line="105"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="300" vname="bind" vstorage="extern">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="__fd">
+         <typ ikind="iint" ttag="tint"/>
+        </arg>
+        <arg aname="__addr">
+         <typ ttag="tptr">
+          <attributes>
+           <attr attrname="restrict"/>
+          </attributes>
+          <typ ckey="20" ttag="tcomp">
+           <attributes>
+            <attr attrname="const"/>
+           </attributes>
+          </typ>
+         </typ>
+        </arg>
+        <arg aname="__len">
+         <typ tname="socklen_t" ttag="tnamed"/>
+        </arg>
+       </args>
+       <typ ikind="iint" ttag="tint"/>
+      </vtyp>
+      <vdecl byte="16208" file="/usr/include/sys/socket.h" line="115"/>
+      <vattr>
+       <attr attrname="nothrow"/>
+      </vattr>
+     </varinfo>
+     <loc byte="16197" file="/usr/include/sys/socket.h" line="115"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="352" vname="sendto" vstorage="extern">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="__fd">
+         <typ ikind="iint" ttag="tint"/>
+        </arg>
+        <arg aname="__buf">
+         <typ ttag="tptr">
+          <typ ttag="tvoid">
+           <attributes>
+            <attr attrname="const"/>
+           </attributes>
+          </typ>
+         </typ>
+        </arg>
+        <arg aname="__n">
+         <typ tname="size_t" ttag="tnamed"/>
+        </arg>
+        <arg aname="__flags">
+         <typ ikind="iint" ttag="tint"/>
+        </arg>
+        <arg aname="__addr">
+         <typ ttag="tptr">
+          <attributes>
+           <attr attrname="restrict"/>
+          </attributes>
+          <typ ckey="20" ttag="tcomp">
+           <attributes>
+            <attr attrname="const"/>
+           </attributes>
+          </typ>
+         </typ>
+        </arg>
+        <arg aname="__addr_len">
+         <typ tname="socklen_t" ttag="tnamed"/>
+        </arg>
+       </args>
+       <typ tname="ssize_t" ttag="tnamed"/>
+      </vtyp>
+      <vdecl byte="16847" file="/usr/include/sys/socket.h" line="155"/>
+     </varinfo>
+     <loc byte="16832" file="/usr/include/sys/socket.h" line="155"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="390" vname="getsockopt" vstorage="extern">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="__fd">
+         <typ ikind="iint" ttag="tint"/>
+        </arg>
+        <arg aname="__level">
+         <typ ikind="iint" ttag="tint"/>
+        </arg>
+        <arg aname="__optname">
+         <typ ikind="iint" ttag="tint"/>
+        </arg>
+        <arg aname="__optval">
+         <typ ttag="tptr">
+          <attributes>
+           <attr attrname="restrict"/>
+          </attributes>
+          <typ ttag="tvoid"/>
+         </typ>
+        </arg>
+        <arg aname="__optlen">
+         <typ ttag="tptr">
+          <attributes>
+           <attr attrname="restrict"/>
+          </attributes>
+          <typ tname="socklen_t" ttag="tnamed"/>
+         </typ>
+        </arg>
+       </args>
+       <typ ikind="iint" ttag="tint"/>
+      </vtyp>
+      <vdecl byte="17357" file="/usr/include/sys/socket.h" line="190"/>
+      <vattr>
+       <attr attrname="nothrow"/>
+      </vattr>
+     </varinfo>
+     <loc byte="17346" file="/usr/include/sys/socket.h" line="190"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="401" vname="setsockopt" vstorage="extern">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="__fd">
+         <typ ikind="iint" ttag="tint"/>
+        </arg>
+        <arg aname="__level">
+         <typ ikind="iint" ttag="tint"/>
+        </arg>
+        <arg aname="__optname">
+         <typ ikind="iint" ttag="tint"/>
+        </arg>
+        <arg aname="__optval">
+         <typ ttag="tptr">
+          <typ ttag="tvoid">
+           <attributes>
+            <attr attrname="const"/>
+           </attributes>
+          </typ>
+         </typ>
+        </arg>
+        <arg aname="__optlen">
+         <typ tname="socklen_t" ttag="tnamed"/>
+        </arg>
+       </args>
+       <typ ikind="iint" ttag="tint"/>
+      </vtyp>
+      <vdecl byte="17530" file="/usr/include/sys/socket.h" line="197"/>
+      <vattr>
+       <attr attrname="nothrow"/>
+      </vattr>
+     </varinfo>
+     <loc byte="17519" file="/usr/include/sys/socket.h" line="197"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="1375" vname="memcpy" vstorage="extern">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="__dest">
+         <typ ttag="tptr">
+          <attributes>
+           <attr attrname="restrict"/>
+          </attributes>
+          <typ ttag="tvoid"/>
+         </typ>
+        </arg>
+        <arg aname="__src">
+         <typ ttag="tptr">
+          <attributes>
+           <attr attrname="restrict"/>
+          </attributes>
+          <typ ttag="tvoid">
+           <attributes>
+            <attr attrname="const"/>
+           </attributes>
+          </typ>
+         </typ>
+        </arg>
+        <arg aname="__n">
+         <typ tname="size_t" ttag="tnamed"/>
+        </arg>
+       </args>
+       <attributes>
+        <attr attrname="nonnull"/>
+       </attributes>
+       <typ ttag="tptr">
+        <typ ttag="tvoid"/>
+       </typ>
+      </vtyp>
+      <vdecl byte="59303" file="/usr/include/string.h" line="44"/>
+      <vattr>
+       <attr attrname="nothrow"/>
+      </vattr>
+     </varinfo>
+     <loc byte="59291" file="/usr/include/string.h" line="44"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="1398" vname="memset" vstorage="extern">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="__s">
+         <typ ttag="tptr">
+          <typ ttag="tvoid"/>
+         </typ>
+        </arg>
+        <arg aname="__c">
+         <typ ikind="iint" ttag="tint"/>
+        </arg>
+        <arg aname="__n">
+         <typ tname="size_t" ttag="tnamed"/>
+        </arg>
+       </args>
+       <attributes>
+        <attr attrname="nonnull"/>
+       </attributes>
+       <typ ttag="tptr">
+        <typ ttag="tvoid"/>
+       </typ>
+      </vtyp>
+      <vdecl byte="59809" file="/usr/include/string.h" line="65"/>
+      <vattr>
+       <attr attrname="nothrow"/>
+      </vattr>
+     </varinfo>
+     <loc byte="59797" file="/usr/include/string.h" line="65"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="1429" vname="strcpy" vstorage="extern">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="__dest">
+         <typ ttag="tptr">
+          <attributes>
+           <attr attrname="restrict"/>
+          </attributes>
+          <typ ikind="ichar" ttag="tint"/>
+         </typ>
+        </arg>
+        <arg aname="__src">
+         <typ ttag="tptr">
+          <attributes>
+           <attr attrname="restrict"/>
+          </attributes>
+          <typ ikind="ichar" ttag="tint">
+           <attributes>
+            <attr attrname="const"/>
+           </attributes>
+          </typ>
+         </typ>
+        </arg>
+       </args>
+       <attributes>
+        <attr attrname="nonnull"/>
+       </attributes>
+       <typ ttag="tptr">
+        <typ ikind="ichar" ttag="tint"/>
+       </typ>
+      </vtyp>
+      <vdecl byte="60677" file="/usr/include/string.h" line="128"/>
+      <vattr>
+       <attr attrname="nothrow"/>
+      </vattr>
+     </varinfo>
+     <loc byte="60665" file="/usr/include/string.h" line="128"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="1536" vname="strtok" vstorage="extern">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="__s">
+         <typ ttag="tptr">
+          <attributes>
+           <attr attrname="restrict"/>
+          </attributes>
+          <typ ikind="ichar" ttag="tint"/>
+         </typ>
+        </arg>
+        <arg aname="__delim">
+         <typ ttag="tptr">
+          <attributes>
+           <attr attrname="restrict"/>
+          </attributes>
+          <typ ikind="ichar" ttag="tint">
+           <attributes>
+            <attr attrname="const"/>
+           </attributes>
+          </typ>
+         </typ>
+        </arg>
+       </args>
+       <attributes>
+        <attr attrname="nonnull"/>
+       </attributes>
+       <typ ttag="tptr">
+        <typ ikind="ichar" ttag="tint"/>
+       </typ>
+      </vtyp>
+      <vdecl byte="64329" file="/usr/include/string.h" line="348"/>
+      <vattr>
+       <attr attrname="nothrow"/>
+      </vattr>
+     </varinfo>
+     <loc byte="64317" file="/usr/include/string.h" line="348"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="1581" vname="strlen" vstorage="extern">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="__s">
+         <typ ttag="tptr">
+          <typ ikind="ichar" ttag="tint">
+           <attributes>
+            <attr attrname="const"/>
+           </attributes>
+          </typ>
+         </typ>
+        </arg>
+       </args>
+       <attributes>
+        <attr attrname="nonnull"/>
+       </attributes>
+       <typ tname="size_t" ttag="tnamed"/>
+      </vtyp>
+      <vdecl byte="65651" file="/usr/include/string.h" line="399"/>
+      <vattr>
+       <attr attrname="nothrow"/>
+       <attr attrname="pure"/>
+      </vattr>
+     </varinfo>
+     <loc byte="65637" file="/usr/include/string.h" line="399"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="1589" vname="strerror" vstorage="extern">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="__errnum">
+         <typ ikind="iint" ttag="tint"/>
+        </arg>
+       </args>
+       <typ ttag="tptr">
+        <typ ikind="ichar" ttag="tint"/>
+       </typ>
+      </vtyp>
+      <vdecl byte="65958" file="/usr/include/string.h" line="413"/>
+      <vattr>
+       <attr attrname="nothrow"/>
+      </vattr>
+     </varinfo>
+     <loc byte="65946" file="/usr/include/string.h" line="413"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="2941" vname="atoi" vstorage="extern">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="__nptr">
+         <typ ttag="tptr">
+          <typ ikind="ichar" ttag="tint">
+           <attributes>
+            <attr attrname="const"/>
+           </attributes>
+          </typ>
+         </typ>
+        </arg>
+       </args>
+       <attributes>
+        <attr attrname="nonnull"/>
+       </attributes>
+       <typ ikind="iint" ttag="tint"/>
+      </vtyp>
+      <vdecl byte="110885" file="/usr/include/stdlib.h" line="148"/>
+      <vattr>
+       <attr attrname="nothrow"/>
+       <attr attrname="pure"/>
+      </vattr>
+     </varinfo>
+     <loc byte="110874" file="/usr/include/stdlib.h" line="148"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="4029" vname="__errno_location" vstorage="extern">
+      <vtyp ttag="tfun" vararg="false">
+       <args/>
+       <typ ttag="tptr">
+        <typ ikind="iint" ttag="tint"/>
+       </typ>
+      </vtyp>
+      <vdecl byte="140483" file="/usr/include/bits/errno.h" line="47"/>
+      <vattr>
+       <attr attrname="aconst"/>
+       <attr attrname="nothrow"/>
+      </vattr>
+     </varinfo>
+     <loc byte="140472" file="/usr/include/bits/errno.h" line="47"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="4782" vname="safe_malloc" vstorage="extern">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="size">
+         <typ tname="size_t" ttag="tnamed"/>
+        </arg>
+       </args>
+       <typ ttag="tptr">
+        <typ ttag="tvoid"/>
+       </typ>
+      </vtyp>
+      <vdecl byte="174117" file="src/dnsmasq.h" line="1172"/>
+     </varinfo>
+     <loc byte="174112" file="src/dnsmasq.h" line="1172"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="4834" vname="retry_send" vstorage="extern">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="rc">
+         <typ tname="ssize_t" ttag="tnamed"/>
+        </arg>
+       </args>
+       <typ ikind="iint" ttag="tint"/>
+      </vtyp>
+      <vdecl byte="174685" file="src/dnsmasq.h" line="1186"/>
+     </varinfo>
+     <loc byte="174681" file="src/dnsmasq.h" line="1186"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="4904" vname="die" vstorage="extern">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="message">
+         <typ ttag="tptr">
+          <typ ikind="ichar" ttag="tint"/>
+         </typ>
+        </arg>
+        <arg aname="arg1">
+         <typ ttag="tptr">
+          <typ ikind="ichar" ttag="tint"/>
+         </typ>
+        </arg>
+        <arg aname="exit_code">
+         <typ ikind="iint" ttag="tint"/>
+        </arg>
+       </args>
+       <typ ttag="tvoid"/>
+      </vtyp>
+      <vdecl byte="175322" file="src/dnsmasq.h" line="1201"/>
+     </varinfo>
+     <loc byte="175317" file="src/dnsmasq.h" line="1201"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="4917" vname="my_syslog" vstorage="extern">
+      <vtyp ttag="tfun" vararg="true">
+       <args>
+        <arg aname="priority">
+         <typ ikind="iint" ttag="tint"/>
+        </arg>
+        <arg aname="format">
+         <typ ttag="tptr">
+          <typ ikind="ichar" ttag="tint">
+           <attributes>
+            <attr attrname="const"/>
+           </attributes>
+          </typ>
+         </typ>
+        </arg>
+       </args>
+       <typ ttag="tvoid"/>
+      </vtyp>
+      <vdecl byte="175455" file="src/dnsmasq.h" line="1204"/>
+     </varinfo>
+     <loc byte="175450" file="src/dnsmasq.h" line="1204"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="5412" vname="ipset_init">
+      <vtyp ttag="tfun" vararg="false">
+       <args/>
+       <typ ttag="tvoid"/>
+      </vtyp>
+      <vdecl byte="188771" file="src/ipset.c" line="88"/>
+     </varinfo>
+     <loc byte="181019" file="src/dnsmasq.h" line="1378"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="5421" vname="add_to_ipset">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="setname">
+         <typ ttag="tptr">
+          <typ ikind="ichar" ttag="tint">
+           <attributes>
+            <attr attrname="const"/>
+           </attributes>
+          </typ>
+         </typ>
+        </arg>
+        <arg aname="ipaddr">
+         <typ ttag="tptr">
+          <typ ckey="176" ttag="tcomp">
+           <attributes>
+            <attr attrname="const"/>
+           </attributes>
+          </typ>
+         </typ>
+        </arg>
+        <arg aname="flags">
+         <typ ikind="iint" ttag="tint"/>
+        </arg>
+        <arg aname="remove___0">
+         <typ ikind="iint" ttag="tint"/>
+        </arg>
+       </args>
+       <typ ikind="iint" ttag="tint"/>
+      </vtyp>
+      <vdecl byte="192706" file="src/ipset.c" line="212"/>
+     </varinfo>
+     <loc byte="181042" file="src/dnsmasq.h" line="1379"/>
+    </gvardecl>
+    <gvardecl>
+     <varinfo vglob="true" vid="5902" vname="uname" vstorage="extern">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="__name">
+         <typ ttag="tptr">
+          <typ ckey="239" ttag="tcomp"/>
+         </typ>
+        </arg>
+       </args>
+       <typ ikind="iint" ttag="tint"/>
+      </vtyp>
+      <vdecl byte="186977" file="/usr/include/sys/utsname.h" line="82"/>
+      <vattr>
+       <attr attrname="nothrow"/>
+      </vattr>
+     </varinfo>
+     <loc byte="186966" file="/usr/include/sys/utsname.h" line="82"/>
+    </gvardecl>
+   </global-var-declarations>
+   <functions>
+    <gfun>
+     <svar vglob="true" vid="5907" vinline="true" vname="add_attr" vstorage="static">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="nlh">
+         <typ ttag="tptr">
+          <typ ckey="243" ttag="tcomp"/>
+         </typ>
+        </arg>
+        <arg aname="type">
+         <typ tname="uint16_t" ttag="tnamed"/>
+        </arg>
+        <arg aname="len">
+         <typ tname="size_t" ttag="tnamed"/>
+        </arg>
+        <arg aname="data">
+         <typ ttag="tptr">
+          <typ ttag="tvoid">
+           <attributes>
+            <attr attrname="const"/>
+           </attributes>
+          </typ>
+         </typ>
+        </arg>
+       </args>
+       <typ ttag="tvoid"/>
+      </vtyp>
+      <vdecl byte="188346" file="src/ipset.c" line="78"/>
+     </svar>
+     <loc byte="188346" file="src/ipset.c" line="78"/>
+    </gfun>
+    <gfun>
+     <svar vglob="true" vid="5412" vname="ipset_init">
+      <vtyp ttag="tfun" vararg="false">
+       <args/>
+       <typ ttag="tvoid"/>
+      </vtyp>
+      <vdecl byte="188771" file="src/ipset.c" line="88"/>
+     </svar>
+     <loc byte="188771" file="src/ipset.c" line="88"/>
+    </gfun>
+    <gfun>
+     <svar vglob="true" vid="5938" vname="new_add_to_ipset" vstorage="static">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="setname">
+         <typ ttag="tptr">
+          <typ ikind="ichar" ttag="tint">
+           <attributes>
+            <attr attrname="const"/>
+           </attributes>
+          </typ>
+         </typ>
+        </arg>
+        <arg aname="ipaddr">
+         <typ ttag="tptr">
+          <typ ckey="176" ttag="tcomp">
+           <attributes>
+            <attr attrname="const"/>
+           </attributes>
+          </typ>
+         </typ>
+        </arg>
+        <arg aname="af">
+         <typ ikind="iint" ttag="tint"/>
+        </arg>
+        <arg aname="remove___0">
+         <typ ikind="iint" ttag="tint"/>
+        </arg>
+       </args>
+       <typ ikind="iint" ttag="tint"/>
+      </vtyp>
+      <vdecl byte="189626" file="src/ipset.c" line="117"/>
+     </svar>
+     <loc byte="189626" file="src/ipset.c" line="117"/>
+    </gfun>
+    <gfun>
+     <svar vglob="true" vid="5974" vname="old_add_to_ipset" vstorage="static">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="setname">
+         <typ ttag="tptr">
+          <typ ikind="ichar" ttag="tint">
+           <attributes>
+            <attr attrname="const"/>
+           </attributes>
+          </typ>
+         </typ>
+        </arg>
+        <arg aname="ipaddr">
+         <typ ttag="tptr">
+          <typ ckey="176" ttag="tcomp">
+           <attributes>
+            <attr attrname="const"/>
+           </attributes>
+          </typ>
+         </typ>
+        </arg>
+        <arg aname="remove___0">
+         <typ ikind="iint" ttag="tint"/>
+        </arg>
+       </args>
+       <typ ikind="iint" ttag="tint"/>
+      </vtyp>
+      <vdecl byte="191506" file="src/ipset.c" line="171"/>
+     </svar>
+     <loc byte="191506" file="src/ipset.c" line="171"/>
+    </gfun>
+    <gfun>
+     <svar vglob="true" vid="5421" vname="add_to_ipset">
+      <vtyp ttag="tfun" vararg="false">
+       <args>
+        <arg aname="setname">
+         <typ ttag="tptr">
+          <typ ikind="ichar" ttag="tint">
+           <attributes>
+            <attr attrname="const"/>
+           </attributes>
+          </typ>
+         </typ>
+        </arg>
+        <arg aname="ipaddr">
+         <typ ttag="tptr">
+          <typ ckey="176" ttag="tcomp">
+           <attributes>
+            <attr attrname="const"/>
+           </attributes>
+          </typ>
+         </typ>
+        </arg>
+        <arg aname="flags">
+         <typ ikind="iint" ttag="tint"/>
+        </arg>
+        <arg aname="remove___0">
+         <typ ikind="iint" ttag="tint"/>
+        </arg>
+       </args>
+       <typ ikind="iint" ttag="tint"/>
+      </vtyp>
+      <vdecl byte="192706" file="src/ipset.c" line="212"/>
+     </svar>
+     <loc byte="192706" file="src/ipset.c" line="212"/>
+    </gfun>
+   </functions>
+   <global-assembly-statements/>
+   <global-pragmas/>
+   <global-text/>
+  </c-file>
+  <header>
+   <linked filename="src/ipset.c" time="01/09/2017 21:36:06"/>
+   <created file="src/ipset" project-directory="/home/vagrant/git/dnsmasq" time="01/09/2017 21:32:21"/>
+  </header>
+ </c-analysis>

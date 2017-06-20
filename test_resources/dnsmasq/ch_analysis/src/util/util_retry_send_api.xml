@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function cfilename="src/util.c" gvid="173" name="retry_send" num-ppo="0">
+   <statistics api-assumptions="0" callers="14" ds-assumptions="0" field-assignments="2" global-assignments="3" global-assumptions="1" rv-assumptions="0"/>
+   <parameters>
+    <param formal-vid="6130" index="1" vname="rc"/>
+   </parameters>
+   <callers>
+    <caller cfilename="src/dhcp.c" fname="dhcp_packet" gvid="157" updated="01/09/2017 21:38:35" updated-f="1483997915.87">
+     <call-site byte="197448" file="src/dhcp.c" line="457"/>
+     <args>
+      <arg/>
+     </args>
+     <calling-context>
+      <node name="instr" num="1"/>
+      <node name="stmt" num="175"/>
+      <node name="loop"/>
+      <node name="stmt" num="174"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/dhcp6.c" fname="dhcp6_packet" gvid="194" updated="01/09/2017 21:38:36" updated-f="1483997916.29">
+     <call-site byte="197655" file="src/dhcp6.c" line="247"/>
+     <args>
+      <arg/>
+     </args>
+     <calling-context>
+      <node name="instr" num="2"/>
+      <node name="stmt" num="144"/>
+      <node name="loop"/>
+      <node name="stmt" num="143"/>
+      <node name="if-then"/>
+      <node name="stmt" num="141"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/dnsmasq.c" fname="async_event" gvid="216" updated="01/09/2017 21:38:36" updated-f="1483997916.52">
+     <call-site byte="212147" file="src/dnsmasq.c" line="1354"/>
+     <args>
+      <arg/>
+     </args>
+     <calling-context>
+      <node name="instr" num="1"/>
+      <node name="stmt" num="652"/>
+      <node name="loop"/>
+      <node name="stmt" num="651"/>
+      <node name="if-then"/>
+      <node name="stmt" num="641"/>
+      <node name="stmt" num="580"/>
+      <node name="if-then"/>
+      <node name="stmt" num="579"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/dnsmasq.c" fname="check_dns_listeners" gvid="212" updated="01/09/2017 21:38:36" updated-f="1483997916.44">
+     <call-site byte="217171" file="src/dnsmasq.c" line="1574"/>
+     <args>
+      <arg/>
+     </args>
+     <calling-context>
+      <node name="instr" num="1"/>
+      <node name="stmt" num="800"/>
+      <node name="loop"/>
+      <node name="stmt" num="799"/>
+      <node name="if-then"/>
+      <node name="stmt" num="798"/>
+      <node name="if-then"/>
+      <node name="stmt" num="786"/>
+      <node name="if-then"/>
+      <node name="stmt" num="784"/>
+      <node name="loop"/>
+      <node name="stmt" num="773"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/dnsmasq.c" fname="icmp_ping" gvid="160" updated="01/09/2017 21:38:36" updated-f="1483997916.41">
+     <call-site byte="220988" file="src/dnsmasq.c" line="1794"/>
+     <args>
+      <arg/>
+     </args>
+     <calling-context>
+      <node name="instr" num="1"/>
+      <node name="stmt" num="921"/>
+      <node name="loop"/>
+      <node name="stmt" num="920"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/dnsmasq.c" fname="main" gvid="222" updated="01/09/2017 21:38:36" updated-f="1483997916.63">
+     <call-site byte="195408" file="src/dnsmasq.c" line="481"/>
+     <args>
+      <arg/>
+     </args>
+     <calling-context>
+      <node name="instr" num="1"/>
+      <node name="stmt" num="184"/>
+      <node name="loop"/>
+      <node name="stmt" num="183"/>
+      <node name="if-then"/>
+      <node name="stmt" num="182"/>
+      <node name="if-then"/>
+      <node name="stmt" num="178"/>
+      <node name="if-then"/>
+      <node name="stmt" num="174"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/forward.c" fname="forward_query" gvid="347" updated="01/09/2017 21:38:37" updated-f="1483997917.57">
+     <call-site byte="196803" file="src/forward.c" line="501"/>
+     <args>
+      <arg/>
+     </args>
+     <calling-context>
+      <node name="instr" num="2"/>
+      <node name="stmt" num="187"/>
+      <node name="if-then"/>
+      <node name="stmt" num="173"/>
+      <node name="if-then"/>
+      <node name="stmt" num="172"/>
+      <node name="if-else"/>
+      <node name="stmt" num="169"/>
+      <node name="if-then"/>
+      <node name="stmt" num="168"/>
+      <node name="loop"/>
+      <node name="stmt" num="167"/>
+      <node name="if-then"/>
+      <node name="stmt" num="157"/>
+      <node name="if-then"/>
+      <node name="stmt" num="156"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/forward.c" fname="resend_query" gvid="259" updated="01/09/2017 21:38:37" updated-f="1483997917.17">
+     <call-site byte="229575" file="src/forward.c" line="2194"/>
+     <args>
+      <arg/>
+     </args>
+     <calling-context>
+      <node name="instr" num="2"/>
+      <node name="stmt" num="844"/>
+      <node name="loop"/>
+      <node name="stmt" num="843"/>
+      <node name="if-then"/>
+      <node name="stmt" num="835"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/forward.c" fname="send_from" gvid="169" updated="01/09/2017 21:38:37" updated-f="1483997917.72">
+     <call-site byte="188726" file="src/forward.c" line="97"/>
+     <args>
+      <arg/>
+     </args>
+     <calling-context>
+      <node name="instr" num="1"/>
+      <node name="stmt" num="11"/>
+      <node name="loop"/>
+      <node name="stmt" num="10"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/ipset.c" fname="new_add_to_ipset" gvid="395" updated="01/09/2017 21:38:38" updated-f="1483997918.14">
+     <call-site byte="191343" file="src/ipset.c" line="164"/>
+     <args>
+      <arg/>
+     </args>
+     <calling-context>
+      <node name="instr" num="1"/>
+      <node name="stmt" num="50"/>
+      <node name="loop"/>
+      <node name="stmt" num="49"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/loop.c" fname="loop_send_probes" gvid="469" updated="01/09/2017 21:38:38" updated-f="1483997918.79">
+     <call-site byte="187112" file="src/loop.c" line="48"/>
+     <args>
+      <arg/>
+     </args>
+     <calling-context>
+      <node name="instr" num="2"/>
+      <node name="stmt" num="16"/>
+      <node name="loop"/>
+      <node name="stmt" num="15"/>
+      <node name="if-then"/>
+      <node name="stmt" num="7"/>
+      <node name="loop"/>
+      <node name="stmt" num="4"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/netlink.c" fname="iface_enumerate" gvid="4" updated="01/09/2017 21:38:38" updated-f="1483997918.89">
+     <call-site byte="203595" file="src/netlink.c" line="172"/>
+     <args>
+      <arg/>
+     </args>
+     <calling-context>
+      <node name="instr" num="1"/>
+      <node name="stmt" num="67"/>
+      <node name="loop"/>
+      <node name="stmt" num="66"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/radv.c" fname="send_ra_alias" gvid="557" updated="01/09/2017 21:38:43" updated-f="1483997923.69">
+     <call-site byte="207607" file="src/radv.c" line="530"/>
+     <args>
+      <arg/>
+     </args>
+     <calling-context>
+      <node name="instr" num="2"/>
+      <node name="stmt" num="307"/>
+      <node name="loop"/>
+      <node name="stmt" num="306"/>
+     </calling-context>
+    </caller>
+    <caller cfilename="src/util.c" fname="read_write" gvid="272" updated="01/09/2017 21:38:51" updated-f="1483997931.15">
+     <call-site byte="197561" file="src/util.c" line="620"/>
+     <args>
+      <arg/>
+     </args>
+     <calling-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="374"/>
+      <node name="loop"/>
+      <node name="stmt" num="368"/>
+      <node name="loop"/>
+      <node name="stmt" num="365"/>
+     </calling-context>
+    </caller>
+   </callers>
+   <api-assumptions/>
+   <rv-assumptions/>
+   <ds-assumptions/>
+   <global-assumptions>
+    <global-assumption nr="1">
+     <predicate op="plusa" size="iint" tag="int-overflow">
+      <exp1 etag="lval" xstr="retries">
+       <lval>
+        <lhost>
+         <var vid="642" vname="retries"/>
+        </lhost>
+       </lval>
+      </exp1>
+      <exp2 etag="const" xstr="1">
+       <constant ctag="cint64" ikind="iint" intValue="1"/>
+      </exp2>
+     </predicate>
+     <dependent-primary-proof-obligations>
+      <po id="38"/>
+     </dependent-primary-proof-obligations>
+     <dependent-secondary-proof-obligations/>
+    </global-assumption>
+   </global-assumptions>
+   <global-assignments>
+    <global-assignment nr="1">
+     <lhs>
+      <lhost>
+       <var vid="642" vname="retries"/>
+      </lhost>
+     </lhs>
+     <rhs etag="const" xstr="0">
+      <constant ctag="cint64" ikind="iint" intValue="0"/>
+     </rhs>
+     <loc byte="197045" file="src/util.c" line="587"/>
+    </global-assignment>
+    <global-assignment nr="3">
+     <lhs>
+      <lhost>
+       <var vid="642" vname="retries"/>
+      </lhost>
+     </lhs>
+     <rhs etag="const" xstr="0">
+      <constant ctag="cint64" ikind="iint" intValue="0"/>
+     </rhs>
+     <loc byte="197343" file="src/util.c" line="606"/>
+    </global-assignment>
+    <global-assignment nr="2">
+     <lhs>
+      <lhost>
+       <var vid="642" vname="retries"/>
+      </lhost>
+     </lhs>
+     <rhs binop="plusa" etag="binop" xstr="((retries + 1):int">
+      <exp1 etag="lval" xstr="retries">
+       <lval>
+        <lhost>
+         <var vid="642" vname="retries"/>
+        </lhost>
+       </lval>
+      </exp1>
+      <exp2 etag="const" xstr="1">
+       <constant ctag="cint64" ikind="iint" intValue="1"/>
+      </exp2>
+      <typ ikind="iint" ttag="tint"/>
+     </rhs>
+     <loc byte="197299" file="src/util.c" line="602"/>
+    </global-assignment>
+   </global-assignments>
+   <field-assignments>
+    <field-assignment ckey="98" field="tv_sec" nr="1">
+     <rhs etag="caste" xstr="caste (0:__time_t)">
+      <typ tname="__time_t" ttag="tnamed"/>
+      <exp etag="const" xstr="0">
+       <constant ctag="cint64" ikind="iint" intValue="0"/>
+      </exp>
+     </rhs>
+     <loc byte="197202" file="src/util.c" line="599"/>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="357"/>
+       <node name="if-then"/>
+       <node name="stmt" num="356"/>
+       <node name="if-else"/>
+       <node name="stmt" num="353"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </field-assignment>
+    <field-assignment ckey="98" field="tv_nsec" nr="2">
+     <rhs etag="const" xstr="10000">
+      <constant ctag="cint64" ikind="ilong" intValue="10000"/>
+     </rhs>
+     <loc byte="197228" file="src/util.c" line="600"/>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="357"/>
+       <node name="if-then"/>
+       <node name="stmt" num="356"/>
+       <node name="if-else"/>
+       <node name="stmt" num="353"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+    </field-assignment>
+   </field-assignments>
+  </function>
+  <header time="01/10/2017 06:57:09">
+   <application file="src/util.c" name="application"/>
+  </header>
+ </c-analysis>

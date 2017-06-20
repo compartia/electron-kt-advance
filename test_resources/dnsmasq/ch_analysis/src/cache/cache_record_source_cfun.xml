@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <codehawk-c-analysis>
+  <header>
+   <created file="src/cache" project-directory="/home/vagrant/git/dnsmasq" time="01/09/2017 21:32:09"/>
+  </header>
+  <function filename="src/cache">
+   <svar vglob="true" vid="4356" vname="record_source">
+    <vtyp ttag="tfun" vararg="false">
+     <args>
+      <arg aname="index___0">
+       <typ ikind="iuint" ttag="tint"/>
+      </arg>
+     </args>
+     <typ ttag="tptr">
+      <typ ikind="ichar" ttag="tint"/>
+     </typ>
+    </vtyp>
+    <vdecl byte="217923" file="src/cache.c" line="1519"/>
+   </svar>
+   <sformals>
+    <varinfo vid="6360" vname="index___0">
+     <vtyp ikind="iuint" ttag="tint"/>
+     <vdecl byte="217923" file="src/cache.c" line="1519"/>
+    </varinfo>
+   </sformals>
+   <slocals>
+    <varinfo vid="6361" vname="ah">
+     <vtyp ttag="tptr">
+      <typ ckey="213" ttag="tcomp"/>
+     </vtyp>
+     <vdecl byte="217984" file="src/cache.c" line="1521"/>
+    </varinfo>
+   </slocals>
+   <sbody>
+    <bstmts>
+     <stmt sid="798">
+      <skind stag="if">
+       <exp binop="eq" etag="binop">
+        <exp1 etag="lval">
+         <lval>
+          <lhost>
+           <var vid="6360" vname="index___0"/>
+          </lhost>
+         </lval>
+        </exp1>
+        <exp2 etag="const">
+         <constant ctag="cint64" ikind="iuint" intValue="1"/>
+        </exp2>
+        <typ ikind="iint" ttag="tint"/>
+       </exp>
+       <thenblock>
+        <bstmts>
+         <stmt sid="799">
+          <skind stag="return">
+           <loc byte="218012" file="src/cache.c" line="1524"/>
+           <exp etag="caste">
+            <typ ttag="tptr">
+             <typ ikind="ichar" ttag="tint"/>
+            </typ>
+            <exp etag="const">
+             <constant ctag="cstr" strValue="config"/>
+            </exp>
+           </exp>
+          </skind>
+          <succs/>
+          <preds>
+           <int intValue="798"/>
+          </preds>
+         </stmt>
+        </bstmts>
+       </thenblock>
+       <elseblock>
+        <bstmts>
+         <stmt sid="800">
+          <skind stag="if">
+           <exp binop="eq" etag="binop">
+            <exp1 etag="lval">
+             <lval>
+              <lhost>
+               <var vid="6360" vname="index___0"/>
+              </lhost>
+             </lval>
+            </exp1>
+            <exp2 etag="const">
+             <constant ctag="cint64" ikind="iuint" intValue="2"/>
+            </exp2>
+            <typ ikind="iint" ttag="tint"/>
+           </exp>
+           <thenblock>
+            <bstmts>
+             <stmt sid="801">
+              <skind stag="return">
+               <loc byte="218056" file="src/cache.c" line="1526"/>
+               <exp etag="caste">
+                <typ ttag="tptr">
+                 <typ ikind="ichar" ttag="tint"/>
+                </typ>
+                <exp etag="const">
+                 <constant ctag="cstr" strValue="/etc/hosts"/>
+                </exp>
+               </exp>
+              </skind>
+              <succs/>
+              <preds>
+               <int intValue="800"/>
+              </preds>
+             </stmt>
+            </bstmts>
+           </thenblock>
+           <elseblock>
+            <bstmts/>
+           </elseblock>
+           <loc byte="218036" file="src/cache.c" line="1525"/>
+          </skind>
+          <succs>
+           <int intValue="801"/>
+           <int intValue="802"/>
+          </succs>
+          <preds>
+           <int intValue="798"/>
+          </preds>
+         </stmt>
+        </bstmts>
+       </elseblock>
+       <loc byte="217992" file="src/cache.c" line="1523"/>
+      </skind>
+      <succs>
+       <int intValue="799"/>
+       <int intValue="800"/>
+      </succs>
+      <preds/>
+     </stmt>
+     <stmt sid="802">
+      <skind stag="instr">
+       <instrs>
+        <instr itag="set">
+         <lval>
+          <lhost>
+           <var vid="6361" vname="ah"/>
+          </lhost>
+         </lval>
+         <exp etag="lval">
+          <lval>
+           <offset>
+            <field ckey="238" fname="addn_hosts"/>
+           </offset>
+           <lhost>
+            <mem etag="lval">
+             <lval>
+              <lhost>
+               <var vid="4341" vname="dnsmasq_daemon"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+          </lval>
+         </exp>
+         <loc byte="218080" file="src/cache.c" line="1528"/>
+        </instr>
+       </instrs>
+      </skind>
+      <succs>
+       <int intValue="803"/>
+      </succs>
+      <preds>
+       <int intValue="800"/>
+      </preds>
+     </stmt>
+     <stmt sid="803">
+      <skind breakstmtid="809" continuestmtid="803" stag="loop">
+       <block>
+        <bstmts>
+         <stmt sid="804">
+          <skind stag="if">
+           <exp etag="lval">
+            <lval>
+             <lhost>
+              <var vid="6361" vname="ah"/>
+             </lhost>
+            </lval>
+           </exp>
+           <thenblock>
+            <bstmts/>
+           </thenblock>
+           <elseblock>
+            <bstmts>
+             <stmt sid="805">
+              <skind stag="break">
+               <loc byte="218080" file="src/cache.c" line="1528"/>
+              </skind>
+              <succs>
+               <int intValue="809"/>
+              </succs>
+              <preds>
+               <int intValue="804"/>
+              </preds>
+             </stmt>
+            </bstmts>
+           </elseblock>
+           <loc byte="218080" file="src/cache.c" line="1528"/>
+          </skind>
+          <succs>
+           <int intValue="806"/>
+           <int intValue="805"/>
+          </succs>
+          <preds>
+           <int intValue="803"/>
+          </preds>
+         </stmt>
+         <stmt sid="806">
+          <skind stag="if">
+           <exp binop="eq" etag="binop">
+            <exp1 etag="lval">
+             <lval>
+              <offset>
+               <field ckey="213" fname="index"/>
+              </offset>
+              <lhost>
+               <mem etag="lval">
+                <lval>
+                 <lhost>
+                  <var vid="6361" vname="ah"/>
+                 </lhost>
+                </lval>
+               </mem>
+              </lhost>
+             </lval>
+            </exp1>
+            <exp2 etag="lval">
+             <lval>
+              <lhost>
+               <var vid="6360" vname="index___0"/>
+              </lhost>
+             </lval>
+            </exp2>
+            <typ ikind="iint" ttag="tint"/>
+           </exp>
+           <thenblock>
+            <bstmts>
+             <stmt sid="807">
+              <skind stag="return">
+               <loc byte="218171" file="src/cache.c" line="1530"/>
+               <exp etag="lval">
+                <lval>
+                 <offset>
+                  <field ckey="213" fname="fname"/>
+                 </offset>
+                 <lhost>
+                  <mem etag="lval">
+                   <lval>
+                    <lhost>
+                     <var vid="6361" vname="ah"/>
+                    </lhost>
+                   </lval>
+                  </mem>
+                 </lhost>
+                </lval>
+               </exp>
+              </skind>
+              <succs/>
+              <preds>
+               <int intValue="806"/>
+              </preds>
+             </stmt>
+            </bstmts>
+           </thenblock>
+           <elseblock>
+            <bstmts/>
+           </elseblock>
+           <loc byte="218141" file="src/cache.c" line="1529"/>
+          </skind>
+          <succs>
+           <int intValue="807"/>
+           <int intValue="808"/>
+          </succs>
+          <preds>
+           <int intValue="804"/>
+          </preds>
+         </stmt>
+         <stmt sid="808">
+          <skind stag="instr">
+           <instrs>
+            <instr itag="set">
+             <lval>
+              <lhost>
+               <var vid="6361" vname="ah"/>
+              </lhost>
+             </lval>
+             <exp etag="lval">
+              <lval>
+               <offset>
+                <field ckey="213" fname="next"/>
+               </offset>
+               <lhost>
+                <mem etag="lval">
+                 <lval>
+                  <lhost>
+                   <var vid="6361" vname="ah"/>
+                  </lhost>
+                 </lval>
+                </mem>
+               </lhost>
+              </lval>
+             </exp>
+             <loc byte="218080" file="src/cache.c" line="1528"/>
+            </instr>
+           </instrs>
+          </skind>
+          <succs>
+           <int intValue="803"/>
+          </succs>
+          <preds>
+           <int intValue="806"/>
+          </preds>
+         </stmt>
+        </bstmts>
+       </block>
+       <loc byte="218080" file="src/cache.c" line="1528"/>
+      </skind>
+      <succs>
+       <int intValue="804"/>
+      </succs>
+      <preds>
+       <int intValue="808"/>
+       <int intValue="802"/>
+      </preds>
+     </stmt>
+     <stmt sid="809">
+      <skind stag="instr">
+       <instrs>
+        <instr itag="set">
+         <lval>
+          <lhost>
+           <var vid="6361" vname="ah"/>
+          </lhost>
+         </lval>
+         <exp etag="lval">
+          <lval>
+           <offset>
+            <field ckey="238" fname="dynamic_dirs"/>
+           </offset>
+           <lhost>
+            <mem etag="lval">
+             <lval>
+              <lhost>
+               <var vid="4341" vname="dnsmasq_daemon"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+          </lval>
+         </exp>
+         <loc byte="218193" file="src/cache.c" line="1533"/>
+        </instr>
+       </instrs>
+      </skind>
+      <succs>
+       <int intValue="810"/>
+      </succs>
+      <preds>
+       <int intValue="805"/>
+      </preds>
+     </stmt>
+     <stmt sid="810">
+      <skind breakstmtid="816" continuestmtid="810" stag="loop">
+       <block>
+        <bstmts>
+         <stmt sid="811">
+          <skind stag="if">
+           <exp etag="lval">
+            <lval>
+             <lhost>
+              <var vid="6361" vname="ah"/>
+             </lhost>
+            </lval>
+           </exp>
+           <thenblock>
+            <bstmts/>
+           </thenblock>
+           <elseblock>
+            <bstmts>
+             <stmt sid="812">
+              <skind stag="break">
+               <loc byte="218193" file="src/cache.c" line="1533"/>
+              </skind>
+              <succs>
+               <int intValue="816"/>
+              </succs>
+              <preds>
+               <int intValue="811"/>
+              </preds>
+             </stmt>
+            </bstmts>
+           </elseblock>
+           <loc byte="218193" file="src/cache.c" line="1533"/>
+          </skind>
+          <succs>
+           <int intValue="813"/>
+           <int intValue="812"/>
+          </succs>
+          <preds>
+           <int intValue="810"/>
+          </preds>
+         </stmt>
+         <stmt sid="813">
+          <skind stag="if">
+           <exp binop="eq" etag="binop">
+            <exp1 etag="lval">
+             <lval>
+              <offset>
+               <field ckey="213" fname="index"/>
+              </offset>
+              <lhost>
+               <mem etag="lval">
+                <lval>
+                 <lhost>
+                  <var vid="6361" vname="ah"/>
+                 </lhost>
+                </lval>
+               </mem>
+              </lhost>
+             </lval>
+            </exp1>
+            <exp2 etag="lval">
+             <lval>
+              <lhost>
+               <var vid="6360" vname="index___0"/>
+              </lhost>
+             </lval>
+            </exp2>
+            <typ ikind="iint" ttag="tint"/>
+           </exp>
+           <thenblock>
+            <bstmts>
+             <stmt sid="814">
+              <skind stag="return">
+               <loc byte="218288" file="src/cache.c" line="1535"/>
+               <exp etag="lval">
+                <lval>
+                 <offset>
+                  <field ckey="213" fname="fname"/>
+                 </offset>
+                 <lhost>
+                  <mem etag="lval">
+                   <lval>
+                    <lhost>
+                     <var vid="6361" vname="ah"/>
+                    </lhost>
+                   </lval>
+                  </mem>
+                 </lhost>
+                </lval>
+               </exp>
+              </skind>
+              <succs/>
+              <preds>
+               <int intValue="813"/>
+              </preds>
+             </stmt>
+            </bstmts>
+           </thenblock>
+           <elseblock>
+            <bstmts/>
+           </elseblock>
+           <loc byte="218257" file="src/cache.c" line="1534"/>
+          </skind>
+          <succs>
+           <int intValue="814"/>
+           <int intValue="815"/>
+          </succs>
+          <preds>
+           <int intValue="811"/>
+          </preds>
+         </stmt>
+         <stmt sid="815">
+          <skind stag="instr">
+           <instrs>
+            <instr itag="set">
+             <lval>
+              <lhost>
+               <var vid="6361" vname="ah"/>
+              </lhost>
+             </lval>
+             <exp etag="lval">
+              <lval>
+               <offset>
+                <field ckey="213" fname="next"/>
+               </offset>
+               <lhost>
+                <mem etag="lval">
+                 <lval>
+                  <lhost>
+                   <var vid="6361" vname="ah"/>
+                  </lhost>
+                 </lval>
+                </mem>
+               </lhost>
+              </lval>
+             </exp>
+             <loc byte="218193" file="src/cache.c" line="1533"/>
+            </instr>
+           </instrs>
+          </skind>
+          <succs>
+           <int intValue="810"/>
+          </succs>
+          <preds>
+           <int intValue="813"/>
+          </preds>
+         </stmt>
+        </bstmts>
+       </block>
+       <loc byte="218193" file="src/cache.c" line="1533"/>
+      </skind>
+      <succs>
+       <int intValue="811"/>
+      </succs>
+      <preds>
+       <int intValue="815"/>
+       <int intValue="809"/>
+      </preds>
+     </stmt>
+     <stmt sid="816">
+      <skind stag="return">
+       <loc byte="218310" file="src/cache.c" line="1538"/>
+       <exp etag="caste">
+        <typ ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </typ>
+        <exp etag="const">
+         <constant ctag="cstr" strValue="&lt;unknown&gt;"/>
+        </exp>
+       </exp>
+      </skind>
+      <succs/>
+      <preds>
+       <int intValue="812"/>
+      </preds>
+     </stmt>
+    </bstmts>
+   </sbody>
+  </function>
+ </codehawk-c-analysis>

@@ -1,17 +1,25 @@
 {
     "compilerOptions": {
-        "typeRoots":["typings/globals"],
-        "types" : ["lodash", "node", "d3"],
+        "typeRoots": ["typings/globals"],
+        "types": ["lodash", "node", "d3"],
+         
         "target": "es5",
         "lib": [
-            "es2016",
+            "es5",
+            "es6",
+            "es2015",
             "dom"
-        ]
+        ],
+
+        "outDir": "./temp.js",
+        "experimentalDecorators": true
+
     },
-    "include": [
-        "app/**/*.ts","main.ts"
+    "files": [
+        "./src/**/*.ts"
     ],
     "exclude": [
         "node_modules"
     ]
+    
 }

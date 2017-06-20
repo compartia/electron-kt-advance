@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <log>
+   <log-entry time="01/10/2017 06:52:36"/>
+   <log-entry time="01/10/2017 05:29:23"/>
+   <log-entry time="01/10/2017 05:18:07"/>
+   <log-entry time="01/10/2017 04:56:04"/>
+   <log-entry time="01/10/2017 04:32:22"/>
+   <log-entry time="01/10/2017 03:39:01"/>
+   <log-entry time="01/10/2017 02:50:39"/>
+   <log-entry time="01/09/2017 22:49:44"/>
+   <log-entry delta-checkvalid="14" delta-invariant="17" delta-lifted="10" time="01/09/2017 22:03:41"/>
+  </log>
+  <function name="cache_unhash_dhcp">
+   <statistics checkvalid="14" invariant="17" invariant_with_api="10" total="67" total-proven="41"/>
+   <open-proof-obligations>
+    <open id="22" line="1166" predicate="initialized"/>
+    <open id="25" line="1166" predicate="valid-mem"/>
+    <open id="26" line="1166" predicate="lower-bound"/>
+    <open id="27" line="1166" predicate="upper-bound"/>
+    <open id="31" line="1168" predicate="not-null"/>
+    <open id="32" line="1168" predicate="valid-mem"/>
+    <open id="33" line="1168" predicate="lower-bound"/>
+    <open id="34" line="1168" predicate="upper-bound"/>
+    <open id="35" line="1168" predicate="initialized"/>
+    <open id="38" line="1168" predicate="valid-mem"/>
+    <open id="39" line="1168" predicate="lower-bound"/>
+    <open id="40" line="1168" predicate="upper-bound"/>
+    <open id="43" line="1169" predicate="valid-mem"/>
+    <open id="44" line="1169" predicate="lower-bound"/>
+    <open id="45" line="1169" predicate="upper-bound"/>
+    <open id="51" line="1170" predicate="lower-bound"/>
+    <open id="52" line="1170" predicate="lower-bound"/>
+    <open id="53" line="1170" predicate="valid-mem"/>
+    <open id="56" line="1173" predicate="valid-mem"/>
+    <open id="57" line="1173" predicate="lower-bound"/>
+    <open id="58" line="1173" predicate="upper-bound"/>
+    <open id="59" line="1165" predicate="initialized"/>
+    <open id="62" line="1165" predicate="valid-mem"/>
+    <open id="63" line="1165" predicate="lower-bound"/>
+    <open id="64" line="1165" predicate="upper-bound"/>
+    <open id="67" line="1164" predicate="int-overflow"/>
+   </open-proof-obligations>
+   <proof-obligations-discharged>
+    <discharged domain="symbolic sets" id="1" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1164"/>
+    </discharged>
+    <discharged id="2" method="check-valid" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="hash_size is global"/>
+    </discharged>
+    <discharged domain="none" id="3" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="predicate depends on global variables hash_table, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="6" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="4" method="check-valid" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="hash_table is global"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="5" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1164"/>
+    </discharged>
+    <discharged domain="none" id="6" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="predicate depends on global variables hash_table, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="5" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="7" method="invariants" time="01/09/2017 22:03:41" type="valid-mem">
+     <evidence comment="predicate depends on global variables hash_table, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="3" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="8" method="invariants" time="01/09/2017 22:03:41" type="ptr-lower-bound">
+     <evidence comment="predicate depends on global variables hash_table, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="1" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="9" method="invariants" time="01/09/2017 22:03:41" type="ptr-upper-bound-deref">
+     <evidence comment="predicate depends on global variables hash_table, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="2" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged id="10" method="check-valid" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="arguments of pointer arithmetic are checked for null"/>
+    </discharged>
+    <discharged id="11" method="check-valid" time="01/09/2017 22:03:41" type="valid-mem">
+     <evidence comment="pointer arithmetic stays within memory region"/>
+    </discharged>
+    <discharged id="12" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="result of pointer arithmetic is guaranteed to satisfy lowerbound by inductive hypothesis"/>
+    </discharged>
+    <discharged id="13" method="check-valid" time="01/09/2017 22:03:41" type="upper-bound">
+     <evidence comment="result of pointer arithmetic is guaranteed to satisfy upperbound by inductive hypothesis"/>
+    </discharged>
+    <discharged id="14" method="check-valid" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="hash_table is global"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="15" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1164"/>
+    </discharged>
+    <discharged domain="none" id="16" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="predicate depends on global variables hash_table, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="5" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="17" method="invariants" time="01/09/2017 22:03:41" type="valid-mem">
+     <evidence comment="predicate depends on global variables hash_table, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="3" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="18" method="invariants" time="01/09/2017 22:03:41" type="ptr-lower-bound">
+     <evidence comment="predicate depends on global variables hash_table, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="1" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="none" id="19" method="invariants" time="01/09/2017 22:03:41" type="ptr-upper-bound-deref">
+     <evidence comment="predicate depends on global variables hash_table, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="2" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="symbolic sets" id="20" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1165_xx_assignedAt#1165"/>
+    </discharged>
+    <discharged id="21" method="check-valid" time="01/09/2017 22:03:41" type="cast">
+     <evidence comment="casting from unsigned short to unsigned int is safe"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="23" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1165_xx_assignedAt#1165"/>
+    </discharged>
+    <discharged domain="intervals" id="24" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged id="28" method="check-valid" time="01/09/2017 22:03:41" type="non-negative">
+     <evidence comment="value is 4"/>
+    </discharged>
+    <discharged id="29" method="check-valid" time="01/09/2017 22:03:41" type="width-overflow">
+     <evidence comment="value 4 is less than minimum word size (16"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="30" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1165_xx_assignedAt#1173"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="36" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1165_xx_assignedAt#1165"/>
+    </discharged>
+    <discharged domain="intervals" id="37" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="41" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1165_xx_assignedAt#1165"/>
+    </discharged>
+    <discharged domain="intervals" id="42" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged id="46" method="check-valid" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="dhcp_spare is global"/>
+    </discharged>
+    <discharged id="47" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="global variable dhcp_spare is assigned a value with valid lower bound by inductive hypothesis (checked at assignment)"/>
+    </discharged>
+    <discharged id="48" method="check-valid" time="01/09/2017 22:03:41" type="lower-bound">
+     <evidence comment="global variable dhcp_spare is assigned a value with valid lower bound by inductive hypothesis (checked at assignment)"/>
+    </discharged>
+    <discharged domain="none" id="49" method="invariants" time="01/09/2017 22:03:41" type="valid-mem">
+     <evidence comment="predicate depends on global variables dhcp_spare, which is delegated to global analysis"/>
+     <assumptions>
+      <uses a-id="4" a-type="global"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="symbolic sets" id="50" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1165_xx_assignedAt#1165"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="54" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1165_xx_assignedAt#1165"/>
+    </discharged>
+    <discharged domain="intervals" id="55" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="60" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1165_xx_assignedAt#1165"/>
+    </discharged>
+    <discharged domain="intervals" id="61" method="invariants" time="01/09/2017 22:03:41" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="65" method="invariants" time="01/09/2017 22:03:41" type="initialized">
+     <evidence comment="assignedAt#1164"/>
+    </discharged>
+    <discharged id="66" method="check-valid" time="01/09/2017 22:03:41" type="int-underflow">
+     <evidence comment="add non-negative number: value is 1"/>
+    </discharged>
+   </proof-obligations-discharged>
+  </function>
+  <header time="01/10/2017 06:52:36">
+   <application file="src//cache.c" name="application"/>
+  </header>
+ </c-analysis>

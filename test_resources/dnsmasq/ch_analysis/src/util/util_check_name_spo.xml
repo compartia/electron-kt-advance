@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function name="check_name">
+   <secondary-proof-obligations max-spo-id="87" num-ppo="87">
+    <indirect-calls/>
+    <callsite-obligations/>
+    <return-sites>
+     <return-site>
+      <exp etag="const" xstr="1">
+       <constant ctag="cint64" ikind="iint" intValue="1"/>
+      </exp>
+      <location byte="189398" file="src/util.c" line="148"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="99"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+     <return-site>
+      <exp etag="const" xstr="0">
+       <constant ctag="cint64" ikind="iint" intValue="0"/>
+      </exp>
+      <location byte="189385" file="src/util.c" line="146"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="98"/>
+        <node name="if-then"/>
+        <node name="stmt" num="97"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+     <return-site>
+      <exp etag="const" xstr="0">
+       <constant ctag="cint64" ikind="iint" intValue="0"/>
+      </exp>
+      <location byte="189308" file="src/util.c" line="139"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="93"/>
+        <node name="if-then"/>
+        <node name="stmt" num="92"/>
+        <node name="if-else"/>
+        <node name="stmt" num="87"/>
+        <node name="if-else"/>
+        <node name="stmt" num="85"/>
+        <node name="if-else"/>
+        <node name="stmt" num="82"/>
+        <node name="loop"/>
+        <node name="stmt" num="78"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+     <return-site>
+      <exp etag="const" xstr="0">
+       <constant ctag="cint64" ikind="iint" intValue="0"/>
+      </exp>
+      <location byte="189243" file="src/util.c" line="136"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="90"/>
+        <node name="if-then"/>
+        <node name="stmt" num="89"/>
+        <node name="if-then"/>
+        <node name="stmt" num="87"/>
+        <node name="if-else"/>
+        <node name="stmt" num="85"/>
+        <node name="if-else"/>
+        <node name="stmt" num="82"/>
+        <node name="loop"/>
+        <node name="stmt" num="78"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+     <return-site>
+      <exp etag="const" xstr="0">
+       <constant ctag="cint64" ikind="iint" intValue="0"/>
+      </exp>
+      <location byte="189094" file="src/util.c" line="133"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="86"/>
+        <node name="if-then"/>
+        <node name="stmt" num="85"/>
+        <node name="if-else"/>
+        <node name="stmt" num="82"/>
+        <node name="loop"/>
+        <node name="stmt" num="78"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+     <return-site>
+      <exp etag="const" xstr="0">
+       <constant ctag="cint64" ikind="iint" intValue="0"/>
+      </exp>
+      <location byte="188914" file="src/util.c" line="120"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="75"/>
+        <node name="if-then"/>
+        <node name="stmt" num="74"/>
+        <node name="if-else"/>
+        <node name="stmt" num="72"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+     <return-site>
+      <exp etag="const" xstr="0">
+       <constant ctag="cint64" ikind="iint" intValue="0"/>
+      </exp>
+      <location byte="188914" file="src/util.c" line="120"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="73"/>
+        <node name="if-then"/>
+        <node name="stmt" num="72"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+    </return-sites>
+    <post-expectations/>
+    <ds-expectations/>
+   </secondary-proof-obligations>
+  </function>
+  <header time="01/10/2017 05:33:38">
+   <application file="src/util.c" name="application"/>
+  </header>
+ </c-analysis>

@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function name="setaddr6part" stable="yes">
+   <program-locations>
+    <program-location>
+     <locations>
+      <loc byte="193200" file="src/util.c" line="392"/>
+     </locations>
+     <cfg-context>
+      <node name="instr" num="2"/>
+      <node name="stmt" num="235"/>
+      <node name="loop"/>
+      <node name="stmt" num="232"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="1" pv="1"/>
+      <inv nrv="9" pv="1"/>
+      <inv nrv="7" pv="1"/>
+      <inv nrv="6" pv="9"/>
+      <inv nrv="8" pv="5"/>
+      <inv nrv="4" pv="5"/>
+      <inv nrv="5" pv="6"/>
+      <inv nrv="2" pv="2"/>
+      <inv nrv="8" pv="8"/>
+      <inv nrv="4" pv="8"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="193200" file="src/util.c" line="392"/>
+     </locations>
+     <cfg-context>
+      <node name="if-expr"/>
+      <node name="stmt" num="233"/>
+      <node name="loop"/>
+      <node name="stmt" num="232"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="1" pv="1"/>
+      <inv nrv="9" pv="1"/>
+      <inv nrv="7" pv="1"/>
+      <inv nrv="10" pv="5"/>
+      <inv nrv="4" pv="5"/>
+      <inv nrv="5" pv="6"/>
+      <inv nrv="10" pv="7"/>
+      <inv nrv="4" pv="7"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="193238" file="src/util.c" line="394"/>
+     </locations>
+     <cfg-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="235"/>
+      <node name="loop"/>
+      <node name="stmt" num="232"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="1" pv="1"/>
+      <inv nrv="9" pv="1"/>
+      <inv nrv="7" pv="1"/>
+      <inv nrv="8" pv="5"/>
+      <inv nrv="4" pv="5"/>
+      <inv nrv="5" pv="6"/>
+      <inv nrv="3" pv="3"/>
+      <inv nrv="8" pv="10"/>
+      <inv nrv="4" pv="10"/>
+      <inv nrv="1" pv="4"/>
+      <inv nrv="9" pv="4"/>
+      <inv nrv="7" pv="4"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="193280" file="src/util.c" line="395"/>
+     </locations>
+     <cfg-context>
+      <node name="instr" num="1"/>
+      <node name="stmt" num="235"/>
+      <node name="loop"/>
+      <node name="stmt" num="232"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="1" pv="1"/>
+      <inv nrv="9" pv="1"/>
+      <inv nrv="7" pv="1"/>
+      <inv nrv="8" pv="5"/>
+      <inv nrv="4" pv="5"/>
+      <inv nrv="5" pv="6"/>
+      <inv nrv="0" pv="0"/>
+     </invariants>
+    </program-location>
+   </program-locations>
+   <program-value-table size="11">
+    <pvals index="0">
+     <pval arg="1" id="13"/>
+     <pval arg="1" id="14"/>
+    </pvals>
+    <pvals index="1">
+     <pval>
+      <lhost>
+       <var vid="6035" vname="addr"/>
+      </lhost>
+     </pval>
+    </pvals>
+    <pvals index="2">
+     <pval arg="3" id="16"/>
+     <pval arg="3" id="17"/>
+    </pvals>
+    <pvals index="3">
+     <pval arg="2" id="8"/>
+    </pvals>
+    <pvals index="4">
+     <pval arg="1" id="2"/>
+     <pval arg="1" id="3"/>
+     <pval arg="1" id="4"/>
+     <pval arg="2" id="5"/>
+     <pval arg="2" id="6"/>
+    </pvals>
+    <pvals index="5">
+     <pval>
+      <lhost>
+       <var vid="6037" vname="i"/>
+      </lhost>
+     </pval>
+    </pvals>
+    <pvals index="6">
+     <pval etag="lval" external="yes" property="vm" xstr="addr">
+      <lval>
+       <lhost>
+        <var vid="6035" vname="addr"/>
+       </lhost>
+      </lval>
+     </pval>
+    </pvals>
+    <pvals index="7">
+     <pval arg="1" id="1"/>
+    </pvals>
+    <pvals index="8">
+     <pval arg="1" id="15"/>
+     <pval arg="2" id="16"/>
+     <pval arg="2" id="17"/>
+    </pvals>
+    <pvals index="9">
+     <pval>
+      <lhost>
+       <var vid="6036" vname="host"/>
+      </lhost>
+     </pval>
+    </pvals>
+    <pvals index="10">
+     <pval arg="1" id="7"/>
+     <pval arg="1" id="8"/>
+     <pval arg="1" id="9"/>
+    </pvals>
+   </program-value-table>
+   <non-relational-value-table size="11">
+    <nrv index="0" tag="range" value="8"/>
+    <nrv etag="lval" index="1" tag="fv" xstr="addr">
+     <lval>
+      <lhost>
+       <var vid="6035" vname="addr"/>
+      </lhost>
+     </lval>
+    </nrv>
+    <nrv index="2" tag="range" value="1"/>
+    <nrv index="3" tag="range" value="16"/>
+    <nrv index="4" tag="ss">
+     <sym name="assignedAt#392"/>
+    </nrv>
+    <nrv index="5" tag="ss">
+     <sym name="valid"/>
+    </nrv>
+    <nrv index="6" tag="ss">
+     <sym name="assignedAt#395"/>
+    </nrv>
+    <nrv address-type="external" index="7" tag="vs" value="0">
+     <base etag="lval" xstr="addr">
+      <lval>
+       <lhost>
+        <var vid="6035" vname="addr"/>
+       </lhost>
+      </lval>
+     </base>
+    </nrv>
+    <nrv index="8" lb="8" tag="range" ub="15"/>
+    <nrv index="9" lb="0" tag="range"/>
+    <nrv index="10" lb="7" tag="range" ub="15"/>
+   </non-relational-value-table>
+  </function>
+  <header time="01/09/2017 22:49:37">
+   <application file="src/util.c" name="application"/>
+  </header>
+ </c-analysis>

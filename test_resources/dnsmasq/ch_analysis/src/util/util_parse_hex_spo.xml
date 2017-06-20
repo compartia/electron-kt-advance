@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function name="parse_hex">
+   <secondary-proof-obligations max-spo-id="305" num-ppo="304">
+    <indirect-calls/>
+    <callsite-obligations/>
+    <return-sites>
+     <return-site>
+      <exp etag="lval" xstr="i">
+       <lval>
+        <lhost>
+         <var vid="6084" vname="i"/>
+        </lhost>
+       </lval>
+      </exp>
+      <location byte="196012" file="src/util.c" line="519"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="316"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+     <return-site>
+      <exp etag="const" xstr="-1">
+       <constant ctag="cint64" ikind="iint" intValue="-1"/>
+      </exp>
+      <location byte="195765" file="src/util.c" line="503"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="308"/>
+        <node name="if-then"/>
+        <node name="stmt" num="307"/>
+        <node name="loop"/>
+        <node name="stmt" num="300"/>
+        <node name="if-else"/>
+        <node name="stmt" num="297"/>
+        <node name="if-else"/>
+        <node name="stmt" num="290"/>
+        <node name="if-then"/>
+        <node name="stmt" num="289"/>
+        <node name="loop"/>
+        <node name="stmt" num="268"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+     <return-site>
+      <exp etag="const" xstr="-1">
+       <constant ctag="cint64" ikind="iint" intValue="-1"/>
+      </exp>
+      <location byte="195203" file="src/util.c" line="468"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="285"/>
+        <node name="if-else"/>
+        <node name="stmt" num="284"/>
+        <node name="if-then"/>
+        <node name="stmt" num="282"/>
+        <node name="loop"/>
+        <node name="stmt" num="273"/>
+        <node name="loop"/>
+        <node name="stmt" num="268"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+    </return-sites>
+    <post-expectations>
+     <post-expectation id="305">
+      <callers>
+       <caller api-id="3" fname="lease_init" fvid="245"/>
+       <caller api-id="3" fname="lease_init" fvid="245"/>
+       <caller api-id="3" fname="lease_init" fvid="245"/>
+       <caller api-id="3" fname="lease_init" fvid="245"/>
+       <caller api-id="3" fname="lease_init" fvid="245"/>
+       <caller api-id="3" fname="lease_init" fvid="245"/>
+       <caller api-id="3" fname="lease_init" fvid="245"/>
+      </callers>
+      <predicate from="iint" tag="signed-to-unsigned-cast" to="iulong">
+       <exp etag="lval" xstr="i">
+        <lval>
+         <lhost>
+          <var vid="6084" vname="i"/>
+         </lhost>
+        </lval>
+       </exp>
+      </predicate>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="316"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+      <location byte="196012" file="src/util.c" line="519"/>
+     </post-expectation>
+    </post-expectations>
+    <ds-expectations/>
+   </secondary-proof-obligations>
+  </function>
+  <header time="01/10/2017 05:33:38">
+   <application file="src/util.c" name="application"/>
+  </header>
+ </c-analysis>

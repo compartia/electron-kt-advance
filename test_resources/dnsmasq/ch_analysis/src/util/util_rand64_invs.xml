@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function name="rand64" stable="yes">
+   <program-locations>
+    <program-location>
+     <locations>
+      <loc byte="188585" file="src/util.c" line="100"/>
+     </locations>
+     <cfg-context>
+      <node name="if-expr"/>
+      <node name="stmt" num="60"/>
+     </cfg-context>
+     <invariants/>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="188656" file="src/util.c" line="102"/>
+     </locations>
+     <cfg-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="67"/>
+      <node name="if-else"/>
+      <node name="stmt" num="66"/>
+      <node name="if-else"/>
+      <node name="stmt" num="64"/>
+      <node name="if-else"/>
+      <node name="stmt" num="62"/>
+      <node name="if-then"/>
+      <node name="stmt" num="60"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="7" pv="21"/>
+      <inv nrv="7" pv="23"/>
+      <inv nrv="7" pv="26"/>
+      <inv nrv="9" pv="25"/>
+      <inv nrv="0" pv="11"/>
+      <inv nrv="3" pv="13"/>
+      <inv nrv="6" pv="12"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="188642" file="src/util.c" line="102"/>
+     </locations>
+     <cfg-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="65"/>
+      <node name="if-else"/>
+      <node name="stmt" num="64"/>
+      <node name="if-else"/>
+      <node name="stmt" num="62"/>
+      <node name="if-then"/>
+      <node name="stmt" num="60"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="7" pv="21"/>
+      <inv nrv="7" pv="23"/>
+      <inv nrv="9" pv="25"/>
+      <inv nrv="0" pv="3"/>
+      <inv nrv="3" pv="5"/>
+      <inv nrv="2" pv="4"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="188642" file="src/util.c" line="102"/>
+     </locations>
+     <cfg-context>
+      <node name="if-expr"/>
+      <node name="stmt" num="66"/>
+      <node name="if-else"/>
+      <node name="stmt" num="64"/>
+      <node name="if-else"/>
+      <node name="stmt" num="62"/>
+      <node name="if-then"/>
+      <node name="stmt" num="60"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="7" pv="21"/>
+      <inv nrv="7" pv="23"/>
+      <inv nrv="7" pv="26"/>
+      <inv nrv="9" pv="25"/>
+      <inv nrv="7" pv="27"/>
+      <inv nrv="0" pv="9"/>
+      <inv nrv="2" pv="10"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="188628" file="src/util.c" line="102"/>
+     </locations>
+     <cfg-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="63"/>
+      <node name="if-else"/>
+      <node name="stmt" num="62"/>
+      <node name="if-then"/>
+      <node name="stmt" num="60"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="7" pv="21"/>
+      <inv nrv="9" pv="25"/>
+      <inv nrv="0" pv="14"/>
+      <inv nrv="3" pv="15"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="188628" file="src/util.c" line="102"/>
+     </locations>
+     <cfg-context>
+      <node name="if-expr"/>
+      <node name="stmt" num="64"/>
+      <node name="if-else"/>
+      <node name="stmt" num="62"/>
+      <node name="if-then"/>
+      <node name="stmt" num="60"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="7" pv="21"/>
+      <inv nrv="7" pv="23"/>
+      <inv nrv="9" pv="25"/>
+      <inv nrv="7" pv="28"/>
+      <inv nrv="0" pv="16"/>
+      <inv nrv="3" pv="17"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="188614" file="src/util.c" line="102"/>
+     </locations>
+     <cfg-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="61"/>
+      <node name="if-then"/>
+      <node name="stmt" num="60"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="9" pv="25"/>
+      <inv nrv="0" pv="18"/>
+      <inv nrv="3" pv="19"/>
+      <inv nrv="1" pv="20"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="188614" file="src/util.c" line="102"/>
+     </locations>
+     <cfg-context>
+      <node name="if-expr"/>
+      <node name="stmt" num="62"/>
+      <node name="if-then"/>
+      <node name="stmt" num="60"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="7" pv="21"/>
+      <inv nrv="9" pv="25"/>
+      <inv nrv="7" pv="22"/>
+      <inv nrv="0" pv="0"/>
+      <inv nrv="1" pv="1"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="188707" file="src/util.c" line="107"/>
+     </locations>
+     <cfg-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="69"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="10" pv="25"/>
+      <inv nrv="2" pv="2"/>
+      <inv nrv="10" pv="29"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="188724" file="src/util.c" line="109"/>
+     </locations>
+     <cfg-context>
+      <node name="return"/>
+      <node name="stmt" num="70"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="12" pv="25"/>
+      <inv nrv="8" pv="25"/>
+      <inv nrv="11" pv="30"/>
+      <inv nrv="3" pv="8"/>
+      <inv nrv="5" pv="7"/>
+      <inv nrv="4" pv="6"/>
+      <inv nrv="12" pv="24"/>
+      <inv nrv="8" pv="24"/>
+     </invariants>
+    </program-location>
+   </program-locations>
+   <program-value-table size="31">
+    <pvals index="0">
+     <pval arg="2" id="11"/>
+    </pvals>
+    <pvals index="1">
+     <pval arg="1" id="10"/>
+     <pval arg="1" id="11"/>
+    </pvals>
+    <pvals index="2">
+     <pval arg="3" id="40"/>
+     <pval arg="3" id="41"/>
+    </pvals>
+    <pvals index="3">
+     <pval arg="2" id="23"/>
+     <pval arg="2" id="26"/>
+    </pvals>
+    <pvals index="4">
+     <pval arg="1" id="22"/>
+     <pval arg="1" id="23"/>
+     <pval arg="1" id="25"/>
+     <pval arg="1" id="26"/>
+    </pvals>
+    <pvals index="5">
+     <pval arg="3" id="27"/>
+     <pval arg="3" id="28"/>
+    </pvals>
+    <pvals index="6">
+     <pval arg="1" id="54"/>
+     <pval arg="1" id="55"/>
+    </pvals>
+    <pvals index="7">
+     <pval arg="2" id="45"/>
+     <pval arg="2" id="52"/>
+    </pvals>
+    <pvals index="8">
+     <pval arg="3" id="47"/>
+     <pval arg="3" id="48"/>
+    </pvals>
+    <pvals index="9">
+     <pval arg="2" id="31"/>
+    </pvals>
+    <pvals index="10">
+     <pval arg="1" id="30"/>
+     <pval arg="1" id="31"/>
+    </pvals>
+    <pvals index="11">
+     <pval arg="2" id="33"/>
+     <pval arg="2" id="36"/>
+    </pvals>
+    <pvals index="12">
+     <pval arg="1" id="32"/>
+     <pval arg="1" id="33"/>
+     <pval arg="1" id="35"/>
+     <pval arg="1" id="36"/>
+    </pvals>
+    <pvals index="13">
+     <pval arg="3" id="37"/>
+     <pval arg="3" id="38"/>
+    </pvals>
+    <pvals index="14">
+     <pval arg="2" id="13"/>
+     <pval arg="2" id="16"/>
+    </pvals>
+    <pvals index="15">
+     <pval arg="1" id="12"/>
+     <pval arg="1" id="13"/>
+     <pval arg="1" id="15"/>
+     <pval arg="1" id="16"/>
+     <pval arg="3" id="17"/>
+     <pval arg="3" id="18"/>
+    </pvals>
+    <pvals index="16">
+     <pval arg="2" id="21"/>
+    </pvals>
+    <pvals index="17">
+     <pval arg="1" id="20"/>
+     <pval arg="1" id="21"/>
+    </pvals>
+    <pvals index="18">
+     <pval arg="2" id="3"/>
+     <pval arg="2" id="6"/>
+    </pvals>
+    <pvals index="19">
+     <pval arg="3" id="7"/>
+     <pval arg="3" id="8"/>
+    </pvals>
+    <pvals index="20">
+     <pval arg="1" id="2"/>
+     <pval arg="1" id="3"/>
+     <pval arg="1" id="5"/>
+     <pval arg="1" id="6"/>
+    </pvals>
+    <pvals index="21">
+     <pval>
+      <lhost>
+       <var vid="5901" vname="in"/>
+      </lhost>
+      <offset>
+       <index etag="const" xstr="0">
+        <constant ctag="cint64" ikind="iint" intValue="0"/>
+       </index>
+      </offset>
+     </pval>
+    </pvals>
+    <pvals index="22">
+     <pval arg="1" id="9"/>
+    </pvals>
+    <pvals index="23">
+     <pval>
+      <lhost>
+       <var vid="5901" vname="in"/>
+      </lhost>
+      <offset>
+       <index etag="const" xstr="1">
+        <constant ctag="cint64" ikind="iint" intValue="1"/>
+       </index>
+      </offset>
+     </pval>
+    </pvals>
+    <pvals index="24">
+     <pval arg="1" id="46"/>
+     <pval arg="2" id="47"/>
+     <pval arg="2" id="48"/>
+     <pval arg="1" id="51"/>
+     <pval arg="1" id="52"/>
+     <pval arg="1" id="53"/>
+    </pvals>
+    <pvals index="25">
+     <pval>
+      <lhost>
+       <var vid="5925" vname="outleft___0"/>
+      </lhost>
+     </pval>
+    </pvals>
+    <pvals index="26">
+     <pval>
+      <lhost>
+       <var vid="5901" vname="in"/>
+      </lhost>
+      <offset>
+       <index etag="const" xstr="2">
+        <constant ctag="cint64" ikind="iint" intValue="2"/>
+       </index>
+      </offset>
+     </pval>
+    </pvals>
+    <pvals index="27">
+     <pval arg="1" id="29"/>
+    </pvals>
+    <pvals index="28">
+     <pval arg="1" id="19"/>
+    </pvals>
+    <pvals index="29">
+     <pval arg="1" id="39"/>
+     <pval arg="2" id="40"/>
+     <pval arg="2" id="41"/>
+    </pvals>
+    <pvals index="30">
+     <pval arg="1" id="44"/>
+     <pval arg="1" id="45"/>
+    </pvals>
+   </program-value-table>
+   <non-relational-value-table size="13">
+    <nrv index="0" tag="range" value="12"/>
+    <nrv index="1" tag="range" value="0"/>
+    <nrv index="2" tag="range" value="2"/>
+    <nrv index="3" tag="range" value="1"/>
+    <nrv index="4" tag="range" value="32"/>
+    <nrv index="5" tag="range" value="8"/>
+    <nrv index="6" tag="range" value="3"/>
+    <nrv index="7" tag="ss">
+     <sym name="assignedAt#102"/>
+    </nrv>
+    <nrv index="8" tag="ss">
+     <sym name="assignedAt#107"/>
+    </nrv>
+    <nrv index="9" tag="range" ub="1"/>
+    <nrv index="10" lb="2" tag="range"/>
+    <nrv index="11" lb="1" tag="range"/>
+    <nrv index="12" lb="0" tag="range"/>
+   </non-relational-value-table>
+  </function>
+  <header time="01/09/2017 22:49:37">
+   <application file="src/util.c" name="application"/>
+  </header>
+ </c-analysis>

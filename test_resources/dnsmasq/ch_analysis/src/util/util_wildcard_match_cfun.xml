@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <codehawk-c-analysis>
+  <header>
+   <created file="src/util" project-directory="/home/vagrant/git/dnsmasq" time="01/09/2017 21:32:10"/>
+  </header>
+  <function filename="src/util">
+   <svar vglob="true" vid="4890" vname="wildcard_match">
+    <vtyp ttag="tfun" vararg="false">
+     <args>
+      <arg aname="wildcard">
+       <typ ttag="tptr">
+        <typ ikind="ichar" ttag="tint">
+         <attributes>
+          <attr attrname="const"/>
+         </attributes>
+        </typ>
+       </typ>
+      </arg>
+      <arg aname="match">
+       <typ ttag="tptr">
+        <typ ikind="ichar" ttag="tint">
+         <attributes>
+          <attr attrname="const"/>
+         </attributes>
+        </typ>
+       </typ>
+      </arg>
+     </args>
+     <typ ikind="iint" ttag="tint"/>
+    </vtyp>
+    <vdecl byte="197890" file="src/util.c" line="639"/>
+   </svar>
+   <sformals>
+    <varinfo vid="6163" vname="wildcard">
+     <vtyp ttag="tptr">
+      <typ ikind="ichar" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+     </vtyp>
+     <vdecl byte="197919" file="src/util.c" line="639"/>
+    </varinfo>
+    <varinfo vid="6164" vname="match">
+     <vtyp ttag="tptr">
+      <typ ikind="ichar" ttag="tint">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+     </vtyp>
+     <vdecl byte="197941" file="src/util.c" line="639"/>
+    </varinfo>
+   </sformals>
+   <slocals/>
+   <sbody>
+    <bstmts>
+     <stmt sid="386">
+      <skind breakstmtid="396" continuestmtid="386" stag="loop">
+       <block>
+        <bstmts>
+         <stmt sid="387">
+          <skind stag="if">
+           <exp etag="lval">
+            <lval>
+             <lhost>
+              <mem etag="lval">
+               <lval>
+                <lhost>
+                 <var vid="6163" vname="wildcard"/>
+                </lhost>
+               </lval>
+              </mem>
+             </lhost>
+            </lval>
+           </exp>
+           <thenblock>
+            <bstmts>
+             <stmt sid="388">
+              <skind stag="if">
+               <exp etag="lval">
+                <lval>
+                 <lhost>
+                  <mem etag="lval">
+                   <lval>
+                    <lhost>
+                     <var vid="6164" vname="match"/>
+                    </lhost>
+                   </lval>
+                  </mem>
+                 </lhost>
+                </lval>
+               </exp>
+               <thenblock>
+                <bstmts/>
+               </thenblock>
+               <elseblock>
+                <bstmts>
+                 <stmt sid="389">
+                  <skind stag="break">
+                   <loc byte="197954" file="src/util.c" line="641"/>
+                  </skind>
+                  <succs>
+                   <int intValue="396"/>
+                  </succs>
+                  <preds>
+                   <int intValue="388"/>
+                  </preds>
+                 </stmt>
+                </bstmts>
+               </elseblock>
+               <loc byte="197954" file="src/util.c" line="641"/>
+              </skind>
+              <succs>
+               <int intValue="391"/>
+               <int intValue="389"/>
+              </succs>
+              <preds>
+               <int intValue="387"/>
+              </preds>
+             </stmt>
+            </bstmts>
+           </thenblock>
+           <elseblock>
+            <bstmts>
+             <stmt sid="390">
+              <skind stag="break">
+               <loc byte="197954" file="src/util.c" line="641"/>
+              </skind>
+              <succs>
+               <int intValue="396"/>
+              </succs>
+              <preds>
+               <int intValue="387"/>
+              </preds>
+             </stmt>
+            </bstmts>
+           </elseblock>
+           <loc byte="197954" file="src/util.c" line="641"/>
+          </skind>
+          <succs>
+           <int intValue="388"/>
+           <int intValue="390"/>
+          </succs>
+          <preds>
+           <int intValue="386"/>
+          </preds>
+         </stmt>
+         <stmt sid="391">
+          <skind stag="if">
+           <exp binop="eq" etag="binop">
+            <exp1 etag="caste">
+             <typ ikind="iint" ttag="tint">
+              <attributes>
+               <attr attrname="const"/>
+              </attributes>
+             </typ>
+             <exp etag="lval">
+              <lval>
+               <lhost>
+                <mem etag="lval">
+                 <lval>
+                  <lhost>
+                   <var vid="6163" vname="wildcard"/>
+                  </lhost>
+                 </lval>
+                </mem>
+               </lhost>
+              </lval>
+             </exp>
+            </exp1>
+            <exp2 etag="const">
+             <constant ctag="cint64" ikind="iint" intValue="42"/>
+            </exp2>
+            <typ ikind="iint" ttag="tint"/>
+           </exp>
+           <thenblock>
+            <bstmts>
+             <stmt sid="392">
+              <skind stag="return">
+               <loc byte="198024" file="src/util.c" line="644"/>
+               <exp etag="const">
+                <constant ctag="cint64" ikind="iint" intValue="1"/>
+               </exp>
+              </skind>
+              <succs/>
+              <preds>
+               <int intValue="391"/>
+              </preds>
+             </stmt>
+            </bstmts>
+           </thenblock>
+           <elseblock>
+            <bstmts/>
+           </elseblock>
+           <loc byte="197994" file="src/util.c" line="643"/>
+          </skind>
+          <succs>
+           <int intValue="392"/>
+           <int intValue="393"/>
+          </succs>
+          <preds>
+           <int intValue="388"/>
+          </preds>
+         </stmt>
+         <stmt sid="393">
+          <skind stag="if">
+           <exp binop="ne" etag="binop">
+            <exp1 etag="caste">
+             <typ ikind="iint" ttag="tint">
+              <attributes>
+               <attr attrname="const"/>
+              </attributes>
+             </typ>
+             <exp etag="lval">
+              <lval>
+               <lhost>
+                <mem etag="lval">
+                 <lval>
+                  <lhost>
+                   <var vid="6163" vname="wildcard"/>
+                  </lhost>
+                 </lval>
+                </mem>
+               </lhost>
+              </lval>
+             </exp>
+            </exp1>
+            <exp2 etag="caste">
+             <typ ikind="iint" ttag="tint">
+              <attributes>
+               <attr attrname="const"/>
+              </attributes>
+             </typ>
+             <exp etag="lval">
+              <lval>
+               <lhost>
+                <mem etag="lval">
+                 <lval>
+                  <lhost>
+                   <var vid="6164" vname="match"/>
+                  </lhost>
+                 </lval>
+                </mem>
+               </lhost>
+              </lval>
+             </exp>
+            </exp2>
+            <typ ikind="iint" ttag="tint"/>
+           </exp>
+           <thenblock>
+            <bstmts>
+             <stmt sid="394">
+              <skind stag="return">
+               <loc byte="198074" file="src/util.c" line="647"/>
+               <exp etag="const">
+                <constant ctag="cint64" ikind="iint" intValue="0"/>
+               </exp>
+              </skind>
+              <succs/>
+              <preds>
+               <int intValue="393"/>
+              </preds>
+             </stmt>
+            </bstmts>
+           </thenblock>
+           <elseblock>
+            <bstmts/>
+           </elseblock>
+           <loc byte="198041" file="src/util.c" line="646"/>
+          </skind>
+          <succs>
+           <int intValue="394"/>
+           <int intValue="395"/>
+          </succs>
+          <preds>
+           <int intValue="391"/>
+          </preds>
+         </stmt>
+         <stmt sid="395">
+          <skind stag="instr">
+           <instrs>
+            <instr itag="set">
+             <lval>
+              <lhost>
+               <var vid="6163" vname="wildcard"/>
+              </lhost>
+             </lval>
+             <exp binop="pluspi" etag="binop">
+              <exp1 etag="lval">
+               <lval>
+                <lhost>
+                 <var vid="6163" vname="wildcard"/>
+                </lhost>
+               </lval>
+              </exp1>
+              <exp2 etag="const">
+               <constant ctag="cint64" ikind="iint" intValue="1"/>
+              </exp2>
+              <typ ttag="tptr">
+               <typ ikind="ichar" ttag="tint">
+                <attributes>
+                 <attr attrname="const"/>
+                </attributes>
+               </typ>
+              </typ>
+             </exp>
+             <loc byte="198091" file="src/util.c" line="649"/>
+            </instr>
+            <instr itag="set">
+             <lval>
+              <lhost>
+               <var vid="6164" vname="match"/>
+              </lhost>
+             </lval>
+             <exp binop="pluspi" etag="binop">
+              <exp1 etag="lval">
+               <lval>
+                <lhost>
+                 <var vid="6164" vname="match"/>
+                </lhost>
+               </lval>
+              </exp1>
+              <exp2 etag="const">
+               <constant ctag="cint64" ikind="iint" intValue="1"/>
+              </exp2>
+              <typ ttag="tptr">
+               <typ ikind="ichar" ttag="tint">
+                <attributes>
+                 <attr attrname="const"/>
+                </attributes>
+               </typ>
+              </typ>
+             </exp>
+             <loc byte="198109" file="src/util.c" line="650"/>
+            </instr>
+           </instrs>
+          </skind>
+          <succs>
+           <int intValue="386"/>
+          </succs>
+          <preds>
+           <int intValue="393"/>
+          </preds>
+         </stmt>
+        </bstmts>
+       </block>
+       <loc byte="197954" file="src/util.c" line="641"/>
+      </skind>
+      <succs>
+       <int intValue="387"/>
+      </succs>
+      <preds>
+       <int intValue="395"/>
+      </preds>
+     </stmt>
+     <stmt sid="396">
+      <skind stag="return">
+       <loc byte="198127" file="src/util.c" line="653"/>
+       <exp binop="eq" etag="binop">
+        <exp1 etag="caste">
+         <typ ikind="iint" ttag="tint">
+          <attributes>
+           <attr attrname="const"/>
+          </attributes>
+         </typ>
+         <exp etag="lval">
+          <lval>
+           <lhost>
+            <mem etag="lval">
+             <lval>
+              <lhost>
+               <var vid="6163" vname="wildcard"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+          </lval>
+         </exp>
+        </exp1>
+        <exp2 etag="caste">
+         <typ ikind="iint" ttag="tint">
+          <attributes>
+           <attr attrname="const"/>
+          </attributes>
+         </typ>
+         <exp etag="lval">
+          <lval>
+           <lhost>
+            <mem etag="lval">
+             <lval>
+              <lhost>
+               <var vid="6164" vname="match"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+          </lval>
+         </exp>
+        </exp2>
+        <typ ikind="iint" ttag="tint"/>
+       </exp>
+      </skind>
+      <succs/>
+      <preds>
+       <int intValue="390"/>
+       <int intValue="389"/>
+      </preds>
+     </stmt>
+    </bstmts>
+   </sbody>
+  </function>
+ </codehawk-c-analysis>

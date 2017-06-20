@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <log>
+   <log-entry time="01/10/2017 06:52:36"/>
+   <log-entry time="01/10/2017 05:29:23"/>
+   <log-entry time="01/10/2017 05:18:07"/>
+   <log-entry delta-lifted="2" time="01/10/2017 04:56:04"/>
+   <log-entry delta-lifted="3" time="01/10/2017 04:32:22"/>
+   <log-entry delta-lifted="2" time="01/10/2017 03:39:01"/>
+   <log-entry delta-invariant="2" delta-lifted="9" time="01/10/2017 02:50:39"/>
+   <log-entry delta-invariant="2" delta-lifted="8" time="01/09/2017 22:49:44"/>
+   <log-entry time="01/09/2017 22:03:41"/>
+  </log>
+  <function name="add_dhcp_cname">
+   <statistics checkvalid="0" invariant="4" invariant_with_api="24" total="50" total-proven="28"/>
+   <open-proof-obligations>
+    <open id="151" line="1188" predicate="unsigned-to-signed-cast"/>
+    <open id="152" line="1182" predicate="not-null"/>
+    <open id="154" line="1182" predicate="initialized"/>
+    <open id="170" line="1201" predicate="global-mem"/>
+    <open id="174" line="1202" predicate="initialized"/>
+    <open id="175" line="1202" predicate="global-mem"/>
+    <open id="176" line="1202" predicate="initialized"/>
+    <open id="177" line="1202" predicate="global-mem"/>
+    <open id="178" line="1202" predicate="not-null"/>
+    <open id="179" line="1202" predicate="global-mem"/>
+    <open id="180" line="1202" predicate="ptr-upper-bound"/>
+    <open id="181" line="1202" predicate="not-null"/>
+    <open id="182" line="1202" predicate="ptr-upper-bound"/>
+    <open id="183" line="1202" predicate="ptr-upper-bound"/>
+    <open id="184" line="1202" predicate="ptr-upper-bound"/>
+    <open id="185" line="1201" predicate="ptr-upper-bound"/>
+    <open id="186" line="1201" predicate="not-null"/>
+    <open id="189" line="1201" predicate="ptr-upper-bound"/>
+    <open id="193" line="1202" predicate="ptr-upper-bound-deref"/>
+    <open id="194" line="1202" predicate="ptr-upper-bound-deref"/>
+    <open id="195" line="1202" predicate="ptr-upper-bound-deref"/>
+    <open id="196" line="1201" predicate="ptr-upper-bound-deref"/>
+   </open-proof-obligations>
+   <proof-obligations-discharged>
+    <discharged domain="intervals" id="149" method="invariants" time="01/09/2017 22:49:44" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="intervals" id="150" method="invariants" time="01/09/2017 22:49:44" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="linear equalities" id="153" method="invariants" time="01/09/2017 22:49:44" type="not-null">
+     <evidence comment="delegating proof obligation to the post condition of fn(cache_get_name)@ 1182[target]"/>
+     <assumptions>
+      <uses a-id="2" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="valuesets" id="155" method="invariants" time="01/09/2017 22:49:44" type="global-mem">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="7" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="linear equalities" id="156" method="invariants" time="01/09/2017 22:49:44" type="not-null">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="2" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="linear equalities" id="157" method="invariants" time="01/09/2017 22:49:44" type="not-null">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="1" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="valuesets" id="158" method="invariants" time="01/09/2017 22:49:44" type="initialized">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="3" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="valuesets" id="159" method="invariants" time="01/09/2017 22:49:44" type="initialized">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="4" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="valuesets" id="160" method="invariants" time="01/09/2017 22:49:44" type="global-mem">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="5" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="valuesets" id="161" method="invariants" time="01/09/2017 22:49:44" type="global-mem">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="6" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="linear equalities" id="162" method="invariants" time="01/10/2017 02:50:39" type="not-null">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="11" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="linear equalities" id="163" method="invariants" time="01/10/2017 02:50:39" type="ptr-upper-bound">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="10" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="linear equalities" id="164" method="invariants" time="01/10/2017 02:50:39" type="ptr-upper-bound">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="9" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="linear equalities" id="165" method="invariants" time="01/10/2017 02:50:39" type="ptr-upper-bound">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="12" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="valuesets" id="166" method="invariants" time="01/10/2017 02:50:39" type="ptr-upper-bound">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="8" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="valuesets" id="167" method="invariants" time="01/10/2017 02:50:39" type="global-mem">
+     <evidence comment="delegating proof obligation to the post condition of fn(whine_malloc)@ 1188[sizeof (struct 196)]"/>
+     <assumptions>
+      <uses a-id="6" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="linear equalities" id="168" method="invariants" time="01/10/2017 02:50:39" type="not-null">
+     <evidence comment="delegating proof obligation to the post condition of fn(whine_malloc)@ 1188[sizeof (struct 196)]"/>
+     <assumptions>
+      <uses a-id="4" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="valuesets" id="169" method="invariants" time="01/10/2017 02:50:39" type="initialized">
+     <evidence comment="delegating proof obligation to the post condition of fn(whine_malloc)@ 1188[sizeof (struct 196)]"/>
+     <assumptions>
+      <uses a-id="5" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="symbolic sets" id="171" method="invariants" time="01/10/2017 02:50:39" type="initialized">
+     <evidence comment="assignedAt#1197"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="172" method="invariants" time="01/10/2017 02:50:39" type="initialized">
+     <evidence comment="assignedAt#1192_xx_assignedAt#1194"/>
+    </discharged>
+    <discharged domain="valuesets" id="173" method="invariants" time="01/10/2017 02:50:39" type="global-mem">
+     <evidence comment="delegating proof obligation to the post condition of fn(whine_malloc)@ 1188[sizeof (struct 196)]"/>
+     <assumptions>
+      <uses a-id="3" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="valuesets" id="187" method="invariants" time="01/10/2017 03:39:01" type="ptr-upper-bound">
+     <evidence comment="delegating proof obligation to the post condition of fn(whine_malloc)@ 1188[sizeof (struct 196)]"/>
+     <assumptions>
+      <uses a-id="8" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="valuesets" id="188" method="invariants" time="01/10/2017 03:39:01" type="ptr-upper-bound">
+     <evidence comment="delegating proof obligation to the post condition of fn(whine_malloc)@ 1188[sizeof (struct 196)]"/>
+     <assumptions>
+      <uses a-id="7" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="linear equalities" id="190" method="invariants" time="01/10/2017 04:32:22" type="ptr-upper-bound-deref">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="14" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="linear equalities" id="191" method="invariants" time="01/10/2017 04:32:22" type="ptr-upper-bound-deref">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="13" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="valuesets" id="192" method="invariants" time="01/10/2017 04:32:22" type="ptr-upper-bound-deref">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="15" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="valuesets" id="197" method="invariants" time="01/10/2017 04:56:04" type="ptr-upper-bound-deref">
+     <evidence comment="delegating proof obligation to the post condition of fn(whine_malloc)@ 1188[sizeof (struct 196)]"/>
+     <assumptions>
+      <uses a-id="9" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="valuesets" id="198" method="invariants" time="01/10/2017 04:56:04" type="ptr-upper-bound-deref">
+     <evidence comment="delegating proof obligation to the post condition of fn(whine_malloc)@ 1188[sizeof (struct 196)]"/>
+     <assumptions>
+      <uses a-id="10" a-type="rv"/>
+     </assumptions>
+    </discharged>
+   </proof-obligations-discharged>
+  </function>
+  <header time="01/10/2017 06:52:36">
+   <application file="src//cache.c" name="application"/>
+  </header>
+ </c-analysis>

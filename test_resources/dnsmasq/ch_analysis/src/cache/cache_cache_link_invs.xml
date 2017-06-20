@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function name="cache_link" stable="yes">
+   <program-locations>
+    <program-location>
+     <locations>
+      <loc byte="190236" file="src/cache.c" line="228"/>
+     </locations>
+     <cfg-context>
+      <node name="if-expr"/>
+      <node name="stmt" num="80"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="0" pv="0"/>
+      <inv nrv="13" pv="0"/>
+      <inv nrv="12" pv="0"/>
+      <inv nrv="9" pv="11"/>
+      <inv nrv="11" pv="11"/>
+      <inv nrv="3" pv="11"/>
+      <inv nrv="8" pv="10"/>
+      <inv nrv="10" pv="10"/>
+      <inv nrv="2" pv="10"/>
+      <inv nrv="4" pv="12"/>
+      <inv nrv="4" pv="16"/>
+      <inv nrv="4" pv="15"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="190256" file="src/cache.c" line="229"/>
+     </locations>
+     <cfg-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="81"/>
+      <node name="if-then"/>
+      <node name="stmt" num="80"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="14" pv="6"/>
+      <inv nrv="0" pv="0"/>
+      <inv nrv="13" pv="0"/>
+      <inv nrv="12" pv="0"/>
+      <inv nrv="9" pv="11"/>
+      <inv nrv="11" pv="11"/>
+      <inv nrv="3" pv="11"/>
+      <inv nrv="8" pv="10"/>
+      <inv nrv="10" pv="10"/>
+      <inv nrv="2" pv="10"/>
+      <inv nrv="4" pv="12"/>
+      <inv nrv="4" pv="16"/>
+      <inv nrv="4" pv="15"/>
+      <inv nrv="14" pv="14"/>
+      <inv nrv="0" pv="9"/>
+      <inv nrv="13" pv="9"/>
+      <inv nrv="12" pv="9"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="190284" file="src/cache.c" line="230"/>
+     </locations>
+     <cfg-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="82"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="13" pv="6"/>
+      <inv nrv="0" pv="0"/>
+      <inv nrv="13" pv="0"/>
+      <inv nrv="12" pv="0"/>
+      <inv nrv="9" pv="11"/>
+      <inv nrv="11" pv="11"/>
+      <inv nrv="3" pv="11"/>
+      <inv nrv="8" pv="10"/>
+      <inv nrv="10" pv="10"/>
+      <inv nrv="2" pv="10"/>
+      <inv nrv="4" pv="12"/>
+      <inv nrv="4" pv="16"/>
+      <inv nrv="4" pv="15"/>
+      <inv nrv="13" pv="13"/>
+      <inv nrv="0" pv="1"/>
+      <inv nrv="13" pv="1"/>
+      <inv nrv="12" pv="1"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="190312" file="src/cache.c" line="231"/>
+     </locations>
+     <cfg-context>
+      <node name="instr" num="1"/>
+      <node name="stmt" num="82"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="13" pv="6"/>
+      <inv nrv="0" pv="0"/>
+      <inv nrv="13" pv="0"/>
+      <inv nrv="12" pv="0"/>
+      <inv nrv="13" pv="11"/>
+      <inv nrv="5" pv="11"/>
+      <inv nrv="8" pv="10"/>
+      <inv nrv="10" pv="10"/>
+      <inv nrv="2" pv="10"/>
+      <inv nrv="4" pv="12"/>
+      <inv nrv="4" pv="16"/>
+      <inv nrv="4" pv="15"/>
+      <inv nrv="1" pv="4"/>
+      <inv nrv="1" pv="5"/>
+      <inv nrv="1" pv="3"/>
+      <inv nrv="0" pv="2"/>
+      <inv nrv="13" pv="2"/>
+      <inv nrv="12" pv="2"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="190341" file="src/cache.c" line="232"/>
+     </locations>
+     <cfg-context>
+      <node name="instr" num="2"/>
+      <node name="stmt" num="82"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="13" pv="6"/>
+      <inv nrv="0" pv="0"/>
+      <inv nrv="13" pv="0"/>
+      <inv nrv="12" pv="0"/>
+      <inv nrv="13" pv="11"/>
+      <inv nrv="5" pv="11"/>
+      <inv nrv="1" pv="10"/>
+      <inv nrv="6" pv="10"/>
+      <inv nrv="4" pv="12"/>
+      <inv nrv="4" pv="16"/>
+      <inv nrv="4" pv="15"/>
+      <inv nrv="0" pv="8"/>
+      <inv nrv="13" pv="8"/>
+      <inv nrv="12" pv="8"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="190363" file="src/cache.c" line="233"/>
+     </locations>
+     <cfg-context>
+      <node name="if-expr"/>
+      <node name="stmt" num="83"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="0" pv="6"/>
+      <inv nrv="13" pv="6"/>
+      <inv nrv="12" pv="6"/>
+      <inv nrv="7" pv="6"/>
+      <inv nrv="0" pv="0"/>
+      <inv nrv="13" pv="0"/>
+      <inv nrv="12" pv="0"/>
+      <inv nrv="13" pv="11"/>
+      <inv nrv="5" pv="11"/>
+      <inv nrv="1" pv="10"/>
+      <inv nrv="6" pv="10"/>
+      <inv nrv="4" pv="12"/>
+      <inv nrv="4" pv="16"/>
+      <inv nrv="4" pv="15"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="190384" file="src/cache.c" line="234"/>
+     </locations>
+     <cfg-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="84"/>
+      <node name="if-then"/>
+      <node name="stmt" num="83"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="0" pv="6"/>
+      <inv nrv="13" pv="6"/>
+      <inv nrv="12" pv="6"/>
+      <inv nrv="7" pv="6"/>
+      <inv nrv="0" pv="0"/>
+      <inv nrv="13" pv="0"/>
+      <inv nrv="12" pv="0"/>
+      <inv nrv="13" pv="11"/>
+      <inv nrv="5" pv="11"/>
+      <inv nrv="1" pv="10"/>
+      <inv nrv="6" pv="10"/>
+      <inv nrv="4" pv="12"/>
+      <inv nrv="4" pv="16"/>
+      <inv nrv="4" pv="15"/>
+      <inv nrv="0" pv="7"/>
+      <inv nrv="13" pv="7"/>
+      <inv nrv="12" pv="7"/>
+     </invariants>
+    </program-location>
+   </program-locations>
+   <program-value-table size="17">
+    <pvals index="0">
+     <pval>
+      <lhost>
+       <var vid="5968" vname="crecp"/>
+      </lhost>
+     </pval>
+    </pvals>
+    <pvals index="1">
+     <pval arg="1" id="14"/>
+     <pval arg="1" id="15"/>
+     <pval arg="1" id="16"/>
+     <pval arg="2" id="17"/>
+     <pval arg="2" id="18"/>
+    </pvals>
+    <pvals index="2">
+     <pval arg="1" id="23"/>
+     <pval arg="1" id="24"/>
+     <pval arg="1" id="25"/>
+     <pval arg="2" id="26"/>
+     <pval arg="2" id="27"/>
+    </pvals>
+    <pvals index="3">
+     <pval arg="2" id="30"/>
+     <pval arg="2" id="31"/>
+     <pval arg="1" id="32"/>
+    </pvals>
+    <pvals index="4">
+     <pval arg="3" id="28"/>
+    </pvals>
+    <pvals index="5">
+     <pval arg="3" id="29"/>
+    </pvals>
+    <pvals index="6">
+     <pval>
+      <lhost>
+       <var vid="5900" vname="cache_head"/>
+      </lhost>
+     </pval>
+    </pvals>
+    <pvals index="7">
+     <pval arg="1" id="38"/>
+     <pval arg="2" id="39"/>
+     <pval arg="2" id="40"/>
+     <pval arg="1" id="41"/>
+    </pvals>
+    <pvals index="8">
+     <pval arg="1" id="33"/>
+     <pval arg="2" id="34"/>
+     <pval arg="2" id="35"/>
+     <pval arg="1" id="36"/>
+    </pvals>
+    <pvals index="9">
+     <pval arg="1" id="7"/>
+     <pval arg="2" id="8"/>
+     <pval arg="2" id="9"/>
+     <pval arg="1" id="10"/>
+     <pval arg="2" id="11"/>
+     <pval arg="2" id="12"/>
+     <pval arg="1" id="13"/>
+    </pvals>
+    <pvals index="10">
+     <pval>
+      <lhost>
+       <mem etag="lval" xstr="crecp">
+        <lval>
+         <lhost>
+          <var vid="5968" vname="crecp"/>
+         </lhost>
+        </lval>
+       </mem>
+      </lhost>
+      <offset>
+       <field ckey="196" fname="prev"/>
+      </offset>
+     </pval>
+    </pvals>
+    <pvals index="11">
+     <pval>
+      <lhost>
+       <mem etag="lval" xstr="crecp">
+        <lval>
+         <lhost>
+          <var vid="5968" vname="crecp"/>
+         </lhost>
+        </lval>
+       </mem>
+      </lhost>
+      <offset>
+       <field ckey="196" fname="next"/>
+      </offset>
+     </pval>
+    </pvals>
+    <pvals index="12">
+     <pval etag="lval" external="yes" property="vm" xstr="crecp">
+      <lval>
+       <lhost>
+        <var vid="5968" vname="crecp"/>
+       </lhost>
+      </lval>
+     </pval>
+    </pvals>
+    <pvals index="13">
+     <pval arg="1" id="19"/>
+     <pval arg="2" id="20"/>
+     <pval arg="2" id="21"/>
+     <pval arg="1" id="22"/>
+    </pvals>
+    <pvals index="14">
+     <pval arg="1" id="2"/>
+     <pval arg="1" id="3"/>
+     <pval arg="1" id="4"/>
+     <pval arg="2" id="5"/>
+     <pval arg="2" id="6"/>
+    </pvals>
+    <pvals index="15">
+     <pval etag="lval" external="yes" property="vm" xstr="crecp-&gt;prev">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="crecp">
+         <lval>
+          <lhost>
+           <var vid="5968" vname="crecp"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <field ckey="196" fname="prev"/>
+       </offset>
+      </lval>
+     </pval>
+    </pvals>
+    <pvals index="16">
+     <pval etag="lval" external="yes" property="vm" xstr="crecp-&gt;next">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="crecp">
+         <lval>
+          <lhost>
+           <var vid="5968" vname="crecp"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <field ckey="196" fname="next"/>
+       </offset>
+      </lval>
+     </pval>
+    </pvals>
+   </program-value-table>
+   <non-relational-value-table size="15">
+    <nrv etag="lval" index="0" tag="fv" xstr="crecp">
+     <lval>
+      <lhost>
+       <var vid="5968" vname="crecp"/>
+      </lhost>
+     </lval>
+    </nrv>
+    <nrv index="1" tag="range" value="0"/>
+    <nrv index="2" tag="ss">
+     <sym name="parameter">
+      <attr value="crecp-&gt;prev"/>
+     </sym>
+    </nrv>
+    <nrv index="3" tag="ss">
+     <sym name="parameter">
+      <attr value="crecp-&gt;next"/>
+     </sym>
+    </nrv>
+    <nrv index="4" tag="ss">
+     <sym name="valid"/>
+    </nrv>
+    <nrv index="5" tag="ss">
+     <sym name="assignedAt#230">
+      <attr value="global"/>
+      <attr value="cache_head"/>
+      <attr value="5900"/>
+     </sym>
+    </nrv>
+    <nrv index="6" tag="ss">
+     <sym name="assignedAt#231"/>
+    </nrv>
+    <nrv index="7" tag="ss">
+     <sym name="assignedAt#232"/>
+    </nrv>
+    <nrv etag="lval" index="8" tag="fv" xstr="crecp-&gt;prev">
+     <lval>
+      <lhost>
+       <mem etag="lval" xstr="crecp">
+        <lval>
+         <lhost>
+          <var vid="5968" vname="crecp"/>
+         </lhost>
+        </lval>
+       </mem>
+      </lhost>
+      <offset>
+       <field ckey="196" fname="prev"/>
+      </offset>
+     </lval>
+    </nrv>
+    <nrv etag="lval" index="9" tag="fv" xstr="crecp-&gt;next">
+     <lval>
+      <lhost>
+       <mem etag="lval" xstr="crecp">
+        <lval>
+         <lhost>
+          <var vid="5968" vname="crecp"/>
+         </lhost>
+        </lval>
+       </mem>
+      </lhost>
+      <offset>
+       <field ckey="196" fname="next"/>
+      </offset>
+     </lval>
+    </nrv>
+    <nrv address-type="external" index="10" tag="vs" value="0">
+     <base etag="lval" xstr="crecp-&gt;prev">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="crecp">
+         <lval>
+          <lhost>
+           <var vid="5968" vname="crecp"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <field ckey="196" fname="prev"/>
+       </offset>
+      </lval>
+     </base>
+    </nrv>
+    <nrv address-type="external" index="11" tag="vs" value="0">
+     <base etag="lval" xstr="crecp-&gt;next">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="crecp">
+         <lval>
+          <lhost>
+           <var vid="5968" vname="crecp"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <field ckey="196" fname="next"/>
+       </offset>
+      </lval>
+     </base>
+    </nrv>
+    <nrv address-type="external" index="12" tag="vs" value="0">
+     <base etag="lval" xstr="crecp">
+      <lval>
+       <lhost>
+        <var vid="5968" vname="crecp"/>
+       </lhost>
+      </lval>
+     </base>
+    </nrv>
+    <nrv index="13" lb="0" tag="range"/>
+    <nrv index="14" lb="1" tag="range"/>
+   </non-relational-value-table>
+  </function>
+  <header time="01/09/2017 22:08:31">
+   <application file="src/cache.c" name="application"/>
+  </header>
+ </c-analysis>

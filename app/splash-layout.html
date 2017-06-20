@@ -1,14 +1,4 @@
-<link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
-<link rel="import" href="../bower_components/paper-progress/paper-progress.html">
-<link rel="import" href="../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
-<link rel="import" href="../bower_components/paper-material/paper-material.html">
-
-
-<script src="components/tf_graph_common/lib/util.js"></script>
-<script src="components/common/globals.js"></script>
-<script src="components/common/fs.js"></script>
+<link rel="import" href="splash-screen-components.html">
 
 <dom-module id="splash-layout">
     <template>
@@ -83,6 +73,7 @@
     </div>
 
     <div class="footer">
+        version [[kt_version]]<br>
         Copyright (c) 2017 Kestrel Technology All Rights Reserved.
     </div>
 
@@ -127,13 +118,13 @@
 
             openProject: function() {
                 this._startProgress();
-                var tracker = tf.graph.util.getTracker(this);
-                var newProject = kt.Globals.openNewProject(tracker);
+                var tracker = trackutils.getTracker(this);
+                var newProject = ktproject.openNewProject(tracker);
 
                 const ipc = require('electron').ipcRenderer;
                 if (newProject) {
                      ipc.send("project", newProject);
-                    _stopProgress();
+                    this._stopProgress();
                 }
 
             },
@@ -155,8 +146,10 @@
 
             attached: function() {
                 console.log("attached");
+                const storage = require('./modules/common/storage');
                 this.set("recentProjects",[]);
-                this.set("recentProjects", CONF.get("recentProjects"));
+                this.set("kt_version",storage.CONF.KT_VERSION);
+                this.set("recentProjects", storage.CONF.get("recentProjects"));
             }
 
         });

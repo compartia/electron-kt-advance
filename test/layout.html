@@ -58,7 +58,7 @@
                 var makePo = function(_currentProject, state, predicate) {
                     poNum++;
 
-                    var po = new kt.model.ProofObligation({
+                    var po = new model.ProofObligation({
                         "state": state,
                         "predicateType": predicate,
                         "file": poNum % 2 == 1
@@ -72,7 +72,7 @@
                     _currentProject.proofObligations.push(po);
                 }
 
-                var _currentProject = new kt.Globals.Project(null);
+                var _currentProject = new globals.Project(null);
 
                 for (var i = 0; i < num; i++) {
                     if (Math.random() > 0.5)
@@ -101,8 +101,8 @@
 
             ready: function() {
                 this._makeStats(3 + Math.random() * 20);
-                kt.Globals.PO_FILTER.name = "GLOBAL";
-                this.set("filter", kt.Globals.PO_FILTER);
+                PO_FILTER.name = "GLOBAL";
+                this.set("filter", PO_FILTER);
             }
 
         });

@@ -1,0 +1,868 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <log>
+   <log-entry time="01/10/2017 06:52:37"/>
+   <log-entry time="01/10/2017 05:29:24"/>
+   <log-entry time="01/10/2017 05:18:09"/>
+   <log-entry delta-invariant="3" delta-lifted="12" time="01/10/2017 04:56:05"/>
+   <log-entry delta-lifted="2" time="01/10/2017 04:32:23"/>
+   <log-entry delta-lifted="10" time="01/10/2017 03:39:02"/>
+   <log-entry delta-lifted="16" time="01/10/2017 02:50:40"/>
+   <log-entry delta-lifted="2" time="01/09/2017 22:49:46"/>
+   <log-entry delta-checkvalid="82" delta-invariant="71" delta-lifted="10" time="01/09/2017 22:03:42"/>
+  </log>
+  <function name="cache_find_by_name">
+   <statistics checkvalid="82" invariant="74" invariant_with_api="52" total="272" total-proven="208"/>
+   <open-proof-obligations>
+    <open id="1" line="622" predicate="unsigned-to-signed-cast"/>
+    <open id="31" line="637" predicate="valid-mem"/>
+    <open id="36" line="639" predicate="valid-mem"/>
+    <open id="48" line="685" predicate="valid-mem"/>
+    <open id="52" line="686" predicate="initialized"/>
+    <open id="55" line="686" predicate="valid-mem"/>
+    <open id="65" line="688" predicate="valid-mem"/>
+    <open id="69" line="689" predicate="valid-mem"/>
+    <open id="73" line="639" predicate="valid-mem"/>
+    <open id="78" line="641" predicate="initialized"/>
+    <open id="81" line="641" predicate="valid-mem"/>
+    <open id="87" line="641" predicate="initialized"/>
+    <open id="90" line="641" predicate="valid-mem"/>
+    <open id="95" line="641" predicate="valid-mem"/>
+    <open id="105" line="641" predicate="valid-mem"/>
+    <open id="110" line="645" predicate="initialized"/>
+    <open id="113" line="645" predicate="valid-mem"/>
+    <open id="123" line="647" predicate="not-null"/>
+    <open id="124" line="647" predicate="valid-mem"/>
+    <open id="125" line="647" predicate="lower-bound"/>
+    <open id="126" line="647" predicate="upper-bound"/>
+    <open id="130" line="648" predicate="valid-mem"/>
+    <open id="134" line="652" predicate="valid-mem"/>
+    <open id="138" line="653" predicate="valid-mem"/>
+    <open id="143" line="661" predicate="initialized"/>
+    <open id="146" line="661" predicate="valid-mem"/>
+    <open id="161" line="663" predicate="valid-mem"/>
+    <open id="166" line="664" predicate="valid-mem"/>
+    <open id="177" line="664" predicate="valid-mem"/>
+    <open id="186" line="666" predicate="valid-mem"/>
+    <open id="192" line="673" predicate="cast"/>
+    <open id="194" line="673" predicate="initialized"/>
+    <open id="197" line="673" predicate="valid-mem"/>
+    <open id="204" line="675" predicate="valid-mem"/>
+    <open id="209" line="680" predicate="valid-mem"/>
+    <open id="214" line="680" predicate="valid-mem"/>
+    <open id="219" line="680" predicate="valid-mem"/>
+    <open id="224" line="694" predicate="not-null"/>
+    <open id="225" line="694" predicate="valid-mem"/>
+    <open id="226" line="694" predicate="lower-bound"/>
+    <open id="227" line="694" predicate="upper-bound"/>
+    <open id="229" line="697" predicate="initialized"/>
+    <open id="231" line="697" predicate="initialized"/>
+    <open id="232" line="697" predicate="initialized"/>
+    <open id="233" line="697" predicate="not-null"/>
+    <open id="234" line="697" predicate="valid-mem"/>
+    <open id="235" line="697" predicate="lower-bound"/>
+    <open id="236" line="697" predicate="upper-bound"/>
+    <open id="240" line="697" predicate="initialized"/>
+    <open id="241" line="697" predicate="initialized"/>
+    <open id="242" line="697" predicate="not-null"/>
+    <open id="243" line="697" predicate="valid-mem"/>
+    <open id="244" line="697" predicate="lower-bound"/>
+    <open id="245" line="697" predicate="upper-bound"/>
+    <open id="247" line="697" predicate="initialized"/>
+    <open id="248" line="697" predicate="valid-mem"/>
+    <open id="249" line="697" predicate="lower-bound"/>
+    <open id="250" line="697" predicate="upper-bound"/>
+    <open id="258" line="697" predicate="valid-mem"/>
+    <open id="262" line="701" predicate="initialized"/>
+    <open id="263" line="701" predicate="valid-mem"/>
+    <open id="264" line="701" predicate="global-mem"/>
+    <open id="265" line="701" predicate="lower-bound"/>
+    <open id="266" line="701" predicate="upper-bound"/>
+   </open-proof-obligations>
+   <proof-obligations-discharged>
+    <discharged id="2" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="prot is a function parameter"/>
+    </discharged>
+    <discharged id="3" method="check-valid" time="01/09/2017 22:03:42" type="non-negative">
+     <evidence comment="value is 25"/>
+    </discharged>
+    <discharged id="4" method="check-valid" time="01/09/2017 22:03:42" type="width-overflow">
+     <evidence comment="value 25 requires a minimum word size of 32"/>
+    </discharged>
+    <discharged id="5" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="prot is a function parameter"/>
+    </discharged>
+    <discharged id="6" method="check-valid" time="01/09/2017 22:03:42" type="non-negative">
+     <evidence comment="value is 25"/>
+    </discharged>
+    <discharged id="7" method="check-valid" time="01/09/2017 22:03:42" type="width-overflow">
+     <evidence comment="value 25 requires a minimum word size of 32"/>
+    </discharged>
+    <discharged id="8" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged domain="linear equalities" id="9" method="invariants" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="1" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged id="10" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged domain="intervals" id="11" method="invariants" time="01/09/2017 22:03:42" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="12" method="invariants" time="01/09/2017 22:03:42" type="valid-mem">
+     <evidence comment="external address provided by parameter still points to valid memory"/>
+    </discharged>
+    <discharged domain="valuesets" id="13" method="invariants" time="01/09/2017 22:03:42" type="lower-bound">
+     <evidence comment="non-negative offset from base value: crecp"/>
+    </discharged>
+    <discharged domain="valuesets" id="14" method="invariants" time="01/09/2017 22:03:42" type="upper-bound">
+     <evidence comment="externally provided address; dereferencability is checked as part of precondition"/>
+    </discharged>
+    <discharged id="15" method="check-valid" time="01/09/2017 22:03:42" type="pointer-cast">
+     <evidence comment="cast of null-pointer"/>
+    </discharged>
+    <discharged id="16" method="check-valid" time="01/09/2017 22:03:42" type="cast">
+     <evidence comment="null-pointer cast"/>
+    </discharged>
+    <discharged id="17" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="name is a function parameter"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="18" method="invariants" time="01/09/2017 22:03:42" type="valid-mem">
+     <evidence comment="external address provided by parameter still points to valid memory"/>
+    </discharged>
+    <discharged domain="valuesets" id="19" method="invariants" time="01/09/2017 22:03:42" type="lower-bound">
+     <evidence comment="non-negative offset from base value: name"/>
+    </discharged>
+    <discharged domain="valuesets" id="20" method="invariants" time="01/09/2017 22:03:42" type="upper-bound">
+     <evidence comment="externally provided address; dereferencability is checked as part of precondition"/>
+    </discharged>
+    <discharged domain="valuesets" id="21" method="invariants" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="1" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="symbolic sets" id="22" method="invariants" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="assignedAt#635"/>
+    </discharged>
+    <discharged domain="linear equalities" id="23" method="invariants" time="01/09/2017 22:03:42" type="not-null">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="5" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="symbolic sets" id="24" method="invariants" time="01/09/2017 22:03:42" type="valid-mem">
+     <evidence comment="external address provided by hash_bucket still points to valid memory"/>
+    </discharged>
+    <discharged domain="linear equalities" id="25" method="invariants" time="01/09/2017 22:03:42" type="lower-bound">
+     <evidence comment="non-negative offset from return value from hash_bucket at 635"/>
+    </discharged>
+    <discharged domain="linear equalities" id="26" method="invariants" time="01/09/2017 22:03:42" type="upper-bound">
+     <evidence comment="address received from return value from hash_bucket at 635dereferencability is checked as part of postcondition"/>
+    </discharged>
+    <discharged id="27" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="28" method="invariants" time="01/10/2017 04:56:05" type="initialized">
+     <evidence comment="assignedAt#664"/>
+    </discharged>
+    <discharged id="29" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged domain="linear equalities" id="30" method="invariants" time="01/09/2017 22:03:42" type="not-null">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="4" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="valuesets" id="32" method="invariants" time="01/09/2017 22:03:42" type="lower-bound">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="2" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="valuesets" id="33" method="invariants" time="01/09/2017 22:03:42" type="upper-bound">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="3" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged id="34" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="now is a function parameter"/>
+    </discharged>
+    <discharged id="35" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged domain="valuesets" id="37" method="invariants" time="01/09/2017 22:03:42" type="lower-bound">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="2" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="valuesets" id="38" method="invariants" time="01/09/2017 22:03:42" type="upper-bound">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="3" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="symbolic sets" id="39" method="invariants" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="assignedAt#639"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="40" method="invariants" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="assignedAt#635_xx_assignedAt#675_xx_assignedAt#680"/>
+    </discharged>
+    <discharged domain="linear equalities" id="41" method="invariants" time="01/09/2017 22:03:42" type="not-null">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="5" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="symbolic sets" id="42" method="invariants" time="01/09/2017 22:03:42" type="valid-mem">
+     <evidence comment="external address provided by hash_bucket still points to valid memory"/>
+    </discharged>
+    <discharged domain="valuesets" id="43" method="invariants" time="01/09/2017 22:03:42" type="lower-bound">
+     <evidence comment="non-negative offset from return value from hash_bucket at 635"/>
+    </discharged>
+    <discharged domain="valuesets" id="44" method="invariants" time="01/09/2017 22:03:42" type="upper-bound">
+     <evidence comment="address received from return value from hash_bucket at 635dereferencability is checked as part of postcondition"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="45" method="invariants" time="01/10/2017 04:56:05" type="initialized">
+     <evidence comment="assignedAt#664"/>
+    </discharged>
+    <discharged id="46" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged domain="intervals" id="47" method="invariants" time="01/09/2017 22:03:42" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="valuesets" id="49" method="invariants" time="01/10/2017 02:50:40" type="lower-bound">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="2" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="valuesets" id="50" method="invariants" time="01/10/2017 02:50:40" type="upper-bound">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="3" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged id="51" method="check-valid" time="01/09/2017 22:03:42" type="cast">
+     <evidence comment="casting from unsigned short to unsigned int is safe"/>
+    </discharged>
+    <discharged id="53" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged domain="intervals" id="54" method="invariants" time="01/09/2017 22:03:42" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="valuesets" id="56" method="invariants" time="01/10/2017 02:50:40" type="lower-bound">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="2" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="valuesets" id="57" method="invariants" time="01/10/2017 02:50:40" type="upper-bound">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="3" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged id="58" method="check-valid" time="01/09/2017 22:03:42" type="non-negative">
+     <evidence comment="value is 6"/>
+    </discharged>
+    <discharged id="59" method="check-valid" time="01/09/2017 22:03:42" type="width-overflow">
+     <evidence comment="value 6 is less than minimum word size (16"/>
+    </discharged>
+    <discharged id="60" method="check-valid" time="01/09/2017 22:03:42" type="non-negative">
+     <evidence comment="value is 4"/>
+    </discharged>
+    <discharged id="61" method="check-valid" time="01/09/2017 22:03:42" type="width-overflow">
+     <evidence comment="value 4 is less than minimum word size (16"/>
+    </discharged>
+    <discharged id="62" method="check-valid" time="01/09/2017 22:03:42" type="non-negative">
+     <evidence comment="value is 13"/>
+    </discharged>
+    <discharged id="63" method="check-valid" time="01/09/2017 22:03:42" type="width-overflow">
+     <evidence comment="value 13 is less than minimum word size (16"/>
+    </discharged>
+    <discharged id="64" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged domain="valuesets" id="66" method="invariants" time="01/10/2017 02:50:40" type="lower-bound">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="2" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="valuesets" id="67" method="invariants" time="01/10/2017 02:50:40" type="upper-bound">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="3" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged id="68" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged domain="valuesets" id="70" method="invariants" time="01/10/2017 03:39:02" type="lower-bound">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="2" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="valuesets" id="71" method="invariants" time="01/10/2017 03:39:02" type="upper-bound">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="3" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged id="72" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged domain="valuesets" id="74" method="invariants" time="01/09/2017 22:49:46" type="lower-bound">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="2" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="valuesets" id="75" method="invariants" time="01/09/2017 22:49:46" type="upper-bound">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="3" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="symbolic sets" id="76" method="invariants" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="assignedAt#639"/>
+    </discharged>
+    <discharged id="77" method="check-valid" time="01/09/2017 22:03:42" type="cast">
+     <evidence comment="casting from unsigned short to unsigned int is safe"/>
+    </discharged>
+    <discharged id="79" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged domain="intervals" id="80" method="invariants" time="01/09/2017 22:03:42" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="valuesets" id="82" method="invariants" time="01/10/2017 02:50:40" type="lower-bound">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="2" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="valuesets" id="83" method="invariants" time="01/10/2017 02:50:40" type="upper-bound">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="3" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged id="84" method="check-valid" time="01/09/2017 22:03:42" type="non-negative">
+     <evidence comment="value is 3"/>
+    </discharged>
+    <discharged id="85" method="check-valid" time="01/09/2017 22:03:42" type="width-overflow">
+     <evidence comment="value 3 is less than minimum word size (16"/>
+    </discharged>
+    <discharged id="86" method="check-valid" time="01/09/2017 22:03:42" type="cast">
+     <evidence comment="casting from unsigned short to unsigned int is safe"/>
+    </discharged>
+    <discharged id="88" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged domain="intervals" id="89" method="invariants" time="01/09/2017 22:03:42" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="valuesets" id="91" method="invariants" time="01/10/2017 02:50:40" type="lower-bound">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="2" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="valuesets" id="92" method="invariants" time="01/10/2017 02:50:40" type="upper-bound">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="3" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged id="93" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="prot is a function parameter"/>
+    </discharged>
+    <discharged id="94" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged domain="valuesets" id="96" method="invariants" time="01/10/2017 02:50:40" type="lower-bound">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="2" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="valuesets" id="97" method="invariants" time="01/10/2017 02:50:40" type="upper-bound">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="3" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged id="98" method="check-valid" time="01/09/2017 22:03:42" type="pointer-cast">
+     <evidence comment="source and target type are the same"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="99" method="invariants" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="assignedAt#641"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="100" method="invariants" time="01/09/2017 22:03:42" type="valid-mem">
+     <evidence comment="external address provided by cache_get_name still points to valid memory"/>
+    </discharged>
+    <discharged domain="linear equalities" id="101" method="invariants" time="01/09/2017 22:03:42" type="lower-bound">
+     <evidence comment="non-negative offset from return value from cache_get_name at 641"/>
+    </discharged>
+    <discharged domain="linear equalities" id="102" method="invariants" time="01/09/2017 22:03:42" type="upper-bound">
+     <evidence comment="address received from return value from cache_get_name at 641dereferencability is checked as part of postcondition"/>
+    </discharged>
+    <discharged id="103" method="check-valid" time="01/09/2017 22:03:42" type="pointer-cast">
+     <evidence comment="source and target type are the same"/>
+    </discharged>
+    <discharged id="104" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="name is a function parameter"/>
+    </discharged>
+    <discharged domain="valuesets" id="106" method="invariants" time="01/09/2017 22:03:42" type="lower-bound">
+     <evidence comment="non-negative offset from base value: name"/>
+    </discharged>
+    <discharged domain="valuesets" id="107" method="invariants" time="01/09/2017 22:03:42" type="upper-bound">
+     <evidence comment="externally provided address; dereferencability is checked as part of precondition"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="108" method="invariants" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="assignedAt#641"/>
+    </discharged>
+    <discharged id="109" method="check-valid" time="01/09/2017 22:03:42" type="cast">
+     <evidence comment="casting from unsigned short to unsigned int is safe"/>
+    </discharged>
+    <discharged id="111" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged domain="intervals" id="112" method="invariants" time="01/09/2017 22:03:42" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="valuesets" id="114" method="invariants" time="01/10/2017 03:39:02" type="lower-bound">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="2" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="valuesets" id="115" method="invariants" time="01/10/2017 03:39:02" type="upper-bound">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="3" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged id="116" method="check-valid" time="01/09/2017 22:03:42" type="non-negative">
+     <evidence comment="value is 6"/>
+    </discharged>
+    <discharged id="117" method="check-valid" time="01/09/2017 22:03:42" type="width-overflow">
+     <evidence comment="value 6 is less than minimum word size (16"/>
+    </discharged>
+    <discharged id="118" method="check-valid" time="01/09/2017 22:03:42" type="non-negative">
+     <evidence comment="value is 4"/>
+    </discharged>
+    <discharged id="119" method="check-valid" time="01/09/2017 22:03:42" type="width-overflow">
+     <evidence comment="value 4 is less than minimum word size (16"/>
+    </discharged>
+    <discharged id="120" method="check-valid" time="01/09/2017 22:03:42" type="non-negative">
+     <evidence comment="value is 13"/>
+    </discharged>
+    <discharged id="121" method="check-valid" time="01/09/2017 22:03:42" type="width-overflow">
+     <evidence comment="value 13 is less than minimum word size (16"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="122" method="invariants" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="assignedAt#632_xx_assignedAt#648"/>
+    </discharged>
+    <discharged id="127" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged id="128" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged domain="intervals" id="129" method="invariants" time="01/09/2017 22:03:42" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="valuesets" id="131" method="invariants" time="01/10/2017 03:39:02" type="lower-bound">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="2" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="valuesets" id="132" method="invariants" time="01/10/2017 03:39:02" type="upper-bound">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="3" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged id="133" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged domain="valuesets" id="135" method="invariants" time="01/10/2017 03:39:02" type="lower-bound">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="2" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="valuesets" id="136" method="invariants" time="01/10/2017 03:39:02" type="upper-bound">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="3" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged id="137" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged domain="valuesets" id="139" method="invariants" time="01/10/2017 04:32:23" type="lower-bound">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="2" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="valuesets" id="140" method="invariants" time="01/10/2017 04:32:23" type="upper-bound">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="3" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="symbolic sets" id="141" method="invariants" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="assignedAt#632_xx_assignedAt#666_xx_assignedAt#672"/>
+    </discharged>
+    <discharged id="142" method="check-valid" time="01/09/2017 22:03:42" type="cast">
+     <evidence comment="casting from unsigned short to unsigned int is safe"/>
+    </discharged>
+    <discharged id="144" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged domain="intervals" id="145" method="invariants" time="01/09/2017 22:03:42" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="valuesets" id="147" method="invariants" time="01/10/2017 04:56:05" type="lower-bound">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="2" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="valuesets" id="148" method="invariants" time="01/10/2017 04:56:05" type="upper-bound">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="3" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged id="149" method="check-valid" time="01/09/2017 22:03:42" type="non-negative">
+     <evidence comment="value is 2"/>
+    </discharged>
+    <discharged id="150" method="check-valid" time="01/09/2017 22:03:42" type="width-overflow">
+     <evidence comment="value 2 is less than minimum word size (16"/>
+    </discharged>
+    <discharged id="151" method="check-valid" time="01/09/2017 22:03:42" type="cast">
+     <evidence comment="casting from unsigned short to unsigned int is safe"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="152" method="invariants" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="assignedAt#633_xx_assignedAt#673"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="153" method="invariants" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="assignedAt#635_xx_assignedAt#675_xx_assignedAt#680"/>
+    </discharged>
+    <discharged domain="linear equalities" id="154" method="invariants" time="01/09/2017 22:03:42" type="not-null">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="5" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="symbolic sets" id="155" method="invariants" time="01/09/2017 22:03:42" type="valid-mem">
+     <evidence comment="external address provided by hash_bucket still points to valid memory"/>
+    </discharged>
+    <discharged domain="valuesets" id="156" method="invariants" time="01/09/2017 22:03:42" type="lower-bound">
+     <evidence comment="non-negative offset from return value from hash_bucket at 635"/>
+    </discharged>
+    <discharged domain="valuesets" id="157" method="invariants" time="01/09/2017 22:03:42" type="upper-bound">
+     <evidence comment="address received from return value from hash_bucket at 635dereferencability is checked as part of postcondition"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="158" method="invariants" time="01/10/2017 04:56:05" type="initialized">
+     <evidence comment="assignedAt#664"/>
+    </discharged>
+    <discharged id="159" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged domain="intervals" id="160" method="invariants" time="01/09/2017 22:03:42" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="valuesets" id="162" method="invariants" time="01/10/2017 04:56:05" type="lower-bound">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="2" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="valuesets" id="163" method="invariants" time="01/10/2017 04:56:05" type="upper-bound">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="3" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged id="164" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged domain="intervals" id="165" method="invariants" time="01/09/2017 22:03:42" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="valuesets" id="167" method="invariants" time="01/10/2017 04:56:05" type="lower-bound">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="2" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="valuesets" id="168" method="invariants" time="01/10/2017 04:56:05" type="upper-bound">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="3" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="symbolic sets" id="169" method="invariants" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="assignedAt#663"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="170" method="invariants" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="assignedAt#632_xx_assignedAt#666_xx_assignedAt#672"/>
+    </discharged>
+    <discharged domain="intervals" id="171" method="invariants" time="01/09/2017 22:03:42" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="172" method="invariants" time="01/09/2017 22:03:42" type="valid-mem">
+     <evidence comment="external address provided by hash_bucket still points to valid memory"/>
+    </discharged>
+    <discharged domain="valuesets" id="173" method="invariants" time="01/09/2017 22:03:42" type="lower-bound">
+     <evidence comment="non-negative offset from return value from hash_bucket at 635"/>
+    </discharged>
+    <discharged domain="valuesets" id="174" method="invariants" time="01/09/2017 22:03:42" type="upper-bound">
+     <evidence comment="address received from return value from hash_bucket at 635dereferencability is checked as part of postcondition"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="175" method="invariants" time="01/09/2017 22:03:42" type="lower-bound">
+     <evidence comment="value received from field hash_next (key: 196), which satisfy the lower bound requirement by inductive hypothesis"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="176" method="invariants" time="01/09/2017 22:03:42" type="lower-bound">
+     <evidence comment="value received from field hash_next (key: 196), which satisfy the lower bound requirement by inductive hypothesis"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="178" method="invariants" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="assignedAt#632_xx_assignedAt#666_xx_assignedAt#672"/>
+    </discharged>
+    <discharged domain="intervals" id="179" method="invariants" time="01/09/2017 22:03:42" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="180" method="invariants" time="01/09/2017 22:03:42" type="valid-mem">
+     <evidence comment="external address provided by hash_bucket still points to valid memory"/>
+    </discharged>
+    <discharged domain="valuesets" id="181" method="invariants" time="01/09/2017 22:03:42" type="lower-bound">
+     <evidence comment="non-negative offset from return value from hash_bucket at 635"/>
+    </discharged>
+    <discharged domain="valuesets" id="182" method="invariants" time="01/09/2017 22:03:42" type="upper-bound">
+     <evidence comment="address received from return value from hash_bucket at 635dereferencability is checked as part of postcondition"/>
+    </discharged>
+    <discharged id="183" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged id="184" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged domain="intervals" id="185" method="invariants" time="01/09/2017 22:03:42" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="valuesets" id="187" method="invariants" time="01/10/2017 04:56:05" type="lower-bound">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="2" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="valuesets" id="188" method="invariants" time="01/10/2017 04:56:05" type="upper-bound">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="3" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="symbolic sets" id="189" method="invariants" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="assignedAt#632_xx_assignedAt#666_xx_assignedAt#672"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="190" method="invariants" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="assignedAt#622"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="191" method="invariants" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="assignedAt#635_xx_assignedAt#675_xx_assignedAt#680"/>
+    </discharged>
+    <discharged id="193" method="check-valid" time="01/09/2017 22:03:42" type="cast">
+     <evidence comment="casting from unsigned short to unsigned int is safe"/>
+    </discharged>
+    <discharged id="195" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged domain="intervals" id="196" method="invariants" time="01/09/2017 22:03:42" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="valuesets" id="198" method="invariants" time="01/10/2017 04:56:05" type="lower-bound">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="2" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="valuesets" id="199" method="invariants" time="01/10/2017 04:56:05" type="upper-bound">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="3" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged id="200" method="check-valid" time="01/09/2017 22:03:42" type="non-negative">
+     <evidence comment="value is 2"/>
+    </discharged>
+    <discharged id="201" method="check-valid" time="01/09/2017 22:03:42" type="width-overflow">
+     <evidence comment="value 2 is less than minimum word size (16"/>
+    </discharged>
+    <discharged id="202" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged domain="intervals" id="203" method="invariants" time="01/09/2017 22:03:42" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="valuesets" id="205" method="invariants" time="01/10/2017 04:56:05" type="lower-bound">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="2" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="valuesets" id="206" method="invariants" time="01/10/2017 04:56:05" type="upper-bound">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="3" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged id="207" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged domain="intervals" id="208" method="invariants" time="01/09/2017 22:03:42" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="valuesets" id="210" method="invariants" time="01/10/2017 03:39:02" type="lower-bound">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="2" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="valuesets" id="211" method="invariants" time="01/10/2017 03:39:02" type="upper-bound">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="3" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged id="212" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged domain="intervals" id="213" method="invariants" time="01/09/2017 22:03:42" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="valuesets" id="215" method="invariants" time="01/10/2017 02:50:40" type="lower-bound">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="2" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="valuesets" id="216" method="invariants" time="01/10/2017 02:50:40" type="upper-bound">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="3" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged id="217" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="crecp is a function parameter"/>
+    </discharged>
+    <discharged domain="intervals" id="218" method="invariants" time="01/09/2017 22:03:42" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="valuesets" id="220" method="invariants" time="01/10/2017 02:50:40" type="lower-bound">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="2" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="valuesets" id="221" method="invariants" time="01/10/2017 02:50:40" type="upper-bound">
+     <evidence comment="delegating proof obligation to the post condition of fn(hash_bucket)@ 635[name]"/>
+     <assumptions>
+      <uses a-id="3" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="symbolic sets" id="222" method="invariants" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="assignedAt#637"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="223" method="invariants" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="assignedAt#632_xx_assignedAt#648"/>
+    </discharged>
+    <discharged id="228" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="cache_head is global"/>
+    </discharged>
+    <discharged id="230" method="check-valid" time="01/09/2017 22:03:42" type="cast">
+     <evidence comment="casting from unsigned short to unsigned int is safe"/>
+    </discharged>
+    <discharged id="237" method="check-valid" time="01/09/2017 22:03:42" type="non-negative">
+     <evidence comment="value is 3"/>
+    </discharged>
+    <discharged id="238" method="check-valid" time="01/09/2017 22:03:42" type="width-overflow">
+     <evidence comment="value 3 is less than minimum word size (16"/>
+    </discharged>
+    <discharged id="239" method="check-valid" time="01/09/2017 22:03:42" type="cast">
+     <evidence comment="casting from unsigned short to unsigned int is safe"/>
+    </discharged>
+    <discharged id="246" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="prot is a function parameter"/>
+    </discharged>
+    <discharged id="251" method="check-valid" time="01/09/2017 22:03:42" type="pointer-cast">
+     <evidence comment="source and target type are the same"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="252" method="invariants" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="assignedAt#697"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="253" method="invariants" time="01/09/2017 22:03:42" type="valid-mem">
+     <evidence comment="external address provided by cache_get_name still points to valid memory"/>
+    </discharged>
+    <discharged domain="linear equalities" id="254" method="invariants" time="01/09/2017 22:03:42" type="lower-bound">
+     <evidence comment="non-negative offset from return value from cache_get_name at 697"/>
+    </discharged>
+    <discharged domain="linear equalities" id="255" method="invariants" time="01/09/2017 22:03:42" type="upper-bound">
+     <evidence comment="address received from return value from cache_get_name at 697dereferencability is checked as part of postcondition"/>
+    </discharged>
+    <discharged id="256" method="check-valid" time="01/09/2017 22:03:42" type="pointer-cast">
+     <evidence comment="source and target type are the same"/>
+    </discharged>
+    <discharged id="257" method="check-valid" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="name is a function parameter"/>
+    </discharged>
+    <discharged domain="valuesets" id="259" method="invariants" time="01/09/2017 22:03:42" type="lower-bound">
+     <evidence comment="non-negative offset from base value: name"/>
+    </discharged>
+    <discharged domain="valuesets" id="260" method="invariants" time="01/09/2017 22:03:42" type="upper-bound">
+     <evidence comment="externally provided address; dereferencability is checked as part of precondition"/>
+    </discharged>
+    <discharged domain="symbolic sets" id="261" method="invariants" time="01/09/2017 22:03:42" type="initialized">
+     <evidence comment="assignedAt#697"/>
+    </discharged>
+    <discharged id="267" method="check-valid" time="01/09/2017 22:03:42" type="pointer-cast">
+     <evidence comment="cast of null-pointer"/>
+    </discharged>
+    <discharged id="268" method="check-valid" time="01/09/2017 22:03:42" type="cast">
+     <evidence comment="null-pointer cast"/>
+    </discharged>
+    <discharged id="269" method="check-valid" time="01/09/2017 22:03:42" type="valid-mem">
+     <evidence comment="null pointer is a valid memory pointer"/>
+    </discharged>
+    <discharged id="270" method="check-valid" time="01/09/2017 22:03:42" type="global-mem">
+     <evidence comment="null pointer is a non-local address"/>
+    </discharged>
+    <discharged id="271" method="check-valid" time="01/09/2017 22:03:42" type="lower-bound">
+     <evidence comment="null pointer does not violate bounds"/>
+    </discharged>
+    <discharged id="272" method="check-valid" time="01/09/2017 22:03:42" type="upper-bound">
+     <evidence comment="null pointer does not violate bounds"/>
+    </discharged>
+   </proof-obligations-discharged>
+  </function>
+  <header time="01/10/2017 06:52:37">
+   <application file="src//cache.c" name="application"/>
+  </header>
+ </c-analysis>

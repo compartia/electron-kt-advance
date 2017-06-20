@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <codehawk-c-analysis>
+  <header>
+   <created file="src/util" project-directory="/home/vagrant/git/dnsmasq" time="01/09/2017 21:32:10"/>
+  </header>
+  <function filename="src/util">
+   <svar vglob="true" vid="4787" vname="safe_pipe">
+    <vtyp ttag="tfun" vararg="false">
+     <args>
+      <arg aname="fd">
+       <typ ttag="tptr">
+        <typ ikind="iint" ttag="tint"/>
+       </typ>
+      </arg>
+      <arg aname="read_noblock">
+       <typ ikind="iint" ttag="tint"/>
+      </arg>
+     </args>
+     <typ ttag="tvoid"/>
+    </vtyp>
+    <vdecl byte="190511" file="src/util.c" line="255"/>
+   </svar>
+   <sformals>
+    <varinfo vid="5973" vname="fd">
+     <vtyp ttag="tptr">
+      <typ ikind="iint" ttag="tint"/>
+     </vtyp>
+     <vdecl byte="190530" file="src/util.c" line="255"/>
+    </varinfo>
+    <varinfo vid="5974" vname="read_noblock">
+     <vtyp ikind="iint" ttag="tint"/>
+     <vdecl byte="190539" file="src/util.c" line="255"/>
+    </varinfo>
+   </sformals>
+   <slocals>
+    <varinfo vid="5975" vname="tmp">
+     <vtyp ikind="iint" ttag="tint"/>
+     <vdecl byte="-1" file="" line="-1"/>
+    </varinfo>
+    <varinfo vid="5977" vname="tmp___0">
+     <vtyp ikind="iint" ttag="tint"/>
+     <vdecl byte="-1" file="" line="-1"/>
+    </varinfo>
+    <varinfo vid="5979" vname="tmp___1">
+     <vtyp ikind="iint" ttag="tint"/>
+     <vdecl byte="-1" file="" line="-1"/>
+    </varinfo>
+   </slocals>
+   <sbody>
+    <bstmts>
+     <stmt sid="161">
+      <skind stag="instr">
+       <instrs>
+        <instr itag="call">
+         <exp etag="lval">
+          <lval>
+           <lhost>
+            <var vid="1828" vname="pipe"/>
+           </lhost>
+          </lval>
+         </exp>
+         <args>
+          <exp etag="caste">
+           <typ ttag="tptr">
+            <typ ikind="iint" ttag="tint"/>
+            <attributes>
+             <attr attrname="arraylen">
+              <attrparams>
+               <attrparam atag="aint" intValue="2"/>
+              </attrparams>
+             </attr>
+            </attributes>
+           </typ>
+           <exp etag="lval">
+            <lval>
+             <lhost>
+              <var vid="5973" vname="fd"/>
+             </lhost>
+            </lval>
+           </exp>
+          </exp>
+         </args>
+         <loc byte="190557" file="src/util.c" line="257"/>
+         <lval>
+          <lhost>
+           <var vid="5975" vname="tmp"/>
+          </lhost>
+         </lval>
+        </instr>
+       </instrs>
+      </skind>
+      <succs>
+       <int intValue="162"/>
+      </succs>
+      <preds/>
+     </stmt>
+     <stmt sid="162">
+      <skind stag="if">
+       <exp binop="eq" etag="binop">
+        <exp1 etag="lval">
+         <lval>
+          <lhost>
+           <var vid="5975" vname="tmp"/>
+          </lhost>
+         </lval>
+        </exp1>
+        <exp2 etag="const">
+         <constant ctag="cint64" ikind="iint" intValue="-1"/>
+        </exp2>
+        <typ ikind="iint" ttag="tint"/>
+       </exp>
+       <thenblock>
+        <bstmts>
+         <stmt sid="163">
+          <skind stag="instr">
+           <instrs>
+            <instr itag="call">
+             <exp etag="lval">
+              <lval>
+               <lhost>
+                <var vid="4904" vname="die"/>
+               </lhost>
+              </lval>
+             </exp>
+             <args>
+              <exp etag="caste">
+               <typ ttag="tptr">
+                <typ ikind="ichar" ttag="tint"/>
+               </typ>
+               <exp etag="const">
+                <constant ctag="cstr" strValue="cannot create pipe: %s"/>
+               </exp>
+              </exp>
+              <exp etag="caste">
+               <typ ttag="tptr">
+                <typ ikind="ichar" ttag="tint"/>
+               </typ>
+               <exp etag="caste">
+                <typ ttag="tptr">
+                 <typ ttag="tvoid"/>
+                </typ>
+                <exp etag="const">
+                 <constant ctag="cint64" ikind="iint" intValue="0"/>
+                </exp>
+               </exp>
+              </exp>
+              <exp etag="const">
+               <constant ctag="cint64" ikind="iint" intValue="5"/>
+              </exp>
+             </args>
+             <loc byte="190647" file="src/util.c" line="260"/>
+            </instr>
+           </instrs>
+          </skind>
+          <succs>
+           <int intValue="171"/>
+          </succs>
+          <preds>
+           <int intValue="162"/>
+          </preds>
+         </stmt>
+        </bstmts>
+       </thenblock>
+       <elseblock>
+        <bstmts>
+         <stmt sid="164">
+          <skind stag="instr">
+           <instrs>
+            <instr itag="call">
+             <exp etag="lval">
+              <lval>
+               <lhost>
+                <var vid="5123" vname="fix_fd"/>
+               </lhost>
+              </lval>
+             </exp>
+             <args>
+              <exp etag="lval">
+               <lval>
+                <lhost>
+                 <mem binop="indexpi" etag="binop">
+                  <exp1 etag="lval">
+                   <lval>
+                    <lhost>
+                     <var vid="5973" vname="fd"/>
+                    </lhost>
+                   </lval>
+                  </exp1>
+                  <exp2 etag="const">
+                   <constant ctag="cint64" ikind="iint" intValue="1"/>
+                  </exp2>
+                  <typ ttag="tptr">
+                   <typ ikind="iint" ttag="tint"/>
+                  </typ>
+                 </mem>
+                </lhost>
+               </lval>
+              </exp>
+             </args>
+             <loc byte="190557" file="src/util.c" line="257"/>
+             <lval>
+              <lhost>
+               <var vid="5977" vname="tmp___0"/>
+              </lhost>
+             </lval>
+            </instr>
+           </instrs>
+          </skind>
+          <succs>
+           <int intValue="165"/>
+          </succs>
+          <preds>
+           <int intValue="162"/>
+          </preds>
+         </stmt>
+         <stmt sid="165">
+          <skind stag="if">
+           <exp etag="lval">
+            <lval>
+             <lhost>
+              <var vid="5977" vname="tmp___0"/>
+             </lhost>
+            </lval>
+           </exp>
+           <thenblock>
+            <bstmts>
+             <stmt sid="166">
+              <skind stag="if">
+               <exp etag="lval">
+                <lval>
+                 <lhost>
+                  <var vid="5974" vname="read_noblock"/>
+                 </lhost>
+                </lval>
+               </exp>
+               <thenblock>
+                <bstmts>
+                 <stmt sid="167">
+                  <skind stag="instr">
+                   <instrs>
+                    <instr itag="call">
+                     <exp etag="lval">
+                      <lval>
+                       <lhost>
+                        <var vid="5123" vname="fix_fd"/>
+                       </lhost>
+                      </lval>
+                     </exp>
+                     <args>
+                      <exp etag="lval">
+                       <lval>
+                        <lhost>
+                         <mem binop="indexpi" etag="binop">
+                          <exp1 etag="lval">
+                           <lval>
+                            <lhost>
+                             <var vid="5973" vname="fd"/>
+                            </lhost>
+                           </lval>
+                          </exp1>
+                          <exp2 etag="const">
+                           <constant ctag="cint64" ikind="iint" intValue="0"/>
+                          </exp2>
+                          <typ ttag="tptr">
+                           <typ ikind="iint" ttag="tint"/>
+                          </typ>
+                         </mem>
+                        </lhost>
+                       </lval>
+                      </exp>
+                     </args>
+                     <loc byte="190557" file="src/util.c" line="257"/>
+                     <lval>
+                      <lhost>
+                       <var vid="5979" vname="tmp___1"/>
+                      </lhost>
+                     </lval>
+                    </instr>
+                   </instrs>
+                  </skind>
+                  <succs>
+                   <int intValue="168"/>
+                  </succs>
+                  <preds>
+                   <int intValue="166"/>
+                  </preds>
+                 </stmt>
+                 <stmt sid="168">
+                  <skind stag="if">
+                   <exp etag="lval">
+                    <lval>
+                     <lhost>
+                      <var vid="5979" vname="tmp___1"/>
+                     </lhost>
+                    </lval>
+                   </exp>
+                   <thenblock>
+                    <bstmts/>
+                   </thenblock>
+                   <elseblock>
+                    <bstmts>
+                     <stmt sid="169">
+                      <skind stag="instr">
+                       <instrs>
+                        <instr itag="call">
+                         <exp etag="lval">
+                          <lval>
+                           <lhost>
+                            <var vid="4904" vname="die"/>
+                           </lhost>
+                          </lval>
+                         </exp>
+                         <args>
+                          <exp etag="caste">
+                           <typ ttag="tptr">
+                            <typ ikind="ichar" ttag="tint"/>
+                           </typ>
+                           <exp etag="const">
+                            <constant ctag="cstr" strValue="cannot create pipe: %s"/>
+                           </exp>
+                          </exp>
+                          <exp etag="caste">
+                           <typ ttag="tptr">
+                            <typ ikind="ichar" ttag="tint"/>
+                           </typ>
+                           <exp etag="caste">
+                            <typ ttag="tptr">
+                             <typ ttag="tvoid"/>
+                            </typ>
+                            <exp etag="const">
+                             <constant ctag="cint64" ikind="iint" intValue="0"/>
+                            </exp>
+                           </exp>
+                          </exp>
+                          <exp etag="const">
+                           <constant ctag="cint64" ikind="iint" intValue="5"/>
+                          </exp>
+                         </args>
+                         <loc byte="190647" file="src/util.c" line="260"/>
+                        </instr>
+                       </instrs>
+                      </skind>
+                      <succs>
+                       <int intValue="171"/>
+                      </succs>
+                      <preds>
+                       <int intValue="168"/>
+                      </preds>
+                     </stmt>
+                    </bstmts>
+                   </elseblock>
+                   <loc byte="190557" file="src/util.c" line="257"/>
+                  </skind>
+                  <succs>
+                   <int intValue="171"/>
+                   <int intValue="169"/>
+                  </succs>
+                  <preds>
+                   <int intValue="167"/>
+                  </preds>
+                 </stmt>
+                </bstmts>
+               </thenblock>
+               <elseblock>
+                <bstmts/>
+               </elseblock>
+               <loc byte="190557" file="src/util.c" line="257"/>
+              </skind>
+              <succs>
+               <int intValue="167"/>
+               <int intValue="171"/>
+              </succs>
+              <preds>
+               <int intValue="165"/>
+              </preds>
+             </stmt>
+            </bstmts>
+           </thenblock>
+           <elseblock>
+            <bstmts>
+             <stmt sid="170">
+              <skind stag="instr">
+               <instrs>
+                <instr itag="call">
+                 <exp etag="lval">
+                  <lval>
+                   <lhost>
+                    <var vid="4904" vname="die"/>
+                   </lhost>
+                  </lval>
+                 </exp>
+                 <args>
+                  <exp etag="caste">
+                   <typ ttag="tptr">
+                    <typ ikind="ichar" ttag="tint"/>
+                   </typ>
+                   <exp etag="const">
+                    <constant ctag="cstr" strValue="cannot create pipe: %s"/>
+                   </exp>
+                  </exp>
+                  <exp etag="caste">
+                   <typ ttag="tptr">
+                    <typ ikind="ichar" ttag="tint"/>
+                   </typ>
+                   <exp etag="caste">
+                    <typ ttag="tptr">
+                     <typ ttag="tvoid"/>
+                    </typ>
+                    <exp etag="const">
+                     <constant ctag="cint64" ikind="iint" intValue="0"/>
+                    </exp>
+                   </exp>
+                  </exp>
+                  <exp etag="const">
+                   <constant ctag="cint64" ikind="iint" intValue="5"/>
+                  </exp>
+                 </args>
+                 <loc byte="190647" file="src/util.c" line="260"/>
+                </instr>
+               </instrs>
+              </skind>
+              <succs>
+               <int intValue="171"/>
+              </succs>
+              <preds>
+               <int intValue="165"/>
+              </preds>
+             </stmt>
+            </bstmts>
+           </elseblock>
+           <loc byte="190557" file="src/util.c" line="257"/>
+          </skind>
+          <succs>
+           <int intValue="166"/>
+           <int intValue="170"/>
+          </succs>
+          <preds>
+           <int intValue="164"/>
+          </preds>
+         </stmt>
+        </bstmts>
+       </elseblock>
+       <loc byte="190557" file="src/util.c" line="257"/>
+      </skind>
+      <succs>
+       <int intValue="163"/>
+       <int intValue="164"/>
+      </succs>
+      <preds>
+       <int intValue="161"/>
+      </preds>
+     </stmt>
+     <stmt sid="171">
+      <skind stag="return">
+       <loc byte="190696" file="src/util.c" line="261"/>
+      </skind>
+      <succs/>
+      <preds>
+       <int intValue="170"/>
+       <int intValue="169"/>
+       <int intValue="168"/>
+       <int intValue="166"/>
+       <int intValue="163"/>
+      </preds>
+     </stmt>
+    </bstmts>
+   </sbody>
+  </function>
+ </codehawk-c-analysis>

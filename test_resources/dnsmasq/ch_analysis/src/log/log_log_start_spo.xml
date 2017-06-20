@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function name="log_start">
+   <secondary-proof-obligations max-spo-id="155" num-ppo="151">
+    <indirect-calls/>
+    <callsite-obligations>
+     <callsite-obligation api-max-id="0" fname="fchown" fvid="1864">
+      <location byte="188026" file="src/log.c" line="104"/>
+      <args>
+       <arg etag="lval" xstr="log_fd">
+        <lval>
+         <lhost>
+          <var vid="5903" vname="log_fd"/>
+         </lhost>
+        </lval>
+       </arg>
+       <arg etag="lval" xstr="ent_pw-&gt;pw_uid">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="ent_pw">
+           <lval>
+            <lhost>
+             <var vid="5915" vname="ent_pw"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <field ckey="138" fname="pw_uid"/>
+         </offset>
+        </lval>
+       </arg>
+       <arg etag="caste" xstr="caste (-1:__gid_t)">
+        <typ tname="__gid_t" ttag="tnamed"/>
+        <exp etag="const" xstr="-1">
+         <constant ctag="cint64" ikind="iint" intValue="-1"/>
+        </exp>
+       </arg>
+      </args>
+      <obligations/>
+      <context>
+       <cfg-context>
+        <node name="instr" num="0"/>
+        <node name="stmt" num="22"/>
+        <node name="if-then"/>
+        <node name="stmt" num="21"/>
+        <node name="if-then"/>
+        <node name="stmt" num="20"/>
+        <node name="if-then"/>
+        <node name="stmt" num="19"/>
+        <node name="if-then"/>
+        <node name="stmt" num="18"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="0" fname="safe_malloc" fvid="4782">
+      <location byte="187892" file="src/log.c" line="95"/>
+      <args>
+       <arg etag="sizeof" xstr="sizeof (struct 239)">
+        <typ ckey="239" ttag="tcomp"/>
+       </arg>
+      </args>
+      <obligations/>
+      <context>
+       <cfg-context>
+        <node name="instr" num="0"/>
+        <node name="stmt" num="17"/>
+        <node name="if-then"/>
+        <node name="stmt" num="16"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="2" fname="send_event" fvid="5393">
+      <location byte="187729" file="src/log.c" line="87"/>
+      <args>
+       <arg etag="lval" xstr="errfd">
+        <lval>
+         <lhost>
+          <var vid="5916" vname="errfd"/>
+         </lhost>
+        </lval>
+       </arg>
+       <arg etag="const" xstr="17">
+        <constant ctag="cint64" ikind="iint" intValue="17"/>
+       </arg>
+       <arg etag="lval" xstr="(*tmp___1)">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="tmp___1">
+           <lval>
+            <lhost>
+             <var vid="5922" vname="tmp___1"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+        </lval>
+       </arg>
+       <arg etag="caste" xstr="caste (tmp___0:(char*))">
+        <typ ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </typ>
+        <exp etag="lval" xstr="tmp___0">
+         <lval>
+          <lhost>
+           <var vid="5920" vname="tmp___0"/>
+          </lhost>
+         </lval>
+        </exp>
+       </arg>
+      </args>
+      <obligations>
+       <obligation api-id="2" id="153">
+        <predicate tag="initialized-range">
+         <base-exp etag="caste" xstr="caste (tmp___0:(char*))">
+          <typ ttag="tptr">
+           <typ ikind="ichar" ttag="tint"/>
+          </typ>
+          <exp etag="lval" xstr="tmp___0">
+           <lval>
+            <lhost>
+             <var vid="5920" vname="tmp___0"/>
+            </lhost>
+           </lval>
+          </exp>
+         </base-exp>
+         <len-exp etag="caste" xstr="caste (tmp___0:(char*))">
+          <typ ttag="tptr">
+           <typ ikind="ichar" ttag="tint"/>
+          </typ>
+          <exp etag="lval" xstr="tmp___0">
+           <lval>
+            <lhost>
+             <var vid="5920" vname="tmp___0"/>
+            </lhost>
+           </lval>
+          </exp>
+         </len-exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="1" id="152">
+        <predicate op="pluspi" tag="ptr-upper-bound">
+         <typ ikind="ichar" ttag="tint">
+          <attributes>
+           <attr attrname="const"/>
+          </attributes>
+         </typ>
+         <exp1 etag="caste" xstr="caste (tmp___0:(char*))">
+          <typ ttag="tptr">
+           <typ ikind="ichar" ttag="tint"/>
+          </typ>
+          <exp etag="lval" xstr="tmp___0">
+           <lval>
+            <lhost>
+             <var vid="5920" vname="tmp___0"/>
+            </lhost>
+           </lval>
+          </exp>
+         </exp1>
+         <exp2 cn="null-terminator-pos" etag="cnapp" xstr="null-terminator-pos[caste (caste (tmp___0:(char*)):(char*))]">
+          <arg etag="caste" xstr="caste (caste (tmp___0:(char*)):(char*))">
+           <typ ttag="tptr">
+            <typ ikind="ichar" ttag="tint">
+             <attributes>
+              <attr attrname="const"/>
+             </attributes>
+            </typ>
+           </typ>
+           <exp etag="caste" xstr="caste (tmp___0:(char*))">
+            <typ ttag="tptr">
+             <typ ikind="ichar" ttag="tint"/>
+            </typ>
+            <exp etag="lval" xstr="tmp___0">
+             <lval>
+              <lhost>
+               <var vid="5920" vname="tmp___0"/>
+              </lhost>
+             </lval>
+            </exp>
+           </exp>
+          </arg>
+          <typ ikind="iint" ttag="tint"/>
+         </exp2>
+        </predicate>
+       </obligation>
+      </obligations>
+      <context>
+       <cfg-context>
+        <node name="instr" num="1"/>
+        <node name="stmt" num="15"/>
+        <node name="if-else"/>
+        <node name="stmt" num="11"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="2" fname="log_reopen" fvid="4912">
+      <location byte="187674" file="src/log.c" line="85"/>
+      <args>
+       <arg etag="lval" xstr="dnsmasq_daemon-&gt;log_file">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="dnsmasq_daemon">
+           <lval>
+            <lhost>
+             <var vid="4341" vname="dnsmasq_daemon"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <field ckey="238" fname="log_file"/>
+         </offset>
+        </lval>
+       </arg>
+      </args>
+      <obligations>
+       <obligation api-id="2" id="155">
+        <predicate op="pluspi" tag="ptr-upper-bound">
+         <typ ikind="ichar" ttag="tint">
+          <attributes>
+           <attr attrname="const"/>
+          </attributes>
+         </typ>
+         <exp1 etag="lval" xstr="dnsmasq_daemon-&gt;log_file">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="dnsmasq_daemon">
+             <lval>
+              <lhost>
+               <var vid="4341" vname="dnsmasq_daemon"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <field ckey="238" fname="log_file"/>
+           </offset>
+          </lval>
+         </exp1>
+         <exp2 cn="null-terminator-pos" etag="cnapp" xstr="null-terminator-pos[caste (dnsmasq_daemon-&gt;log_file:(char*))]">
+          <arg etag="caste" xstr="caste (dnsmasq_daemon-&gt;log_file:(char*))">
+           <typ ttag="tptr">
+            <typ ikind="ichar" ttag="tint">
+             <attributes>
+              <attr attrname="const"/>
+             </attributes>
+            </typ>
+           </typ>
+           <exp etag="lval" xstr="dnsmasq_daemon-&gt;log_file">
+            <lval>
+             <lhost>
+              <mem etag="lval" xstr="dnsmasq_daemon">
+               <lval>
+                <lhost>
+                 <var vid="4341" vname="dnsmasq_daemon"/>
+                </lhost>
+               </lval>
+              </mem>
+             </lhost>
+             <offset>
+              <field ckey="238" fname="log_file"/>
+             </offset>
+            </lval>
+           </exp>
+          </arg>
+          <typ ikind="iint" ttag="tint"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="1" id="154">
+        <predicate tag="initialized-range">
+         <base-exp etag="lval" xstr="dnsmasq_daemon-&gt;log_file">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="dnsmasq_daemon">
+             <lval>
+              <lhost>
+               <var vid="4341" vname="dnsmasq_daemon"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <field ckey="238" fname="log_file"/>
+           </offset>
+          </lval>
+         </base-exp>
+         <len-exp etag="lval" xstr="dnsmasq_daemon-&gt;log_file">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="dnsmasq_daemon">
+             <lval>
+              <lhost>
+               <var vid="4341" vname="dnsmasq_daemon"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <field ckey="238" fname="log_file"/>
+           </offset>
+          </lval>
+         </len-exp>
+        </predicate>
+       </obligation>
+      </obligations>
+      <context>
+       <cfg-context>
+        <node name="instr" num="1"/>
+        <node name="stmt" num="10"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+    </callsite-obligations>
+    <return-sites>
+     <return-site>
+      <exp etag="lval" xstr="ret">
+       <lval>
+        <lhost>
+         <var vid="5917" vname="ret"/>
+        </lhost>
+       </lval>
+      </exp>
+      <location byte="188177" file="src/log.c" line="108"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="25"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+    </return-sites>
+    <post-expectations/>
+    <ds-expectations/>
+   </secondary-proof-obligations>
+  </function>
+  <header time="01/10/2017 05:33:34">
+   <application file="src/log.c" name="application"/>
+  </header>
+ </c-analysis>

@@ -1,0 +1,2365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function name="cache_insert">
+   <secondary-proof-obligations max-spo-id="577" num-ppo="499">
+    <indirect-calls/>
+    <callsite-obligations>
+     <callsite-obligation api-max-id="16" fname="cache_get_name" fvid="4425">
+      <location byte="196798" file="src/cache.c" line="577"/>
+      <args>
+       <arg etag="lval" xstr="new">
+        <lval>
+         <lhost>
+          <var vid="6034" vname="new"/>
+         </lhost>
+        </lval>
+       </arg>
+      </args>
+      <obligations>
+       <obligation api-id="6" id="507">
+        <predicate tag="global-mem">
+         <exp etag="lval" xstr="new-&gt;name.bname">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="new">
+             <lval>
+              <lhost>
+               <var vid="6034" vname="new"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="bname"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="2" id="506">
+        <predicate tag="global-mem">
+         <exp etag="lval" xstr="new-&gt;name.namep">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="new">
+             <lval>
+              <lhost>
+               <var vid="6034" vname="new"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="namep"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="8" id="505">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="new">
+            <lval>
+             <lhost>
+              <var vid="6034" vname="new"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <offset>
+            <field ckey="202" fname="bname"/>
+           </offset>
+           <field ckey="196" fname="name"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="7" id="504">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="new">
+            <lval>
+             <lhost>
+              <var vid="6034" vname="new"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <offset>
+            <field ckey="202" fname="namep"/>
+           </offset>
+           <field ckey="196" fname="name"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="3" id="503">
+        <predicate tag="not-null">
+         <exp etag="lval" xstr="new">
+          <lval>
+           <lhost>
+            <var vid="6034" vname="new"/>
+           </lhost>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="5" id="502">
+        <predicate tag="not-null">
+         <exp etag="lval" xstr="new-&gt;name.bname">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="new">
+             <lval>
+              <lhost>
+               <var vid="6034" vname="new"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="bname"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="4" id="501">
+        <predicate tag="global-mem">
+         <exp etag="lval" xstr="new">
+          <lval>
+           <lhost>
+            <var vid="6034" vname="new"/>
+           </lhost>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="1" id="500">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="new">
+            <lval>
+             <lhost>
+              <var vid="6034" vname="new"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <field ckey="196" fname="flags"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="13" id="568">
+        <predicate op="pluspi" tag="ptr-upper-bound">
+         <typ ikind="ichar" ttag="tint">
+          <attributes>
+           <attr attrname="const"/>
+          </attributes>
+         </typ>
+         <exp1 etag="lval" xstr="new">
+          <lval>
+           <lhost>
+            <var vid="6034" vname="new"/>
+           </lhost>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="256">
+          <constant ctag="cint64" ikind="iint" intValue="256"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="12" id="567">
+        <predicate op="pluspi" tag="ptr-upper-bound">
+         <typ ikind="ichar" ttag="tint">
+          <attributes>
+           <attr attrname="const"/>
+          </attributes>
+         </typ>
+         <exp1 etag="lval" xstr="new-&gt;name.bname">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="new">
+             <lval>
+              <lhost>
+               <var vid="6034" vname="new"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="bname"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="256">
+          <constant ctag="cint64" ikind="iint" intValue="256"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="9" id="566">
+        <predicate op="pluspi" tag="ptr-upper-bound">
+         <typ ikind="ichar" ttag="tint">
+          <attributes>
+           <attr attrname="const"/>
+          </attributes>
+         </typ>
+         <exp1 etag="lval" xstr="new-&gt;name.namep">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="new">
+             <lval>
+              <lhost>
+               <var vid="6034" vname="new"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="namep"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp1>
+         <exp2 cn="null-terminator-pos" etag="cnapp" xstr="null-terminator-pos[caste (new-&gt;name.namep:(char*))]">
+          <arg etag="caste" xstr="caste (new-&gt;name.namep:(char*))">
+           <typ ttag="tptr">
+            <typ ikind="ichar" ttag="tint">
+             <attributes>
+              <attr attrname="const"/>
+             </attributes>
+            </typ>
+           </typ>
+           <exp etag="lval" xstr="new-&gt;name.namep">
+            <lval>
+             <lhost>
+              <mem etag="lval" xstr="new">
+               <lval>
+                <lhost>
+                 <var vid="6034" vname="new"/>
+                </lhost>
+               </lval>
+              </mem>
+             </lhost>
+             <offset>
+              <offset>
+               <field ckey="202" fname="namep"/>
+              </offset>
+              <field ckey="196" fname="name"/>
+             </offset>
+            </lval>
+           </exp>
+          </arg>
+          <typ ikind="iint" ttag="tint"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="11" id="565">
+        <predicate op="pluspi" tag="ptr-upper-bound">
+         <typ ikind="ichar" ttag="tint">
+          <attributes>
+           <attr attrname="const"/>
+          </attributes>
+         </typ>
+         <exp1 etag="lval" xstr="new-&gt;name.namep">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="new">
+             <lval>
+              <lhost>
+               <var vid="6034" vname="new"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="namep"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="256">
+          <constant ctag="cint64" ikind="iint" intValue="256"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="10" id="564">
+        <predicate tag="not-null">
+         <exp etag="lval" xstr="new-&gt;name.namep">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="new">
+             <lval>
+              <lhost>
+               <var vid="6034" vname="new"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="namep"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="15" id="577">
+        <predicate op="pluspi" tag="ptr-upper-bound-deref">
+         <typ ikind="ichar" ttag="tint"/>
+         <exp1 etag="lval" xstr="new">
+          <lval>
+           <lhost>
+            <var vid="6034" vname="new"/>
+           </lhost>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="1024">
+          <constant ctag="cint64" ikind="iint" intValue="1024"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="14" id="576">
+        <predicate op="pluspi" tag="ptr-upper-bound-deref">
+         <typ ikind="ichar" ttag="tint"/>
+         <exp1 etag="lval" xstr="new-&gt;name.namep">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="new">
+             <lval>
+              <lhost>
+               <var vid="6034" vname="new"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="namep"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="1024">
+          <constant ctag="cint64" ikind="iint" intValue="1024"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="16" id="575">
+        <predicate op="pluspi" tag="ptr-upper-bound-deref">
+         <typ ikind="ichar" ttag="tint"/>
+         <exp1 etag="lval" xstr="new-&gt;name.bname">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="new">
+             <lval>
+              <lhost>
+               <var vid="6034" vname="new"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="bname"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="1024">
+          <constant ctag="cint64" ikind="iint" intValue="1024"/>
+         </exp2>
+        </predicate>
+       </obligation>
+      </obligations>
+      <context>
+       <cfg-context>
+        <node name="instr" num="0"/>
+        <node name="stmt" num="265"/>
+        <node name="if-else"/>
+        <node name="stmt" num="263"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="16" fname="cache_get_name" fvid="4425">
+      <location byte="196752" file="src/cache.c" line="575"/>
+      <args>
+       <arg etag="lval" xstr="new">
+        <lval>
+         <lhost>
+          <var vid="6034" vname="new"/>
+         </lhost>
+        </lval>
+       </arg>
+      </args>
+      <obligations>
+       <obligation api-id="6" id="515">
+        <predicate tag="global-mem">
+         <exp etag="lval" xstr="new-&gt;name.bname">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="new">
+             <lval>
+              <lhost>
+               <var vid="6034" vname="new"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="bname"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="2" id="514">
+        <predicate tag="global-mem">
+         <exp etag="lval" xstr="new-&gt;name.namep">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="new">
+             <lval>
+              <lhost>
+               <var vid="6034" vname="new"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="namep"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="8" id="513">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="new">
+            <lval>
+             <lhost>
+              <var vid="6034" vname="new"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <offset>
+            <field ckey="202" fname="bname"/>
+           </offset>
+           <field ckey="196" fname="name"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="7" id="512">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="new">
+            <lval>
+             <lhost>
+              <var vid="6034" vname="new"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <offset>
+            <field ckey="202" fname="namep"/>
+           </offset>
+           <field ckey="196" fname="name"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="3" id="511">
+        <predicate tag="not-null">
+         <exp etag="lval" xstr="new">
+          <lval>
+           <lhost>
+            <var vid="6034" vname="new"/>
+           </lhost>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="5" id="510">
+        <predicate tag="not-null">
+         <exp etag="lval" xstr="new-&gt;name.bname">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="new">
+             <lval>
+              <lhost>
+               <var vid="6034" vname="new"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="bname"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="4" id="509">
+        <predicate tag="global-mem">
+         <exp etag="lval" xstr="new">
+          <lval>
+           <lhost>
+            <var vid="6034" vname="new"/>
+           </lhost>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="1" id="508">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="new">
+            <lval>
+             <lhost>
+              <var vid="6034" vname="new"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <field ckey="196" fname="flags"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="13" id="563">
+        <predicate op="pluspi" tag="ptr-upper-bound">
+         <typ ikind="ichar" ttag="tint">
+          <attributes>
+           <attr attrname="const"/>
+          </attributes>
+         </typ>
+         <exp1 etag="lval" xstr="new">
+          <lval>
+           <lhost>
+            <var vid="6034" vname="new"/>
+           </lhost>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="256">
+          <constant ctag="cint64" ikind="iint" intValue="256"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="12" id="562">
+        <predicate op="pluspi" tag="ptr-upper-bound">
+         <typ ikind="ichar" ttag="tint">
+          <attributes>
+           <attr attrname="const"/>
+          </attributes>
+         </typ>
+         <exp1 etag="lval" xstr="new-&gt;name.bname">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="new">
+             <lval>
+              <lhost>
+               <var vid="6034" vname="new"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="bname"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="256">
+          <constant ctag="cint64" ikind="iint" intValue="256"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="9" id="561">
+        <predicate op="pluspi" tag="ptr-upper-bound">
+         <typ ikind="ichar" ttag="tint">
+          <attributes>
+           <attr attrname="const"/>
+          </attributes>
+         </typ>
+         <exp1 etag="lval" xstr="new-&gt;name.namep">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="new">
+             <lval>
+              <lhost>
+               <var vid="6034" vname="new"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="namep"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp1>
+         <exp2 cn="null-terminator-pos" etag="cnapp" xstr="null-terminator-pos[caste (new-&gt;name.namep:(char*))]">
+          <arg etag="caste" xstr="caste (new-&gt;name.namep:(char*))">
+           <typ ttag="tptr">
+            <typ ikind="ichar" ttag="tint">
+             <attributes>
+              <attr attrname="const"/>
+             </attributes>
+            </typ>
+           </typ>
+           <exp etag="lval" xstr="new-&gt;name.namep">
+            <lval>
+             <lhost>
+              <mem etag="lval" xstr="new">
+               <lval>
+                <lhost>
+                 <var vid="6034" vname="new"/>
+                </lhost>
+               </lval>
+              </mem>
+             </lhost>
+             <offset>
+              <offset>
+               <field ckey="202" fname="namep"/>
+              </offset>
+              <field ckey="196" fname="name"/>
+             </offset>
+            </lval>
+           </exp>
+          </arg>
+          <typ ikind="iint" ttag="tint"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="11" id="560">
+        <predicate op="pluspi" tag="ptr-upper-bound">
+         <typ ikind="ichar" ttag="tint">
+          <attributes>
+           <attr attrname="const"/>
+          </attributes>
+         </typ>
+         <exp1 etag="lval" xstr="new-&gt;name.namep">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="new">
+             <lval>
+              <lhost>
+               <var vid="6034" vname="new"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="namep"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="256">
+          <constant ctag="cint64" ikind="iint" intValue="256"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="10" id="559">
+        <predicate tag="not-null">
+         <exp etag="lval" xstr="new-&gt;name.namep">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="new">
+             <lval>
+              <lhost>
+               <var vid="6034" vname="new"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="namep"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="15" id="574">
+        <predicate op="pluspi" tag="ptr-upper-bound-deref">
+         <typ ikind="ichar" ttag="tint"/>
+         <exp1 etag="lval" xstr="new">
+          <lval>
+           <lhost>
+            <var vid="6034" vname="new"/>
+           </lhost>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="1024">
+          <constant ctag="cint64" ikind="iint" intValue="1024"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="14" id="573">
+        <predicate op="pluspi" tag="ptr-upper-bound-deref">
+         <typ ikind="ichar" ttag="tint"/>
+         <exp1 etag="lval" xstr="new-&gt;name.namep">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="new">
+             <lval>
+              <lhost>
+               <var vid="6034" vname="new"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="namep"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="1024">
+          <constant ctag="cint64" ikind="iint" intValue="1024"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="16" id="572">
+        <predicate op="pluspi" tag="ptr-upper-bound-deref">
+         <typ ikind="ichar" ttag="tint"/>
+         <exp1 etag="lval" xstr="new-&gt;name.bname">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="new">
+             <lval>
+              <lhost>
+               <var vid="6034" vname="new"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="bname"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="1024">
+          <constant ctag="cint64" ikind="iint" intValue="1024"/>
+         </exp2>
+        </predicate>
+       </obligation>
+      </obligations>
+      <context>
+       <cfg-context>
+        <node name="instr" num="0"/>
+        <node name="stmt" num="264"/>
+        <node name="if-then"/>
+        <node name="stmt" num="263"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="3" fname="cache_unlink" fvid="5917">
+      <location byte="196587" file="src/cache.c" line="563"/>
+      <args>
+       <arg etag="lval" xstr="new">
+        <lval>
+         <lhost>
+          <var vid="6034" vname="new"/>
+         </lhost>
+        </lval>
+       </arg>
+      </args>
+      <obligations>
+       <obligation api-id="2" id="518">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="new">
+            <lval>
+             <lhost>
+              <var vid="6034" vname="new"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <field ckey="196" fname="next"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="3" id="517">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="new">
+            <lval>
+             <lhost>
+              <var vid="6034" vname="new"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <field ckey="196" fname="prev"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="1" id="516">
+        <predicate tag="not-null">
+         <exp etag="lval" xstr="new">
+          <lval>
+           <lhost>
+            <var vid="6034" vname="new"/>
+           </lhost>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+      </obligations>
+      <context>
+       <cfg-context>
+        <node name="instr" num="0"/>
+        <node name="stmt" num="258"/>
+        <node name="loop"/>
+        <node name="stmt" num="227"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="1" fname="whine_malloc" fvid="4790">
+      <location byte="196329" file="src/cache.c" line="551"/>
+      <args>
+       <arg etag="sizeof" xstr="sizeof (struct 194)">
+        <typ ckey="194" ttag="tcomp"/>
+       </arg>
+      </args>
+      <obligations>
+       <obligation api-id="1" id="519">
+        <predicate from="iulong" tag="unsigned-to-signed-cast" to="iint">
+         <exp etag="sizeof" xstr="sizeof (struct 194)">
+          <typ ckey="194" ttag="tcomp"/>
+         </exp>
+        </predicate>
+       </obligation>
+      </obligations>
+      <context>
+       <cfg-context>
+        <node name="instr" num="0"/>
+        <node name="stmt" num="252"/>
+        <node name="if-else"/>
+        <node name="stmt" num="247"/>
+        <node name="if-else"/>
+        <node name="stmt" num="245"/>
+        <node name="if-then"/>
+        <node name="stmt" num="244"/>
+        <node name="if-then"/>
+        <node name="stmt" num="242"/>
+        <node name="loop"/>
+        <node name="stmt" num="227"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="4" fname="cache_scan_free" fvid="5994">
+      <location byte="196094" file="src/cache.c" line="536"/>
+      <args>
+       <arg etag="caste" xstr="caste (caste (0:(void*)):(char*))">
+        <typ ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </typ>
+        <exp etag="caste" xstr="caste (0:(void*))">
+         <typ ttag="tptr">
+          <typ ttag="tvoid"/>
+         </typ>
+         <exp etag="const" xstr="0">
+          <constant ctag="cint64" ikind="iint" intValue="0"/>
+         </exp>
+        </exp>
+       </arg>
+       <arg etag="caste" xstr="caste (caste (0:(void*)):(struct 176*))">
+        <typ ttag="tptr">
+         <typ ckey="176" ttag="tcomp"/>
+        </typ>
+        <exp etag="caste" xstr="caste (0:(void*))">
+         <typ ttag="tptr">
+          <typ ttag="tvoid"/>
+         </typ>
+         <exp etag="const" xstr="0">
+          <constant ctag="cint64" ikind="iint" intValue="0"/>
+         </exp>
+        </exp>
+       </arg>
+       <arg etag="lval" xstr="now">
+        <lval>
+         <lhost>
+          <var vid="6031" vname="now"/>
+         </lhost>
+        </lval>
+       </arg>
+       <arg etag="const" xstr="0">
+        <constant ctag="cint64" ikind="iushort" intValue="0"/>
+       </arg>
+      </args>
+      <obligations>
+       <obligation api-id="2" id="522">
+        <predicate op="pluspi" tag="ptr-upper-bound">
+         <typ ttag="tvoid">
+          <attributes>
+           <attr attrname="const"/>
+          </attributes>
+         </typ>
+         <exp1 etag="caste" xstr="caste (caste (0:(void*)):(struct 176*))">
+          <typ ttag="tptr">
+           <typ ckey="176" ttag="tcomp"/>
+          </typ>
+          <exp etag="caste" xstr="caste (0:(void*))">
+           <typ ttag="tptr">
+            <typ ttag="tvoid"/>
+           </typ>
+           <exp etag="const" xstr="0">
+            <constant ctag="cint64" ikind="iint" intValue="0"/>
+           </exp>
+          </exp>
+         </exp1>
+         <exp2 etag="const" xstr="16">
+          <constant ctag="cint64" ikind="iint" intValue="16"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="3" id="521">
+        <predicate tag="not-null">
+         <exp etag="caste" xstr="caste (caste (0:(void*)):(struct 176*))">
+          <typ ttag="tptr">
+           <typ ckey="176" ttag="tcomp"/>
+          </typ>
+          <exp etag="caste" xstr="caste (0:(void*))">
+           <typ ttag="tptr">
+            <typ ttag="tvoid"/>
+           </typ>
+           <exp etag="const" xstr="0">
+            <constant ctag="cint64" ikind="iint" intValue="0"/>
+           </exp>
+          </exp>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="1" id="520">
+        <predicate from="iushort" tag="unsigned-to-signed-cast" to="iint">
+         <exp etag="const" xstr="0">
+          <constant ctag="cint64" ikind="iushort" intValue="0"/>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="4" id="558">
+        <predicate tag="not-null">
+         <exp etag="caste" xstr="caste (caste (0:(void*)):(char*))">
+          <typ ttag="tptr">
+           <typ ikind="ichar" ttag="tint"/>
+          </typ>
+          <exp etag="caste" xstr="caste (0:(void*))">
+           <typ ttag="tptr">
+            <typ ttag="tvoid"/>
+           </typ>
+           <exp etag="const" xstr="0">
+            <constant ctag="cint64" ikind="iint" intValue="0"/>
+           </exp>
+          </exp>
+         </exp>
+        </predicate>
+       </obligation>
+      </obligations>
+      <context>
+       <cfg-context>
+        <node name="instr" num="0"/>
+        <node name="stmt" num="240"/>
+        <node name="if-else"/>
+        <node name="stmt" num="238"/>
+        <node name="if-then"/>
+        <node name="stmt" num="232"/>
+        <node name="loop"/>
+        <node name="stmt" num="227"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="4" fname="cache_scan_free" fvid="5994">
+      <location byte="195981" file="src/cache.c" line="531"/>
+      <args>
+       <arg etag="lval" xstr="tmp">
+        <lval>
+         <lhost>
+          <var vid="6040" vname="tmp"/>
+         </lhost>
+        </lval>
+       </arg>
+       <arg etag="addrof" xstr="addrof (free_addr)">
+        <lval>
+         <lhost>
+          <var vid="6039" vname="free_addr"/>
+         </lhost>
+        </lval>
+       </arg>
+       <arg etag="lval" xstr="now">
+        <lval>
+         <lhost>
+          <var vid="6031" vname="now"/>
+         </lhost>
+        </lval>
+       </arg>
+       <arg etag="lval" xstr="new-&gt;flags">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="new">
+           <lval>
+            <lhost>
+             <var vid="6034" vname="new"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <field ckey="196" fname="flags"/>
+         </offset>
+        </lval>
+       </arg>
+      </args>
+      <obligations>
+       <obligation api-id="2" id="525">
+        <predicate op="pluspi" tag="ptr-upper-bound">
+         <typ ttag="tvoid">
+          <attributes>
+           <attr attrname="const"/>
+          </attributes>
+         </typ>
+         <exp1 etag="addrof" xstr="addrof (free_addr)">
+          <lval>
+           <lhost>
+            <var vid="6039" vname="free_addr"/>
+           </lhost>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="16">
+          <constant ctag="cint64" ikind="iint" intValue="16"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="3" id="524">
+        <predicate tag="not-null">
+         <exp etag="addrof" xstr="addrof (free_addr)">
+          <lval>
+           <lhost>
+            <var vid="6039" vname="free_addr"/>
+           </lhost>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="1" id="523">
+        <predicate from="iushort" tag="unsigned-to-signed-cast" to="iint">
+         <exp etag="lval" xstr="new-&gt;flags">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="new">
+             <lval>
+              <lhost>
+               <var vid="6034" vname="new"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <field ckey="196" fname="flags"/>
+           </offset>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="4" id="557">
+        <predicate tag="not-null">
+         <exp etag="lval" xstr="tmp">
+          <lval>
+           <lhost>
+            <var vid="6040" vname="tmp"/>
+           </lhost>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+      </obligations>
+      <context>
+       <cfg-context>
+        <node name="instr" num="3"/>
+        <node name="stmt" num="239"/>
+        <node name="if-then"/>
+        <node name="stmt" num="238"/>
+        <node name="if-then"/>
+        <node name="stmt" num="232"/>
+        <node name="loop"/>
+        <node name="stmt" num="227"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="16" fname="cache_get_name" fvid="4425">
+      <location byte="195981" file="src/cache.c" line="531"/>
+      <args>
+       <arg etag="lval" xstr="new">
+        <lval>
+         <lhost>
+          <var vid="6034" vname="new"/>
+         </lhost>
+        </lval>
+       </arg>
+      </args>
+      <obligations>
+       <obligation api-id="6" id="533">
+        <predicate tag="global-mem">
+         <exp etag="lval" xstr="new-&gt;name.bname">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="new">
+             <lval>
+              <lhost>
+               <var vid="6034" vname="new"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="bname"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="2" id="532">
+        <predicate tag="global-mem">
+         <exp etag="lval" xstr="new-&gt;name.namep">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="new">
+             <lval>
+              <lhost>
+               <var vid="6034" vname="new"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="namep"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="8" id="531">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="new">
+            <lval>
+             <lhost>
+              <var vid="6034" vname="new"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <offset>
+            <field ckey="202" fname="bname"/>
+           </offset>
+           <field ckey="196" fname="name"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="7" id="530">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="new">
+            <lval>
+             <lhost>
+              <var vid="6034" vname="new"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <offset>
+            <field ckey="202" fname="namep"/>
+           </offset>
+           <field ckey="196" fname="name"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="3" id="529">
+        <predicate tag="not-null">
+         <exp etag="lval" xstr="new">
+          <lval>
+           <lhost>
+            <var vid="6034" vname="new"/>
+           </lhost>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="5" id="528">
+        <predicate tag="not-null">
+         <exp etag="lval" xstr="new-&gt;name.bname">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="new">
+             <lval>
+              <lhost>
+               <var vid="6034" vname="new"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="bname"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="4" id="527">
+        <predicate tag="global-mem">
+         <exp etag="lval" xstr="new">
+          <lval>
+           <lhost>
+            <var vid="6034" vname="new"/>
+           </lhost>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="1" id="526">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="new">
+            <lval>
+             <lhost>
+              <var vid="6034" vname="new"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <field ckey="196" fname="flags"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="13" id="556">
+        <predicate op="pluspi" tag="ptr-upper-bound">
+         <typ ikind="ichar" ttag="tint">
+          <attributes>
+           <attr attrname="const"/>
+          </attributes>
+         </typ>
+         <exp1 etag="lval" xstr="new">
+          <lval>
+           <lhost>
+            <var vid="6034" vname="new"/>
+           </lhost>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="256">
+          <constant ctag="cint64" ikind="iint" intValue="256"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="12" id="555">
+        <predicate op="pluspi" tag="ptr-upper-bound">
+         <typ ikind="ichar" ttag="tint">
+          <attributes>
+           <attr attrname="const"/>
+          </attributes>
+         </typ>
+         <exp1 etag="lval" xstr="new-&gt;name.bname">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="new">
+             <lval>
+              <lhost>
+               <var vid="6034" vname="new"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="bname"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="256">
+          <constant ctag="cint64" ikind="iint" intValue="256"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="9" id="554">
+        <predicate op="pluspi" tag="ptr-upper-bound">
+         <typ ikind="ichar" ttag="tint">
+          <attributes>
+           <attr attrname="const"/>
+          </attributes>
+         </typ>
+         <exp1 etag="lval" xstr="new-&gt;name.namep">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="new">
+             <lval>
+              <lhost>
+               <var vid="6034" vname="new"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="namep"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp1>
+         <exp2 cn="null-terminator-pos" etag="cnapp" xstr="null-terminator-pos[caste (new-&gt;name.namep:(char*))]">
+          <arg etag="caste" xstr="caste (new-&gt;name.namep:(char*))">
+           <typ ttag="tptr">
+            <typ ikind="ichar" ttag="tint">
+             <attributes>
+              <attr attrname="const"/>
+             </attributes>
+            </typ>
+           </typ>
+           <exp etag="lval" xstr="new-&gt;name.namep">
+            <lval>
+             <lhost>
+              <mem etag="lval" xstr="new">
+               <lval>
+                <lhost>
+                 <var vid="6034" vname="new"/>
+                </lhost>
+               </lval>
+              </mem>
+             </lhost>
+             <offset>
+              <offset>
+               <field ckey="202" fname="namep"/>
+              </offset>
+              <field ckey="196" fname="name"/>
+             </offset>
+            </lval>
+           </exp>
+          </arg>
+          <typ ikind="iint" ttag="tint"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="11" id="553">
+        <predicate op="pluspi" tag="ptr-upper-bound">
+         <typ ikind="ichar" ttag="tint">
+          <attributes>
+           <attr attrname="const"/>
+          </attributes>
+         </typ>
+         <exp1 etag="lval" xstr="new-&gt;name.namep">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="new">
+             <lval>
+              <lhost>
+               <var vid="6034" vname="new"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="namep"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="256">
+          <constant ctag="cint64" ikind="iint" intValue="256"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="10" id="552">
+        <predicate tag="not-null">
+         <exp etag="lval" xstr="new-&gt;name.namep">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="new">
+             <lval>
+              <lhost>
+               <var vid="6034" vname="new"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="namep"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="15" id="571">
+        <predicate op="pluspi" tag="ptr-upper-bound-deref">
+         <typ ikind="ichar" ttag="tint"/>
+         <exp1 etag="lval" xstr="new">
+          <lval>
+           <lhost>
+            <var vid="6034" vname="new"/>
+           </lhost>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="1024">
+          <constant ctag="cint64" ikind="iint" intValue="1024"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="14" id="570">
+        <predicate op="pluspi" tag="ptr-upper-bound-deref">
+         <typ ikind="ichar" ttag="tint"/>
+         <exp1 etag="lval" xstr="new-&gt;name.namep">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="new">
+             <lval>
+              <lhost>
+               <var vid="6034" vname="new"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="namep"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="1024">
+          <constant ctag="cint64" ikind="iint" intValue="1024"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="16" id="569">
+        <predicate op="pluspi" tag="ptr-upper-bound-deref">
+         <typ ikind="ichar" ttag="tint"/>
+         <exp1 etag="lval" xstr="new-&gt;name.bname">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="new">
+             <lval>
+              <lhost>
+               <var vid="6034" vname="new"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <field ckey="202" fname="bname"/>
+            </offset>
+            <field ckey="196" fname="name"/>
+           </offset>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="1024">
+          <constant ctag="cint64" ikind="iint" intValue="1024"/>
+         </exp2>
+        </predicate>
+       </obligation>
+      </obligations>
+      <context>
+       <cfg-context>
+        <node name="instr" num="2"/>
+        <node name="stmt" num="239"/>
+        <node name="if-then"/>
+        <node name="stmt" num="238"/>
+        <node name="if-then"/>
+        <node name="stmt" num="232"/>
+        <node name="loop"/>
+        <node name="stmt" num="227"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="3" fname="my_syslog" fvid="4917">
+      <location byte="195756" file="src/cache.c" line="513"/>
+      <args>
+       <arg etag="const" xstr="3">
+        <constant ctag="cint64" ikind="iint" intValue="3"/>
+       </arg>
+       <arg etag="const" xstr="&quot;Internal error in cache.&quot;">
+        <constant ctag="cstr" strValue="Internal error in cache."/>
+       </arg>
+      </args>
+      <obligations>
+       <obligation api-id="2" id="536">
+        <predicate op="pluspi" tag="ptr-upper-bound">
+         <typ ikind="ichar" ttag="tint">
+          <attributes>
+           <attr attrname="const"/>
+          </attributes>
+         </typ>
+         <exp1 etag="const" xstr="&quot;Internal error in cache.&quot;">
+          <constant ctag="cstr" strValue="Internal error in cache."/>
+         </exp1>
+         <exp2 cn="null-terminator-pos" etag="cnapp" xstr="null-terminator-pos[caste (&quot;Internal error in cache.&quot;:(char*))]">
+          <arg etag="caste" xstr="caste (&quot;Internal error in cache.&quot;:(char*))">
+           <typ ttag="tptr">
+            <attributes>
+             <attr attrname="restrict"/>
+            </attributes>
+            <typ ikind="ichar" ttag="tint">
+             <attributes>
+              <attr attrname="const"/>
+             </attributes>
+            </typ>
+           </typ>
+           <exp etag="const" xstr="&quot;Internal error in cache.&quot;">
+            <constant ctag="cstr" strValue="Internal error in cache."/>
+           </exp>
+          </arg>
+          <typ ikind="iint" ttag="tint"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="3" id="535">
+        <predicate tag="initialized-range">
+         <base-exp etag="const" xstr="&quot;Internal error in cache.&quot;">
+          <constant ctag="cstr" strValue="Internal error in cache."/>
+         </base-exp>
+         <len-exp etag="const" xstr="&quot;Internal error in cache.&quot;">
+          <constant ctag="cstr" strValue="Internal error in cache."/>
+         </len-exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="1" id="534">
+        <predicate tag="not-null">
+         <exp etag="const" xstr="&quot;Internal error in cache.&quot;">
+          <constant ctag="cstr" strValue="Internal error in cache."/>
+         </exp>
+        </predicate>
+       </obligation>
+      </obligations>
+      <context>
+       <cfg-context>
+        <node name="instr" num="0"/>
+        <node name="stmt" num="235"/>
+        <node name="if-then"/>
+        <node name="stmt" num="234"/>
+        <node name="if-then"/>
+        <node name="stmt" num="233"/>
+        <node name="if-then"/>
+        <node name="stmt" num="232"/>
+        <node name="loop"/>
+        <node name="stmt" num="227"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="4" fname="cache_scan_free" fvid="5994">
+      <location byte="194662" file="src/cache.c" line="467"/>
+      <args>
+       <arg etag="lval" xstr="name">
+        <lval>
+         <lhost>
+          <var vid="6029" vname="name"/>
+         </lhost>
+        </lval>
+       </arg>
+       <arg etag="lval" xstr="addr">
+        <lval>
+         <lhost>
+          <var vid="6030" vname="addr"/>
+         </lhost>
+        </lval>
+       </arg>
+       <arg etag="lval" xstr="now">
+        <lval>
+         <lhost>
+          <var vid="6031" vname="now"/>
+         </lhost>
+        </lval>
+       </arg>
+       <arg etag="lval" xstr="flags">
+        <lval>
+         <lhost>
+          <var vid="6033" vname="flags"/>
+         </lhost>
+        </lval>
+       </arg>
+      </args>
+      <obligations>
+       <obligation api-id="2" id="539">
+        <predicate op="pluspi" tag="ptr-upper-bound">
+         <typ ttag="tvoid">
+          <attributes>
+           <attr attrname="const"/>
+          </attributes>
+         </typ>
+         <exp1 etag="lval" xstr="addr">
+          <lval>
+           <lhost>
+            <var vid="6030" vname="addr"/>
+           </lhost>
+          </lval>
+         </exp1>
+         <exp2 etag="const" xstr="16">
+          <constant ctag="cint64" ikind="iint" intValue="16"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="3" id="538">
+        <predicate tag="not-null">
+         <exp etag="lval" xstr="addr">
+          <lval>
+           <lhost>
+            <var vid="6030" vname="addr"/>
+           </lhost>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="1" id="537">
+        <predicate from="iushort" tag="unsigned-to-signed-cast" to="iint">
+         <exp etag="lval" xstr="flags">
+          <lval>
+           <lhost>
+            <var vid="6033" vname="flags"/>
+           </lhost>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="4" id="551">
+        <predicate tag="not-null">
+         <exp etag="lval" xstr="name">
+          <lval>
+           <lhost>
+            <var vid="6029" vname="name"/>
+           </lhost>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+      </obligations>
+      <context>
+       <cfg-context>
+        <node name="instr" num="0"/>
+        <node name="stmt" num="207"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+     <callsite-obligation api-max-id="11" fname="log_query" fvid="4353">
+      <location byte="194304" file="src/cache.c" line="453"/>
+      <args>
+       <arg binop="bor" etag="binop" xstr="((caste (flags:unsigned int) | ((1 &lt;&lt; 16):unsigned int):unsigned int">
+        <exp1 etag="caste" xstr="caste (flags:unsigned int)">
+         <typ ikind="iuint" ttag="tint"/>
+         <exp etag="lval" xstr="flags">
+          <lval>
+           <lhost>
+            <var vid="6033" vname="flags"/>
+           </lhost>
+          </lval>
+         </exp>
+        </exp1>
+        <exp2 binop="shiftlt" etag="binop" xstr="((1 &lt;&lt; 16):unsigned int">
+         <exp1 etag="const" xstr="1">
+          <constant ctag="cint64" ikind="iuint" intValue="1"/>
+         </exp1>
+         <exp2 etag="const" xstr="16">
+          <constant ctag="cint64" ikind="iint" intValue="16"/>
+         </exp2>
+         <typ ikind="iuint" ttag="tint"/>
+        </exp2>
+        <typ ikind="iuint" ttag="tint"/>
+       </arg>
+       <arg etag="lval" xstr="name">
+        <lval>
+         <lhost>
+          <var vid="6029" vname="name"/>
+         </lhost>
+        </lval>
+       </arg>
+       <arg etag="lval" xstr="addr">
+        <lval>
+         <lhost>
+          <var vid="6030" vname="addr"/>
+         </lhost>
+        </lval>
+       </arg>
+       <arg etag="caste" xstr="caste (caste (0:(void*)):(char*))">
+        <typ ttag="tptr">
+         <typ ikind="ichar" ttag="tint"/>
+        </typ>
+        <exp etag="caste" xstr="caste (0:(void*))">
+         <typ ttag="tptr">
+          <typ ttag="tvoid"/>
+         </typ>
+         <exp etag="const" xstr="0">
+          <constant ctag="cint64" ikind="iint" intValue="0"/>
+         </exp>
+        </exp>
+       </arg>
+      </args>
+      <obligations>
+       <obligation api-id="6" id="549">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="addr">
+            <lval>
+             <lhost>
+              <var vid="6030" vname="addr"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <offset>
+            <offset>
+             <field ckey="178" fname="algo"/>
+            </offset>
+            <field ckey="177" fname="log"/>
+           </offset>
+           <field ckey="176" fname="addr"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="2" id="548">
+        <predicate op="pluspi" tag="ptr-upper-bound">
+         <typ ikind="ichar" ttag="tint">
+          <attributes>
+           <attr attrname="const"/>
+          </attributes>
+         </typ>
+         <exp1 etag="caste" xstr="caste (caste (0:(void*)):(char*))">
+          <typ ttag="tptr">
+           <typ ikind="ichar" ttag="tint"/>
+          </typ>
+          <exp etag="caste" xstr="caste (0:(void*))">
+           <typ ttag="tptr">
+            <typ ttag="tvoid"/>
+           </typ>
+           <exp etag="const" xstr="0">
+            <constant ctag="cint64" ikind="iint" intValue="0"/>
+           </exp>
+          </exp>
+         </exp1>
+         <exp2 cn="null-terminator-pos" etag="cnapp" xstr="null-terminator-pos[caste (caste (caste (0:(void*)):(char*)):(char*))]">
+          <arg etag="caste" xstr="caste (caste (caste (0:(void*)):(char*)):(char*))">
+           <typ ttag="tptr">
+            <attributes>
+             <attr attrname="restrict"/>
+            </attributes>
+            <typ ikind="ichar" ttag="tint">
+             <attributes>
+              <attr attrname="const"/>
+             </attributes>
+            </typ>
+           </typ>
+           <exp etag="caste" xstr="caste (caste (0:(void*)):(char*))">
+            <typ ttag="tptr">
+             <typ ikind="ichar" ttag="tint"/>
+            </typ>
+            <exp etag="caste" xstr="caste (0:(void*))">
+             <typ ttag="tptr">
+              <typ ttag="tvoid"/>
+             </typ>
+             <exp etag="const" xstr="0">
+              <constant ctag="cint64" ikind="iint" intValue="0"/>
+             </exp>
+            </exp>
+           </exp>
+          </arg>
+          <typ ikind="iint" ttag="tint"/>
+         </exp2>
+        </predicate>
+       </obligation>
+       <obligation api-id="8" id="547">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="caste" xstr="caste (addr:(void*))">
+            <typ ttag="tptr">
+             <attributes>
+              <attr attrname="restrict"/>
+             </attributes>
+             <typ ttag="tvoid">
+              <attributes>
+               <attr attrname="const"/>
+              </attributes>
+             </typ>
+            </typ>
+            <exp etag="lval" xstr="addr">
+             <lval>
+              <lhost>
+               <var vid="6030" vname="addr"/>
+              </lhost>
+             </lval>
+            </exp>
+           </mem>
+          </lhost>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="7" id="546">
+        <predicate from="iushort" tag="unsigned-to-signed-cast" to="iint">
+         <exp etag="lval" xstr="addr-&gt;addr.log.algo">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="addr">
+             <lval>
+              <lhost>
+               <var vid="6030" vname="addr"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <offset>
+              <field ckey="178" fname="algo"/>
+             </offset>
+             <field ckey="177" fname="log"/>
+            </offset>
+            <field ckey="176" fname="addr"/>
+           </offset>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="3" id="545">
+        <predicate tag="not-null">
+         <exp etag="caste" xstr="caste (caste (0:(void*)):(char*))">
+          <typ ttag="tptr">
+           <typ ikind="ichar" ttag="tint"/>
+          </typ>
+          <exp etag="caste" xstr="caste (0:(void*))">
+           <typ ttag="tptr">
+            <typ ttag="tvoid"/>
+           </typ>
+           <exp etag="const" xstr="0">
+            <constant ctag="cint64" ikind="iint" intValue="0"/>
+           </exp>
+          </exp>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="5" id="544">
+        <predicate from="iushort" tag="unsigned-to-signed-cast" to="iint">
+         <exp etag="lval" xstr="addr-&gt;addr.log.digest">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="addr">
+             <lval>
+              <lhost>
+               <var vid="6030" vname="addr"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <offset>
+              <field ckey="178" fname="digest"/>
+             </offset>
+             <field ckey="177" fname="log"/>
+            </offset>
+            <field ckey="176" fname="addr"/>
+           </offset>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="4" id="543">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="addr">
+            <lval>
+             <lhost>
+              <var vid="6030" vname="addr"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <offset>
+            <offset>
+             <field ckey="178" fname="keytag"/>
+            </offset>
+            <field ckey="177" fname="log"/>
+           </offset>
+           <field ckey="176" fname="addr"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="9" id="542">
+        <predicate from="iushort" tag="unsigned-to-signed-cast" to="iint">
+         <exp etag="lval" xstr="addr-&gt;addr.log.keytag">
+          <lval>
+           <lhost>
+            <mem etag="lval" xstr="addr">
+             <lval>
+              <lhost>
+               <var vid="6030" vname="addr"/>
+              </lhost>
+             </lval>
+            </mem>
+           </lhost>
+           <offset>
+            <offset>
+             <offset>
+              <field ckey="178" fname="keytag"/>
+             </offset>
+             <field ckey="177" fname="log"/>
+            </offset>
+            <field ckey="176" fname="addr"/>
+           </offset>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="10" id="541">
+        <predicate tag="initialized-range">
+         <base-exp etag="caste" xstr="caste (caste (0:(void*)):(char*))">
+          <typ ttag="tptr">
+           <typ ikind="ichar" ttag="tint"/>
+          </typ>
+          <exp etag="caste" xstr="caste (0:(void*))">
+           <typ ttag="tptr">
+            <typ ttag="tvoid"/>
+           </typ>
+           <exp etag="const" xstr="0">
+            <constant ctag="cint64" ikind="iint" intValue="0"/>
+           </exp>
+          </exp>
+         </base-exp>
+         <len-exp etag="caste" xstr="caste (caste (0:(void*)):(char*))">
+          <typ ttag="tptr">
+           <typ ikind="ichar" ttag="tint"/>
+          </typ>
+          <exp etag="caste" xstr="caste (0:(void*))">
+           <typ ttag="tptr">
+            <typ ttag="tvoid"/>
+           </typ>
+           <exp etag="const" xstr="0">
+            <constant ctag="cint64" ikind="iint" intValue="0"/>
+           </exp>
+          </exp>
+         </len-exp>
+        </predicate>
+       </obligation>
+       <obligation api-id="1" id="540">
+        <predicate tag="initialized">
+         <lval>
+          <lhost>
+           <mem etag="lval" xstr="addr">
+            <lval>
+             <lhost>
+              <var vid="6030" vname="addr"/>
+             </lhost>
+            </lval>
+           </mem>
+          </lhost>
+          <offset>
+           <offset>
+            <offset>
+             <field ckey="178" fname="digest"/>
+            </offset>
+            <field ckey="177" fname="log"/>
+           </offset>
+           <field ckey="176" fname="addr"/>
+          </offset>
+         </lval>
+        </predicate>
+       </obligation>
+       <obligation api-id="11" id="550">
+        <predicate tag="global-mem">
+         <exp etag="lval" xstr="name">
+          <lval>
+           <lhost>
+            <var vid="6029" vname="name"/>
+           </lhost>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+      </obligations>
+      <context>
+       <cfg-context>
+        <node name="instr" num="0"/>
+        <node name="stmt" num="198"/>
+        <node name="if-then"/>
+        <node name="stmt" num="197"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+    </callsite-obligations>
+    <return-sites>
+     <return-site>
+      <exp etag="lval" xstr="new">
+       <lval>
+        <lhost>
+         <var vid="6034" vname="new"/>
+        </lhost>
+       </lval>
+      </exp>
+      <location byte="196959" file="src/cache.c" line="593"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="269"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+     <return-site>
+      <exp etag="caste" xstr="caste (caste (0:(void*)):(struct 196*))">
+       <typ ttag="tptr">
+        <typ ckey="196" ttag="tcomp"/>
+       </typ>
+       <exp etag="caste" xstr="caste (0:(void*))">
+        <typ ttag="tptr">
+         <typ ttag="tvoid"/>
+        </typ>
+        <exp etag="const" xstr="0">
+         <constant ctag="cint64" ikind="iint" intValue="0"/>
+        </exp>
+       </exp>
+      </exp>
+      <location byte="196497" file="src/cache.c" line="555"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="257"/>
+        <node name="if-else"/>
+        <node name="stmt" num="253"/>
+        <node name="if-else"/>
+        <node name="stmt" num="247"/>
+        <node name="if-else"/>
+        <node name="stmt" num="245"/>
+        <node name="if-then"/>
+        <node name="stmt" num="244"/>
+        <node name="if-then"/>
+        <node name="stmt" num="242"/>
+        <node name="loop"/>
+        <node name="stmt" num="227"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+     <return-site>
+      <exp etag="caste" xstr="caste (caste (0:(void*)):(struct 196*))">
+       <typ ttag="tptr">
+        <typ ckey="196" ttag="tcomp"/>
+       </typ>
+       <exp etag="caste" xstr="caste (0:(void*))">
+        <typ ttag="tptr">
+         <typ ttag="tvoid"/>
+        </typ>
+        <exp etag="const" xstr="0">
+         <constant ctag="cint64" ikind="iint" intValue="0"/>
+        </exp>
+       </exp>
+      </exp>
+      <location byte="196497" file="src/cache.c" line="555"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="250"/>
+        <node name="if-then"/>
+        <node name="stmt" num="248"/>
+        <node name="if-then"/>
+        <node name="stmt" num="247"/>
+        <node name="if-else"/>
+        <node name="stmt" num="245"/>
+        <node name="if-then"/>
+        <node name="stmt" num="244"/>
+        <node name="if-then"/>
+        <node name="stmt" num="242"/>
+        <node name="loop"/>
+        <node name="stmt" num="227"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+     <return-site>
+      <exp etag="caste" xstr="caste (caste (0:(void*)):(struct 196*))">
+       <typ ttag="tptr">
+        <typ ckey="196" ttag="tcomp"/>
+       </typ>
+       <exp etag="caste" xstr="caste (0:(void*))">
+        <typ ttag="tptr">
+         <typ ttag="tvoid"/>
+        </typ>
+        <exp etag="const" xstr="0">
+         <constant ctag="cint64" ikind="iint" intValue="0"/>
+        </exp>
+       </exp>
+      </exp>
+      <location byte="195851" file="src/cache.c" line="517"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="237"/>
+        <node name="if-then"/>
+        <node name="stmt" num="233"/>
+        <node name="if-then"/>
+        <node name="stmt" num="232"/>
+        <node name="loop"/>
+        <node name="stmt" num="227"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+     <return-site>
+      <exp etag="caste" xstr="caste (caste (0:(void*)):(struct 196*))">
+       <typ ttag="tptr">
+        <typ ckey="196" ttag="tcomp"/>
+       </typ>
+       <exp etag="caste" xstr="caste (0:(void*))">
+        <typ ttag="tptr">
+         <typ ttag="tvoid"/>
+        </typ>
+        <exp etag="const" xstr="0">
+         <constant ctag="cint64" ikind="iint" intValue="0"/>
+        </exp>
+       </exp>
+      </exp>
+      <location byte="195590" file="src/cache.c" line="495"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="231"/>
+        <node name="if-else"/>
+        <node name="stmt" num="229"/>
+        <node name="loop"/>
+        <node name="stmt" num="227"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+     <return-site>
+      <exp etag="caste" xstr="caste (caste (0:(void*)):(struct 196*))">
+       <typ ttag="tptr">
+        <typ ckey="196" ttag="tcomp"/>
+       </typ>
+       <exp etag="caste" xstr="caste (0:(void*))">
+        <typ ttag="tptr">
+         <typ ttag="tvoid"/>
+        </typ>
+        <exp etag="const" xstr="0">
+         <constant ctag="cint64" ikind="iint" intValue="0"/>
+        </exp>
+       </exp>
+      </exp>
+      <location byte="195491" file="src/cache.c" line="487"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="226"/>
+        <node name="if-then"/>
+        <node name="stmt" num="208"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+     <return-site>
+      <exp etag="lval" xstr="new">
+       <lval>
+        <lhost>
+         <var vid="6034" vname="new"/>
+        </lhost>
+       </lval>
+      </exp>
+      <location byte="195444" file="src/cache.c" line="482"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="224"/>
+        <node name="if-then"/>
+        <node name="stmt" num="223"/>
+        <node name="if-then"/>
+        <node name="stmt" num="222"/>
+        <node name="if-then"/>
+        <node name="stmt" num="221"/>
+        <node name="if-then"/>
+        <node name="stmt" num="220"/>
+        <node name="if-then"/>
+        <node name="stmt" num="219"/>
+        <node name="if-then"/>
+        <node name="stmt" num="218"/>
+        <node name="if-else"/>
+        <node name="stmt" num="212"/>
+        <node name="if-then"/>
+        <node name="stmt" num="211"/>
+        <node name="if-then"/>
+        <node name="stmt" num="210"/>
+        <node name="if-then"/>
+        <node name="stmt" num="209"/>
+        <node name="if-then"/>
+        <node name="stmt" num="208"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+     <return-site>
+      <exp etag="lval" xstr="new">
+       <lval>
+        <lhost>
+         <var vid="6034" vname="new"/>
+        </lhost>
+       </lval>
+      </exp>
+      <location byte="194926" file="src/cache.c" line="478"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="215"/>
+        <node name="if-then"/>
+        <node name="stmt" num="214"/>
+        <node name="if-then"/>
+        <node name="stmt" num="213"/>
+        <node name="if-then"/>
+        <node name="stmt" num="212"/>
+        <node name="if-then"/>
+        <node name="stmt" num="211"/>
+        <node name="if-then"/>
+        <node name="stmt" num="210"/>
+        <node name="if-then"/>
+        <node name="stmt" num="209"/>
+        <node name="if-then"/>
+        <node name="stmt" num="208"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+     <return-site>
+      <exp etag="caste" xstr="caste (caste (0:(void*)):(struct 196*))">
+       <typ ttag="tptr">
+        <typ ckey="196" ttag="tcomp"/>
+       </typ>
+       <exp etag="caste" xstr="caste (0:(void*))">
+        <typ ttag="tptr">
+         <typ ttag="tvoid"/>
+        </typ>
+        <exp etag="const" xstr="0">
+         <constant ctag="cint64" ikind="iint" intValue="0"/>
+        </exp>
+       </exp>
+      </exp>
+      <location byte="194637" file="src/cache.c" line="463"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="206"/>
+        <node name="if-then"/>
+        <node name="stmt" num="205"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+    </return-sites>
+    <post-expectations/>
+    <ds-expectations/>
+   </secondary-proof-obligations>
+  </function>
+  <header time="01/10/2017 05:33:32">
+   <application file="src/cache.c" name="application"/>
+  </header>
+ </c-analysis>

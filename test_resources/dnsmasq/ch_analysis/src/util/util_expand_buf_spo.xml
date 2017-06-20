@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function name="expand_buf">
+   <secondary-proof-obligations max-spo-id="75" num-ppo="74">
+    <indirect-calls/>
+    <callsite-obligations>
+     <callsite-obligation api-max-id="1" fname="whine_malloc" fvid="4790">
+      <location byte="196411" file="src/util.c" line="545"/>
+      <args>
+       <arg etag="lval" xstr="size">
+        <lval>
+         <lhost>
+          <var vid="6113" vname="size"/>
+         </lhost>
+        </lval>
+       </arg>
+      </args>
+      <obligations>
+       <obligation api-id="1" id="75">
+        <predicate from="iulong" tag="unsigned-to-signed-cast" to="iint">
+         <exp etag="lval" xstr="size">
+          <lval>
+           <lhost>
+            <var vid="6113" vname="size"/>
+           </lhost>
+          </lval>
+         </exp>
+        </predicate>
+       </obligation>
+      </obligations>
+      <context>
+       <cfg-context>
+        <node name="instr" num="0"/>
+        <node name="stmt" num="329"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </callsite-obligation>
+    </callsite-obligations>
+    <return-sites>
+     <return-site>
+      <exp etag="const" xstr="1">
+       <constant ctag="cint64" ikind="iint" intValue="1"/>
+      </exp>
+      <location byte="196666" file="src/util.c" line="560"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="336"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+     <return-site>
+      <exp etag="const" xstr="0">
+       <constant ctag="cint64" ikind="iint" intValue="0"/>
+      </exp>
+      <location byte="196491" file="src/util.c" line="548"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="332"/>
+        <node name="if-else"/>
+        <node name="stmt" num="330"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+     <return-site>
+      <exp etag="const" xstr="1">
+       <constant ctag="cint64" ikind="iint" intValue="1"/>
+      </exp>
+      <location byte="196398" file="src/util.c" line="543"/>
+      <context>
+       <cfg-context>
+        <node name="return"/>
+        <node name="stmt" num="328"/>
+        <node name="if-then"/>
+        <node name="stmt" num="327"/>
+       </cfg-context>
+       <exp-context/>
+      </context>
+     </return-site>
+    </return-sites>
+    <post-expectations/>
+    <ds-expectations/>
+   </secondary-proof-obligations>
+  </function>
+  <header time="01/10/2017 05:33:38">
+   <application file="src/util.c" name="application"/>
+  </header>
+ </c-analysis>

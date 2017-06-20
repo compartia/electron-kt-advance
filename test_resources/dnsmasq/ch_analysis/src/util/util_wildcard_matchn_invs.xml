@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function name="wildcard_matchn" stable="yes">
+   <program-locations>
+    <program-location>
+     <locations>
+      <loc byte="198233" file="src/util.c" line="659"/>
+     </locations>
+     <cfg-context>
+      <node name="if-expr"/>
+      <node name="stmt" num="400"/>
+      <node name="if-then"/>
+      <node name="stmt" num="399"/>
+      <node name="if-then"/>
+      <node name="stmt" num="398"/>
+      <node name="loop"/>
+      <node name="stmt" num="397"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="9" pv="5"/>
+      <inv nrv="4" pv="5"/>
+      <inv nrv="9" pv="6"/>
+      <inv nrv="5" pv="6"/>
+      <inv nrv="11" pv="17"/>
+      <inv nrv="11" pv="16"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="198233" file="src/util.c" line="659"/>
+     </locations>
+     <cfg-context>
+      <node name="if-expr"/>
+      <node name="stmt" num="399"/>
+      <node name="if-then"/>
+      <node name="stmt" num="398"/>
+      <node name="loop"/>
+      <node name="stmt" num="397"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="9" pv="5"/>
+      <inv nrv="4" pv="5"/>
+      <inv nrv="9" pv="6"/>
+      <inv nrv="5" pv="6"/>
+      <inv nrv="11" pv="17"/>
+      <inv nrv="11" pv="16"/>
+      <inv nrv="9" pv="7"/>
+      <inv nrv="4" pv="7"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="198233" file="src/util.c" line="659"/>
+     </locations>
+     <cfg-context>
+      <node name="if-expr"/>
+      <node name="stmt" num="398"/>
+      <node name="loop"/>
+      <node name="stmt" num="397"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="9" pv="5"/>
+      <inv nrv="4" pv="5"/>
+      <inv nrv="9" pv="6"/>
+      <inv nrv="5" pv="6"/>
+      <inv nrv="11" pv="17"/>
+      <inv nrv="11" pv="16"/>
+      <inv nrv="9" pv="13"/>
+      <inv nrv="5" pv="13"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="198280" file="src/util.c" line="661"/>
+     </locations>
+     <cfg-context>
+      <node name="if-expr"/>
+      <node name="stmt" num="404"/>
+      <node name="loop"/>
+      <node name="stmt" num="397"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="9" pv="5"/>
+      <inv nrv="4" pv="5"/>
+      <inv nrv="9" pv="6"/>
+      <inv nrv="5" pv="6"/>
+      <inv nrv="11" pv="17"/>
+      <inv nrv="11" pv="16"/>
+      <inv nrv="9" pv="12"/>
+      <inv nrv="5" pv="12"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="198327" file="src/util.c" line="664"/>
+     </locations>
+     <cfg-context>
+      <node name="if-expr"/>
+      <node name="stmt" num="406"/>
+      <node name="loop"/>
+      <node name="stmt" num="397"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="9" pv="5"/>
+      <inv nrv="4" pv="5"/>
+      <inv nrv="9" pv="6"/>
+      <inv nrv="5" pv="6"/>
+      <inv nrv="11" pv="17"/>
+      <inv nrv="11" pv="16"/>
+      <inv nrv="9" pv="14"/>
+      <inv nrv="5" pv="14"/>
+      <inv nrv="9" pv="15"/>
+      <inv nrv="4" pv="15"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="198377" file="src/util.c" line="667"/>
+     </locations>
+     <cfg-context>
+      <node name="instr" num="0"/>
+      <node name="stmt" num="408"/>
+      <node name="loop"/>
+      <node name="stmt" num="397"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="9" pv="5"/>
+      <inv nrv="4" pv="5"/>
+      <inv nrv="9" pv="6"/>
+      <inv nrv="5" pv="6"/>
+      <inv nrv="11" pv="17"/>
+      <inv nrv="11" pv="16"/>
+      <inv nrv="0" pv="1"/>
+      <inv nrv="9" pv="10"/>
+      <inv nrv="5" pv="10"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="198395" file="src/util.c" line="668"/>
+     </locations>
+     <cfg-context>
+      <node name="instr" num="1"/>
+      <node name="stmt" num="408"/>
+      <node name="loop"/>
+      <node name="stmt" num="397"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="9" pv="5"/>
+      <inv nrv="4" pv="5"/>
+      <inv nrv="10" pv="6"/>
+      <inv nrv="7" pv="6"/>
+      <inv nrv="3" pv="6"/>
+      <inv nrv="11" pv="17"/>
+      <inv nrv="11" pv="16"/>
+      <inv nrv="0" pv="2"/>
+      <inv nrv="9" pv="11"/>
+      <inv nrv="4" pv="11"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="198410" file="src/util.c" line="669"/>
+     </locations>
+     <cfg-context>
+      <node name="instr" num="2"/>
+      <node name="stmt" num="408"/>
+      <node name="loop"/>
+      <node name="stmt" num="397"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="10" pv="5"/>
+      <inv nrv="6" pv="5"/>
+      <inv nrv="2" pv="5"/>
+      <inv nrv="10" pv="6"/>
+      <inv nrv="7" pv="6"/>
+      <inv nrv="3" pv="6"/>
+      <inv nrv="11" pv="17"/>
+      <inv nrv="11" pv="16"/>
+      <inv nrv="0" pv="0"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="198426" file="src/util.c" line="672"/>
+     </locations>
+     <cfg-context>
+      <node name="if-expr"/>
+      <node name="stmt" num="411"/>
+      <node name="if-else"/>
+      <node name="stmt" num="409"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="9" pv="5"/>
+      <inv nrv="4" pv="5"/>
+      <inv nrv="9" pv="6"/>
+      <inv nrv="5" pv="6"/>
+      <inv nrv="11" pv="17"/>
+      <inv nrv="11" pv="16"/>
+      <inv nrv="9" pv="8"/>
+      <inv nrv="5" pv="8"/>
+      <inv nrv="9" pv="9"/>
+      <inv nrv="4" pv="9"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="198426" file="src/util.c" line="672"/>
+     </locations>
+     <cfg-context>
+      <node name="return"/>
+      <node name="stmt" num="414"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="9" pv="5"/>
+      <inv nrv="4" pv="5"/>
+      <inv nrv="8" pv="4"/>
+      <inv nrv="1" pv="4"/>
+      <inv nrv="9" pv="6"/>
+      <inv nrv="5" pv="6"/>
+      <inv nrv="11" pv="17"/>
+      <inv nrv="11" pv="16"/>
+      <inv nrv="8" pv="3"/>
+      <inv nrv="1" pv="3"/>
+     </invariants>
+    </program-location>
+    <program-location>
+     <locations>
+      <loc byte="198426" file="src/util.c" line="672"/>
+     </locations>
+     <cfg-context>
+      <node name="if-expr"/>
+      <node name="stmt" num="409"/>
+     </cfg-context>
+     <invariants>
+      <inv nrv="9" pv="5"/>
+      <inv nrv="4" pv="5"/>
+      <inv nrv="9" pv="6"/>
+      <inv nrv="5" pv="6"/>
+      <inv nrv="11" pv="17"/>
+      <inv nrv="11" pv="16"/>
+     </invariants>
+    </program-location>
+   </program-locations>
+   <program-value-table size="18">
+    <pvals index="0">
+     <pval arg="3" id="46"/>
+     <pval arg="3" id="47"/>
+    </pvals>
+    <pvals index="1">
+     <pval arg="4" id="38"/>
+     <pval arg="4" id="39"/>
+    </pvals>
+    <pvals index="2">
+     <pval arg="4" id="43"/>
+     <pval arg="4" id="44"/>
+    </pvals>
+    <pvals index="3">
+     <pval arg="1" id="63"/>
+    </pvals>
+    <pvals index="4">
+     <pval>
+      <lhost>
+       <var vid="6172" vname="tmp"/>
+      </lhost>
+     </pval>
+    </pvals>
+    <pvals index="5">
+     <pval>
+      <lhost>
+       <var vid="6170" vname="match"/>
+      </lhost>
+     </pval>
+    </pvals>
+    <pvals index="6">
+     <pval>
+      <lhost>
+       <var vid="6169" vname="wildcard"/>
+      </lhost>
+     </pval>
+    </pvals>
+    <pvals index="7">
+     <pval arg="1" id="8"/>
+     <pval arg="1" id="9"/>
+     <pval arg="1" id="10"/>
+     <pval arg="2" id="11"/>
+     <pval arg="2" id="12"/>
+    </pvals>
+    <pvals index="8">
+     <pval arg="1" id="51"/>
+     <pval arg="1" id="52"/>
+     <pval arg="1" id="53"/>
+     <pval arg="2" id="54"/>
+     <pval arg="2" id="55"/>
+    </pvals>
+    <pvals index="9">
+     <pval arg="1" id="58"/>
+     <pval arg="1" id="59"/>
+     <pval arg="1" id="60"/>
+     <pval arg="2" id="61"/>
+     <pval arg="2" id="62"/>
+    </pvals>
+    <pvals index="10">
+     <pval arg="1" id="35"/>
+     <pval arg="1" id="36"/>
+     <pval arg="1" id="37"/>
+     <pval arg="3" id="38"/>
+     <pval arg="3" id="39"/>
+    </pvals>
+    <pvals index="11">
+     <pval arg="1" id="40"/>
+     <pval arg="1" id="41"/>
+     <pval arg="1" id="42"/>
+     <pval arg="3" id="43"/>
+     <pval arg="3" id="44"/>
+    </pvals>
+    <pvals index="12">
+     <pval arg="1" id="16"/>
+     <pval arg="1" id="17"/>
+     <pval arg="1" id="18"/>
+     <pval arg="2" id="19"/>
+     <pval arg="2" id="20"/>
+    </pvals>
+    <pvals index="13">
+     <pval arg="1" id="2"/>
+     <pval arg="1" id="3"/>
+     <pval arg="1" id="4"/>
+     <pval arg="2" id="5"/>
+     <pval arg="2" id="6"/>
+    </pvals>
+    <pvals index="14">
+     <pval arg="1" id="23"/>
+     <pval arg="1" id="24"/>
+     <pval arg="1" id="25"/>
+     <pval arg="2" id="26"/>
+     <pval arg="2" id="27"/>
+    </pvals>
+    <pvals index="15">
+     <pval arg="1" id="30"/>
+     <pval arg="1" id="31"/>
+     <pval arg="1" id="32"/>
+     <pval arg="2" id="33"/>
+     <pval arg="2" id="34"/>
+    </pvals>
+    <pvals index="16">
+     <pval etag="lval" external="yes" property="vm" xstr="wildcard">
+      <lval>
+       <lhost>
+        <var vid="6169" vname="wildcard"/>
+       </lhost>
+      </lval>
+     </pval>
+    </pvals>
+    <pvals index="17">
+     <pval etag="lval" external="yes" property="vm" xstr="match">
+      <lval>
+       <lhost>
+        <var vid="6170" vname="match"/>
+       </lhost>
+      </lval>
+     </pval>
+    </pvals>
+   </program-value-table>
+   <non-relational-value-table size="12">
+    <nrv index="0" tag="range" value="1"/>
+    <nrv index="1" tag="ss">
+     <sym name="assignedAt#672"/>
+    </nrv>
+    <nrv index="2" tag="ss">
+     <sym name="assignedAt#668"/>
+    </nrv>
+    <nrv index="3" tag="ss">
+     <sym name="assignedAt#667"/>
+    </nrv>
+    <nrv address-type="external" index="4" lb="0" tag="vs">
+     <base etag="lval" xstr="match">
+      <lval>
+       <lhost>
+        <var vid="6170" vname="match"/>
+       </lhost>
+      </lval>
+     </base>
+    </nrv>
+    <nrv address-type="external" index="5" lb="0" tag="vs">
+     <base etag="lval" xstr="wildcard">
+      <lval>
+       <lhost>
+        <var vid="6169" vname="wildcard"/>
+       </lhost>
+      </lval>
+     </base>
+    </nrv>
+    <nrv address-type="external" index="6" lb="1" not-null="true" tag="vs">
+     <base etag="lval" xstr="match">
+      <lval>
+       <lhost>
+        <var vid="6170" vname="match"/>
+       </lhost>
+      </lval>
+     </base>
+    </nrv>
+    <nrv address-type="external" index="7" lb="1" not-null="true" tag="vs">
+     <base etag="lval" xstr="wildcard">
+      <lval>
+       <lhost>
+        <var vid="6169" vname="wildcard"/>
+       </lhost>
+      </lval>
+     </base>
+    </nrv>
+    <nrv index="8" lb="0" tag="range" ub="1"/>
+    <nrv index="9" lb="0" tag="range"/>
+    <nrv index="10" lb="1" tag="range"/>
+    <nrv index="11" tag="ss">
+     <sym name="valid"/>
+    </nrv>
+   </non-relational-value-table>
+  </function>
+  <header time="01/09/2017 22:49:35">
+   <application file="src/util.c" name="application"/>
+  </header>
+ </c-analysis>

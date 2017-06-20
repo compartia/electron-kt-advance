@@ -1,0 +1,2457 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <function name="is_same_net6">
+   <statistics avg-context-complexity="0.47" avg-predicate-complexity="2.47" context-complexity="30" predicate-complexity="158" size="64"/>
+   <unconstrained-external-functions/>
+   <primary-proof-obligations>
+    <proof-obligation c-complexity="0" id="1" origin="prim-exp" p-complexity="0">
+     <location byte="192664" file="src/util.c" line="363"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="6023" vname="prefixlen"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="217"/>
+      </cfg-context>
+      <exp-context>
+       <node name="2op" num="1"/>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="2" origin="prim-op" p-complexity="0">
+     <location byte="192664" file="src/util.c" line="363"/>
+     <predicate tag="non-negative">
+      <exp etag="const" xstr="3">
+       <constant ctag="cint64" ikind="iint" intValue="3"/>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="217"/>
+      </cfg-context>
+      <exp-context>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="3" origin="prim-op" p-complexity="1">
+     <location byte="192664" file="src/util.c" line="363"/>
+     <predicate size="iint" tag="width-overflow">
+      <exp etag="const" xstr="3">
+       <constant ctag="cint64" ikind="iint" intValue="3"/>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="0"/>
+       <node name="stmt" num="217"/>
+      </cfg-context>
+      <exp-context>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="4" origin="prim-exp" p-complexity="0">
+     <location byte="192696" file="src/util.c" line="364"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="6023" vname="prefixlen"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="1"/>
+       <node name="stmt" num="217"/>
+      </cfg-context>
+      <exp-context>
+       <node name="2op" num="1"/>
+       <node name="rhs"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" fname="memcmp" id="5" name="buffersize" origin="f-pre" p-complexity="6">
+     <location byte="192727" file="src/util.c" line="366"/>
+     <predicate tag="not-null">
+      <exp etag="caste" xstr="caste (addrof (a-&gt;__in6_u.__u6_addr8):(void*))">
+       <typ ttag="tptr">
+        <typ ttag="tvoid">
+         <attributes>
+          <attr attrname="const"/>
+         </attributes>
+        </typ>
+       </typ>
+       <exp etag="addrof" xstr="addrof (a-&gt;__in6_u.__u6_addr8)">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="a">
+           <lval>
+            <lhost>
+             <var vid="6021" vname="a"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <offset>
+           <field ckey="47" fname="__u6_addr8"/>
+          </offset>
+          <field ckey="46" fname="__in6_u"/>
+         </offset>
+        </lval>
+       </exp>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="217"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+     <args>
+      <exp etag="caste" name="n" nr="3" xstr="caste (pfbytes:size_t)">
+       <typ tname="size_t" ttag="tnamed"/>
+       <exp etag="lval" xstr="pfbytes">
+        <lval>
+         <lhost>
+          <var vid="6024" vname="pfbytes"/>
+         </lhost>
+        </lval>
+       </exp>
+      </exp>
+      <exp etag="caste" name="s1" nr="1" xstr="caste (addrof (a-&gt;__in6_u.__u6_addr8):(void*))">
+       <typ ttag="tptr">
+        <typ ttag="tvoid">
+         <attributes>
+          <attr attrname="const"/>
+         </attributes>
+        </typ>
+       </typ>
+       <exp etag="addrof" xstr="addrof (a-&gt;__in6_u.__u6_addr8)">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="a">
+           <lval>
+            <lhost>
+             <var vid="6021" vname="a"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <offset>
+           <field ckey="47" fname="__u6_addr8"/>
+          </offset>
+          <field ckey="46" fname="__in6_u"/>
+         </offset>
+        </lval>
+       </exp>
+      </exp>
+     </args>
+     <precondition name="buffersize">
+      <math>
+       <apply>
+        <deref-read/>
+        <ci>s1</ci>
+        <apply>
+         <index-size/>
+         <ci>n</ci>
+        </apply>
+       </apply>
+      </math>
+     </precondition>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" fname="memcmp" id="6" name="buffersize" origin="f-pre" p-complexity="6">
+     <location byte="192727" file="src/util.c" line="366"/>
+     <predicate tag="lower-bound">
+      <exp etag="caste" xstr="caste (addrof (a-&gt;__in6_u.__u6_addr8):(void*))">
+       <typ ttag="tptr">
+        <typ ttag="tvoid">
+         <attributes>
+          <attr attrname="const"/>
+         </attributes>
+        </typ>
+       </typ>
+       <exp etag="addrof" xstr="addrof (a-&gt;__in6_u.__u6_addr8)">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="a">
+           <lval>
+            <lhost>
+             <var vid="6021" vname="a"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <offset>
+           <field ckey="47" fname="__u6_addr8"/>
+          </offset>
+          <field ckey="46" fname="__in6_u"/>
+         </offset>
+        </lval>
+       </exp>
+      </exp>
+      <typ ttag="tvoid">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="217"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+     <args>
+      <exp etag="caste" name="n" nr="3" xstr="caste (pfbytes:size_t)">
+       <typ tname="size_t" ttag="tnamed"/>
+       <exp etag="lval" xstr="pfbytes">
+        <lval>
+         <lhost>
+          <var vid="6024" vname="pfbytes"/>
+         </lhost>
+        </lval>
+       </exp>
+      </exp>
+      <exp etag="caste" name="s1" nr="1" xstr="caste (addrof (a-&gt;__in6_u.__u6_addr8):(void*))">
+       <typ ttag="tptr">
+        <typ ttag="tvoid">
+         <attributes>
+          <attr attrname="const"/>
+         </attributes>
+        </typ>
+       </typ>
+       <exp etag="addrof" xstr="addrof (a-&gt;__in6_u.__u6_addr8)">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="a">
+           <lval>
+            <lhost>
+             <var vid="6021" vname="a"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <offset>
+           <field ckey="47" fname="__u6_addr8"/>
+          </offset>
+          <field ckey="46" fname="__in6_u"/>
+         </offset>
+        </lval>
+       </exp>
+      </exp>
+     </args>
+     <precondition name="buffersize">
+      <math>
+       <apply>
+        <deref-read/>
+        <ci>s1</ci>
+        <apply>
+         <index-size/>
+         <ci>n</ci>
+        </apply>
+       </apply>
+      </math>
+     </precondition>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" fname="memcmp" id="7" name="buffersize" origin="f-pre" p-complexity="8">
+     <location byte="192727" file="src/util.c" line="366"/>
+     <predicate op="pluspi" tag="ptr-upper-bound">
+      <typ ttag="tvoid">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+      <exp1 etag="caste" xstr="caste (addrof (a-&gt;__in6_u.__u6_addr8):(void*))">
+       <typ ttag="tptr">
+        <typ ttag="tvoid">
+         <attributes>
+          <attr attrname="const"/>
+         </attributes>
+        </typ>
+       </typ>
+       <exp etag="addrof" xstr="addrof (a-&gt;__in6_u.__u6_addr8)">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="a">
+           <lval>
+            <lhost>
+             <var vid="6021" vname="a"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <offset>
+           <field ckey="47" fname="__u6_addr8"/>
+          </offset>
+          <field ckey="46" fname="__in6_u"/>
+         </offset>
+        </lval>
+       </exp>
+      </exp1>
+      <exp2 etag="caste" xstr="caste (pfbytes:size_t)">
+       <typ tname="size_t" ttag="tnamed"/>
+       <exp etag="lval" xstr="pfbytes">
+        <lval>
+         <lhost>
+          <var vid="6024" vname="pfbytes"/>
+         </lhost>
+        </lval>
+       </exp>
+      </exp2>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="217"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+     <args>
+      <exp etag="caste" name="n" nr="3" xstr="caste (pfbytes:size_t)">
+       <typ tname="size_t" ttag="tnamed"/>
+       <exp etag="lval" xstr="pfbytes">
+        <lval>
+         <lhost>
+          <var vid="6024" vname="pfbytes"/>
+         </lhost>
+        </lval>
+       </exp>
+      </exp>
+      <exp etag="caste" name="s1" nr="1" xstr="caste (addrof (a-&gt;__in6_u.__u6_addr8):(void*))">
+       <typ ttag="tptr">
+        <typ ttag="tvoid">
+         <attributes>
+          <attr attrname="const"/>
+         </attributes>
+        </typ>
+       </typ>
+       <exp etag="addrof" xstr="addrof (a-&gt;__in6_u.__u6_addr8)">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="a">
+           <lval>
+            <lhost>
+             <var vid="6021" vname="a"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <offset>
+           <field ckey="47" fname="__u6_addr8"/>
+          </offset>
+          <field ckey="46" fname="__in6_u"/>
+         </offset>
+        </lval>
+       </exp>
+      </exp>
+     </args>
+     <precondition name="buffersize">
+      <math>
+       <apply>
+        <deref-read/>
+        <ci>s1</ci>
+        <apply>
+         <index-size/>
+         <ci>n</ci>
+        </apply>
+       </apply>
+      </math>
+     </precondition>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" fname="memcmp" id="8" name="buffersize" origin="f-pre" p-complexity="7">
+     <location byte="192727" file="src/util.c" line="366"/>
+     <predicate tag="initialized-range">
+      <base-exp etag="caste" xstr="caste (addrof (a-&gt;__in6_u.__u6_addr8):(void*))">
+       <typ ttag="tptr">
+        <typ ttag="tvoid">
+         <attributes>
+          <attr attrname="const"/>
+         </attributes>
+        </typ>
+       </typ>
+       <exp etag="addrof" xstr="addrof (a-&gt;__in6_u.__u6_addr8)">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="a">
+           <lval>
+            <lhost>
+             <var vid="6021" vname="a"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <offset>
+           <field ckey="47" fname="__u6_addr8"/>
+          </offset>
+          <field ckey="46" fname="__in6_u"/>
+         </offset>
+        </lval>
+       </exp>
+      </base-exp>
+      <len-exp etag="caste" xstr="caste (pfbytes:size_t)">
+       <typ tname="size_t" ttag="tnamed"/>
+       <exp etag="lval" xstr="pfbytes">
+        <lval>
+         <lhost>
+          <var vid="6024" vname="pfbytes"/>
+         </lhost>
+        </lval>
+       </exp>
+      </len-exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="217"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+     <args>
+      <exp etag="caste" name="n" nr="3" xstr="caste (pfbytes:size_t)">
+       <typ tname="size_t" ttag="tnamed"/>
+       <exp etag="lval" xstr="pfbytes">
+        <lval>
+         <lhost>
+          <var vid="6024" vname="pfbytes"/>
+         </lhost>
+        </lval>
+       </exp>
+      </exp>
+      <exp etag="caste" name="s1" nr="1" xstr="caste (addrof (a-&gt;__in6_u.__u6_addr8):(void*))">
+       <typ ttag="tptr">
+        <typ ttag="tvoid">
+         <attributes>
+          <attr attrname="const"/>
+         </attributes>
+        </typ>
+       </typ>
+       <exp etag="addrof" xstr="addrof (a-&gt;__in6_u.__u6_addr8)">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="a">
+           <lval>
+            <lhost>
+             <var vid="6021" vname="a"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <offset>
+           <field ckey="47" fname="__u6_addr8"/>
+          </offset>
+          <field ckey="46" fname="__in6_u"/>
+         </offset>
+        </lval>
+       </exp>
+      </exp>
+     </args>
+     <precondition name="buffersize">
+      <math>
+       <apply>
+        <deref-read/>
+        <ci>s1</ci>
+        <apply>
+         <index-size/>
+         <ci>n</ci>
+        </apply>
+       </apply>
+      </math>
+     </precondition>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" fname="memcmp" id="9" name="buffersize" origin="f-pre" p-complexity="6">
+     <location byte="192727" file="src/util.c" line="366"/>
+     <predicate tag="not-null">
+      <exp etag="caste" xstr="caste (addrof (b-&gt;__in6_u.__u6_addr8):(void*))">
+       <typ ttag="tptr">
+        <typ ttag="tvoid">
+         <attributes>
+          <attr attrname="const"/>
+         </attributes>
+        </typ>
+       </typ>
+       <exp etag="addrof" xstr="addrof (b-&gt;__in6_u.__u6_addr8)">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="b">
+           <lval>
+            <lhost>
+             <var vid="6022" vname="b"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <offset>
+           <field ckey="47" fname="__u6_addr8"/>
+          </offset>
+          <field ckey="46" fname="__in6_u"/>
+         </offset>
+        </lval>
+       </exp>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="217"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+     <args>
+      <exp etag="caste" name="n" nr="3" xstr="caste (pfbytes:size_t)">
+       <typ tname="size_t" ttag="tnamed"/>
+       <exp etag="lval" xstr="pfbytes">
+        <lval>
+         <lhost>
+          <var vid="6024" vname="pfbytes"/>
+         </lhost>
+        </lval>
+       </exp>
+      </exp>
+      <exp etag="caste" name="s2" nr="2" xstr="caste (addrof (b-&gt;__in6_u.__u6_addr8):(void*))">
+       <typ ttag="tptr">
+        <typ ttag="tvoid">
+         <attributes>
+          <attr attrname="const"/>
+         </attributes>
+        </typ>
+       </typ>
+       <exp etag="addrof" xstr="addrof (b-&gt;__in6_u.__u6_addr8)">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="b">
+           <lval>
+            <lhost>
+             <var vid="6022" vname="b"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <offset>
+           <field ckey="47" fname="__u6_addr8"/>
+          </offset>
+          <field ckey="46" fname="__in6_u"/>
+         </offset>
+        </lval>
+       </exp>
+      </exp>
+     </args>
+     <precondition name="buffersize">
+      <math>
+       <apply>
+        <deref-read/>
+        <ci>s2</ci>
+        <apply>
+         <index-size/>
+         <ci>n</ci>
+        </apply>
+       </apply>
+      </math>
+     </precondition>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" fname="memcmp" id="10" name="buffersize" origin="f-pre" p-complexity="6">
+     <location byte="192727" file="src/util.c" line="366"/>
+     <predicate tag="lower-bound">
+      <exp etag="caste" xstr="caste (addrof (b-&gt;__in6_u.__u6_addr8):(void*))">
+       <typ ttag="tptr">
+        <typ ttag="tvoid">
+         <attributes>
+          <attr attrname="const"/>
+         </attributes>
+        </typ>
+       </typ>
+       <exp etag="addrof" xstr="addrof (b-&gt;__in6_u.__u6_addr8)">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="b">
+           <lval>
+            <lhost>
+             <var vid="6022" vname="b"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <offset>
+           <field ckey="47" fname="__u6_addr8"/>
+          </offset>
+          <field ckey="46" fname="__in6_u"/>
+         </offset>
+        </lval>
+       </exp>
+      </exp>
+      <typ ttag="tvoid">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="217"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+     <args>
+      <exp etag="caste" name="n" nr="3" xstr="caste (pfbytes:size_t)">
+       <typ tname="size_t" ttag="tnamed"/>
+       <exp etag="lval" xstr="pfbytes">
+        <lval>
+         <lhost>
+          <var vid="6024" vname="pfbytes"/>
+         </lhost>
+        </lval>
+       </exp>
+      </exp>
+      <exp etag="caste" name="s2" nr="2" xstr="caste (addrof (b-&gt;__in6_u.__u6_addr8):(void*))">
+       <typ ttag="tptr">
+        <typ ttag="tvoid">
+         <attributes>
+          <attr attrname="const"/>
+         </attributes>
+        </typ>
+       </typ>
+       <exp etag="addrof" xstr="addrof (b-&gt;__in6_u.__u6_addr8)">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="b">
+           <lval>
+            <lhost>
+             <var vid="6022" vname="b"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <offset>
+           <field ckey="47" fname="__u6_addr8"/>
+          </offset>
+          <field ckey="46" fname="__in6_u"/>
+         </offset>
+        </lval>
+       </exp>
+      </exp>
+     </args>
+     <precondition name="buffersize">
+      <math>
+       <apply>
+        <deref-read/>
+        <ci>s2</ci>
+        <apply>
+         <index-size/>
+         <ci>n</ci>
+        </apply>
+       </apply>
+      </math>
+     </precondition>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" fname="memcmp" id="11" name="buffersize" origin="f-pre" p-complexity="8">
+     <location byte="192727" file="src/util.c" line="366"/>
+     <predicate op="pluspi" tag="ptr-upper-bound">
+      <typ ttag="tvoid">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+      <exp1 etag="caste" xstr="caste (addrof (b-&gt;__in6_u.__u6_addr8):(void*))">
+       <typ ttag="tptr">
+        <typ ttag="tvoid">
+         <attributes>
+          <attr attrname="const"/>
+         </attributes>
+        </typ>
+       </typ>
+       <exp etag="addrof" xstr="addrof (b-&gt;__in6_u.__u6_addr8)">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="b">
+           <lval>
+            <lhost>
+             <var vid="6022" vname="b"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <offset>
+           <field ckey="47" fname="__u6_addr8"/>
+          </offset>
+          <field ckey="46" fname="__in6_u"/>
+         </offset>
+        </lval>
+       </exp>
+      </exp1>
+      <exp2 etag="caste" xstr="caste (pfbytes:size_t)">
+       <typ tname="size_t" ttag="tnamed"/>
+       <exp etag="lval" xstr="pfbytes">
+        <lval>
+         <lhost>
+          <var vid="6024" vname="pfbytes"/>
+         </lhost>
+        </lval>
+       </exp>
+      </exp2>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="217"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+     <args>
+      <exp etag="caste" name="n" nr="3" xstr="caste (pfbytes:size_t)">
+       <typ tname="size_t" ttag="tnamed"/>
+       <exp etag="lval" xstr="pfbytes">
+        <lval>
+         <lhost>
+          <var vid="6024" vname="pfbytes"/>
+         </lhost>
+        </lval>
+       </exp>
+      </exp>
+      <exp etag="caste" name="s2" nr="2" xstr="caste (addrof (b-&gt;__in6_u.__u6_addr8):(void*))">
+       <typ ttag="tptr">
+        <typ ttag="tvoid">
+         <attributes>
+          <attr attrname="const"/>
+         </attributes>
+        </typ>
+       </typ>
+       <exp etag="addrof" xstr="addrof (b-&gt;__in6_u.__u6_addr8)">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="b">
+           <lval>
+            <lhost>
+             <var vid="6022" vname="b"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <offset>
+           <field ckey="47" fname="__u6_addr8"/>
+          </offset>
+          <field ckey="46" fname="__in6_u"/>
+         </offset>
+        </lval>
+       </exp>
+      </exp>
+     </args>
+     <precondition name="buffersize">
+      <math>
+       <apply>
+        <deref-read/>
+        <ci>s2</ci>
+        <apply>
+         <index-size/>
+         <ci>n</ci>
+        </apply>
+       </apply>
+      </math>
+     </precondition>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" fname="memcmp" id="12" name="buffersize" origin="f-pre" p-complexity="7">
+     <location byte="192727" file="src/util.c" line="366"/>
+     <predicate tag="initialized-range">
+      <base-exp etag="caste" xstr="caste (addrof (b-&gt;__in6_u.__u6_addr8):(void*))">
+       <typ ttag="tptr">
+        <typ ttag="tvoid">
+         <attributes>
+          <attr attrname="const"/>
+         </attributes>
+        </typ>
+       </typ>
+       <exp etag="addrof" xstr="addrof (b-&gt;__in6_u.__u6_addr8)">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="b">
+           <lval>
+            <lhost>
+             <var vid="6022" vname="b"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <offset>
+           <field ckey="47" fname="__u6_addr8"/>
+          </offset>
+          <field ckey="46" fname="__in6_u"/>
+         </offset>
+        </lval>
+       </exp>
+      </base-exp>
+      <len-exp etag="caste" xstr="caste (pfbytes:size_t)">
+       <typ tname="size_t" ttag="tnamed"/>
+       <exp etag="lval" xstr="pfbytes">
+        <lval>
+         <lhost>
+          <var vid="6024" vname="pfbytes"/>
+         </lhost>
+        </lval>
+       </exp>
+      </len-exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="217"/>
+      </cfg-context>
+      <exp-context/>
+     </context>
+     <args>
+      <exp etag="caste" name="n" nr="3" xstr="caste (pfbytes:size_t)">
+       <typ tname="size_t" ttag="tnamed"/>
+       <exp etag="lval" xstr="pfbytes">
+        <lval>
+         <lhost>
+          <var vid="6024" vname="pfbytes"/>
+         </lhost>
+        </lval>
+       </exp>
+      </exp>
+      <exp etag="caste" name="s2" nr="2" xstr="caste (addrof (b-&gt;__in6_u.__u6_addr8):(void*))">
+       <typ ttag="tptr">
+        <typ ttag="tvoid">
+         <attributes>
+          <attr attrname="const"/>
+         </attributes>
+        </typ>
+       </typ>
+       <exp etag="addrof" xstr="addrof (b-&gt;__in6_u.__u6_addr8)">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="b">
+           <lval>
+            <lhost>
+             <var vid="6022" vname="b"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <offset>
+           <field ckey="47" fname="__u6_addr8"/>
+          </offset>
+          <field ckey="46" fname="__in6_u"/>
+         </offset>
+        </lval>
+       </exp>
+      </exp>
+     </args>
+     <precondition name="buffersize">
+      <math>
+       <apply>
+        <deref-read/>
+        <ci>s2</ci>
+        <apply>
+         <index-size/>
+         <ci>n</ci>
+        </apply>
+       </apply>
+      </math>
+     </precondition>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="13" origin="prim-exp" p-complexity="6">
+     <location byte="192727" file="src/util.c" line="366"/>
+     <predicate tag="pointer-cast">
+      <tfrom ttag="tarray">
+       <exp etag="const" xstr="16">
+        <constant ctag="cint64" ikind="iint" intValue="16"/>
+       </exp>
+       <typ ikind="iuchar" ttag="tint"/>
+      </tfrom>
+      <tto ttag="tvoid">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </tto>
+      <exp etag="addrof" xstr="addrof (a-&gt;__in6_u.__u6_addr8)">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="a">
+          <lval>
+           <lhost>
+            <var vid="6021" vname="a"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <field ckey="47" fname="__u6_addr8"/>
+         </offset>
+         <field ckey="46" fname="__in6_u"/>
+        </offset>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="217"/>
+      </cfg-context>
+      <exp-context>
+       <node name="arg" num="0"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="14" origin="prim-exp" p-complexity="0">
+     <location byte="192727" file="src/util.c" line="366"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="6021" vname="a"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="217"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="addrof"/>
+       <node name="cast"/>
+       <node name="arg" num="0"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="15" origin="prim-lval" p-complexity="1">
+     <location byte="192727" file="src/util.c" line="366"/>
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="a">
+       <lval>
+        <lhost>
+         <var vid="6021" vname="a"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="217"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="addrof"/>
+       <node name="cast"/>
+       <node name="arg" num="0"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="16" origin="prim-lval" p-complexity="1">
+     <location byte="192727" file="src/util.c" line="366"/>
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="a">
+       <lval>
+        <lhost>
+         <var vid="6021" vname="a"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="217"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="addrof"/>
+       <node name="cast"/>
+       <node name="arg" num="0"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="17" origin="prim-lval" p-complexity="1">
+     <location byte="192727" file="src/util.c" line="366"/>
+     <predicate tag="lower-bound">
+      <exp etag="lval" xstr="a">
+       <lval>
+        <lhost>
+         <var vid="6021" vname="a"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ckey="46" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="217"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="addrof"/>
+       <node name="cast"/>
+       <node name="arg" num="0"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="18" origin="prim-lval" p-complexity="1">
+     <location byte="192727" file="src/util.c" line="366"/>
+     <predicate tag="upper-bound">
+      <exp etag="lval" xstr="a">
+       <lval>
+        <lhost>
+         <var vid="6021" vname="a"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ckey="46" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="217"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="addrof"/>
+       <node name="cast"/>
+       <node name="arg" num="0"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="19" origin="prim-exp" p-complexity="6">
+     <location byte="192727" file="src/util.c" line="366"/>
+     <predicate tag="valid-mem">
+      <exp etag="caste" xstr="caste (addrof (a-&gt;__in6_u.__u6_addr8):(void*))">
+       <typ ttag="tptr">
+        <typ ttag="tvoid">
+         <attributes>
+          <attr attrname="const"/>
+         </attributes>
+        </typ>
+       </typ>
+       <exp etag="addrof" xstr="addrof (a-&gt;__in6_u.__u6_addr8)">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="a">
+           <lval>
+            <lhost>
+             <var vid="6021" vname="a"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <offset>
+           <field ckey="47" fname="__u6_addr8"/>
+          </offset>
+          <field ckey="46" fname="__in6_u"/>
+         </offset>
+        </lval>
+       </exp>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="217"/>
+      </cfg-context>
+      <exp-context>
+       <node name="arg" num="0"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="20" origin="prim-exp" p-complexity="6">
+     <location byte="192727" file="src/util.c" line="366"/>
+     <predicate tag="lower-bound">
+      <exp etag="caste" xstr="caste (addrof (a-&gt;__in6_u.__u6_addr8):(void*))">
+       <typ ttag="tptr">
+        <typ ttag="tvoid">
+         <attributes>
+          <attr attrname="const"/>
+         </attributes>
+        </typ>
+       </typ>
+       <exp etag="addrof" xstr="addrof (a-&gt;__in6_u.__u6_addr8)">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="a">
+           <lval>
+            <lhost>
+             <var vid="6021" vname="a"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <offset>
+           <field ckey="47" fname="__u6_addr8"/>
+          </offset>
+          <field ckey="46" fname="__in6_u"/>
+         </offset>
+        </lval>
+       </exp>
+      </exp>
+      <typ ttag="tvoid">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="217"/>
+      </cfg-context>
+      <exp-context>
+       <node name="arg" num="0"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="21" origin="prim-exp" p-complexity="6">
+     <location byte="192727" file="src/util.c" line="366"/>
+     <predicate tag="upper-bound">
+      <exp etag="caste" xstr="caste (addrof (a-&gt;__in6_u.__u6_addr8):(void*))">
+       <typ ttag="tptr">
+        <typ ttag="tvoid">
+         <attributes>
+          <attr attrname="const"/>
+         </attributes>
+        </typ>
+       </typ>
+       <exp etag="addrof" xstr="addrof (a-&gt;__in6_u.__u6_addr8)">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="a">
+           <lval>
+            <lhost>
+             <var vid="6021" vname="a"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <offset>
+           <field ckey="47" fname="__u6_addr8"/>
+          </offset>
+          <field ckey="46" fname="__in6_u"/>
+         </offset>
+        </lval>
+       </exp>
+      </exp>
+      <typ ttag="tvoid">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="217"/>
+      </cfg-context>
+      <exp-context>
+       <node name="arg" num="0"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="22" origin="prim-exp" p-complexity="6">
+     <location byte="192727" file="src/util.c" line="366"/>
+     <predicate tag="pointer-cast">
+      <tfrom ttag="tarray">
+       <exp etag="const" xstr="16">
+        <constant ctag="cint64" ikind="iint" intValue="16"/>
+       </exp>
+       <typ ikind="iuchar" ttag="tint"/>
+      </tfrom>
+      <tto ttag="tvoid">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </tto>
+      <exp etag="addrof" xstr="addrof (b-&gt;__in6_u.__u6_addr8)">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="b">
+          <lval>
+           <lhost>
+            <var vid="6022" vname="b"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <field ckey="47" fname="__u6_addr8"/>
+         </offset>
+         <field ckey="46" fname="__in6_u"/>
+        </offset>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="217"/>
+      </cfg-context>
+      <exp-context>
+       <node name="arg" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="23" origin="prim-exp" p-complexity="0">
+     <location byte="192727" file="src/util.c" line="366"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="6022" vname="b"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="217"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="addrof"/>
+       <node name="cast"/>
+       <node name="arg" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="24" origin="prim-lval" p-complexity="1">
+     <location byte="192727" file="src/util.c" line="366"/>
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="b">
+       <lval>
+        <lhost>
+         <var vid="6022" vname="b"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="217"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="addrof"/>
+       <node name="cast"/>
+       <node name="arg" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="25" origin="prim-lval" p-complexity="1">
+     <location byte="192727" file="src/util.c" line="366"/>
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="b">
+       <lval>
+        <lhost>
+         <var vid="6022" vname="b"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="217"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="addrof"/>
+       <node name="cast"/>
+       <node name="arg" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="26" origin="prim-lval" p-complexity="1">
+     <location byte="192727" file="src/util.c" line="366"/>
+     <predicate tag="lower-bound">
+      <exp etag="lval" xstr="b">
+       <lval>
+        <lhost>
+         <var vid="6022" vname="b"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ckey="46" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="217"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="addrof"/>
+       <node name="cast"/>
+       <node name="arg" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="27" origin="prim-lval" p-complexity="1">
+     <location byte="192727" file="src/util.c" line="366"/>
+     <predicate tag="upper-bound">
+      <exp etag="lval" xstr="b">
+       <lval>
+        <lhost>
+         <var vid="6022" vname="b"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ckey="46" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="217"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="addrof"/>
+       <node name="cast"/>
+       <node name="arg" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="28" origin="prim-exp" p-complexity="6">
+     <location byte="192727" file="src/util.c" line="366"/>
+     <predicate tag="valid-mem">
+      <exp etag="caste" xstr="caste (addrof (b-&gt;__in6_u.__u6_addr8):(void*))">
+       <typ ttag="tptr">
+        <typ ttag="tvoid">
+         <attributes>
+          <attr attrname="const"/>
+         </attributes>
+        </typ>
+       </typ>
+       <exp etag="addrof" xstr="addrof (b-&gt;__in6_u.__u6_addr8)">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="b">
+           <lval>
+            <lhost>
+             <var vid="6022" vname="b"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <offset>
+           <field ckey="47" fname="__u6_addr8"/>
+          </offset>
+          <field ckey="46" fname="__in6_u"/>
+         </offset>
+        </lval>
+       </exp>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="217"/>
+      </cfg-context>
+      <exp-context>
+       <node name="arg" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="29" origin="prim-exp" p-complexity="6">
+     <location byte="192727" file="src/util.c" line="366"/>
+     <predicate tag="lower-bound">
+      <exp etag="caste" xstr="caste (addrof (b-&gt;__in6_u.__u6_addr8):(void*))">
+       <typ ttag="tptr">
+        <typ ttag="tvoid">
+         <attributes>
+          <attr attrname="const"/>
+         </attributes>
+        </typ>
+       </typ>
+       <exp etag="addrof" xstr="addrof (b-&gt;__in6_u.__u6_addr8)">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="b">
+           <lval>
+            <lhost>
+             <var vid="6022" vname="b"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <offset>
+           <field ckey="47" fname="__u6_addr8"/>
+          </offset>
+          <field ckey="46" fname="__in6_u"/>
+         </offset>
+        </lval>
+       </exp>
+      </exp>
+      <typ ttag="tvoid">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="217"/>
+      </cfg-context>
+      <exp-context>
+       <node name="arg" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="30" origin="prim-exp" p-complexity="6">
+     <location byte="192727" file="src/util.c" line="366"/>
+     <predicate tag="upper-bound">
+      <exp etag="caste" xstr="caste (addrof (b-&gt;__in6_u.__u6_addr8):(void*))">
+       <typ ttag="tptr">
+        <typ ttag="tvoid">
+         <attributes>
+          <attr attrname="const"/>
+         </attributes>
+        </typ>
+       </typ>
+       <exp etag="addrof" xstr="addrof (b-&gt;__in6_u.__u6_addr8)">
+        <lval>
+         <lhost>
+          <mem etag="lval" xstr="b">
+           <lval>
+            <lhost>
+             <var vid="6022" vname="b"/>
+            </lhost>
+           </lval>
+          </mem>
+         </lhost>
+         <offset>
+          <offset>
+           <field ckey="47" fname="__u6_addr8"/>
+          </offset>
+          <field ckey="46" fname="__in6_u"/>
+         </offset>
+        </lval>
+       </exp>
+      </exp>
+      <typ ttag="tvoid">
+       <attributes>
+        <attr attrname="const"/>
+       </attributes>
+      </typ>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="217"/>
+      </cfg-context>
+      <exp-context>
+       <node name="arg" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="31" origin="prim-exp" p-complexity="1">
+     <location byte="192727" file="src/util.c" line="366"/>
+     <predicate from="iint" tag="signed-to-unsigned-cast" to="iulong">
+      <exp etag="lval" xstr="pfbytes">
+       <lval>
+        <lhost>
+         <var vid="6024" vname="pfbytes"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="217"/>
+      </cfg-context>
+      <exp-context>
+       <node name="arg" num="2"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="32" origin="prim-exp" p-complexity="0">
+     <location byte="192727" file="src/util.c" line="366"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="6024" vname="pfbytes"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="instr" num="2"/>
+       <node name="stmt" num="217"/>
+      </cfg-context>
+      <exp-context>
+       <node name="cast"/>
+       <node name="arg" num="2"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="33" origin="prim-exp" p-complexity="0">
+     <location byte="192727" file="src/util.c" line="366"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="6026" vname="tmp"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="218"/>
+      </cfg-context>
+      <exp-context>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="0" id="34" origin="prim-exp" p-complexity="0">
+     <location byte="192818" file="src/util.c" line="369"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="6025" vname="pfbits"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="220"/>
+      </cfg-context>
+      <exp-context>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="35" origin="prim-exp" p-complexity="1">
+     <location byte="192818" file="src/util.c" line="369"/>
+     <predicate from="iuchar" tag="unsigned-to-signed-cast" to="iint">
+      <exp etag="lval" xstr="a-&gt;__in6_u.__u6_addr8[pfbytes]">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="a">
+          <lval>
+           <lhost>
+            <var vid="6021" vname="a"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <offset>
+           <index etag="lval" xstr="pfbytes">
+            <lval>
+             <lhost>
+              <var vid="6024" vname="pfbytes"/>
+             </lhost>
+            </lval>
+           </index>
+          </offset>
+          <field ckey="47" fname="__u6_addr8"/>
+         </offset>
+         <field ckey="46" fname="__in6_u"/>
+        </offset>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="222"/>
+       <node name="if-else"/>
+       <node name="stmt" num="220"/>
+      </cfg-context>
+      <exp-context>
+       <node name="2op" num="1"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="36" origin="prim-exp" p-complexity="7">
+     <location byte="192818" file="src/util.c" line="369"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="a">
+         <lval>
+          <lhost>
+           <var vid="6021" vname="a"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <offset>
+         <offset>
+          <index etag="lval" xstr="pfbytes">
+           <lval>
+            <lhost>
+             <var vid="6024" vname="pfbytes"/>
+            </lhost>
+           </lval>
+          </index>
+         </offset>
+         <field ckey="47" fname="__u6_addr8"/>
+        </offset>
+        <field ckey="46" fname="__in6_u"/>
+       </offset>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="222"/>
+       <node name="if-else"/>
+       <node name="stmt" num="220"/>
+      </cfg-context>
+      <exp-context>
+       <node name="cast"/>
+       <node name="2op" num="1"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="37" origin="prim-exp" p-complexity="0">
+     <location byte="192818" file="src/util.c" line="369"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="6021" vname="a"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="222"/>
+       <node name="if-else"/>
+       <node name="stmt" num="220"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="2op" num="1"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="38" origin="prim-lval" p-complexity="1">
+     <location byte="192818" file="src/util.c" line="369"/>
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="a">
+       <lval>
+        <lhost>
+         <var vid="6021" vname="a"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="222"/>
+       <node name="if-else"/>
+       <node name="stmt" num="220"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="2op" num="1"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="39" origin="prim-lval" p-complexity="1">
+     <location byte="192818" file="src/util.c" line="369"/>
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="a">
+       <lval>
+        <lhost>
+         <var vid="6021" vname="a"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="222"/>
+       <node name="if-else"/>
+       <node name="stmt" num="220"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="2op" num="1"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="40" origin="prim-lval" p-complexity="1">
+     <location byte="192818" file="src/util.c" line="369"/>
+     <predicate tag="lower-bound">
+      <exp etag="lval" xstr="a">
+       <lval>
+        <lhost>
+         <var vid="6021" vname="a"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ckey="46" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="222"/>
+       <node name="if-else"/>
+       <node name="stmt" num="220"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="2op" num="1"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="41" origin="prim-lval" p-complexity="1">
+     <location byte="192818" file="src/util.c" line="369"/>
+     <predicate tag="upper-bound">
+      <exp etag="lval" xstr="a">
+       <lval>
+        <lhost>
+         <var vid="6021" vname="a"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ckey="46" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="222"/>
+       <node name="if-else"/>
+       <node name="stmt" num="220"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="2op" num="1"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="42" origin="prim-offset" p-complexity="1">
+     <location byte="192818" file="src/util.c" line="369"/>
+     <predicate tag="index-lower-bound">
+      <exp etag="lval" xstr="pfbytes">
+       <lval>
+        <lhost>
+         <var vid="6024" vname="pfbytes"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="222"/>
+       <node name="if-else"/>
+       <node name="stmt" num="220"/>
+      </cfg-context>
+      <exp-context>
+       <node name="field-offset" str="__u6_addr8"/>
+       <node name="field-offset" str="__in6_u"/>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="2op" num="1"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="43" origin="prim-offset" p-complexity="1">
+     <location byte="192818" file="src/util.c" line="369"/>
+     <predicate tag="index-upper-bound">
+      <exp etag="lval" xstr="pfbytes">
+       <lval>
+        <lhost>
+         <var vid="6024" vname="pfbytes"/>
+        </lhost>
+       </lval>
+      </exp>
+      <len-exp etag="const" xstr="16">
+       <constant ctag="cint64" ikind="iint" intValue="16"/>
+      </len-exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="222"/>
+       <node name="if-else"/>
+       <node name="stmt" num="220"/>
+      </cfg-context>
+      <exp-context>
+       <node name="field-offset" str="__u6_addr8"/>
+       <node name="field-offset" str="__in6_u"/>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="2op" num="1"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="44" origin="prim-exp" p-complexity="0">
+     <location byte="192818" file="src/util.c" line="369"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="6024" vname="pfbytes"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="222"/>
+       <node name="if-else"/>
+       <node name="stmt" num="220"/>
+      </cfg-context>
+      <exp-context>
+       <node name="index"/>
+       <node name="field-offset" str="__u6_addr8"/>
+       <node name="field-offset" str="__in6_u"/>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="2op" num="1"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="45" origin="prim-exp" p-complexity="0">
+     <location byte="192818" file="src/util.c" line="369"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="6025" vname="pfbits"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="222"/>
+       <node name="if-else"/>
+       <node name="stmt" num="220"/>
+      </cfg-context>
+      <exp-context>
+       <node name="2op" num="2"/>
+       <node name="2op" num="2"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="46" origin="prim-op" p-complexity="2">
+     <location byte="192818" file="src/util.c" line="369"/>
+     <predicate op="minusa" size="iint" tag="int-underflow">
+      <exp1 etag="const" xstr="8">
+       <constant ctag="cint64" ikind="iint" intValue="8"/>
+      </exp1>
+      <exp2 etag="lval" xstr="pfbits">
+       <lval>
+        <lhost>
+         <var vid="6025" vname="pfbits"/>
+        </lhost>
+       </lval>
+      </exp2>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="222"/>
+       <node name="if-else"/>
+       <node name="stmt" num="220"/>
+      </cfg-context>
+      <exp-context>
+       <node name="2op" num="2"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="47" origin="prim-op" p-complexity="2">
+     <location byte="192818" file="src/util.c" line="369"/>
+     <predicate op="minusa" size="iint" tag="int-overflow">
+      <exp1 etag="const" xstr="8">
+       <constant ctag="cint64" ikind="iint" intValue="8"/>
+      </exp1>
+      <exp2 etag="lval" xstr="pfbits">
+       <lval>
+        <lhost>
+         <var vid="6025" vname="pfbits"/>
+        </lhost>
+       </lval>
+      </exp2>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="222"/>
+       <node name="if-else"/>
+       <node name="stmt" num="220"/>
+      </cfg-context>
+      <exp-context>
+       <node name="2op" num="2"/>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="48" origin="prim-op" p-complexity="2">
+     <location byte="192818" file="src/util.c" line="369"/>
+     <predicate tag="non-negative">
+      <exp binop="minusa" etag="binop" xstr="((8 - pfbits):int">
+       <exp1 etag="const" xstr="8">
+        <constant ctag="cint64" ikind="iint" intValue="8"/>
+       </exp1>
+       <exp2 etag="lval" xstr="pfbits">
+        <lval>
+         <lhost>
+          <var vid="6025" vname="pfbits"/>
+         </lhost>
+        </lval>
+       </exp2>
+       <typ ikind="iint" ttag="tint"/>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="222"/>
+       <node name="if-else"/>
+       <node name="stmt" num="220"/>
+      </cfg-context>
+      <exp-context>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="49" origin="prim-op" p-complexity="3">
+     <location byte="192818" file="src/util.c" line="369"/>
+     <predicate size="iint" tag="width-overflow">
+      <exp binop="minusa" etag="binop" xstr="((8 - pfbits):int">
+       <exp1 etag="const" xstr="8">
+        <constant ctag="cint64" ikind="iint" intValue="8"/>
+       </exp1>
+       <exp2 etag="lval" xstr="pfbits">
+        <lval>
+         <lhost>
+          <var vid="6025" vname="pfbits"/>
+         </lhost>
+        </lval>
+       </exp2>
+       <typ ikind="iint" ttag="tint"/>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="222"/>
+       <node name="if-else"/>
+       <node name="stmt" num="220"/>
+      </cfg-context>
+      <exp-context>
+       <node name="2op" num="1"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="50" origin="prim-exp" p-complexity="1">
+     <location byte="192818" file="src/util.c" line="369"/>
+     <predicate from="iuchar" tag="unsigned-to-signed-cast" to="iint">
+      <exp etag="lval" xstr="b-&gt;__in6_u.__u6_addr8[pfbytes]">
+       <lval>
+        <lhost>
+         <mem etag="lval" xstr="b">
+          <lval>
+           <lhost>
+            <var vid="6022" vname="b"/>
+           </lhost>
+          </lval>
+         </mem>
+        </lhost>
+        <offset>
+         <offset>
+          <offset>
+           <index etag="lval" xstr="pfbytes">
+            <lval>
+             <lhost>
+              <var vid="6024" vname="pfbytes"/>
+             </lhost>
+            </lval>
+           </index>
+          </offset>
+          <field ckey="47" fname="__u6_addr8"/>
+         </offset>
+         <field ckey="46" fname="__in6_u"/>
+        </offset>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="222"/>
+       <node name="if-else"/>
+       <node name="stmt" num="220"/>
+      </cfg-context>
+      <exp-context>
+       <node name="2op" num="1"/>
+       <node name="2op" num="2"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="51" origin="prim-exp" p-complexity="7">
+     <location byte="192818" file="src/util.c" line="369"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <mem etag="lval" xstr="b">
+         <lval>
+          <lhost>
+           <var vid="6022" vname="b"/>
+          </lhost>
+         </lval>
+        </mem>
+       </lhost>
+       <offset>
+        <offset>
+         <offset>
+          <index etag="lval" xstr="pfbytes">
+           <lval>
+            <lhost>
+             <var vid="6024" vname="pfbytes"/>
+            </lhost>
+           </lval>
+          </index>
+         </offset>
+         <field ckey="47" fname="__u6_addr8"/>
+        </offset>
+        <field ckey="46" fname="__in6_u"/>
+       </offset>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="222"/>
+       <node name="if-else"/>
+       <node name="stmt" num="220"/>
+      </cfg-context>
+      <exp-context>
+       <node name="cast"/>
+       <node name="2op" num="1"/>
+       <node name="2op" num="2"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="52" origin="prim-exp" p-complexity="0">
+     <location byte="192818" file="src/util.c" line="369"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="6022" vname="b"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="222"/>
+       <node name="if-else"/>
+       <node name="stmt" num="220"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="2op" num="1"/>
+       <node name="2op" num="2"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="53" origin="prim-lval" p-complexity="1">
+     <location byte="192818" file="src/util.c" line="369"/>
+     <predicate tag="not-null">
+      <exp etag="lval" xstr="b">
+       <lval>
+        <lhost>
+         <var vid="6022" vname="b"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="222"/>
+       <node name="if-else"/>
+       <node name="stmt" num="220"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="2op" num="1"/>
+       <node name="2op" num="2"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="54" origin="prim-lval" p-complexity="1">
+     <location byte="192818" file="src/util.c" line="369"/>
+     <predicate tag="valid-mem">
+      <exp etag="lval" xstr="b">
+       <lval>
+        <lhost>
+         <var vid="6022" vname="b"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="222"/>
+       <node name="if-else"/>
+       <node name="stmt" num="220"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="2op" num="1"/>
+       <node name="2op" num="2"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="55" origin="prim-lval" p-complexity="1">
+     <location byte="192818" file="src/util.c" line="369"/>
+     <predicate tag="lower-bound">
+      <exp etag="lval" xstr="b">
+       <lval>
+        <lhost>
+         <var vid="6022" vname="b"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ckey="46" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="222"/>
+       <node name="if-else"/>
+       <node name="stmt" num="220"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="2op" num="1"/>
+       <node name="2op" num="2"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="56" origin="prim-lval" p-complexity="1">
+     <location byte="192818" file="src/util.c" line="369"/>
+     <predicate tag="upper-bound">
+      <exp etag="lval" xstr="b">
+       <lval>
+        <lhost>
+         <var vid="6022" vname="b"/>
+        </lhost>
+       </lval>
+      </exp>
+      <typ ckey="46" ttag="tcomp"/>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="222"/>
+       <node name="if-else"/>
+       <node name="stmt" num="220"/>
+      </cfg-context>
+      <exp-context>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="2op" num="1"/>
+       <node name="2op" num="2"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="57" origin="prim-offset" p-complexity="1">
+     <location byte="192818" file="src/util.c" line="369"/>
+     <predicate tag="index-lower-bound">
+      <exp etag="lval" xstr="pfbytes">
+       <lval>
+        <lhost>
+         <var vid="6024" vname="pfbytes"/>
+        </lhost>
+       </lval>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="222"/>
+       <node name="if-else"/>
+       <node name="stmt" num="220"/>
+      </cfg-context>
+      <exp-context>
+       <node name="field-offset" str="__u6_addr8"/>
+       <node name="field-offset" str="__in6_u"/>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="2op" num="1"/>
+       <node name="2op" num="2"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="58" origin="prim-offset" p-complexity="1">
+     <location byte="192818" file="src/util.c" line="369"/>
+     <predicate tag="index-upper-bound">
+      <exp etag="lval" xstr="pfbytes">
+       <lval>
+        <lhost>
+         <var vid="6024" vname="pfbytes"/>
+        </lhost>
+       </lval>
+      </exp>
+      <len-exp etag="const" xstr="16">
+       <constant ctag="cint64" ikind="iint" intValue="16"/>
+      </len-exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="222"/>
+       <node name="if-else"/>
+       <node name="stmt" num="220"/>
+      </cfg-context>
+      <exp-context>
+       <node name="field-offset" str="__u6_addr8"/>
+       <node name="field-offset" str="__in6_u"/>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="2op" num="1"/>
+       <node name="2op" num="2"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="59" origin="prim-exp" p-complexity="0">
+     <location byte="192818" file="src/util.c" line="369"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="6024" vname="pfbytes"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="222"/>
+       <node name="if-else"/>
+       <node name="stmt" num="220"/>
+      </cfg-context>
+      <exp-context>
+       <node name="index"/>
+       <node name="field-offset" str="__u6_addr8"/>
+       <node name="field-offset" str="__in6_u"/>
+       <node name="mem"/>
+       <node name="lval"/>
+       <node name="cast"/>
+       <node name="2op" num="1"/>
+       <node name="2op" num="2"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="60" origin="prim-exp" p-complexity="0">
+     <location byte="192818" file="src/util.c" line="369"/>
+     <predicate tag="initialized">
+      <lval>
+       <lhost>
+        <var vid="6025" vname="pfbits"/>
+       </lhost>
+      </lval>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="222"/>
+       <node name="if-else"/>
+       <node name="stmt" num="220"/>
+      </cfg-context>
+      <exp-context>
+       <node name="2op" num="2"/>
+       <node name="2op" num="2"/>
+       <node name="2op" num="2"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="61" origin="prim-op" p-complexity="2">
+     <location byte="192818" file="src/util.c" line="369"/>
+     <predicate op="minusa" size="iint" tag="int-underflow">
+      <exp1 etag="const" xstr="8">
+       <constant ctag="cint64" ikind="iint" intValue="8"/>
+      </exp1>
+      <exp2 etag="lval" xstr="pfbits">
+       <lval>
+        <lhost>
+         <var vid="6025" vname="pfbits"/>
+        </lhost>
+       </lval>
+      </exp2>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="222"/>
+       <node name="if-else"/>
+       <node name="stmt" num="220"/>
+      </cfg-context>
+      <exp-context>
+       <node name="2op" num="2"/>
+       <node name="2op" num="2"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="62" origin="prim-op" p-complexity="2">
+     <location byte="192818" file="src/util.c" line="369"/>
+     <predicate op="minusa" size="iint" tag="int-overflow">
+      <exp1 etag="const" xstr="8">
+       <constant ctag="cint64" ikind="iint" intValue="8"/>
+      </exp1>
+      <exp2 etag="lval" xstr="pfbits">
+       <lval>
+        <lhost>
+         <var vid="6025" vname="pfbits"/>
+        </lhost>
+       </lval>
+      </exp2>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="222"/>
+       <node name="if-else"/>
+       <node name="stmt" num="220"/>
+      </cfg-context>
+      <exp-context>
+       <node name="2op" num="2"/>
+       <node name="2op" num="2"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="63" origin="prim-op" p-complexity="2">
+     <location byte="192818" file="src/util.c" line="369"/>
+     <predicate tag="non-negative">
+      <exp binop="minusa" etag="binop" xstr="((8 - pfbits):int">
+       <exp1 etag="const" xstr="8">
+        <constant ctag="cint64" ikind="iint" intValue="8"/>
+       </exp1>
+       <exp2 etag="lval" xstr="pfbits">
+        <lval>
+         <lhost>
+          <var vid="6025" vname="pfbits"/>
+         </lhost>
+        </lval>
+       </exp2>
+       <typ ikind="iint" ttag="tint"/>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="222"/>
+       <node name="if-else"/>
+       <node name="stmt" num="220"/>
+      </cfg-context>
+      <exp-context>
+       <node name="2op" num="2"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+    <proof-obligation c-complexity="1" id="64" origin="prim-op" p-complexity="3">
+     <location byte="192818" file="src/util.c" line="369"/>
+     <predicate size="iint" tag="width-overflow">
+      <exp binop="minusa" etag="binop" xstr="((8 - pfbits):int">
+       <exp1 etag="const" xstr="8">
+        <constant ctag="cint64" ikind="iint" intValue="8"/>
+       </exp1>
+       <exp2 etag="lval" xstr="pfbits">
+        <lval>
+         <lhost>
+          <var vid="6025" vname="pfbits"/>
+         </lhost>
+        </lval>
+       </exp2>
+       <typ ikind="iint" ttag="tint"/>
+      </exp>
+     </predicate>
+     <context>
+      <cfg-context>
+       <node name="if-expr"/>
+       <node name="stmt" num="222"/>
+       <node name="if-else"/>
+       <node name="stmt" num="220"/>
+      </cfg-context>
+      <exp-context>
+       <node name="2op" num="2"/>
+      </exp-context>
+     </context>
+    </proof-obligation>
+   </primary-proof-obligations>
+  </function>
+  <header time="01/09/2017 21:38:51">
+   <application file="src/util.xml" name="application"/>
+  </header>
+ </c-analysis>

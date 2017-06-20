@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <c-analysis>
+  <log>
+   <log-entry time="01/10/2017 06:52:37"/>
+   <log-entry time="01/10/2017 05:29:24"/>
+   <log-entry time="01/10/2017 05:18:09"/>
+   <log-entry time="01/10/2017 04:56:05"/>
+   <log-entry time="01/10/2017 04:32:24"/>
+   <log-entry time="01/10/2017 03:39:02"/>
+   <log-entry delta-checkvalid="1" delta-lifted="3" time="01/10/2017 02:50:40"/>
+   <log-entry delta-checkvalid="8" delta-invariant="4" delta-lifted="11" time="01/09/2017 22:49:46"/>
+   <log-entry time="01/09/2017 22:03:42"/>
+  </log>
+  <function name="cache_insert">
+   <statistics checkvalid="9" invariant="4" invariant_with_api="14" total="78" total-proven="27"/>
+   <open-proof-obligations>
+    <open id="500" line="577" predicate="initialized"/>
+    <open id="501" line="577" predicate="global-mem"/>
+    <open id="502" line="577" predicate="not-null"/>
+    <open id="504" line="577" predicate="initialized"/>
+    <open id="505" line="577" predicate="initialized"/>
+    <open id="506" line="577" predicate="global-mem"/>
+    <open id="507" line="577" predicate="global-mem"/>
+    <open id="508" line="575" predicate="initialized"/>
+    <open id="509" line="575" predicate="global-mem"/>
+    <open id="510" line="575" predicate="not-null"/>
+    <open id="512" line="575" predicate="initialized"/>
+    <open id="513" line="575" predicate="initialized"/>
+    <open id="514" line="575" predicate="global-mem"/>
+    <open id="515" line="575" predicate="global-mem"/>
+    <open id="517" line="563" predicate="initialized"/>
+    <open id="518" line="563" predicate="initialized"/>
+    <open id="519" line="551" predicate="unsigned-to-signed-cast"/>
+    <open id="523" line="531" predicate="unsigned-to-signed-cast"/>
+    <open id="526" line="531" predicate="initialized"/>
+    <open id="527" line="531" predicate="global-mem"/>
+    <open id="528" line="531" predicate="not-null"/>
+    <open id="530" line="531" predicate="initialized"/>
+    <open id="531" line="531" predicate="initialized"/>
+    <open id="532" line="531" predicate="global-mem"/>
+    <open id="533" line="531" predicate="global-mem"/>
+    <open id="535" line="513" predicate="initialized-range"/>
+    <open id="536" line="513" predicate="ptr-upper-bound"/>
+    <open id="552" line="531" predicate="not-null"/>
+    <open id="553" line="531" predicate="ptr-upper-bound"/>
+    <open id="554" line="531" predicate="ptr-upper-bound"/>
+    <open id="555" line="531" predicate="ptr-upper-bound"/>
+    <open id="556" line="531" predicate="ptr-upper-bound"/>
+    <open id="559" line="575" predicate="not-null"/>
+    <open id="560" line="575" predicate="ptr-upper-bound"/>
+    <open id="561" line="575" predicate="ptr-upper-bound"/>
+    <open id="562" line="575" predicate="ptr-upper-bound"/>
+    <open id="563" line="575" predicate="ptr-upper-bound"/>
+    <open id="564" line="577" predicate="not-null"/>
+    <open id="565" line="577" predicate="ptr-upper-bound"/>
+    <open id="566" line="577" predicate="ptr-upper-bound"/>
+    <open id="567" line="577" predicate="ptr-upper-bound"/>
+    <open id="568" line="577" predicate="ptr-upper-bound"/>
+    <open id="569" line="531" predicate="ptr-upper-bound-deref"/>
+    <open id="570" line="531" predicate="ptr-upper-bound-deref"/>
+    <open id="571" line="531" predicate="ptr-upper-bound-deref"/>
+    <open id="572" line="575" predicate="ptr-upper-bound-deref"/>
+    <open id="573" line="575" predicate="ptr-upper-bound-deref"/>
+    <open id="574" line="575" predicate="ptr-upper-bound-deref"/>
+    <open id="575" line="577" predicate="ptr-upper-bound-deref"/>
+    <open id="576" line="577" predicate="ptr-upper-bound-deref"/>
+    <open id="577" line="577" predicate="ptr-upper-bound-deref"/>
+   </open-proof-obligations>
+   <proof-obligations-discharged>
+    <discharged domain="intervals" id="503" method="invariants" time="01/09/2017 22:49:46" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="intervals" id="511" method="invariants" time="01/09/2017 22:49:46" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged domain="intervals" id="516" method="invariants" time="01/09/2017 22:49:46" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged id="520" method="check-valid" time="01/09/2017 22:49:46" type="unsigned-to-signed-cast">
+     <evidence comment="maximum constant value 0 fits in type int"/>
+    </discharged>
+    <discharged id="521" method="check-valid" time="01/09/2017 22:49:46" type="not-null" violation="true">
+     <evidence comment="expression is a null pointer"/>
+    </discharged>
+    <discharged id="522" method="check-valid" time="01/09/2017 22:49:46" type="ptr-upper-bound">
+     <evidence comment="not-null of first argument is checked separately"/>
+    </discharged>
+    <discharged id="524" method="check-valid" time="01/09/2017 22:49:46" type="not-null">
+     <evidence comment="address of variable free_addr"/>
+    </discharged>
+    <discharged domain="linear equalities" id="525" method="invariants" time="01/09/2017 22:49:46" type="ptr-upper-bound">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="10" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="intervals" id="529" method="invariants" time="01/09/2017 22:49:46" type="not-null">
+     <evidence comment="null excluded"/>
+    </discharged>
+    <discharged id="534" method="check-valid" time="01/09/2017 22:49:46" type="not-null">
+     <evidence comment="string-literal"/>
+    </discharged>
+    <discharged domain="linear equalities" id="537" method="invariants" time="01/09/2017 22:49:46" type="unsigned-to-signed-cast">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="8" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="linear equalities" id="538" method="invariants" time="01/09/2017 22:49:46" type="not-null">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="16" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="linear equalities" id="539" method="invariants" time="01/09/2017 22:49:46" type="ptr-upper-bound">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="11" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="linear equalities" id="540" method="invariants" time="01/09/2017 22:49:46" type="initialized">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="17" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged id="541" method="check-valid" time="01/09/2017 22:49:46" type="initialized-range">
+     <evidence comment="null pointer does have any range, so this is trivially valid"/>
+    </discharged>
+    <discharged domain="linear equalities" id="542" method="invariants" time="01/09/2017 22:49:46" type="unsigned-to-signed-cast">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="7" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="linear equalities" id="543" method="invariants" time="01/09/2017 22:49:46" type="initialized">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="13" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="linear equalities" id="544" method="invariants" time="01/09/2017 22:49:46" type="unsigned-to-signed-cast">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="12" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged id="545" method="check-valid" time="01/09/2017 22:49:46" type="not-null" violation="true">
+     <evidence comment="expression is a null pointer"/>
+    </discharged>
+    <discharged domain="linear equalities" id="546" method="invariants" time="01/09/2017 22:49:46" type="unsigned-to-signed-cast">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="9" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="linear equalities" id="547" method="invariants" time="01/09/2017 22:49:46" type="initialized">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="14" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged id="548" method="check-valid" time="01/09/2017 22:49:46" type="ptr-upper-bound">
+     <evidence comment="not-null of first argument is checked separately"/>
+    </discharged>
+    <discharged domain="linear equalities" id="549" method="invariants" time="01/09/2017 22:49:46" type="initialized">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="15" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="valuesets" id="550" method="invariants" time="01/10/2017 02:50:40" type="global-mem">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="19" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="linear equalities" id="551" method="invariants" time="01/10/2017 02:50:40" type="not-null">
+     <evidence comment="delegating proof obligation to function api"/>
+     <assumptions>
+      <uses a-id="18" a-type="api"/>
+     </assumptions>
+    </discharged>
+    <discharged domain="linear equalities" id="557" method="invariants" time="01/10/2017 02:50:40" type="not-null">
+     <evidence comment="delegating proof obligation to the post condition of fn(cache_get_name)@ 531[_]"/>
+     <assumptions>
+      <uses a-id="12" a-type="rv"/>
+     </assumptions>
+    </discharged>
+    <discharged id="558" method="check-valid" time="01/10/2017 02:50:40" type="not-null" violation="true">
+     <evidence comment="expression is a null pointer"/>
+    </discharged>
+   </proof-obligations-discharged>
+  </function>
+  <header time="01/10/2017 06:52:37">
+   <application file="src//cache.c" name="application"/>
+  </header>
+ </c-analysis>
