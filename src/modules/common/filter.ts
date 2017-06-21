@@ -1,7 +1,7 @@
 import { CFunction, FileInfo } from '../xml/xml_types';
 import { ApiNode } from '../model/api_node';
 import { ProofObligation, PoStates, AbstractNode } from '../model/po_node';
-import { StringSet, AnySet, isEmpty } from './util';
+import { StringSet, AnySet, isEmpty } from './collections';
 
 
 
@@ -19,6 +19,20 @@ export class Filter {
     private _cfunction: CFunction;
     private _file: FileInfo;
     private _line: number = null;
+
+
+    /**
+     * true if filter acceps every-any-thing;
+     */
+    public isTransparent(): boolean {
+        // line is not counted because file is not selected;
+        return isEmpty(this._predicates) &&
+            isEmpty(this._states) &&
+            isEmpty(this._levels) &&
+            isEmpty(this._dischargeTypes)
+            && !this._cfunction
+            && !this._file;
+    }
 
     set line(line: number) {
         this._line = line;
