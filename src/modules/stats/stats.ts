@@ -7,6 +7,7 @@ import { updateChart } from './chart';
 
 
 import { Project } from '../common/globals';
+import { StatsTable, NamedArray} from '../common/collections';
 
 
 
@@ -28,147 +29,8 @@ const COL_PRIMARY = "primary";
 const DEF_COL_NAME = "count";
 
 
-export interface NamedArray<X> {
-    name: string;
-    object: X;
-    values: Array<number>;
-}
-
-
-
-export class StatsTable<T> {
-    data: { [key: string]: { [key: string]: number } } = {};
-    bindings: { [key: string]: T } = {};
-    columnNames: Array<string> = new Array();
-
-
-    public divideColumnsByColumn(columns: string[], dividerTable: StatsTable<any>, dividerColumn: string) {
-
-        for (let rowName in this.data) {
-            let row = this.data[rowName];
-            let divider: number = dividerTable.getAt(rowName, dividerColumn);
-
-            for (let colKey in row) {
-                if (_.contains(columns, colKey))
-                    var val = row[colKey];
-
-                if (divider) {
-                    row[colKey] = val / divider;
-                } else {
-                    row[colKey] = 0;
-                }
-            }
-        }
-    }
-
-
-
-    public foreach(func: (row: string, col: string, val: number) => void, columns?: string[]): void {
-
-        for (let rowName in this.data) {
-            let row = this.data[rowName];
-
-            for (let colKey in row) {
-                if (_.contains(columns, colKey))
-                    var val = row[colKey];
-                func(rowName, colKey, val);
-            }
-        }
-    }
-
-
-
-    public getAt(row: string, column: string): number {
-        if (this.data[row])
-            return this.data[row][column];
-        return 0;
-    }
-
-    set columns(columnNames) {
-        this.columnNames = columnNames;
-    }
-
-    public bind(rowname: string, object: T) {
-        this.bindings[rowname] = object;
-    }
-
-    public inc(row: string, column: string, increment: number) {
-
-        let data = this.data;
-
-        if (!data[row]) {
-            data[row] = {};
-        }
-        let dataset = data[row];
-        if (!dataset[column]) {
-            dataset[column] = increment;
-        } else {
-            dataset[column] += increment;
-        }
-
-        if (!_.contains(this.columnNames, column)) {
-            this.columnNames.push(column);
-        }
-    }
-
-    get rowNames() {
-        return Object.keys(this.data);
-    }
-
-    /**
-    example:
-    [[{name:"row1name", values:[3,2,3]]
-    ]
-    */
-    public asNamedRowsTable(columns?: string[]): Array<NamedArray<T>> {
-        let rows = Object.keys(this.data);
-        if (!columns)
-            columns = this.columnNames;
-
-        let ret = new Array<NamedArray<T>>();
-
-        for (let rowName of rows) {
-            let row: NamedArray<T> = {
-                name: rowName,
-                values: new Array<number>(),
-                object: this.bindings[rowName]
-            };
-
-            row.values = [];
-            ret.push(row);
-            for (let col of columns) {
-                row.values.push(this.getAt(rowName, col));
-            }
-        }
-
-        return ret;
-    }
-
-
-
-
-    public getTopRows(count: number, columns?: string[]): Array<NamedArray<T>> {
-        let allrows = this.asNamedRowsTable(columns);
-        let arr = _.sortBy(allrows, (x) => -_.sum(x["values"]));
-        return arr.splice(0, count);
-    }
-
-    public getRowsSorted(columns?: string[]): Array<NamedArray<T>> {
-        let allrows = this.asNamedRowsTable(columns);
-        let arr = _.sortBy(allrows, (x) => -_.sum(x["values"]));
-        return arr;
-    }
-
-
-
-    public getRow(row: string): { [key: string]: number } {
-        return this.data[row];
-    }
-}
-
-
-
 export class Stats {
+    date: number;
 
     byPredicate: StatsTable<string>;
     byDischargeType: StatsTable<string>;
@@ -191,7 +53,7 @@ export class Stats {
     private _primaryPredicatesCount: StatsTable<string>;
 
 
-    private filteredOutCount: number;
+    filteredOutCount: number;
 
     public getStatsByFileLine(file: string, line: number): { [key: string]: number } {
         return this.byFileLine.getRow(file + "//" + (line + 1));
@@ -206,9 +68,8 @@ export class Stats {
         return this.byFunction.getRow(functionKey);
     }
 
-    public build(proofObligations : ProofObligation[], filteredProofObligations : ProofObligation[]) {
-        // const filteredProofObligations : ProofObligation[]= __project.filteredProofObligations;
-        // const proofObligations = __project.proofObligations;
+    public build(filteredProofObligations: ProofObligation[]) {
+        this.date = Date.now();
 
         this.dependenciesByFile = new StatsTable<xml.FileInfo>();
 
@@ -236,7 +97,7 @@ export class Stats {
         let filteredPredicates: string[] = _.uniq(_.map(filteredProofObligations, (e: ProofObligation) => e.predicate)).sort();
         let filteredDiscahergeTypes: string[] = _.uniq(_.map(filteredProofObligations, (e: ProofObligation) => e.dischargeType)).sort();
 
-        this.filteredOutCount = proofObligations.length - filteredProofObligations.length;
+
 
         //populate with zeros
         for (let state of states) {
@@ -355,7 +216,7 @@ export class Stats {
     public updateChart(scene, container: d3.Selection<any>) {
         const table = this.byPredicate;
         const columnNames = table.columnNames;
-        const data: Array<NamedArray<string>> = table.asNamedRowsTable();
+        const data: NamedArray<string>[] = table.asNamedRowsTable();
 
         updateChart(scene, container,
             {
@@ -377,7 +238,6 @@ export class Stats {
         updateChart(scene, container,
             {
                 data: data,
-                // colors: (x, index) => "var(--kt-state-discharged-" + x.name.toLowerCase()+"-"+columnNames[index] + "-bg)",
                 colors: (x, index) => "var(--kt-state-" + columnNames[index] + "-bg)",
                 columnNames: columnNames,
                 label: x => x.name,
@@ -496,13 +356,22 @@ export class Stats {
 
 
 
-    public updatComplexityByFunctionChart(showColumns: string[], maxRows: number, scene, container: d3.Selection<any>) {
+    public updatComplexityByFunctionChart(
+        showColumns: string[],
+        maxRows: number,
+        scene,
+        container: d3.Selection<any>) {
+
+
         const table = this.complexityByFunction;
-        const columnNames = showColumns;
-        const data: Array<NamedArray<xml.CFunction>> = table.getTopRows(maxRows, columnNames);
+        const columnNames: string[] = showColumns;
+        const data: Array<NamedArray<xml.CFunction>>
+            = table.getTopRows(maxRows, columnNames);
 
 
-        updateChart(scene, container,
+        updateChart(
+            scene,
+            container,
             {
                 data: data,
                 colors: (x, i) => "var(--kt-complexity-" + columnNames[i].toLowerCase() + "-bg)",

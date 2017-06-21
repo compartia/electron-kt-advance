@@ -1,4 +1,4 @@
-import { NamedArray } from "./stats";
+import { NamedArray } from "../common/collections";
 
 export interface ChartData<X> {
     data: Array<NamedArray<X>>;
@@ -9,7 +9,12 @@ export interface ChartData<X> {
 }
 
 
-export function updateChart<X>(scene, container: d3.Selection<any>, chartData: ChartData<X>, format = d3.format(",.0f")) {
+export function updateChart<X>(
+    scene,
+    container: d3.Selection<any>,
+    chartData: ChartData<X>,
+    format = d3.format(",.0f")) {
+
     const data = chartData.data;
 
 

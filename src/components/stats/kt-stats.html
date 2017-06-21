@@ -225,11 +225,11 @@
             _chartBarSelected: function(event) {
                 var src = event.detail.src;
                 if (src == this.$.poByRedicate || src == this.$.complexityByPredicate) {
-                    this.set("filter.predicates", new util.StringSet([event.detail.row]));
+                    this.set("filter.predicates", new collections.StringSet([event.detail.row]));
                 }
 
                 if (src == this.$.poByDischarge) {
-                    this.set("filter.dischargeTypes", new util.StringSet([event.detail.row.toLowerCase()]));
+                    this.set("filter.dischargeTypes", new collections.StringSet([event.detail.row.toLowerCase()]));
                 }
 
                 if (src == this.$.poByFunction || src == this.$.cComplexityByFunction || src == this.$.pComplexityByFunction || src == this.$.assumptionsByFunction) {

@@ -1,5 +1,5 @@
 import * as _ from "lodash"
-import { CONF } from './storage';
+import { CONF, loadProjectMayBe } from './storage';
 
 import *  as xml from '../xml/xml_types';
 import { XmlReader, XmlAnalysis } from '../xml/xml_reader';
@@ -17,10 +17,8 @@ import * as util from '../tf_graph_common/lib/util'
 import { NodeDef } from '../tf_graph_common/lib/proto'
 
 
-
 const path = require('path');
 const fs = require('fs');
-
 
 export const CH_DIR: string = "ch_analysis";
 
@@ -91,6 +89,10 @@ export class Project {
     baseDir: string;
     analysisDir: string;
     stats: Stats;
+    /**
+     * previously saved statistics
+     */
+    oldstats: Stats;
 
     _proofObligations: Array<ProofObligation> = [];
     _filteredProofObligations: Array<ProofObligation> = null;
@@ -109,6 +111,9 @@ export class Project {
         return buildGraph(filter, this);
     }
 
+
+
+
     public readAndParse(tracker: tf.ProgressTracker): Promise<Project> {
         const project: Project = this;
         let reader: XmlReader = new XmlReader();
@@ -117,6 +122,17 @@ export class Project {
 
         const readFunctionsMapTracker = util.getSubtaskTracker(tracker, 10, 'Reading functions map (*._cfile.xml)');
         const readDirTracker = util.getSubtaskTracker(tracker, 90, 'Reading Proof Oblications data');
+
+        /**
+         * loading old stats
+         */
+        const previouslySavedData: JsonReadyProject = loadProjectMayBe(this.baseDir);
+        if (previouslySavedData) {
+            this.oldstats = previouslySavedData.stats;
+            if (this.oldstats) {
+                console.log("old stats was saved at " + this.oldstats.date);
+            }
+        }
 
 
         return reader.readFunctionsMap(path.dirname(project.analysisDir), readFunctionsMapTracker)
@@ -141,9 +157,9 @@ export class Project {
     }
 
     public save(): string {
-
         const stats = new Stats();
-        stats.build(this.proofObligations, this.proofObligations);
+        stats.build(this.proofObligations);
+        stats.filteredOutCount = 0;
 
         const jsonReadyProject: JsonReadyProject = this.toJsonReadyProject();
         jsonReadyProject.stats = stats;
@@ -232,13 +248,13 @@ export class Project {
         return false;
     }
 
-    public applyFilter(filter): void {
+    public applyFilter(filter: Filter): void {
 
         this._filteredProofObligations = null;
         this._filteredAssumptions = null;
 
         this.filterProofObligations(filter);
-        this.filterAssumptions();
+        this.filterAssumptions();       
     }
 
     private filterProofObligations(_filter: Filter): void {
@@ -295,7 +311,8 @@ export class Project {
 
     public buildStatistics(): Stats {
         this.stats = new Stats();
-        this.stats.build(this.proofObligations, this.filteredProofObligations);
+        this.stats.build(this.filteredProofObligations);
+        this.stats.filteredOutCount = this.proofObligations.length - this.filteredProofObligations.length;
         return this.stats;
     }
 }
