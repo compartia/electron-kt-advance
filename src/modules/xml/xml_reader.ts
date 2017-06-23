@@ -116,6 +116,8 @@ export class XmlReader {
         let predicateXmlParser: PredicateXmlParser = null;
         let currentPo = {}
 
+        let header = {}
+
 
         parser.onopentag = (tag) => {
             if (tag.name == 'function') {
@@ -279,12 +281,26 @@ export class XmlReader {
         let sourceFilename;
 
         let currentPo: PODischarge;
-
+        let header = {
+            time: null
+        }
+        
+        parser.onend = () => {
+            for (let d of ppos){
+                d.time=header.time;
+            }
+        };
 
         parser.onopentag = (tag) => {
+            // <log-entry delta-checkvalid="26" delta-invariant="30" delta-lifted="2" time="01/09/2017 22:03:43"/>
+
             if (tag.name == 'function') {
                 functionName = tag.attributes["name"];
-                // console.log(functionName);
+            }
+            
+            // <header time="01/10/2017 06:52:38">...            
+            else if (tag.name == 'header') {
+                header.time = new Date(tag.attributes["time"]);
             }
 
             else if (tag.name == 'discharged') {
@@ -748,11 +764,11 @@ export class XmlReader {
             // obj.then((x)=>obj.);
             pposPromisesArray.push(obj);
         }
-        
+
         const allDone: Promise<X[][]> = Promise.all(pposPromisesArray);
 
         const promiseToFlatten: Promise<X[]> = allDone.then(
-            
+
             (arrayOfResults: X[][]) => {
                 let flat: X[] = _.flatten(arrayOfResults);
                 console.log("parsed " + arrayOfResults.length + "  files, total objects: " + flat.length);

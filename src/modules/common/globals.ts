@@ -138,22 +138,36 @@ export class Project {
         return reader.readFunctionsMap(path.dirname(project.analysisDir), readFunctionsMapTracker)
             .then((functions: xml.CFunction[]) => {
 
-                // console.log("readFunctionsMap complete");
-
                 let resultingMap = new xml.FunctionsMap(functions);
 
                 project.functionByFile = reader.buildFunctionsByFileMap(functions);
                 let result: Promise<XmlAnalysis> = reader.readDir(project.analysisDir, resultingMap, readDirTracker);
+                
                 return result;
             })
             .then((POs: XmlAnalysis) => {
                 project.proofObligations = sortPoNodes(POs.ppos.concat(POs.spos));
+              
                 project.apis = POs.apis;
 
                 project.save();
 
                 return project;
             });
+    }
+
+    public findOldestPo(){
+        let mintime=Date.now;
+        let oldestPo:ProofObligation;
+        for (let po of this.proofObligations){
+            if(po.discharge && po.discharge.time ){
+                if(po.discharge.time.getMilliseconds < mintime){
+                    mintime=po.discharge.time.getMilliseconds;
+                    oldestPo=po;
+                }
+            }
+        }
+        return oldestPo;
     }
 
     public save(): string {
