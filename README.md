@@ -9,6 +9,8 @@
   - [Tabs](#tabs)
     - [Summary](#summary)
     - [Source code view](#source-code-view)
+    - [Proof obligations list](#proof-obligations-list)
+    - [Assumptions list](#assumptions-list)
     - [Assumptions Graph.](#assumptions-graph)
 - [Contributing.](#contributing)
   - [Building the project.](#building-the-project)
@@ -40,6 +42,10 @@ This section allows you to see proof obligations right in the C source code. Eac
 
 ![Source code view](/docs/source.png)
 
+### Proof obligations list
+TODO:
+### Assumptions list
+TODO:
 ### Assumptions Graph.
 The grpah shows Proof Obligations, assumptions and relationship beween them. Each graph nore represents either a proof obligation, or assumption or a group. The nodes are groupped by file/function/predicate. You my open a group either by double clicking it or by clicking the "plus" top-right button.
 Proof obligat
@@ -52,4 +58,8 @@ When node is
 
 # Contributing.
 ## Building the project.
-TODO:
+1. Install node.js if you dont have it installed yet. https://nodejs.org/en/download/
+2. $ `git clone https://github.com/kestreltechnology/electron-kt-advance.git`
+3. $ `cd electron-kt-advance`
+4. $ `npm install`
+5. TODO:
