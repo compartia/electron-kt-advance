@@ -47,7 +47,7 @@ TODO:
 ### Assumptions list
 TODO:
 ### Assumptions Graph.
-The grpah shows Proof Obligations, assumptions and relationship beween them. Each graph nore represents either a proof obligation, or assumption or a group. The nodes are groupped by file/function/predicate. You my open a group either by double clicking it or by clicking the "plus" top-right button.
+The grpah shows Proof Obligations, assumptions and relationship beween them. Each graph node represents either a proof obligation, or assumption or a group. The nodes are groupped by file/function/predicate. You my open a group either by double clicking it or by clicking the "plus" top-right button.
 Proof obligat
 When node is
 ![Assumptions graph](/docs/graph.png)
