@@ -1,4 +1,4 @@
-import { contains, uniq } from "lodash";
+import { contains, uniq, sortBy, sum } from "lodash";
 
 export function isEmpty<T>(set_: AnySet<T>): boolean {
     return set_ === null || set_ === undefined || set_.isEmpty();
@@ -12,7 +12,7 @@ export interface NamedArray<X> {
 }
 
 export class StatsTable<T> {
-    
+
     data: { [key: string]: { [key: string]: number } } = {};
     bindings: { [key: string]: T } = {};
     columnNames: Array<string> = new Array();
@@ -25,7 +25,7 @@ export class StatsTable<T> {
             let divider: number = dividerTable.getAt(rowName, dividerColumn);
 
             for (let colKey in row) {
-                if (_.contains(columns, colKey))
+                if (contains(columns, colKey))
                     var val = row[colKey];
 
                 if (divider) {
@@ -45,7 +45,7 @@ export class StatsTable<T> {
             let row = this.data[rowName];
 
             for (let colKey in row) {
-                if (_.contains(columns, colKey))
+                if (contains(columns, colKey))
                     var val = row[colKey];
                 func(rowName, colKey, val);
             }
@@ -82,7 +82,7 @@ export class StatsTable<T> {
             dataset[column] += increment;
         }
 
-        if (!_.contains(this.columnNames, column)) {
+        if (!contains(this.columnNames, column)) {
             this.columnNames.push(column);
         }
     }
@@ -125,13 +125,13 @@ export class StatsTable<T> {
 
     public getTopRows(count: number, columns?: string[]): Array<NamedArray<T>> {
         let allrows = this.asNamedRowsTable(columns);
-        let arr = _.sortBy(allrows, (x) => -_.sum(x["values"]));
+        let arr = sortBy(allrows, (x) => - sum(x["values"]));
         return arr.splice(0, count);
     }
 
     public getRowsSorted(columns?: string[]): Array<NamedArray<T>> {
         let allrows = this.asNamedRowsTable(columns);
-        let arr = _.sortBy(allrows, (x) => -_.sum(x["values"]));
+        let arr = sortBy(allrows, (x) => -sum(x["values"]));
         return arr;
     }
 

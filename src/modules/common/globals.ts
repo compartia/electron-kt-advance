@@ -156,20 +156,6 @@ export class Project {
             });
     }
 
-    public findOldestPo(){
-        let mintime=Date.now;
-        let oldestPo:ProofObligation;
-        for (let po of this.proofObligations){
-            if(po.discharge && po.discharge.time ){
-                if(po.discharge.time.getMilliseconds < mintime){
-                    mintime=po.discharge.time.getMilliseconds;
-                    oldestPo=po;
-                }
-            }
-        }
-        return oldestPo;
-    }
-
     public save(): string {
         const stats = new Stats();
         stats.build(this.proofObligations);

@@ -40,7 +40,10 @@ class TestFilter {
                 assert.equal(project.proofObligations.length, project.filteredProofObligations.length, "zero- filter must not remove POs");
                 done();
             }
-        );
+        ).catch((e)=>{
+            console.log(e.stack);
+            done(e);
+        });
     }
 
 
