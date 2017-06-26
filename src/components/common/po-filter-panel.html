@@ -211,11 +211,11 @@
 
             _click: function(event) {
                 if (event.srcElement == this.$.btnv) {
-                    this.set("filter.states", new util.StringSet([model.PoStates.violation]));
+                    this.set("filter.states", new collections.StringSet([model.PoStates.violation]));
                 } else if (event.srcElement == this.$.btnd) {
-                    this.set("filter.states", new util.StringSet([model.PoStates.discharged]));
+                    this.set("filter.states", new collections.StringSet([model.PoStates.discharged]));
                 } else if (event.srcElement == this.$.btno) {
-                    this.set("filter.states", new util.StringSet([model.PoStates.open]));
+                    this.set("filter.states", new collections.StringSet([model.PoStates.open]));
                 }
             }
         });

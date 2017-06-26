@@ -116,9 +116,9 @@
 
             selectAllNoValues: function(event) {
                 if (this.allSelected(this.allValues.length, this.selectedValues.length)) {
-                    this.set("selectedValues", new util.StringSet([]));
+                    this.set("selectedValues", new collections.StringSet([]));
                 } else {
-                    this.set("selectedValues", new util.StringSet(this.allValues));
+                    this.set("selectedValues", new collections.StringSet(this.allValues));
                 }
 
                 this.notifyPath("selectedValues.length");

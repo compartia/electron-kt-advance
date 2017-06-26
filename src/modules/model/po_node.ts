@@ -203,6 +203,7 @@ export
     type: string;
     assumptions: Array<any>;
     violation: boolean = false;
+    time: Date;
 
     constructor() {
         super();
