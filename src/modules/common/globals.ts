@@ -10,7 +10,7 @@ import { Stats } from '../stats/stats';
 import { Filter, PO_FILTER } from './filter';
 import { buildGraph } from '../graph_builder'
 
-import { getChDir, selectDirectory } from "./fs"
+import { getChDir} from "xml-kt-advance/lib/common/fs"
 
 import * as tf from '../tf_graph_common/lib/common'
 import * as util from '../tf_graph_common/lib/util'
@@ -19,7 +19,9 @@ import { NodeDef } from '../tf_graph_common/lib/proto'
 
 const path = require('path');
 const fs = require('fs');
-const xml1 = require('xml-kt-advance');
+const dialog = require('electron').remote.dialog;
+
+
 
 export const CH_DIR: string = "ch_analysis";
 
@@ -122,7 +124,7 @@ export class Project {
         tracker.setMessage("reading XML data");
 
         const readFunctionsMapTracker = tracker.getSubtaskTracker(10, 'Reading functions map (*._cfile.xml)');
-        const readDirTracker = tracker.getSubtaskTracker(90, 'Reading Proof Oblications data');
+        const readDirTracker = tracker.getSubtaskTracker(90, 'Reading Proof Obligations data');
 
         /**
          * loading old stats
@@ -333,6 +335,13 @@ export function onBigArray<X>(array: Array<X>, op: (x: Array<X>) => Array<X>, tr
     }
 
     return ret;
+}
+
+function selectDirectory(): any {
+    let dir = dialog.showOpenDialog({
+        properties: ['openDirectory']
+    });
+    return dir;
 }
 
 export function openNewProject(tracker: tf.ProgressTracker): Project {
