@@ -1,6 +1,6 @@
 const assert = require('assert');
 
-import { ProofObligation  } from "./model/po_node"
+import { ProofObligation  } from "xml-kt-advance/lib/model/po_node"
 import { Filter  } from "./common/filter"
 import { GraphSettings  } from "./common/globals"
 

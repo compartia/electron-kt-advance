@@ -1,11 +1,11 @@
 import * as _ from "lodash"
 import { CONF, loadProjectMayBe } from './storage';
 
-import *  as xml from '../xml/xml_types';
-import { XmlReader, XmlAnalysis } from '../xml/xml_reader';
+import *  as xml from 'xml-kt-advance/lib/xml/xml_types';
+import { XmlReader, XmlAnalysis } from 'xml-kt-advance/lib/xml/xml_reader';
 
-import { ProofObligation, AbstractNode, sortPoNodes } from '../model/po_node';
-import { ApiNode } from '../model/api_node';
+import { ProofObligation, AbstractNode, sortPoNodes } from 'xml-kt-advance/lib/model/po_node';
+import { ApiNode } from 'xml-kt-advance/lib/model/api_node';
 import { Stats } from '../stats/stats';
 import { Filter, PO_FILTER } from './filter';
 import { buildGraph } from '../graph_builder'
@@ -19,6 +19,7 @@ import { NodeDef } from '../tf_graph_common/lib/proto'
 
 const path = require('path');
 const fs = require('fs');
+const xml1 = require('xml-kt-advance');
 
 export const CH_DIR: string = "ch_analysis";
 
@@ -120,8 +121,8 @@ export class Project {
 
         tracker.setMessage("reading XML data");
 
-        const readFunctionsMapTracker = util.getSubtaskTracker(tracker, 10, 'Reading functions map (*._cfile.xml)');
-        const readDirTracker = util.getSubtaskTracker(tracker, 90, 'Reading Proof Oblications data');
+        const readFunctionsMapTracker = tracker.getSubtaskTracker(10, 'Reading functions map (*._cfile.xml)');
+        const readDirTracker = tracker.getSubtaskTracker(90, 'Reading Proof Oblications data');
 
         /**
          * loading old stats
@@ -142,12 +143,12 @@ export class Project {
 
                 project.functionByFile = reader.buildFunctionsByFileMap(functions);
                 let result: Promise<XmlAnalysis> = reader.readDir(project.analysisDir, resultingMap, readDirTracker);
-                
+
                 return result;
             })
             .then((POs: XmlAnalysis) => {
                 project.proofObligations = sortPoNodes(POs.ppos.concat(POs.spos));
-              
+
                 project.apis = POs.apis;
 
                 project.save();
@@ -254,7 +255,7 @@ export class Project {
         this._filteredAssumptions = null;
 
         this.filterProofObligations(filter);
-        this.filterAssumptions();       
+        this.filterAssumptions();
     }
 
     private filterProofObligations(_filter: Filter): void {
