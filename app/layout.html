@@ -358,10 +358,10 @@
             _onProjectLoaded(event) {
                 console.info("_onProjectLoaded: " + event);
                 treeview.build(this.$$("#treeview"), this.currentProject.baseDir);
-                this.set("filter.predicates", new util.StringSet(this.currentProject.allPredicates));
-                this.set("filter.levels", new util.StringSet(model.PoLevels));
-                this.set("filter.states", new util.StringSet(model.PoStatesArr));
-                this.set("filter.dischargeTypes", new util.StringSet(model.PoDischargeTypesArr));
+                this.set("filter.predicates", new collections.StringSet(this.currentProject.allPredicates));
+                this.set("filter.levels", new collections.StringSet(model.PoLevels));
+                this.set("filter.states", new collections.StringSet(model.PoStatesArr));
+                this.set("filter.dischargeTypes", new collections.StringSet(model.PoDischargeTypesArr));
                 this.notifyPath("currentProject.allPredicates");
             },
 

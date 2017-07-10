@@ -1,6 +1,6 @@
 const assert = require('assert');
 
-import { AnySet, StringSet } from "./util"
+import { AnySet, StringSet } from "./collections"
 import { suite, test, slow, timeout } from "mocha-typescript";
 
 
