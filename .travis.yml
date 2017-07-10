@@ -5,7 +5,6 @@ language: c
 matrix:
   include:
   - os: osx
-  # - os: linux
     env: CC=clang CXX=clang++ npm_config_clang=1
     compiler: clang
 cache:
@@ -34,3 +33,7 @@ branches:
   - "/^v\\d+\\.\\d+\\.\\d+$/"
 notifications:
   slack: kestreltechnology:QcOSfR0bHUi92kqkmioIsT4H
+env:
+  global:
+  - secure: jpDoUXW+wc6AwzfCtLuUrinGEls65gw3htOq/pngjtwSg+jj0rjjSpThTJ1ATTHKwyN2FlusqwYp5LCMuyjagnrXdWgSZNqhZoyyabAKujO1Wfj9h//iwFJnPSkGUycfZOY2a5LJQLvpPYemMnIHO2TyZW1X3vstClJ+pktoKrMle5xrdsrA4z+WtAZIxV2ZFZiVxZufpDgBkcsnvvRTCnKUnaFM1uQRnsvfyUF5v1pOkeIcOZA8q/FQ1WWcF7S1DFFVAOYHRnrax4UmzyX+jLYc4r3jQuT+ygGiP1w5MfArvsaTBqpobjGO1MWm6lmEc4AK4pDFIZYPi8TfmsxakTwP6YyibAhtzwXzaua5z/CIjzOAFLEa40hpseb6OoiYane6izVJA9RKC9aWK12IBRowFmTHIkB3RzW5UtrNL4zajSWDnPB8y4HvJjuahveE2WfMy+fkJNsVSyJizykoQAVWb9JgCQS2e1nNNcIFZvb8aEJ0HxEyAQBxN+8n5BOGMr9uVpVkjIhmLE7rfZmT/IIzBS95NGG7QNuGYxyouaGdW6KP+fpPKdbNe6DLeluO9CVRld7uZHw/zA7gqPDl9y9gwzZ/lJsco1gyHjiOC8M2lvaSoObxJH38eatUiQrkVgxLxNWG1LfLpGvdh+Xs8QfMxRr+4kq8/mSCylKp8+Q=
+  - secure: PQkakzSEI9EDfeu+NPMuLufV4a48Il4XJZEyGMIWAWfVm2TNyiD0+zfqmSA2Y7/G8dQ6ih3g1M5+ojnrpOF3Y8e0NPrZ0zNyZ9ZMmgAlxWTjuUz1VqOGuzLbvs9Qwyehclof2pEWLZuBuCx1QuKqOyiotG1Ow08wHaqahYC+uxn44AeXbe/pda/Og8TS0iADyLQvNE1uvJnQsuY+Jah7GGe38zu4LG/VY9pCFA6XOC6H9ifTS1Y6v7VqkjjRXaHHqWPVSPsNx6oEio2A3AUydIY8eD1Wt8H/XhQlxduuKWPG4gXYO+usZ2FLojQz2e8Wk1du/bv2h0UNW+BdF/fAvC3EjLd8Q/BOFY/nc2KikApXjMLcGMR+mpkDxDyemzfhVl/h8rLkSYaL2FrQpmoKsi9HRdY7RCH9S1+kCHCGP6j8zHLexuopEsVQazPf2XncyHR0GywAMSmNUBmJCFbr5yXoL/m/7/ZL0bpJtM3y5jh1B98x/0en6WbtjqTtlXitZgC7u0HmDI/IDnnPmqNR0pDEJZ2vrarsKkMe04yWJYdMW60NYItW4JWR/id1WMFj/vnqsbtqy9arJBYrhw1FefKmm2/ROR+tli/dUK8zPQw1V85JIar/iXgaMrYPquboyjVPltInwph84Cnz668HkDmy34e9cicvKElwpY4LbfA=
