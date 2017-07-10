@@ -3,6 +3,7 @@ import { CONF, loadProjectMayBe } from './storage';
 
 import *  as xml from 'xml-kt-advance/lib/xml/xml_types';
 import { XmlReader, XmlAnalysis } from 'xml-kt-advance/lib/xml/xml_reader';
+import * as kt_fs from 'xml-kt-advance/lib/common/fs';
 
 import { ProofObligation, AbstractNode, sortPoNodes } from 'xml-kt-advance/lib/model/po_node';
 import { ApiNode } from 'xml-kt-advance/lib/model/api_node';
@@ -10,7 +11,7 @@ import { Stats } from '../stats/stats';
 import { Filter, PO_FILTER } from './filter';
 import { buildGraph } from '../graph_builder'
 
-import { getChDir} from "xml-kt-advance/lib/common/fs"
+import { getChDir } from "xml-kt-advance/lib/common/fs"
 
 import * as tf from '../tf_graph_common/lib/common'
 import * as util from '../tf_graph_common/lib/util'
@@ -77,10 +78,6 @@ export function unzipPoGroup(byFileFuncGroup: { [key: string]: { [key: string]: 
 }
 
 
-export interface FileContents {
-    src: string;
-}
-
 export class JsonReadyProject {
     baseDir: string;
     analysisDir: string;
@@ -113,9 +110,6 @@ export class Project {
     public buildGraph(filter: Filter): NodeDef[] {
         return buildGraph(filter, this);
     }
-
-
-
 
     public readAndParse(tracker: tf.ProgressTracker): Promise<Project> {
         const project: Project = this;
@@ -187,50 +181,15 @@ export class Project {
         return ret;
     }
 
-    public loadFile(relativePath: string): Promise<FileContents> {
-        let self = this;
-        let filename = path.join(this.baseDir, relativePath);
-        console.info("reading " + filename);
-
-        return new Promise((resolve, reject) => {
-
-            fs.readFile(filename, 'utf8', (err, data: string) => {
-                if (err) {
-                    console.log(err);
-                    reject(null);
-                } else {
-                    let fileContents = {
-                        lines: self.parseSourceFile(data)
-                    }
-                    resolve(fileContents);
-                }
-                // data is the contents of the text file we just read
-            });
-        });
-    }
-
-    private parseSourceFile(contents: string) {
-        //XXX: types!!
-        let lines = contents.split(/\r\n|\r|\n/g);
-        let ret = [];
-        let index = 1;
-        for (let line of lines) {
-            ret.push({
-                index: index,
-                text: line,
-                stats: {
-                    violations: 0,
-                    open: 0
-                }
-            });
-            index++;
-        }
-        return ret;
+    public loadFile(relativePath: string): Promise<kt_fs.FileContents> {
+        return kt_fs.loadFile(this.baseDir, relativePath);
     }
 
     set apis(_apis) {
         this._apis = _apis;
     }
+
+
 
     get proofObligations(): Array<ProofObligation> {
         return this._proofObligations;
@@ -336,6 +295,7 @@ export function onBigArray<X>(array: Array<X>, op: (x: Array<X>) => Array<X>, tr
 
     return ret;
 }
+
 
 function selectDirectory(): any {
     let dir = dialog.showOpenDialog({
