@@ -3,7 +3,7 @@
 <dom-module id="source-view">
 
     <template>
-
+        
         <vaadin-split-layout id="verticalSplitter" class$="splitter-3 [[getSplitterClass(dependentAssumptionsIn, dependentAssumptionsOut)]]" >
 
             <div id="scrollable" class="main">
@@ -23,7 +23,7 @@
                                     <span id="line-number">[[item.index]]</span>
                                     <node-decorator show-count="true" statistics="[[_getStatsByLine(_loadedFile, index, statistics)]]"></node-decorator>
                                 </span>
-                                <pre class="text">[[item.text]]</pre>
+                                <source-line code="[[item.text]]" lang="clike"></source-line>
                             </div>
 
                             <template is="dom-if" if="{{showAtLinePos(item, selected)}}">
