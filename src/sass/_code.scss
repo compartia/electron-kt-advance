@@ -75,11 +75,6 @@ source-view {
         margin-left: $spacer !important;
     }
 
-    // .code-line.violation {
-    //     background: var(--kt-state-violation-default-hover-bg);
-    // }
-
-
     .code-line-wrapper.selected{
         background: $selection-md-bg!important;
     }
@@ -126,15 +121,6 @@ source-view {
             min-width  : $line-number-width;
             color      : $grey-lighter;
         }
-
-        // #po-count {
-        //     padding    : $spacer/2;
-        //     display    : flex;
-        //     align-items: center;
-        //
-        //     min-width  : 1.5em;
-        //     color      : var(--kt-grey);
-        // }
 
         pre.text {
             font-size     : $font-size-xs;

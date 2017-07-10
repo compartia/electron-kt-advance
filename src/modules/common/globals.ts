@@ -1,25 +1,26 @@
 import * as _ from "lodash"
-import { CONF } from './storage';
+import { CONF, loadProjectMayBe } from './storage';
 
-import *  as xml from '../xml/xml_types';
-import { XmlReader, XmlAnalysis } from '../xml/xml_reader';
+import *  as xml from 'xml-kt-advance/lib/xml/xml_types';
+import { XmlReader, XmlAnalysis } from 'xml-kt-advance/lib/xml/xml_reader';
 
-import { ProofObligation, AbstractNode, sortPoNodes } from '../model/po_node';
-import { ApiNode } from '../model/api_node';
+import { ProofObligation, AbstractNode, sortPoNodes } from 'xml-kt-advance/lib/model/po_node';
+import { ApiNode } from 'xml-kt-advance/lib/model/api_node';
 import { Stats } from '../stats/stats';
 import { Filter, PO_FILTER } from './filter';
 import { buildGraph } from '../graph_builder'
 
-import { getChDir, selectDirectory } from "./fs"
+import { getChDir} from "xml-kt-advance/lib/common/fs"
 
 import * as tf from '../tf_graph_common/lib/common'
 import * as util from '../tf_graph_common/lib/util'
 import { NodeDef } from '../tf_graph_common/lib/proto'
 
 
-
 const path = require('path');
 const fs = require('fs');
+const dialog = require('electron').remote.dialog;
+
 
 
 export const CH_DIR: string = "ch_analysis";
@@ -91,6 +92,10 @@ export class Project {
     baseDir: string;
     analysisDir: string;
     stats: Stats;
+    /**
+     * previously saved statistics
+     */
+    oldstats: Stats;
 
     _proofObligations: Array<ProofObligation> = [];
     _filteredProofObligations: Array<ProofObligation> = null;
@@ -109,29 +114,43 @@ export class Project {
         return buildGraph(filter, this);
     }
 
+
+
+
     public readAndParse(tracker: tf.ProgressTracker): Promise<Project> {
         const project: Project = this;
         let reader: XmlReader = new XmlReader();
 
         tracker.setMessage("reading XML data");
 
-        const readFunctionsMapTracker = util.getSubtaskTracker(tracker, 10, 'Reading functions map (*._cfile.xml)');
-        const readDirTracker = util.getSubtaskTracker(tracker, 90, 'Reading Proof Oblications data');
+        const readFunctionsMapTracker = tracker.getSubtaskTracker(10, 'Reading functions map (*._cfile.xml)');
+        const readDirTracker = tracker.getSubtaskTracker(90, 'Reading Proof Obligations data');
+
+        /**
+         * loading old stats
+         */
+        const previouslySavedData: JsonReadyProject = loadProjectMayBe(this.baseDir);
+        if (previouslySavedData) {
+            this.oldstats = previouslySavedData.stats;
+            if (this.oldstats) {
+                console.log("old stats was saved at " + this.oldstats.date);
+            }
+        }
 
 
         return reader.readFunctionsMap(path.dirname(project.analysisDir), readFunctionsMapTracker)
             .then((functions: xml.CFunction[]) => {
 
-                // console.log("readFunctionsMap complete");
-
                 let resultingMap = new xml.FunctionsMap(functions);
 
                 project.functionByFile = reader.buildFunctionsByFileMap(functions);
                 let result: Promise<XmlAnalysis> = reader.readDir(project.analysisDir, resultingMap, readDirTracker);
+
                 return result;
             })
             .then((POs: XmlAnalysis) => {
                 project.proofObligations = sortPoNodes(POs.ppos.concat(POs.spos));
+
                 project.apis = POs.apis;
 
                 project.save();
@@ -141,9 +160,9 @@ export class Project {
     }
 
     public save(): string {
-
         const stats = new Stats();
-        stats.build(this.proofObligations, this.proofObligations);
+        stats.build(this.proofObligations);
+        stats.filteredOutCount = 0;
 
         const jsonReadyProject: JsonReadyProject = this.toJsonReadyProject();
         jsonReadyProject.stats = stats;
@@ -232,7 +251,7 @@ export class Project {
         return false;
     }
 
-    public applyFilter(filter): void {
+    public applyFilter(filter: Filter): void {
 
         this._filteredProofObligations = null;
         this._filteredAssumptions = null;
@@ -295,7 +314,8 @@ export class Project {
 
     public buildStatistics(): Stats {
         this.stats = new Stats();
-        this.stats.build(this.proofObligations, this.filteredProofObligations);
+        this.stats.build(this.filteredProofObligations);
+        this.stats.filteredOutCount = this.proofObligations.length - this.filteredProofObligations.length;
         return this.stats;
     }
 }
@@ -315,6 +335,13 @@ export function onBigArray<X>(array: Array<X>, op: (x: Array<X>) => Array<X>, tr
     }
 
     return ret;
+}
+
+function selectDirectory(): any {
+    let dir = dialog.showOpenDialog({
+        properties: ['openDirectory']
+    });
+    return dir;
 }
 
 export function openNewProject(tracker: tf.ProgressTracker): Project {

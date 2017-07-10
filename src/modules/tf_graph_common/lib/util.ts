@@ -19,6 +19,8 @@ limitations under the License.
 
 import * as tf from './common'
 import {NodeStats} from './graph'
+import { ProgressTracker , getSubtaskTracker} from "xml-kt-advance";
+
 
   /**
    * Recommended delay (ms) when running an expensive task asynchronously
@@ -42,7 +44,7 @@ import {NodeStats} from './graph'
    * property is an object with a numerical 'value' property and a
    * string 'msg' property.
    */
-  export function getTracker(polymerComponent: any) {
+  export function getTracker(polymerComponent: any) : ProgressTracker{
     return {
       setMessage: function(msg) {
         polymerComponent.set(
@@ -62,39 +64,13 @@ import {NodeStats} from './graph'
             'progress',
             {value: polymerComponent.progress.value, msg: msg, error: true});
       },
+      getSubtaskTracker: function (impactOnTotalProgress, subtaskMsg) {
+            return getSubtaskTracker(this, impactOnTotalProgress, subtaskMsg);
+        }
     };
   }
 
-  /**
-   * Creates a tracker for a subtask given the parent tracker, the total
-   * progress
-   * of the subtask and the subtask message. The parent task should pass a
-   * subtracker to its subtasks. The subtask reports its own progress which
-   * becames relative to the main task.
-   */
-  export function getSubtaskTracker(
-      parentTracker: tf.ProgressTracker, impactOnTotalProgress: number,
-      subtaskMsg: string): tf.ProgressTracker {
-    return {
-      setMessage: function(progressMsg) {
-        // The parent should show a concatenation of its message along with
-        // its subtask tracker message.
-        parentTracker.setMessage(subtaskMsg + ': ' + progressMsg);
-      },
-      updateProgress: function(incrementValue) {
-        // Update the parent progress relative to the child progress.
-        // For example, if the sub-task progresses by 30%, and the impact on the
-        // total progress is 50%, then the task progresses by 30% * 50% = 15%.
-        parentTracker.updateProgress(
-            incrementValue * impactOnTotalProgress / 100);
-      },
-      reportError: function(msg: string, err: Error) {
-        // The parent should show a concatenation of its message along with
-        // its subtask error message.
-        parentTracker.reportError(subtaskMsg + ': ' + msg, err);
-      }
-    };
-  }
+   
 
   /**
    * Runs an expensive task and return the result.

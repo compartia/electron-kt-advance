@@ -1,11 +1,11 @@
-import { CFunction, FileInfo } from '../xml/xml_types';
-import { ApiNode } from '../model/api_node';
-import { ProofObligation, PoStates, AbstractNode } from '../model/po_node';
-import { StringSet, AnySet, isEmpty } from './util';
+import { CFunction, FileInfo } from 'xml-kt-advance/lib/xml/xml_types';
+import { ApiNode } from 'xml-kt-advance/lib/model/api_node';
+import { ProofObligation, PoStates, AbstractNode, PoStatesArr, PoDischargeTypesArr } from 'xml-kt-advance/lib/model/po_node';
+import { StringSet, AnySet, isEmpty } from './collections';
 
 
 
-const model = require('../model/po_node');
+// const model = require('xml-kt-advance/lib/model/po_node');
 
 
 export class Filter {
@@ -19,6 +19,20 @@ export class Filter {
     private _cfunction: CFunction;
     private _file: FileInfo;
     private _line: number = null;
+
+
+    /**
+     * true if filter acceps every-any-thing;
+     */
+    public isTransparent(): boolean {
+        // line is not counted because file is not selected;
+        return isEmpty(this._predicates) &&
+            isEmpty(this._states) &&
+            isEmpty(this._levels) &&
+            isEmpty(this._dischargeTypes)
+            && !this._cfunction
+            && !this._file;
+    }
 
     set line(line: number) {
         this._line = line;
@@ -102,8 +116,8 @@ export class Filter {
     public reset() {
         this._cfunction = null;
         this._file = null;
-        this._states.values = model.PoStatesArr;
-        this._dischargeTypes.values = model.PoDischargeTypesArr;
+        this._states.values = PoStatesArr;
+        this._dischargeTypes.values = PoDischargeTypesArr;
     }
 
     set cfunction(_cfunction: CFunction) {

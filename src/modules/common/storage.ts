@@ -5,6 +5,19 @@ const fs = require('fs');
 import { JsonReadyProject } from './globals';
 import { KT_VERSION } from '../../version';
 
+export function loadProjectMayBe(baseDir: string): JsonReadyProject {
+    const projectPath = path.join(baseDir, '.kt-gui.json');
+    try {
+        console.log ("reading "+projectPath);
+        const prjson = <JsonReadyProject>JSON.parse(fs.readFileSync(projectPath));
+        console.log ("OK");
+        return prjson;
+    } catch (error) {
+        console.warn("cannot read existing kt project stats: " + error);
+        return null;
+    }
+}
+
 export class Storage {
     data: any;
     _path: string;
@@ -75,7 +88,7 @@ export class Storage {
 
 
 
-export const CONF: Storage = new Storage({    
+export const CONF: Storage = new Storage({
     configName: 'user-preferences',
     defaults: {
         recentProjects: []
