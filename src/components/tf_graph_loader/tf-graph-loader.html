@@ -81,7 +81,7 @@
             });
 
             var tracker = graphutil.getTracker(this);
-            var readDataTracker = graphutil.getSubtaskTracker(tracker, 100, 'Reading Data');
+            var readDataTracker = tracker.getSubtaskTracker(100, 'Reading Data');
 
             this.filter.reset();
 
@@ -111,8 +111,8 @@
             this._setOutHierarchyParams(hierarchyParams);
 
 
-            var graphTracker = graphutil.getSubtaskTracker(tracker, 50, 'Linking nodes');
-            var hierarchyTracker = graphutil.getSubtaskTracker(tracker, 50, 'Namespace hierarchy');
+            var graphTracker = tracker.getSubtaskTracker( 50, 'Linking nodes');
+            var hierarchyTracker = tracker.getSubtaskTracker( 50, 'Namespace hierarchy');
 
             var nodes = project.buildGraph(this.filter);
 

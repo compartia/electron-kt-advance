@@ -275,7 +275,7 @@ Polymer({
       msg: ''
     });
     var tracker = graphutil.getTracker(this);
-    var hierarchyTracker = graphutil.getSubtaskTracker(tracker, 100,
+    var hierarchyTracker = tracker.getSubtaskTracker(100,
           'Namespace hierarchy');
     hierarchy.build(this.basicGraph, this.hierarchyParams, hierarchyTracker)
     .then(function(graphHierarchy) {

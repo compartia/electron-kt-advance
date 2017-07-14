@@ -1,0 +1,44 @@
+<!doctype html>
+<dom-module id='source-line'>
+    <template>
+        <style include="prism-theme-default">
+            pre {
+                padding: 0;
+                margin: 0;
+            }
+        </style>
+
+        <pre id="codeline" class="text"></pre>
+
+    </template>
+
+    <script>
+        Polymer({
+            is: 'source-line',
+
+            properties: {
+                code: {
+                    type: String,
+                    observer: '_render'
+                },
+
+                lang: {
+                    type: String
+                }
+            },
+
+            attached: function () {
+                this._render();
+            },
+
+            _render: function () {
+                this.$.codeline.innerHTML = this.highlight(this.code, this.lang);
+            },
+
+            highlight: function (code, lang) {
+                return this.fire('syntax-highlight', { code: code, lang: lang }).detail.code;
+            }
+        });
+    </script>
+
+</dom-module>

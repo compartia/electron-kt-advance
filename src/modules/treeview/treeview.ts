@@ -1,4 +1,4 @@
-import {FileInfo} from "../xml/xml_types"
+import { FileInfo } from "xml-kt-advance/lib/xml/xml_types"
 
 
 const path = require('path');

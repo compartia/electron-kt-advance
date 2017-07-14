@@ -23,19 +23,11 @@ limitations under the License.
    * to call the below-defined methods to notify the caller about the gradual
    * progress of the task.
    */
-  export interface ProgressTracker {
-    updateProgress(incrementValue: number): void;
-    setMessage(msg: string): void;
-    reportError(msg: string, err: Error): void;
+  import {ProgressTracker as ProgressTracker1} from 'xml-kt-advance/lib/common/util';
+ 
+  export interface ProgressTracker extends ProgressTracker1{
+   
   }
 
 
-export class ProgressTrackerDummie implements ProgressTracker {
-    public updateProgress(incrementValue: number): void { }
-    public setMessage(msg: string): void {
-        console.log("dummie tracker: " + msg);
-    }
-    public reportError(msg: string, err: Error): void {
-        console.error(msg);
-    }
-}
+ 

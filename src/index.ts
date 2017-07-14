@@ -1,9 +1,8 @@
 const globals = require('./modules/common/globals');
-const model = require('./modules/model/po_node');
+const model = require('xml-kt-advance/lib/model/po_node');
 const palette = require('./modules/common/palette');
 const filter = require('./modules/common/filter');
 const treeview = require('./modules/treeview/treeview');
-const util = require('./modules/common/util');
 const collections = require('./modules/common/collections');
 const graph_builder = require('./modules/graph_builder');
 

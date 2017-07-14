@@ -1,8 +1,8 @@
 import * as _ from "lodash"
 
-import *  as xml from '../xml/xml_types';
-import { ProofObligation, PoLevels, PoStates, Complexitiy } from '../model/po_node';
-import { ApiNode } from '../model/api_node';
+import *  as xml from 'xml-kt-advance/lib/xml/xml_types';
+import { ProofObligation, PoLevels, PoStates, Complexitiy } from 'xml-kt-advance/lib/model/po_node';
+import { ApiNode } from 'xml-kt-advance/lib/model/api_node';
 import { updateChart } from './chart';
 
 

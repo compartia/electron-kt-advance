@@ -1,8 +1,8 @@
-import { CFunction } from './xml/xml_types';
+import { CFunction } from 'xml-kt-advance/lib/xml/xml_types';
 import { Project, GraphSettings, GraphGrouppingOptions } from './common/globals'
 import { Filter } from './common/filter'
-import { ProofObligation, PoStates, sortNodes } from './model/po_node'
-import { ApiNode } from './model/api_node'
+import { ProofObligation, PoStates, sortNodes } from 'xml-kt-advance/lib/model/po_node'
+import { ApiNode } from 'xml-kt-advance/lib/model/api_node'
 import { NodeDef } from './tf_graph_common/lib/proto'
 
 const path = require('path');
