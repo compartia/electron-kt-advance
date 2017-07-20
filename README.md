@@ -25,31 +25,44 @@ TODO:
 
 ## Tabs
 ### Summary
-Shows project statistics charts.
+Shows summary statistics, by project, by file, or by function.
 - ##### Proof Obligations by type of discharge
 - ##### Proof Obligations by file
 - ##### Proof Obligations by function
-    lists top 20 function with the lagest number of associated proof obligations.
+    Lists top 20 function with the lagest number of associated proof obligations.
 - ##### Functions by control flow graph complexity. 
-    This chart shows top 10 of most complex functions.
+    This chart shows top 10 of the most control-flow-complex functions.
 - etc..
 
-
-
 ![Summary](/docs/summary.png)
-### Source code view
-This section allows you to see proof obligations right in the C source code. Each line of the code is marked with a number of associated proof obligations. 
+![Summary](/docs/summary%20by%20function.png)
 
+
+
+### Source Code View
+Shows C source code read-only, with analysis results applied. 
+Each line of code is marked with a number of associated proof obligations. 
 ![Source code view](/docs/source.png)
 
-### Proof obligations list
+When line is selected, the list of assotiated roof obligations is expanded.
+![Source code view](/docs/source%20line%20selected.png)
+
+
+
+### Proof Obligations List
 TODO:
-### Assumptions list
+Listing proof obligation by file/function in correspondence with the applied filter.
+### Assumptions List
 TODO:
 ### Assumptions Graph.
-The grpah shows Proof Obligations, assumptions and relationship beween them. Each graph node represents either a proof obligation, or assumption or a group. The nodes are groupped by file/function/predicate. You my open a group either by double clicking it or by clicking the "plus" top-right button.
-Proof obligat
-When node is
+The graph shows proof obligations, assumptions and relationship beween them. 
+Each node represents either a proof obligation, assumption, or a group. Nodes are groupped by file / function / predicate. 
+
+You can expand a group either by double clicking, or by clicking the "plus" top-right button.
+
+Orphan nodes are hidden. 
+
+
 ![Assumptions graph](/docs/graph.png)
 ![Selected graph node](/docs/graph%20selection.png)
 
@@ -58,8 +71,9 @@ When node is
 
 # Contributing.
 ## Building the project.
-1. Install node.js if you dont have it installed yet. https://nodejs.org/en/download/
+1. Install node.js, for details see  https://nodejs.org/en/download/
 2. $ `git clone https://github.com/kestreltechnology/electron-kt-advance.git`
 3. $ `cd electron-kt-advance`
 4. $ `npm install`
-5. TODO:
+
+TODO:
