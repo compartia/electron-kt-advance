@@ -1,7 +1,7 @@
 import { CFunction } from 'xml-kt-advance/lib/xml/xml_types';
 import { Project, GraphSettings, GraphGrouppingOptions } from './common/globals'
 import { Filter } from './common/filter'
-import { ProofObligation, PoStates, sortNodes, POLocation} from 'xml-kt-advance/lib/model/po_node'
+import { ProofObligation, PoStates, sortNodes, POLocation } from 'xml-kt-advance/lib/model/po_node'
 import { ApiNode, FunctionCalls } from 'xml-kt-advance/lib/model/api_node'
 import { NodeDef } from './tf_graph_common/lib/proto'
 
@@ -40,29 +40,45 @@ export function buildGraph(filter: Filter, project: Project): NodeDef[] {
 export function buildCallsGraph(filter: Filter, project: Project): NodeDef[] {
     const calls: FunctionCalls[] = project.calls;
 
-    let nodesMap:{[key:string]:NodeDef} = {};
+    let nodesMap: { [key: string]: NodeDef } = {};
 
 
     for (let call of calls) {
         if (call.callSites.length) {
-            const node = maybeMakeCallNode(call.cfunction, nodesMap);
-            for(let ref of call.callSites){
-                const refnode = maybeMakeCallNode(ref, nodesMap);
+            const node = findOrBuildFuncNode(call.cfunction, nodesMap);
+            for (let ref of call.callSites) {
+                const refnode = findOrBuildFuncNode(ref, nodesMap);
                 node.input.push(refnode.name);
             }
         }
     }
 
 
-    const ret: NodeDef[]=[];
-    for(let nm in nodesMap ){
+    const ret: NodeDef[] = [];
+    const keys: string[] = [];
+    for (let nm in nodesMap) {
         ret.push(nodesMap[nm]);
+        keys.push(nm);
     }
+
+    let _sharedStart: string = sharedStart(keys);
+    let _sharedStartLen = _sharedStart.length;
+    if (_sharedStartLen) {
+        for (let node of ret) {
+            node.name = node.name.substr(_sharedStartLen);
+            let newInputs = [];
+            for (let ref of node.input) {
+                newInputs.push(ref.substr(_sharedStartLen));
+            }
+            node.input = newInputs;
+        }
+    }
+
     console.info["NUMBER of call nodes: " + ret.length];
     return ret;
 }
 
-function maybeMakeCallNode(func: CFunction, nodesMap: {[key:string]:NodeDef}): NodeDef {
+function findOrBuildFuncNode(func: CFunction, nodesMap: { [key: string]: NodeDef }): NodeDef {
     const name = makeFunctionName(func);
     if (nodesMap[name]) {
         return nodesMap[name];
@@ -74,9 +90,18 @@ function maybeMakeCallNode(func: CFunction, nodesMap: {[key:string]:NodeDef}): N
 }
 
 function makeFunctionName(node: CFunction): string {
-    return node.file + "/" + node.name + "/" + node.line;
+    return node.file + "/" + node.name;// + "/" + node.line;
 }
 
+function sharedStart(array: string[]): string {
+    const A = array.concat().sort();
+    let a1 = A[0];
+    let a2 = A[A.length - 1];
+    let L = a1.length;
+    let i = 0;
+    while (i < L && a1.charAt(i) === a2.charAt(i)) i++;
+    return a1.substring(0, i);
+}
 
 export function makeGraphNodePath(filter: Filter, settings: GraphSettings, func: CFunction, predicate: string, name: string): string {
     let pathParts: string[] = [];
@@ -139,10 +164,10 @@ export function cFunctionToNodeDef(func: CFunction): NodeDef {
         name: makeFunctionName(func),
         input: [],
         output: [],
-        device: "po.extendedState",
+        device: PoStates[0] + "-" + "api",
         op: func.name,
         attr: {
-            "label": func.name+":"+func.line,
+            "label": func.name + ":" + func.line,
             // "apiId": po.apiId,
             "predicate": "--",
             "level": "I",
@@ -163,9 +188,9 @@ export function cFunctionToNodeDef(func: CFunction): NodeDef {
 /**
  * XXX: move to CFunction class
  */
-function funcLocation(func:CFunction):POLocation{
-    const l:POLocation=new POLocation();
-    l.textRange=[[func.line,0],[func.line,0]]; 
+function funcLocation(func: CFunction): POLocation {
+    const l: POLocation = new POLocation();
+    l.textRange = [[func.line, 0], [func.line, 0]];
     return l;
 }
 
