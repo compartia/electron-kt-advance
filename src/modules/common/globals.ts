@@ -6,10 +6,10 @@ import { XmlReader, XmlAnalysis } from 'xml-kt-advance/lib/xml/xml_reader';
 import * as kt_fs from 'xml-kt-advance/lib/common/fs';
 
 import { ProofObligation, AbstractNode, sortPoNodes } from 'xml-kt-advance/lib/model/po_node';
-import { ApiNode } from 'xml-kt-advance/lib/model/api_node';
+import { ApiNode, FunctionCalls } from 'xml-kt-advance/lib/model/api_node';
 import { Stats } from '../stats/stats';
 import { Filter, PO_FILTER } from './filter';
-import { buildGraph } from '../graph_builder'
+import { buildGraph, buildCallsGraph } from '../graph_builder'
 
 import { getChDir } from "xml-kt-advance/lib/common/fs"
 
@@ -99,6 +99,7 @@ export class Project {
     _filteredAssumptions: Array<ApiNode> = null;
 
     _apis: { [key: string]: ApiNode } = null;
+    calls: Array<FunctionCalls>;
 
     allPredicates: Array<string>;
 
@@ -146,7 +147,7 @@ export class Project {
                 project.proofObligations = sortPoNodes(POs.ppos.concat(POs.spos));
 
                 project.apis = POs.apis;
-
+                project.calls = POs.calls;
                 project.save();
 
                 return project;
