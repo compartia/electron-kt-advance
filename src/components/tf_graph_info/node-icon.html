@@ -4,7 +4,6 @@
             fill: url("#rectHatch");
             stroke: var(--tb-graph-faded) !important;
         }
-
     </style>
 
     <template>
@@ -13,7 +12,8 @@
             <template is="dom-if" if="[[_isRegularOp(node, const, summary)]]">
                 <svg height="100%" width="100%" preserveAspectRatio="none" viewBox="0 0 100 100">
                     <g>
-                        <rect id="rotable" x="0" y="0" fill$="[[_getFill(_computedFill, 'OP')]]" stroke$="none" class$="{{_fadedClass(renderInfo, 'rect')}}" height="100" width="100" rx="0" ry="0"/>
+                        <rect id="rotable" x="0" y="0" fill$="[[_getFill(_computedFill, 'OP')]]" stroke$="none" class$="{{_fadedClass(renderInfo, 'rect')}}"
+                            height="100" width="100" rx="0" ry="0" />
                     </g>
                 </svg>
             </template>
@@ -22,7 +22,8 @@
         <template is="dom-if" if="[[_isType(node, type, 'META')]]">
             <svg height="100%" width="100%" preserveAspectRatio="none" viewBox="0 0 100 100">
                 <g>
-                    <rect id="rotable" x="0" y="0" fill$="[[_getFill(_computedFill, 'META')]]" stroke$="none" class$="{{_fadedClass(renderInfo, 'rect')}}" height="100" width="100" rx="0" ry="0"/>
+                    <rect id="rotable" x="0" y="0" fill$="[[_getFill(_computedFill, 'META')]]" stroke$="none" class$="{{_fadedClass(renderInfo, 'rect')}}"
+                        height="100" width="100" rx="0" ry="0" />
                 </g>
 
             </svg>
@@ -31,37 +32,37 @@
     </template>
 
     <script>
-        (function() {
+        (function () {
             Polymer({
                 is: 'node-icon',
 
                 properties: {
                     /**
-           * Node to represent with an icon. Optional, but if specified, its
-           * properties override those defined in the type, vertical, const and
-           * summary properties.
-           * @type {graph.Node}
-           */
+                     * Node to represent with an icon. Optional, but if specified, its
+                     * properties override those defined in the type, vertical, const and
+                     * summary properties.
+                     * @type {graph.Node}
+                     */
                     node: {
                         type: Object,
                         value: null
                     },
 
                     /**
-           * Render node information associated with this node. Optional. If
-           * specified, this is only used when computing the fill of the icon
-           * element.
-           * @type {render.RenderNodeInfo}
-           */
+                     * Render node information associated with this node. Optional. If
+                     * specified, this is only used when computing the fill of the icon
+                     * element.
+                     * @type {render.RenderNodeInfo}
+                     */
                     renderInfo: {
                         type: Object,
                         value: null
                     },
 
                     /**
-           * String indicating the type of coloring to use for this node, used
-           * only for determining the fill.
-           */
+                     * String indicating the type of coloring to use for this node, used
+                     * only for determining the fill.
+                     */
                     colorBy: {
                         type: Object,
                         value: "structural"
@@ -91,11 +92,11 @@
                         value: false
                     },
 
-                        /**
-           * Fill for the icon, optional. If fill is specified and node is not
-           * specified, then this value will override the default for the
-           * element. However, if node is specified, this value will be ignored.
-           */
+                    /**
+                     * Fill for the icon, optional. If fill is specified and node is not
+                     * specified, then this value will override the default for the
+                     * element. However, if node is specified, this value will be ignored.
+                     */
                     fill: {
                         type: String,
                         value: null
@@ -115,10 +116,10 @@
 
                 },
 
-                    /**
-         * Get the computed fill value for the element.
-         */
-                _getComputedFill: function(inputNode, inputRenderInfo, inputColorBy, inputFill) {
+                /**
+                 * Get the computed fill value for the element.
+                 */
+                _getComputedFill: function (inputNode, inputRenderInfo, inputColorBy, inputFill) {
                     if (inputNode && inputRenderInfo && inputColorBy) {
                         var ns = scenenode;
                         var colorBy = ns.ColorBy[inputColorBy.toUpperCase()];
@@ -127,82 +128,82 @@
                     return inputFill;
                 },
 
-                    /**
-         * Get the fill value for the element, or if that's not possible, return
-         * the default fill value for the node type.
-         */
-                    _getFill: function(inputComputedFill, inputNodeType) {
-                        return inputComputedFill || ({OP: render.OpNodeColors.DEFAULT_FILL, META: render.MetanodeColors.DEFAULT_FILL, SERIES: render.SeriesNodeColors.DEFAULT_FILL})[inputNodeType];
-                    },
+                /**
+                 * Get the fill value for the element, or if that's not possible, return
+                 * the default fill value for the node type.
+                 */
+                _getFill: function (inputComputedFill, inputNodeType) {
+                    return inputComputedFill || ({ OP: render.OpNodeColors.DEFAULT_FILL, META: render.MetanodeColors.DEFAULT_FILL, SERIES: render.SeriesNodeColors.DEFAULT_FILL })[inputNodeType];
+                },
 
-                    /**
-         * Get the stroke value for the element, or if that's not possible,
-         * return the default stroke value for the node type.
-         */
-                    _getStroke: function(inputComputedFill, inputNodeType) {
-                        return inputComputedFill
-                            ? scenenode.getStrokeForFill(inputComputedFill)
-                            : ({OP: render.OpNodeColors.DEFAULT_STROKE, META: render.MetanodeColors.DEFAULT_STROKE, SERIES: render.SeriesNodeColors.DEFAULT_STROKE})[inputNodeType];
-                    },
+                /**
+                 * Get the stroke value for the element, or if that's not possible,
+                 * return the default stroke value for the node type.
+                 */
+                _getStroke: function (inputComputedFill, inputNodeType) {
+                    return inputComputedFill
+                        ? scenenode.getStrokeForFill(inputComputedFill)
+                        : ({ OP: render.OpNodeColors.DEFAULT_STROKE, META: render.MetanodeColors.DEFAULT_STROKE, SERIES: render.SeriesNodeColors.DEFAULT_STROKE })[inputNodeType];
+                },
 
-                    /**
-         * Test whether the specified node's type, or the literal type string,
-         * match a particular other type.
-         */
-                    _isType: function(inputNode, inputType, targetType) {
-                        if (inputNode) {
-                            return graph.NodeType[inputNode.type] === targetType;
-                        }
-                        return inputType === targetType;
-                    },
-
-                    /**
-         * Test whether the specified node should be represented as a vertical
-         * series. Defaults to the value of the vertical property if node is
-         * not specified.
-         */
-                    _isVertical: function(inputNode, inputVertical) {
-                        if (inputNode) {
-                            return inputNode.hasNonControlEdges;
-                        }
-                        return !!inputVertical;
-                    },
-
-                    /**
-         * Test whether the specified node is a constant. Defaults to the value
-         * of the const property if node is not specified.
-         */
-                    _isConst: function(inputNode, inputConst) {
-                        if (inputNode) {
-                            return inputNode.op === 'Const';
-                        }
-                        return !!inputConst;
-                    },
-
-                    /**
-         * Test whether the specified node is a summary. Defaults to the value
-         * of the summary property if node is not specified.
-         */
-                    _isSummary: function(inputNode, inputSummary) {
-                        if (inputNode) {
-                            return this._isType(inputNode, null, 'OP') && inputNode.op.substr(-7) === 'Summary';
-                        }
-                        return !!inputSummary;
-                    },
-
-                    /**
-         * Test whether the op node is a regular non-summary non-const node.
-         */
-                    _isRegularOp: function(inputNode, inputConst, inputSummary) {
-                        return !this._isConst(inputNode, inputConst) && !this._isSummary(inputNode, inputSummary);
-                    },
-
-                    _fadedClass: function(itemRenderInfo, shape) {
-                        return itemRenderInfo && itemRenderInfo.isFadedOut
-                            ? 'faded-' + shape
-                            : '';
+                /**
+                 * Test whether the specified node's type, or the literal type string,
+                 * match a particular other type.
+                 */
+                _isType: function (inputNode, inputType, targetType) {
+                    if (inputNode) {
+                        return graph.NodeType[inputNode.type] === targetType;
                     }
-                });
-            })();
+                    return inputType === targetType;
+                },
+
+                /**
+                 * Test whether the specified node should be represented as a vertical
+                 * series. Defaults to the value of the vertical property if node is
+                 * not specified.
+                 */
+                _isVertical: function (inputNode, inputVertical) {
+                    if (inputNode) {
+                        return inputNode.hasNonControlEdges;
+                    }
+                    return !!inputVertical;
+                },
+
+                /**
+                 * Test whether the specified node is a constant. Defaults to the value
+                 * of the const property if node is not specified.
+                 */
+                _isConst: function (inputNode, inputConst) {
+                    if (inputNode) {
+                        return inputNode.op === 'Const';
+                    }
+                    return !!inputConst;
+                },
+
+                /**
+                 * Test whether the specified node is a summary. Defaults to the value
+                 * of the summary property if node is not specified.
+                 */
+                _isSummary: function (inputNode, inputSummary) {
+                    if (inputNode) {
+                        return this._isType(inputNode, null, 'OP') && inputNode.op.substr(-7) === 'Summary';
+                    }
+                    return !!inputSummary;
+                },
+
+                /**
+                 * Test whether the op node is a regular non-summary non-const node.
+                 */
+                _isRegularOp: function (inputNode, inputConst, inputSummary) {
+                    return !this._isConst(inputNode, inputConst) && !this._isSummary(inputNode, inputSummary);
+                },
+
+                _fadedClass: function (itemRenderInfo, shape) {
+                    return itemRenderInfo && itemRenderInfo.isFadedOut
+                        ? 'faded-' + shape
+                        : '';
+                }
+            });
+        })();
     </script>
 </dom-module>
