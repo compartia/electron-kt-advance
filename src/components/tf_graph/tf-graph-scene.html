@@ -753,8 +753,8 @@ Polymer({
     this._edgeGroupIndex = {};
     this._updateLabels(false);
     // Remove all svg elements under the 'root' svg group.
-    
-    var svg = document.getElementById(this.svgId);
+        
+    var svg = this.$$('#'+this.svgId);
 
     d3.select(svg).select('#root').selectAll('*').remove();
     // And the defs.
@@ -770,8 +770,8 @@ Polymer({
       layout.layoutScene(renderHierarchy.root, this);
     }.bind(this));
 
-    graphutil.time('tf-graph-scene (build scene):', function() {
-      var svg = document.getElementById(this.svgId);
+    graphutil.time('tf-graph-scene (build scene):', function() {      
+      var svg = this.$$('#'+this.svgId);
       scene.buildGroup(d3.select(this.$.root), renderHierarchy.root, this);
       scene.addGraphClickListener(svg, this);
       scenenode.traceInputs(renderHierarchy);
@@ -823,7 +823,7 @@ Polymer({
         // Notify the minimap.
         //this.minimap.zoom(d3.event.translate, d3.event.scale);
       }.bind(this));
-    var svg = document.getElementById(this.svgId);
+    var svg = this.$$('#'+this.svgId);
     d3.select(svg).call(this._zoom)
       .on('dblclick.zoom', null);
     d3.select(window).on('resize', function() {
@@ -893,7 +893,7 @@ Polymer({
     }
   },
   fit: function() {
-    var svg = document.getElementById(this.svgId);
+    var svg = this.$$('#'+this.svgId);
     scene.fit(svg, this.$.root, this._zoom, function() {
       this._zoomed = false;
     }.bind(this));
@@ -1003,8 +1003,8 @@ Polymer({
       this.setNodeExpanded(topParentNodeToBeExpanded);
       this._zoomed = true;
     }
-    
-    var svg = document.getElementById(this.svgId);
+        
+    var svg = this.$$('#'+this.svgId);
     if (scene.panToNode(selectedNode, svg, this.$.root,
         this._zoom)) {
       this._zoomed = true;

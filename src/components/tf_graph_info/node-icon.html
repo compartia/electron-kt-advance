@@ -37,7 +37,12 @@
                 is: 'node-icon',
 
                 properties: {
-                    svgId: String,
+                    
+                    svgId: {
+                        type: String,
+                        value: null
+                    },
+
                     /**
                      * Node to represent with an icon. Optional, but if specified, its
                      * properties override those defined in the type, vertical, const and
@@ -120,11 +125,11 @@
                 /**
                  * Get the computed fill value for the element.
                  */
-                _getComputedFill: function (inputNode, inputRenderInfo, inputColorBy, inputFill) {
+                _getComputedFill: function (svgId, inputNode, inputRenderInfo, inputColorBy, inputFill) {
                     if (inputNode && inputRenderInfo && inputColorBy) {
                         var ns = scenenode;
                         var colorBy = ns.ColorBy[inputColorBy.toUpperCase()];
-                        return ns.getFillForNode(colorBy, inputRenderInfo, false);
+                        return ns.getFillForNode(svgId, colorBy, inputRenderInfo, false);
                     }
                     return inputFill;
                 },
