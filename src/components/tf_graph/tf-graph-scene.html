@@ -38,7 +38,7 @@ limitations under the License.
     font-size: 12px!important;
 }
 
-::content #svg {
+::content .svg-box {
   overflow: hidden;
   flex: 1;
   height: 100%;
@@ -529,7 +529,7 @@ limitations under the License.
   <div id="title" class="title">Main Graph</div>
   <div id="auxTitle" class="auxTitle">Auxiliary Nodes</div>
 </div>
-<svg id="svg">
+<svg id="[[svgId]]" class="svg-box">
   <defs>
 
     <linearGradient id='grad-edge-in'>
@@ -633,6 +633,7 @@ limitations under the License.
 Polymer({
   is: 'tf-graph-scene',
   properties: {
+    svgId:String,
     renderHierarchy: Object,
     name: String,
     colorBy: String,
@@ -752,21 +753,27 @@ Polymer({
     this._edgeGroupIndex = {};
     this._updateLabels(false);
     // Remove all svg elements under the 'root' svg group.
-    d3.select(this.$.svg).select('#root').selectAll('*').remove();
+    
+    var svg = document.getElementById(this.svgId);
+
+    d3.select(svg).select('#root').selectAll('*').remove();
     // And the defs.
-    d3.select(this.$.svg).select('defs #linearGradients')
+    d3.select(svg).select('defs #linearGradients')
         .selectAll('*').remove();
   },
   /** Main method for building the scene */
   _build: function(renderHierarchy) {
+   
+
     graphutil.time('tf-graph-scene (layout):', function() {
       // layout the scene for this meta / series node
       layout.layoutScene(renderHierarchy.root, this);
     }.bind(this));
 
     graphutil.time('tf-graph-scene (build scene):', function() {
+      var svg = document.getElementById(this.svgId);
       scene.buildGroup(d3.select(this.$.root), renderHierarchy.root, this);
-      scene.addGraphClickListener(this.$.svg, this);
+      scene.addGraphClickListener(svg, this);
       scenenode.traceInputs(renderHierarchy);
     }.bind(this));
     // Update the minimap again when the graph is done animating.
@@ -816,7 +823,8 @@ Polymer({
         // Notify the minimap.
         //this.minimap.zoom(d3.event.translate, d3.event.scale);
       }.bind(this));
-    d3.select(this.$.svg).call(this._zoom)
+    var svg = document.getElementById(this.svgId);
+    d3.select(svg).call(this._zoom)
       .on('dblclick.zoom', null);
     d3.select(window).on('resize', function() {
       // Notify the minimap that the user's window was resized.
@@ -835,6 +843,7 @@ Polymer({
     // Fit to screen after the graph is done animating.
     setTimeout(this.fit.bind(this), layout.PARAMS.animation.duration);
   },
+
   _updateLabels: function(showLabels) {
     var mainGraphTitleElement = this.getElementsByClassName('title')[0];
     var titleStyle = mainGraphTitleElement.style;
@@ -884,7 +893,8 @@ Polymer({
     }
   },
   fit: function() {
-    scene.fit(this.$.svg, this.$.root, this._zoom, function() {
+    var svg = document.getElementById(this.svgId);
+    scene.fit(svg, this.$.root, this._zoom, function() {
       this._zoomed = false;
     }.bind(this));
   },
@@ -927,15 +937,15 @@ Polymer({
   _updateNodeState: function(n) {
     var node = this.getNode(n);
     var nodeGroup = this.getNodeGroup(n);
+    var svgId = this.svgId;
 
     if (nodeGroup) {
-      scenenode.stylize(nodeGroup, node, this);
+      scenenode.stylize(svgId, nodeGroup, node, this);
     }
 
     var annotationGroupIndex = this.getAnnotationGroupsIndex(n);
     _.each(annotationGroupIndex, function(aGroup, hostName) {
-      scenenode.stylize(aGroup, node, this,
-          scene.Class.Annotation.NODE);
+      scenenode.stylize(svgId, aGroup, node, this, scene.Class.Annotation.NODE);
     }, this);
   },
 
@@ -993,8 +1003,9 @@ Polymer({
       this.setNodeExpanded(topParentNodeToBeExpanded);
       this._zoomed = true;
     }
-
-    if (scene.panToNode(selectedNode, this.$.svg, this.$.root,
+    
+    var svg = document.getElementById(this.svgId);
+    if (scene.panToNode(selectedNode, svg, this.$.root,
         this._zoom)) {
       this._zoomed = true;
     }

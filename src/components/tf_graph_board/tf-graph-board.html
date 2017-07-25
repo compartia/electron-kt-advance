@@ -107,6 +107,7 @@ Example
 <div class$="[[_getContainerClass(progress)]]">
   <div id="main">
     <tf-graph id="graph"
+              svg-id="[[svgId]]"
               graph-hierarchy="{{graphHierarchy}}"
               basic-graph="[[graph]]"
               hierarchy-params="[[hierarchyParams]]"
@@ -114,7 +115,7 @@ Example
               stats="[[stats]]"
               selected-node="{{_selectedNode}}"
               highlighted-node="{{_highlightedNode}}"
-              color-by="STATE"
+              color-by="[[colorBy]]"
               color-by-params="{{colorByParams}}"
               progress="{{progress}}"
     ></tf-graph>
@@ -131,7 +132,7 @@ Example
               selected-node="{{_selectedNode}}"
               selected-node-include="{{_selectedNodeInclude}}"
               highlighted-node="{{_highlightedNode}}"
-              color-by="STATE"
+              color-by="[[colorBy]]"
               color-by-params="[[colorByParams]]"
     ></tf-graph-info>
   </div>
@@ -149,6 +150,7 @@ Example
 
           properties: {
             // Public API.
+            svgId: String,
             graphHierarchy: Object,
             graph: Object,
             stats: Object,
@@ -185,18 +187,11 @@ Example
             '_updateNodeInclude(_selectedNode)'
           ],
 
-          /** True if the progress is not complete yet (< 100 %). */
-          _isNotComplete: function(progress) {
-            return progress.value < 100;
-          },
           _getContainerClass: function(progress) {
             var result = 'container';
             if (progress.error) {
               result += ' error';
             }
-            //if (this._isNotComplete(progress)) {
-            //  result += ' loading';
-            //}
             return result;
           },
           _updateNodeInclude: function(nodeName) {

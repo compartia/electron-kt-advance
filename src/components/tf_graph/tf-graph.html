@@ -48,7 +48,10 @@ paper-button {
 
   <div class="vertical">
 
-    <tf-graph-scene id="scene" class="auto"
+    <tf-graph-scene 
+          id="scene" 
+          class="auto"
+          svg-id="[[svgId]]"
           render-hierarchy="[[renderHierarchy]]"
           highlighted-node="[[_getVisible(highlightedNode)]]"
           selected-node="[[selectedNode]]"
@@ -66,6 +69,7 @@ Polymer({
   is: 'tf-graph',
 
   properties: {
+    svgId: String,
     graphHierarchy: {
       type: Object,
       notify: true,
@@ -110,20 +114,11 @@ Polymer({
     },
   },
   observers: [
-    // '_statsChanged(stats, devicesForStats)',
     '_buildRenderHierarchy(graphHierarchy)'
   ],
-  // _statsChanged: function(stats, devicesForStats) {
-  //   if (this.graphHierarchy && this.graphHierarchy.root) {
-  //   //   if (stats && devicesForStats) {
-  //   //     graph.joinStatsInfoWithGraph(this.basicGraph, stats, devicesForStats);
-  //   //     hierarchy.joinAndAggregateStats(this.graphHierarchy, stats);
-  //   //   }
-  //   //   // Recompute the rendering information.
-  //     this._buildRenderHierarchy(this.graphHierarchy);
-  //   }
-  // },
+
   _buildRenderHierarchy: function(graphHierarchy) {
+    var svgId = this.svgId;
     graphutil.time('new render.Hierarchy', function() {
         if(!graphHierarchy.root){
             return;
@@ -135,7 +130,7 @@ Polymer({
         return;
       }
       var renderGraph = new render.RenderGraphInfo(
-          graphHierarchy, false /** displayingStats */);
+          graphHierarchy, false, svgId);
       // Producing the 'color by' parameters to be consumed
       // by the tf-graph-controls panel. It contains information about the
       // min and max values and their respective colors, as well as list

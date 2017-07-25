@@ -27,7 +27,7 @@ const dialog = require('electron').remote.dialog;
 export const CH_DIR: string = "ch_analysis";
 
 export var TABS = [
-    'summary', 'source', 'proof obligations', 'assumptions', 'graphs', '?'
+    'summary', 'source', 'proof obligations', 'assumptions', 'graphs', 'calls','?'
 ];
 
 
@@ -112,6 +112,10 @@ export class Project {
         return buildGraph(filter, this);
     }
 
+    public buildCallsGraph(filter: Filter): NodeDef[] {
+        return buildCallsGraph(filter, this);
+    }
+
     public readAndParse(tracker: tf.ProgressTracker): Promise<Project> {
         const project: Project = this;
         let reader: XmlReader = new XmlReader();
@@ -189,7 +193,6 @@ export class Project {
     set apis(_apis) {
         this._apis = _apis;
     }
-
 
 
     get proofObligations(): Array<ProofObligation> {

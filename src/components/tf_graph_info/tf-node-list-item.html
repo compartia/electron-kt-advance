@@ -21,7 +21,9 @@ limitations under the License.
     <template>
         <div id="list-item" on-mouseover="_nodeListener" on-mouseout="_nodeListener" on-click="_nodeListener">
             <div id="list-item-contents" class$="{{_fadedClass(itemRenderInfo)}}">
-                <node-icon class="node-icon" height="6" color-by="[[colorBy]]" color-by-params="[[colorByParams]]" node="[[itemNode]]" render-info="[[itemRenderInfo]]"></node-icon>
+                <node-icon 
+                    svg-id="[[svgId]]"
+                    class="node-icon" height="6" color-by="[[colorBy]]" color-by-params="[[colorByParams]]" node="[[itemNode]]" render-info="[[itemRenderInfo]]"></node-icon>
 
                 <template is="dom-if" if="[[itemNode.attr]]">
 
@@ -43,6 +45,7 @@ limitations under the License.
                 is: 'tf-node-list-item',
 
                 properties: {
+                    svgId: String,
                     /**
                      * The Node for the card itself, on which this item is being drawn.
                      * @type {graph.Node}

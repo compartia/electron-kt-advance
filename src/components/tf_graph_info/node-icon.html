@@ -37,6 +37,7 @@
                 is: 'node-icon',
 
                 properties: {
+                    svgId: String,
                     /**
                      * Node to represent with an icon. Optional, but if specified, its
                      * properties override those defined in the type, vertical, const and
@@ -111,7 +112,7 @@
                     /** The computed fill for the node. **/
                     _computedFill: {
                         type: String,
-                        computed: "_getComputedFill(node, renderInfo, colorBy, fill)"
+                        computed: "_getComputedFill(svgId, node, renderInfo, colorBy, fill)"
                     }
 
                 },

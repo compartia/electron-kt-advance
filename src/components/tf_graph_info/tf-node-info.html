@@ -13,7 +13,10 @@
 
             <div class="node-color-container">
 
-                <node-icon id="bg" node="[[_node]]" render-info="[[_getRenderInfo(nodeName, renderHierarchy)]]" color-by="[[colorBy]]"></node-icon>
+                <node-icon 
+                    id="bg" 
+                    svg-id="[[svgId]]"
+                    node="[[_node]]" render-info="[[_getRenderInfo(nodeName, renderHierarchy)]]" color-by="[[colorBy]]"></node-icon>
 
                 <div id="caption">
                     <paper-icon-button icon="{{_getToggleIcon(_expanded)}}" on-click="_toggleExpanded" class="toggle-button"></paper-icon-button>
@@ -49,7 +52,9 @@
 
                                 <iron-list class="sub-list" id="inputsList" items="[[_predecessors.regular]]">
                                     <template>
-                                        <tf-node-list-item class="non-control-list-item" card-node="[[_node]]" item-node="[[item.node]]" edge-label="[[item.edgeLabel]]"
+                                        <tf-node-list-item 
+                                            svg-id="[[svgId]]"
+                                            class="non-control-list-item" card-node="[[_node]]" item-node="[[item.node]]" edge-label="[[item.edgeLabel]]"
                                             item-render-info="[[item.renderInfo]]" name="[[item.name]]" item-type="predecessors"
                                             color-by="[[colorBy]]" apiId="[[item.node.attr.apiId]]"></tf-node-list-item>
                                     </template>
@@ -61,7 +66,9 @@
                                 <span class="caption">Depends on (<span>[[_totalSuccessors]]</span>)</span>
                                 <iron-list class="sub-list" id="outputsList" items="[[_successors.regular]]">
                                     <template>
-                                        <tf-node-list-item class="non-control-list-item" card-node="[[_node]]" item-node="[[item.node]]" edge-label="[[item.edgeLabel]]"
+                                        <tf-node-list-item 
+                                            svg-id="[[svgId]]"
+                                            class="non-control-list-item" card-node="[[_node]]" item-node="[[item.node]]" edge-label="[[item.edgeLabel]]"
                                             item-render-info="[[item.renderInfo]]" name="[[item.name]]" apiId="[[item.node.attr.apiId]]"
                                             item-type="successor" color-by="[[colorBy]]"></tf-node-list-item>
                                     </template>
@@ -83,6 +90,7 @@
                 is: 'tf-node-info',
 
                 properties: {
+                    svgId: String,
                     nodeName: String,
                     graphHierarchy: Object,
                     renderHierarchy: Object,

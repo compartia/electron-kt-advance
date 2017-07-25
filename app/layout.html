@@ -50,23 +50,70 @@
 
                     <po-filter-panel statistics="[[statistics]]" filter="{{filter}}" project="[[currentProject]]"></po-filter-panel>
 
-                    <tf-graph-loader id="loader" filtered-proof-obligations="[[filteredProofObligations]]" out-graph-hierarchy="{{graphHierarchy}}" out-graph="{{graph}}" filter="{{filter}}" progress="{{progress}}" tab-visible="[[graphTabSelected(mode)]]" current-project="[[currentProject]]"
+                    <project-loader 
+                        id="project-loader"                                            
+                        filter="{{filter}}" 
+                        progress="{{progress}}" 
+                        current-project="[[currentProject]]"></project-loader>
+
+                    <tf-graph-loader 
+                        id="assumptions-graph-loader" 
+                        graph-type="assumptions"
+                        filtered-proof-obligations="[[filteredProofObligations]]" 
+                        out-graph-hierarchy="{{graphHierarchy}}" 
+                        out-graph="{{graph}}" filter="{{filter}}" 
+                        progress="{{progress}}" tab-visible="[[graphTabSelected(mode)]]" 
+                        current-project="[[currentProject]]"
+                        out-hierarchy-params="{{_hierarchyParams}}"></tf-graph-loader>
+                    
+                    <tf-graph-loader 
+                        id="calls-graph-loader" 
+                        graph-type="calls"
+                        filtered-proof-obligations="[[filteredProofObligations]]" 
+                        out-graph-hierarchy="{{graphHierarchy2}}" 
+                        out-graph="{{graph2}}" filter="{{filter}}" 
+                        progress="{{progress}}" tab-visible="[[callsGraphTabSelected(mode)]]" 
+                        current-project="[[currentProject]]"
                         out-hierarchy-params="{{_hierarchyParams}}"></tf-graph-loader>
 
                     <iron-pages class="content fit" id="contents" selected="{{modeIndex}}">
-
+                        
+                        <!-- tab SUMMARY -->
                         <kt-stats progress="{{progress}}" statistics="[[statistics]]" filter="{{filter}}"></kt-stats>
 
+                        <!-- tab SOURCE -->
                         <source-view id="sourceview" current-project="[[currentProject]]" statistics="[[statistics]]"></source-view>
 
+                        <!-- tab PROOF OBLIGTIONS -->
                         <po-list-scene id="main-po-list" filtered-proof-obligations="[[filteredProofObligations]]" linktosource showgroups selected-po="{{selectedPo}}"></po-list-scene>
 
+                        <!-- tab ASSUMPTIONS -->
                         <assumptions-list-scene filtered-assumptions="[[filteredAssumptions]]" selected-assumptions="{{selectedAssumptions}}" linktosource></assumptions-list-scene>
 
-
-                        <tf-graph-board id="graphboard" color-by="[[colorBy]]" color-by-params="{{colorByParams}}" devices-for-stats="[[_devicesForStats]]" graph-hierarchy="[[graphHierarchy]]" graph="[[graph]]" progress="{{progress}}" hierarchy-params="[[_hierarchyParams]]"
+                        <!-- tab GRAPH -->
+                        <tf-graph-board id="graphboard" 
+                            svg-id='svg-assumptions',
+                            color-by="STATE" 
+                            color-by-params="{{colorByParams}}" 
+                            devices-for-stats="[[_devicesForStats]]" 
+                            graph-hierarchy="[[graphHierarchy]]" 
+                            graph="[[graph]]" progress="{{progress}}" 
+                            hierarchy-params="[[_hierarchyParams]]"
                             render-hierarchy="{{_renderHierarchy}}"></tf-graph-board>
 
+                        <!-- tab CALLS-->
+                        <tf-graph-board id="graphboard2" 
+                            svg-id='svg-calls',
+                            color-by="CARDINALITY" 
+                            color-by-params="{{colorByParams}}" 
+                            devices-for-stats="[[_devicesForStats]]" 
+                            graph-hierarchy="[[graphHierarchy2]]" 
+                            graph="[[graph2]]" progress="{{progress}}" 
+                            hierarchy-params="[[_hierarchyParams]]"
+                            render-hierarchy="{{_renderHierarchy2}}"></tf-graph-board>
+
+                        
+                        <!-- tab ? (help) -->
                         <kt-help></kt-help>
 
                     </iron-pages>
@@ -280,6 +327,10 @@
 
             graphTabSelected: function(mode) {
                 return "graphs" === mode;
+            },
+
+            callsGraphTabSelected: function(mode) {
+                return "calls" === mode;
             },
 
             _onJumpToSrc: function(event) {

@@ -29,7 +29,7 @@ function initApp(): void {
 
     ipcRenderer.on('project-open', (event, prj) => {
         let project = new globals.Project(prj.baseDir);
-        (<any>document.getElementById("loader")).fire("project-selected", project);
+        (<any>document.getElementById("project-loader")).fire("project-selected", project);
     })
 
 }

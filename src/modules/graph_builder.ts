@@ -45,14 +45,17 @@ export function buildCallsGraph(filter: Filter, project: Project): NodeDef[] {
 
     for (let call of calls) {
         if (call.callSites.length) {
-            const node = findOrBuildFuncNode(call.cfunction, nodesMap);
-            for (let ref of call.callSites) {
-                const refnode = findOrBuildFuncNode(ref, nodesMap);
-                node.input.push(refnode.name);
+            if (filter.acceptCFunction(call.cfunction)) {
+                const node = findOrBuildFuncNode(call.cfunction, nodesMap);
+                for (let ref of call.callSites) {
+                    const refnode = findOrBuildFuncNode(ref, nodesMap);
+                    node.output.push(refnode.name);
+                    refnode.input.push(node.name);
+                }
             }
+
         }
     }
-
 
     const ret: NodeDef[] = [];
     const keys: string[] = [];
@@ -71,6 +74,12 @@ export function buildCallsGraph(filter: Filter, project: Project): NodeDef[] {
                 newInputs.push(ref.substr(_sharedStartLen));
             }
             node.input = newInputs;
+
+            let newOut = [];
+            for (let ref of node.output) {
+                newOut.push(ref.substr(_sharedStartLen));
+            }
+            node.output = newOut;
         }
     }
 
@@ -94,6 +103,9 @@ function makeFunctionName(node: CFunction): string {
 }
 
 function sharedStart(array: string[]): string {
+    if (!array || !array.length) {
+        return '';
+    }
     const A = array.concat().sort();
     let a1 = A[0];
     let a2 = A[A.length - 1];
@@ -164,21 +176,13 @@ export function cFunctionToNodeDef(func: CFunction): NodeDef {
         name: makeFunctionName(func),
         input: [],
         output: [],
-        device: PoStates[0] + "-" + "api",
+        device: PoStates[3] + "-" + "rv",
         op: func.name,
         attr: {
-            "label": func.name + ":" + func.line,
-            // "apiId": po.apiId,
+            "label": (func.name + ":" + func.line),
             "predicate": "--",
-            "level": "I",
-            "state": PoStates[0],
+            "state": PoStates[3],
             "location": funcLocation(func),
-            "symbol": "po.symbol",
-            "expression": "po.expression",
-            // "dischargeType": po.dischargeType,
-            // "discharge": po.discharge,
-            // "dischargeAssumption": po.dischargeAssumption,
-            // "locationPath": po.file + SPL + po.functionName,
             "data": func
         }
     }
