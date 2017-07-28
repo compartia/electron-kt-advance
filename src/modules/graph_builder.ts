@@ -274,19 +274,7 @@ export function ApiNodeToNodeDef(api: ApiNode, filter: Filter, settings: GraphSe
 
 
 
-export function getPredicate(node: NodeDef): string {
 
-    if (node) {
-        if (node.attr) {
-            //leaf node
-            return node.attr["predicate"];
-        } else {
-            //XXX:
-            //group node
-        }
-    }
-    return null;
-}
 
 export function getLocationPath(node: NodeDef): string {
     if (node) {

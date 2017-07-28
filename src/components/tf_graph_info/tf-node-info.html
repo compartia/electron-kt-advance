@@ -31,14 +31,12 @@
             </template>
 
             <div class="po">
-
                 <template is="dom-if" if="{{_node.metagraph}}">
                     <div class="subtitle">
                         Subgraph:
                         <span>[[_node.cardinality]]</span> nodes
                     </div>
                 </template>
-
             </div>
 
             <div>
@@ -68,8 +66,12 @@
                                     <template>
                                         <tf-node-list-item 
                                             svg-id="[[svgId]]"
-                                            class="non-control-list-item" card-node="[[_node]]" item-node="[[item.node]]" edge-label="[[item.edgeLabel]]"
-                                            item-render-info="[[item.renderInfo]]" name="[[item.name]]" apiId="[[item.node.attr.apiId]]"
+                                            class="non-control-list-item" 
+                                            card-node="[[_node]]" item-node="[[item.node]]" 
+                                            edge-label="[[item.edgeLabel]]"
+                                            item-render-info="[[item.renderInfo]]" 
+                                            name="[[item.name]]" 
+                                            apiId="[[item.node.attr.apiId]]"
                                             item-type="successor" color-by="[[colorBy]]"></tf-node-list-item>
                                     </template>
                                 </iron-list>
@@ -81,7 +83,6 @@
             </div>
 
     </template>
-
 
 
     <script>
@@ -148,11 +149,8 @@
                         value: false
                     },
                     _groupButtonText: String
-                },
-                _getPredicate: function (node) {
-                    return graph_builder.getPredicate(node);
-                },
-
+                },                            
+                
                 _getData: function (node) {
                     if (node && node.attr && node.attr.data)
                         return node.attr.data;
@@ -162,6 +160,7 @@
                 expandNode: function () {
                     this.fire('_node.expand', this.node);
                 },
+
                 _getNode: function (nodeName, graphHierarchy) {
                     return graphHierarchy.node(nodeName);
                 },
@@ -180,28 +179,6 @@
                         return ":L" + this._data.line;
                     }
                     return "";
-                },
-
-                _getAttributes: function (node) {
-                    this.async(this._resizeList.bind(this, "#attributesList"));
-                    if (!node || !node.attr) {
-                        return {};
-                    }
-
-                    return node.attr;
-                },
-
-                _getPredicateArgument: function (node) {
-                    symbol = this._getAttributes(node)["symbol"];
-                    if (symbol) {
-                        if (symbol.type == "ID") {
-                            return symbol.value;
-                        } else {
-                            return '"' + symbol.value + '"';
-                        }
-                    } else {
-                        return "";
-                    }
                 },
 
                 _getNodeClass: function (node) {
@@ -333,23 +310,6 @@
                     if (list) {
                         list.fire('iron-resize');
                     }
-                },
-
-                _toggleInclude: function () {
-                    var graphElem = document.querySelector("#graph");
-                    graphElem.fire("node-toggle-extract", { name: this.nodeName });
-                    var graphBoardElem = document.querySelector("#graphboard");
-                    graphBoardElem.fire("node-toggle-extract");
-                },
-
-                _toggleGroup: function () {
-                    var graphElem = document.querySelector("#graph");
-                    var seriesName = scenenode.getSeriesName(this._node);
-                    graphElem.fire("node-toggle-seriesgroup", { name: seriesName });
-                },
-
-                _isInSeries: function (node) {
-                    return scenenode.canBeInSeries(node);
                 },
 
                 jumpToSource: function (event) {

@@ -651,7 +651,7 @@ export function getFillForNode(svgId:string, colorBy,
       }
       let id = renderInfo.node.name;
       let escapedId = util.escapeQuerySelector(id);
-      let gradientDefs = d3.select('svg#'+svgId+' defs #linearGradients');
+      let gradientDefs = d3.select('svg#svg-defs defs #linearGradients');
       let linearGradient = gradientDefs.select('linearGradient#' + escapedId);
       // If the linear gradient is not there yet, create it.
       if (linearGradient.size() === 0) {
@@ -748,10 +748,8 @@ function _resetStyles(renderGraphInfo: render.RenderGraphInfo) {
     _svg.selectAll('.input-parent').classed('input-parent', false);
     _svg.selectAll('.input-child').classed('input-child', false);
     _svg.selectAll('.input-edge-highlight').classed({ 'input-edge-highlight': false, "out": false });
-    _svg.selectAll('.non-input-edge-highlight')
-      .classed('non-input-edge-highlight', false);
-    _svg.selectAll('.input-highlight-selected')
-      .classed('input-highlight-selected', false);
+    _svg.selectAll('.non-input-edge-highlight').classed('non-input-edge-highlight', false);
+    _svg.selectAll('.input-highlight-selected').classed('input-highlight-selected', false);
   }
 }
 

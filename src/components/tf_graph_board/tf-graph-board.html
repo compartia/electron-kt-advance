@@ -27,184 +27,168 @@ Example
 
 -->
 <dom-module id="tf-graph-board">
-<template>
+  <template>
     <style>
-        ::host {
-          display: block;
-        }
+       ::host {
+        display: block;
+      }
 
-        /deep/ .close {
-          position: absolute;
-          cursor: pointer;
-          left: 15px;
-          bottom: 15px;
-        }
+      /deep/ .close {
+        position: absolute;
+        cursor: pointer;
+        left: 15px;
+        bottom: 15px;
+      }
 
-        .container {
-          width: 100%;
-          height: 100%;
-          opacity: 1;
-        }
+      .container {
+        width: 100%;
+        height: 100%;
+        opacity: 1;
+      }
 
-        .container.loading {
-          cursor: progress;
-          opacity: 0.1;
-        }
+      .container.loading {
+        cursor: progress;
+        opacity: 0.1;
+      }
 
-        .container.loading.error {
-          cursor: auto;
-        }
+      .container.loading.error {
+        cursor: auto;
+      }
 
-        #info {
-          position: fixed;
-          right: 5px;
+      #info {
+        position: fixed;
+        right: 5px;
 
-          padding: 0px;
-          max-width: 380px;
-          min-width: 320px;
-          background-color: var(--kt-panel-bg);
+        padding: 0px;
+        max-width: 380px;
+        min-width: 320px;
+        background-color: var(--kt-panel-bg);
 
 
-          @apply(--shadow-elevation-2dp);
+        @apply(--shadow-elevation-2dp);
 
-          z-index: var(--graph-info-z-index);
-          top: var(--graph-info-top );
-        }
+        z-index: var(--graph-info-z-index);
+        top: var(--graph-info-top);
+      }
 
-        #main {
-          width: 100%;
-          height: 100%;
-        }
+      #main {
+        width: 100%;
+        height: 100%;
+      }
 
-        .context-menu {
-          position: absolute;
-          display: none;
-          background-color: #e2e2e2;
-          border-radius: 2px;
-          font-size: 14px;
-          min-width: 150px;
-          border: 1px solid #d4d4d4;
-        }
+      .context-menu {
+        position: absolute;
+        display: none;
+        background-color: #e2e2e2;
+        border-radius: 2px;
+        font-size: 14px;
+        min-width: 150px;
+        border: 1px solid #d4d4d4;
+      }
 
-        /deep/ .context-menu ul {
-          list-style-type: none;
-          margin: 0;
-          padding: 0;
-          cursor: default;
-        }
+      /deep/ .context-menu ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        cursor: default;
+      }
 
-        /deep/ .context-menu ul li {
-          padding: 4px 16px;
-        }
+      /deep/ .context-menu ul li {
+        padding: 4px 16px;
+      }
 
-        /deep/ .context-menu ul li:hover {
-          background-color: #f3913e;
-          color: white;
-        }
+      /deep/ .context-menu ul li:hover {
+        background-color: #f3913e;
+        color: white;
+      }
     </style>
 
 
-<div class$="[[_getContainerClass(progress)]]">
-  <div id="main">
-    <tf-graph id="graph"
-              svg-id="[[svgId]]"
-              graph-hierarchy="{{graphHierarchy}}"
-              basic-graph="[[graph]]"
-              hierarchy-params="[[hierarchyParams]]"
-              render-hierarchy="{{renderHierarchy}}"
-              stats="[[stats]]"
-              selected-node="{{_selectedNode}}"
-              highlighted-node="{{_highlightedNode}}"
-              color-by="[[colorBy]]"
-              color-by-params="{{colorByParams}}"
-              progress="{{progress}}"
-    ></tf-graph>
-  </div>
+    <div class$="[[_getContainerClass(progress)]]">
+      <div id="main">
+        <tf-graph id="graph" svg-id="[[svgId]]" graph-hierarchy="{{graphHierarchy}}" basic-graph="[[graph]]" hierarchy-params="[[hierarchyParams]]"
+          render-hierarchy="{{renderHierarchy}}" stats="[[stats]]" selected-node="{{_selectedNode}}" highlighted-node="{{_highlightedNode}}"
+          color-by="[[colorBy]]" color-by-params="{{colorByParams}}" progress="{{progress}}"></tf-graph>
+      </div>
 
-  <div class="context-menu"></div>
+      <div class="context-menu"></div>
 
-  <div id="info">
-    <tf-graph-info id="graph-info"
-              title="selected"
-              graph-hierarchy="[[graphHierarchy]]"
-              render-hierarchy="[[renderHierarchy]]"
-              graph="[[graph]]"
-              selected-node="{{_selectedNode}}"
-              selected-node-include="{{_selectedNodeInclude}}"
-              highlighted-node="{{_highlightedNode}}"
-              color-by="[[colorBy]]"
-              color-by-params="[[colorByParams]]"
-    ></tf-graph-info>
-  </div>
+      <div id="info">
+        <tf-graph-info id="graph-info" title="selected" graph-hierarchy="[[graphHierarchy]]" render-hierarchy="[[renderHierarchy]]"
+          graph="[[graph]]" selected-node="{{_selectedNode}}" selected-node-include="{{_selectedNodeInclude}}" highlighted-node="{{_highlightedNode}}"
+          color-by="[[colorBy]]" color-by-params="[[colorByParams]]"></tf-graph-info>
+
+      </div>
 
 
-</div>
-</template>
+    </div>
+  </template>
 </dom-module>
 
-    <script>
-        Polymer({
-          is: 'tf-graph-board',
+<script>
+  Polymer({
+    is: 'tf-graph-board',
 
 
 
-          properties: {
-            // Public API.
-            svgId: String,
-            graphHierarchy: Object,
-            graph: Object,
-            stats: Object,
-            /**
-             * @type {value: number, msg: string}
-             *
-             * A number between 0 and 100 denoting the % of progress
-             * for the progress bar and the displayed message.
-             */
-            progress: Object,
-            colorBy: String,
-            colorByParams: {
-              type: Object,
-              notify: true
-            },
-            renderHierarchy: {
-              type: Object,
-              notify: true
-            },
+    properties: {
+      // Public API.
+      svgId: String,
+      graphHierarchy: Object,
+      graph: Object,
+      stats: Object,
+      /**
+       * @type {value: number, msg: string}
+       *
+       * A number between 0 and 100 denoting the % of progress
+       * for the progress bar and the displayed message.
+       */
+      progress: Object,
+      colorBy: String,
+      colorByParams: {
+        type: Object,
+        notify: true
+      },
+      renderHierarchy: {
+        type: Object,
+        notify: true
+      },
 
 
-            // Private API: Data routing between child components.
-            _selectedNode: String,
-            // The enum value of the include property of the selected node.
-            _selectedNodeInclude: Number,
-            _highlightedNode: String
-          },
+      // Private API: Data routing between child components.
+      _selectedNode: String,
+      // The enum value of the include property of the selected node.
+      _selectedNodeInclude: Number,
+      _highlightedNode: String
+    },
 
-          listeners: {
-            'node-toggle-extract': '_nodeToggleExtract'
-          },
+    listeners: {
+      'node-toggle-extract': '_nodeToggleExtract'
+    },
 
-          observers: [
-            '_updateNodeInclude(_selectedNode)'
-          ],
+    observers: [
+      '_updateNodeInclude(_selectedNode)'
+    ],
 
-          _getContainerClass: function(progress) {
-            var result = 'container';
-            if (progress.error) {
-              result += ' error';
-            }
-            return result;
-          },
-          _updateNodeInclude: function(nodeName) {
-            var node = this.graphHierarchy.node(nodeName);
-            this.set("_selectedNodeInclude",
-              node ? node.include : graph.InclusionType.UNSPECIFIED);
-          },
-          _nodeToggleExtract: function() {
-            this._updateNodeInclude(this._selectedNode);
-          }
-
-
+    _getContainerClass: function (progress) {
+      var result = 'container';
+      if (progress.error) {
+        result += ' error';
+      }
+      return result;
+    },
+    _updateNodeInclude: function (nodeName) {
+      var node = this.graphHierarchy.node(nodeName);
+      this.set("_selectedNodeInclude",
+        node ? node.include : graph.InclusionType.UNSPECIFIED);
+    },
+    _nodeToggleExtract: function () {
+      this._updateNodeInclude(this._selectedNode);
+    }
 
 
-        });
-    </script>
+
+
+  });
+
+</script>
