@@ -137,7 +137,7 @@ export class Project {
 
                 let resultingMap = new xml.FunctionsMap(functions);
 
-                project.functionByFile = reader.buildFunctionsByFileMap(functions);
+                project.functionByFile = resultingMap.functionByFile;
                 let result: Promise<XmlAnalysis> = reader.readDir(project.analysisDir, resultingMap, readDirTracker);
 
                 return result;
