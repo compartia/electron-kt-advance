@@ -174,7 +174,7 @@ Polymer({
 
     d3.select(svg).select('#root').selectAll('*').remove();
     // And the defs.
-    d3.select(svg).select('defs #linearGradients')
+    d3.select('svg#svg-defs defs #linearGradients')
         .selectAll('*').remove();
   },
   /** Main method for building the scene */

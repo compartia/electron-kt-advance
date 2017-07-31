@@ -634,7 +634,7 @@ function position(nodeGroup, d: render.RenderNodeInfo) {
 };
 
 /** Enum specifying the options to color nodes by */
-export enum ColorBy { STRUCTURE, STATE, COMPUTE_TIME, CARDINALITY };
+export enum ColorBy { STRUCTURE, STATE, CARDINALITY };
 
 /**
  * Returns the fill color for the node given its state and the 'color by'
@@ -646,7 +646,7 @@ export function getFillForNode(svgId:string, colorBy,
   switch (colorBy) {
     case ColorBy.STATE:
       if (renderInfo.stateColors == null) {
-        // Return the hue for unknown device.
+        // Return the hue for unknown state.
         return colorParams.UNKNOWN;
       }
       let id = renderInfo.node.name;
@@ -671,11 +671,7 @@ export function getFillForNode(svgId:string, colorBy,
           cumulativeProportion += d.proportion;
         });
       }
-      return isExpanded ? colorParams.EXPANDED_COLOR : `url(#${escapedId})`;
-    case ColorBy.COMPUTE_TIME:
-      return isExpanded ?
-        colorParams.EXPANDED_COLOR : renderInfo.computeTimeColor ||
-        colorParams.UNKNOWN;
+      return isExpanded ? colorParams.EXPANDED_COLOR : `url(#${escapedId})`;  
     case ColorBy.CARDINALITY:
       return isExpanded ?
         colorParams.EXPANDED_COLOR : renderInfo.cardinalityColor ||
