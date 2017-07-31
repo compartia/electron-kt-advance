@@ -139,13 +139,8 @@ export class Project {
 
         return reader.readFunctionsMap(path.dirname(project.analysisDir), readFunctionsMapTracker)
             .then((functions: xml.CFunction[]) => {
-
-                const uniqFuncs = _.uniq(functions, (x: xml.CFunction) => {
-                    return x.file + "/" + x.name;
-                });
-                let resultingMap = new xml.FunctionsMap(uniqFuncs);
-
-                project.functionByFile = reader.buildFunctionsByFileMap(uniqFuncs);
+                let resultingMap = new xml.FunctionsMap(functions);
+                project.functionByFile = resultingMap.functionByFile;
                 let result: Promise<XmlAnalysis> = reader.readDir(project.analysisDir, resultingMap, readDirTracker);
 
                 return result;
@@ -329,6 +324,3 @@ export function openNewProject(tracker: tf.ProgressTracker): Project {
     }
     return null;
 }
-
-
-// }
