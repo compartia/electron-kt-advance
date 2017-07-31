@@ -27,7 +27,7 @@ const dialog = require('electron').remote.dialog;
 export const CH_DIR: string = "ch_analysis";
 
 export var TABS = [
-    'summary', 'source', 'proof obligations', 'assumptions', 'graphs', 'calls','?'
+    'summary', 'source', 'proof obligations', 'assumptions', 'graphs', 'calls', '?'
 ];
 
 
@@ -140,9 +140,12 @@ export class Project {
         return reader.readFunctionsMap(path.dirname(project.analysisDir), readFunctionsMapTracker)
             .then((functions: xml.CFunction[]) => {
 
-                let resultingMap = new xml.FunctionsMap(functions);
+                const uniqFuncs = _.uniq(functions, (x: xml.CFunction) => {
+                    return x.file + "/" + x.name;
+                });
+                let resultingMap = new xml.FunctionsMap(uniqFuncs);
 
-                project.functionByFile = reader.buildFunctionsByFileMap(functions);
+                project.functionByFile = reader.buildFunctionsByFileMap(uniqFuncs);
                 let result: Promise<XmlAnalysis> = reader.readDir(project.analysisDir, resultingMap, readDirTracker);
 
                 return result;
