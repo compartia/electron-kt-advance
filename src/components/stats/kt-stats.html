@@ -5,8 +5,6 @@
             <div class="container flex-hor">
                 <div class="container flex-ver flexchild">
 
-
-
                     <paper-material elevation="1" class$="card panel flexchild [[_hiddenIfNoDischarged]]">
                         <h3>Proof obligations by type of discharge</h3>
                         <div id="poByDischarge" class="kt-chart"></div>
@@ -36,8 +34,7 @@
                         <h3>Functions by (C-) complexity (top [[functionsByComplexityBMaxRows]])</h3>
                         <h4>Total
                             <b>control-flow-graph</b>-complexity of function-related
-                            <b>primary</b>
-                            proof obligations (PPO) divided by the number of PPO</h4>
+                            <b>primary</b> proof obligations (PPO) divided by the number of PPO</h4>
                         <div id="cComplexityByFunction" class="kt-chart"></div>
                     </paper-material>
 
@@ -45,8 +42,7 @@
                         <h3>Files by (C-) complexity (top [[functionsByComplexityBMaxRows]])</h3>
                         <h4>Total
                             <b>control-flow-graph</b>-complexity of source file-related
-                            <b>primary</b>
-                            proof obligations (PPO) divided by the number of PPO</h4>
+                            <b>primary</b> proof obligations (PPO) divided by the number of PPO</h4>
                         <div id="cComplexityByFile" class="kt-chart"></div>
                     </paper-material>
 
@@ -59,8 +55,7 @@
                         <h3>Functions by predicate (P-) complexity (top [[functionsByComplexityBMaxRows]])</h3>
                         <h4>Total
                             <b>predicate</b>-complexity of function-related
-                            <b>primary</b>
-                            proof obligations (PPO) divided by the number of PPO</h4>
+                            <b>primary</b> proof obligations (PPO) divided by the number of PPO</h4>
                         <div id="pComplexityByFunction" class="kt-chart"></div>
                     </paper-material>
 
@@ -68,8 +63,7 @@
                         <h3>Files by predicate (P-) complexity (top [[functionsByComplexityBMaxRows]])</h3>
                         <h4>Total
                             <b>predicate</b>-complexity of source file-related
-                            <b>primary</b>
-                            proof obligations (PPO) divided by the number of PPO</h4>
+                            <b>primary</b> proof obligations (PPO) divided by the number of PPO</h4>
                         <div id="pComplexityByFile" class="kt-chart"></div>
                     </paper-material>
 
@@ -94,8 +88,7 @@
                     <paper-material elevation="1" class="card panel flexchild">
                         <h3>Average complexity by predicate</h3>
                         <h4>Total complexity divided by the number of
-                            <b>primary</b>
-                            proof obligations</h4>
+                            <b>primary</b> proof obligations</h4>
                         <div id="complexityByPredicate" class="kt-chart"></div>
                     </paper-material>
 
@@ -136,7 +129,6 @@
 
         .flexchild {
             @apply(--layout-flex);
-
         }
 
         .panel {
@@ -153,7 +145,6 @@
         .hidden {
             display: none;
         }
-
     </style>
 
     <script>
@@ -189,7 +180,7 @@
                 "chart-row-selected": "_chartRowSelected"
             },
 
-            _statisticsChanged: function(newVal, oldVal) {
+            _statisticsChanged: function (newVal, oldVal) {
                 if (newVal) {
                     newVal.updateChart(this, d3.select("#poByRedicate"));
                     newVal.updatePoByDischargeChart(this, d3.select("#poByDischarge"));
@@ -222,32 +213,53 @@
                 }
             },
 
-            _chartBarSelected: function(event) {
+            _chartBarSelected: function (event) {
                 var src = event.detail.src;
+                var row = event.detail.row;
+
                 if (src == this.$.poByRedicate || src == this.$.complexityByPredicate) {
-                    this.set("filter.predicates", new collections.StringSet([event.detail.row]));
+                    this.set("filter.predicates", new collections.StringSet([row]));
+                    this.set("filter.states", new collections.StringSet([event.detail.index]));
                 }
 
-                if (src == this.$.poByDischarge) {
-                    this.set("filter.dischargeTypes", new collections.StringSet([event.detail.row.toLowerCase()]));
+                else if (src == this.$.poByDischarge) {
+                    this.set("filter.dischargeTypes", new collections.StringSet([row.toLowerCase()]));
+                    // this.set("filter.states", new collections.StringSet([event.detail.index]));
                 }
 
-                if (src == this.$.poByFunction || src == this.$.cComplexityByFunction || src == this.$.pComplexityByFunction || src == this.$.assumptionsByFunction) {
-                    console.log(event.detail);
-                    this.filter.file = event.detail.row.fileInfo;
-                    this.filter.cfunction = event.detail.row;
-                    // this.notifyPath("filter.*")
+                else if (src == this.$.poByFunction ||
+                    src == this.$.cComplexityByFunction ||
+                    src == this.$.pComplexityByFunction ||
+                    src == this.$.assumptionsByFunction) {
+
+
+                    this.filter.file = row.fileInfo;
+                    this.filter.cfunction = row;
+
+                    
                     this.notifyPath("filter.file");
                     this.notifyPath("filter.cfunction");
+
+                    if (src == this.$.poByFunction){
+                        this.set("filter.states", new collections.StringSet([event.detail.index]));
+                    }
+                    
                 }
 
-                if (src == this.$.poByFile || src == this.$.cComplexityByFile || src == this.$.pComplexityByFile || src == this.$.dependenciesByFileChart) {
-                    console.log(event.detail);
-                    this.set("filter.file", event.detail.row);
+                else if (src == this.$.poByFile ||
+                    src == this.$.cComplexityByFile ||
+                    src == this.$.pComplexityByFile ||
+                    src == this.$.dependenciesByFileChart) {
+                    
+                    if (src == this.$.poByFile){
+                        this.set("filter.states", new collections.StringSet([event.detail.index]));
+                    }
+                    this.set("filter.file", row);
+                    
                 }
             },
 
-            _chartRowSelected: function(event) {
+            _chartRowSelected: function (event) {
                 console.log(event.detail);
             }
 
