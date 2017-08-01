@@ -91,16 +91,17 @@ export function updateChart<X>(
 
 
     let newRows = rows.enter()
-        .append("div").attr("class", "row")
+        .append("div").attr("class", "row highlightable")
         .style('opacity', 1.0)
         .on('click', (d, i, a) => {
             (<Event>d3.event).stopPropagation();
-            scene.fire('chart-row-selected', { 
-                src: container.node(), 
-                data: d, 
+            scene.fire('chart-row-selected', {
+                src: container.node(),
+                data: d,
                 row: d.object,
-                index: i, 
-                a: a });
+                index: i,
+                a: a
+            });
         });
 
     newRows.append("label")

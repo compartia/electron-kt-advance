@@ -213,18 +213,13 @@
                 }
             },
 
-            _chartBarSelected: function (event) {
-                var src = event.detail.src;
-                var row = event.detail.row;
-
+            _handleRowClick: function (src, row) {
                 if (src == this.$.poByRedicate || src == this.$.complexityByPredicate) {
                     this.set("filter.predicates", new collections.StringSet([row]));
-                    this.set("filter.states", new collections.StringSet([event.detail.index]));
                 }
 
                 else if (src == this.$.poByDischarge) {
                     this.set("filter.dischargeTypes", new collections.StringSet([row.toLowerCase()]));
-                    // this.set("filter.states", new collections.StringSet([event.detail.index]));
                 }
 
                 else if (src == this.$.poByFunction ||
@@ -236,31 +231,37 @@
                     this.filter.file = row.fileInfo;
                     this.filter.cfunction = row;
 
-                    
+
                     this.notifyPath("filter.file");
                     this.notifyPath("filter.cfunction");
-
-                    if (src == this.$.poByFunction){
-                        this.set("filter.states", new collections.StringSet([event.detail.index]));
-                    }
-                    
                 }
 
                 else if (src == this.$.poByFile ||
                     src == this.$.cComplexityByFile ||
                     src == this.$.pComplexityByFile ||
                     src == this.$.dependenciesByFileChart) {
-                    
-                    if (src == this.$.poByFile){
-                        this.set("filter.states", new collections.StringSet([event.detail.index]));
-                    }
+
                     this.set("filter.file", row);
-                    
+                }
+            },
+
+            _chartBarSelected: function (event) {
+                var src = event.detail.src;
+                var row = event.detail.row;
+
+                this._handleRowClick(src, row);
+
+                if (src == this.$.poByFunction ||
+                    src == this.$.poByFile ||
+                    src == this.$.poByRedicate) {
+                    this.set("filter.states", new collections.StringSet([event.detail.index]));
                 }
             },
 
             _chartRowSelected: function (event) {
-                console.log(event.detail);
+                var src = event.detail.src;
+                var row = event.detail.row;
+                this._handleRowClick(src, row);
             }
 
         });
