@@ -15,9 +15,9 @@ import { StatsTable, NamedArray} from '../common/collections';
     @deprecated;
 */
 const states = [
-    "VIOLATION",
-    "OPEN",
-    "DISCHARGED"
+    "violation",
+    "open",
+    "discharged"
 ];
 
 
@@ -123,7 +123,7 @@ export class Stats {
 
         for (let po of filteredProofObligations) {
             let functionKey = po.file + "/" + po.functionName;
-            let state: string = PoStates[po.state];
+            let state: string = PoStates[po.state].toLowerCase();
 
             let fileLineKey = po.file + "//" + po.location.line;
             this.byFileLine.inc(fileLineKey, state, 1);
