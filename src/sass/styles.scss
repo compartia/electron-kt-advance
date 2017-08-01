@@ -158,9 +158,10 @@ ul.links {
 }
 
 splash-layout {
-    h1{
+    h1 {
         margin-bottom: $spacer;
     }
+
     .table {
         align-items   : center;
         display       : flex;
@@ -178,5 +179,14 @@ splash-layout {
     label {
         display: block;
         margin : $spacer 0 $spacer*3;
+    }
+}
+
+.highlightable {
+    cursor: pointer;
+
+    &:hover {
+        color     : var(--selection-tx)!important;
+        background: $highlight-hover;
     }
 }

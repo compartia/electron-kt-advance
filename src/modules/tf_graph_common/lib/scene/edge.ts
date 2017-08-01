@@ -72,7 +72,8 @@ export function getEdgeKey(edgeObj: EdgeData) {
  * @param sceneElement <tf-graph-scene> polymer element.
  * @return selection of the created nodeGroups
  */
-export function buildGroup(sceneGroup,
+export function buildGroup(
+    sceneGroup,
     graph: graphlib.Graph<render.RenderNodeInfo, render.RenderMetaedgeInfo>,
     sceneElement) {
   let edges: EdgeData[] = [];

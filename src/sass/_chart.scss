@@ -13,6 +13,24 @@ $row-spacing: 2px;
 @mixin gradient-left($from-color, $to-color) {
     background: linear-gradient(to right, $from-color 0%, $to-color 100%);
 }
+@mixin hover-cover() {
+    cursor: pointer;
+
+    &:hover {
+        color: var(--selection-tx);
+
+        &:after {
+            position  : absolute;
+            left      : 0;
+            top       : 0;
+            bottom    : 0;
+            right     : 0;
+            content   : " ";
+            background: $highlight-hover;
+            z-index   : $label-z-index + 20;
+        }
+    }
+}
 
 .kt-chart {
     margin-top: $spacer;
@@ -20,17 +38,17 @@ $row-spacing: 2px;
     clear     : both;
 
     .row {
-        // background   : $default-bg;
-        display      : block;
-        border       : none;
-        margin-bottom: $row-spacing;
-        clear        : both;
-        white-space  : nowrap;
 
-        overflow     : hidden;
-        width        : 100%;
+        display    : block;
+        border     : none;
+        padding    : $row-spacing/2;
+        clear      : both;
+        white-space: nowrap;
 
-        position     : relative;
+        overflow   : hidden;
+        width      : 100%;
+
+        position   : relative;
 
         label {
             position     : relative;
@@ -38,19 +56,6 @@ $row-spacing: 2px;
             text-align   : right;
             width        : $label-width;
             padding-right: $label-padding*2;
-
-            &:after {
-                position: absolute;
-                width   : 1em;
-                padding : $label-padding $label-padding/2;
-
-                top     : 0;
-                bottom  : 0;
-                right   : 0;
-                content : " ";
-                @include gradient-left(rgba($default-bg, 0), rgba($default-bg, 1));
-                z-index : $label-z-index + 10;
-            }
         }
 
         .value,
@@ -61,6 +66,7 @@ $row-spacing: 2px;
             white-space  : nowrap;
             overflow     : hidden;
             text-overflow: ellipsis;
+            cursor       : pointer;
         }
 
         .value {
@@ -69,6 +75,7 @@ $row-spacing: 2px;
             text-align  : right;
             position    : absolute;
             right       : 0;
+            cursor      : pointer;
         }
 
         .bar-container {
@@ -82,16 +89,17 @@ $row-spacing: 2px;
             white-space: nowrap;
 
             a {
-                cursor : pointer;
-                border : none;
-                display: inline-block;
+                cursor  : pointer;
+                border  : none;
+                position: relative;
+                @include hover-cover();
+
             }
 
             .bar {
                 box-sizing: border-box!important;
                 color     : white;
                 height    : $bar-height;
-                // float     : left;
 
                 text-align: left;
                 min-width : 3px;
