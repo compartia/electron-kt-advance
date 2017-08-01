@@ -91,11 +91,17 @@ export function updateChart<X>(
 
 
     let newRows = rows.enter()
-        .append("div").attr("class", "row")
+        .append("div").attr("class", "row highlightable")
         .style('opacity', 1.0)
         .on('click', (d, i, a) => {
             (<Event>d3.event).stopPropagation();
-            scene.fire('chart-row-selected', { src: container.node(), data: d, index: i, a: a });
+            scene.fire('chart-row-selected', {
+                src: container.node(),
+                data: d,
+                row: d.object,
+                index: i,
+                a: a
+            });
         });
 
     newRows.append("label")
@@ -124,9 +130,16 @@ export function updateChart<X>(
             bars.enter()
                 .append("a")
                 .attr("class", "bar " + clazz), clazz)
+
             .on('click', (d, i, a) => {
                 (<Event>d3.event).stopPropagation();
-                scene.fire('chart-bar-selected', { src: container.node(), row: d.object, value: d.val, index: i, a: a });
+                scene.fire('chart-bar-selected', {
+                    src: container.node(),
+                    row: d.object,
+                    value: d.val,
+                    index: i,
+                    a: a
+                });
             });
 
 
