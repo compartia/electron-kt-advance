@@ -393,16 +393,17 @@ foreignobject {
     .summary.highlighted > .annotation-node > ellipse {
         stroke-width: 1.5;
     }
-    /* --- Edge --- */
 
+
+    /* --- Edge --- */
     .edge > path.edgeline {
         fill          : none;
-        stroke        : var(--kt-edge);
+        stroke: url("#grad-edge");
         stroke-linecap: round;
         stroke-width  : 0.75;
     }
-    /* Labels showing tensor shapes on edges */
 
+    /* Labels showing tensor shapes on edges */
     .edge > text {
         font-size: 3.5px;
         fill     : var(--kt-edge-text);
