@@ -94,6 +94,9 @@
 
                         <!-- tab GRAPH -->
                         <tf-graph-board id="graphboard" 
+                            inputs-title="Dependent"
+                            outputs-title="Depends on"
+
                             svg-id='svg-assumptions',
                             color-by="STATE" 
                             color-by-params="{{colorByParams}}" 
@@ -105,6 +108,9 @@
 
                         <!-- tab CALLS-->
                         <tf-graph-board id="graphboard2" 
+                            inputs-title="Calls"
+                            outputs-title="Called from"
+
                             svg-id='svg-calls',
                             color-by="CARDINALITY" 
                             color-by-params="{{colorByParams}}" 

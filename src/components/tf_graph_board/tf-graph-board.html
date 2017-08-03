@@ -114,10 +114,19 @@ Example
       <div class="context-menu"></div>
 
       <div id="info">
-        <tf-graph-info id="graph-info" title="selected" graph-hierarchy="[[graphHierarchy]]" render-hierarchy="[[renderHierarchy]]"
-          graph="[[graph]]" selected-node="{{_selectedNode}}" selected-node-include="{{_selectedNodeInclude}}" highlighted-node="{{_highlightedNode}}"
-          color-by="[[colorBy]]" color-by-params="[[colorByParams]]"></tf-graph-info>
-
+        <tf-graph-info 
+            id="graph-info" 
+            title="selected" 
+            inputs-title="[[inputsTitle]]"
+            outputs-title="[[outputsTitle]]"
+            graph-hierarchy="[[graphHierarchy]]" 
+            render-hierarchy="[[renderHierarchy]]"
+            graph="[[graph]]" 
+            selected-node="{{_selectedNode}}" 
+            selected-node-include="{{_selectedNodeInclude}}" 
+            highlighted-node="{{_highlightedNode}}"
+            color-by="[[colorBy]]" 
+            color-by-params="[[colorByParams]]"></tf-graph-info>
       </div>
 
 

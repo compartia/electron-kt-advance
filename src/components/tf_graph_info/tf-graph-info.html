@@ -6,6 +6,8 @@
         <template is="dom-if" if="{{selectedNode}}">
             <paper-material elevation="3" class="card">
                 <tf-node-info
+                    inputs-title="[[inputsTitle]]"
+                    outputs-title="[[outputsTitle]]"
                     graph-hierarchy="[[graphHierarchy]]"
                     render-hierarchy="[[renderHierarchy]]"
                     flat-graph="[[graph]]"

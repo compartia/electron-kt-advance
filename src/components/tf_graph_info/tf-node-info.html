@@ -46,7 +46,7 @@
                         <div class="expandedInfo">
 
                             <div class="sub-list-group predecessors">
-                                <span class="caption">Dependent PO (<span>[[_totalPredecessors]]</span>)</span>
+                                <span class="caption">[[inputsTitle]]  (<span>[[_totalPredecessors]]</span>)</span>
 
                                 <iron-list class="sub-list" id="inputsList" items="[[_predecessors.regular]]">
                                     <template>
@@ -61,7 +61,7 @@
                             </div>
 
                             <div class="sub-list-group successors">
-                                <span class="caption">Depends on (<span>[[_totalSuccessors]]</span>)</span>
+                                <span class="caption">[[outputsTitle]] (<span>[[_totalSuccessors]]</span>)</span>
                                 <iron-list class="sub-list" id="outputsList" items="[[_successors.regular]]">
                                     <template>
                                         <tf-node-list-item 
@@ -91,6 +91,8 @@
                 is: 'tf-node-info',
 
                 properties: {
+                    inputsTitle: String,
+                    outputsTitle: String,
                     svgId: String,
                     nodeName: String,
                     graphHierarchy: Object,
