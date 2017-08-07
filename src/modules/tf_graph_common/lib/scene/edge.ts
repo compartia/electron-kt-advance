@@ -138,9 +138,8 @@ export function getLabelForEdge(
     metaedge: Metaedge,
     renderInfo: render.RenderGraphInfo): string {
   
-      const label = renderInfo.svgId=='svg-calls' ? 'calls' : 'assumptions'
       let isMultiEdge = metaedge.baseEdgeList.length > 1;
-      return isMultiEdge ? metaedge.baseEdgeList.length + ' ' + label : null;
+      return isMultiEdge ? metaedge.baseEdgeList.length + ' ' + renderInfo.edgeLabels : null;
 }
 
 /**
