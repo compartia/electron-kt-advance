@@ -36,7 +36,7 @@
     "bower": "^1.8.0",
     "chai": "^4.0.2",
     "del": "^3.0.0",
-    "electron": "^1.6.11",
+    "electron": "^1.8.4",
     "electron-builder": "19.13.0",
     "electron-mocha": "^3.4.0",
     "fcopy-pre-bundled": "^0.3.4",
