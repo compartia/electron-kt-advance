@@ -156,6 +156,8 @@ const PARAMS = {
  * for each node in the graph.
  */
 export class RenderGraphInfo {
+  svgId:string;
+  edgeLabels:string;
   hierarchy: hierarchy.Hierarchy;
   private displayingStats: boolean;
   private index: {[nodeName: string]: RenderNodeInfo};
@@ -175,7 +177,11 @@ export class RenderGraphInfo {
   palette: {};
   statesColorMap:(id: string)=>string;
 
-  constructor(hierarchy: hierarchy.Hierarchy, displayingStats: boolean) {
+  constructor(hierarchy: hierarchy.Hierarchy, displayingStats: boolean, svgId:string) {
+    this.svgId = svgId;
+
+    this.edgeLabels = (svgId=='svg-calls') ? 'calls' : 'assumptions'
+
     this.hierarchy = hierarchy;
     this.displayingStats = displayingStats;
     this.index = {};

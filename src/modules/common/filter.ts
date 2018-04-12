@@ -157,26 +157,29 @@ export class Filter {
 
 
     private acceptFile(po: AbstractNode): boolean {
+        return this.acceptCFunctionFile(po.cfunction);
+    }
+
+    public acceptCFunctionFile(func: CFunction): boolean {
         if (!this.fileName) {
             return true;
         } else {
             if (!this._file.dir) {
-                return po.file == this.fileName;
+                return func.file == this.fileName;
             } else {
-                return po.file.startsWith(this.fileName) || this.fileName == ".";
+                return func.file.startsWith(this.fileName) || this.fileName == ".";
             }
 
         }
     }
 
 
+    public acceptCFunction(func: CFunction): boolean {
+        return (!this.cfunction || func.name == this.cfunction.name) && this.acceptCFunctionFile(func);
+    }
 
     private acceptFunction(po: AbstractNode): boolean {
-        if (!this.cfunction) {
-            return true;
-        } else {
-            return po.functionName == this.cfunction.name;//XXX: compare file
-        }
+        return this.acceptCFunction(po.cfunction);
     }
 
     private acceptState(po: ProofObligation): boolean {

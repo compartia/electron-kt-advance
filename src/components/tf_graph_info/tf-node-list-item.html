@@ -20,19 +20,17 @@ limitations under the License.
 
     <template>
         <div id="list-item" on-mouseover="_nodeListener" on-mouseout="_nodeListener" on-click="_nodeListener">
-            <div id="list-item-contents"  class$="{{_fadedClass(itemRenderInfo)}}">
-                <node-icon class="node-icon" height="6" color-by="[[colorBy]]"
-                        color-by-params="[[colorByParams]]" node="[[itemNode]]"
-                        render-info="[[itemRenderInfo]]"></node-icon>
+            <div id="list-item-contents" class$="{{_fadedClass(itemRenderInfo)}}">
+                <node-icon 
+                    svg-id="[[svgId]]"
+                    class="node-icon" height="6" color-by="[[colorBy]]" color-by-params="[[colorByParams]]" node="[[itemNode]]" render-info="[[itemRenderInfo]]"></node-icon>
 
                 <template is="dom-if" if="[[itemNode.attr]]">
 
                     <template is="dom-if" if="[[itemNode.attr.assumptionType]]">
-                        <div>[[itemNode.attr.assumptionType]] assumption  [[itemNode.attr.apiId]]</div>
+                        <div>[[itemNode.attr.assumptionType]] assumption [[itemNode.attr.apiId]]</div>
                     </template>
-                    <!-- <template is="dom-if" if="[[itemNode.attr.apiId]]">
-                        <div>api-id: [[itemNode.attr.apiId]]</div>
-                    </template> -->
+
                 </template>
 
                 <span title$="[[name]]">[[name]]</span>
@@ -42,28 +40,29 @@ limitations under the License.
     </template>
 
     <script>
-        (function() {
+        (function () {
             Polymer({
                 is: 'tf-node-list-item',
 
                 properties: {
+                    svgId: String,
                     /**
-           * The Node for the card itself, on which this item is being drawn.
-           * @type {graph.Node}
-           */
+                     * The Node for the card itself, on which this item is being drawn.
+                     * @type {graph.Node}
+                     */
                     cardNode: Object,
                     /**
-           * The Node for the item within the card, somehow related to cardNode.
-           * @type {graph.Node}
-           */
+                     * The Node for the item within the card, somehow related to cardNode.
+                     * @type {graph.Node}
+                     */
                     itemNode: Object,
                     /** The edge label associated with this item. */
                     edgeLabel: String,
                     apiId: String,
                     /**
-           * The render node information for the item node. Used by the graph
-           * icon in determining fill color.
-           */
+                     * The render node information for the item node. Used by the graph
+                     * icon in determining fill color.
+                     */
                     itemRenderInfo: Object,
                     name: String,
                     itemType: {
@@ -74,7 +73,7 @@ limitations under the License.
                     colorByParams: Object
                 },
 
-                _itemTypeChanged: function() {
+                _itemTypeChanged: function () {
                     if (this.itemType !== 'subnode') {
                         this.$['list-item'].classList.add('clickable');
                     } else {
@@ -82,7 +81,7 @@ limitations under the License.
                     }
                 },
 
-                _nodeListener: function(event) {
+                _nodeListener: function (event) {
                     // fire node.click/mouseover/mouseout
                     this.fire('node-list-item-' + event.type, {
                         cardNode: this.cardNode.name,
@@ -91,7 +90,7 @@ limitations under the License.
                     });
                 },
 
-                _fadedClass: function(itemRenderInfo) {
+                _fadedClass: function (itemRenderInfo) {
                     return itemRenderInfo && itemRenderInfo.isFadedOut
                         ? 'faded'
                         : '';

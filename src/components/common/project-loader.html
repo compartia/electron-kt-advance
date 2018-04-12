@@ -1,0 +1,50 @@
+<dom-module id="project-loader"></dom-module>
+
+<script>
+    Polymer({
+
+        is: 'project-loader',
+
+        properties: {
+
+            progress: {
+                type: Object,
+                notify: true
+            },
+
+            filter: {
+                type: Object,
+                notify: true
+            },
+
+            currentProject: {
+                type: Object,
+                notify: true,
+                observer: '_currentProjectChanged'
+            },
+        },
+
+        _currentProjectChanged: function (newProject, oldProject) {
+            var project = newProject;
+
+            console.info("_currentProjectChanged: " + project);
+            this.set('progress', {
+                value: 0,
+                msg: ''
+            });
+
+            var tracker = graphutil.getTracker(this);
+            var readDataTracker = tracker.getSubtaskTracker(100, 'Reading Data');
+
+            this.filter.reset();
+
+            newProject.readAndParse(readDataTracker)
+                .then(function (project) {
+                    this.fire("project-loaded", {});
+                }.bind(this));
+        },
+
+
+    });
+
+</script>

@@ -1,8 +1,8 @@
 import { CFunction } from 'xml-kt-advance/lib/xml/xml_types';
 import { Project, GraphSettings, GraphGrouppingOptions } from './common/globals'
 import { Filter } from './common/filter'
-import { ProofObligation, PoStates, sortNodes } from 'xml-kt-advance/lib/model/po_node'
-import { ApiNode } from 'xml-kt-advance/lib/model/api_node'
+import { ProofObligation, PoStates, sortNodes, POLocation } from 'xml-kt-advance/lib/model/po_node'
+import { ApiNode, FunctionCalls } from 'xml-kt-advance/lib/model/api_node'
 import { NodeDef } from './tf_graph_common/lib/proto'
 
 const path = require('path');
@@ -10,15 +10,12 @@ const path = require('path');
 const SPL = "/";
 
 
-export
-    function buildGraph(filter: Filter, project: Project): NodeDef[] {
+export function buildGraph(filter: Filter, project: Project): NodeDef[] {
 
     const apis = project.filteredAssumptions;
     const pos = project.filteredProofObligations;
 
     let g: NodeDef[] = [];
-
-    let nodesMap = {};
 
     let settings = new GraphSettings(); //XXX: provide real settings
 
@@ -40,6 +37,83 @@ export
     return g;
 }
 
+export function buildCallsGraph(filter: Filter, project: Project): NodeDef[] {
+    const calls: FunctionCalls[] = project.calls;
+
+    let nodesMap: { [key: string]: NodeDef } = {};
+
+
+    for (let call of calls) {
+        if (call.callSites.length) {
+            if (filter.acceptCFunction(call.cfunction)) {
+                const node = findOrBuildFuncNode(call.cfunction, nodesMap);
+                for (let ref of call.callSites) {
+                    const refnode = findOrBuildFuncNode(ref, nodesMap);
+                    node.output.push(refnode.name);
+                    refnode.input.push(node.name);
+                }
+            }
+
+        }
+    }
+
+    const ret: NodeDef[] = [];
+    const keys: string[] = [];
+    for (let nm in nodesMap) {
+        ret.push(nodesMap[nm]);
+        keys.push(nm);
+    }
+
+    let _sharedStart: string = sharedStart(keys);
+    let _sharedStartLen = _sharedStart.length;
+    if (_sharedStartLen) {
+        for (let node of ret) {
+            node.name = node.name.substr(_sharedStartLen);
+            let newInputs = [];
+            for (let ref of node.input) {
+                newInputs.push(ref.substr(_sharedStartLen));
+            }
+            node.input = newInputs;
+
+            let newOut = [];
+            for (let ref of node.output) {
+                newOut.push(ref.substr(_sharedStartLen));
+            }
+            node.output = newOut;
+        }
+    }
+
+    console.info["NUMBER of call nodes: " + ret.length];
+    return ret;
+}
+
+function findOrBuildFuncNode(func: CFunction, nodesMap: { [key: string]: NodeDef }): NodeDef {
+    const name = makeFunctionName(func);
+    if (nodesMap[name]) {
+        return nodesMap[name];
+    } else {
+        const node: NodeDef = cFunctionToNodeDef(func);
+        nodesMap[node.name] = node;
+        return node;
+    }
+}
+
+function makeFunctionName(node: CFunction): string {
+    return node.file + "/" + node.name;// + "/" + node.line;
+}
+
+function sharedStart(array: string[]): string {
+    if (!array || !array.length) {
+        return '';
+    }
+    const A = array.concat().sort();
+    let a1 = A[0];
+    let a2 = A[A.length - 1];
+    let L = a1.length;
+    let i = 0;
+    while (i < L && a1.charAt(i) === a2.charAt(i)) i++;
+    return a1.substring(0, i);
+}
 
 export function makeGraphNodePath(filter: Filter, settings: GraphSettings, func: CFunction, predicate: string, name: string): string {
     let pathParts: string[] = [];
@@ -79,8 +153,7 @@ export function makeGraphNodePath(filter: Filter, settings: GraphSettings, func:
 }
 
 
-export
-    function makeProofObligationName(po: ProofObligation, filter: Filter, settings: GraphSettings): string {
+export function makeProofObligationName(po: ProofObligation, filter: Filter, settings: GraphSettings): string {
     let nm = po.levelLabel + "(" + po.id + ")";
 
     if (po.symbol) {
@@ -94,15 +167,38 @@ export
 }
 
 
-export
-    function makeAssumptionName(api: ApiNode, filter: Filter, settings: GraphSettings): string {
+export function makeAssumptionName(api: ApiNode, filter: Filter, settings: GraphSettings): string {
     return makeGraphNodePath(filter, settings, api.cfunction, api.predicateType, api.type + "_" + api.id);
 }
 
+export function cFunctionToNodeDef(func: CFunction): NodeDef {
+    let nodeDef: NodeDef = {
+        name: makeFunctionName(func),
+        input: [],
+        output: [],
+        device: PoStates[3] + "-" + "rv",
+        op: func.name,
+        attr: {
+            "label": (func.name + ":" + func.line),
+            "predicate": "--",
+            "state": PoStates[3],
+            "location": funcLocation(func),
+            "data": func
+        }
+    }
+    return nodeDef;
+}
 
+/**
+ * XXX: move to CFunction class
+ */
+function funcLocation(func: CFunction): POLocation {
+    const l: POLocation = new POLocation();
+    l.textRange = [[func.line, 0], [func.line, 0]];
+    return l;
+}
 
-export
-    function proofObligationToNodeDef(po: ProofObligation, filter: Filter, settings: GraphSettings): NodeDef {
+export function proofObligationToNodeDef(po: ProofObligation, filter: Filter, settings: GraphSettings): NodeDef {
 
     let nodeDef: NodeDef = {
         name: makeProofObligationName(po, filter, settings),
@@ -178,19 +274,7 @@ export function ApiNodeToNodeDef(api: ApiNode, filter: Filter, settings: GraphSe
 
 
 
-export function getPredicate(node: NodeDef): string {
 
-    if (node) {
-        if (node.attr) {
-            //leaf node
-            return node.attr["predicate"];
-        } else {
-            //XXX:
-            //group node
-        }
-    }
-    return null;
-}
 
 export function getLocationPath(node: NodeDef): string {
     if (node) {
