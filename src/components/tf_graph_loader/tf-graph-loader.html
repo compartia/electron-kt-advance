@@ -98,21 +98,21 @@
             var hierarchyTracker = tracker.getSubtaskTracker( 50, 'Namespace hierarchy');
 
             var nodes = []
-            if(this.graphType==='assumptions'){
+            if (this.graphType === 'assumptions') {
                 nodes = project.buildGraph(this.filter);
-            } else if(this.graphType==='calls'){
+            } else if (this.graphType === 'calls') {
                 nodes = project.buildCallsGraph(this.filter);
             }
                 
 
-            graph.build(nodes, {}, graphTracker).then(function(graph) {
+            graph.build(nodes, {}, graphTracker).then(function (graph) {
                 this._setOutGraph(graph);
                 return hierarchy.build(graph, hierarchyParams, hierarchyTracker);
 
-            }.bind(this)).then(function(graphHierarchy) {
+            }.bind(this)).then(function (graphHierarchy) {
                 // Update the properties which notify the parent with the graph hierarchy
                 this._setOutGraphHierarchy(graphHierarchy);
-            }.bind(this)).catch(function(e) {
+            }.bind(this)).catch(function (e) {
                 // Generic error catch, for errors that happened outside asynchronous tasks.
                 tracker.reportError("Graph visualization failed: " + e, e);
             });

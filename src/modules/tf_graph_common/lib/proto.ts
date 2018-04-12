@@ -13,13 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
 
-/**
- * @fileoverview Interfaces that parallel proto definitions in
- * third_party/tensorflow/core/framework/...
- *     graph.proto
- *     step_stats.proto
- * These should stay in sync.
- */
+
 
   /**
    * TensorFlow node definition as defined in the graph.proto file.

@@ -1,6 +1,6 @@
-import { CFunction, FileInfo } from 'xml-kt-advance/lib/xml/xml_types';
-import { ApiNode } from 'xml-kt-advance/lib/model/api_node';
-import { ProofObligation, PoStates, AbstractNode, PoStatesArr, PoDischargeTypesArr } from 'xml-kt-advance/lib/model/po_node';
+import { ApiNode, CFunction, FileInfo } from './xmltypes';
+// import { ApiNode } from 'xml-kt-advance/lib/model/api_node';
+import { ProofObligation, PoStates, AbstractNode, PoStatesArr, PoDischargeTypesArr } from  './xmltypes';
 import { StringSet, AnySet, isEmpty } from './collections';
 
 
@@ -219,7 +219,7 @@ export class Filter {
         if (isEmpty(this._predicates)) {
             return true;
         }
-        if (this._predicates.contains(po.predicate.toLowerCase())) {
+        if (this._predicates.contains(po.predicate)) {
             return true;
         }
         return false;

@@ -1,17 +1,17 @@
 import * as _ from "lodash"
 import { CONF, loadProjectMayBe } from './storage';
+import { XmlReader } from '../data/xmlreader';
+import {CAnalysisJsonReaderImpl} from '../data/dataprovider';
+// import *  as xml from 'xml-kt-advance/lib/xml/xml_types';
 
-import *  as xml from 'xml-kt-advance/lib/xml/xml_types';
-import { XmlReader, XmlAnalysis } from 'xml-kt-advance/lib/xml/xml_reader';
-import * as kt_fs from 'xml-kt-advance/lib/common/fs';
+import * as kt_fs from './fstools';
 
-import { ProofObligation, AbstractNode, sortPoNodes } from 'xml-kt-advance/lib/model/po_node';
-import { ApiNode, FunctionCalls } from 'xml-kt-advance/lib/model/api_node';
-import { Stats } from '../stats/stats';
+import { CAnalysis, ProofObligation, AbstractNode, ApiNode, FunctionCalls, CFunction, sortPoNodes } from './xmltypes';
+ import { Stats } from '../stats/stats';
 import { Filter, PO_FILTER } from './filter';
 import { buildGraph, buildCallsGraph } from '../graph_builder'
 
-import { getChDir } from "xml-kt-advance/lib/common/fs"
+// import { getChDir } from "xml-kt-advance/lib/common/fs"
 
 import * as tf from '../tf_graph_common/lib/common'
 import * as util from '../tf_graph_common/lib/util'
@@ -84,11 +84,24 @@ export class JsonReadyProject {
     stats: Stats;
 }
 
-export class Project {
-    functionByFile: { [key: string]: Array<xml.CFunction> } = {};
+export interface CProject{
+    functionByFile: { [key: string]: Array<CFunction> } ;
     baseDir: string;
     analysisDir: string;
     stats: Stats;
+    calls: Array<FunctionCalls>;
+    filteredAssumptions: Array<ApiNode>;
+    filteredProofObligations: Array<ProofObligation>;
+    proofObligations: Array<ProofObligation>;
+}
+
+export class ProjectImpl implements CProject{
+
+    functionByFile: { [key: string]: Array<CFunction> } = {};
+    baseDir: string;
+    analysisDir: string;
+    stats: Stats;
+    calls: Array<FunctionCalls>;
     /**
      * previously saved statistics
      */
@@ -99,7 +112,7 @@ export class Project {
     _filteredAssumptions: Array<ApiNode> = null;
 
     _apis: { [key: string]: ApiNode } = null;
-    calls: Array<FunctionCalls>;
+    
 
     allPredicates: Array<string>;
 
@@ -116,9 +129,11 @@ export class Project {
         return buildCallsGraph(filter, this);
     }
 
-    public readAndParse(tracker: tf.ProgressTracker): Promise<Project> {
-        const project: Project = this;
-        let reader: XmlReader = new XmlReader();
+    public readAndParse(tracker: tf.ProgressTracker): Promise<CProject> {
+       
+        const project: CProject = this;
+       
+        let reader: XmlReader = new CAnalysisJsonReaderImpl();
 
         tracker.setMessage("reading XML data");
 
@@ -136,24 +151,34 @@ export class Project {
             }
         }
 
+        const mCAnalysis:CAnalysis =   reader.readDir(
+            path.dirname(project.analysisDir),
+            readFunctionsMapTracker
+        ) ;
 
-        return reader.readFunctionsMap(path.dirname(project.analysisDir), readFunctionsMapTracker)
-            .then((functions: xml.CFunction[]) => {
-                let resultingMap = new xml.FunctionsMap(functions);
-                project.functionByFile = resultingMap.functionByFile;
-                let result: Promise<XmlAnalysis> = reader.readDir(project.analysisDir, resultingMap, readDirTracker);
+        project.functionByFile=mCAnalysis.functionByFile;
+        project.proofObligations = sortPoNodes(mCAnalysis.ppos);
+        return new Promise((resolve, reject) => {
+            resolve(project);
+        });
+        
+        // return reader.readFunctionsMap(path.dirname(project.analysisDir), readFunctionsMapTracker)
+        //     .then((functions: CFunction[]) => {
+        //         let resultingMap = new xml.FunctionsMap(functions);
+        //         project.functionByFile = resultingMap.functionByFile;
+        //         let result: Promise<XmlAnalysis> = reader.readDir(project.analysisDir, resultingMap, readDirTracker);
 
-                return result;
-            })
-            .then((POs: XmlAnalysis) => {
-                project.proofObligations = sortPoNodes(POs.ppos.concat(POs.spos));
+        //         return result;
+        //     })
+        //     .then((POs: XmlAnalysis) => {
+        //         project.proofObligations = sortPoNodes(POs.ppos.concat(POs.spos));
 
-                project.apis = POs.apis;
-                project.calls = POs.calls;
-                project.save();
+        //         project.apis = POs.apis;
+        //         project.calls = POs.calls;
+        //         project.save();
 
-                return project;
-            });
+        //         return project;
+        //     });
     }
 
     public save(): string {
@@ -230,6 +255,10 @@ export class Project {
 
         let _filteredAssumptions = [];
 
+        if(!this._apis){
+            return;
+        }
+        
         for (let apiKey in this._apis) {
             let api = this._apis[apiKey];
             if (this.hasIntersection(api.inputs, this.filteredProofObligations) ||
@@ -306,20 +335,22 @@ function selectDirectory(): any {
     return dir;
 }
 
-export function openNewProject(tracker: tf.ProgressTracker): Project {
-    let dir = selectDirectory();
+export function openNewProject(tracker: tf.ProgressTracker): CProject {
+    let dir:string = selectDirectory();
     if (dir && dir.length > 0) {
-
-        let projectDir = getChDir(dir[0]);
-        if (projectDir) {
-            projectDir = path.dirname(projectDir);
-            let project = new Project(projectDir);
+            let project = new ProjectImpl(dir[0]);
             return project;
 
-        } else {
-            const msg = CH_DIR + " dir not found";
-            tracker.reportError(msg, new Error(msg));
-        }
+        // let projectDir = getChDir(dir[0]);
+        // if (projectDir) {
+        //     projectDir = path.dirname(projectDir);
+        //     let project = new Project(projectDir);
+        //     return project;
+
+        // } else {
+        //     const msg = CH_DIR + " dir not found";
+        //     tracker.reportError(msg, new Error(msg));
+        // }
 
     }
     return null;

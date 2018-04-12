@@ -1,8 +1,8 @@
-import { CFunction } from 'xml-kt-advance/lib/xml/xml_types';
-import { Project, GraphSettings, GraphGrouppingOptions } from './common/globals'
+import { CFunction } from './common/xmltypes';
+import { CProject, GraphSettings, GraphGrouppingOptions } from './common/globals'
 import { Filter } from './common/filter'
-import { ProofObligation, PoStates, sortNodes, POLocation } from 'xml-kt-advance/lib/model/po_node'
-import { ApiNode, FunctionCalls } from 'xml-kt-advance/lib/model/api_node'
+import { ProofObligation, PoStates, sortNodes, POLocation } from './common/xmltypes'
+import { ApiNode, FunctionCalls } from './common/xmltypes'
 import { NodeDef } from './tf_graph_common/lib/proto'
 
 const path = require('path');
@@ -10,7 +10,7 @@ const path = require('path');
 const SPL = "/";
 
 
-export function buildGraph(filter: Filter, project: Project): NodeDef[] {
+export function buildGraph(filter: Filter, project: CProject): NodeDef[] {
 
     const apis = project.filteredAssumptions;
     const pos = project.filteredProofObligations;
@@ -26,18 +26,20 @@ export function buildGraph(filter: Filter, project: Project): NodeDef[] {
         }
     }
 
-    for (var api of apis) {
-        if (api.isLinked()) {
-            let node: NodeDef = ApiNodeToNodeDef(api, filter, settings);
-            g.push(node);
+    if(apis){
+        for (var api of apis) {
+            if (api.isLinked()) {
+                let node: NodeDef = ApiNodeToNodeDef(api, filter, settings);
+                g.push(node);
+            }
         }
     }
-
+    
     console.info["NUMBER of nodes: " + g.length];
     return g;
 }
 
-export function buildCallsGraph(filter: Filter, project: Project): NodeDef[] {
+export function buildCallsGraph(filter: Filter, project: CProject): NodeDef[] {
     const calls: FunctionCalls[] = project.calls;
 
     let nodesMap: { [key: string]: NodeDef } = {};
@@ -182,21 +184,14 @@ export function cFunctionToNodeDef(func: CFunction): NodeDef {
             "label": (func.name + ":" + func.line),
             "predicate": "--",
             "state": PoStates[3],
-            "location": funcLocation(func),
+            "location": func.funcLocation,
             "data": func
         }
     }
     return nodeDef;
 }
 
-/**
- * XXX: move to CFunction class
- */
-function funcLocation(func: CFunction): POLocation {
-    const l: POLocation = new POLocation();
-    l.textRange = [[func.line, 0], [func.line, 0]];
-    return l;
-}
+ 
 
 export function proofObligationToNodeDef(po: ProofObligation, filter: Filter, settings: GraphSettings): NodeDef {
 
@@ -217,7 +212,7 @@ export function proofObligationToNodeDef(po: ProofObligation, filter: Filter, se
             "expression": po.expression,
             "dischargeType": po.dischargeType,
             "discharge": po.discharge,
-            "dischargeAssumption": po.dischargeAssumption,
+            //"dischargeAssumption": po.dischargeAssumption,
             "locationPath": po.file + SPL + po.functionName,
             "data": po
         }
@@ -261,7 +256,6 @@ export function ApiNodeToNodeDef(api: ApiNode, filter: Filter, settings: GraphSe
 
     for (let ref of api.inputs) {
         nodeDef.input.push(makeProofObligationName(<ProofObligation>ref, filter, settings));
-
     }
 
     for (let ref of api.outputs) {
