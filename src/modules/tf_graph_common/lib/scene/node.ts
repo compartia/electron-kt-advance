@@ -78,6 +78,9 @@ import RenderNodeInfo = render.RenderNodeInfo;
    */
   export function buildGroup(
       sceneGroup, nodeData: render.RenderNodeInfo[], sceneElement) {
+        
+        const svgId=sceneElement.$.root.parentNode.id;
+
     let container =
         scene.selectOrCreateChild(sceneGroup, 'g', Class.Node.CONTAINER);
     // Select all children and join with data.
@@ -140,7 +143,7 @@ import RenderNodeInfo = render.RenderNodeInfo;
           // metanode shape which already has the same interactions.
           addInteraction(label, d, sceneElement, d.node.type === NodeType.META);
 
-          stylize(nodeGroup, d, sceneElement);
+          stylize(svgId, nodeGroup, d, sceneElement);
           position(nodeGroup, d);
         });
 
@@ -631,24 +634,24 @@ function position(nodeGroup, d: render.RenderNodeInfo) {
 };
 
 /** Enum specifying the options to color nodes by */
-export enum ColorBy { STRUCTURE, STATE, COMPUTE_TIME, CARDINALITY };
+export enum ColorBy { STRUCTURE, STATE, CARDINALITY };
 
 /**
  * Returns the fill color for the node given its state and the 'color by'
  * option.
  */
-export function getFillForNode(colorBy,
+export function getFillForNode(svgId:string, colorBy,
     renderInfo: render.RenderNodeInfo, isExpanded: boolean): string {
   let colorParams = render.MetanodeColors;
   switch (colorBy) {
     case ColorBy.STATE:
       if (renderInfo.stateColors == null) {
-        // Return the hue for unknown device.
+        // Return the hue for unknown state.
         return colorParams.UNKNOWN;
       }
       let id = renderInfo.node.name;
       let escapedId = util.escapeQuerySelector(id);
-      let gradientDefs = d3.select('svg#svg defs #linearGradients');
+      let gradientDefs = d3.select('svg#svg-defs defs #linearGradients');
       let linearGradient = gradientDefs.select('linearGradient#' + escapedId);
       // If the linear gradient is not there yet, create it.
       if (linearGradient.size() === 0) {
@@ -668,11 +671,7 @@ export function getFillForNode(colorBy,
           cumulativeProportion += d.proportion;
         });
       }
-      return isExpanded ? colorParams.EXPANDED_COLOR : `url(#${escapedId})`;
-    case ColorBy.COMPUTE_TIME:
-      return isExpanded ?
-        colorParams.EXPANDED_COLOR : renderInfo.computeTimeColor ||
-        colorParams.UNKNOWN;
+      return isExpanded ? colorParams.EXPANDED_COLOR : `url(#${escapedId})`;  
     case ColorBy.CARDINALITY:
       return isExpanded ?
         colorParams.EXPANDED_COLOR : renderInfo.cardinalityColor ||
@@ -686,7 +685,7 @@ export function getFillForNode(colorBy,
  * Modify node style by toggling class and assign attributes (only for things
  * that can't be done in css).
  */
-export function stylize(nodeGroup, renderInfo: render.RenderNodeInfo,
+export function stylize(svgId:string, nodeGroup, renderInfo: render.RenderNodeInfo,
     sceneElement, nodeClass?) {
   nodeClass = nodeClass || Class.Node.SHAPE;
   let isHighlighted = sceneElement.isNodeHighlighted(renderInfo.node.name);
@@ -703,7 +702,7 @@ export function stylize(nodeGroup, renderInfo: render.RenderNodeInfo,
   // Main node always exists here and it will be reached before subscene,
   // so d3 selection is fine here.
   let node = nodeGroup.select('.' + nodeClass + ' .' + Class.Node.COLOR_TARGET);
-  let fillColor = getFillForNode(ColorBy[sceneElement.colorBy.toUpperCase()],
+  let fillColor = getFillForNode(svgId, ColorBy[sceneElement.colorBy.toUpperCase()],
     renderInfo, isExpanded);
   node.style('fill', fillColor);
 
@@ -729,28 +728,30 @@ export function getStrokeForFill(fill: string) {
  *
  * @param renderGraphInfo Information on the rendered state of the graph.
  */
-export function traceInputs(renderGraphInfo:  render.RenderGraphInfo) {
-    _resetStyles();
+export function traceInputs(renderGraphInfo: render.RenderGraphInfo) {
+  if (renderGraphInfo) {
+    _resetStyles(renderGraphInfo);
     _traceInputs(renderGraphInfo);
+  }
 }
 
-function _resetStyles(){
-     // Reset all styling.
-     let _svg=d3.select("#svg");
-     _svg.selectAll('.input-highlight').classed({'input-highlight': false, "out":false});
-     _svg.selectAll('.non-input').classed('non-input', false);
-     _svg.selectAll('.input-parent').classed('input-parent', false);
-     _svg.selectAll('.input-child').classed('input-child', false);
-     _svg.selectAll('.input-edge-highlight').classed({'input-edge-highlight': false, "out":false });
-     _svg.selectAll('.non-input-edge-highlight')
-         .classed('non-input-edge-highlight', false);
-     _svg.selectAll('.input-highlight-selected')
-         .classed('input-highlight-selected', false);
+function _resetStyles(renderGraphInfo: render.RenderGraphInfo) {
+  // Reset all styling.
+  if (renderGraphInfo) {
+    let _svg = d3.select("#" + renderGraphInfo.svgId);
+    _svg.selectAll('.input-highlight').classed({ 'input-highlight': false, "out": false });
+    _svg.selectAll('.non-input').classed('non-input', false);
+    _svg.selectAll('.input-parent').classed('input-parent', false);
+    _svg.selectAll('.input-child').classed('input-child', false);
+    _svg.selectAll('.input-edge-highlight').classed({ 'input-edge-highlight': false, "out": false });
+    _svg.selectAll('.non-input-edge-highlight').classed('non-input-edge-highlight', false);
+    _svg.selectAll('.input-highlight-selected').classed('input-highlight-selected', false);
+  }
 }
 
 function _traceInputs(renderGraphInfo: render.RenderGraphInfo ) {
 
-    const _svg=d3.select("#svg");
+    const _svg=d3.select("#"+renderGraphInfo.svgId);
   // Extract currently selected node. Return if input tracing disabled or no
   // node is selected.
   let selectedNodeSelectorString = 'g.node.selected,g.op.selected';
@@ -785,9 +786,8 @@ function _traceInputs(renderGraphInfo: render.RenderGraphInfo ) {
   // Highlight all parent nodes of each OpNode as input parent to allow
   // specific highlighting.
   let highlightedNodes = Object.keys(allTracedNodes);
-  let visibleNodes =
-      _findVisibleParentsFromOpNodes(renderGraphInfo, highlightedNodes);
-  _markParentsOfNodes(visibleNodes);
+  let visibleNodes = _findVisibleParentsFromOpNodes(renderGraphInfo, highlightedNodes);
+  _markParentsOfNodes(visibleNodes, renderGraphInfo);
 
   // Attach class to all non-input nodes and edges for styling.
   _svg.selectAll(
@@ -864,7 +864,7 @@ export function traceAllInputsOfOpNode(
   // Get visible parent.
   let currentVisibleParent = getVisibleParent(renderGraphInfo, startNode);
   // Mark as input node.
-  let _svg=d3.select("#svg");
+  let _svg=d3.select("#"+renderGraphInfo.svgId);
   _svg.select(`.node[data-name="${currentVisibleParent.name}"]`)
       .classed({'input-highlight': true, "out":!reverse});
 
@@ -929,7 +929,7 @@ export function traceAllInputsOfOpNode(
 
     if (nodeInstance.name !== currentVisibleParent.name) {
       _createVisibleTrace(
-          nodeInstance, startNodeParents, indexedStartNodeParents, edgeHighlightClass, reverse);
+          nodeInstance, startNodeParents, indexedStartNodeParents, edgeHighlightClass, reverse, renderGraphInfo);
     }
   });
 
@@ -976,7 +976,8 @@ export function traceAllInputsOfOpNode(
  * @private
  */
 function _createVisibleTrace(
-    nodeInstance: Node, startNodeParents, indexedStartNodeParents: Node[], edgeHlStyle: string, reverse: boolean) {
+    nodeInstance: Node, startNodeParents, indexedStartNodeParents: Node[], edgeHlStyle: string, reverse: boolean,
+    renderGraphInfo: render.RenderGraphInfo) {
     let currentNode = nodeInstance;
     let previousNode = nodeInstance;
 
@@ -1002,7 +1003,7 @@ function _createVisibleTrace(
 
     let endNodeName = previousNode.name;
 
-    let _svg = d3.select("#svg");
+    let _svg = d3.select("#"+renderGraphInfo.svgId);
     if (reverse) {
         _svg.selectAll(`[data-edge="${endNodeName}--${startNodeName}"]`)
             .classed(edgeHlStyle, true);
@@ -1057,8 +1058,8 @@ function _findVisibleParentsFromOpNodes(renderGraphInfo, nodeNames: string[]) {
  * called.
  * @private
  */
-function _markParentsOfNodes(visibleNodes: {[nodeName: string]: Node}) {
-    const _svg=d3.select("#svg");
+function _markParentsOfNodes(visibleNodes: {[nodeName: string]: Node}, renderGraphInfo: render.RenderGraphInfo) {
+    const _svg=d3.select("#"+renderGraphInfo.svgId);
   _.forOwn(visibleNodes, function(nodeInstance: Node) {
     // Mark all parents of the node as input-parents.
     let currentNode = nodeInstance;

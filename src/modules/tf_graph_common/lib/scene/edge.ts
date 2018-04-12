@@ -72,7 +72,8 @@ export function getEdgeKey(edgeObj: EdgeData) {
  * @param sceneElement <tf-graph-scene> polymer element.
  * @return selection of the created nodeGroups
  */
-export function buildGroup(sceneGroup,
+export function buildGroup(
+    sceneGroup,
     graph: graphlib.Graph<render.RenderNodeInfo, render.RenderMetaedgeInfo>,
     sceneElement) {
   let edges: EdgeData[] = [];
@@ -133,11 +134,12 @@ export function buildGroup(sceneGroup,
  * of only 1 tensor, and it's shape is known, the label will contain that
  * shape. Otherwise, the label will say the number of tensors in the metaedge.
  */
-export function getLabelForEdge(metaedge: Metaedge,
+export function getLabelForEdge(
+    metaedge: Metaedge,
     renderInfo: render.RenderGraphInfo): string {
-  let isMultiEdge = metaedge.baseEdgeList.length > 1;
-  return isMultiEdge ?
-      metaedge.baseEdgeList.length + ' assumptions' : null;
+  
+      let isMultiEdge = metaedge.baseEdgeList.length > 1;
+      return isMultiEdge ? metaedge.baseEdgeList.length + ' ' + renderInfo.edgeLabels : null;
 }
 
 /**
@@ -196,9 +198,11 @@ function adjustPathPointsForMarker(points: render.Point[],
  * will sometimes be undefined, for example for some Annotation edges for which
  * there is no underlying Metaedge in the hierarchical graph.
  */
-export function appendEdge(edgeGroup, d: EdgeData,
-    sceneElement: {renderHierarchy: render.RenderGraphInfo},
-    edgeClass?: string) {
+export function appendEdge(
+      edgeGroup, d: EdgeData,
+      sceneElement: {renderHierarchy: render.RenderGraphInfo},
+      edgeClass?: string) {
+
   let size = 1;
   if (d.label != null && d.label.metaedge != null) {
     // There is an underlying Metaedge.
@@ -233,8 +237,7 @@ export function appendEdge(edgeGroup, d: EdgeData,
     // This happens for annotation edges.
     return;
   }
-  let labelForEdge = getLabelForEdge(d.label.metaedge,
-      sceneElement.renderHierarchy);
+  let labelForEdge = getLabelForEdge(d.label.metaedge, sceneElement.renderHierarchy);
   if (labelForEdge == null) {
     // We have no information to show on this edge.
     return;

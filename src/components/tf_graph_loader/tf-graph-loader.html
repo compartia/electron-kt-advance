@@ -12,6 +12,10 @@
                 notify: true
             },
 
+            graphType: {
+                type: Object
+            },
+
             filter: {
                 type: Object,
                 notify: true
@@ -37,8 +41,7 @@
 
             currentProject: {
                 type: Object,
-                notify: true,
-                observer: '_currentProjectChanged'
+                notify: true
             },
 
             filteredProofObligations: {
@@ -69,27 +72,7 @@
             });
             var graphTracker = graphutil.getTracker(this);
             this.rebuildGraph(this.currentProject, graphTracker)
-        },
-
-        _currentProjectChanged: function(newProject, oldProject) {
-            var project = newProject;
-
-            console.info("_currentProjectChanged: " + project);
-            this.set('progress', {
-                value: 0,
-                msg: ''
-            });
-
-            var tracker = graphutil.getTracker(this);
-            var readDataTracker = tracker.getSubtaskTracker(100, 'Reading Data');
-
-            this.filter.reset();
-
-            newProject.readAndParse(readDataTracker)
-                .then(function(project) {
-                    this.fire("project-loaded", {});
-                }.bind(this));
-        },
+        },         
 
         rebuildGraph: function(project, tracker) {
             if (!this.tabVisible) {
@@ -114,7 +97,13 @@
             var graphTracker = tracker.getSubtaskTracker( 50, 'Linking nodes');
             var hierarchyTracker = tracker.getSubtaskTracker( 50, 'Namespace hierarchy');
 
-            var nodes = project.buildGraph(this.filter);
+            var nodes = []
+            if(this.graphType==='assumptions'){
+                nodes = project.buildGraph(this.filter);
+            } else if(this.graphType==='calls'){
+                nodes = project.buildCallsGraph(this.filter);
+            }
+                
 
             graph.build(nodes, {}, graphTracker).then(function(graph) {
                 this._setOutGraph(graph);

@@ -76,6 +76,7 @@ $kt-in-edge: $blue;
     --kt-grey-lighter                     : lighten($grey, 50%);
 
     --kt-edge                             : lighten($grey,30%);
+    --kt-edge-end                         : lighten($grey,40%);
     --kt-edge-highlight                   : lighten($ian_gillan, 5%);
 
     --kt-out-edge-highlight               : $kt-out-edge;
