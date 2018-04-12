@@ -157,12 +157,18 @@ ul.links {
     }
 }
 
+#splash-layout{
+    background: var(--kt-main-bg)!important;
+}
 splash-layout {
+    
+
     h1 {
         margin-bottom: $spacer;
     }
 
     .table {
+       
         align-items   : center;
         display       : flex;
         flex-direction: column;

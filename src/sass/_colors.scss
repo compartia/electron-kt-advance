@@ -39,55 +39,58 @@ $highlight-hover: transparentize($selection-bg, 0.35);
 $kt-out-edge: lighten($red, 5%);
 $kt-in-edge: $blue;
 
+
+$base-bg-lighten: lighten($base-bg, 47%);
+
 :root {
 
-    --selection-lt-bg                     : $selection-lt-bg;
-    --selection-bg                        : $selection-bg;
-    --selection-tx                        : $base-bg;
+    --selection-lt-bg                     : #{ $selection-lt-bg};
+    --selection-bg                        : #{ $selection-bg};
+    --selection-tx                        : #{ $base-bg};
 
-    --kt-po-primary-tx                    : darken($ian_gillan, 1%);
-    --kt-po-secondary-tx                  : darken($side-bg,50%);
+    --kt-po-primary-tx                    : #{ darken($ian_gillan, 1%) };
+    --kt-po-secondary-tx                  : #{ darken($side-bg,50%) };
 
-    --kt-side-bg                          : $side-bg;
-    --kt-panel-bg                         : lighten($base-bg, 47%);
-    --kt-side-bg-2                        : $side-bg-2;
-    --kt-main-bg                          : $main-bg;
-    --kt-main-bg-t80                      : fade( $main-bg, 10%);
+    --kt-side-bg                          : #{ $side-bg};
+    --kt-panel-bg                         : #{ lighten($base-bg, 47%) };
+    --kt-side-bg-2                        : #{ $side-bg-2};
+    --kt-main-bg                          : #{ $main-bg};
+    --kt-main-bg-t80                      : #{ fade_out($main-bg, 0.1) };
 
-    --paper-tree-selected-background-color: $selection-bg;
+    --paper-tree-selected-background-color: #{$selection-bg};
 
     /* == = = == =  = = = = = */
 
-    --kt-red                              : $red;
-    --kt-green                            : $green;
-    --kt-yellow                           : $yellow;
+    --kt-red                              : #{ $red};
+    --kt-green                            : #{ $green};
+    --kt-yellow                           : #{ $yellow};
 
-    --kt-orange                           : mix($yellow, $red, 55%);
+    --kt-orange                           : #{ mix($yellow, $red, 55%) } ;
 
-    --kt-violet                           : $ian_gillan;
-    --kt-violet-lighter                   : lighten($ian_gillan, 10%);
-    --kt-node-fade                        : lighten(desaturate($ian_gillan, 30%), 40%);
-    --kt-node-selected-border             : $ian_gillan;
+    --kt-violet                           : #{ $ian_gillan };
+    --kt-violet-lighter                   : #{ lighten($ian_gillan, 10%) };
+    --kt-node-fade                        : #{ lighten(desaturate($ian_gillan, 30%), 40%)};
+    --kt-node-selected-border             : #{ $ian_gillan };
 
-    --kt-grey                             : $grey;
-    --kt-grey-dark                        : darken($grey, 20%);
-    --kt-text-color                       : darken($grey, 20%);
-    --kt-grey-light                       : lighten($grey,30%);
-    --kt-grey-lighter                     : lighten($grey, 50%);
+    --kt-grey                             : #{ $grey};
+    --kt-grey-dark                        : #{ darken($grey, 20%) };
+    --kt-text-color                       : #{ darken($grey, 20%)};
+    --kt-grey-light                       : #{ lighten($grey,30%)};
+    --kt-grey-lighter                     : #{ lighten($grey, 50%)};
 
-    --kt-edge                             : lighten($grey,30%);
-    --kt-edge-end                         : lighten($grey,40%);
-    --kt-edge-highlight                   : lighten($ian_gillan, 5%);
+    --kt-edge                             : #{ lighten($grey,30%) };
+    --kt-edge-end                         : #{ lighten($grey,40%) };
+    --kt-edge-highlight                   : #{ lighten($ian_gillan, 5%) };
 
-    --kt-out-edge-highlight               : $kt-out-edge;
-    --kt-in-edge-highlight                : $kt-in-edge;
+    --kt-out-edge-highlight               : #{ $kt-out-edge};
+    --kt-in-edge-highlight                : #{ $kt-in-edge};
 
-    --kt-out-edge-bg                      : transparentize($kt-out-edge, 0.65);
-    --kt-in-edge-bg                       : transparentize($kt-in-edge, 0.65);
-    --kt-out-edge-bg-hover                : transparentize($kt-out-edge, 0.45);
-    --kt-in-edge-bg-hover                 : transparentize($kt-in-edge, 0.45);
+    --kt-out-edge-bg                      : #{ transparentize($kt-out-edge, 0.65) };
+    --kt-in-edge-bg                       : #{ transparentize($kt-in-edge, 0.65) };
+    --kt-out-edge-bg-hover                : #{ transparentize($kt-out-edge, 0.45) };
+    --kt-in-edge-bg-hover                 : #{ transparentize($kt-in-edge, 0.45) };
 
-    --kt-edge-text                        : darken($grey, 20%);
+    --kt-edge-text                        : #{ darken($grey, 20%)};
 
     /* STATES =========== */
 
@@ -101,18 +104,18 @@ $kt-in-edge: $blue;
     @each $discharge, $dcolor in $discharges {
         $_c                                        : $dcolor;
         $_hover                                    : hsl( hue($_c), saturation($_c), 93);
-        --kt-discharge-#{$discharge}-hover-bg: $_hover;
+        --kt-discharge-#{$discharge}-hover-bg: #{$_hover};
     }
 
     @each $level, $lcolor in $levels {
-        --kt-po-#{$level}-bg: $lcolor;
-        --kt-po-#{$level}-tx: hsl( hue($lcolor), saturation($lcolor), 40);
+        --kt-po-#{$level}-bg: #{ $lcolor};
+        --kt-po-#{$level}-tx: #{ hsl( hue($lcolor), saturation($lcolor), 40) };
     }
     @each $state, $scolor in $states {
 
-        --kt-state-#{$state}-default-bg      : $scolor;
-        --kt-state-#{$state}-default-tx      : hsl( hue($scolor), saturation($scolor), 40);
-        --kt-state-#{$state}-default-hover-bg: hsl( hue($scolor), saturation($scolor), 90);
+        --kt-state-#{$state}-default-bg      : #{$scolor};
+        --kt-state-#{$state}-default-tx      : #{ hsl( hue($scolor), saturation($scolor), 40) };
+        --kt-state-#{$state}-default-hover-bg: #{ hsl( hue($scolor), saturation($scolor), 90) };
 
         .po-#{$state}-default {
             border-left: 3px solid var(--kt-state-#{$state}-default-bg);
@@ -129,9 +132,9 @@ $kt-in-edge: $blue;
             $_tx                                       : hsl( hue($_c), saturation($scolor), 40);
             $_hover                                    : hsl( hue($_c), saturation($scolor), 90);
 
-            --kt-state-#{$state}-#{$discharge}-bg      : $_bg;
-            --kt-state-#{$state}-#{$discharge}-tx      : $_tx;
-            --kt-state-#{$state}-#{$discharge}-hover-bg: $_hover;
+            --kt-state-#{$state}-#{$discharge}-bg      : #{$_bg};
+            --kt-state-#{$state}-#{$discharge}-tx      : #{$_tx};
+            --kt-state-#{$state}-#{$discharge}-hover-bg: #{$_hover};
 
             .po-#{$state}-#{$discharge} {
                 border-left-color: var(--kt-state-#{$state}-#{$discharge}-bg);
@@ -147,9 +150,9 @@ $kt-in-edge: $blue;
                 $_ltx                                                : mix($_tx, $lcolor, 70%);
                 $_lhv                                                : mix($_hover, $lcolor, 70%);
 
-                --kt-state-#{$state}-#{$discharge}-#{$level}-bg      : $_lbg;
-                --kt-state-#{$state}-#{$discharge}-#{$level}-tx      : hsl( hue($_ltx), saturation($_ltx), 40);
-                --kt-state-#{$state}-#{$discharge}-#{$level}-hover-bg: hsl( hue($_lhv), saturation($_lhv), 90);
+                --kt-state-#{$state}-#{$discharge}-#{$level}-bg      : #{ $_lbg};
+                --kt-state-#{$state}-#{$discharge}-#{$level}-tx      : #{ hsl( hue($_ltx), saturation($_ltx), 40) };
+                --kt-state-#{$state}-#{$discharge}-#{$level}-hover-bg: #{ hsl( hue($_lhv), saturation($_lhv), 90) };
 
             }
 
@@ -157,11 +160,11 @@ $kt-in-edge: $blue;
     }
 
     /* =========== */
-    --kt-hover                            : lighten(desaturate($ian_gillan, 30%), 55%);
-    --kt-progress                         : $color-brand-2;
+    --kt-hover                            : #{ lighten(desaturate($ian_gillan, 30%), 55%)};
+    --kt-progress                         : #{ $color-brand-2 };
 
-    --kt-complexity-p-bg                  : desaturate(lighten($color-brand-2, 30%), 20%);
-    --kt-complexity-c-bg                  : desaturate(lighten($color-brand-2, 40%), 20%);
-    --kt-complexity-g-bg                  : desaturate(lighten($color-brand-2, 50%), 20%);
+    --kt-complexity-p-bg                  : #{ desaturate(lighten($color-brand-2, 30%), 20%) };
+    --kt-complexity-c-bg                  : #{ desaturate(lighten($color-brand-2, 40%), 20%) };
+    --kt-complexity-g-bg                  : #{ desaturate(lighten($color-brand-2, 50%), 20%) };
     /* =========== */
 }

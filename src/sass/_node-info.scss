@@ -21,8 +21,8 @@ discharge-info{
 }
 
 tf-node-info {
-    --iron-icon-height: $font-size-base;
-    --iron-icon-width: $font-size-base;
+    --iron-icon-height: #{$font-size-base};
+    --iron-icon-width: #{$font-size-base};
 
 
     .code-link{

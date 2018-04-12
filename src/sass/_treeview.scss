@@ -7,8 +7,8 @@ $paper-tree-icon-space: $spacer/4;
 
 
 :root {
-    --paper-tree-icon-width: $paper-tree-icon-width;
-    --paper-tree-font-size : $paper-tree-font-size;
+    --paper-tree-icon-width: #{$paper-tree-icon-width};
+    --paper-tree-font-size : #{$paper-tree-font-size};
 }
 
 .paper-tree {
