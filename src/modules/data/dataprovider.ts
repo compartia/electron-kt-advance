@@ -22,9 +22,18 @@ interface JPPO {
     sts: string;
 }
 
+interface JCallsite{
+    spos: JSPO[];
+}
+
+interface JSPO extends JPPO{
+
+}
+
 interface JFunc {
     name: string;
     ppos: JPPO[];
+    callsites: JCallsite[]; 
 }
 interface JFile {
     name: string;
@@ -40,32 +49,23 @@ interface KtJson {
     basedir: string;
     apps: JApp[];
 }
-
-class PPOImpl implements ProofObligation {
+abstract class AbstractPO implements ProofObligation {
 
     public constructor(ppo: JPPO, cfun: CFunction) {
         const state = ppo.sts == "safe" ? "discharged" : ppo.sts;
         this.cfunction = cfun;
         this.predicate = ppo.prd;
         this.state = PoStates[state];
-        this.extendedState=state+"-default";
+        this.extendedState = state + "-default";
         this.expression = ppo.exp;
         this.location = {
             line: ppo.line
         }
-        this.discharge=<PODischarge>{
+        this.discharge = <PODischarge>{
             message: ppo.evl
         };
-        
-        this.level = "primary";
+
         this.id = "" + ppo.id;
-        //     dep: string;
-        // evl: string;
-        // exp: string;
-        // id: number;
-
-
-
     }
 
     isViolation(): boolean {
@@ -78,10 +78,10 @@ class PPOImpl implements ProofObligation {
     predicate: string;
     expression: string;
     callsiteFname: string;
-    
+
     extendedState: string;
     dischargeType: string;
-    level: "primary";
+
     label: "label";
     discharge: PODischarge;
     apiId: string;
@@ -98,7 +98,7 @@ class PPOImpl implements ProofObligation {
     get file() {
         return this.cfunction.file;
     }
-    get line():number {
+    get line(): number {
         return this.location.line;
     }
     get functionName() {
@@ -107,7 +107,22 @@ class PPOImpl implements ProofObligation {
     get levelLabel(): string {
         return "I";
     }
+    get level() {
+        return "unknown";
+    }
 }
+class SPOImpl extends AbstractPO {
+    get level(): string {
+        return "secondary";
+    }
+}
+
+class PPOImpl extends AbstractPO {
+    get level(): string {
+        return "primary";
+    }
+}
+
 
 
 export class CAnalysisJsonReaderImpl implements XmlReader {
@@ -126,9 +141,17 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
             functionByFile: {}
         };
         files.forEach(file => {
-            const json = <KtJson>JSON.parse(fs.readFileSync(file));
-            this.mergeJsonData(json);
-            // tracker.updateProgress
+            console.log(file);
+            try {
+                const json = <KtJson>JSON.parse(fs.readFileSync(file));
+                this.mergeJsonData(json);
+            }
+            catch (e) {
+                console.error("cannot parse " + file);
+                console.error(e);
+            }
+            tracker.updateProgress(100);
+
         });
         return this.result;
     }
@@ -143,7 +166,7 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
 
                 let abs = path.normalize(path.join(app.sourceDir, file.name));
                 let relative = path.relative(this.projectDir, abs);
-                console.log(relative);
+                // console.log(relative);
                 this.result.functionByFile[relative] = this.toCFuncArray(file.functions, file.name, app.sourceDir);
             });
         });
@@ -176,6 +199,24 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
                         this.result.ppos.push(mPPOImpl);
                     }
                 );
+
+
+                if(fun.callsites){
+                    fun.callsites.forEach(
+                        callsite => {
+
+                            callsite.spos.forEach(
+                                spo => {
+                                    const mSPOImpl: PPOImpl = new SPOImpl(spo, cfun);
+                                    this.result.ppos.push(mSPOImpl);
+                                }
+                            );
+
+
+                        }
+                    );
+                }
+                
             }
 
         );

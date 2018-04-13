@@ -1,12 +1,12 @@
 import * as _ from "lodash"
 
-export enum PoStates { violation, open, discharged, assumption };
+export enum PoStates { violation, open, discharged, deadcode, assumption };
 export enum PoDischargeTypes { global, invariants, ds, rv, api, default };
 export const PoLevels = ["primary", "secondary"];
 
 export const PoDischargeTypesArr: Array<string> = ["global", "invariants", "ds", "rv", "api", "default"];
 export const PoStatesArr: Array<PoStates> = [PoStates.violation, PoStates.open, PoStates.discharged];
-export enum PoStatesExt { violation, open, discharged, global, invariants, ds, rv, api };
+export enum PoStatesExt { violation, open, discharged, deadcode, global, invariants, ds, rv, api };
 
 
 export interface FileInfo {
@@ -70,13 +70,13 @@ export interface HasCFunction {
 export interface POId extends HasCFunction {
     id: string;    
 }
+
 export interface AbstractNode extends POId {
     inputs: AbstractNode[];
     outputs: AbstractNode[];
     location: POLocation;
     symbol: Symbol;
     
-
     isLinked(): boolean;
 }
 

@@ -45,20 +45,21 @@ export function buildCallsGraph(filter: Filter, project: CProject): NodeDef[] {
     let nodesMap: { [key: string]: NodeDef } = {};
 
 
-    for (let call of calls) {
-        if (call.callSites.length) {
-            if (filter.acceptCFunction(call.cfunction)) {
-                const node = findOrBuildFuncNode(call.cfunction, nodesMap);
-                for (let ref of call.callSites) {
-                    const refnode = findOrBuildFuncNode(ref, nodesMap);
-                    node.output.push(refnode.name);
-                    refnode.input.push(node.name);
+    if(calls){
+        for (let call of calls) {
+            if (call.callSites.length) {
+                if (filter.acceptCFunction(call.cfunction)) {
+                    const node = findOrBuildFuncNode(call.cfunction, nodesMap);
+                    for (let ref of call.callSites) {
+                        const refnode = findOrBuildFuncNode(ref, nodesMap);
+                        node.output.push(refnode.name);
+                        refnode.input.push(node.name);
+                    }
                 }
-            }
 
+            }
         }
     }
-
     const ret: NodeDef[] = [];
     const keys: string[] = [];
     for (let nm in nodesMap) {
