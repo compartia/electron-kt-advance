@@ -8,9 +8,20 @@ import { ProgressTracker } from '../tf_graph_common/lib/common';
 import { CAnalysis, CApplication } from '../common/xmltypes';
 
 import * as kt_fs from '../common/fstools';
+import { normalize } from 'path';
 
 const path = require('path');
 const fs = require('fs');
+
+interface JPoLink {
+    file: string;
+    functionName: string;
+    id: number;
+}
+
+function linkKey(link: JPoLink | ProofObligation): string {
+    return link.file + "/" + link.functionName + "/" + link.id;
+}
 
 interface JPPO {
     dep: string;
@@ -20,20 +31,21 @@ interface JPPO {
     line: number;
     prd: string;
     sts: string;
+    links: JPoLink[];
 }
 
-interface JCallsite{
+interface JCallsite {
     spos: JSPO[];
 }
 
-interface JSPO extends JPPO{
+interface JSPO extends JPPO {
 
 }
 
 interface JFunc {
     name: string;
     ppos: JPPO[];
-    callsites: JCallsite[]; 
+    callsites: JCallsite[];
 }
 interface JFile {
     name: string;
@@ -49,9 +61,14 @@ interface KtJson {
     basedir: string;
     apps: JApp[];
 }
+ 
 abstract class AbstractPO implements ProofObligation {
+    links: JPoLink[];
 
-    public constructor(ppo: JPPO, cfun: CFunction) {
+    indexer: CAnalysisImpl;
+    public constructor(ppo: JPPO, cfun: CFunction, indexer: CAnalysisImpl) {
+        this.indexer = indexer;
+
         const state = ppo.sts == "safe" ? "discharged" : ppo.sts;
         this.cfunction = cfun;
         this.predicate = ppo.prd;
@@ -66,6 +83,27 @@ abstract class AbstractPO implements ProofObligation {
         };
 
         this.id = "" + ppo.id;
+        //
+        this.links = ppo.links;
+
+
+    }
+
+    get inputs(): AbstractNode[] {
+        let ret = [];
+        if (this.links) {  
+            for (let link of this.links) {
+                let key = linkKey(link);
+                let node: AbstractNode = this.indexer.getByIndex(key);
+                if (node) {
+                    ret.push(node);
+                } else {
+                    console.error("can not find " + key + " in index");
+                }
+            }            
+        }
+        return ret;
+
     }
 
     isViolation(): boolean {
@@ -86,34 +124,44 @@ abstract class AbstractPO implements ProofObligation {
     discharge: PODischarge;
     apiId: string;
     state: PoStates;//XXX
-    inputs: AbstractNode[];
     outputs: AbstractNode[];
+
     location: POLocation;
     symbol: Symbol;
+
     isLinked(): boolean {
-        return false;
+        return this.links && (this.links.length>0);
     }
+
     id: string;
     cfunction: CFunction;
+
     get file() {
         return this.cfunction.file;
     }
+
     get line(): number {
         return this.location.line;
     }
     get functionName() {
         return this.cfunction.name;
     }
-    get levelLabel(): string {
-        return "I";
-    }
+
     get level() {
         return "unknown";
+
+    }
+
+    get levelLabel(): string {
+        throw "not implemented";
     }
 }
 class SPOImpl extends AbstractPO {
     get level(): string {
         return "secondary";
+    }
+    get levelLabel(): string {
+        return "II";
     }
 }
 
@@ -121,25 +169,50 @@ class PPOImpl extends AbstractPO {
     get level(): string {
         return "primary";
     }
+    get levelLabel(): string {
+        return "I";
+    }
 }
 
+export class CAnalysisImpl implements CAnalysis {
+    apps = [];
+    _proofObligations = [];
+    appByDirMap = {};
+    functionByFile = {};
 
+    poIndex: { [key: string]: ProofObligation } = {};
+
+
+    public pushPo(po: ProofObligation): string {
+        this.proofObligations.push(po);
+
+        let index = linkKey(po);//this.indexOf(po, po.file, po.functionName);
+        this.poIndex[index] = po;
+        return index;
+    }
+
+    public getByIndex(index: string): ProofObligation {
+        return this.poIndex[index];
+    }
+
+
+    public get proofObligations() {
+        return this._proofObligations;
+    }
+}
 
 export class CAnalysisJsonReaderImpl implements XmlReader {
 
     projectDir: string;
-    result: CAnalysis;
+    result: CAnalysisImpl;
     public readDir(dir: string, tracker: ProgressTracker): CAnalysis {
 
         this.projectDir = dir;
         let files: string[] = kt_fs.listFilesRecursively(dir, ".kt.analysis.json");
 
-        this.result = {
-            apps: [],
-            ppos: [],
-            appByDirMap: {},
-            functionByFile: {}
-        };
+        this.result = new CAnalysisImpl();
+
+
         files.forEach(file => {
             console.log(file);
             try {
@@ -162,20 +235,36 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
             console.log(app.sourceDir);
 
             app.files.forEach(file => {
-
-
-                let abs = path.normalize(path.join(app.sourceDir, file.name));
-                let relative = path.relative(this.projectDir, abs);
+                let absPath = path.normalize(path.join(app.sourceDir, file.name));
+                let relative = path.relative(this.projectDir, absPath);
                 // console.log(relative);
-                this.result.functionByFile[relative] = this.toCFuncArray(file.functions, file.name, app.sourceDir);
+                this.result.functionByFile[relative] = this.toCFuncArray(file.functions, file, app.sourceDir);
             });
         });
     }
 
-    private toCFuncArray(functions: JFunc[], file: string, basedir: string): CFunction[] {
-        const ret: CFunction[] = [];
-        let abs = path.normalize(path.join(basedir, file));
+    private normalizeSourcePath(base: string, file: string): string {
+        let abs = path.normalize(path.join(base, file));
         let relative = path.relative(this.projectDir, abs);
+        return relative;
+    }
+
+    normalizeLinks(links: JPoLink[], base: string): JPoLink[] {
+        if(links){
+            for (let link of links) {
+                link.file = this.normalizeSourcePath(base, link.file);
+            }
+        }
+        return links;
+    }
+
+    private toCFuncArray(functions: JFunc[], file: JFile, basedir: string): CFunction[] {
+        const ret: CFunction[] = [];
+        // let abs = path.normalize(path.join(basedir, file.name));
+        let relative = this.normalizeSourcePath(this.projectDir, file.name);
+        // path.relative(this.projectDir, abs);
+
+
 
         functions.forEach(
             fun => {
@@ -195,20 +284,22 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
 
                 fun.ppos.forEach(
                     ppo => {
-                        const mPPOImpl: PPOImpl = new PPOImpl(ppo, cfun);
-                        this.result.ppos.push(mPPOImpl);
+                        const mPPOImpl: PPOImpl = new PPOImpl(ppo, cfun, this.result);
+                        mPPOImpl.links = this.normalizeLinks(ppo.links, this.projectDir);
+                        this.result.pushPo(mPPOImpl);
                     }
                 );
 
 
-                if(fun.callsites){
+                if (fun.callsites) {
                     fun.callsites.forEach(
                         callsite => {
 
                             callsite.spos.forEach(
                                 spo => {
-                                    const mSPOImpl: PPOImpl = new SPOImpl(spo, cfun);
-                                    this.result.ppos.push(mSPOImpl);
+                                    const mSPOImpl: SPOImpl = new SPOImpl(spo, cfun, this.result);
+                                    mSPOImpl.links = this.normalizeLinks(spo.links, this.projectDir);
+                                    this.result.pushPo(mSPOImpl);
                                 }
                             );
 
@@ -216,7 +307,7 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
                         }
                     );
                 }
-                
+
             }
 
         );

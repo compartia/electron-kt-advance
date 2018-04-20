@@ -22,14 +22,21 @@ export function buildGraph(filter: Filter, project: CProject): NodeDef[] {
     for (let ppo of pos) {
         if (ppo.isLinked()) {
             let node: NodeDef = proofObligationToNodeDef(ppo, filter, settings);
+
             g.push(node);
+
+            for(let linked of ppo.inputs){
+                let linkedNode: NodeDef = proofObligationToNodeDef( <ProofObligation> linked, filter, settings);
+                g.push(linkedNode);    
+            }
+            
         }
     }
 
     if(apis){
         for (var api of apis) {
             if (api.isLinked()) {
-                let node: NodeDef = ApiNodeToNodeDef(api, filter, settings);
+                let node: NodeDef = apiNodeToNodeDef(api, filter, settings);
                 g.push(node);
             }
         }
@@ -165,7 +172,6 @@ export function makeProofObligationName(po: ProofObligation, filter: Filter, set
         nm += "-expression-";
     }
 
-
     return makeGraphNodePath(filter, settings, po.cfunction, po.predicate, nm);
 }
 
@@ -219,19 +225,27 @@ export function proofObligationToNodeDef(po: ProofObligation, filter: Filter, se
         }
     }
 
+    // for (let ref of sortNodes(po.inputs)) {
+    //     nodeDef.input.push(makeAssumptionName(<ApiNode>ref, filter, settings));
+    // }
+
+    // for (let ref of sortNodes(po.outputs)) {
+    //     nodeDef.output.push(makeAssumptionName(<ApiNode>ref, filter, settings));
+    // }
+
     for (let ref of sortNodes(po.inputs)) {
-        nodeDef.input.push(makeAssumptionName(<ApiNode>ref, filter, settings));
+        nodeDef.input.push(makeProofObligationName(<ProofObligation> ref, filter, settings));
     }
 
     for (let ref of sortNodes(po.outputs)) {
-        nodeDef.output.push(makeAssumptionName(<ApiNode>ref, filter, settings));
+        nodeDef.output.push(makeProofObligationName(<ProofObligation>  ref, filter, settings));
     }
 
     return nodeDef;
 }
 
 
-export function ApiNodeToNodeDef(api: ApiNode, filter: Filter, settings: GraphSettings): NodeDef {
+export function apiNodeToNodeDef(api: ApiNode, filter: Filter, settings: GraphSettings): NodeDef {
 
 
     let nodeDef: NodeDef = {
@@ -244,14 +258,14 @@ export function ApiNodeToNodeDef(api: ApiNode, filter: Filter, settings: GraphSe
             "label": api.label,
             "predicate": api.predicateType,
             "expression": api.expression,
-            "state": PoStates[api.state],
+            "state": PoStates[api.state],//used
             "message": api.message,
-            "apiId": api.id,
+            "apiId": api.id,//used
             "symbol": api.symbol,
-            "assumptionType": api.type,
+            "assumptionType": api.type,//used
             "locationPath": api.file + SPL + api.functionName,
             "location": api.location,
-            "data": api
+            "data": api//used
         }
     }
 

@@ -17,7 +17,8 @@ import { StatsTable, NamedArray } from '../common/collections';
 const states = [
     "violation",
     "open",
-    "discharged"
+    "discharged",
+    "deadcode"
 ];
 
 

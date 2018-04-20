@@ -120,7 +120,7 @@ export interface CApplication{
 }
 
 export interface CAnalysis {
-    ppos:Array<ProofObligation>;
+    proofObligations:Array<ProofObligation>;
     apps:Array<CApplication>;
     appByDirMap:{ [key: string]: CApplication }
  

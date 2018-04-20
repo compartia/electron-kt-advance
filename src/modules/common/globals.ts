@@ -157,10 +157,12 @@ export class ProjectImpl implements CProject{
         ) ;
 
         project.functionByFile=mCAnalysis.functionByFile;
-        project.proofObligations = sortPoNodes(mCAnalysis.ppos);
-        return new Promise((resolve, reject) => {
-            resolve(project);
-        });
+        project.proofObligations = sortPoNodes(mCAnalysis.proofObligations);
+        return Promise.resolve(project);  
+        
+        // new Promise((resolve, reject) => {
+        //     resolve(project);
+        // });
         
         // return reader.readFunctionsMap(path.dirname(project.analysisDir), readFunctionsMapTracker)
         //     .then((functions: CFunction[]) => {
