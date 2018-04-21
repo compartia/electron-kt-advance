@@ -232,7 +232,7 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
     private mergeJsonData(data: KtJson): void {
         data.apps.forEach(app => {
 
-            console.log(app.sourceDir);
+            console.log("source dir:"+app.sourceDir);
 
             app.files.forEach(file => {
                 let absPath = path.normalize(path.join(app.sourceDir, file.name));
@@ -258,15 +258,13 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
         return links;
     }
 
-    private toCFuncArray(functions: JFunc[], file: JFile, basedir: string): CFunction[] {
+    private toCFuncArray(functions: JFunc[], file: JFile, sourceDir: string): CFunction[] {
         const ret: CFunction[] = [];
         // let abs = path.normalize(path.join(basedir, file.name));
-        let relative = this.normalizeSourcePath(this.projectDir, file.name);
+        let relative = this.normalizeSourcePath(sourceDir, file.name);
         // path.relative(this.projectDir, abs);
 
-
-
-        functions.forEach(
+        functions && functions.forEach(
             fun => {
                 const cfun: CFunction = {
                     name: fun.name,
