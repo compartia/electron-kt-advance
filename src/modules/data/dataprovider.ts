@@ -1,7 +1,12 @@
 import {
     FileInfo, ProofObligation, AbstractNode,
-    Symbol, PoStates, PODischarge, POLocation, ApiNode, FunctionCalls, CFunction, sortPoNodes
+    Symbol, PoStates, PODischarge, POLocation, ApiNode, FunctionCalls, CFunction, sortPoNodes, Graphable
 } from '../common/xmltypes';
+
+
+import { NodeDef } from '../tf_graph_common/lib/proto'
+import { Filter } from '../common/filter'
+import { GraphSettings } from '../common/globals'
 
 import { XmlReader } from './xmlreader';
 import { ProgressTracker } from '../tf_graph_common/lib/common';
@@ -12,6 +17,7 @@ import { normalize } from 'path';
 
 const path = require('path');
 const fs = require('fs');
+
 
 interface JPoLink {
     file: string;
@@ -42,10 +48,19 @@ interface JSPO extends JPPO {
 
 }
 
+interface JAssumption {
+
+}
+
+interface JApi {
+    aa: JAssumption[]
+}
+
 interface JFunc {
     name: string;
     ppos: JPPO[];
     callsites: JCallsite[];
+    api: JApi;
 }
 interface JFile {
     name: string;
@@ -61,11 +76,12 @@ interface KtJson {
     basedir: string;
     apps: JApp[];
 }
- 
+
 abstract class AbstractPO implements ProofObligation {
     links: JPoLink[];
 
     indexer: CAnalysisImpl;
+
     public constructor(ppo: JPPO, cfun: CFunction, indexer: CAnalysisImpl) {
         this.indexer = indexer;
 
@@ -89,19 +105,24 @@ abstract class AbstractPO implements ProofObligation {
 
     }
 
-    get inputs(): AbstractNode[] {
+    get inputs() {
+        return null;
+        //  throw "unimplemented";
+    }
+
+    get linkedNodes(): Graphable[] {
         let ret = [];
-        if (this.links) {  
-            for (let link of this.links) {
-                let key = linkKey(link);
-                let node: AbstractNode = this.indexer.getByIndex(key);
-                if (node) {
-                    ret.push(node);
-                } else {
-                    console.error("can not find " + key + " in index");
-                }
-            }            
-        }
+
+        this.links && this.links.forEach(link => {
+            let key = linkKey(link);
+            let node: ProofObligation = this.indexer.getByIndex(key);
+            if (node) {
+                ret.push(node);
+            } else {
+                console.error("can not find " + key + " in index");
+            }
+        });
+
         return ret;
 
     }
@@ -109,9 +130,11 @@ abstract class AbstractPO implements ProofObligation {
     isViolation(): boolean {
         return true;
     }
+
     isDischarged(): boolean {
         return false;
     }
+
     name: string;
     predicate: string;
     expression: string;
@@ -130,7 +153,7 @@ abstract class AbstractPO implements ProofObligation {
     symbol: Symbol;
 
     isLinked(): boolean {
-        return this.links && (this.links.length>0);
+        return this.links && (this.links.length > 0);
     }
 
     id: string;
@@ -149,11 +172,76 @@ abstract class AbstractPO implements ProofObligation {
 
     get level() {
         return "unknown";
-
     }
 
     get levelLabel(): string {
         throw "not implemented";
+    }
+
+
+    public getGraphKey(filter: Filter, settings: GraphSettings): string {
+        let nm = this.levelLabel + "(" + this.id + ")";
+
+        if (this.symbol) {
+            nm += this.symbol.pathLabel;
+        } else {
+            nm += "-expression-";
+        }
+
+        let pathParts: string[] = [];
+
+        let fileBaseName: string = path.basename(this.cfunction.fileInfo.relativePath);
+        pathParts.push(fileBaseName);
+        pathParts.push(this.cfunction.name);
+        pathParts.push(this.predicate);
+
+        pathParts.push(nm);
+
+        //return makeGraphNodePath(filter, settings, this.cfunction, this.predicate, nm);
+        return pathParts.join('/');
+
+    }
+
+    public toNodeDef(filter: Filter, settings: GraphSettings): NodeDef {
+
+        let nodeDef: NodeDef = {
+            name: this.getGraphKey(filter, settings),
+            input: [],
+            output: [],
+            device: this.extendedState,
+            op: this.functionName,
+            attr: {
+                "label": this.label,
+                "apiId": this.apiId,
+                "predicate": this.predicate,
+                "level": this.level,
+                "state": PoStates[this.state],
+                "location": this.location,
+                "symbol": this.symbol,
+                "expression": this.expression,
+                "dischargeType": this.dischargeType,
+                "discharge": this.discharge,
+                //"dischargeAssumption": po.dischargeAssumption,
+                "locationPath": this.file + "/" + this.functionName,
+                "data": this
+            }
+        }
+
+        this.linkedNodes.forEach(node=>{
+            nodeDef.input.push(node.getGraphKey(filter, settings));
+        })
+
+        // this.links && this.links.forEach(link => {
+        //     const key = linkKey(link);
+        //     let node: ProofObligation = this.indexer.getByIndex(key);
+        //     if (node) {
+        //         nodeDef.input.push(node.getGraphKey(filter, settings));
+        //     } else {
+        //         console.error("can not find " + key + " in index");
+        //     }
+        // });
+
+        return nodeDef;
     }
 }
 class SPOImpl extends AbstractPO {
@@ -205,6 +293,7 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
 
     projectDir: string;
     result: CAnalysisImpl;
+
     public readDir(dir: string, tracker: ProgressTracker): CAnalysis {
 
         this.projectDir = dir;
@@ -231,14 +320,14 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
 
     private mergeJsonData(data: KtJson): void {
         data.apps.forEach(app => {
-
-            console.log("source dir:"+app.sourceDir);
+            console.log("source dir:" + app.sourceDir);
 
             app.files.forEach(file => {
+
                 let absPath = path.normalize(path.join(app.sourceDir, file.name));
                 let relative = path.relative(this.projectDir, absPath);
-                // console.log(relative);
                 this.result.functionByFile[relative] = this.toCFuncArray(file.functions, file, app.sourceDir);
+
             });
         });
     }
@@ -250,7 +339,7 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
     }
 
     normalizeLinks(links: JPoLink[], base: string): JPoLink[] {
-        if(links){
+        if (links) {
             for (let link of links) {
                 link.file = this.normalizeSourcePath(base, link.file);
             }
@@ -260,55 +349,42 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
 
     private toCFuncArray(functions: JFunc[], file: JFile, sourceDir: string): CFunction[] {
         const ret: CFunction[] = [];
-        // let abs = path.normalize(path.join(basedir, file.name));
         let relative = this.normalizeSourcePath(sourceDir, file.name);
-        // path.relative(this.projectDir, abs);
 
-        functions && functions.forEach(
-            fun => {
-                const cfun: CFunction = {
-                    name: fun.name,
-                    file: relative,
-                    fileInfo: <FileInfo>{
-                        relativePath: relative
-                    },
-                    funcLocation: {
-                        line: 0
-                    },
+        functions && functions.forEach(fun => {
+            const cfun: CFunction = {
+                name: fun.name,
+                file: relative,
+                fileInfo: <FileInfo>{
+                    relativePath: relative
+                },
+                funcLocation: {
                     line: 0
-                }
-
-                ret.push(cfun);
-
-                fun.ppos.forEach(
-                    ppo => {
-                        const mPPOImpl: PPOImpl = new PPOImpl(ppo, cfun, this.result);
-                        mPPOImpl.links = this.normalizeLinks(ppo.links, this.projectDir);
-                        this.result.pushPo(mPPOImpl);
-                    }
-                );
-
-
-                if (fun.callsites) {
-                    fun.callsites.forEach(
-                        callsite => {
-
-                            callsite.spos.forEach(
-                                spo => {
-                                    const mSPOImpl: SPOImpl = new SPOImpl(spo, cfun, this.result);
-                                    mSPOImpl.links = this.normalizeLinks(spo.links, this.projectDir);
-                                    this.result.pushPo(mSPOImpl);
-                                }
-                            );
-
-
-                        }
-                    );
-                }
-
+                },
+                line: 0
             }
 
-        );
+            ret.push(cfun);
+
+            fun.ppos && fun.ppos.forEach(ppo => {
+                const mPPOImpl: PPOImpl = new PPOImpl(ppo, cfun, this.result);
+                mPPOImpl.links = this.normalizeLinks(ppo.links, sourceDir);
+                this.result.pushPo(mPPOImpl);
+            });
+
+
+            fun.callsites && fun.callsites.forEach(callsite => {
+
+                callsite.spos && callsite.spos.forEach(spo => {
+                    const mSPOImpl: SPOImpl = new SPOImpl(spo, cfun, this.result);
+                    mSPOImpl.links = this.normalizeLinks(spo.links, sourceDir);
+                    this.result.pushPo(mSPOImpl);
+                });
+
+            });
+
+        });
+
         return ret;
     }
 }

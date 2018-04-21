@@ -8,6 +8,10 @@ export const PoDischargeTypesArr: Array<string> = ["global", "invariants", "ds",
 export const PoStatesArr: Array<PoStates> = [PoStates.violation, PoStates.open, PoStates.discharged];
 export enum PoStatesExt { violation, open, discharged, deadcode, global, invariants, ds, rv, api };
 
+import { NodeDef } from '../tf_graph_common/lib/proto'
+import { Filter } from './filter'
+import { GraphSettings } from './globals'
+
 
 export interface FileInfo {
     name: string;
@@ -19,7 +23,7 @@ export interface FileInfo {
 }
 
 export interface PODischarge extends POId {
-    message:string
+    message: string
 }
 
 export enum SymbolType { CONST, ID };
@@ -38,6 +42,24 @@ export interface CFunction {
     line: number;
 }
 
+export interface Graphable {
+    toNodeDef(filter: Filter, settings: GraphSettings): NodeDef;
+    getGraphKey(filter: Filter, settings: GraphSettings):string;
+    linkedNodes: Graphable[];
+}
+
+export interface Assumption extends AbstractNode {
+
+}
+
+
+export interface ApiAssumption extends Assumption,  Graphable{
+
+}
+
+
+
+//DO NOT USE IT
 export interface ApiNode extends AbstractNode {
     location: POLocation;
     type: string;
@@ -68,7 +90,7 @@ export interface HasCFunction {
 }
 
 export interface POId extends HasCFunction {
-    id: string;    
+    id: string;
 }
 
 export interface AbstractNode extends POId {
@@ -76,22 +98,22 @@ export interface AbstractNode extends POId {
     outputs: AbstractNode[];
     location: POLocation;
     symbol: Symbol;
-    
+
     isLinked(): boolean;
 }
 
 
 
-export interface ProofObligation extends AbstractNode {
+export interface ProofObligation extends AbstractNode,  Graphable {
 
-    isViolation():boolean;
-    isDischarged():boolean;
+    isViolation(): boolean;
+    isDischarged(): boolean;
 
     name: string;
     predicate: string;
     expression: string;
     callsiteFname: string;
-    
+
 
     levelLabel: string;
 
@@ -115,16 +137,16 @@ export interface XmlAnalysis {
     calls: Array<FunctionCalls>;
 }
 
-export interface CApplication{
+export interface CApplication {
 
 }
 
 export interface CAnalysis {
-    proofObligations:Array<ProofObligation>;
-    apps:Array<CApplication>;
-    appByDirMap:{ [key: string]: CApplication }
- 
-    functionByFile: { [key: string]: Array<CFunction> } ;
+    proofObligations: Array<ProofObligation>;
+    apps: Array<CApplication>;
+    appByDirMap: { [key: string]: CApplication }
+
+    functionByFile: { [key: string]: Array<CFunction> };
 }
 
 

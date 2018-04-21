@@ -21,14 +21,18 @@ export function buildGraph(filter: Filter, project: CProject): NodeDef[] {
 
     for (let ppo of pos) {
         if (ppo.isLinked()) {
-            let node: NodeDef = proofObligationToNodeDef(ppo, filter, settings);
+            let node: NodeDef = ppo.toNodeDef(filter, settings);
 
             g.push(node);
 
-            for(let linked of ppo.inputs){
-                let linkedNode: NodeDef = proofObligationToNodeDef( <ProofObligation> linked, filter, settings);
-                g.push(linkedNode);    
-            }
+            ppo.linkedNodes.forEach(linked=>{
+                g.push(linked.toNodeDef(filter, settings));    
+            });
+
+            // for(let linked of ppo.linkedNodes){
+            //     let linkedNode: NodeDef = proofObligationToNodeDef( <ProofObligation> linked, filter, settings);
+            //     g.push(linkedNode);    
+            // }
             
         }
     }
@@ -163,17 +167,7 @@ export function makeGraphNodePath(filter: Filter, settings: GraphSettings, func:
 }
 
 
-export function makeProofObligationName(po: ProofObligation, filter: Filter, settings: GraphSettings): string {
-    let nm = po.levelLabel + "(" + po.id + ")";
 
-    if (po.symbol) {
-        nm += po.symbol.pathLabel;
-    } else {
-        nm += "-expression-";
-    }
-
-    return makeGraphNodePath(filter, settings, po.cfunction, po.predicate, nm);
-}
 
 
 export function makeAssumptionName(api: ApiNode, filter: Filter, settings: GraphSettings): string {
@@ -199,50 +193,7 @@ export function cFunctionToNodeDef(func: CFunction): NodeDef {
 }
 
  
-
-export function proofObligationToNodeDef(po: ProofObligation, filter: Filter, settings: GraphSettings): NodeDef {
-
-    let nodeDef: NodeDef = {
-        name: makeProofObligationName(po, filter, settings),
-        input: [],
-        output: [],
-        device: po.extendedState,
-        op: po.functionName,
-        attr: {
-            "label": po.label,
-            "apiId": po.apiId,
-            "predicate": po.predicate,
-            "level": po.level,
-            "state": PoStates[po.state],
-            "location": po.location,
-            "symbol": po.symbol,
-            "expression": po.expression,
-            "dischargeType": po.dischargeType,
-            "discharge": po.discharge,
-            //"dischargeAssumption": po.dischargeAssumption,
-            "locationPath": po.file + SPL + po.functionName,
-            "data": po
-        }
-    }
-
-    // for (let ref of sortNodes(po.inputs)) {
-    //     nodeDef.input.push(makeAssumptionName(<ApiNode>ref, filter, settings));
-    // }
-
-    // for (let ref of sortNodes(po.outputs)) {
-    //     nodeDef.output.push(makeAssumptionName(<ApiNode>ref, filter, settings));
-    // }
-
-    for (let ref of sortNodes(po.inputs)) {
-        nodeDef.input.push(makeProofObligationName(<ProofObligation> ref, filter, settings));
-    }
-
-    for (let ref of sortNodes(po.outputs)) {
-        nodeDef.output.push(makeProofObligationName(<ProofObligation>  ref, filter, settings));
-    }
-
-    return nodeDef;
-}
+ 
 
 
 export function apiNodeToNodeDef(api: ApiNode, filter: Filter, settings: GraphSettings): NodeDef {
@@ -269,13 +220,13 @@ export function apiNodeToNodeDef(api: ApiNode, filter: Filter, settings: GraphSe
         }
     }
 
-    for (let ref of api.inputs) {
-        nodeDef.input.push(makeProofObligationName(<ProofObligation>ref, filter, settings));
-    }
+    // for (let ref of api.inputs) {
+    //     nodeDef.input.push(makeProofObligationName(<ProofObligation>ref, filter, settings));
+    // }
 
-    for (let ref of api.outputs) {
-        nodeDef.output.push(makeProofObligationName(<ProofObligation>ref, filter, settings));
-    }
+    // for (let ref of api.outputs) {
+    //     nodeDef.output.push(makeProofObligationName(<ProofObligation>ref, filter, settings));
+    // }
 
 
     return nodeDef;
