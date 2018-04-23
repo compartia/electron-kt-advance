@@ -68,7 +68,7 @@
     "graphlib": "^1.0.7",
     "jquery": "^2.1.4",
     "lodash": "^3.10.1",
-    "xml-kt-advance": "^0.7.4"
+    "vscode-languageserver-protocol": "^3.7.1"
   },
   "build": {
     "appId": "kt.advance.gui",

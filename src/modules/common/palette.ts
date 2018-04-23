@@ -17,7 +17,7 @@
  limitations under the License.
 ================================================================================
  */
-import {PoDischargeTypes, PoStates} from 'xml-kt-advance/lib/model/po_node';
+import {PoDischargeTypes, PoStates} from './xmltypes';
 
 
 export function buildPalette() {

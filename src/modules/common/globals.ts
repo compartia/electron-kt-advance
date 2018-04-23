@@ -1,17 +1,17 @@
 import * as _ from "lodash"
 import { CONF, loadProjectMayBe } from './storage';
+import { XmlReader } from '../data/xmlreader';
+import { CAnalysisJsonReaderImpl } from '../data/dataprovider';
+// import *  as xml from 'xml-kt-advance/lib/xml/xml_types';
 
-import *  as xml from 'xml-kt-advance/lib/xml/xml_types';
-import { XmlReader, XmlAnalysis } from 'xml-kt-advance/lib/xml/xml_reader';
-import * as kt_fs from 'xml-kt-advance/lib/common/fs';
+import * as kt_fs from './fstools';
 
-import { ProofObligation, AbstractNode, sortPoNodes } from 'xml-kt-advance/lib/model/po_node';
-import { ApiNode, FunctionCalls } from 'xml-kt-advance/lib/model/api_node';
+import { CAnalysis, ProofObligation, AbstractNode, CFunction, sortPoNodes } from './xmltypes';
 import { Stats } from '../stats/stats';
 import { Filter, PO_FILTER } from './filter';
 import { buildGraph, buildCallsGraph } from '../graph_builder'
 
-import { getChDir } from "xml-kt-advance/lib/common/fs"
+// import { getChDir } from "xml-kt-advance/lib/common/fs"
 
 import * as tf from '../tf_graph_common/lib/common'
 import * as util from '../tf_graph_common/lib/util'
@@ -35,6 +35,7 @@ export enum GraphGrouppingOptions { file, predicate };
 
 export class GraphSettings {
     groupBy: GraphGrouppingOptions = GraphGrouppingOptions.file;
+    includeCallsites = true;
 }
 
 export function groupProofObligationsByFileFunctions(pos: AbstractNode[]): { [key: string]: { [key: string]: AbstractNode[] } } {
@@ -84,26 +85,51 @@ export class JsonReadyProject {
     stats: Stats;
 }
 
-export class Project {
-    functionByFile: { [key: string]: Array<xml.CFunction> } = {};
+export interface CProject {
+    id: number;
+    functionByFile: { [key: string]: Array<CFunction> };
     baseDir: string;
     analysisDir: string;
     stats: Stats;
+    // calls: Array<FunctionCalls>;
+    // filteredAssumptions: Array<ApiNode>;
+    filteredProofObligations: Array<ProofObligation>;
+    proofObligations: Array<ProofObligation>;
+
+    forEachFunction(callbackfn: (value: CFunction, index: number, array: CFunction[]) => void);
+}
+
+export class ProjectImpl implements CProject {
+
+    functionByFile: { [key: string]: Array<CFunction> } = {};
+    baseDir: string;
+    analysisDir: string;
+    stats: Stats;
+    // calls: Array<FunctionCalls>;
     /**
      * previously saved statistics
      */
     oldstats: Stats;
-
+    id: number = Math.random();
     _proofObligations: Array<ProofObligation> = [];
     _filteredProofObligations: Array<ProofObligation> = null;
-    _filteredAssumptions: Array<ApiNode> = null;
+    // _filteredAssumptions: Array<ApiNode> = null;
 
-    _apis: { [key: string]: ApiNode } = null;
-    calls: Array<FunctionCalls>;
+    // _apis: { [key: string]: ApiNode } = null;
+
 
     allPredicates: Array<string>;
 
+
+    public forEachFunction(callbackfn: (value: CFunction, index: number, array: CFunction[]) => void) {
+        for (let file in this.functionByFile) {
+            const funcs = this.functionByFile[file];
+            funcs.forEach(callbackfn);
+        }
+    }
+
     constructor(baseDir: string) {
+        // this.id=Math.random();
         this.baseDir = path.normalize(baseDir);
         this.open(this.baseDir);
     }
@@ -116,9 +142,11 @@ export class Project {
         return buildCallsGraph(filter, this);
     }
 
-    public readAndParse(tracker: tf.ProgressTracker): Promise<Project> {
-        const project: Project = this;
-        let reader: XmlReader = new XmlReader();
+    public readAndParse(tracker: tf.ProgressTracker): Promise<CProject> {
+
+        const project: CProject = this;
+
+        let reader: XmlReader = new CAnalysisJsonReaderImpl();
 
         tracker.setMessage("reading XML data");
 
@@ -136,24 +164,37 @@ export class Project {
             }
         }
 
+        const mCAnalysis: CAnalysis = reader.readDir(
+            path.dirname(project.analysisDir),
+            readFunctionsMapTracker
+        );
 
-        return reader.readFunctionsMap(path.dirname(project.analysisDir), readFunctionsMapTracker)
-            .then((functions: xml.CFunction[]) => {
-                let resultingMap = new xml.FunctionsMap(functions);
-                project.functionByFile = resultingMap.functionByFile;
-                let result: Promise<XmlAnalysis> = reader.readDir(project.analysisDir, resultingMap, readDirTracker);
 
-                return result;
-            })
-            .then((POs: XmlAnalysis) => {
-                project.proofObligations = sortPoNodes(POs.ppos.concat(POs.spos));
+        project.functionByFile = mCAnalysis.functionByFile;
+        project.proofObligations = sortPoNodes(mCAnalysis.proofObligations);
+        return Promise.resolve(project);
 
-                project.apis = POs.apis;
-                project.calls = POs.calls;
-                project.save();
+        // new Promise((resolve, reject) => {
+        //     resolve(project);
+        // });
 
-                return project;
-            });
+        // return reader.readFunctionsMap(path.dirname(project.analysisDir), readFunctionsMapTracker)
+        //     .then((functions: CFunction[]) => {
+        //         let resultingMap = new xml.FunctionsMap(functions);
+        //         project.functionByFile = resultingMap.functionByFile;
+        //         let result: Promise<XmlAnalysis> = reader.readDir(project.analysisDir, resultingMap, readDirTracker);
+
+        //         return result;
+        //     })
+        //     .then((POs: XmlAnalysis) => {
+        //         project.proofObligations = sortPoNodes(POs.ppos.concat(POs.spos));
+
+        //         project.apis = POs.apis;
+        //         project.calls = POs.calls;
+        //         project.save();
+
+        //         return project;
+        //     });
     }
 
     public save(): string {
@@ -188,9 +229,9 @@ export class Project {
         return kt_fs.loadFile(this.baseDir, relativePath);
     }
 
-    set apis(_apis) {
-        this._apis = _apis;
-    }
+    // set apis(_apis) {
+    //     this._apis = _apis;
+    // }
 
 
     get proofObligations(): Array<ProofObligation> {
@@ -215,7 +256,7 @@ export class Project {
     public applyFilter(filter: Filter): void {
 
         this._filteredProofObligations = null;
-        this._filteredAssumptions = null;
+        // this._filteredAssumptions = null;
 
         this.filterProofObligations(filter);
         this.filterAssumptions();
@@ -228,36 +269,40 @@ export class Project {
 
     private filterAssumptions(): void {
 
-        let _filteredAssumptions = [];
+        // let _filteredAssumptions = [];
 
-        for (let apiKey in this._apis) {
-            let api = this._apis[apiKey];
-            if (this.hasIntersection(api.inputs, this.filteredProofObligations) ||
-                this.hasIntersection(api.outputs, this.filteredProofObligations)) {
-                _filteredAssumptions.push(api);
-            }
-        }
+        // if(!this._apis){
+        //     return;
+        // }
 
-        for (let po of this.filteredProofObligations) {
-            for (let input of po.inputs) {
-                _filteredAssumptions.push(<ApiNode>input);
-            }
+        // for (let apiKey in this._apis) {
+        //     let api = this._apis[apiKey];
+        //     if (this.hasIntersection(api.inputs, this.filteredProofObligations) ||
+        //         this.hasIntersection(api.outputs, this.filteredProofObligations)) {
+        //         _filteredAssumptions.push(api);
+        //     }
+        // }
 
-            for (let output of po.outputs) {
-                _filteredAssumptions.push(<ApiNode>output);
-            }
-        }
+        // for (let po of this.filteredProofObligations) {
+        //     for (let input of po.inputs) {
+        //         _filteredAssumptions.push(<ApiNode>input);
+        //     }
+
+        //     for (let output of po.outputs) {
+        //         _filteredAssumptions.push(<ApiNode>output);
+        //     }
+        // }
 
 
-        _filteredAssumptions = _.uniq(_filteredAssumptions);
-        this._filteredAssumptions = _filteredAssumptions;
+        // _filteredAssumptions = _.uniq(_filteredAssumptions);
+        // this._filteredAssumptions = _filteredAssumptions;
 
     }
 
 
-    get filteredAssumptions(): Array<ApiNode> {
-        return this._filteredAssumptions;
-    }
+    // get filteredAssumptions(): Array<ApiNode> {
+    //     return this._filteredAssumptions;
+    // }
 
     get filteredProofObligations(): Array<ProofObligation> {
         return this._filteredProofObligations;
@@ -266,7 +311,7 @@ export class Project {
     public open(baseDir: string): void {
         this.baseDir = baseDir;
         this.analysisDir = path.join(this.baseDir, CH_DIR);
-        this._filteredAssumptions = null;
+        // this._filteredAssumptions = null;
         this._filteredProofObligations = null;
 
         CONF.addRecentProject(path.basename(baseDir), baseDir);
@@ -306,20 +351,22 @@ function selectDirectory(): any {
     return dir;
 }
 
-export function openNewProject(tracker: tf.ProgressTracker): Project {
-    let dir = selectDirectory();
+export function openNewProject(tracker: tf.ProgressTracker): CProject {
+    let dir: string = selectDirectory();
     if (dir && dir.length > 0) {
+        let project = new ProjectImpl(dir[0]);
+        return project;
 
-        let projectDir = getChDir(dir[0]);
-        if (projectDir) {
-            projectDir = path.dirname(projectDir);
-            let project = new Project(projectDir);
-            return project;
+        // let projectDir = getChDir(dir[0]);
+        // if (projectDir) {
+        //     projectDir = path.dirname(projectDir);
+        //     let project = new Project(projectDir);
+        //     return project;
 
-        } else {
-            const msg = CH_DIR + " dir not found";
-            tracker.reportError(msg, new Error(msg));
-        }
+        // } else {
+        //     const msg = CH_DIR + " dir not found";
+        //     tracker.reportError(msg, new Error(msg));
+        // }
 
     }
     return null;

@@ -13,9 +13,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
 
-/**
- * @fileoverview Common interfaces for the tensorflow graph visualizer.
- */
 
 
   /**
@@ -23,11 +20,18 @@ limitations under the License.
    * to call the below-defined methods to notify the caller about the gradual
    * progress of the task.
    */
-  import {ProgressTracker as ProgressTracker1} from 'xml-kt-advance/lib/common/util';
+//   import {ProgressTracker as ProgressTracker1} from 'xml-kt-advance/lib/common/util';
  
-  export interface ProgressTracker extends ProgressTracker1{
+//   export interface ProgressTracker extends ProgressTracker1{
    
-  }
+//   }
 
+  export interface ProgressTracker {
+    updateProgress(incrementValue: number): void;
+    setMessage(msg: string): void;
+    reportError(msg: string, err: Error): void;
+
+    getSubtaskTracker(impactOnTotalProgress: number, subtaskMsg: string): ProgressTracker;
+}
 
  
