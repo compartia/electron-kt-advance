@@ -1,8 +1,7 @@
-import { CFunction } from './common/xmltypes';
+import { CFunction, CApiAssumption, CApi } from './common/xmltypes';
 import { CProject, GraphSettings, GraphGrouppingOptions } from './common/globals'
 import { Filter } from './common/filter'
 import { ProofObligation, PoStates, sortNodes, POLocation } from './common/xmltypes'
-import { ApiNode, FunctionCalls } from './common/xmltypes'
 import { NodeDef } from './tf_graph_common/lib/proto'
 
 const path = require('path');
@@ -10,107 +9,147 @@ const path = require('path');
 const SPL = "/";
 
 
+
 export function buildGraph(filter: Filter, project: CProject): NodeDef[] {
 
-    const apis = project.filteredAssumptions;
+    // const apis = project.filteredAssumptions;
     const pos = project.filteredProofObligations;
+
+
 
     let g: NodeDef[] = [];
 
     let settings = new GraphSettings(); //XXX: provide real settings
 
+    /*
+        adding assumptiosn to graph
+    */
+
+
+
+    project.forEachFunction(func => {
+
+        func.api.apiAssumptions &&
+            func.api.apiAssumptions.forEach(assumption => {
+                g.push(assumption.toNodeDef(filter, settings));
+
+                assumption.linkedNodes.forEach(linked => {
+                    g.push(linked.toNodeDef(filter, settings));
+                });
+
+            });
+    });
+
+    /*
+        adding proo obligatoins to graph
+    */
     for (let ppo of pos) {
         if (ppo.isLinked()) {
             let node: NodeDef = ppo.toNodeDef(filter, settings);
 
             g.push(node);
 
-            ppo.linkedNodes.forEach(linked=>{
-                g.push(linked.toNodeDef(filter, settings));    
+            ppo.linkedNodes.forEach(linked => {
+                g.push(linked.toNodeDef(filter, settings));
             });
 
-            // for(let linked of ppo.linkedNodes){
-            //     let linkedNode: NodeDef = proofObligationToNodeDef( <ProofObligation> linked, filter, settings);
-            //     g.push(linkedNode);    
-            // }
-            
         }
     }
 
-    if(apis){
-        for (var api of apis) {
-            if (api.isLinked()) {
-                let node: NodeDef = apiNodeToNodeDef(api, filter, settings);
-                g.push(node);
-            }
-        }
-    }
-    
+    // if (apis) {
+    //     for (var api of apis) {
+    //         if (api.isLinked()) {
+    //             let node: NodeDef = apiNodeToNodeDef(api, filter, settings);
+    //             g.push(node);
+    //         }
+    //     }
+    // }
+
     console.info["NUMBER of nodes: " + g.length];
     return g;
 }
 
 export function buildCallsGraph(filter: Filter, project: CProject): NodeDef[] {
-    const calls: FunctionCalls[] = project.calls;
+    // const calls: FunctionCalls[] = project.calls;
 
     let nodesMap: { [key: string]: NodeDef } = {};
 
+    let g: NodeDef[] = [];
+    let settings = new GraphSettings();
+    project.forEachFunction(func => {
 
-    if(calls){
-        for (let call of calls) {
-            if (call.callSites.length) {
-                if (filter.acceptCFunction(call.cfunction)) {
-                    const node = findOrBuildFuncNode(call.cfunction, nodesMap);
-                    for (let ref of call.callSites) {
-                        const refnode = findOrBuildFuncNode(ref, nodesMap);
-                        node.output.push(refnode.name);
-                        refnode.input.push(node.name);
-                    }
-                }
+        func.callsites.forEach(callsite => {
+            // if (filter.acceptCFunction(func )) {
 
+            if (!callsite.isGlobal()) {
+                g.push(callsite.toNodeDef(filter, settings));
+
+                callsite.linkedNodes.forEach(linked => {
+                    g.push(linked.toNodeDef(filter, settings));
+                });
             }
-        }
-    }
-    const ret: NodeDef[] = [];
-    const keys: string[] = [];
-    for (let nm in nodesMap) {
-        ret.push(nodesMap[nm]);
-        keys.push(nm);
-    }
 
-    let _sharedStart: string = sharedStart(keys);
-    let _sharedStartLen = _sharedStart.length;
-    if (_sharedStartLen) {
-        for (let node of ret) {
-            node.name = node.name.substr(_sharedStartLen);
-            let newInputs = [];
-            for (let ref of node.input) {
-                newInputs.push(ref.substr(_sharedStartLen));
-            }
-            node.input = newInputs;
 
-            let newOut = [];
-            for (let ref of node.output) {
-                newOut.push(ref.substr(_sharedStartLen));
-            }
-            node.output = newOut;
-        }
-    }
+        });
+    });
 
-    console.info["NUMBER of call nodes: " + ret.length];
-    return ret;
+
+    // if (calls) {
+    //     for (let call of calls) {
+    //         if (call.callSites.length) {
+    //             if (filter.acceptCFunction(call.cfunction)) {
+    //                 const node = findOrBuildFuncNode(call.cfunction, nodesMap);
+    //                 for (let ref of call.callSites) {
+    //                     const refnode = findOrBuildFuncNode(ref, nodesMap);
+    //                     node.output.push(refnode.name);
+    //                     refnode.input.push(node.name);
+    //                 }
+    //             }
+
+    //         }
+    //     }
+    // }
+
+    // const ret: NodeDef[] = [];
+    // const keys: string[] = [];
+    // for (let nm in nodesMap) {
+    //     ret.push(nodesMap[nm]);
+    //     keys.push(nm);
+    // }
+
+    // let _sharedStart: string = sharedStart(keys);
+    // let _sharedStartLen = _sharedStart.length;
+    // if (_sharedStartLen) {
+    //     for (let node of ret) {
+    //         node.name = node.name.substr(_sharedStartLen);
+    //         let newInputs = [];
+    //         for (let ref of node.input) {
+    //             newInputs.push(ref.substr(_sharedStartLen));
+    //         }
+    //         node.input = newInputs;
+
+    //         let newOut = [];
+    //         for (let ref of node.output) {
+    //             newOut.push(ref.substr(_sharedStartLen));
+    //         }
+    //         node.output = newOut;
+    //     }
+    // }
+
+    // console.info["NUMBER of call nodes: " + ret.length];
+    return g;
 }
 
-function findOrBuildFuncNode(func: CFunction, nodesMap: { [key: string]: NodeDef }): NodeDef {
-    const name = makeFunctionName(func);
-    if (nodesMap[name]) {
-        return nodesMap[name];
-    } else {
-        const node: NodeDef = cFunctionToNodeDef(func);
-        nodesMap[node.name] = node;
-        return node;
-    }
-}
+// function findOrBuildFuncNode(func: CFunction, nodesMap: { [key: string]: NodeDef }): NodeDef {
+//     const name = makeFunctionName(func);
+//     if (nodesMap[name]) {
+//         return nodesMap[name];
+//     } else {
+//         const node: NodeDef = cFunctionToNodeDef(func);
+//         nodesMap[node.name] = node;
+//         return node;
+//     }
+// }
 
 function makeFunctionName(node: CFunction): string {
     return node.file + "/" + node.name;// + "/" + node.line;
@@ -168,69 +207,28 @@ export function makeGraphNodePath(filter: Filter, settings: GraphSettings, func:
 
 
 
+// export function cFunctionToNodeDef(func: CFunction): NodeDef {
+//     let nodeDef: NodeDef = {
+//         name: makeFunctionName(func),
+//         input: [],
+//         output: [],
+//         device: PoStates[3] + "-" + "rv",
+//         op: func.name,
+//         attr: {
+//             "label": (func.name + ":" + func.line),
+//             "predicate": "--",
+//             "state": PoStates[3],
+//             "location": func.funcLocation,
+//             "data": func
+//         }
+//     }
+//     return nodeDef;
+// }
 
 
-export function makeAssumptionName(api: ApiNode, filter: Filter, settings: GraphSettings): string {
-    return makeGraphNodePath(filter, settings, api.cfunction, api.predicateType, api.type + "_" + api.id);
-}
-
-export function cFunctionToNodeDef(func: CFunction): NodeDef {
-    let nodeDef: NodeDef = {
-        name: makeFunctionName(func),
-        input: [],
-        output: [],
-        device: PoStates[3] + "-" + "rv",
-        op: func.name,
-        attr: {
-            "label": (func.name + ":" + func.line),
-            "predicate": "--",
-            "state": PoStates[3],
-            "location": func.funcLocation,
-            "data": func
-        }
-    }
-    return nodeDef;
-}
-
- 
- 
 
 
-export function apiNodeToNodeDef(api: ApiNode, filter: Filter, settings: GraphSettings): NodeDef {
 
-
-    let nodeDef: NodeDef = {
-        name: makeAssumptionName(api, filter, settings),
-        input: [],
-        output: [],
-        device: api.extendedState,
-        op: api.functionName,
-        attr: {
-            "label": api.label,
-            "predicate": api.predicateType,
-            "expression": api.expression,
-            "state": PoStates[api.state],//used
-            "message": api.message,
-            "apiId": api.id,//used
-            "symbol": api.symbol,
-            "assumptionType": api.type,//used
-            "locationPath": api.file + SPL + api.functionName,
-            "location": api.location,
-            "data": api//used
-        }
-    }
-
-    // for (let ref of api.inputs) {
-    //     nodeDef.input.push(makeProofObligationName(<ProofObligation>ref, filter, settings));
-    // }
-
-    // for (let ref of api.outputs) {
-    //     nodeDef.output.push(makeProofObligationName(<ProofObligation>ref, filter, settings));
-    // }
-
-
-    return nodeDef;
-}
 
 
 

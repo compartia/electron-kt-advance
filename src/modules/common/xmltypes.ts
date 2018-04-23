@@ -34,17 +34,31 @@ export interface Symbol {
     pathLabel: String;
 }
 
+export interface CApiAssumption extends Graphable {
+
+}
+
+export interface CApi {
+    apiAssumptions: CApiAssumption[];
+}
+
 export interface CFunction {
     name: string;
     file: string;
     fileInfo: FileInfo;
     funcLocation: POLocation;
     line: number;
+
+    api: CApi;
+    callsites: Callsite[];
+
+    getPPObyId(id: number): ProofObligation;
+    getSPObyId(id: number): ProofObligation;
 }
 
 export interface Graphable {
     toNodeDef(filter: Filter, settings: GraphSettings): NodeDef;
-    getGraphKey(filter: Filter, settings: GraphSettings):string;
+    getGraphKey(filter: Filter, settings: GraphSettings): string;
     linkedNodes: Graphable[];
 }
 
@@ -53,30 +67,19 @@ export interface Assumption extends AbstractNode {
 }
 
 
-export interface ApiAssumption extends Assumption,  Graphable{
+export interface ApiAssumption extends Assumption, Graphable {
 
 }
 
+ 
 
-
-//DO NOT USE IT
-export interface ApiNode extends AbstractNode {
-    location: POLocation;
-    type: string;
-    message: string;
-    label: string;
-    extendedState: string;
-    predicateType: string;
-    expression: string;
-    state: PoStates;
-    // eLocation: ExpressionLocation;
-
-    dependentPos: Array<string>;//used during parsing
-}
-
-export interface FunctionCalls {
+export interface Callsite extends Graphable {
+    // cfunction: CFunction;
+    name: String;
+    line: number;
+    isGlobal(): boolean;
     cfunction: CFunction;
-    callSites: Array<CFunction>;
+ 
 }
 
 export interface POLocation {
@@ -94,8 +97,8 @@ export interface POId extends HasCFunction {
 }
 
 export interface AbstractNode extends POId {
-    inputs: AbstractNode[];
-    outputs: AbstractNode[];
+    // inputs: AbstractNode[];
+    // outputs: AbstractNode[];
     location: POLocation;
     symbol: Symbol;
 
@@ -104,7 +107,7 @@ export interface AbstractNode extends POId {
 
 
 
-export interface ProofObligation extends AbstractNode,  Graphable {
+export interface ProofObligation extends AbstractNode, Graphable {
 
     isViolation(): boolean;
     isDischarged(): boolean;
@@ -112,7 +115,7 @@ export interface ProofObligation extends AbstractNode,  Graphable {
     name: string;
     predicate: string;
     expression: string;
-    callsiteFname: string;
+    // callsiteFname: string;
 
 
     levelLabel: string;
@@ -128,17 +131,10 @@ export interface ProofObligation extends AbstractNode,  Graphable {
 
     state: PoStates;
 }
-
-
-export interface XmlAnalysis {
-    ppos: Array<ProofObligation>;
-    spos: Array<ProofObligation>;
-    apis: { [key: string]: ApiNode };
-    calls: Array<FunctionCalls>;
-}
+ 
 
 export interface CApplication {
-
+    
 }
 
 export interface CAnalysis {

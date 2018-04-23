@@ -1,6 +1,6 @@
-import { ApiNode, CFunction, FileInfo } from './xmltypes';
+import { CFunction, FileInfo } from './xmltypes';
 // import { ApiNode } from 'xml-kt-advance/lib/model/api_node';
-import { ProofObligation, PoStates, AbstractNode, PoStatesArr, PoDischargeTypesArr } from  './xmltypes';
+import { ProofObligation, PoStates, PoStatesArr, PoDischargeTypesArr } from  './xmltypes';
 import { StringSet, AnySet, isEmpty } from './collections';
 
 
@@ -156,7 +156,7 @@ export class Filter {
 
 
 
-    private acceptFile(po: AbstractNode): boolean {
+    private acceptFile(po: ProofObligation): boolean {
         return this.acceptCFunctionFile(po.cfunction);
     }
 
@@ -178,7 +178,7 @@ export class Filter {
         return (!this.cfunction || func.name == this.cfunction.name) && this.acceptCFunctionFile(func);
     }
 
-    private acceptFunction(po: AbstractNode): boolean {
+    private acceptFunction(po: ProofObligation): boolean {
         return this.acceptCFunction(po.cfunction);
     }
 
@@ -192,7 +192,7 @@ export class Filter {
         return false;
     }
 
-    private acceptLevel(po: AbstractNode): boolean {
+    private acceptLevel(po: ProofObligation): boolean {
         if (isEmpty(this.levels)) {
             return true;
         }
@@ -229,9 +229,9 @@ export class Filter {
         return this.acceptState(po) && this.acceptLevel(po) && this.acceptFile(po) && this.acceptFunction(po) && this.acceptPredicate(po) && this.acceptDischargeType(po);
     }
 
-    public acceptApi(po: ApiNode): boolean {
-        return this.acceptFile(po) && this.acceptFunction(po);// && this.acceptPredicate(po) && this.acceptState(po) && this.acceptDischargeType(po);
-    }
+    // public acceptApi(po: ApiNode): boolean {
+    //     return this.acceptFile(po) && this.acceptFunction(po);// && this.acceptPredicate(po) && this.acceptState(po) && this.acceptDischargeType(po);
+    // }
 
 }
 

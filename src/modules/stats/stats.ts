@@ -1,7 +1,7 @@
 import * as _ from "lodash"
 
 // import *  as xml from 'xml-kt-advance/lib/xml/xml_types';
-import { FileInfo, CFunction, ApiNode, ProofObligation, PoLevels, PoStates } from '../common/xmltypes'
+import { FileInfo, CFunction, ProofObligation, PoLevels, PoStates } from '../common/xmltypes'
 // import { ApiNode } from 'xml-kt-advance/lib/model/api_node';
 import { updateChart } from './chart';
 
@@ -144,12 +144,12 @@ export class Stats {
             // this.byFunction.inc(functionKey, DEF_COL_NAME, 1);
             this.byFunction.bind(functionKey, po.cfunction);
 
-            if(po.outputs){
-                for (let linked of po.outputs) {
-                    this.assumptionsByFunction.inc(functionKey, (<ApiNode>linked).type, 1);
-                    this.dependenciesByFile.inc(po.file, (<ApiNode>linked).type, 1);
-                }
-            }
+            // if(po.outputs){
+            //     for (let linked of po.outputs) {
+            //         this.assumptionsByFunction.inc(functionKey, (<ApiNode>linked).type, 1);
+            //         this.dependenciesByFile.inc(po.file, (<ApiNode>linked).type, 1);
+            //     }
+            // }
             
 
 
