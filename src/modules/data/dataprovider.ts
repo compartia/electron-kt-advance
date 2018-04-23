@@ -164,7 +164,7 @@ class ApiAssumptionImpl implements CApiAssumption {
             output: [],
             device: "assumption",
             op: this.cfunction.name,
-            attr:<AssumptionNodeAttributes> {
+            attr: <AssumptionNodeAttributes>{
                 label: "(" + this.a.id + ") " + this.a.prd,
                 // "predicate": this.a.prd,
                 // // "expression": api.expression,
@@ -173,8 +173,8 @@ class ApiAssumptionImpl implements CApiAssumption {
                 // "apiId": this.a.id,//used
                 // //"symbol": api.symbol,
                 // "assumptionType": "api.type",//used
-                 locationPath: this.cfunction.fileInfo.relativePath + "/" + this.cfunction.name,
-               location: this.cfunction.funcLocation,
+                locationPath: this.cfunction.fileInfo.relativePath + "/" + this.cfunction.name,
+                location: this.cfunction.funcLocation,
                 // "data": this//used
             }
         };
@@ -220,7 +220,7 @@ interface JPPO {
     links: JPoLink[];
 }
 
-interface JLocation extends POLocation{
+interface JLocation extends POLocation {
     line: number;
     filename: string;
 }
@@ -534,7 +534,7 @@ class CallsiteImpl implements Callsite, Graphable {
         this.cfunc = cfunc;
     }
 
-    get cfunction(){
+    get cfunction() {
         return this.cfunc;
     }
 
@@ -567,7 +567,7 @@ class CallsiteImpl implements Callsite, Graphable {
                 // "predicate": "--",
                 // "state": "callsite",
                 location: this._jcallsite.varInfo.loc,
-                locationPath: this._jcallsite.varInfo.loc.filename+"/"+this.name,
+                locationPath: this._jcallsite.varInfo.loc.filename + "/" + this.name,
                 data: this
             }
         }
@@ -582,12 +582,12 @@ class CallsiteImpl implements Callsite, Graphable {
         let pathParts: string[] = [];
 
         // pathParts.push("callsites");//TODO: remove it         
-         
+
         if (this._jcallsite.varInfo.loc) {
             let fileBaseName: string = path.basename(this._jcallsite.varInfo.loc.filename);
             pathParts.push(fileBaseName);
-        }         
-        
+        }
+
         pathParts.push(this.name);
         // pathParts.push(this._jcallsite.varInfo.loc.line+"");
         return pathParts.join('/');

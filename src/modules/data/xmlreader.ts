@@ -4,6 +4,6 @@ import { CAnalysis } from '../common/xmltypes';
 
 
 
-export interface   XmlReader{
-    readDir(dir:string,  tracker:ProgressTracker):CAnalysis;
+export interface XmlReader {
+    readDir(dir: string, tracker: ProgressTracker): CAnalysis;
 }
