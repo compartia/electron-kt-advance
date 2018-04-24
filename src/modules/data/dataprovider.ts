@@ -103,34 +103,6 @@ class ApiAssumptionImpl implements CApiAssumption {
     private a: json.JAssumption;
     private cfunction: CFunction;
 
-    get linkedNodes(): Graphable[] {
-
-        let ret = [];
-
-        this.a.ppos && this.a.ppos.forEach(
-            ppoId => {
-                let ppo = this.cfunction.getPPObyId(ppoId);
-                if (!ppo) {
-                    console.error("can not find PPO with id " + ppoId);
-                } else {
-                    ret.push(ppo);
-                }
-            }
-        );
-
-        this.a.spos && this.a.spos.forEach(
-            spoId => {
-                let spo = this.cfunction.getSPObyId(spoId);
-                if (!spo) {
-                    console.error("can not find SPO with id " + spoId);
-                } else {
-                    ret.push(spo);
-                }
-            }
-        );
-
-        return ret;
-    }
 
 
     public constructor(a: json.JAssumption, cfunc: CFunction) {
@@ -166,7 +138,7 @@ class ApiAssumptionImpl implements CApiAssumption {
                 label: "(" + this.a.id + ") " + this.a.prd,
                 // "predicate": this.a.prd,
                 // // "expression": api.expression,
-                // "state": "assumption",//used
+                state: "assumption",//used
                 // "message": "api.message",
                 // "apiId": this.a.id,//used
                 // //"symbol": api.symbol,
@@ -188,12 +160,35 @@ class ApiAssumptionImpl implements CApiAssumption {
             spo && nodeDef.input.push(spo.getGraphKey(filter, settings));
         });
 
+
+
         // for (let ref of api.outputs) {
         //     nodeDef.output.push(makeProofObligationName(<ProofObligation>ref, filter, settings));
         // }
 
 
         return nodeDef;
+    }
+
+    get linkedNodes(): Graphable[] {
+
+        let ret = [];
+
+        this.a.ppos && this.a.ppos.forEach(
+            ppoId => {
+                let ppo = this.cfunction.getPPObyId(ppoId);
+                ppo && ret.push(ppo);
+            }
+        );
+
+        this.a.spos && this.a.spos.forEach(
+            spoId => {
+                let spo = this.cfunction.getSPObyId(spoId);
+                spo && ret.push(spo);
+            }
+        );
+
+        return ret;
     }
 }
 
@@ -499,7 +494,7 @@ class CallsiteImpl implements Callsite, Graphable {
             attr: <CallsiteNodeAttributes>{
                 label: this.name,
                 // "predicate": "--",
-                // "state": "callsite",
+                state: "callsite",
                 location: this._jcallsite.callee.loc,
                 locationPath: this._jcallsite.callee.loc.file + "/" + this.name,
                 data: this
