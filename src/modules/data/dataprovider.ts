@@ -17,6 +17,8 @@ import { CAnalysis, CApplication } from '../common/xmltypes';
 import * as kt_fs from '../common/fstools';
 import { normalize } from 'path';
 
+import * as json from './jsonformat';
+
 const path = require('path');
 const fs = require('fs');
 
@@ -43,9 +45,9 @@ class CFunctionImpl implements CFunction {
     private _api = new CApiImpl();
 
 
-    public constructor(jfun: JFunc, relativeFilePath: string) {
+    public constructor(jfun: json.JFunc, relativeFilePath: string) {
         this.name = jfun.name;
-        this.line = jfun.loc;
+        this.line = jfun.loc.line;
 
         this.funcLocation = {
             line: this.line
@@ -54,9 +56,6 @@ class CFunctionImpl implements CFunction {
         this.fileInfo = <FileInfo>{
             relativePath: relativeFilePath
         };
-
-
-
     }
 
     get file() {
@@ -101,7 +100,7 @@ class CFunctionImpl implements CFunction {
 }
 
 class ApiAssumptionImpl implements CApiAssumption {
-    private a: JAssumption;
+    private a: json.JAssumption;
     private cfunction: CFunction;
 
     get linkedNodes(): Graphable[] {
@@ -134,14 +133,13 @@ class ApiAssumptionImpl implements CApiAssumption {
     }
 
 
-    public constructor(a: JAssumption, cfunc: CFunction) {
+    public constructor(a: json.JAssumption, cfunc: CFunction) {
         this.a = a;
         this.cfunction = cfunc;
     }
 
     public getGraphKey(filter: Filter, settings: GraphSettings): string {
         let nm = "(" + this.a.id + ") " + this.a.prd;
-
 
         let pathParts: string[] = [];
 
@@ -199,85 +197,21 @@ class ApiAssumptionImpl implements CApiAssumption {
     }
 }
 
-interface JPoLink {
-    file: string;
-    functionName: string;
-    id: number;
-}
 
-function linkKey(link: JPoLink | ProofObligation): string {
+function linkKey(link: json.JPoLink | ProofObligation): string {
     return link.file + "/" + link.functionName + "/" + link.id;
 }
 
-interface JPPO {
-    dep: string;
-    evl: string;
-    exp: string;
-    id: number;
-    line: number;
-    prd: string;
-    sts: string;
-    links: JPoLink[];
-}
 
-interface JLocation extends POLocation {
-    line: number;
-    filename: string;
-}
 
-interface JVarInfo {
-    loc: JLocation;
-    name: string;
-}
 
-interface JCallsite {
-    spos: JSPO[];
-    varInfo: JVarInfo;
-}
-
-interface JSPO extends JPPO {
-
-}
-
-interface JAssumption {
-    prd: string;
-    id: number;
-    ppos: number[];
-    spos: number[];
-}
-
-interface JApi {
-    aa: JAssumption[]
-}
-
-interface JFunc {
-    name: string;
-    ppos: JPPO[];
-    callsites: JCallsite[];
-    api: JApi;
-    loc: number;
-}
-interface JFile {
-    name: string;
-    functions: JFunc[];
-}
-
-interface JApp {
-    sourceDir: string;
-    files: JFile[];
-}
-
-interface KtJson {
-    basedir: string;
-    apps: JApp[];
-}
 
 abstract class AbstractPO implements ProofObligation {
-    links: JPoLink[];
+    links: json.JPoLink[];
 
     indexer: CAnalysisImpl;
 
-    public constructor(ppo: JPPO, cfun: CFunction, indexer: CAnalysisImpl) {
+    public constructor(ppo: json.JPPO, cfun: CFunction, indexer: CAnalysisImpl) {
         this.indexer = indexer;
 
         const state = ppo.sts == "safe" ? "discharged" : ppo.sts;
@@ -444,7 +378,7 @@ abstract class AbstractPO implements ProofObligation {
 class SPOImpl extends AbstractPO {
     callsite: Callsite;
 
-    public constructor(ppo: JSPO, cfun: CFunction, indexer: CAnalysisImpl, callsite: Callsite) {
+    public constructor(ppo: json.JSPO, cfun: CFunction, indexer: CAnalysisImpl, callsite: Callsite) {
         super(ppo, cfun, indexer);
         this.callsite = callsite;
     }
@@ -524,12 +458,12 @@ export class CAnalysisImpl implements CAnalysis {
 
 
 class CallsiteImpl implements Callsite, Graphable {
-    private _jcallsite: JCallsite;
+    private _jcallsite: json.JCallsite;
     private cfunc: CFunction;
     private spos: SPOImpl[] = [];
 
 
-    public constructor(jcallsite: JCallsite, cfunc: CFunction) {
+    public constructor(jcallsite: json.JCallsite, cfunc: CFunction) {
         this._jcallsite = jcallsite;
         this.cfunc = cfunc;
     }
@@ -539,15 +473,15 @@ class CallsiteImpl implements Callsite, Graphable {
     }
 
     get name(): string {
-        return this._jcallsite.varInfo.name;
+        return this._jcallsite.callee.name;
     }
 
     get line(): number {
-        return this._jcallsite.varInfo.loc.line;
+        return this._jcallsite.callee.loc.line;
     }
 
     public isGlobal(): boolean {
-        return !this._jcallsite.varInfo || !this._jcallsite.varInfo.loc;
+        return !this._jcallsite.callee || !this._jcallsite.callee.loc;
         //TODO varInfo must not be null (probably)
     }
 
@@ -566,8 +500,8 @@ class CallsiteImpl implements Callsite, Graphable {
                 label: this.name,
                 // "predicate": "--",
                 // "state": "callsite",
-                location: this._jcallsite.varInfo.loc,
-                locationPath: this._jcallsite.varInfo.loc.filename + "/" + this.name,
+                location: this._jcallsite.callee.loc,
+                locationPath: this._jcallsite.callee.loc.file + "/" + this.name,
                 data: this
             }
         }
@@ -583,8 +517,8 @@ class CallsiteImpl implements Callsite, Graphable {
 
         // pathParts.push("callsites");//TODO: remove it         
 
-        if (this._jcallsite.varInfo.loc) {
-            let fileBaseName: string = path.basename(this._jcallsite.varInfo.loc.filename);
+        if (this._jcallsite.callee.loc) {
+            let fileBaseName: string = path.basename(this._jcallsite.callee.loc.file);
             pathParts.push(fileBaseName);
         }
 
@@ -619,7 +553,7 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
         files.forEach(file => {
             console.log(file);
             try {
-                const json = <KtJson>JSON.parse(fs.readFileSync(file));
+                const json = <json.KtJson>JSON.parse(fs.readFileSync(file));
                 this.mergeJsonData(json);
             }
             catch (e) {
@@ -632,16 +566,25 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
         return this.result;
     }
 
-    private mergeJsonData(data: KtJson): void {
+    private mergeJsonData(data: json.KtJson): void {
         data.apps.forEach(app => {
             console.log("source dir:" + app.sourceDir);
 
             app.files.forEach(file => {
 
-                let absPath = path.normalize(path.join(app.sourceDir, file.name));
-                let relative = path.relative(this.projectDir, absPath);
-                this.result.functionByFile[relative] = this.toCFuncArray(file.functions, file, app.sourceDir);
+                // let absPath = path.normalize(path.join(app.sourceDir, file.name));
+                // let relative = path.relative(this.projectDir, absPath);
 
+                const cfunctions = this.toCFuncArray(file.functions, file, app.sourceDir);
+
+                cfunctions.forEach(cfun => {
+                    if (!this.result.functionByFile[cfun.file]) {
+                        this.result.functionByFile[cfun.file] = [];
+                    }
+                    this.result.functionByFile[cfun.file].push(cfun);
+                });
+                // this.result.functionByFile[relative] = this.toCFuncArray(file.functions, file, app.sourceDir);
+                //XXX: redistribute!!;
             });
         });
     }
@@ -652,7 +595,7 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
         return relative;
     }
 
-    normalizeLinks(links: JPoLink[], base: string): JPoLink[] {
+    normalizeLinks(links: json.JPoLink[], base: string): json.JPoLink[] {
         if (links) {
             for (let link of links) {
                 link.file = this.normalizeSourcePath(base, link.file);
@@ -661,12 +604,14 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
         return links;
     }
 
-    private toCFuncArray(jfunctions: JFunc[], file: JFile, sourceDir: string): CFunction[] {
+    private toCFuncArray(jfunctions: json.JFunc[], file: json.JFile, sourceDir: string): CFunction[] {
         const ret: CFunction[] = [];
         let relative = this.normalizeSourcePath(sourceDir, file.name);
 
         jfunctions && jfunctions.forEach(jfun => {
-            const cfun = new CFunctionImpl(jfun, relative);
+
+            const funcftionfilerelative = this.normalizeSourcePath(sourceDir, jfun.loc.file);
+            const cfun = new CFunctionImpl(jfun, funcftionfilerelative);
             ret.push(cfun);
 
             jfun.ppos && jfun.ppos.forEach(ppo => {
