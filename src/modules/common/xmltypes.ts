@@ -71,7 +71,6 @@ export interface ApiAssumption extends Assumption, Graphable {
 
 }
 
- 
 
 export interface Callsite extends Graphable {
     // cfunction: CFunction;
@@ -79,7 +78,7 @@ export interface Callsite extends Graphable {
     line: number;
     isGlobal(): boolean;
     cfunction: CFunction;
- 
+
 }
 
 export interface POLocation {
@@ -131,10 +130,10 @@ export interface ProofObligation extends AbstractNode, Graphable {
 
     state: PoStates;
 }
- 
+
 
 export interface CApplication {
-    
+
 }
 
 export interface CAnalysis {

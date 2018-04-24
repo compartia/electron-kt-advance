@@ -21,6 +21,7 @@ limitations under the License.
     label: string;
     location: POLocation;
     locationPath: string;
+    state: string;
   }
 
   export interface CallsiteNodeAttributes extends NodeAttributes{
@@ -36,7 +37,6 @@ limitations under the License.
     predicate: string;
     level: string;
     expression: string;
-    state: string;
     discharge: PODischarge;
   }
 
