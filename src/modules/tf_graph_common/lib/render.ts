@@ -16,7 +16,7 @@ limitations under the License.
  * Package for the Render Hierarchy for TensorFlow graph.
  */
 
-import * as model from 'xml-kt-advance/lib/model/po_node';
+import * as model from '../../common/xmltypes';
 
 import {Node, OpNode, InclusionType, GraphType, NodeType, 
   BridgeNode, GroupNode, Metaedge, Metanode, createGraph, 

@@ -1,6 +1,6 @@
 const assert = require('assert');
 
-import { Project } from "./globals"
+import { Project, CProject } from "./globals"
 import { suite, test, slow, timeout } from "mocha-typescript";
 import { ProofObligation, PoStates, PODischarge } from "xml-kt-advance/lib/model/po_node"
 import { ProgressTrackerDummie } from "xml-kt-advance/lib/common/util"

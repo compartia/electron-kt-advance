@@ -13,13 +13,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
 
-/**
- * @fileoverview Utility functions for the tensorflow graph visualizer.
- */
+
 
 import * as tf from './common'
 import {NodeStats} from './graph'
-import { ProgressTracker , getSubtaskTracker} from "xml-kt-advance";
+import { ProgressTracker } from "./common";
 
 
   /**
@@ -69,6 +67,35 @@ import { ProgressTracker , getSubtaskTracker} from "xml-kt-advance";
         }
     };
   }
+
+
+  export function getSubtaskTracker(
+    parentTracker: ProgressTracker, impactOnTotalProgress: number,
+    subtaskMsg: string): ProgressTracker {
+    return {
+        setMessage: function (progressMsg) {
+            // The parent should show a concatenation of its message along with
+            // its subtask tracker message.
+            parentTracker.setMessage(subtaskMsg + ': ' + progressMsg);
+        },
+        updateProgress: function (incrementValue) {
+            // Update the parent progress relative to the child progress.
+            // For example, if the sub-task progresses by 30%, and the impact on the
+            // total progress is 50%, then the task progresses by 30% * 50% = 15%.
+            parentTracker.updateProgress(
+                incrementValue * impactOnTotalProgress / 100);
+        },
+        reportError: function (msg: string, err: Error) {
+            // The parent should show a concatenation of its message along with
+            // its subtask error message.
+            parentTracker.reportError(subtaskMsg + ': ' + msg, err);
+        },
+        getSubtaskTracker: function (impactOnTotalProgress: number,
+            subtaskMsg: string): ProgressTracker {
+            return getSubtaskTracker(this, impactOnTotalProgress, subtaskMsg);
+        }
+    };
+}
 
    
 

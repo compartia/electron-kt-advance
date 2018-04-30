@@ -178,7 +178,7 @@
 
                 _getFuncLocation(node) {
                     if (this._data) {
-                        return ":L" + this._data.line;
+                        return ":L" + node.attr.location.line;
                     }
                     return "";
                 },

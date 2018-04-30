@@ -118,17 +118,17 @@
         }
 
         .flex-hor {
-            @apply(--layout-horizontal);
-            @apply(--layout-wrap);
+            @apply --layout-horizontal;
+            @apply --layout-wrap;
         }
 
         .flex-ver {
-            @apply(--layout-vertical);
-            @apply(--layout-wrap);
+            @apply --layout-vertical;
+            @apply --layout-wrap;
         }
 
         .flexchild {
-            @apply(--layout-flex);
+            @apply --layout-flex;
         }
 
         .panel {
@@ -192,13 +192,13 @@
 
                     newVal.updatePoByFileChart(this, d3.select("#poByFile"));
 
-                    newVal.updatePredicateByComplexityChart(this, d3.select("#complexityByPredicate"));
+                    // newVal.updatePredicateByComplexityChart(this, d3.select("#complexityByPredicate"));
 
-                    newVal.updatComplexityByFunctionChart(["P"], this.functionsByComplexityBMaxRows, this, d3.select("#pComplexityByFunction"));
-                    newVal.updatComplexityByFunctionChart(["C"], this.functionsByComplexityBMaxRows, this, d3.select("#cComplexityByFunction"));
+                    // newVal.updatComplexityByFunctionChart(["P"], this.functionsByComplexityBMaxRows, this, d3.select("#pComplexityByFunction"));
+                    // newVal.updatComplexityByFunctionChart(["C"], this.functionsByComplexityBMaxRows, this, d3.select("#cComplexityByFunction"));
 
-                    newVal.updatComplexityByFileChart(["P"], this.functionsByComplexityBMaxRows, this, d3.select("#pComplexityByFile"));
-                    newVal.updatComplexityByFileChart(["C"], this.functionsByComplexityBMaxRows, this, d3.select("#cComplexityByFile"));
+                    // newVal.updatComplexityByFileChart(["P"], this.functionsByComplexityBMaxRows, this, d3.select("#pComplexityByFile"));
+                    // newVal.updatComplexityByFileChart(["C"], this.functionsByComplexityBMaxRows, this, d3.select("#cComplexityByFile"));
 
                     if (this.filter) {
                         this._hiddenIfNoPrimaries = this.filter.levels.contains("primary")
