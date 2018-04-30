@@ -1,13 +1,13 @@
 import * as _ from "lodash"
 
-import *  as xml from 'xml-kt-advance/lib/xml/xml_types';
-import { ProofObligation, PoLevels, PoStates, Complexitiy } from 'xml-kt-advance/lib/model/po_node';
-import { ApiNode } from 'xml-kt-advance/lib/model/api_node';
+// import *  as xml from 'xml-kt-advance/lib/xml/xml_types';
+import { FileInfo, CFunction, ProofObligation, PoLevels, PoStates } from '../common/xmltypes'
+// import { ApiNode } from 'xml-kt-advance/lib/model/api_node';
 import { updateChart } from './chart';
 
 
-import { Project } from '../common/globals';
-import { StatsTable, NamedArray} from '../common/collections';
+// import { CProject } from '../common/globals';
+import { StatsTable, NamedArray } from '../common/collections';
 
 
 
@@ -17,11 +17,12 @@ import { StatsTable, NamedArray} from '../common/collections';
 const states = [
     "violation",
     "open",
-    "discharged"
+    "discharged",
+    "deadcode"
 ];
 
 
-const CPG = ["C", "P", "G"];
+// const CPG = ["C", "P", "G"];
 
 
 const COL_PRIMARY = "primary";
@@ -35,19 +36,19 @@ export class Stats {
     byPredicate: StatsTable<string>;
     byDischargeType: StatsTable<string>;
     byState: StatsTable<string>;
-    byFunction: StatsTable<xml.CFunction>;
+    byFunction: StatsTable<CFunction>;
 
-    complexityByFunction: StatsTable<xml.CFunction>;
-    byFile: StatsTable<xml.FileInfo>;
+    // complexityByFunction: StatsTable<CFunction>;
+    byFile: StatsTable<FileInfo>;
     byFileLine: StatsTable<string>;
 
-    predicateByComplexity: StatsTable<string>;
-    complexityByFile: StatsTable<xml.FileInfo>;
+    // predicateByComplexity: StatsTable<string>;
+    // complexityByFile: StatsTable<FileInfo>;
 
-    assumptionsByFunction: StatsTable<xml.CFunction>;
-    inAssumptionsByFunction: StatsTable<xml.CFunction>;
+    assumptionsByFunction: StatsTable<CFunction>;
+    inAssumptionsByFunction: StatsTable<CFunction>;
 
-    dependenciesByFile: StatsTable<xml.FileInfo>;
+    dependenciesByFile: StatsTable<FileInfo>;
 
 
     private _primaryPredicatesCount: StatsTable<string>;
@@ -59,11 +60,11 @@ export class Stats {
         return this.byFileLine.getRow(file + "//" + (line + 1));
     }
 
-    public getStatsByFile(file: xml.FileInfo): { [key: string]: number } {
+    public getStatsByFile(file: FileInfo): { [key: string]: number } {
         return this.byFile.getRow(file.relativePath);
     }
 
-    public getStatsByFunction(func: xml.CFunction): { [key: string]: number } {
+    public getStatsByFunction(func: CFunction): { [key: string]: number } {
         let functionKey = func.file + "/" + func.name;
         return this.byFunction.getRow(functionKey);
     }
@@ -71,22 +72,22 @@ export class Stats {
     public build(filteredProofObligations: ProofObligation[]) {
         this.date = Date.now();
 
-        this.dependenciesByFile = new StatsTable<xml.FileInfo>();
+        this.dependenciesByFile = new StatsTable<FileInfo>();
 
         this._primaryPredicatesCount = new StatsTable<string>();
 
         this.byPredicate = new StatsTable<string>();
         this.byDischargeType = new StatsTable<string>();
         this.byState = new StatsTable<string>();
-        this.byFunction = new StatsTable<xml.CFunction>();
-        this.byFile = new StatsTable<xml.FileInfo>();
-        this.complexityByFile = new StatsTable<xml.FileInfo>();
+        this.byFunction = new StatsTable<CFunction>();
+        this.byFile = new StatsTable<FileInfo>();
+        // this.complexityByFile = new StatsTable<FileInfo>();
 
         this.byFileLine = new StatsTable<string>();
-        this.predicateByComplexity = new StatsTable<string>();
-        this.assumptionsByFunction = new StatsTable<xml.CFunction>();
-        this.inAssumptionsByFunction = new StatsTable<xml.CFunction>();
-        this.complexityByFunction = new StatsTable<xml.CFunction>();
+        // this.predicateByComplexity = new StatsTable<string>();
+        this.assumptionsByFunction = new StatsTable<CFunction>();
+        this.inAssumptionsByFunction = new StatsTable<CFunction>();
+        // this.complexityByFunction = new StatsTable<CFunction>();
         //
 
         this.byFile.columns = states;
@@ -130,7 +131,7 @@ export class Stats {
             this.byFileLine.inc(fileLineKey, DEF_COL_NAME, 1);
 
 
-            this.predicateByComplexity.bind(po.predicate, po.predicate);
+            // this.predicateByComplexity.bind(po.predicate, po.predicate);
 
             this._primaryPredicatesCount.inc(po.predicate, po.level, 1);
 
@@ -143,27 +144,30 @@ export class Stats {
             // this.byFunction.inc(functionKey, DEF_COL_NAME, 1);
             this.byFunction.bind(functionKey, po.cfunction);
 
-            for (let linked of po.outputs) {
-                this.assumptionsByFunction.inc(functionKey, (<ApiNode>linked).type, 1);
-                this.dependenciesByFile.inc(po.file, (<ApiNode>linked).type, 1);
-            }
+            // if(po.outputs){
+            //     for (let linked of po.outputs) {
+            //         this.assumptionsByFunction.inc(functionKey, (<ApiNode>linked).type, 1);
+            //         this.dependenciesByFile.inc(po.file, (<ApiNode>linked).type, 1);
+            //     }
+            // }
+            
 
 
             this.assumptionsByFunction.bind(functionKey, po.cfunction);
             this.dependenciesByFile.bind(po.file, po.cfunction.fileInfo);
 
-            for (let cCode of CPG) {
-                this.complexityByFunction.inc(functionKey, Complexitiy[Complexitiy[cCode]], po.complexity[Complexitiy[cCode]]);
-                this.complexityByFile.inc(po.file, Complexitiy[Complexitiy[cCode]], po.complexity[Complexitiy[cCode]]);
-                this.predicateByComplexity.inc(po.predicate, Complexitiy[Complexitiy[cCode]], po.complexity[Complexitiy[cCode]]);
-            }
+            // for (let cCode of CPG) {
+            //     this.complexityByFunction.inc(functionKey, Complexitiy[Complexitiy[cCode]], po.complexity[Complexitiy[cCode]]);
+            //     this.complexityByFile.inc(po.file, Complexitiy[Complexitiy[cCode]], po.complexity[Complexitiy[cCode]]);
+            //     this.predicateByComplexity.inc(po.predicate, Complexitiy[Complexitiy[cCode]], po.complexity[Complexitiy[cCode]]);
+            // }
 
 
-            this.complexityByFile.inc(po.cfunction.fileInfo.relativePath, po.level, 1);
-            this.complexityByFile.bind(po.cfunction.fileInfo.relativePath, po.cfunction.fileInfo);
+            // this.complexityByFile.inc(po.cfunction.fileInfo.relativePath, po.level, 1);
+            // this.complexityByFile.bind(po.cfunction.fileInfo.relativePath, po.cfunction.fileInfo);
 
-            this.complexityByFunction.inc(functionKey, po.level, 1);
-            this.complexityByFunction.bind(functionKey, po.cfunction);
+            // this.complexityByFunction.inc(functionKey, po.level, 1);
+            // this.complexityByFunction.bind(functionKey, po.cfunction);
             //------------
             this.byFile.inc(po.cfunction.fileInfo.relativePath, state, 1);
             this.byFile.bind(po.cfunction.fileInfo.relativePath, po.cfunction.fileInfo);
@@ -185,9 +189,9 @@ export class Stats {
         }
 
 
-        this.complexityByFile.divideColumnsByColumn(CPG, this.complexityByFile, COL_PRIMARY);
-        this.predicateByComplexity.divideColumnsByColumn(CPG, this._primaryPredicatesCount, COL_PRIMARY);
-        this.complexityByFunction.divideColumnsByColumn(CPG, this.complexityByFunction, COL_PRIMARY);
+        // this.complexityByFile.divideColumnsByColumn(CPG, this.complexityByFile, COL_PRIMARY);
+        // this.predicateByComplexity.divideColumnsByColumn(CPG, this._primaryPredicatesCount, COL_PRIMARY);
+        // this.complexityByFunction.divideColumnsByColumn(CPG, this.complexityByFunction, COL_PRIMARY);
 
 
         console.info("stats build o:" + this.countOpen + " v:" + this.countViolations + " d:" + this.countDischarged);
@@ -250,7 +254,7 @@ export class Stats {
     public updatePoByFunctionChart(maxRows: number, scene, container: d3.Selection<any>) {
         const table = this.byFunction;
         const columnNames = table.columnNames;
-        const data: Array<NamedArray<xml.CFunction>> = table.getTopRows(maxRows);
+        const data: Array<NamedArray<CFunction>> = table.getTopRows(maxRows);
 
 
         updateChart(scene, container,
@@ -267,7 +271,7 @@ export class Stats {
     public updateAssumptionsByFunctionChart(maxRows: number, scene, container: d3.Selection<any>) {
         const table = this.assumptionsByFunction;
         const columnNames = table.columnNames;
-        const data: Array<NamedArray<xml.CFunction>> = table.getTopRows(maxRows);
+        const data: Array<NamedArray<CFunction>> = table.getTopRows(maxRows);
 
         updateChart(scene, container,
             {
@@ -284,14 +288,14 @@ export class Stats {
     public updateDependenciesByFileChart(maxRows: number, scene, container: d3.Selection<any>) {
         const table = this.dependenciesByFile;
         const columnNames = table.columnNames;
-        const data: Array<NamedArray<xml.FileInfo>> = table.getTopRows(maxRows);
+        const data: Array<NamedArray<FileInfo>> = table.getTopRows(maxRows);
 
         updateChart(scene, container,
             {
                 data: data,
                 colors: (x, index) => "var(--kt-state-assumption-" + columnNames[index] + "-bg)",
                 columnNames: columnNames,
-                label: (x: NamedArray<xml.FileInfo>) => x.object.name,
+                label: (x: NamedArray< FileInfo>) => x.object.name,
                 max: null
             }
         );
@@ -301,7 +305,7 @@ export class Stats {
     public updateInAssumptionsByFunctionChart(maxRows: number, scene, container: d3.Selection<any>) {
         const table = this.inAssumptionsByFunction;
         const columnNames = table.columnNames;
-        const data: Array<NamedArray<xml.CFunction>> = table.getTopRows(maxRows);
+        const data: Array<NamedArray< CFunction>> = table.getTopRows(maxRows);
 
         updateChart(scene, container,
             {
@@ -319,7 +323,7 @@ export class Stats {
     public updatePoByFileChart(scene, container: d3.Selection<any>) {
         const table = this.byFile;
         const columnNames = table.columnNames;
-        const data: Array<NamedArray<xml.FileInfo>> = table.getTopRows(10);
+        const data: Array<NamedArray< FileInfo>> = table.getTopRows(10);
 
 
 
@@ -328,77 +332,77 @@ export class Stats {
                 data: data,
                 colors: (x, index) => "var(--kt-state-" + columnNames[index] + "-default-bg)",
                 columnNames: columnNames,
-                label: (x: NamedArray<xml.FileInfo>) => x.object.name,
+                label: (x: NamedArray< FileInfo>) => x.object.name,
                 max: null
             }
         );
     }
 
 
-    public updatePredicateByComplexityChart(scene, container: d3.Selection<any>) {
-        const table = this.predicateByComplexity;
-        const columnNames = ["P"];
-        const data: Array<NamedArray<string>> = table.getRowsSorted(columnNames);
+    // public updatePredicateByComplexityChart(scene, container: d3.Selection<any>) {
+    //     const table = this.predicateByComplexity;
+    //     const columnNames = ["P"];
+    //     const data: Array<NamedArray<string>> = table.getRowsSorted(columnNames);
 
 
-        updateChart(scene, container,
-            {
-                data: data,
-                colors: (x, i) => "var(--kt-complexity-" + columnNames[i].toLowerCase() + "-bg)",
-                columnNames: columnNames,
-                label: x => x.name,
-                max: null
-            },
-            d3.format(".2f")
-        );
-    }
+    //     updateChart(scene, container,
+    //         {
+    //             data: data,
+    //             colors: (x, i) => "var(--kt-complexity-" + columnNames[i].toLowerCase() + "-bg)",
+    //             columnNames: columnNames,
+    //             label: x => x.name,
+    //             max: null
+    //         },
+    //         d3.format(".2f")
+    //     );
+    // }
 
 
 
 
-    public updatComplexityByFunctionChart(
-        showColumns: string[],
-        maxRows: number,
-        scene,
-        container: d3.Selection<any>) {
+    // public updatComplexityByFunctionChart(
+    //     showColumns: string[],
+    //     maxRows: number,
+    //     scene,
+    //     container: d3.Selection<any>) {
 
 
-        const table = this.complexityByFunction;
-        const columnNames: string[] = showColumns;
-        const data: Array<NamedArray<xml.CFunction>>
-            = table.getTopRows(maxRows, columnNames);
+    //     const table = this.complexityByFunction;
+    //     const columnNames: string[] = showColumns;
+    //     const data: Array<NamedArray<xml.CFunction>>
+    //         = table.getTopRows(maxRows, columnNames);
 
 
-        updateChart(
-            scene,
-            container,
-            {
-                data: data,
-                colors: (x, i) => "var(--kt-complexity-" + columnNames[i].toLowerCase() + "-bg)",
-                columnNames: columnNames,
-                label: (x: NamedArray<xml.CFunction>) => x.object.name,
-                max: null
-            },
-            d3.format(".2f")
-        );
-    }
+    //     updateChart(
+    //         scene,
+    //         container,
+    //         {
+    //             data: data,
+    //             colors: (x, i) => "var(--kt-complexity-" + columnNames[i].toLowerCase() + "-bg)",
+    //             columnNames: columnNames,
+    //             label: (x: NamedArray<xml.CFunction>) => x.object.name,
+    //             max: null
+    //         },
+    //         d3.format(".2f")
+    //     );
+    // }
 
-    public updatComplexityByFileChart(columnNames: string[], maxRows: number, scene, container: d3.Selection<any>) {
-        const table = this.complexityByFile;
-        const data: Array<NamedArray<xml.FileInfo>> = table.getTopRows(maxRows, columnNames);
+    // public updatComplexityByFileChart(columnNames: string[], maxRows: number, scene, container: d3.Selection<any>) {
+    //     const table = this.complexityByFile;
+    //     const data: Array<NamedArray<xml.FileInfo>> = table.getTopRows(maxRows, columnNames);
 
 
-        updateChart(scene, container,
-            {
-                data: data,
-                colors: (x, i) => "var(--kt-complexity-" + columnNames[i].toLowerCase() + "-bg)",
-                columnNames: columnNames,
-                label: (x: NamedArray<xml.FileInfo>) => x.object.name,
-                max: null
-            },
-            d3.format(".2f")
-        );
-    }
+    //     updateChart(scene, container,
+    //         {
+    //             data: data,
+    //             colors: (x, i) => "var(--kt-complexity-" + columnNames[i].toLowerCase() + "-bg)",
+    //             columnNames: columnNames,
+    //             label: (x: NamedArray<xml.FileInfo>) => x.object.name,
+    //             max: null
+    //         },
+    //         d3.format(".2f")
+    //     );
+    // }
 
 
 

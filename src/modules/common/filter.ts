@@ -1,6 +1,6 @@
-import { CFunction, FileInfo } from 'xml-kt-advance/lib/xml/xml_types';
-import { ApiNode } from 'xml-kt-advance/lib/model/api_node';
-import { ProofObligation, PoStates, AbstractNode, PoStatesArr, PoDischargeTypesArr } from 'xml-kt-advance/lib/model/po_node';
+import { CFunction, FileInfo } from './xmltypes';
+// import { ApiNode } from 'xml-kt-advance/lib/model/api_node';
+import { ProofObligation, PoStates, PoStatesArr, PoDischargeTypesArr } from  './xmltypes';
 import { StringSet, AnySet, isEmpty } from './collections';
 
 
@@ -156,27 +156,30 @@ export class Filter {
 
 
 
-    private acceptFile(po: AbstractNode): boolean {
+    private acceptFile(po: ProofObligation): boolean {
+        return this.acceptCFunctionFile(po.cfunction);
+    }
+
+    public acceptCFunctionFile(func: CFunction): boolean {
         if (!this.fileName) {
             return true;
         } else {
             if (!this._file.dir) {
-                return po.file == this.fileName;
+                return func.file == this.fileName;
             } else {
-                return po.file.startsWith(this.fileName) || this.fileName == ".";
+                return func.file.startsWith(this.fileName) || this.fileName == ".";
             }
 
         }
     }
 
 
+    public acceptCFunction(func: CFunction): boolean {
+        return (!this.cfunction || func.name == this.cfunction.name) && this.acceptCFunctionFile(func);
+    }
 
-    private acceptFunction(po: AbstractNode): boolean {
-        if (!this.cfunction) {
-            return true;
-        } else {
-            return po.functionName == this.cfunction.name;//XXX: compare file
-        }
+    private acceptFunction(po: ProofObligation): boolean {
+        return this.acceptCFunction(po.cfunction);
     }
 
     private acceptState(po: ProofObligation): boolean {
@@ -189,7 +192,7 @@ export class Filter {
         return false;
     }
 
-    private acceptLevel(po: AbstractNode): boolean {
+    private acceptLevel(po: ProofObligation): boolean {
         if (isEmpty(this.levels)) {
             return true;
         }
@@ -216,7 +219,7 @@ export class Filter {
         if (isEmpty(this._predicates)) {
             return true;
         }
-        if (this._predicates.contains(po.predicate.toLowerCase())) {
+        if (this._predicates.contains(po.predicate)) {
             return true;
         }
         return false;
@@ -226,9 +229,9 @@ export class Filter {
         return this.acceptState(po) && this.acceptLevel(po) && this.acceptFile(po) && this.acceptFunction(po) && this.acceptPredicate(po) && this.acceptDischargeType(po);
     }
 
-    public acceptApi(po: ApiNode): boolean {
-        return this.acceptFile(po) && this.acceptFunction(po);// && this.acceptPredicate(po) && this.acceptState(po) && this.acceptDischargeType(po);
-    }
+    // public acceptApi(po: ApiNode): boolean {
+    //     return this.acceptFile(po) && this.acceptFunction(po);// && this.acceptPredicate(po) && this.acceptState(po) && this.acceptDischargeType(po);
+    // }
 
 }
 

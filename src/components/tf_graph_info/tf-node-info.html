@@ -13,11 +13,15 @@
 
             <div class="node-color-container">
 
-                <node-icon id="bg" node="[[_node]]" render-info="[[_getRenderInfo(nodeName, renderHierarchy)]]" color-by="[[colorBy]]"></node-icon>
+                <node-icon 
+                    id="bg" 
+                    svg-id="[[svgId]]"
+                    node="[[_node]]" render-info="[[_getRenderInfo(nodeName, renderHierarchy)]]" color-by="[[colorBy]]"></node-icon>
 
                 <div id="caption">
                     <paper-icon-button icon="{{_getToggleIcon(_expanded)}}" on-click="_toggleExpanded" class="toggle-button"></paper-icon-button>
-                    <div><iron-icon icon="kt:location-on"></iron-icon><span id="nodetitle"></span> <span class='location'>
+                    <div>
+                        <iron-icon icon="kt:location-on"></iron-icon><span id="nodetitle"></span> <span class='location'>
                         [[_funcLocation]]</span></div>
                 </div>
             </div>
@@ -27,16 +31,12 @@
             </template>
 
             <div class="po">
-
-
                 <template is="dom-if" if="{{_node.metagraph}}">
                     <div class="subtitle">
                         Subgraph:
-                        <span>[[_node.cardinality]]</span>
-                        nodes
+                        <span>[[_node.cardinality]]</span> nodes
                     </div>
                 </template>
-
             </div>
 
             <div>
@@ -46,39 +46,33 @@
                         <div class="expandedInfo">
 
                             <div class="sub-list-group predecessors">
-                                <span class="caption">Dependent PO (<span>[[_totalPredecessors]]</span>)</span>
+                                <span class="caption">[[inputsTitle]]  (<span>[[_totalPredecessors]]</span>)</span>
 
                                 <iron-list class="sub-list" id="inputsList" items="[[_predecessors.regular]]">
                                     <template>
-                                        <tf-node-list-item
-                                            class="non-control-list-item"
-                                            card-node="[[_node]]"
-                                            item-node="[[item.node]]"
-                                            edge-label="[[item.edgeLabel]]"
-                                            item-render-info="[[item.renderInfo]]"
-                                            name="[[item.name]]"
-                                            item-type="predecessors"
-                                            color-by="[[colorBy]]"
-                                            apiId="[[item.node.attr.apiId]]"></tf-node-list-item>
+                                        <tf-node-list-item 
+                                            svg-id="[[svgId]]"
+                                            class="non-control-list-item" card-node="[[_node]]" item-node="[[item.node]]" edge-label="[[item.edgeLabel]]"
+                                            item-render-info="[[item.renderInfo]]" name="[[item.name]]" item-type="predecessors"
+                                            color-by="[[colorBy]]" apiId="[[item.node.attr.apiId]]"></tf-node-list-item>
                                     </template>
                                 </iron-list>
 
                             </div>
 
                             <div class="sub-list-group successors">
-                                <span class="caption">Depends on (<span>[[_totalSuccessors]]</span>)</span>
+                                <span class="caption">[[outputsTitle]] (<span>[[_totalSuccessors]]</span>)</span>
                                 <iron-list class="sub-list" id="outputsList" items="[[_successors.regular]]">
                                     <template>
-                                        <tf-node-list-item
-                                            class="non-control-list-item"
-                                            card-node="[[_node]]"
-                                            item-node="[[item.node]]"
+                                        <tf-node-list-item 
+                                            svg-id="[[svgId]]"
+                                            class="non-control-list-item" 
+                                            card-node="[[_node]]" item-node="[[item.node]]" 
                                             edge-label="[[item.edgeLabel]]"
-                                            item-render-info="[[item.renderInfo]]"
-                                            name="[[item.name]]"
+                                            item-render-info="[[item.renderInfo]]" 
+                                            name="[[item.name]]" 
                                             apiId="[[item.node.attr.apiId]]"
-                                            item-type="successor"
-                                            color-by="[[colorBy]]"></tf-node-list-item>
+                                            item-type="successor" color-by="[[colorBy]]"></tf-node-list-item>
                                     </template>
                                 </iron-list>
 
@@ -91,13 +85,15 @@
     </template>
 
 
-
     <script>
-        (function() {
+        (function () {
             Polymer({
                 is: 'tf-node-info',
 
                 properties: {
+                    inputsTitle: String,
+                    outputsTitle: String,
+                    svgId: String,
                     nodeName: String,
                     graphHierarchy: Object,
                     renderHierarchy: Object,
@@ -155,96 +151,72 @@
                         value: false
                     },
                     _groupButtonText: String
-                },
-                _getPredicate: function(node) {
-                    return graph_builder.getPredicate(node);
-                },
-
-                _getData: function(node) {
+                },                            
+                
+                _getData: function (node) {
                     if (node && node.attr && node.attr.data)
                         return node.attr.data;
                     return null;
                 },
 
-                expandNode: function() {
+                expandNode: function () {
                     this.fire('_node.expand', this.node);
                 },
-                _getNode: function(nodeName, graphHierarchy) {
+
+                _getNode: function (nodeName, graphHierarchy) {
                     return graphHierarchy.node(nodeName);
                 },
 
-                _getPrintableHTMLNodeName: function(nodeName) {
+                _getPrintableHTMLNodeName: function (nodeName) {
                     // Insert an optional line break before each slash so that long node names wrap cleanly at path boundaries.
                     return (nodeName || '').replace(/\//g, '<wbr>/');
                 },
 
-                _getRenderInfo: function(nodeName, renderHierarchy) {
+                _getRenderInfo: function (nodeName, renderHierarchy) {
                     return this.renderHierarchy.getOrCreateRenderNodeByName(nodeName);
                 },
 
                 _getFuncLocation(node) {
-                    if(this._data){
-                        return ":L"+this._data.line;
+                    if (this._data) {
+                        return ":L" + node.attr.location.line;
                     }
                     return "";
                 },
 
-                _getAttributes: function(node) {
-                    this.async(this._resizeList.bind(this, "#attributesList"));
-                    if (!node || !node.attr) {
-                        return {};
-                    }
-
-                    return node.attr;
-                },
-
-                _getPredicateArgument: function(node) {
-                    symbol = this._getAttributes(node)["symbol"];
-                    if (symbol) {
-                        if (symbol.type == "ID") {
-                            return symbol.value;
-                        } else {
-                            return '"' + symbol.value + '"';
-                        }
-                    } else {
-                        return "";
-                    }
-                },
-
-                _getNodeClass: function(node) {
+                _getNodeClass: function (node) {
                     if (node && node.attr) {
                         return "po level-" + node.attr.level + " state-" + node.attr.state;
                     } else {
                         return "po";
                     }
                 },
-                _getDevice: function(node) {
+                _getDevice: function (node) {
                     return node
                         ? node.device
                         : null;
                 },
-                _getSuccessors: function(node, hierarchy) {
+                _getSuccessors: function (node, hierarchy) {
                     this.async(this._resizeList.bind(this, "#inputsList"));
                     if (!node) {
-                        return {regular: [], control: []}
+                        return { regular: [], control: [] }
                     }
                     return this._convertEdgeListToEdgeInfoList(hierarchy.getSuccessors(node.name), false, node.isGroupNode);
                 },
-                _getPredecessors: function(node, hierarchy) {
+                _getPredecessors: function (node, hierarchy) {
                     this.async(this._resizeList.bind(this, "#outputsList"));
                     if (!node) {
-                        return {regular: [], control: []}
+                        return { regular: [], control: [] }
                     }
                     return this._convertEdgeListToEdgeInfoList(hierarchy.getPredecessors(node.name), true, node.isGroupNode);
                 },
-                _convertEdgeListToEdgeInfoList: function(list, isPredecessor, isGroupNode) {
+                _convertEdgeListToEdgeInfoList: function (list, isPredecessor, isGroupNode) {
 
                     /**
-           * Unpacks the metaedge into a list of base edge information
-           * that can be rendered.
-           */
-                    var unpackMetaedge = function(metaedge) {
-                        return _.map(metaedge.baseEdgeList, function(baseEdge) {
+                     * Unpacks the metaedge into a list of base edge information
+                     * that can be rendered.
+                     */
+                    var unpackMetaedge = function (metaedge) {
+                        return _.map(metaedge.baseEdgeList, function (baseEdge) {
                             name = isPredecessor
                                 ? baseEdge.v
                                 : baseEdge.w;
@@ -258,12 +230,12 @@
                     }.bind(this);
 
                     /**
-           * Converts a list of metaedges to a list of edge information
-           * that can be rendered.
-           */
-                    var toEdgeInfoList = function(edges) {
+                     * Converts a list of metaedges to a list of edge information
+                     * that can be rendered.
+                     */
+                    var toEdgeInfoList = function (edges) {
                         var edgeInfoList = [];
-                        _.each(edges, function(metaedge) {
+                        _.each(edges, function (metaedge) {
                             var name = isPredecessor
                                 ? metaedge.v
                                 : metaedge.w;
@@ -280,7 +252,7 @@
                             }
                         }, this);
                         return edgeInfoList.sort(
-                            function(x, y) {
+                            function (x, y) {
                                 if (x.node.attr && y.node.attr) {
                                     return model.compareStates(x.node.attr.state, y.node.attr.state)
                                 } else {
@@ -296,34 +268,34 @@
                         control: toEdgeInfoList(list.control)
                     };
                 },
-                _getSubnodes: function(node) {
+                _getSubnodes: function (node) {
                     return node && node.metagraph
                         ? node.metagraph.nodes()
                         : null;
                 },
-                _getTotalPred: function(predecessors) {
+                _getTotalPred: function (predecessors) {
                     return predecessors.regular.length + predecessors.control.length;
                 },
-                _getTotalSucc: function(successors) {
+                _getTotalSucc: function (successors) {
                     return successors.regular.length + successors.control.length;
                 },
-                _toggleControlPred: function() {
+                _toggleControlPred: function () {
                     this._openedControlPred = !this._openedControlPred;
                 },
-                _toggleControlSucc: function() {
+                _toggleControlSucc: function () {
                     this._openedControlSucc = !this._openedControlSucc;
                 },
-                _toggleExpanded: function() {
+                _toggleExpanded: function () {
                     this._expanded = !this._expanded;
                 },
 
-                _getToggleIcon: function(expanded) {
+                _getToggleIcon: function (expanded) {
                     return expanded
                         ? "expand-less"
                         : "expand-more";
                 },
 
-                _resetState: function() {
+                _resetState: function () {
                     this._openedControlPred = false;
                     this._openedControlSucc = false;
 
@@ -335,31 +307,14 @@
                     }
                 },
 
-                _resizeList: function(selector) {
+                _resizeList: function (selector) {
                     var list = document.querySelector(selector);
                     if (list) {
                         list.fire('iron-resize');
                     }
                 },
 
-                _toggleInclude: function() {
-                    var graphElem = document.querySelector("#graph");
-                    graphElem.fire("node-toggle-extract", {name: this.nodeName});
-                    var graphBoardElem = document.querySelector("#graphboard");
-                    graphBoardElem.fire("node-toggle-extract");
-                },
-
-                _toggleGroup: function() {
-                    var graphElem = document.querySelector("#graph");
-                    var seriesName = scenenode.getSeriesName(this._node);
-                    graphElem.fire("node-toggle-seriesgroup", {name: seriesName});
-                },
-
-                _isInSeries: function(node) {
-                    return scenenode.canBeInSeries(node);
-                },
-
-                jumpToSource: function(event) {
+                jumpToSource: function (event) {
                     var item = event.currentTarget.data;
                     this.fire("jump-to-src", item);
                 },

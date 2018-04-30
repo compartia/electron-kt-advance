@@ -22,604 +22,20 @@ limitations under the License.
   dagre and d3.
 -->
 <dom-module id="tf-graph-scene">
+  <style>
+    :host {
+      /*display: flex;*/
+      width: 100%;
+      font-size: 6px;
+    }
+  </style>
 <template>
-<style>
-:host {
-  /*display: flex;*/
-  width: 100%;
-  font-size: 6px;
-}
-
-.po-box{
-    font-size: 12px!important;
-}
-
-::content foreignobject{
-    font-size: 12px!important;
-}
-
-::content #svg {
-  overflow: hidden;
-  flex: 1;
-  height: 100%;
-  width: 100%;
-}
-
-::content #hidden {
-  position: fixed;
-  top: 0px;
-  visibility: hidden;
-}
-
-/* --- Node and annotation-node for Metanode --- */
-
-::content .meta > .nodeshape > rect,
-::content .meta > .annotation-node > rect {
-  cursor: pointer;
-  fill: hsl(0, 0%, 70%);
-}
-
-::content .node.meta.highlighted > .nodeshape > rect,
-::content .node.meta.highlighted > .annotation-node > rect {
-  stroke-width: 2;
-}
-
-::content .annotation.meta.highlighted > .nodeshape > rect,
-::content .annotation.meta.highlighted > .annotation-node > rect {
-  stroke-width: 1;
-}
-
-::content .meta.selected > .nodeshape > rect,
-::content .meta.selected > .annotation-node > rect {
-  stroke: var(--kt-node-selected-border);
-  stroke-width: 2;
-}
-
-::content .node.meta.selected.expanded > .nodeshape > rect,
-::content .node.meta.selected.expanded > .annotation-node > rect {
-  stroke: var(--kt-node-selected-border);
-  stroke-width: 3;
-}
-
-::content .annotation.meta.selected > .nodeshape > rect,
-::content .annotation.meta.selected > .annotation-node > rect {
-  stroke: var(--kt-node-selected-border);
-  stroke-width: 2;
-}
-
-::content .node.meta.selected.expanded.highlighted > .nodeshape > rect,
-::content .node.meta.selected.expanded.highlighted > .annotation-node > rect {
-  stroke: var(--kt-node-selected-border);
-  stroke-width: 4;
-}
-
-::content .faded,
-::content .faded rect,
-::content .faded ellipse,
-::content .faded path,
-::content .faded use,
-::content #rectHatch line,
-::content #ellipseHatch line {
-  color: var(--kt-node-fade) !important;
-  fill: white;
-  stroke: var(--kt-node-fade) !important;
-}
-
-
-::content .faded path {
-  stroke-width: 1px !important;
-}
-
-::content .faded rect {
-  fill: url(#rectHatch) !important;
-}
-
-::content .faded ellipse,
-::content .faded use {
-  fill: url(#ellipseHatch) !important;
-}
-
-::content .faded text {
-  opacity: 0;
-}
-
-/* Rules used for input-tracing. */
-::content .input-highlight > * > rect,
-::content .input-highlight > * > use
-{
-  fill: white;
-  stroke: var(--kt-in-edge-highlight) !important;
-}
-
-
-
-
-::content .input-highlight.out > * > rect,
-::content .input-highlight.out > * > use
-{
-  fill: white;
-  stroke: var(--kt-out-edge-highlight) !important;
-}
-
-/*  - Faded non-input styling */
-::content .non-input > * > rect,
-::content .non-input > * > ellipse,
-::content .non-input > * > use,
-/* For Const nodes. */
-::content .non-input > * > .constant:not([class*="input-highlight"]) >
-  .annotation-node > ellipse,
-/* For styling of annotation nodes of non-input nodes. */
-::content .non-input > g > .annotation > .annotation-node > rect {
-  stroke: var(--kt-node-fade) !important;
-  stroke-width: inherit;
-  stroke-dasharray: inherit;
-}
-
-
-::content .non-input path {
-  visibility: hidden;
-}
-
-::content .non-input > .nodeshape > rect,
-::content .non-input > .annotation-node > rect,
-/* For styling of annotation nodes of non-input nodes. */
-::content .non-input > g > .annotation > .annotation-node > rect
-{
-  fill: url(#rectHatch) !important;
-}
-
-::content .non-input ellipse,
-::content .non-input use {
-  fill: url(#ellipseHatch) !important;
-}
-
-::content .non-input > text {
-  opacity: 0.2;
-}
-
-::content .non-input .annotation > .annotation-edge {
-  marker-end: url(#annotation-arrowhead-faded);
-}
-
-::content .non-input .annotation > .annotation-edge.refline {
-  marker-start: url(#ref-annotation-arrowhead-faded);
-}
-
-/* Input edges. */
-::content .input-edge-highlight > text {
-  fill: black !important;
-}
-
-
-
-::content .input-edge-highlight > path,
-::content .input-highlight > .in-annotations > .annotation > .annotation-edge,
-::content .input-highlight-selected > .in-annotations > .annotation >
-.annotation-edge {
-  stroke: var(--kt-edge-highlight) !important;
-}
-
-::content .input-edge-highlight.out > path{
-    stroke:url(#grad-edge-out) !important;
-}
-
-::content .input-edge-highlight > path{
-    stroke:url(#grad-edge-in) !important;
-}
-
-/* Non-input edges. */
-::content .non-input-edge-highlight,
-::content .non-input > g > .annotation > path,
-/* Annotation styles (label and edges respectively). */
-::content .non-input > g >
-.annotation:not(.input-highlight):not(.input-highlight-selected) >
-.annotation-label
-/*.annotation-edge*/
-{
-  /*visibility: hidden;*/
-  opacity: 0.15;
-}
-
-/* --- Op Node --- */
-
-::content .op > .nodeshape > rect,
-::content .op > .annotation-node > rect {
-  cursor: pointer;
-  fill: #fff;
-  stroke: var(--kt-grey);
-}
-
-::content .op.selected > .nodeshape > rect,
-::content .op.selected > .annotation-node > rect {
-  stroke: var(--kt-node-selected-border);
-  stroke-width: 1.5;
-}
-
-::content .op.highlighted > .nodeshape > rect,
-::content .op.highlighted > .annotation-node > rect {
-  stroke-width: 1.5;
-}
-
-/* --- Series Node --- */
-
-/* By default, don't show the series background <rect>. */
-::content .series > .nodeshape > rect {
-  fill: hsl(0, 0%, 70%);
-  fill-opacity: 0;
-  stroke-dasharray: 5, 5;
-  stroke-opacity: 0;
-  cursor: pointer;
-}
-
-/* Once expanded, show the series background <rect> and hide the <use>. */
-::content .series.expanded > .nodeshape > rect {
-  fill-opacity: 0.15;
-  stroke: hsl(0, 0%, 70%);
-  stroke-opacity: 1;
-}
-::content .series.expanded > .nodeshape > use {
-  visibility: hidden;
-}
-
-/**
- * TODO(jimbo): Simplify this by applying a stable class name to all <g>
- * elements that currently have either the nodeshape or annotation-node classes.
- */
-::content .series > .nodeshape > use ,
-::content .series > .annotation-node > use {
-  stroke: var(--kt-edge);
-}
-::content .series.highlighted > .nodeshape > use ,
-::content .series.highlighted > .annotation-node > use {
-  stroke-width: 2;
-}
-::content .series.selected > .nodeshape > use ,
-::content .series.selected > .annotation-node > use {
-  stroke: var(--kt-node-selected-border);
-  stroke-width: 2;
-}
-
-::content .series.selected > .nodeshape > rect {
-  stroke: var(--kt-node-selected-border);
-  stroke-width: 2;
-}
-
-::content .annotation.series.selected > .annotation-node > use {
-  stroke: var(--kt-node-selected-border);
-  stroke-width: 2;
-}
-
-/* --- Bridge Node --- */
-::content .bridge > .nodeshape > rect {
-  stroke: #f0f;
-  opacity: 0.2;
-  display: none;
-}
-
-/* --- Structural Elements --- */
-::content .edge > path.edgeline.structural {
-  stroke: #f0f;
-  opacity: 0.2;
-  display: none;
-}
-
-/* --- Series Nodes --- */
-
-/* Hide the rect for a series' annotation. */
-::content .series > .annotation-node > rect {
-  display: none;
-}
-
-/* --- Node label --- */
-
-
-::content .node > text.nodelabel {
-  cursor: pointer;
-  fill: #444;
-}
-
-::content .meta.expanded > text.nodelabel {
-  font-size: 9px;
-}
-
-::content .series > text.nodelabel {
-  font-size: 8px;
-}
-
-::content .op > text.nodelabel {
-  font-size: 6px;
-}
-
-::content .bridge > text.nodelabel {
-  display: none;
-}
-
-::content .node.meta.expanded > text.nodelabel{
-  cursor: normal;
-}
-
-::content .annotation.meta.highlighted > text.annotation-label {
-  fill: var(--kt-violet-lighter);
-}
-
-::content .annotation.meta.selected > text.annotation-label {
-  fill: var(--kt-violet);
-}
-
-/* --- Annotation --- */
-
-/* only applied for annotations that are not summary or constant.
-(.summary, .constant gets overriden below) */
-::content .annotation > .annotation-node > * {
-  stroke-width: 0.5;
-  stroke-dasharray: 1, 1;
-}
-
-::content .annotation.summary > .annotation-node > *,
-::content .annotation.constant > .annotation-node > * {
-  stroke-width: 1;
-  stroke-dasharray: none;
-}
-
-::content .annotation > .annotation-edge {
-  fill: none;
-  stroke: var(--kt-edge);
-  stroke-width: 0.5;
-  marker-end: url(#annotation-arrowhead);
-}
-
-::content .faded .annotation > .annotation-edge {
-  marker-end: url(#annotation-arrowhead-faded);
-}
-
-::content .annotation > .annotation-edge.refline {
-  marker-start: url(#ref-annotation-arrowhead);
-}
-
-::content .faded .annotation > .annotation-edge.refline {
-  marker-start: url(#ref-annotation-arrowhead-faded);
-}
-
-::content .annotation > .annotation-control-edge {
-  stroke-dasharray: 1, 1;
-}
-
-::content #annotation-arrowhead {
-  fill: var(--kt-edge);
-}
-
-::content #annotation-arrowhead-faded {
-  fill: var(--kt-node-fade);
-}
-
-::content #ref-annotation-arrowhead {
-  fill: var(--kt-edge);
-}
-
-::content #ref-annotation-arrowhead-faded {
-  fill: var(--kt-node-fade);
-}
-
-::content .annotation > .annotation-label {
-  font-size: 5px;
-  cursor: pointer;
-}
-::content .annotation > .annotation-label.annotation-ellipsis {
-  cursor: default;
-}
-
-/* Hide annotations on expanded meta nodes since they're redundant. */
-::content .expanded > .in-annotations,
-::content .expanded > .out-annotations {
-  display: none;
-}
-
-/* --- Annotation: Constant --- */
-
-::content .constant > .annotation-node > ellipse {
-  cursor: pointer;
-  fill: white;
-  stroke: var(--kt-edge);
-}
-
-::content .constant.selected > .annotation-node > ellipse {
-  fill: white;
-  stroke: var(--kt-node-selected-border);
-}
-
-::content .constant.highlighted > .annotation-node > ellipse {
-  stroke-width: 1.5;
-}
-
-/* --- Annotation: Summary --- */
-
-::content .summary > .annotation-node > ellipse {
-  cursor: pointer;
-  fill: #DB4437;
-  stroke: #DB4437;
-}
-
-::content .summary.selected > .annotation-node > ellipse {
-  fill: #A52714;
-  stroke: #A52714;
-}
-
-::content .summary.highlighted > .annotation-node > ellipse {
-  stroke-width: 1.5;
-}
-
-/* --- Edge --- */
-
-::content .edge > path.edgeline {
-  fill: none;
-  stroke: var(--kt-edge);
-  stroke-linecap: round;
-  stroke-width: 0.75;
-}
-
-/* Labels showing tensor shapes on edges */
-::content .edge > text {
-  font-size: 3.5px;
-  fill: var(--kt-edge-text);
-}
-
-::content .ref-arrowhead {
-  fill: var(--kt-edge);
-}
-
-::content .edge .control-dep {
-  stroke-dasharray: 2, 2;
-}
-
-/* --- Group node expand/collapse button --- */
-
-/* Hides expand/collapse buttons when a node isn't expanded or highlighted. Using
-   incredibly small opacity so that the bounding box of the <g> parent still takes
-   this container into account even when it isn't visible */
-::content .node:not(.highlighted):not(.expanded) > .nodeshape > .buttoncontainer {
-  opacity: 0.01;
-}
-::content .node.highlighted > .nodeshape > .buttoncontainer {
-  cursor: pointer;
-}
-::content .buttoncircle {
-  fill: #E7811D;
-}
-::content .buttoncircle:hover {
-  fill: #B96717;
-}
-::content .expandbutton,
-::content .collapsebutton {
-  stroke: white;
-}
-/* Do not let the path elements in the button take pointer focus */
-::content .node > .nodeshape > .buttoncontainer > .expandbutton,
-::content .node > .nodeshape > .buttoncontainer > .collapsebutton {
-  pointer-events: none;
-}
-/* Only show the expand button when a node is collapsed and only show the
-   collapse button when a node is expanded. */
-::content .node.expanded > .nodeshape > .buttoncontainer > .expandbutton {
-  display: none;
-}
-::content .node:not(.expanded) > .nodeshape > .buttoncontainer > .collapsebutton {
-  display: none;
-}
-
-.titleContainer {
-  position: relative;
-  top: 20px;
-}
-
-.title {
-  position: absolute;
-}
-
-.auxTitle {
-  position: absolute;
-}
-
-#minimap {
-  position: absolute;
-  right: 20px;
-  bottom: 20px;
-}
-</style>
+ 
 <div class="titleContainer">
   <div id="title" class="title">Main Graph</div>
   <div id="auxTitle" class="auxTitle">Auxiliary Nodes</div>
 </div>
-<svg id="svg">
-  <defs>
-
-    <linearGradient id='grad-edge-in'>
-        <stop offset='10%' stop-color='var(--kt-edge)'/>
-        <stop offset='100%' stop-color='var(--kt-in-edge-highlight)'/>
-    </linearGradient>
-
-    <linearGradient id='grad-edge-out'>
-        <stop offset='10%' stop-color='var(--kt-edge)'/>
-        <stop offset='100%' stop-color='var(--kt-out-edge-highlight)'/>
-    </linearGradient>
-
-    <!-- Arrow heads for edge paths of different predefined sizes. -->
-    <path id="ref-arrowhead-path" d="M 10,0 L 0,5 L 10,10 C 7,7 7,3 10,0"/>
-
-    <marker class="ref-arrowhead" id="ref-arrowhead-small" viewBox="0 0 10 10" markerWidth="10" markerHeight="10"
-      refX="8" refY="5" orient="auto" markerUnits="userSpaceOnUse">
-      <use xlink:href="#ref-arrowhead-path" />
-    </marker>
-    <marker class="ref-arrowhead" id="ref-arrowhead-medium" viewBox="0 0 10 10" markerWidth="13" markerHeight="13"
-        refX="8" refY="5" orient="auto" markerUnits="userSpaceOnUse">
-      <use xlink:href="#ref-arrowhead-path" />
-    </marker>
-    <marker class="ref-arrowhead" id="ref-arrowhead-large" viewBox="0 0 10 10" markerWidth="16" markerHeight="16"
-        refX="8" refY="5" orient="auto" markerUnits="userSpaceOnUse">
-      <use xlink:href="#ref-arrowhead-path" />
-    </marker>
-    <marker class="ref-arrowhead" id="ref-arrowhead-xlarge" viewBox="0 0 10 10" markerWidth="20" markerHeight="20"
-        refX="8" refY="5" orient="auto" markerUnits="userSpaceOnUse">
-      <use xlink:href="#ref-arrowhead-path" />
-    </marker>
-
-    <!-- Arrow head for annotation edge paths. -->
-    <marker id="annotation-arrowhead" markerWidth="5" markerHeight="5"
-      refX="5" refY="2.5" orient="auto">
-      <path d="M 0,0 L 5,2.5 L 0,5 L 0,0"/>
-    </marker>
-    <marker id="annotation-arrowhead-faded" markerWidth="5" markerHeight="5"
-      refX="5" refY="2.5" orient="auto">
-      <path d="M 0,0 L 5,2.5 L 0,5 L 0,0"/>
-    </marker>
-    <marker id="ref-annotation-arrowhead" markerWidth="5" markerHeight="5"
-      refX="0" refY="2.5" orient="auto">
-      <path d="M 5,0 L 0,2.5 L 5,5 L 5,0"/>
-    </marker>
-    <marker id="ref-annotation-arrowhead-faded" markerWidth="5" markerHeight="5"
-      refX="0" refY="2.5" orient="auto">
-      <path d="M 5,0 L 0,2.5 L 5,5 L 5,0"/>
-    </marker>
-    <!-- Template for an Op node ellipse. -->
-    <ellipse id="op-node-stamp"
-        rx="7.5" ry="3" stroke="inherit" fill="inherit" />
-    <!-- Template for an Op node annotation ellipse (smaller). -->
-    <ellipse id="op-node-annotation-stamp"
-        rx="5" ry="2" stroke="inherit" fill="inherit" />
-    <!-- Vertically stacked series of Op nodes when unexpanded. -->
-    <g id="op-series-vertical-stamp">
-      <use xlink:href="#op-node-stamp" x="8" y="9" />
-      <use xlink:href="#op-node-stamp" x="8" y="6" />
-      <use xlink:href="#op-node-stamp" x="8" y="3" />
-    </g>
-    <!-- Horizontally stacked series of Op nodes when unexpanded. -->
-    <g id="op-series-horizontal-stamp">
-      <use xlink:href="#op-node-stamp" x="16" y="4" />
-      <use xlink:href="#op-node-stamp" x="12" y="4" />
-      <use xlink:href="#op-node-stamp" x="8" y="4" />
-    </g>
-    <!-- Horizontally stacked series of Op nodes for annotation. -->
-    <g id="op-series-annotation-stamp">
-      <use xlink:href="#op-node-annotation-stamp" x="9" y="2" />
-      <use xlink:href="#op-node-annotation-stamp" x="7" y="2" />
-      <use xlink:href="#op-node-annotation-stamp" x="5" y="2" />
-    </g>
-    <svg id="summary-icon" fill="#848484" height="12" viewBox="0 0 24 24" width="12">
-      <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z" />
-    </svg>
-    <!--
-      Where the linearGradient for each node is stored. Used when coloring
-      by proportions of devices.
-    -->
-    <g id="linearGradients"></g>
-
-    <!-- Hatch patterns for faded out nodes. -->
-    <pattern id="rectHatch" patternTransform="rotate(45 0 0)" width="5" height="5" patternUnits="userSpaceOnUse">
-      <line x1="0" y1="0" x2="0" y2="5" style="stroke-width: 1"/>
-    </pattern>
-    <pattern id="ellipseHatch" patternTransform="rotate(45 0 0)" width="2" height="2" patternUnits="userSpaceOnUse">
-      <line x1="0" y1="0" x2="0" y2="2" style="stroke-width: 1"/>
-    </pattern>
-  </defs>
+<svg id="[[svgId]]" class="svg-box svg-context">
   <!-- Make a large rectangle that fills the svg space so that
   zoom events get captured on safari -->
   <rect fill="white" width="10000" height="10000"></rect>
@@ -633,6 +49,7 @@ limitations under the License.
 Polymer({
   is: 'tf-graph-scene',
   properties: {
+    svgId:String,
     renderHierarchy: Object,
     name: String,
     colorBy: String,
@@ -752,21 +169,27 @@ Polymer({
     this._edgeGroupIndex = {};
     this._updateLabels(false);
     // Remove all svg elements under the 'root' svg group.
-    d3.select(this.$.svg).select('#root').selectAll('*').remove();
+        
+    var svg = this.$$('#'+this.svgId);
+
+    d3.select(svg).select('#root').selectAll('*').remove();
     // And the defs.
-    d3.select(this.$.svg).select('defs #linearGradients')
+    d3.select('svg#svg-defs defs #linearGradients')
         .selectAll('*').remove();
   },
   /** Main method for building the scene */
   _build: function(renderHierarchy) {
+   
+
     graphutil.time('tf-graph-scene (layout):', function() {
       // layout the scene for this meta / series node
       layout.layoutScene(renderHierarchy.root, this);
     }.bind(this));
 
-    graphutil.time('tf-graph-scene (build scene):', function() {
+    graphutil.time('tf-graph-scene (build scene):', function() {      
+      var svg = this.$$('#'+this.svgId);
       scene.buildGroup(d3.select(this.$.root), renderHierarchy.root, this);
-      scene.addGraphClickListener(this.$.svg, this);
+      scene.addGraphClickListener(svg, this);
       scenenode.traceInputs(renderHierarchy);
     }.bind(this));
     // Update the minimap again when the graph is done animating.
@@ -816,7 +239,8 @@ Polymer({
         // Notify the minimap.
         //this.minimap.zoom(d3.event.translate, d3.event.scale);
       }.bind(this));
-    d3.select(this.$.svg).call(this._zoom)
+    var svg = this.$$('#'+this.svgId);
+    d3.select(svg).call(this._zoom)
       .on('dblclick.zoom', null);
     d3.select(window).on('resize', function() {
       // Notify the minimap that the user's window was resized.
@@ -835,6 +259,7 @@ Polymer({
     // Fit to screen after the graph is done animating.
     setTimeout(this.fit.bind(this), layout.PARAMS.animation.duration);
   },
+
   _updateLabels: function(showLabels) {
     var mainGraphTitleElement = this.getElementsByClassName('title')[0];
     var titleStyle = mainGraphTitleElement.style;
@@ -884,7 +309,8 @@ Polymer({
     }
   },
   fit: function() {
-    scene.fit(this.$.svg, this.$.root, this._zoom, function() {
+    var svg = this.$$('#'+this.svgId);
+    scene.fit(svg, this.$.root, this._zoom, function() {
       this._zoomed = false;
     }.bind(this));
   },
@@ -927,15 +353,15 @@ Polymer({
   _updateNodeState: function(n) {
     var node = this.getNode(n);
     var nodeGroup = this.getNodeGroup(n);
+    var svgId = this.svgId;
 
     if (nodeGroup) {
-      scenenode.stylize(nodeGroup, node, this);
+      scenenode.stylize(svgId, nodeGroup, node, this);
     }
 
     var annotationGroupIndex = this.getAnnotationGroupsIndex(n);
     _.each(annotationGroupIndex, function(aGroup, hostName) {
-      scenenode.stylize(aGroup, node, this,
-          scene.Class.Annotation.NODE);
+      scenenode.stylize(svgId, aGroup, node, this, scene.Class.Annotation.NODE);
     }, this);
   },
 
@@ -993,8 +419,9 @@ Polymer({
       this.setNodeExpanded(topParentNodeToBeExpanded);
       this._zoomed = true;
     }
-
-    if (scene.panToNode(selectedNode, this.$.svg, this.$.root,
+        
+    var svg = this.$$('#'+this.svgId);
+    if (scene.panToNode(selectedNode, svg, this.$.root,
         this._zoom)) {
       this._zoomed = true;
     }

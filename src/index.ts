@@ -1,5 +1,5 @@
 const globals = require('./modules/common/globals');
-const model = require('xml-kt-advance/lib/model/po_node');
+const model = require('./modules/common/xmltypes');
 const palette = require('./modules/common/palette');
 const filter = require('./modules/common/filter');
 const treeview = require('./modules/treeview/treeview');
@@ -28,8 +28,8 @@ function initApp(): void {
     console.info("init app");
 
     ipcRenderer.on('project-open', (event, prj) => {
-        let project = new globals.Project(prj.baseDir);
-        (<any>document.getElementById("loader")).fire("project-selected", project);
+        let project = new globals.ProjectImpl(prj.baseDir);
+        (<any>document.getElementById("project-loader")).fire("project-selected", project);
     })
 
 }
