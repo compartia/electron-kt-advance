@@ -22,7 +22,7 @@ import { suite, test, slow, timeout } from "mocha-typescript";
     }
 
     @test testContainsAndDelete() {
-        let aset = new StringSet([]);
+        let aset = new StringSet([]); 
         aset.add("one");
         assert.equal(aset.contains("one"), true, "should contain 'one'");
         assert.equal(aset.contains("other"), false, "should not contain 'other'");
