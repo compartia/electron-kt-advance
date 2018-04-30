@@ -332,7 +332,7 @@ export class Stats {
                 data: data,
                 colors: (x, index) => "var(--kt-state-" + columnNames[index] + "-default-bg)",
                 columnNames: columnNames,
-                label: (x: NamedArray< FileInfo>) => x.object.name,
+                label: (x: NamedArray< FileInfo>) => x.object.relativePath,
                 max: null
             }
         );
