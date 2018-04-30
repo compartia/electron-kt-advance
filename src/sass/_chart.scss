@@ -32,6 +32,7 @@ $row-spacing: 2px;
     }
 }
 
+
 .kt-chart {
     margin-top: $spacer;
     font-size : $chart-font-size!important;
@@ -65,9 +66,14 @@ $row-spacing: 2px;
             z-index      : $label-z-index;
             white-space  : nowrap;
             overflow     : hidden;
+
+           
+
             text-overflow: ellipsis;
             cursor       : pointer;
         }
+
+       
 
         .value {
             padding-left: $label-padding;
@@ -111,3 +117,14 @@ $row-spacing: 2px;
     }
 
 }
+
+.rtl {
+    .row{
+        label{
+            direction:rtl!important;
+            // text-align:left!important;
+        }
+    }
+    
+}
+

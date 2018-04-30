@@ -150,7 +150,7 @@ export class Stats {
             //         this.dependenciesByFile.inc(po.file, (<ApiNode>linked).type, 1);
             //     }
             // }
-            
+
 
 
             this.assumptionsByFunction.bind(functionKey, po.cfunction);
@@ -262,7 +262,7 @@ export class Stats {
                 data: data,
                 colors: (x, index) => "var(--kt-state-" + columnNames[index] + "-default-bg)",
                 columnNames: columnNames,
-                label: x => x.object.name,
+                label: x => x.object.file + "/" + x.object.name,
                 max: null
             }
         );
@@ -295,7 +295,7 @@ export class Stats {
                 data: data,
                 colors: (x, index) => "var(--kt-state-assumption-" + columnNames[index] + "-bg)",
                 columnNames: columnNames,
-                label: (x: NamedArray< FileInfo>) => x.object.name,
+                label: (x: NamedArray<FileInfo>) => x.object.name,
                 max: null
             }
         );
@@ -305,7 +305,7 @@ export class Stats {
     public updateInAssumptionsByFunctionChart(maxRows: number, scene, container: d3.Selection<any>) {
         const table = this.inAssumptionsByFunction;
         const columnNames = table.columnNames;
-        const data: Array<NamedArray< CFunction>> = table.getTopRows(maxRows);
+        const data: Array<NamedArray<CFunction>> = table.getTopRows(maxRows);
 
         updateChart(scene, container,
             {
@@ -319,11 +319,10 @@ export class Stats {
     }
 
 
-
     public updatePoByFileChart(scene, container: d3.Selection<any>) {
         const table = this.byFile;
         const columnNames = table.columnNames;
-        const data: Array<NamedArray< FileInfo>> = table.getTopRows(10);
+        const data: Array<NamedArray<FileInfo>> = table.getTopRows(10);
 
 
 
@@ -332,10 +331,20 @@ export class Stats {
                 data: data,
                 colors: (x, index) => "var(--kt-state-" + columnNames[index] + "-default-bg)",
                 columnNames: columnNames,
-                label: (x: NamedArray< FileInfo>) => x.object.name,
+                label: (x: NamedArray<FileInfo>) => {
+                    return this.trimBeginning(x.object.relativePath);
+                },
                 max: null
             }
         );
+    }
+
+    public trimBeginning(string: string): string {
+        return string;
+        // var length =18;
+        // return string.length > length ? 
+        // "..."+string.substring(string.length - length)  : 
+        //             string;
     }
 
 
