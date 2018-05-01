@@ -166,5 +166,7 @@ $base-bg-lighten: lighten($base-bg, 47%);
     --kt-complexity-p-bg                  : #{ desaturate(lighten($color-brand-2, 30%), 20%) };
     --kt-complexity-c-bg                  : #{ desaturate(lighten($color-brand-2, 40%), 20%) };
     --kt-complexity-g-bg                  : #{ desaturate(lighten($color-brand-2, 50%), 20%) };
+
+    --kt-state-callsite-bg                : #{ desaturate(lighten($color-brand-2, 50%), 20%) };
     /* =========== */
 }

@@ -59,8 +59,8 @@ paper-button {
           progress="[[progress]]"
     ></tf-graph-scene>
   </div>
-
 </template>
+
 </dom-module>
 
     <script>
@@ -69,6 +69,7 @@ Polymer({
   is: 'tf-graph',
 
   properties: {
+    palette: Object,
     svgId: String,
     graphHierarchy: {
       type: Object,
@@ -118,7 +119,13 @@ Polymer({
   ],
 
   _buildRenderHierarchy: function (graphHierarchy) {
-    var svgId = this.svgId;
+    let svgId = this.svgId;
+    let palette=this.palette;
+
+    if (palette == null) {
+      throw "palette is undefined";
+    }
+
     graphutil.time('new render.Hierarchy', function () {
       if (!graphHierarchy.root) {
         return;
@@ -130,7 +137,7 @@ Polymer({
         return;
       }
 
-      var renderGraph = new render.RenderGraphInfo(graphHierarchy, false, svgId);
+      var renderGraph = new render.RenderGraphInfo(graphHierarchy, false, svgId, palette);
       
       // Producing the 'color by' parameters to be consumed
       // by the tf-graph-controls panel. It contains information about the

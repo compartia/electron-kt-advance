@@ -8,10 +8,31 @@ export const PoDischargeTypesArr: Array<string> = ["global", "invariants", "ds",
 export const PoStatesArr: Array<PoStates> = [PoStates.violation, PoStates.open, PoStates.discharged];
 export enum PoStatesExt { violation, open, discharged, deadcode, global, invariants, ds, rv, api };
 
-import { NodeDef } from '../tf_graph_common/lib/proto'
+import { NodeDef, NodeAttributes } from '../tf_graph_common/lib/proto'
 import { Filter } from './filter'
 import { GraphSettings } from './globals'
 
+
+export interface CommonNodeAttributes extends NodeAttributes {
+    location: POLocation;
+    locationPath: string;
+}
+
+export interface CallsiteNodeAttributes extends CommonNodeAttributes {
+    data: Callsite;
+}
+
+export interface AssumptionNodeAttributes extends  CommonNodeAttributes{
+    data: CApiAssumption;
+}
+
+export interface PONodeAttributes extends CommonNodeAttributes {
+    data: ProofObligation;
+    predicate: string;
+    level: string;
+    expression: string;
+    discharge: PODischarge;
+}
 
 export interface FileInfo {
     name: string;

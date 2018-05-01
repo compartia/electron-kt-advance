@@ -106,7 +106,11 @@ Example
 
     <div class$="[[_getContainerClass(progress)]]">
       <div id="main">
-        <tf-graph id="graph" svg-id="[[svgId]]" graph-hierarchy="{{graphHierarchy}}" basic-graph="[[graph]]" hierarchy-params="[[hierarchyParams]]"
+        <tf-graph id="graph" 
+          palette="[[palette]]"
+          svg-id="[[svgId]]" 
+          graph-hierarchy="{{graphHierarchy}}" 
+          basic-graph="[[graph]]" hierarchy-params="[[hierarchyParams]]"
           render-hierarchy="{{renderHierarchy}}" stats="[[stats]]" selected-node="{{_selectedNode}}" highlighted-node="{{_highlightedNode}}"
           color-by="[[colorBy]]" color-by-params="{{colorByParams}}" progress="{{progress}}"></tf-graph>
       </div>
@@ -143,6 +147,7 @@ Example
     properties: {
       // Public API.
       svgId: String,
+      palette: Object,
       graphHierarchy: Object,
       graph: Object,
       stats: Object,

@@ -16,9 +16,7 @@ limitations under the License.
 import { NodeType, NAMESPACE_DELIM } from './graph';
 import * as render from './render';
  
- 
-
-    var dagre=require("dagre");
+var dagre=require("dagre");
 
 /** Set of parameters that define the look and feel of the graph. */
 export const PARAMS = {

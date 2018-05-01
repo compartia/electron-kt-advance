@@ -1,5 +1,3 @@
-import { Callsite, ProofObligation, PoStates, PODischarge, POLocation, CApiAssumption } from "../../common/xmltypes";
-
 /* Copyright 2015 The TensorFlow Authors. All Rights Reserved.
 
 Licensed under the Apache License, Version 2.0 (the 'License');
@@ -16,37 +14,12 @@ limitations under the License.
 ==============================================================================*/
 
 
-
   export interface NodeAttributes{
-    label: string;
-    location: POLocation;
-    locationPath: string;
-    state: string;
+    label: string;    
+    state: string;//represents node color
   }
 
-  export interface CallsiteNodeAttributes extends NodeAttributes{
-    data: Callsite;
-  }
-
-  export interface AssumptionNodeAttributes extends NodeAttributes{
-    data: CApiAssumption;
-  }
-
-  export interface PONodeAttributes extends NodeAttributes{
-    data: ProofObligation;
-    predicate: string;
-    level: string;
-    expression: string;
-    discharge: PODischarge;
-  }
-
-//   attr: {
-     
-//     "predicate": "--",
-//     "state": "callsite",
-//     "location": this._jcallsite.varInfo.loc.line,
-//     "data": this
-// }
+ 
   /**
    * TensorFlow node definition as defined in the graph.proto file.
    */
@@ -61,7 +34,7 @@ limitations under the License.
     /** The name of the operation associated with this node. */
     op: string;
     /** List of attributes that describe/modify the operation. */
-    attr:CallsiteNodeAttributes|PONodeAttributes|AssumptionNodeAttributes;
+    attr:NodeAttributes; 
   }
 
   /**

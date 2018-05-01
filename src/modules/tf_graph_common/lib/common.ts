@@ -22,9 +22,7 @@ limitations under the License.
    */
 //   import {ProgressTracker as ProgressTracker1} from 'xml-kt-advance/lib/common/util';
  
-//   export interface ProgressTracker extends ProgressTracker1{
-   
-//   }
+ 
 
   export interface ProgressTracker {
     updateProgress(incrementValue: number): void;

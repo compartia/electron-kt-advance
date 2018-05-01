@@ -6,13 +6,13 @@ import {
 } from '../common/xmltypes';
 
 
-import { NodeDef, PONodeAttributes, CallsiteNodeAttributes, AssumptionNodeAttributes } from '../tf_graph_common/lib/proto'
+import { NodeDef } from '../tf_graph_common/lib/proto'
 import { Filter } from '../common/filter'
 import { GraphSettings } from '../common/globals'
 
 import { XmlReader } from './xmlreader';
 import { ProgressTracker } from '../tf_graph_common/lib/common';
-import { CAnalysis, CApplication } from '../common/xmltypes';
+import { CAnalysis, CApplication, PONodeAttributes, CallsiteNodeAttributes, AssumptionNodeAttributes } from '../common/xmltypes';
 
 import * as kt_fs from '../common/fstools';
 import { normalize } from 'path';
@@ -132,7 +132,7 @@ class ApiAssumptionImpl implements CApiAssumption {
             name: this.getGraphKey(filter, settings),
             input: [],
             output: [],
-            device: "assumption",
+            device: "assumption-rv",
             op: this.cfunction.name,
             attr: <AssumptionNodeAttributes>{
                 label: "(" + this.a.id + ") " + this.a.prd,
