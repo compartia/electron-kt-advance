@@ -68,23 +68,12 @@
                 return model.PoStates[item.state];
             },
 
-            _computeIcon: function(node) {
-                if (node.extendedState) {
-                    return "kt:state-" + node.extendedState.toLowerCase();
-                } else {
-                    return "";
-                }
+            _computeIcon: function(node) {                 
+                return ["kt:state-", node.state, node.assumptionType].join('-').toLowerCase();                
             },
 
-            _getClass: function(node) {
-
-                if (node.extendedState) {
-                    return "po-" + node.extendedState.toLowerCase();
-                } else {
-                    return "";
-                }
-                console.error(node);
-
+            _getClass: function (node) {
+                return ["po", node.state, node.assumptionType].join('-').toLowerCase();                 
             },
 
             _clickListener: function(e) {}

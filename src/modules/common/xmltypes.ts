@@ -140,8 +140,6 @@ export interface ProofObligation extends AbstractNode, Graphable {
 
     levelLabel: string;
 
-
-    extendedState: string;
     dischargeType: string;
     level: string;
     label: string;

@@ -78,25 +78,16 @@
                 this.fire("jump-to-src", item);
             },
 
-            _getStateName: function(item) {
-                return model.PoStates[item.state];
+            _getStateName: function(node) {
+                return model.PoStates[node.state];
             },
 
-            _computeIcon: function(node) {
-                if (node && node.extendedState) {
-                    return "kt:state-" + node.extendedState.toLowerCase();
-                } else {
-                    return "";
-                }
+            _computeIcon: function(node) {                
+                return ["kt:state" , this._getStateName(node), node.dischargeType].join('-').toLowerCase();                 
             },
 
-            _getClass: function(node) {
-                if (node && node.extendedState) {
-                    return "po-" + node.extendedState.toLowerCase();
-                } else {
-                    return "";
-                }
-                console.error(node);
+            _getClass: function(node) {                
+                return ["po" , this._getStateName(node), node.dischargeType].join('-').toLowerCase();                                      
             },
 
         });

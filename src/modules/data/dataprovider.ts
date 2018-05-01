@@ -70,7 +70,7 @@ class CFunctionImpl implements CFunction {
     getPPObyId(id: number): ProofObligation {
         const ppo = this.__indexPpo[id];
         if (!ppo) {
-            console.error("cannot find PPO with ID: " + id + " in function  " + this.file+"/"+this.name);
+            console.error("cannot find PPO with ID: " + id + " in function  " + this.file + "/" + this.name);
         }
         return ppo;
     }
@@ -78,7 +78,7 @@ class CFunctionImpl implements CFunction {
     getSPObyId(id: number): ProofObligation {
         const spo = this.__indexSpo[id];
         if (!spo) {
-            console.error("cannot find SPO with ID: " + id + " in function  " + this.file+"/"+this.name);
+            console.error("cannot find SPO with ID: " + id + " in function  " + this.file + "/" + this.name);
         }
         return spo;
     }
@@ -102,7 +102,6 @@ class CFunctionImpl implements CFunction {
 class ApiAssumptionImpl implements CApiAssumption {
     private a: json.JAssumption;
     private cfunction: CFunction;
-
 
 
     public constructor(a: json.JAssumption, cfunc: CFunction) {
@@ -213,7 +212,7 @@ abstract class AbstractPO implements ProofObligation {
         this.cfunction = cfun;
         this.predicate = ppo.prd;
         this.state = PoStates[state];
-        this.extendedState = state + "-default";
+        this.dischargeType="default";
         this.expression = ppo.exp;
         this.location = {
             line: ppo.line
@@ -264,7 +263,6 @@ abstract class AbstractPO implements ProofObligation {
     expression: string;
     // callsiteFname: string;
 
-    extendedState: string;
     dischargeType: string;
 
     label: "label";
@@ -306,7 +304,7 @@ abstract class AbstractPO implements ProofObligation {
     public getGraphKey(filter: Filter, settings: GraphSettings): string {
         // let nm = this.levelLabel + "(" + this.id + ")";
 
-        let nm = this.levelLabel + "(" + this.id + ") " + this.predicate;
+        let nm = this.levelLabel + "[" + this.id + "]";
         // if (this.symbol) {
         //     nm += this.symbol.pathLabel;
         // } else {
@@ -333,7 +331,7 @@ abstract class AbstractPO implements ProofObligation {
             name: this.getGraphKey(filter, settings),
             input: [],
             output: [],
-            device: this.extendedState,
+            device: PoStates[this.state] + "-" + this.dischargeType,
             op: this.functionName,
             attr: <PONodeAttributes>{
                 label: this.label,

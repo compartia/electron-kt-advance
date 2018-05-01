@@ -209,7 +209,7 @@ export class RenderGraphInfo {
   }
 
   computeScales() {
-    
+
     this.statesColorMap= function(id:string){
         return this.palette["state-"+id.toLowerCase()+"-bg"];
     };
@@ -326,7 +326,7 @@ export class RenderGraphInfo {
         let numDevices = this.logSumDevices (pairs);// Math.log(1 + _.sum(pairs, _.last));
         pairs=this.sortStates(pairs);
         renderInfo.stateColors = _.map(pairs, pair => ({
-              color: this.statesColorMap(pair[0]),
+              color: this.statesColorMap(pair[0]), 
               // Normalize to a proportion of total # of devices.
               proportion: Math.log(1 + pair[1]) / numDevices
             }));
