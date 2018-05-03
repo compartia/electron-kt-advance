@@ -1,6 +1,6 @@
 const assert = require('assert');
 
-import { Project } from "./globals"
+import { ProjectImpl } from "./globals"
 import { suite, test, slow, timeout } from "mocha-typescript";
 
 
@@ -8,9 +8,8 @@ import { suite, test, slow, timeout } from "mocha-typescript";
 @suite class TestSaveProject {
 
     @test testSaveProject() {
-        let project = new Project('.');
+        let project = new ProjectImpl('.');
         project.save();
     }
-
 
 }

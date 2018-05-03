@@ -642,6 +642,8 @@ export enum ColorBy { STRUCTURE, STATE, CARDINALITY };
  */
 export function getFillForNode(svgId:string, colorBy,
     renderInfo: render.RenderNodeInfo, isExpanded: boolean): string {
+
+  
   let colorParams = render.MetanodeColors;
   switch (colorBy) {
     case ColorBy.STATE:

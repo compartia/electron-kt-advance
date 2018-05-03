@@ -17,10 +17,11 @@
  limitations under the License.
 ================================================================================
  */
-import {PoDischargeTypes, PoStates} from './xmltypes';
+import { PoDischargeTypes, PoStates } from './xmltypes';
 
 
 export function buildPalette() {
+
     const htmlStyles = window.getComputedStyle(document.body);
 
     let list = ['red', 'green', 'yellow', 'grey', 'grey-lighter'];
@@ -31,18 +32,23 @@ export function buildPalette() {
     }
 
 
-    for (let n in  PoStates) {
-        let c =  PoStates[n];
+    for (let n in PoStates) {
+        let c = PoStates[n];
+
         if (typeof c === 'string') {
 
-
-            for (let m in  PoDischargeTypes) {
+            for (let m in PoDischargeTypes) {
                 let d = PoDischargeTypes[m];
                 if (typeof d === 'string')
                     ktColors["state-" + c + "-" + d + "-bg"] = htmlStyles.getPropertyValue('--kt-state-' + c + "-" + d + "-bg").trim();
             }
         }
     }
+
+    ktColors["state-callsite-bg"] = htmlStyles.getPropertyValue('--kt-state-callsite-bg').trim();
+    ktColors["state-callsite-ic-bg"] = htmlStyles.getPropertyValue('--kt-state-callsite-ic-bg').trim();
+    ktColors["state-callsite-dc-bg"] = htmlStyles.getPropertyValue('--kt-state-callsite-dc-bg').trim();
+    ktColors["state-callsite-rs-bg"] = htmlStyles.getPropertyValue('--kt-state-callsite-rs-bg').trim();
 
     return ktColors;
 }

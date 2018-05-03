@@ -22,8 +22,9 @@ import {Node, OpNode, InclusionType, GraphType, NodeType,
   BridgeNode, GroupNode, Metaedge, Metanode, createGraph, 
   EllipsisNode, EllipsisNodeImpl, 
   getHierarchicalPath} from './graph';
+
 import * as hierarchy from './hierarchy';
-import * as palette from '../../common/palette';
+ 
 import * as scene from './scene/scene';
 
 
@@ -46,7 +47,7 @@ export let OpNodeColors = {DEFAULT_FILL: 'white', DEFAULT_STROKE: '#b2b2b2'};
  * Color parameters for node encoding.
  * @type {Object}
  */
-export let MetanodeColors = {
+export const MetanodeColors = {
   /**
    * Default fill and stroke to use when no other information is available.
    */
@@ -155,7 +156,7 @@ const PARAMS = {
  * Stores the rendering information, such as x and y coordinates,
  * for each node in the graph.
  */
-export class RenderGraphInfo {
+export class RenderGraphInfo { 
   svgId:string;
   edgeLabels:string;
   hierarchy: hierarchy.Hierarchy;
@@ -177,22 +178,24 @@ export class RenderGraphInfo {
   palette: {};
   statesColorMap:(id: string)=>string;
 
-  constructor(hierarchy: hierarchy.Hierarchy, displayingStats: boolean, svgId:string) {
+  constructor(hierarchy: hierarchy.Hierarchy, displayingStats: boolean, svgId:string, palette) {
     this.svgId = svgId;
+    this.palette = palette;
 
     this.edgeLabels = (svgId=='svg-calls') ? 'calls' : 'assumptions'
 
     this.hierarchy = hierarchy;
     this.displayingStats = displayingStats;
     this.index = {};
+    
+    
 
-    this.palette = palette.buildPalette();
-    MetanodeColors.EXPANDED_COLOR=this.palette["grey-lighter"];
-    MetanodeColors.DEFAULT_STROKE=this.palette["grey"];
-    MetanodeColors.DEFAULT_FILL=this.palette["grey-lighter"];
-    MetanodeColors.GRADIENT_OUTLINE=this.palette["grey"];
+    MetanodeColors.EXPANDED_COLOR = this.palette["grey-lighter"];
+    MetanodeColors.DEFAULT_STROKE = this.palette["grey"];
+    MetanodeColors.DEFAULT_FILL = this.palette["grey-lighter"];
+    MetanodeColors.GRADIENT_OUTLINE = this.palette["grey"];
 
-    OpNodeColors.DEFAULT_STROKE=this.palette["grey"];
+    OpNodeColors.DEFAULT_STROKE = this.palette["grey"];
 
     this.computeScales();
     // Maps node name to whether the rendering hierarchy was already
@@ -206,6 +209,7 @@ export class RenderGraphInfo {
   }
 
   computeScales() {
+
     this.statesColorMap= function(id:string){
         return this.palette["state-"+id.toLowerCase()+"-bg"];
     };
@@ -322,7 +326,7 @@ export class RenderGraphInfo {
         let numDevices = this.logSumDevices (pairs);// Math.log(1 + _.sum(pairs, _.last));
         pairs=this.sortStates(pairs);
         renderInfo.stateColors = _.map(pairs, pair => ({
-              color: this.statesColorMap(pair[0]),
+              color: this.statesColorMap(pair[0]), 
               // Normalize to a proportion of total # of devices.
               proportion: Math.log(1 + pair[1]) / numDevices
             }));

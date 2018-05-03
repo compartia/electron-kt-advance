@@ -31,6 +31,7 @@ export interface JVarInfo {
 export interface JCallsite {
     spos: JSPO[];
     callee: JVarInfo;
+    type: string;
 }
 
 export interface JSPO extends JPPO {

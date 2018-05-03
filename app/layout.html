@@ -61,8 +61,10 @@
                         graph-type="assumptions"
                         filtered-proof-obligations="[[filteredProofObligations]]" 
                         out-graph-hierarchy="{{graphHierarchy}}" 
-                        out-graph="{{graph}}" filter="{{filter}}" 
-                        progress="{{progress}}" tab-visible="[[graphTabSelected(mode)]]" 
+                        out-graph="{{graph}}" 
+                        filter="{{filter}}" 
+                        progress="{{progress}}" 
+                        tab-visible="[[graphTabSelected(mode)]]" 
                         current-project="[[currentProject]]"
                         out-hierarchy-params="{{_hierarchyParams}}"></tf-graph-loader>
                     
@@ -71,8 +73,10 @@
                         graph-type="calls"
                         filtered-proof-obligations="[[filteredProofObligations]]" 
                         out-graph-hierarchy="{{graphHierarchy2}}" 
-                        out-graph="{{graph2}}" filter="{{filter}}" 
-                        progress="{{progress}}" tab-visible="[[callsGraphTabSelected(mode)]]" 
+                        out-graph="{{graph2}}" 
+                        filter="{{filter}}" 
+                        progress="{{progress}}" 
+                        tab-visible="[[callsGraphTabSelected(mode)]]" 
                         current-project="[[currentProject]]"
                         out-hierarchy-params="{{_hierarchyParams}}"></tf-graph-loader>
 
@@ -93,30 +97,37 @@
                         <assumptions-list-scene filtered-assumptions="[[filteredAssumptions]]" selected-assumptions="{{selectedAssumptions}}" linktosource></assumptions-list-scene>
 
                         <!-- tab GRAPH -->
-                        <tf-graph-board id="graphboard" 
+                        <tf-graph-board 
+                            id="graphboard" 
+                            palette="[[palette]]"
                             inputs-title="Dependent"
                             outputs-title="Depends on"
 
                             svg-id='svg-assumptions',
-                            color-by="STATE" 
+                            color-by="CARDINALITY" 
                             color-by-params="{{colorByParams}}" 
                             devices-for-stats="[[_devicesForStats]]" 
                             graph-hierarchy="[[graphHierarchy]]" 
-                            graph="[[graph]]" progress="{{progress}}" 
+                            graph="[[graph]]" 
+                            progress="{{progress}}" 
                             hierarchy-params="[[_hierarchyParams]]"
                             render-hierarchy="{{_renderHierarchy}}"></tf-graph-board>
 
                         <!-- tab CALLS-->
-                        <tf-graph-board id="graphboard2" 
+                        <tf-graph-board 
+                            id="graphboard2" 
+                            palette="[[palette]]"
                             inputs-title="Calls"
                             outputs-title="Called from"
 
                             svg-id='svg-calls',
-                            color-by="CARDINALITY" 
+                            
+                            color-by="STATE" 
                             color-by-params="{{colorByParams}}" 
                             devices-for-stats="[[_devicesForStats]]" 
                             graph-hierarchy="[[graphHierarchy2]]" 
-                            graph="[[graph2]]" progress="{{progress}}" 
+                            graph="[[graph2]]" 
+                            progress="{{progress}}" 
                             hierarchy-params="[[_hierarchyParams]]"
                             render-hierarchy="{{_renderHierarchy2}}"></tf-graph-board>
 
@@ -281,6 +292,11 @@
                     notify: true
                 },
 
+                palette:{
+                    type: Object,
+                    value: palette.buildPalette(),
+                },
+
                 _renderHierarchy: Object,
 
                 tabs: {
@@ -332,8 +348,7 @@
 
             observers: [
                 'filterChanged(filter.*)'
-            ],
-
+            ],          
 
             graphTabSelected: function(mode) {
                 return "graphs" === mode;
