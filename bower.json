@@ -19,7 +19,8 @@
     "iron-pages": "~1.0.8",
     "paper-checkbox": "~1.4.2",
     "prism-element": "PolymerElements/prism-element#~2.0.1",
-    "webcomponentsjs": "0.7.24"
+    "webcomponentsjs": "0.7.24",
+    "iron-flex-layout": "PolymerElements/iron-flex-layout#^2.0.3"
   },
   "resolutions": {
     "webcomponentsjs": "0.7.24"

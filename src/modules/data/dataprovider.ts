@@ -70,7 +70,7 @@ class CFunctionImpl implements CFunction {
     getPPObyId(id: number): ProofObligation {
         const ppo = this.__indexPpo[id];
         if (!ppo) {
-            console.error("cannot find PPO with ID: " + id + " in function  " + this.file+"/"+this.name);
+            console.error("cannot find PPO with ID: " + id + " in function  " + this.file + "/" + this.name);
         }
         return ppo;
     }
@@ -78,7 +78,7 @@ class CFunctionImpl implements CFunction {
     getSPObyId(id: number): ProofObligation {
         const spo = this.__indexSpo[id];
         if (!spo) {
-            console.error("cannot find SPO with ID: " + id + " in function  " + this.file+"/"+this.name);
+            console.error("cannot find SPO with ID: " + id + " in function  " + this.file + "/" + this.name);
         }
         return spo;
     }
@@ -104,7 +104,6 @@ class ApiAssumptionImpl implements CApiAssumption {
     private cfunction: CFunction;
 
 
-
     public constructor(a: json.JAssumption, cfunc: CFunction) {
         this.a = a;
         this.cfunction = cfunc;
@@ -122,7 +121,7 @@ class ApiAssumptionImpl implements CApiAssumption {
 
         pathParts.push(nm);
 
-        return pathParts.join('/');
+        return encodeGraphKey(pathParts.join('/'));
 
     }
 
@@ -213,7 +212,7 @@ abstract class AbstractPO implements ProofObligation {
         this.cfunction = cfun;
         this.predicate = ppo.prd;
         this.state = PoStates[state];
-        this.extendedState = state + "-default";
+        this.dischargeType = ppo.dep;
         this.expression = ppo.exp;
         this.location = {
             line: ppo.line
@@ -225,6 +224,8 @@ abstract class AbstractPO implements ProofObligation {
         this.id = "" + ppo.id;
         //
         this.links = ppo.links;
+
+        this.label = this.levelLabel + " [" + this.id + "] " + this.predicate;
 
 
     }
@@ -264,10 +265,9 @@ abstract class AbstractPO implements ProofObligation {
     expression: string;
     // callsiteFname: string;
 
-    extendedState: string;
     dischargeType: string;
 
-    label: "label";
+    label: string;
     discharge: PODischarge;
     apiId: string;
     state: PoStates;//XXX
@@ -306,7 +306,7 @@ abstract class AbstractPO implements ProofObligation {
     public getGraphKey(filter: Filter, settings: GraphSettings): string {
         // let nm = this.levelLabel + "(" + this.id + ")";
 
-        let nm = this.levelLabel + "(" + this.id + ") " + this.predicate;
+        let nm = this.levelLabel + "-" + this.id;
         // if (this.symbol) {
         //     nm += this.symbol.pathLabel;
         // } else {
@@ -315,17 +315,21 @@ abstract class AbstractPO implements ProofObligation {
 
         let pathParts: string[] = [];
 
+        // let fileBaseName: string =  this.cfunction.fileInfo.name ;
         let fileBaseName: string = path.basename(this.cfunction.fileInfo.relativePath);
         pathParts.push(fileBaseName);
         pathParts.push(this.cfunction.name);
+
         // pathParts.push(this.predicate);
 
         pathParts.push(nm);
 
         //return makeGraphNodePath(filter, settings, this.cfunction, this.predicate, nm);
-        return pathParts.join('/');
+        return encodeGraphKey(pathParts.join('/'));
 
     }
+
+
 
     public toNodeDef(filter: Filter, settings: GraphSettings): NodeDef {
 
@@ -333,20 +337,17 @@ abstract class AbstractPO implements ProofObligation {
             name: this.getGraphKey(filter, settings),
             input: [],
             output: [],
-            device: this.extendedState,
+            device: PoStates[this.state] + "-" + this.dischargeType,
             op: this.functionName,
             attr: <PONodeAttributes>{
                 label: this.label,
-                // "apiId": this.apiId,
+                // "apiId": this.apiId,    
                 predicate: this.predicate,
                 level: this.level,
                 state: PoStates[this.state],
                 location: this.location,
-                // "symbol": this.symbol,
                 expression: this.expression,
-                // "dischargeType": this.dischargeType,
                 discharge: this.discharge,
-                //"dischargeAssumption": po.dischargeAssumption,
                 locationPath: this.file + "/" + this.functionName,
                 data: this
             }
@@ -369,7 +370,9 @@ abstract class AbstractPO implements ProofObligation {
         return nodeDef;
     }
 }
-
+export function encodeGraphKey(key) {
+    return key.trim().split(' ').join('-').toLowerCase();
+}
 class SPOImpl extends AbstractPO {
     callsite: Callsite;
 
@@ -485,11 +488,12 @@ class CallsiteImpl implements Callsite, Graphable {
     }
 
     public toNodeDef(filter: Filter, settings: GraphSettings): NodeDef {
+        // console.log("callsite-"+this._jcallsite.type);
         let nodeDef: NodeDef = {
             name: this.getGraphKey(filter, settings),
             input: [],
             output: [],
-            device: "callsite",
+            device: "callsite-" + this._jcallsite.type,
             op: this.name,
             attr: <CallsiteNodeAttributes>{
                 label: this.name,
@@ -504,6 +508,7 @@ class CallsiteImpl implements Callsite, Graphable {
         this.spos.forEach(spo => {
             nodeDef.output.push(spo.getGraphKey(filter, settings));
         });
+
         return nodeDef;
     }
 
@@ -511,15 +516,20 @@ class CallsiteImpl implements Callsite, Graphable {
         let pathParts: string[] = [];
 
         // pathParts.push("callsites");//TODO: remove it         
-
+        let nameAddon = "";
         if (this._jcallsite.callee.loc) {
+            // let fileBaseName: string =  this._jcallsite.callee.loc.file ;
             let fileBaseName: string = path.basename(this._jcallsite.callee.loc.file);
             pathParts.push(fileBaseName);
+            nameAddon = "-L" + this._jcallsite.callee.loc.line;
         }
 
-        pathParts.push(this.name);
+        // pathParts.push(this._jcallsite.type);
+        pathParts.push(this.name + nameAddon);
+
+
         // pathParts.push(this._jcallsite.varInfo.loc.line+"");
-        return pathParts.join('/');
+        return encodeGraphKey(pathParts.join('/'));
     }
 
     get linkedNodes(): Graphable[] {

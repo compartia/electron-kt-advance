@@ -7,23 +7,62 @@
 <link rel="import" href="tf-node-list-item.html">
 
 <dom-module id="tf-node-info">
-    <style></style>
+ 
+
+    <style is="tf-node-info" include="iron-flex iron-flex-alignment"> 
+        
+        #nodetitle  {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 250px;
+            direction: rtl;
+            text-align: left;
+        }
+
+        .layout-hor{
+            @apply --layout-horizontal;
+            @apply --layout-center;
+            /* @apply --layout-center; */
+        }
+
+        .layout-hor-justified{
+            @apply --layout-horizontal;
+            @apply --layout-justified;
+            /* @apply --layout-center; */
+        }
+
+        .flexchild {
+            @apply --layout-flex;
+            @apply --layout-self-center;
+        }
+
+         
+    </style>
     <template>
         <div>
 
             <div class="node-color-container">
-
+                
                 <node-icon 
                     id="bg" 
                     svg-id="[[svgId]]"
-                    node="[[_node]]" render-info="[[_getRenderInfo(nodeName, renderHierarchy)]]" color-by="[[colorBy]]"></node-icon>
+                    node="[[_node]]" 
+                    render-info="[[_getRenderInfo(nodeName, renderHierarchy)]]" 
+                    color-by="[[colorBy]]"></node-icon>
 
-                <div id="caption">
-                    <paper-icon-button icon="{{_getToggleIcon(_expanded)}}" on-click="_toggleExpanded" class="toggle-button"></paper-icon-button>
-                    <div>
-                        <iron-icon icon="kt:location-on"></iron-icon><span id="nodetitle"></span> <span class='location'>
-                        [[_funcLocation]]</span></div>
+                <div id="caption" class="layout-hor-justified">
+                    
+                    <div class="flexchild layout-hor">
+                        <iron-icon icon="kt:location-on"></iron-icon>
+                        <div class="flexchild" id="nodetitle"> <span class="location">[[_funcLocation]]</span> </div>
+                        
+                    </div>
+
+                    <paper-icon-button icon="{{_getToggleIcon(_expanded)}}" 
+                        on-click="_toggleExpanded" class="toggle-button"></paper-icon-button>
                 </div>
+
             </div>
 
             <template is="dom-if" if="[[_data]]">
@@ -169,7 +208,7 @@
 
                 _getPrintableHTMLNodeName: function (nodeName) {
                     // Insert an optional line break before each slash so that long node names wrap cleanly at path boundaries.
-                    return (nodeName || '').replace(/\//g, '<wbr>/');
+                    return nodeName || '';//(nodeName || '').replace(/\//g, '<wbr>/');
                 },
 
                 _getRenderInfo: function (nodeName, renderHierarchy) {
@@ -234,8 +273,11 @@
                      * that can be rendered.
                      */
                     var toEdgeInfoList = function (edges) {
+                        if(!edges) return [];
+                        
                         var edgeInfoList = [];
-                        _.each(edges, function (metaedge) {
+                        
+                        edges.forEach( metaedge => {
                             var name = isPredecessor
                                 ? metaedge.v
                                 : metaedge.w;
@@ -250,7 +292,8 @@
                                     renderInfo: this._getRenderInfo(name, this.renderHierarchy)
                                 });
                             }
-                        }, this);
+                        });
+
                         return edgeInfoList.sort(
                             function (x, y) {
                                 if (x.node.attr && y.node.attr) {
@@ -299,10 +342,15 @@
                     this._openedControlPred = false;
                     this._openedControlSucc = false;
 
-                    this.set("_groupButtonText", scenenode.getGroupSettingLabel(this._node));
+                    if(scenenode){
+                        this.set("_groupButtonText", scenenode.getGroupSettingLabel(this._node));
+                    }
+                    
 
                     if (this._node) {
-                        var title = graph_builder.getLocationPath(this._node);
+                        var title = (!!this._node.attr)  && (!!this._node.attr.locationPath) ?  
+                            this._node.attr.locationPath : this._node.label;
+                            // graph_builder.getLocationPath(this._node);
                         Polymer.dom(this.$.nodetitle).innerHTML = this._getPrintableHTMLNodeName(title);
                     }
                 },

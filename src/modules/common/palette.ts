@@ -46,6 +46,9 @@ export function buildPalette() {
     }
 
     ktColors["state-callsite-bg"] = htmlStyles.getPropertyValue('--kt-state-callsite-bg').trim();
+    ktColors["state-callsite-ic-bg"] = htmlStyles.getPropertyValue('--kt-state-callsite-ic-bg').trim();
+    ktColors["state-callsite-dc-bg"] = htmlStyles.getPropertyValue('--kt-state-callsite-dc-bg').trim();
+    ktColors["state-callsite-rs-bg"] = htmlStyles.getPropertyValue('--kt-state-callsite-rs-bg').trim();
 
     return ktColors;
 }
