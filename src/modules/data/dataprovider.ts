@@ -319,8 +319,8 @@ abstract class AbstractPO implements ProofObligation {
         let fileBaseName: string = path.basename(this.cfunction.fileInfo.relativePath);
         pathParts.push(fileBaseName);
         pathParts.push(this.cfunction.name);
-        // pathParts.push(this.predicate.replace(' ', '').toLowerCase());
-        pathParts.push(this.predicate);
+
+        // pathParts.push(this.predicate);
 
         pathParts.push(nm);
 
@@ -341,15 +341,13 @@ abstract class AbstractPO implements ProofObligation {
             op: this.functionName,
             attr: <PONodeAttributes>{
                 label: this.label,
-                // "apiId": this.apiId,
+                // "apiId": this.apiId,    
                 predicate: this.predicate,
                 level: this.level,
                 state: PoStates[this.state],
                 location: this.location,
-                // "symbol": this.symbol,
                 expression: this.expression,
                 discharge: this.discharge,
-                //"dischargeAssumption": po.dischargeAssumption,
                 locationPath: this.file + "/" + this.functionName,
                 data: this
             }
