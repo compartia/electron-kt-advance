@@ -16,7 +16,9 @@
                 <node-icon 
                     id="bg" 
                     svg-id="[[svgId]]"
-                    node="[[_node]]" render-info="[[_getRenderInfo(nodeName, renderHierarchy)]]" color-by="[[colorBy]]"></node-icon>
+                    node="[[_node]]" 
+                    render-info="[[_getRenderInfo(nodeName, renderHierarchy)]]" 
+                    color-by="[[colorBy]]"></node-icon>
 
                 <div id="caption">
                     <paper-icon-button icon="{{_getToggleIcon(_expanded)}}" on-click="_toggleExpanded" class="toggle-button"></paper-icon-button>
@@ -234,8 +236,11 @@
                      * that can be rendered.
                      */
                     var toEdgeInfoList = function (edges) {
+                        if(!edges) return [];
+                        
                         var edgeInfoList = [];
-                        _.each(edges, function (metaedge) {
+                        
+                        edges.forEach( metaedge => {
                             var name = isPredecessor
                                 ? metaedge.v
                                 : metaedge.w;
@@ -250,7 +255,8 @@
                                     renderInfo: this._getRenderInfo(name, this.renderHierarchy)
                                 });
                             }
-                        }, this);
+                        });
+
                         return edgeInfoList.sort(
                             function (x, y) {
                                 if (x.node.attr && y.node.attr) {
@@ -299,10 +305,15 @@
                     this._openedControlPred = false;
                     this._openedControlSucc = false;
 
-                    this.set("_groupButtonText", scenenode.getGroupSettingLabel(this._node));
+                    if(scenenode){
+                        this.set("_groupButtonText", scenenode.getGroupSettingLabel(this._node));
+                    }
+                    
 
                     if (this._node) {
-                        var title = graph_builder.getLocationPath(this._node);
+                        var title = (!!this._node.attr)  && (!!this._node.attr.locationPath) ?  
+                            this._node.attr.locationPath : this._node.label;
+                            // graph_builder.getLocationPath(this._node);
                         Polymer.dom(this.$.nodetitle).innerHTML = this._getPrintableHTMLNodeName(title);
                     }
                 },

@@ -79,15 +79,21 @@
             },
 
             _getStateName: function(node) {
-                return model.PoStates[node.state];
+                if(node)
+                    return model.PoStates[node.state];
+                return "default"
             },
 
             _computeIcon: function(node) {                
-                return ["kt:state" , this._getStateName(node), node.dischargeType].join('-').toLowerCase();                 
+                if(node)
+                    return ["kt:state" , this._getStateName(node), node.dischargeType].join('-').toLowerCase();                 
             },
 
             _getClass: function(node) {                
-                return ["po" , this._getStateName(node), node.dischargeType].join('-').toLowerCase();                                      
+                if(node)
+                    return ["po" , this._getStateName(node), node.dischargeType].join('-').toLowerCase();                                      
+                else
+                    return ""
             },
 
         });

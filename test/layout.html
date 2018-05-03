@@ -4,105 +4,66 @@
 <link rel="import" href="../bower_components/paper-material/paper-material.html">
 
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../app/components/stats/kt-stats.html">
-<link rel="import" href="../app/components/common/po-filter-panel.html">
+<!-- <link rel="import" href="../app/components/stats/kt-stats.html"> -->
+<!-- <link rel="import" href="../app/components/common/po-filter-panel.html"> -->
+
+
+<link rel="import" href="../src/components/tf_graph_info/tf-node-info.html">
 
 <dom-module id="kt-layout">
     <template>
-        <paper-toolbar id="toolbar">
+         
+<div style="background: palegoldenrod">
+        <tf-node-info
+            inputs-title="inputs title"
+            outputs-title="outputs title"
+            graph-hierarchy="[[graphHierarchy]]"
+            render-hierarchy="[[renderHierarchy]]"
+            flat-graph="[[graph]]"
+            node-name="Node name"
+            node-include="[[selectedNodeInclude]]"
+            highlighted-node="{{highlightedNode}}"
+            color-by="[[colorBy]]"></tf-node-info></div>
 
-            <paper-tabs selected="{{modeIndex}}" class="tabs" id="tabs" scrollable fit-container style="width: 80%;">
-                <template is="dom-repeat" items="[[tabs]]">
-                    <template is="dom-if" if="[[_isTabEnabled(item)]]">
-                        <paper-tab data-mode="[[item]]">[[item]]</paper-tab>
-                    </template>
-                </template>
-            </paper-tabs>
-
-            <div class="global-actions">
-                <paper-icon-button icon="settings" on-tap="openSettings" id="settings-button"></paper-icon-button>
-            </div>
-
-        </paper-toolbar>
-
-        <paper-button raised on-tap="_func">button</paper-button>
-
-        <po-filter-panel statistics="[[statistics]]" filter="{{filter}}" project="[[currentProject]]"></po-filter-panel>
-        <kt-stats progress="{{progress}}" statistics="[[statistics]]" filter="{{filter}}"></kt-stats>
+        <!-- <po-filter-panel statistics="[[statistics]]" filter="{{filter}}" project="[[currentProject]]"></po-filter-panel>
+        <kt-stats progress="{{progress}}" statistics="[[statistics]]" filter="{{filter}}"></kt-stats> -->
 
         <style></style>
     </template>
     <script>
+ 
         Polymer({
             is: "kt-layout",
             properties: {
-                statistics: {
-                    type: Object,
-                    notify: true
-                },
-
-                filter: {
-                    type: Object,
-                    notify: true
-                },
-
-                disabledTabs: String
+                 
             },
-
-            _func: function() {
-                this._makeStats(3 + Math.random() * 122);
-            },
-
-            _makeStats(num) {
-                var poNum = 0;
-                var makePo = function(_currentProject, state, predicate) {
-                    poNum++;
-
-                    var po = new model.ProofObligation({
-                        "state": state,
-                        "predicateType": predicate,
-                        "file": poNum % 2 == 1
-                            ? "fakeA.c"
-                            : "fakeB.c",
-                        "functionName": poNum % 3 == 1
-                            ? "funcA"
-                            : "functionB"
-                    });
-
-                    _currentProject.proofObligations.push(po);
-                }
-
-                var _currentProject = new globals.Project(null);
-
-                for (var i = 0; i < num; i++) {
-                    if (Math.random() > 0.5)
-                        makePo(_currentProject, "OPEN", "not-null" + Math.round(Math.random() * 10));
-
-                    if (Math.random() > 0.2)
-                        makePo(_currentProject, "OPEN", "initialized very long");
-
-                    if (Math.random() > 0.5)
-                        makePo(_currentProject, "VIOLATION", "initialized very long");
-
-                    if (Math.random() > 0.5)
-                        makePo(_currentProject, "DISCHARGED", "initialized very long");
-
-                    if (Math.random() > 0.5)
-                        makePo(_currentProject, "DISCHARGED", "not-null" + Math.round(Math.random() * 10));
-                    }
-
-                _currentProject._filteredProofObligations = _currentProject.proofObligations;
-                this.set("currentProject", _currentProject);
-                this.set("statistics", _currentProject.buildStatistics());
-                // this.set("filter.predicates", this.statistics.allPredicates);
-
-                console.warn(this.statistics);
-            },
+             
 
             ready: function() {
-                this._makeStats(3 + Math.random() * 20);
-                PO_FILTER.name = "GLOBAL";
-                this.set("filter", PO_FILTER);
+                this.node={
+                    type:"OP",
+                    label:"some label",
+                    device:"violation",
+                    attr:{
+                        level:"primary",
+                        locationPath:"path/to/some/very/deep/file/name.c/a_long_function_name"
+                    }
+                };
+                
+                const node=this.node;
+                this.graphHierarchy={
+                    node: function(x){
+                        return node;
+                    },
+
+                    getSuccessors: function(x){
+                        return [];
+                    },
+
+                    getPredecessors: function(x){
+                        return [];
+                    },
+                }
             }
 
         });

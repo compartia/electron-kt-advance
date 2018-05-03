@@ -69,7 +69,7 @@
             },
 
             _computeIcon: function(node) {                 
-                return ["kt:state-", node.state, node.assumptionType].join('-').toLowerCase();                
+                return ["kt:state-", this._getStateName(node), node.assumptionType].join('-').toLowerCase();                
             },
 
             _getClass: function (node) {

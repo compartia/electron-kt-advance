@@ -1,11 +1,12 @@
 import * as _ from "lodash"
 
-export enum PoStates { violation, open, discharged, deadcode, assumption };
-export enum PoDischargeTypes { global, invariants, ds, rv, api, default };
+export enum PoStates { violation, open, discharged, deadcode, assumption, callsite };
+export enum PoDischargeTypes { a, f, x, i, s };
 export const PoLevels = ["primary", "secondary"];
 
-export const PoDischargeTypesArr: Array<string> = ["global", "invariants", "ds", "rv", "api", "default"];
-export const PoStatesArr: Array<PoStates> = [PoStates.violation, PoStates.open, PoStates.discharged];
+export const PoDischargeTypesArr: Array<string> = ["a", "f", "x", "i", "s"];
+ 
+export const PoStatesArr: Array<PoStates> = [PoStates.violation, PoStates.open, PoStates.discharged, PoStates.deadcode];
 export enum PoStatesExt { violation, open, discharged, deadcode, global, invariants, ds, rv, api };
 
 import { NodeDef, NodeAttributes } from '../tf_graph_common/lib/proto'
@@ -22,7 +23,7 @@ export interface CallsiteNodeAttributes extends CommonNodeAttributes {
     data: Callsite;
 }
 
-export interface AssumptionNodeAttributes extends  CommonNodeAttributes{
+export interface AssumptionNodeAttributes extends CommonNodeAttributes {
     data: CApiAssumption;
 }
 

@@ -9,6 +9,7 @@
     <template>
 
         <template is="dom-if" if="[[_isType(node, type, 'OP')]]">
+            
             <template is="dom-if" if="[[_isRegularOp(node, const, summary)]]">
                 <svg height="100%" width="100%" preserveAspectRatio="none" viewBox="0 0 100 100">
                     <g>
@@ -20,6 +21,7 @@
         </template>
 
         <template is="dom-if" if="[[_isType(node, type, 'META')]]">
+             
             <svg height="100%" width="100%" preserveAspectRatio="none" viewBox="0 0 100 100">
                 <g>
                     <rect id="rotable" x="0" y="0" fill$="[[_getFill(_computedFill, 'META')]]" stroke$="none" class$="{{_fadedClass(renderInfo, 'rect')}}"
@@ -28,7 +30,7 @@
 
             </svg>
         </template>
-
+ 
     </template>
 
     <script>
@@ -157,7 +159,7 @@
                  * match a particular other type.
                  */
                 _isType: function (inputNode, inputType, targetType) {
-                    if (inputNode) {
+                    if (inputNode && !!inputNode.type) {
                         return graph.NodeType[inputNode.type] === targetType;
                     }
                     return inputType === targetType;

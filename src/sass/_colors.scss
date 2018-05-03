@@ -97,9 +97,24 @@ $base-bg-lighten: lighten($base-bg, 47%);
     $po-saturation                        : 75;
     $po-brightness                        : 60;
 
-    $discharges                           : ( rv: hsl(50, $po-saturation, $po-brightness), ds: hsl(10, $po-saturation, $po-brightness), invariants: hsl(240, $po-saturation, $po-brightness), api: hsl(210, $po-saturation, $po-brightness), global: hsl(270, $po-saturation, $po-brightness), default: $grey-80);
+
+    // a("dependent on other functions"), f("dependent on context"), i(
+    //     "unknown"), s("dependent on itself"), x("dead code");
+
+    $discharges                           : (          
+        x: hsl(10, $po-saturation, $po-brightness), 
+        f: hsl(240, $po-saturation, $po-brightness), 
+        a: hsl(210, $po-saturation, $po-brightness), 
+        s: hsl(270, $po-saturation, $po-brightness), 
+        i: $grey-80);
+
     $states                               : ( violation: $po-violation, discharged:$po-discharged , open: $po-open, assumption: $po-assumption);
     $levels                               : ( primary: lighten($blue, 35%), secondary:lighten($ian_gillan, 50%));
+
+    $callsitetypes                        : ( 
+        dc: hsl(50, $po-saturation, $po-brightness), 
+        ic: hsl(10, $po-saturation, $po-brightness), 
+        rs: hsl(210, $po-saturation, $po-brightness));
 
     @each $discharge, $dcolor in $discharges {
         $_c                                        : $dcolor;
@@ -168,5 +183,8 @@ $base-bg-lighten: lighten($base-bg, 47%);
     --kt-complexity-g-bg                  : #{ desaturate(lighten($color-brand-2, 50%), 20%) };
 
     --kt-state-callsite-bg                : #{ desaturate(lighten($color-brand-2, 50%), 20%) };
+    --kt-state-callsite-dc-bg             : #{ desaturate(lighten($color-brand-2, 50%), 20%) };
+    --kt-state-callsite-ic-bg             : #{ $ian_gillan };
+    --kt-state-callsite-rs-bg             : white;
     /* =========== */
 }
