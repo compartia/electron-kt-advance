@@ -81,7 +81,7 @@ export interface CFunction {
 export interface Graphable {
     toNodeDef(filter: Filter, settings: GraphSettings): NodeDef;
     getGraphKey(filter: Filter, settings: GraphSettings): string;
-    linkedNodes: Graphable[];
+    getLinkedNodes(filter: Filter): Graphable[];
 }
 
 export interface Assumption extends AbstractNode {

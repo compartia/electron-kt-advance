@@ -33,7 +33,7 @@ export function buildGraph(filter: Filter, project: CProject): NodeDef[] {
             func.api.apiAssumptions.forEach(assumption => {
                 g.push(assumption.toNodeDef(filter, settings));
 
-                assumption.linkedNodes.forEach(linked => {
+                assumption.getLinkedNodes(filter).forEach(linked => {
                     g.push(linked.toNodeDef(filter, settings));
                 });
 
@@ -49,7 +49,7 @@ export function buildGraph(filter: Filter, project: CProject): NodeDef[] {
 
             g.push(node);
 
-            ppo.linkedNodes.forEach(linked => {
+            ppo.getLinkedNodes(filter).forEach(linked => {
                 g.push(linked.toNodeDef(filter, settings));
             });
 
@@ -66,7 +66,14 @@ export function buildGraph(filter: Filter, project: CProject): NodeDef[] {
     // }
 
     console.info["NUMBER of nodes: " + g.length];
+
+    g = removeOrphans(g);
+
     return g;
+}
+
+function removeOrphans(g: NodeDef[]): NodeDef[] {
+    return g.filter(n => !(n.output.length == 0 && n.input.length == 0));
 }
 
 export function buildCallsGraph(filter: Filter, project: CProject): NodeDef[] {
@@ -79,23 +86,25 @@ export function buildCallsGraph(filter: Filter, project: CProject): NodeDef[] {
     let g: NodeDef[] = [];
     let settings = new GraphSettings();
     project.forEachFunction(func => {
-if (filter.acceptCFunction(func )) {
-        func.callsites.forEach(callsite => {
-            
 
-            if (!callsite.isGlobal()) {
-                g.push(callsite.toNodeDef(filter, settings));
-
-                callsite.linkedNodes.forEach(linked => {
-                    g.push(linked.toNodeDef(filter, settings));
-                });
-            }
+        if (filter.acceptCFunction(func)) {
+            func.callsites.forEach(callsite => {
 
 
-        });
-    }
+                if (!callsite.isGlobal()) {
+                    g.push(callsite.toNodeDef(filter, settings));
+
+                    callsite.getLinkedNodes(filter).forEach(linked => {
+                        g.push(linked.toNodeDef(filter, settings));
+                    });
+                }
+
+
+            });
+        }
     });
 
+    g = removeOrphans(g);
 
     // if (calls) {
     //     for (let call of calls) {

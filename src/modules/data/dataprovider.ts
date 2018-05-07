@@ -169,21 +169,21 @@ class ApiAssumptionImpl implements CApiAssumption {
         return nodeDef;
     }
 
-    get linkedNodes(): Graphable[] {
+    getLinkedNodes(filter:Filter): Graphable[] {
 
         let ret = [];
 
         this.a.ppos && this.a.ppos.forEach(
             ppoId => {
                 let ppo = this.cfunction.getPPObyId(ppoId);
-                ppo && ret.push(ppo);
+                ppo && filter.accept(ppo) && ret.push(ppo);
             }
         );
 
         this.a.spos && this.a.spos.forEach(
             spoId => {
                 let spo = this.cfunction.getSPObyId(spoId);
-                spo && ret.push(spo);
+                spo && filter.accept(spo) && ret.push(spo);
             }
         );
 
@@ -235,14 +235,16 @@ abstract class AbstractPO implements ProofObligation {
         //  throw "unimplemented";
     }
 
-    get linkedNodes(): Graphable[] {
+    getLinkedNodes(filter:Filter): Graphable[] {
         let ret = [];
 
         this.links && this.links.forEach(link => {
             let key = linkKey(link);
             let node: ProofObligation = this.indexer.getByIndex(key);
             if (node) {
-                ret.push(node);
+                if(filter.accept(node)){
+                    ret.push(node);
+                }                
             } else {
                 console.error("can not find " + key + " in index");
             }
@@ -360,7 +362,7 @@ abstract class AbstractPO implements ProofObligation {
             }
         }
 
-        this.linkedNodes.forEach(node => {
+        this.getLinkedNodes(filter).forEach(node => {
             nodeDef.input.push(node.getGraphKey(filter, settings));
         })
 
@@ -529,7 +531,9 @@ class CallsiteImpl implements Callsite, Graphable {
         }
 
         this.spos.forEach(spo => {
-            nodeDef.output.push(spo.getGraphKey(filter, settings));
+            if (filter.accept(spo)) {
+                nodeDef.output.push(spo.getGraphKey(filter, settings));
+            }
         });
 
         return nodeDef;
@@ -555,8 +559,8 @@ class CallsiteImpl implements Callsite, Graphable {
         return encodeGraphKey(pathParts.join('/'));
     }
 
-    get linkedNodes(): Graphable[] {
-        return this.spos;
+    getLinkedNodes(filter: Filter): Graphable[] {
+        return this.spos.filter(spo=>filter.accept(spo));
         // const ret: Graphable[] = [];
         // this._jcallsite.spos.forEach(jSpo => {
         //     this.cfunc.getSPObyId(jSpo.id);
