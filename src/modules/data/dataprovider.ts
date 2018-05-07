@@ -314,13 +314,18 @@ abstract class AbstractPO implements ProofObligation {
         // }
 
         let pathParts: string[] = [];
-
+        let addFunctionName=true;
         const filePath = fileToGraphKey(this.cfunction.fileInfo.relativePath, filter, settings);
-        if (filePath.length)
-            pathParts.push(filePath);
-
-
-        pathParts.push(this.cfunction.name);
+        if (filePath.length){
+            pathParts.push(filePath);  
+        } else{
+            const filterFunctionName=filter.cfunction ? filter.cfunction.name : "";
+            addFunctionName = filterFunctionName!=this.cfunction.name;
+        }
+            
+                     
+        if(addFunctionName)
+            pathParts.push(this.cfunction.name);
 
         // pathParts.push(this.predicate);
 
