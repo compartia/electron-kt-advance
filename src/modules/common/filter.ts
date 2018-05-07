@@ -1,11 +1,6 @@
-import { CFunction, FileInfo } from './xmltypes';
-// import { ApiNode } from 'xml-kt-advance/lib/model/api_node';
-import { ProofObligation, PoStates, PoStatesArr, PoDischargeTypesArr } from  './xmltypes';
+import { CFunction, FileInfo, ProofObligation, PoStates, PoStatesArr, PoDischargeTypesArr } from './xmltypes';
 import { StringSet, AnySet, isEmpty } from './collections';
 
-
-
-// const model = require('xml-kt-advance/lib/model/po_node');
 
 export function sharedStart(array: string[]): string {
     if (!array || !array.length) {

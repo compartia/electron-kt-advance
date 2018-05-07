@@ -384,13 +384,14 @@ export function encodeGraphKey(key) {
 }
 
 export function fileToGraphKey(pth: string, filter: Filter, settings: GraphSettings): string {
-    const filterDirName: string = filter.file ? filter.file.relativePath : ".";
 
-    const shared = sharedStart([filterDirName, pth]);
-    let rest = pth.substr(shared.length);
-    if (rest.startsWith("/"))
-        rest = rest.substr(1);
-    return rest;
+    let ret = pth;
+    if (filter.file) {
+        pth = path.relative(filter.file.relativePath, pth);
+    }
+
+
+    return pth;
 }
 
 class SPOImpl extends AbstractPO {
