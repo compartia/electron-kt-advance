@@ -7,6 +7,18 @@ import { StringSet, AnySet, isEmpty } from './collections';
 
 // const model = require('xml-kt-advance/lib/model/po_node');
 
+export function sharedStart(array: string[]): string {
+    if (!array || !array.length) {
+        return '';
+    }
+    const A = array.concat().sort();
+    let a1 = A[0];
+    let a2 = A[A.length - 1];
+    let L = a1.length;
+    let i = 0;
+    while (i < L && a1.charAt(i) === a2.charAt(i)) i++;
+    return a1.substring(0, i);
+}
 
 export class Filter {
 

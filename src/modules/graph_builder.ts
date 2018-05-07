@@ -71,15 +71,17 @@ export function buildGraph(filter: Filter, project: CProject): NodeDef[] {
 
 export function buildCallsGraph(filter: Filter, project: CProject): NodeDef[] {
     // const calls: FunctionCalls[] = project.calls;
+    // const pos = project.filteredProofObligations;
 
+    // this.filter.acceptCFunction
     let nodesMap: { [key: string]: NodeDef } = {};
 
     let g: NodeDef[] = [];
     let settings = new GraphSettings();
     project.forEachFunction(func => {
-
+if (filter.acceptCFunction(func )) {
         func.callsites.forEach(callsite => {
-            // if (filter.acceptCFunction(func )) {
+            
 
             if (!callsite.isGlobal()) {
                 g.push(callsite.toNodeDef(filter, settings));
@@ -91,6 +93,7 @@ export function buildCallsGraph(filter: Filter, project: CProject): NodeDef[] {
 
 
         });
+    }
     });
 
 
@@ -155,18 +158,7 @@ function makeFunctionName(node: CFunction): string {
     return node.file + "/" + node.name;// + "/" + node.line;
 }
 
-function sharedStart(array: string[]): string {
-    if (!array || !array.length) {
-        return '';
-    }
-    const A = array.concat().sort();
-    let a1 = A[0];
-    let a2 = A[A.length - 1];
-    let L = a1.length;
-    let i = 0;
-    while (i < L && a1.charAt(i) === a2.charAt(i)) i++;
-    return a1.substring(0, i);
-}
+
 
 export function makeGraphNodePath(filter: Filter, settings: GraphSettings, func: CFunction, predicate: string, name: string): string {
     let pathParts: string[] = [];
