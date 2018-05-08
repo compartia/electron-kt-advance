@@ -50,5 +50,8 @@ export function buildPalette() {
     ktColors["state-callsite-dc-bg"] = htmlStyles.getPropertyValue('--kt-state-callsite-dc-bg').trim();
     ktColors["state-callsite-rs-bg"] = htmlStyles.getPropertyValue('--kt-state-callsite-rs-bg').trim();
 
+
+    ktColors["missing"] = htmlStyles.getPropertyValue('--kt-state-violation-bg').trim();
+
     return ktColors;
 }

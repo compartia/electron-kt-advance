@@ -1,20 +1,23 @@
 import * as _ from "lodash"
+
+
+import * as tf from '../tf_graph_common/lib/common'
+import * as util from '../tf_graph_common/lib/util'
+
+
 import { CONF, loadProjectMayBe } from './storage';
 import { XmlReader } from '../data/xmlreader';
 import { CAnalysisJsonReaderImpl } from '../data/dataprovider';
-// import *  as xml from 'xml-kt-advance/lib/xml/xml_types';
 
 import * as kt_fs from './fstools';
 
-import { CAnalysis, ProofObligation, AbstractNode, CFunction, sortPoNodes } from './xmltypes';
+import { CAnalysis, ProofObligation, AbstractNode, CFunction, sortPoNodes, CApiAssumption } from './xmltypes';
 import { Stats } from '../stats/stats';
 import { Filter, PO_FILTER } from './filter';
 import { buildGraph, buildCallsGraph } from '../graph_builder'
 
-// import { getChDir } from "xml-kt-advance/lib/common/fs"
 
-import * as tf from '../tf_graph_common/lib/common'
-import * as util from '../tf_graph_common/lib/util'
+
 import { NodeDef } from '../tf_graph_common/lib/proto'
 
 
@@ -92,7 +95,8 @@ export interface CProject {
     analysisDir: string;
     stats: Stats;
     // calls: Array<FunctionCalls>;
-    // filteredAssumptions: Array<ApiNode>;
+    filteredAssumptions: Array<CApiAssumption>;
+    assumptions: Array<CApiAssumption>;
     filteredProofObligations: Array<ProofObligation>;
     proofObligations: Array<ProofObligation>;
 
@@ -113,7 +117,9 @@ export class ProjectImpl implements CProject {
     id: number = Math.random();
     _proofObligations: Array<ProofObligation> = [];
     _filteredProofObligations: Array<ProofObligation> = null;
-    // _filteredAssumptions: Array<ApiNode> = null;
+    _filteredAssumptions: Array<CApiAssumption> = null;
+
+    _assumptions: Array<CApiAssumption> = [];
 
     // _apis: { [key: string]: ApiNode } = null;
 
@@ -171,7 +177,10 @@ export class ProjectImpl implements CProject {
 
 
         project.functionByFile = mCAnalysis.functionByFile;
+
         project.proofObligations = sortPoNodes(mCAnalysis.proofObligations);
+        project.assumptions =  mCAnalysis.assumptions;
+
         return Promise.resolve(project);
 
         // new Promise((resolve, reject) => {
@@ -229,10 +238,7 @@ export class ProjectImpl implements CProject {
         return kt_fs.loadFile(this.baseDir, relativePath);
     }
 
-    // set apis(_apis) {
-    //     this._apis = _apis;
-    // }
-
+ 
 
     get proofObligations(): Array<ProofObligation> {
         return this._proofObligations;
@@ -241,6 +247,15 @@ export class ProjectImpl implements CProject {
     set proofObligations(_proofObligations: Array<ProofObligation>) {
         this._proofObligations = _proofObligations;
         this.allPredicates = _.uniq(_.map(this._proofObligations, (e) => e.predicate)).sort();
+    }
+
+
+    get assumptions(): Array<CApiAssumption> {
+        return this._assumptions;
+    }
+
+    set assumptions(_assumptions: Array<CApiAssumption>) {
+        this._assumptions = _assumptions;        
     }
 
 
@@ -256,7 +271,7 @@ export class ProjectImpl implements CProject {
     public applyFilter(filter: Filter): void {
 
         this._filteredProofObligations = null;
-        // this._filteredAssumptions = null;
+        this._filteredAssumptions = null;
 
         this.filterProofObligations(filter);
         this.filterAssumptions();
@@ -269,7 +284,7 @@ export class ProjectImpl implements CProject {
 
     private filterAssumptions(): void {
 
-        // let _filteredAssumptions = [];
+        this._filteredAssumptions = this.assumptions;
 
         // if(!this._apis){
         //     return;
@@ -306,6 +321,10 @@ export class ProjectImpl implements CProject {
 
     get filteredProofObligations(): Array<ProofObligation> {
         return this._filteredProofObligations;
+    }
+
+    get filteredAssumptions(): Array<CApiAssumption> {
+        return this._filteredAssumptions;
     }
 
     public open(baseDir: string): void {

@@ -103,6 +103,49 @@ class ApiAssumptionImpl implements CApiAssumption {
     private a: json.JAssumption;
     private cfunction: CFunction;
 
+    get file() {
+        return this.cfunction.file;
+    }
+
+    get predicate() {
+        return this.a.prd;
+    }
+
+    get line() {
+        return this.location.line;
+    }
+
+    get functionName() {
+        return this.cfunction.name;
+    }
+
+    get location() {
+        return this.cfunction.funcLocation;
+    }
+
+    get inputs(): ProofObligation[] {
+        let ret = [];
+        this.a.ppos && this.a.ppos.forEach(
+            ppoId => {
+                let ppo = this.cfunction.getPPObyId(ppoId);
+                ppo && ret.push(ppo);
+            }
+        );
+
+        return ret;
+    }
+
+    get outputs(): ProofObligation[] {
+        let ret = [];
+        this.a.spos && this.a.spos.forEach(
+            spoId => {
+                let spo = this.cfunction.getSPObyId(spoId);
+                spo && ret.push(spo);
+            }
+        );
+
+        return ret;
+    }
 
     public constructor(a: json.JAssumption, cfunc: CFunction) {
         this.a = a;
@@ -110,17 +153,24 @@ class ApiAssumptionImpl implements CApiAssumption {
     }
 
     public getGraphKey(filter: Filter, settings: GraphSettings): string {
-        let nm = "(" + this.a.id + ") " + this.a.prd;
+        let nm = "aa-" + this.a.prd + "-" + this.a.id;
 
         let pathParts: string[] = [];
 
-        let fileBaseName: string = path.basename(this.cfunction.fileInfo.relativePath);
-        pathParts.push(fileBaseName);
-        pathParts.push(this.cfunction.name);
-        // pathParts.push(this.a.prd);
+        let addFunctionName = true;
+        const filePath = fileToGraphKey(this.cfunction.fileInfo.relativePath, filter, settings);
+        if (filePath.length) {
+            pathParts.push(filePath);
+        } else {
+            const filterFunctionName = filter.cfunction ? filter.cfunction.name : "";
+            addFunctionName = filterFunctionName != this.cfunction.name;
+        }
+
+        if (addFunctionName) {
+            pathParts.push(this.cfunction.name);
+        }
 
         pathParts.push(nm);
-
         return encodeGraphKey(pathParts.join('/'));
 
     }
@@ -135,29 +185,29 @@ class ApiAssumptionImpl implements CApiAssumption {
             op: this.cfunction.name,
             attr: <AssumptionNodeAttributes>{
                 label: "(" + this.a.id + ") " + this.a.prd,
-                // "predicate": this.a.prd,
-                // // "expression": api.expression,
-                state: "assumption",//used
-                // "message": "api.message",
-                // "apiId": this.a.id,//used
-                // //"symbol": api.symbol,
-                // "assumptionType": "api.type",//used
+                state: "assumption",
                 locationPath: this.cfunction.fileInfo.relativePath + "/" + this.cfunction.name,
                 location: this.cfunction.funcLocation,
-                // "data": this//used
+                "data": this
             }
         };
 
 
-        this.a.ppos && this.a.ppos.forEach(ref => {
-            let ppo = this.cfunction.getPPObyId(ref);
-            ppo && nodeDef.input.push(ppo.getGraphKey(filter, settings));
+        // this.a.ppos && this.a.ppos.forEach(ref => {
+        //     let ppo = this.cfunction.getPPObyId(ref);
+        //     filter.accept(ppo) && nodeDef.input.push(ppo.getGraphKey(filter, settings));
+        // });
+
+        // this.a.spos && this.a.spos.forEach(ref => {
+        //     let spo = this.cfunction.getSPObyId(ref);
+        //     filter.accept(spo) && nodeDef.input.push(spo.getGraphKey(filter, settings));
+        // });
+
+        this.getLinkedNodes(filter).forEach(po => {
+            nodeDef.input.push(po.getGraphKey(filter, settings));
         });
 
-        this.a.spos && this.a.spos.forEach(ref => {
-            let spo = this.cfunction.getSPObyId(ref);
-            spo && nodeDef.input.push(spo.getGraphKey(filter, settings));
-        });
+
 
 
 
@@ -169,7 +219,7 @@ class ApiAssumptionImpl implements CApiAssumption {
         return nodeDef;
     }
 
-    getLinkedNodes(filter:Filter): Graphable[] {
+    getLinkedNodes(filter: Filter): Graphable[] {
 
         let ret = [];
 
@@ -235,16 +285,16 @@ abstract class AbstractPO implements ProofObligation {
         //  throw "unimplemented";
     }
 
-    getLinkedNodes(filter:Filter): Graphable[] {
+    getLinkedNodes(filter: Filter): Graphable[] {
         let ret = [];
 
         this.links && this.links.forEach(link => {
             let key = linkKey(link);
             let node: ProofObligation = this.indexer.getByIndex(key);
             if (node) {
-                if(filter.accept(node)){
+                if (filter.accept(node)) {
                     ret.push(node);
-                }                
+                }
             } else {
                 console.error("can not find " + key + " in index");
             }
@@ -296,8 +346,8 @@ abstract class AbstractPO implements ProofObligation {
         return this.cfunction.name;
     }
 
-    get level() {
-        return "unknown";
+    get level(): string {
+        throw "not implemented";
     }
 
     get levelLabel(): string {
@@ -308,7 +358,7 @@ abstract class AbstractPO implements ProofObligation {
     public getGraphKey(filter: Filter, settings: GraphSettings): string {
         // let nm = this.levelLabel + "(" + this.id + ")";
 
-        let nm = this.levelLabel + "-" + this.id;
+        let nm = "po-" + this.levelLabel + "-" + this.id;
         // if (this.symbol) {
         //     nm += this.symbol.pathLabel;
         // } else {
@@ -458,6 +508,7 @@ export class CAnalysisImpl implements CAnalysis {
 
     poIndex: { [key: string]: ProofObligation } = {};
 
+    assumptions: Array<CApiAssumption> = [];
 
     public pushPo(po: ProofObligation): string {
         this.proofObligations.push(po);
@@ -515,13 +566,14 @@ class CallsiteImpl implements Callsite, Graphable {
     public toNodeDef(filter: Filter, settings: GraphSettings): NodeDef {
         // console.log("callsite-"+this._jcallsite.type);
         let nodeDef: NodeDef = {
+
             name: this.getGraphKey(filter, settings),
             input: [],
             output: [],
             device: "callsite-" + this._jcallsite.type,
             op: this.name,
             attr: <CallsiteNodeAttributes>{
-                label: this.name,
+                label: this._jcallsite.type + ":" + this.name,
                 // "predicate": "--",
                 state: "callsite",
                 location: this._jcallsite.callee.loc,
@@ -560,7 +612,7 @@ class CallsiteImpl implements Callsite, Graphable {
     }
 
     getLinkedNodes(filter: Filter): Graphable[] {
-        return this.spos.filter(spo=>filter.accept(spo));
+        return this.spos.filter(spo => filter.accept(spo));
         // const ret: Graphable[] = [];
         // this._jcallsite.spos.forEach(jSpo => {
         //     this.cfunc.getSPObyId(jSpo.id);
@@ -604,9 +656,6 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
 
             app.files.forEach(file => {
 
-                // let absPath = path.normalize(path.join(app.sourceDir, file.name));
-                // let relative = path.relative(this.projectDir, absPath);
-
                 const cfunctions = this.toCFuncArray(file.functions, file, app.sourceDir);
 
                 cfunctions.forEach(cfun => {
@@ -614,6 +663,13 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
                         this.result.functionByFile[cfun.file] = [];
                     }
                     this.result.functionByFile[cfun.file].push(cfun);
+
+
+                    cfun.api && cfun.api.apiAssumptions &&
+                        cfun.api.apiAssumptions.forEach(aa => {
+                            this.result.assumptions.push(aa);
+                        });
+
                 });
                 // this.result.functionByFile[relative] = this.toCFuncArray(file.functions, file, app.sourceDir);
                 //XXX: redistribute!!;
@@ -637,8 +693,9 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
     }
 
     private toCFuncArray(jfunctions: json.JFunc[], file: json.JFile, sourceDir: string): CFunction[] {
+
         const ret: CFunction[] = [];
-        // let relative = this.normalizeSourcePath(sourceDir, file.name);
+
 
         jfunctions && jfunctions.forEach(jfun => {
 
@@ -646,36 +703,39 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
             const cfun = new CFunctionImpl(jfun, funcftionFileRelative);
             ret.push(cfun);
 
-            jfun.ppos && jfun.ppos.forEach(ppo => {
-                const mPPOImpl: PPOImpl = new PPOImpl(ppo, cfun, this.result);
-                mPPOImpl.links = this.normalizeLinks(ppo.links, sourceDir);
-                this.result.pushPo(mPPOImpl);
-                cfun._indexPpo(mPPOImpl);
-            });
-
-
-
-            jfun.callsites && jfun.callsites.forEach(jcallsite => {
-                const calleeFileRelative = (jcallsite.callee && jcallsite.callee.loc) ? this.normalizeSourcePath(sourceDir, jcallsite.callee.loc) : "_sys_";
-                const callsite = new CallsiteImpl(jcallsite, cfun, calleeFileRelative);
-                cfun.callsites.push(callsite);
-
-
-                jcallsite.spos && jcallsite.spos.forEach(spo => {
-                    const mSPOImpl: SPOImpl = new SPOImpl(spo, cfun, this.result, callsite);
-                    mSPOImpl.links = this.normalizeLinks(spo.links, sourceDir);
-                    this.result.pushPo(mSPOImpl);
-                    callsite.pushSPo(mSPOImpl);
-                    cfun._indexSpo(mSPOImpl)
+            jfun.ppos &&
+                jfun.ppos.forEach(ppo => {
+                    const mPPOImpl: PPOImpl = new PPOImpl(ppo, cfun, this.result);
+                    mPPOImpl.links = this.normalizeLinks(ppo.links, sourceDir);
+                    this.result.pushPo(mPPOImpl);
+                    cfun._indexPpo(mPPOImpl);
                 });
 
-            });
+
+
+            jfun.callsites &&
+                jfun.callsites.forEach(jcallsite => {
+                    const calleeFileRelative = (jcallsite.callee && jcallsite.callee.loc) ? this.normalizeSourcePath(sourceDir, jcallsite.callee.loc) : "_sys_";
+                    const callsite = new CallsiteImpl(jcallsite, cfun, calleeFileRelative);
+                    cfun.callsites.push(callsite);
+
+
+                    jcallsite.spos && jcallsite.spos.forEach(spo => {
+                        const mSPOImpl: SPOImpl = new SPOImpl(spo, cfun, this.result, callsite);
+                        mSPOImpl.links = this.normalizeLinks(spo.links, sourceDir);
+                        this.result.pushPo(mSPOImpl);
+                        callsite.pushSPo(mSPOImpl);
+                        cfun._indexSpo(mSPOImpl)
+                    });
+
+                });
 
             /* Parsing assumptions */
-            jfun.api && jfun.api.aa && jfun.api.aa.forEach(assumption => {
-                const aaImpl = new ApiAssumptionImpl(assumption, cfun);
-                cfun.api.addApiAssumption(aaImpl);
-            });
+            jfun.api && jfun.api.aa &&
+                jfun.api.aa.forEach(assumption => {
+                    const aaImpl = new ApiAssumptionImpl(assumption, cfun);
+                    cfun.api.addApiAssumption(aaImpl);
+                });
 
         });
 

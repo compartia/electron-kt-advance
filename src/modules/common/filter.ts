@@ -233,6 +233,7 @@ export class Filter {
     }
 
     public accept(po: ProofObligation): boolean {
+        if(!po) return false;
         return this.acceptState(po) && this.acceptLevel(po) && this.acceptFile(po) && this.acceptFunction(po) && this.acceptPredicate(po) && this.acceptDischargeType(po);
     }
 

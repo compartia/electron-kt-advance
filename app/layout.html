@@ -94,7 +94,10 @@
                         <po-list-scene id="main-po-list" filtered-proof-obligations="[[filteredProofObligations]]" linktosource showgroups selected-po="{{selectedPo}}"></po-list-scene>
 
                         <!-- tab ASSUMPTIONS -->
-                        <assumptions-list-scene filtered-assumptions="[[filteredAssumptions]]" selected-assumptions="{{selectedAssumptions}}" linktosource></assumptions-list-scene>
+                        <assumptions-list-scene 
+                            filtered-assumptions="[[filteredAssumptions]]" 
+                            selected-assumptions="{{selectedAssumptions}}" 
+                            linktosource></assumptions-list-scene>
 
                         <!-- tab GRAPH -->
                         <tf-graph-board 
@@ -104,7 +107,7 @@
                             outputs-title="Depends on"
 
                             svg-id='svg-assumptions',
-                            color-by="CARDINALITY" 
+                            color-by="STATE" 
                             color-by-params="{{colorByParams}}" 
                             devices-for-stats="[[_devicesForStats]]" 
                             graph-hierarchy="[[graphHierarchy]]" 

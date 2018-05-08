@@ -2,7 +2,7 @@ import { CFunction, CApiAssumption, CApi } from './common/xmltypes';
 import { CProject, GraphSettings, GraphGrouppingOptions } from './common/globals'
 import { Filter } from './common/filter'
 import { ProofObligation, PoStates, sortNodes, POLocation } from './common/xmltypes'
-import { NodeDef } from './tf_graph_common/lib/proto'
+import { NodeDef, NodeAttributes } from './tf_graph_common/lib/proto'
 
 const path = require('path');
 
@@ -17,63 +17,105 @@ export function buildGraph(filter: Filter, project: CProject): NodeDef[] {
 
 
 
-    let g: NodeDef[] = [];
+    let g: { [key: string]: NodeDef } = {};
 
     let settings = new GraphSettings(); //XXX: provide real settings
 
     /*
         adding assumptiosn to graph
     */
-
-
-
     project.forEachFunction(func => {
 
         func.api.apiAssumptions &&
             func.api.apiAssumptions.forEach(assumption => {
-                g.push(assumption.toNodeDef(filter, settings));
+                const node: NodeDef = assumption.toNodeDef(filter, settings);
+                g[node.name] = node; //XXX: make sure it is unique
+
 
                 assumption.getLinkedNodes(filter).forEach(linked => {
-                    g.push(linked.toNodeDef(filter, settings));
+                    const cnode: NodeDef = linked.toNodeDef(filter, settings);
+                    g[cnode.name] = cnode; //XXX: make sure it is unique
+
                 });
 
             });
     });
 
     /*
-        adding proo obligatoins to graph
+        adding proof obligatoins to graph
     */
     for (let ppo of pos) {
         if (ppo.isLinked()) {
-            let node: NodeDef = ppo.toNodeDef(filter, settings);
+            const node: NodeDef = ppo.toNodeDef(filter, settings);
 
-            g.push(node);
+            g[node.name] = node;
 
             ppo.getLinkedNodes(filter).forEach(linked => {
-                g.push(linked.toNodeDef(filter, settings));
+                const cnode: NodeDef = linked.toNodeDef(filter, settings);
+                g[cnode.name] = cnode; //XXX: make sure it is unique
             });
 
         }
     }
 
-    // if (apis) {
-    //     for (var api of apis) {
-    //         if (api.isLinked()) {
-    //             let node: NodeDef = apiNodeToNodeDef(api, filter, settings);
-    //             g.push(node);
-    //         }
-    //     }
-    // }
 
-    console.info["NUMBER of nodes: " + g.length];
+    linkNodes2way(g);
 
-    g = removeOrphans(g);
+    let ret: NodeDef[] = [];
+    for (let key in g) {
+        ret.push(g[key]);
+    }
 
-    return g;
+    console.info["NUMBER of nodes: " + ret.length];
+
+    ret = removeOrphans(ret);
+
+    return ret;
+}
+
+
+function linkNodes2way(g: { [key: string]: NodeDef }) {
+    for (let key in g) {
+        let node = g[key];
+
+        node.output.forEach(linkedKey => {
+            g[linkedKey] && g[linkedKey].input.push(linkedKey);//todo: check it is unique
+        });
+    }
+
+    for (let key in g) {
+        let node = g[key];
+
+        node.input.forEach(linkedKey => {
+            if (!g[linkedKey]) {
+                console.error(key + " lists key " + linkedKey + " in inputs, but this node is not in graph");
+                g[linkedKey] = makeMissingNode(linkedKey);
+            }
+
+
+            g[linkedKey].output.push(linkedKey);//todo: check it is unique
+
+        });
+    }
+}
+
+function makeMissingNode(linkedKey: String): NodeDef {
+    const ret = <NodeDef>{
+        name: linkedKey,
+        input: [],
+        output: [],
+        device: "missing",
+        op: "missing",
+        attr: <NodeAttributes>{
+            state: "unknown",
+            // label:"MISSING"
+        }
+    }
+    return ret;
 }
 
 function removeOrphans(g: NodeDef[]): NodeDef[] {
-    return g.filter(n => !(n.output.length == 0 && n.input.length == 0));
+    return g.filter(n => (n.output.length > 0 || n.input.length > 0));
 }
 
 export function buildCallsGraph(filter: Filter, project: CProject): NodeDef[] {
