@@ -73,13 +73,24 @@ export function buildGraph(filter: Filter, project: CProject): NodeDef[] {
     return ret;
 }
 
+function pushUnique<X>(arr: Array<X>, el: X) {
+    if (!arr.includes(el))
+        arr.push(el);//todo: check it is unique
+}
 
 function linkNodes2way(g: { [key: string]: NodeDef }) {
     for (let key in g) {
         let node = g[key];
 
         node.output.forEach(linkedKey => {
-            g[linkedKey] && g[linkedKey].input.push(linkedKey);//todo: check it is unique
+
+            if (!g[linkedKey]) {
+                console.error(key + " lists key " + linkedKey + " in outputs, but this node is not in graph");
+                g[linkedKey] = makeMissingNode(linkedKey);
+            }
+
+            pushUnique(g[linkedKey].input, linkedKey);
+            
         });
     }
 
@@ -92,8 +103,7 @@ function linkNodes2way(g: { [key: string]: NodeDef }) {
                 g[linkedKey] = makeMissingNode(linkedKey);
             }
 
-
-            g[linkedKey].output.push(linkedKey);//todo: check it is unique
+            pushUnique(g[linkedKey].output, linkedKey); 
 
         });
     }
@@ -107,7 +117,7 @@ function makeMissingNode(linkedKey: String): NodeDef {
         device: "missing",
         op: "missing",
         attr: <NodeAttributes>{
-            state: "unknown",
+            state: "missing",
             // label:"MISSING"
         }
     }

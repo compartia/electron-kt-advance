@@ -179,7 +179,7 @@ export class ProjectImpl implements CProject {
         project.functionByFile = mCAnalysis.functionByFile;
 
         project.proofObligations = sortPoNodes(mCAnalysis.proofObligations);
-        project.assumptions =  mCAnalysis.assumptions;
+        project.assumptions = mCAnalysis.assumptions;
 
         return Promise.resolve(project);
 
@@ -238,7 +238,7 @@ export class ProjectImpl implements CProject {
         return kt_fs.loadFile(this.baseDir, relativePath);
     }
 
- 
+
 
     get proofObligations(): Array<ProofObligation> {
         return this._proofObligations;
@@ -255,7 +255,7 @@ export class ProjectImpl implements CProject {
     }
 
     set assumptions(_assumptions: Array<CApiAssumption>) {
-        this._assumptions = _assumptions;        
+        this._assumptions = _assumptions;
     }
 
 
@@ -274,7 +274,7 @@ export class ProjectImpl implements CProject {
         this._filteredAssumptions = null;
 
         this.filterProofObligations(filter);
-        this.filterAssumptions();
+        this.filterAssumptions(filter);
     }
 
     private filterProofObligations(_filter: Filter): void {
@@ -282,9 +282,12 @@ export class ProjectImpl implements CProject {
         this._filteredProofObligations = sortPoNodes(_.filter(this.proofObligations, filter));
     }
 
-    private filterAssumptions(): void {
+    private filterAssumptions(_filter: Filter): void {
 
-        this._filteredAssumptions = this.assumptions;
+
+        const filter = (aa) => _filter.acceptCFunction(aa.cfunction) && _filter.acceptCFunctionFile(aa.cfunction);
+
+        this._filteredAssumptions = _.filter(this.assumptions, filter);
 
         // if(!this._apis){
         //     return;

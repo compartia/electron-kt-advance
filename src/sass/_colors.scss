@@ -108,7 +108,10 @@ $base-bg-lighten: lighten($base-bg, 47%);
         s: hsl(270, $po-saturation, $po-brightness), 
         i: $grey-80);
 
-    $states                               : ( violation: $po-violation, discharged:$po-discharged , open: $po-open, assumption: $po-assumption);
+    $astates                               : ( assumption: $po-assumption);        
+    $assumption_types                      : ( api: lighten($blue, 35%), global:lighten($ian_gillan, 50%));        
+
+    $states                               : ( violation: $po-violation, discharged:$po-discharged , open: $po-open );
     $levels                               : ( primary: lighten($blue, 35%), secondary:lighten($ian_gillan, 50%));
 
     $callsitetypes                        : ( 
@@ -126,6 +129,48 @@ $base-bg-lighten: lighten($base-bg, 47%);
         --kt-po-#{$level}-bg: #{ $lcolor};
         --kt-po-#{$level}-tx: #{ hsl( hue($lcolor), saturation($lcolor), 40) };
     }
+
+    @each $state, $scolor in $astates {
+
+        // --kt-state-#{$state}-default-bg      : #{$scolor};
+        // --kt-state-#{$state}-default-tx      : #{ hsl( hue($scolor), saturation($scolor), 40) };
+        // --kt-state-#{$state}-default-hover-bg: #{ hsl( hue($scolor), saturation($scolor), 90) };
+
+        // .po-#{$state}-default {
+        //     border-left: 3px solid var(--kt-state-#{$state}-default-bg);
+        //     color      : var(--kt-state-#{$state}-default-tx);
+
+        //     &:hover {
+        //         background: var(--kt-state-#{$state}-default-hover-bg);
+        //     }
+
+        // }
+
+
+        @each $atype, $dcolor in $assumption_types {
+            $_c                                        : mix($scolor, $dcolor, 70%);
+            $_bg                                       : hsl( hue($_c), saturation($scolor), lightness($scolor));
+            $_tx                                       : hsl( hue($_c), saturation($scolor), 40);
+            $_hover                                    : hsl( hue($_c), saturation($scolor), 90);
+
+            --kt-state-#{$state}-#{$atype}-bg      : #{$_bg};
+            --kt-state-#{$state}-#{$atype}-tx      : #{$_tx};
+            --kt-state-#{$state}-#{$atype}-hover-bg: #{$_hover};
+
+            .po-#{$state}-#{$atype} {
+                border-left-color: var(--kt-state-#{$state}-#{$atype}-bg);
+                color            : var(--kt-state-#{$state}-#{$atype}-tx);
+
+                &:hover {
+                    background: var(--kt-state-#{$state}-#{$atype}-hover-bg);
+                }
+            }
+   
+
+        }
+         
+    }
+
     @each $state, $scolor in $states {
 
         --kt-state-#{$state}-default-bg      : #{$scolor};
@@ -187,4 +232,8 @@ $base-bg-lighten: lighten($base-bg, 47%);
     --kt-state-callsite-ic-bg             : #{ $ian_gillan };
     --kt-state-callsite-rs-bg             : white;
     /* =========== */
+
+    --kt-state-missing-bg: white;
 }
+
+

@@ -101,10 +101,16 @@ class CFunctionImpl implements CFunction {
 
 class ApiAssumptionImpl implements CApiAssumption {
     private a: json.JAssumption;
-    private cfunction: CFunction;
+
+    cfunction: CFunction;
+
 
     get file() {
         return this.cfunction.file;
+    }
+
+    get assumptionType() {
+        return "api";
     }
 
     get predicate() {
@@ -153,7 +159,7 @@ class ApiAssumptionImpl implements CApiAssumption {
     }
 
     public getGraphKey(filter: Filter, settings: GraphSettings): string {
-        let nm = "aa-" + this.a.prd + "-" + this.a.id;
+        let nm = "assumption_" + this.a.prd + "[" + this.a.id + "]";
 
         let pathParts: string[] = [];
 
@@ -181,10 +187,10 @@ class ApiAssumptionImpl implements CApiAssumption {
             name: this.getGraphKey(filter, settings),
             input: [],
             output: [],
-            device: "assumption-rv",
+            device: "assumption-api",
             op: this.cfunction.name,
             attr: <AssumptionNodeAttributes>{
-                label: "(" + this.a.id + ") " + this.a.prd,
+                label: this.a.prd + "[" + this.a.id + "]",
                 state: "assumption",
                 locationPath: this.cfunction.fileInfo.relativePath + "/" + this.cfunction.name,
                 location: this.cfunction.funcLocation,
@@ -432,7 +438,8 @@ abstract class AbstractPO implements ProofObligation {
 
 
 export function encodeGraphKey(key) {
-    return key.trim().split(' ').join('-').toLowerCase();
+    let encoded = key.trim().split('-').join('_');
+    return encoded.split(' ').join('_');
 }
 
 export function fileToGraphKey(pth: string, filter: Filter, settings: GraphSettings): string {

@@ -56,15 +56,23 @@ export interface Symbol {
     pathLabel: String;
 }
 
-export interface CApiAssumption extends Graphable {
+export interface HasCFunction {
+    cfunction: CFunction;
+    file: string;
+    functionName: string;
+}
+
+export interface CApiAssumption extends HasCFunction, Graphable {
     file: string;
     functionName: string;
     location: POLocation;
     line: number;
     predicate: string;
 
-    outputs:ProofObligation[];
-    inputs:ProofObligation[];
+    assumptionType: string;
+
+    outputs: ProofObligation[];
+    inputs: ProofObligation[];
 }
 
 export interface CApi {
@@ -114,11 +122,7 @@ export interface POLocation {
     line: number;
 }
 
-export interface HasCFunction {
-    cfunction: CFunction;
-    file: string;
-    functionName: string;
-}
+
 
 export interface POId extends HasCFunction {
     id: string;
