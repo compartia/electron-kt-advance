@@ -278,7 +278,7 @@ export class Stats {
                 data: data,
                 colors: (x, index) => "var(--kt-state-assumption-" + columnNames[index] + "-bg)",
                 columnNames: columnNames,
-                label: x => x.object.name,
+                label: x => x.object.file + "/" + x.object.name,
                 max: null
             }
         );
@@ -295,7 +295,9 @@ export class Stats {
                 data: data,
                 colors: (x, index) => "var(--kt-state-assumption-" + columnNames[index] + "-bg)",
                 columnNames: columnNames,
-                label: (x: NamedArray<FileInfo>) => x.object.name,
+                label: (x: NamedArray<FileInfo>) => {
+                    return x.object.relativePath;
+                },
                 max: null
             }
         );
@@ -312,7 +314,10 @@ export class Stats {
                 data: data,
                 colors: (x, index) => "var(--kt-state-assumption-" + columnNames[index] + "-bg)",
                 columnNames: columnNames,
-                label: x => x.object.name,
+                label: (x: NamedArray<CFunction>) => {
+                    return x.object.fileInfo.relativePath;
+                },
+
                 max: null
             }
         );
@@ -332,19 +337,11 @@ export class Stats {
                 colors: (x, index) => "var(--kt-state-" + columnNames[index] + "-default-bg)",
                 columnNames: columnNames,
                 label: (x: NamedArray<FileInfo>) => {
-                    return this.trimBeginning(x.object.relativePath);
+                    return x.object.relativePath;
                 },
                 max: null
             }
         );
-    }
-
-    public trimBeginning(string: string): string {
-        return string;
-        // var length =18;
-        // return string.length > length ? 
-        // "..."+string.substring(string.length - length)  : 
-        //             string;
     }
 
 
