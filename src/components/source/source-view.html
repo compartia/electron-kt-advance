@@ -3,21 +3,15 @@
 <dom-module id="source-view">
 
     <template>
-        
-        <vaadin-split-layout id="verticalSplitter" class$="splitter-3 [[getSplitterClass(dependentAssumptionsIn, dependentAssumptionsOut)]]" >
+
+        <vaadin-split-layout id="verticalSplitter" class$="splitter-3 [[getSplitterClass(dependentAssumptionsIn, dependentAssumptionsOut)]]">
 
             <div id="scrollable" class="main">
-                <iron-list
-                        id="listOfLines"
-                        scroll-target="scrollable"
-                        items="[[lines]]"
-                        max-physical-count="[[lines.length]]"
-                        selection-enabled
-                        selected-item="{{selectedLine}}"
-                        as="item">
+                <iron-list id="listOfLines" scroll-target="scrollable" items="[[lines]]" max-physical-count="[[lines.length]]" selection-enabled
+                    selected-item="{{selectedLine}}" as="item">
 
                     <template>
-                        <div class$="code-line-wrapper [[_getRowClass(_loadedFile, index, statistics, selected)]]" >
+                        <div class$="code-line-wrapper [[_getRowClass(_loadedFile, index, statistics, selected)]]">
                             <div class$="code-line [[_getClass(_loadedFile, index, statistics, selected)]]" on-tap="_onLineSelectedLine">
                                 <span class="info">
                                     <span id="line-number">[[item.index]]</span>
@@ -92,34 +86,33 @@
             ],
 
 
-            getSplitterClass: function(dependentAssumptionsIn, dependentAssumptionsOut) {
+            getSplitterClass: function (dependentAssumptionsIn, dependentAssumptionsOut) {
                 return ((dependentAssumptionsIn && dependentAssumptionsIn.length) || (dependentAssumptionsOut && dependentAssumptionsOut.length)) ? "" : "collapsed";
             },
 
-            _toggleLine: function(e) {
+            _toggleLine: function (e) {
                 e.stopPropagation();
             },
 
-            _onLineSelectedLine: function(e) {
+            _onLineSelectedLine: function (e) {
                 this.selectedPo = null;
             },
 
-            _selectedLineChanged:function(selectedLine, statistics){
-                console.warn(selectedLine);
-                if(selectedLine!=null){
+            _selectedLineChanged: function (selectedLine, statistics) {
+                if (selectedLine != null) {
                     var posByLine = this.currentProject.getPosAtLine(this._loadedFile.relativePath, selectedLine.index);
                     this.set("posByLine", posByLine);
                 }
             },
 
-            showAtLinePos: function(item, selected) {
+            showAtLinePos: function (item, selected) {
                 return selected;
             },
 
-            _selectedPoChanged: function(list) {
+            _selectedPoChanged: function (list) {
                 var assumptionsOut = [];
                 var assumptionsIn = [];
-                if(list){
+                if (list) {
                     for (var i = 0; i < list.length; i++) {
                         assumptionsOut = assumptionsOut.concat(list[i].outputs);
                         assumptionsIn = assumptionsIn.concat(list[i].inputs);
@@ -131,7 +124,7 @@
                 this.set("dependentAssumptionsOut", assumptionsOut);
                 //
 
-                var task = function() {
+                var task = function () {
                     if (this.$.verticalSplitter) {
                         this.$.verticalSplitter.notifyResize();
                     }
@@ -142,15 +135,15 @@
 
 
 
-            _getStatsByLine: function(file, index, statistics) {
+            _getStatsByLine: function (file, index, statistics) {
                 return statistics.getStatsByFileLine(file.relativePath, index);
             },
 
-            _getRowClass: function(file, index, statistics, selected) {
-                return selected ? "selected":"";
+            _getRowClass: function (file, index, statistics, selected) {
+                return selected ? "selected" : "";
             },
 
-            _getClass: function(file, index, statistics, selected) {
+            _getClass: function (file, index, statistics, selected) {
                 var clazz = "";
                 if (file && statistics.getStatsByFileLine) {
                     var stats = statistics.getStatsByFileLine(file.relativePath, index);
@@ -174,7 +167,7 @@
                 return clazz;
             },
 
-            jumpToLine: function(line) {
+            jumpToLine: function (line) {
 
                 if (!line) {
                     line = 1;
@@ -184,13 +177,13 @@
                     jump = line - 4;
                 }
 
-                var task2 = function() {
+                var task2 = function () {
                     if (this.$.listOfLines.items) {
                         this.$.listOfLines.selectItem(this.lines[line - 1]);
                     }
                 }
 
-                var task = function() {
+                var task = function () {
                     if (this.$.listOfLines.items) {
                         this.$.listOfLines.scrollToIndex(jump);
                         // this.$.listOfLines.selectItem(this.lines[line - 1]);
@@ -201,15 +194,15 @@
 
             },
 
-            _lineNumber: function(index) {
+            _lineNumber: function (index) {
                 return index + 1;
             },
 
-            maybeLoadFile: function(newFile, aftereffect) {
+            maybeLoadFile: function (newFile, aftereffect) {
                 if (this._shouldLoad(newFile)) {
                     this._loadedFile = newFile;
                     //XXX: handle errors;
-                    this.currentProject.loadFile(newFile.relativePath).then(function(fileContents) {
+                    this.currentProject.loadFile(newFile.relativePath).then(function (fileContents) {
                         this.set("posByLine", []);
                         this.set("lines", fileContents.lines);
                         aftereffect();
@@ -221,7 +214,7 @@
 
             },
 
-            _shouldLoad: function(newFile) {
+            _shouldLoad: function (newFile) {
                 if (newFile && !newFile.dir) {
                     if (this._loadedFile) {
                         return this._loadedFile.relativePath != newFile.relativePath;
