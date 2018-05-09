@@ -114,8 +114,8 @@
                 var assumptionsIn = [];
                 if (list) {
                     for (var i = 0; i < list.length; i++) {
-                        assumptionsOut = assumptionsOut.concat(list[i].outputs);
-                        assumptionsIn = assumptionsIn.concat(list[i].inputs);
+                        assumptionsOut = assumptionsOut.concat(list[i].assumptionsOut);
+                        assumptionsIn = assumptionsIn.concat(list[i].assumptionsIn);
                     }
                 }
 

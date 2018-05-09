@@ -1,3 +1,5 @@
+import * as tools from '../common/tools';
+
 import {
     FileInfo, ProofObligation, AbstractNode,
     Symbol, PoStates, PODischarge, POLocation, Callsite,
@@ -118,6 +120,11 @@ class ApiAssumptionImpl implements CApiAssumption {
         return this.a.prd;
     }
 
+    get expression() {
+        return this.a.exp;
+    }
+    
+
     get line() {
         return this.location.line;
     }
@@ -130,7 +137,7 @@ class ApiAssumptionImpl implements CApiAssumption {
         return this.cfunction.funcLocation;
     }
 
-    get inputs(): ProofObligation[] {
+    get ppos(): ProofObligation[] {
         let ret = [];
         this.a.ppos && this.a.ppos.forEach(
             ppoId => {
@@ -142,7 +149,7 @@ class ApiAssumptionImpl implements CApiAssumption {
         return ret;
     }
 
-    get outputs(): ProofObligation[] {
+    get spos(): ProofObligation[] {
         let ret = [];
         this.a.spos && this.a.spos.forEach(
             spoId => {
@@ -200,31 +207,13 @@ class ApiAssumptionImpl implements CApiAssumption {
         };
 
 
-        // this.a.ppos && this.a.ppos.forEach(ref => {
-        //     let ppo = this.cfunction.getPPObyId(ref);
-        //     filter.accept(ppo) && nodeDef.input.push(ppo.getGraphKey(filter, settings));
-        // });
-
-        // this.a.spos && this.a.spos.forEach(ref => {
-        //     let spo = this.cfunction.getSPObyId(ref);
-        //     filter.accept(spo) && nodeDef.input.push(spo.getGraphKey(filter, settings));
-        // });
-
-        this.outputs.forEach(po => {
-            nodeDef.output.push(po.getGraphKey(filter, settings));
-        });
-
-        this.inputs.forEach(po => {
+        this.ppos.forEach(po => {
             nodeDef.input.push(po.getGraphKey(filter, settings));
         });
 
-
-
-
-
-        // for (let ref of api.outputs) {
-        //     nodeDef.output.push(makeProofObligationName(<ProofObligation>ref, filter, settings));
-        // }
+        this.spos.forEach(po => {
+            nodeDef.output.push(po.getGraphKey(filter, settings));
+        });
 
 
         return nodeDef;
@@ -265,6 +254,9 @@ abstract class AbstractPO implements ProofObligation {
     links: json.JPoLink[];
 
     indexer: CAnalysisImpl;
+
+    assumptionsIn: CApiAssumption[] = [];
+    assumptionsOut: CApiAssumption[] = [];
 
     public constructor(ppo: json.JPPO, cfun: CFunction, indexer: CAnalysisImpl) {
         this.indexer = indexer;
@@ -474,28 +466,7 @@ class SPOImpl extends AbstractPO {
         }
         return node;
     }
-    /*
-        overrides
-    */
-    // public getGraphKey(filter: Filter, settings: GraphSettings): string {
-    //     let nm = this.levelLabel + "(" + this.id + ") " + this.predicate;
 
-    //     let pathParts: string[] = [];
-
-    //     if (this.callsite.varInfo.loc) {
-    //         let fileBaseName: string = path.basename(this.callsite.varInfo.loc.filename);
-    //         pathParts.push(fileBaseName);
-    //     }
-
-    //     pathParts.push(this.callsite.varInfo.name);
-    //     // pathParts.push(this.predicate);
-
-    //     pathParts.push(nm);
-
-    //     //return makeGraphNodePath(filter, settings, this.cfunction, this.predicate, nm);
-    //     return pathParts.join('/');
-
-    // }
 
 }
 
@@ -632,14 +603,14 @@ class CallsiteImpl implements Callsite, Graphable {
 export class CAnalysisJsonReaderImpl implements XmlReader {
 
     projectDir: string;
-    result: CAnalysisImpl;
+    cAnalysisResult: CAnalysisImpl;
 
     public readDir(dir: string, tracker: ProgressTracker): CAnalysis {
 
         this.projectDir = dir;
         let files: string[] = kt_fs.listFilesRecursively(dir, ".kt.analysis.json");
 
-        this.result = new CAnalysisImpl();
+        this.cAnalysisResult = new CAnalysisImpl();
 
 
         files.forEach(file => {
@@ -655,7 +626,7 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
             tracker.updateProgress(100);
 
         });
-        return this.result;
+        return this.cAnalysisResult;
     }
 
     private mergeJsonData(data: json.KtJson): void {
@@ -667,20 +638,35 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
                 const cfunctions = this.toCFuncArray(file.functions, file, app.sourceDir);
 
                 cfunctions.forEach(cfun => {
-                    if (!this.result.functionByFile[cfun.file]) {
-                        this.result.functionByFile[cfun.file] = [];
+                    /*
+                     * make function by file map
+                     */
+                    if (!this.cAnalysisResult.functionByFile[cfun.file]) {
+                        this.cAnalysisResult.functionByFile[cfun.file] = [];
                     }
-                    this.result.functionByFile[cfun.file].push(cfun);
+                    this.cAnalysisResult.functionByFile[cfun.file].push(cfun);
 
 
+                    /*
+                     * make assumptions plain array
+                     */
                     cfun.api && cfun.api.apiAssumptions &&
                         cfun.api.apiAssumptions.forEach(aa => {
-                            this.result.assumptions.push(aa);
+                            this.cAnalysisResult.assumptions.push(aa);
                         });
 
                 });
-                // this.result.functionByFile[relative] = this.toCFuncArray(file.functions, file, app.sourceDir);
-                //XXX: redistribute!!;
+
+                /*
+                 * binding assumptions 
+                 */
+                this.cAnalysisResult.assumptions.forEach(
+                    assumption => {
+                        assumption.ppos.forEach(ppo => tools.pushUnique(ppo.assumptionsIn, assumption));
+                        assumption.spos.forEach(spo => tools.pushUnique(spo.assumptionsOut, assumption));
+                    }
+                );
+
             });
         });
     }
@@ -691,7 +677,7 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
         return relative;
     }
 
-    normalizeLinks(links: json.JPoLink[], base: string): json.JPoLink[] {
+    private normalizeLinks(links: json.JPoLink[], base: string): json.JPoLink[] {
         if (links) {
             for (let link of links) {
                 // link.file = this.normalizeSourcePath(base, link.file);
@@ -702,20 +688,20 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
 
     private toCFuncArray(jfunctions: json.JFunc[], file: json.JFile, sourceDir: string): CFunction[] {
 
-        const ret: CFunction[] = [];
+        const cFunctionsArray: CFunction[] = [];
 
 
         jfunctions && jfunctions.forEach(jfun => {
 
             const funcftionFileRelative = this.normalizeSourcePath(sourceDir, jfun.loc);
             const cfun = new CFunctionImpl(jfun, funcftionFileRelative);
-            ret.push(cfun);
+            cFunctionsArray.push(cfun);
 
             jfun.ppos &&
                 jfun.ppos.forEach(ppo => {
-                    const mPPOImpl: PPOImpl = new PPOImpl(ppo, cfun, this.result);
+                    const mPPOImpl: PPOImpl = new PPOImpl(ppo, cfun, this.cAnalysisResult);
                     mPPOImpl.links = this.normalizeLinks(ppo.links, sourceDir);
-                    this.result.pushPo(mPPOImpl);
+                    this.cAnalysisResult.pushPo(mPPOImpl);
                     cfun._indexPpo(mPPOImpl);
                 });
 
@@ -729,9 +715,9 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
 
 
                     jcallsite.spos && jcallsite.spos.forEach(spo => {
-                        const mSPOImpl: SPOImpl = new SPOImpl(spo, cfun, this.result, callsite);
+                        const mSPOImpl: SPOImpl = new SPOImpl(spo, cfun, this.cAnalysisResult, callsite);
                         mSPOImpl.links = this.normalizeLinks(spo.links, sourceDir);
-                        this.result.pushPo(mSPOImpl);
+                        this.cAnalysisResult.pushPo(mSPOImpl);
                         callsite.pushSPo(mSPOImpl);
                         cfun._indexSpo(mSPOImpl)
                     });
@@ -747,6 +733,6 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
 
         });
 
-        return ret;
+        return cFunctionsArray;
     }
 }

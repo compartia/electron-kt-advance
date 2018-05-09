@@ -144,12 +144,12 @@ export class Stats {
             // this.byFunction.inc(functionKey, DEF_COL_NAME, 1);
             this.byFunction.bind(functionKey, po.cfunction);
 
-            // if(po.outputs){
-            //     for (let linked of po.outputs) {
-            //         this.assumptionsByFunction.inc(functionKey, (<ApiNode>linked).type, 1);
-            //         this.dependenciesByFile.inc(po.file, (<ApiNode>linked).type, 1);
-            //     }
-            // }
+            po.assumptionsIn && this.assumptionsByFunction.inc(functionKey, "api", po.assumptionsIn.length);
+            po.assumptionsOut && this.assumptionsByFunction.inc(functionKey, "api", po.assumptionsOut.length);
+
+            po.assumptionsIn && this.dependenciesByFile.inc(po.file, "api", po.assumptionsIn.length);
+            po.assumptionsOut && this.dependenciesByFile.inc(po.file, "api", po.assumptionsOut.length);
+
 
 
 

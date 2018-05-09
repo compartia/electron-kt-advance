@@ -40,6 +40,7 @@ export interface JSPO extends JPPO {
 
 export interface JAssumption {
     prd: string;
+    exp: string;
     id: number;
     ppos: number[];
     spos: number[];

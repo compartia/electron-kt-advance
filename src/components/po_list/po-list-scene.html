@@ -48,8 +48,8 @@
                 var assumptionsOut = [];
                 var assumptionsIn = [];
                 for (var i = 0; i < list.length; i++) {
-                    assumptionsOut = assumptionsOut.concat(list[i].outputs);
-                    assumptionsIn = assumptionsIn.concat(list[i].inputs);
+                    assumptionsOut = assumptionsOut.concat(list[i].assumptionsOut);
+                    assumptionsIn = assumptionsIn.concat(list[i].assumptionsIn);
                 }
                 //XXX: make list of unique! pos=this.filter.filterAssumptions(assumptions);
                 this.set("dependentAssumptionsIn", assumptionsIn);

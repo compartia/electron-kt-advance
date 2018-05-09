@@ -1,4 +1,5 @@
 import * as _ from "lodash"
+import * as tools from "./tools"
 
 
 import * as tf from '../tf_graph_common/lib/common'
@@ -284,38 +285,11 @@ export class ProjectImpl implements CProject {
 
     private filterAssumptions(_filter: Filter): void {
 
-
         const filter = (aa) => _filter.acceptCFunction(aa.cfunction) &&         
             _filter.acceptPrd(aa.predicate);
 
         this._filteredAssumptions = _.filter(this.assumptions, filter);
-
-        // if(!this._apis){
-        //     return;
-        // }
-
-        // for (let apiKey in this._apis) {
-        //     let api = this._apis[apiKey];
-        //     if (this.hasIntersection(api.inputs, this.filteredProofObligations) ||
-        //         this.hasIntersection(api.outputs, this.filteredProofObligations)) {
-        //         _filteredAssumptions.push(api);
-        //     }
-        // }
-
-        // for (let po of this.filteredProofObligations) {
-        //     for (let input of po.inputs) {
-        //         _filteredAssumptions.push(<ApiNode>input);
-        //     }
-
-        //     for (let output of po.outputs) {
-        //         _filteredAssumptions.push(<ApiNode>output);
-        //     }
-        // }
-
-
-        // _filteredAssumptions = _.uniq(_filteredAssumptions);
-        // this._filteredAssumptions = _filteredAssumptions;
-
+        
     }
 
 

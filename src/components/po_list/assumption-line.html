@@ -13,12 +13,11 @@
                         [[item.predicate]]
                     </span>
                     <template is="dom-if" if="[[item.predicateArgument]]">
-                        (
-                        <span class="predicate-arg">[[item.predicateArgument]]</span>)
+                        (<span class="predicate-arg">[[item.predicateArgument]]</span>)
                     </template>
                 </span>
 
-                <span class='expression'>[[_getClass(item)]]
+                <span class='expression'>
                     [[item.expression]]
                 </span>
 
@@ -32,11 +31,11 @@
             <span class='right'>
 
                 <span class='assumptions'>
-                    <template is="dom-if" if="[[item.outputs.length]]">
-                        <span title="depends on POs" class="outputs">[[item.outputs.length]]</span>
+                    <template is="dom-if" if="[[item.ppos.length]]">
+                        <span title="primary POs" class="outputs">[[item.ppos.length]]</span>
                     </template>
-                    <template is="dom-if" if="[[item.inputs.length]]">
-                        <span title="dependend POs " class="inputs">[[item.inputs.length]]</span>
+                    <template is="dom-if" if="[[item.spos.length]]">
+                        <span title="secondary POs" class="inputs">[[item.spos.length]]</span>
                     </template>
                 </span>
 

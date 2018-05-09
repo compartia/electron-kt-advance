@@ -1,3 +1,5 @@
+import * as tools from './common/tools' ;
+
 import { CFunction, CApiAssumption, CApi } from './common/xmltypes';
 import { CProject, GraphSettings, GraphGrouppingOptions } from './common/globals'
 import { Filter } from './common/filter'
@@ -24,7 +26,6 @@ export function buildGraph(filter: Filter, project: CProject): NodeDef[] {
     /*
         adding assumptiosn to graph
     */
-    
 
     project.filteredAssumptions.forEach(assumption => {
         const node: NodeDef = assumption.toNodeDef(filter, settings);
@@ -71,10 +72,6 @@ export function buildGraph(filter: Filter, project: CProject): NodeDef[] {
     return ret;
 }
 
-function pushUnique<X>(arr: Array<X>, el: X) {
-    if (!arr.includes(el))
-        arr.push(el);//todo: check it is unique
-}
 
 function linkNodes2way(g: { [key: string]: NodeDef }) {
     for (let key in g) {
@@ -87,7 +84,7 @@ function linkNodes2way(g: { [key: string]: NodeDef }) {
                 g[linkedKey] = makeMissingNode(linkedKey);
             }
 
-            pushUnique(g[linkedKey].input, key);
+            tools.pushUnique(g[linkedKey].input, key);
 
         });
     }
@@ -101,7 +98,7 @@ function linkNodes2way(g: { [key: string]: NodeDef }) {
                 g[linkedKey] = makeMissingNode(linkedKey);
             }
 
-            pushUnique(g[linkedKey].output, key);
+            tools.pushUnique(g[linkedKey].output, key);
 
         });
     }

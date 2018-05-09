@@ -67,12 +67,14 @@ export interface CApiAssumption extends HasCFunction, Graphable {
     functionName: string;
     location: POLocation;
     line: number;
+
     predicate: string;
+    expression: string;
 
     assumptionType: string;
 
-    outputs: ProofObligation[];
-    inputs: ProofObligation[];
+    spos: ProofObligation[];
+    ppos: ProofObligation[];
 }
 
 export interface CApi {
@@ -140,6 +142,9 @@ export interface AbstractNode extends POId {
 
 
 export interface ProofObligation extends AbstractNode, Graphable {
+
+    assumptionsIn: CApiAssumption[];
+    assumptionsOut: CApiAssumption[];
 
     isViolation(): boolean;
     isDischarged(): boolean;
