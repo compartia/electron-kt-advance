@@ -90,6 +90,7 @@ class CFunctionImpl implements CFunction {
     _indexSpo(p: ProofObligation): void {
         this.__indexSpo[p.id] = p;
     }
+
     __indexSpo = {};
     __indexPpo = {};
 
@@ -209,7 +210,11 @@ class ApiAssumptionImpl implements CApiAssumption {
         //     filter.accept(spo) && nodeDef.input.push(spo.getGraphKey(filter, settings));
         // });
 
-        this.getLinkedNodes(filter).forEach(po => {
+        this.outputs.forEach(po => {
+            nodeDef.output.push(po.getGraphKey(filter, settings));
+        });
+
+        this.inputs.forEach(po => {
             nodeDef.input.push(po.getGraphKey(filter, settings));
         });
 
@@ -294,17 +299,17 @@ abstract class AbstractPO implements ProofObligation {
     getLinkedNodes(filter: Filter): Graphable[] {
         let ret = [];
 
-        this.links && this.links.forEach(link => {
-            let key = linkKey(link);
-            let node: ProofObligation = this.indexer.getByIndex(key);
-            if (node) {
-                if (filter.accept(node)) {
-                    ret.push(node);
-                }
-            } else {
-                console.error("can not find " + key + " in index");
-            }
-        });
+        // this.links && this.links.forEach(link => {
+        //     let key = linkKey(link);
+        //     let node: ProofObligation = this.indexer.getByIndex(key);
+        //     if (node) {
+        //         if (filter.accept(node)) {
+        //             ret.push(node);
+        //         }
+        //     } else {
+        //         console.error("can not find " + key + " in index");
+        //     }
+        // });
 
         return ret;
 
@@ -362,14 +367,9 @@ abstract class AbstractPO implements ProofObligation {
 
 
     public getGraphKey(filter: Filter, settings: GraphSettings): string {
-        // let nm = this.levelLabel + "(" + this.id + ")";
 
         let nm = "po-" + this.levelLabel + "-" + this.id;
-        // if (this.symbol) {
-        //     nm += this.symbol.pathLabel;
-        // } else {
-        //     nm += "-expression-";
-        // }
+
 
         let pathParts: string[] = [];
         let addFunctionName = true;
@@ -387,9 +387,10 @@ abstract class AbstractPO implements ProofObligation {
 
         // pathParts.push(this.predicate);
 
+
         pathParts.push(nm);
 
-        //return makeGraphNodePath(filter, settings, this.cfunction, this.predicate, nm);
+
         return encodeGraphKey(pathParts.join('/'));
 
     }

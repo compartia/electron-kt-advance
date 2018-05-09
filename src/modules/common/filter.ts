@@ -220,7 +220,16 @@ export class Filter {
         }
         return false;
     }
-
+    
+    public acceptPrd(predicate:string): boolean {
+        if (isEmpty(this._predicates)) {
+            return true;
+        }
+        if (this._predicates.contains(predicate)) {
+            return true;
+        }
+        return false;
+    }
 
     private acceptPredicate(po: ProofObligation): boolean {
         if (isEmpty(this._predicates)) {

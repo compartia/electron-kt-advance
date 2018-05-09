@@ -285,7 +285,8 @@ export class ProjectImpl implements CProject {
     private filterAssumptions(_filter: Filter): void {
 
 
-        const filter = (aa) => _filter.acceptCFunction(aa.cfunction) && _filter.acceptCFunctionFile(aa.cfunction);
+        const filter = (aa) => _filter.acceptCFunction(aa.cfunction) &&         
+            _filter.acceptPrd(aa.predicate);
 
         this._filteredAssumptions = _.filter(this.assumptions, filter);
 

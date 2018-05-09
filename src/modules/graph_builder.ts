@@ -24,39 +24,37 @@ export function buildGraph(filter: Filter, project: CProject): NodeDef[] {
     /*
         adding assumptiosn to graph
     */
-    project.forEachFunction(func => {
+    
 
-        func.api.apiAssumptions &&
-            func.api.apiAssumptions.forEach(assumption => {
-                const node: NodeDef = assumption.toNodeDef(filter, settings);
-                g[node.name] = node; //XXX: make sure it is unique
+    project.filteredAssumptions.forEach(assumption => {
+        const node: NodeDef = assumption.toNodeDef(filter, settings);
+        g[node.name] = node; //XXX: make sure it is unique
 
 
-                assumption.getLinkedNodes(filter).forEach(linked => {
-                    const cnode: NodeDef = linked.toNodeDef(filter, settings);
-                    g[cnode.name] = cnode; //XXX: make sure it is unique
+        assumption.getLinkedNodes(filter).forEach(linked => {
+            const cnode: NodeDef = linked.toNodeDef(filter, settings);
+            g[cnode.name] = cnode; //XXX: make sure it is unique
 
-                });
+        });
 
-            });
     });
 
-    /*
-        adding proof obligatoins to graph
-    */
-    for (let ppo of pos) {
-        if (ppo.isLinked()) {
-            const node: NodeDef = ppo.toNodeDef(filter, settings);
+    // /*
+    //     adding proof obligatoins to graph
+    // */
+    // for (let ppo of pos) {
+    //     if (ppo.isLinked()) {
+    //         const node: NodeDef = ppo.toNodeDef(filter, settings);
 
-            g[node.name] = node;
+    //         g[node.name] = node;
 
-            ppo.getLinkedNodes(filter).forEach(linked => {
-                const cnode: NodeDef = linked.toNodeDef(filter, settings);
-                g[cnode.name] = cnode; //XXX: make sure it is unique
-            });
+    //         ppo.getLinkedNodes(filter).forEach(linked => {
+    //             const cnode: NodeDef = linked.toNodeDef(filter, settings);
+    //             g[cnode.name] = cnode; //XXX: make sure it is unique
+    //         });
 
-        }
-    }
+    //     }
+    // }
 
 
     linkNodes2way(g);
@@ -85,12 +83,12 @@ function linkNodes2way(g: { [key: string]: NodeDef }) {
         node.output.forEach(linkedKey => {
 
             if (!g[linkedKey]) {
-                console.error(key + " lists key " + linkedKey + " in outputs, but this node is not in graph");
+                // console.error(key + " lists key " + linkedKey + " in outputs, but this node is not in graph");
                 g[linkedKey] = makeMissingNode(linkedKey);
             }
 
-            pushUnique(g[linkedKey].input, linkedKey);
-            
+            pushUnique(g[linkedKey].input, key);
+
         });
     }
 
@@ -99,11 +97,11 @@ function linkNodes2way(g: { [key: string]: NodeDef }) {
 
         node.input.forEach(linkedKey => {
             if (!g[linkedKey]) {
-                console.error(key + " lists key " + linkedKey + " in inputs, but this node is not in graph");
+                // console.error(key + " lists key " + linkedKey + " in inputs, but this node is not in graph");
                 g[linkedKey] = makeMissingNode(linkedKey);
             }
 
-            pushUnique(g[linkedKey].output, linkedKey); 
+            pushUnique(g[linkedKey].output, key);
 
         });
     }
