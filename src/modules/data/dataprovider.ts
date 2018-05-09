@@ -416,6 +416,7 @@ abstract class AbstractPO implements ProofObligation {
 
 
 export function encodeGraphKey(key) {
+    // let encoded = key.split('/').join('_/');
     let encoded = key.trim().split('-').join('_');
     return encoded.split(' ').join('_');
 }
@@ -426,6 +427,9 @@ export function fileToGraphKey(pth: string, functionName: String, filter: Filter
     let ret = pth;
     if (filter.file) {
         pth = path.relative(filter.file.relativePath, pth);
+        while (pth.startsWith("../")) {
+            pth = pth.substr(3);
+        }
     }
 
     if (pth.length > 0) {
@@ -576,10 +580,13 @@ class CallsiteImpl implements Callsite, Graphable {
             if (filePath.length)
                 pathParts.push(filePath);
             nameAddon = "-L" + this._jcallsite.callee.loc.line;
-        }
+        }  
+            
+        pathParts.push(this.name+nameAddon);
+         
 
         // pathParts.push(this._jcallsite.type);
-        pathParts.push(this.name + nameAddon);
+        // pathParts.push(this.name + nameAddon);
 
 
         // pathParts.push(this._jcallsite.varInfo.loc.line+"");
