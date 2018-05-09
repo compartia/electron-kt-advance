@@ -123,7 +123,6 @@ class ApiAssumptionImpl implements CApiAssumption {
     get expression() {
         return this.a.exp;
     }
-    
 
     get line() {
         return this.location.line;
@@ -172,16 +171,9 @@ class ApiAssumptionImpl implements CApiAssumption {
         let pathParts: string[] = [];
 
         let addFunctionName = true;
-        const filePath = fileToGraphKey(this.cfunction.fileInfo.relativePath, filter, settings);
+        const filePath = fileToGraphKey(this.cfunction.fileInfo.relativePath, this.functionName, filter, settings);
         if (filePath.length) {
             pathParts.push(filePath);
-        } else {
-            const filterFunctionName = filter.cfunction ? filter.cfunction.name : "";
-            addFunctionName = filterFunctionName != this.cfunction.name;
-        }
-
-        if (addFunctionName) {
-            pathParts.push(this.cfunction.name);
         }
 
         pathParts.push(nm);
@@ -365,17 +357,10 @@ abstract class AbstractPO implements ProofObligation {
 
         let pathParts: string[] = [];
         let addFunctionName = true;
-        const filePath = fileToGraphKey(this.cfunction.fileInfo.relativePath, filter, settings);
+        const filePath = fileToGraphKey(this.cfunction.fileInfo.relativePath, this.cfunction.name, filter, settings);
         if (filePath.length) {
             pathParts.push(filePath);
-        } else {
-            const filterFunctionName = filter.cfunction ? filter.cfunction.name : "";
-            addFunctionName = filterFunctionName != this.cfunction.name;
         }
-
-
-        if (addFunctionName)
-            pathParts.push(this.cfunction.name);
 
         // pathParts.push(this.predicate);
 
@@ -435,15 +420,26 @@ export function encodeGraphKey(key) {
     return encoded.split(' ').join('_');
 }
 
-export function fileToGraphKey(pth: string, filter: Filter, settings: GraphSettings): string {
+export function fileToGraphKey(pth: string, functionName: String, filter: Filter, settings: GraphSettings): string {
+    let parts = [];
 
     let ret = pth;
     if (filter.file) {
         pth = path.relative(filter.file.relativePath, pth);
     }
 
+    if (pth.length > 0) {
+        parts.push(pth);
+    }
 
-    return pth;
+    if (functionName) {
+        const filterFunctionName = filter.cfunction ? filter.cfunction.name : "";
+        if (filterFunctionName != functionName) {
+            parts.push(functionName);
+        }
+    }
+
+    return parts.join('/');
 }
 
 class SPOImpl extends AbstractPO {
@@ -576,7 +572,7 @@ class CallsiteImpl implements Callsite, Graphable {
         // pathParts.push("callsites");//TODO: remove it         
         let nameAddon = "";
         if (this._jcallsite.callee.loc) {
-            const filePath = fileToGraphKey(this.calleeRelativeFileName, filter, settings);
+            const filePath = fileToGraphKey(this.calleeRelativeFileName, this.name, filter, settings);
             if (filePath.length)
                 pathParts.push(filePath);
             nameAddon = "-L" + this._jcallsite.callee.loc.line;
