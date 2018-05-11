@@ -152,7 +152,6 @@ export class Stats {
 
 
 
-
             this.assumptionsByFunction.bind(functionKey, po.cfunction);
             this.dependenciesByFile.bind(po.file, po);
 
@@ -169,7 +168,7 @@ export class Stats {
             // this.complexityByFunction.inc(functionKey, po.level, 1);
             // this.complexityByFunction.bind(functionKey, po.cfunction);
             //------------
-            this.byFile.inc(po.file , state, 1);
+            this.byFile.inc(po.file, state, 1);
             this.byFile.bind(po.file, po);
             //------------
             this.byState.inc(state, DEF_COL_NAME, 1);

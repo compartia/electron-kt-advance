@@ -24,7 +24,7 @@ import * as json from './jsonformat';
 const path = require('path');
 const fs = require('fs');
 
-abstract class AbstractLocatable implements HasPath{
+abstract class AbstractLocatable implements HasPath {
     dir: false;
     abstract relativePath: string;
 }
@@ -44,7 +44,7 @@ class CApiImpl implements CApi {
 class CFunctionImpl extends AbstractLocatable implements CFunction {
     name: string;
     // file: string;
-    
+
     loc: POLocation;
     line: number;
     callsites: Callsite[] = [];
@@ -59,9 +59,9 @@ class CFunctionImpl extends AbstractLocatable implements CFunction {
         super();
         this.name = jfun.name;
         this.line = jfun.loc.line;
-        this.relativePath=relativeFilePath;
+        this.relativePath = relativeFilePath;
 
-        
+
 
         this.loc = {
             line: this.line,
@@ -199,10 +199,12 @@ class ApiAssumptionImpl extends AbstractLocatable implements CApiAssumption {
 
         class AssumptionNodeAttributesImpl implements AssumptionNodeAttributes {
             public state = "assumption";
+            public assumptionType = "aa";
             private base: ApiAssumptionImpl;
             constructor(base: ApiAssumptionImpl) {
                 this.base = base;
             }
+
 
             get location() {
                 return this.base.location;
@@ -264,7 +266,7 @@ abstract class AbstractPO extends AbstractLocatable implements ProofObligation {
     abstract levelLabel: string;
     abstract location: POLocation;
 
-    
+
 
     public constructor(ppo: json.JPPO, cfun: CFunction, indexer: CAnalysisImpl) {
         super();
@@ -287,7 +289,7 @@ abstract class AbstractPO extends AbstractLocatable implements ProofObligation {
         this.links = ppo.links;
 
     }
- 
+
 
     get label() {
         return this.levelLabel + " [" + this.id + "] " + this.predicate;
@@ -337,13 +339,13 @@ abstract class AbstractPO extends AbstractLocatable implements ProofObligation {
         return this.cfunction.name;
     }
 
-    get relativePath():string{
+    get relativePath(): string {
         return this.location.file;
     }
 
 
     public getGraphKey(filter: Filter, settings: GraphSettings): string {
-        
+
         let pathParts: string[] = [];
         let addFunctionName = true;
         const filePath = fileToGraphKey(this.relativePath, this.functionName, filter, settings);
@@ -488,7 +490,7 @@ export class CAnalysisImpl implements CAnalysis {
 }
 
 
-abstract class AbstractSiteImpl extends AbstractLocatable  implements Site, Graphable {
+abstract class AbstractSiteImpl extends AbstractLocatable implements Site, Graphable {
 
     _jcallsite: json.JSite;
     spos: SecondaryProofObligation[] = [];
@@ -554,8 +556,8 @@ export class CalleeImpl extends AbstractLocatable implements Callee, CFunctionBa
         super();
         this.varinfo = varinfo;
         this.type = type;
-        this.relativePath=relativeFilePath;
-         
+        this.relativePath = relativeFilePath;
+
 
         this.loc = {
             line: varinfo.loc ? varinfo.loc.line : 0,

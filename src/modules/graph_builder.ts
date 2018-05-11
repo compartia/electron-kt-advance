@@ -1,6 +1,6 @@
 import * as tools from './common/tools';
 
-import { CFunction, CApiAssumption, CApi, SecondaryProofObligation } from './common/xmltypes';
+import { CFunction, CApiAssumption, CApi, SecondaryProofObligation, Graphable } from './common/xmltypes';
 import { CProject, GraphSettings, GraphGrouppingOptions } from './common/globals'
 import { Filter } from './common/filter'
 import { ProofObligation, PoStates, sortNodes, POLocation } from './common/xmltypes'
@@ -10,13 +10,24 @@ const path = require('path');
 
 const SPL = "/";
 
+export function linkNodes(a: NodeDef, b: NodeDef) {
+    a.output.push(b.name);
+    b.input.push(a.name);
+}
 
+export function findOrMakeNode(g: { [key: string]: NodeDef }, n: Graphable, filter: Filter, settings: GraphSettings): NodeDef {
+    const nodeKey = n.getGraphKey(filter, settings);
+    if (!g[nodeKey]) {
+        g[nodeKey] = n.toNodeDef(filter, settings);
+    }
+    return g[nodeKey];
+}
 
 export function buildGraph(filter: Filter, project: CProject): NodeDef[] {
 
     // const apis = project.filteredAssumptions;
     const pos = project.filteredProofObligations;
-     
+
 
     let g: { [key: string]: NodeDef } = {};
 
@@ -35,9 +46,8 @@ export function buildGraph(filter: Filter, project: CProject): NodeDef[] {
          */
         assumption.ppos.forEach(linked => {
             if (filter.acceptIgnoreLocation(linked)) {
-                const cnode: NodeDef = linked.toNodeDef(filter, settings);
-                g[cnode.name] = cnode;
-                node.input.push(cnode.name);
+                const cnode = findOrMakeNode(g, linked, filter, settings);
+                linkNodes(cnode, node);
             }
         });
 
@@ -46,9 +56,9 @@ export function buildGraph(filter: Filter, project: CProject): NodeDef[] {
          */
         assumption.spos.forEach(linked => {
             if (filter.acceptIgnoreLocation(linked)) {
-                const cnode: NodeDef = linked.toNodeDef(filter, settings);
-                g[cnode.name] = cnode;
-                node.output.push(cnode.name);
+                const cnode = findOrMakeNode(g, linked, filter, settings);
+                linkNodes(node, cnode);
+
             }
         });
 
@@ -147,11 +157,13 @@ export function buildCallsGraph(filter: Filter, project: CProject): NodeDef[] {
     // );
 
 
+
     project.forEachFunction(func => {
 
         // if (filter.acceptCFunction(func)) {
         func.callsites.forEach(callsite => {
             // if (!callsite.isGlobal()) {
+
 
             if (filter.acceptCFunction(func) || filter.acceptCFunction(callsite.callee)) {
 
@@ -164,8 +176,10 @@ export function buildCallsGraph(filter: Filter, project: CProject): NodeDef[] {
                         const cnode = linkedSpo.toNodeDef(filter, settings);
                         nodesMap[cnode.name] = cnode;
 
-                        node.output.push(cnode.name);
-                        node.input.push(node.name);
+                        // node.output.push(cnode.name);
+                        // cnode.input.push(node.name);
+
+                        linkNodes(node, cnode);
                     }
 
                 });
@@ -198,98 +212,4 @@ export function buildCallsGraph(filter: Filter, project: CProject): NodeDef[] {
     return ret;
 }
 
-// function findOrBuildFuncNode(func: CFunction, nodesMap: { [key: string]: NodeDef }): NodeDef {
-//     const name = makeFunctionName(func);
-//     if (nodesMap[name]) {
-//         return nodesMap[name];
-//     } else {
-//         const node: NodeDef = cFunctionToNodeDef(func);
-//         nodesMap[node.name] = node;
-//         return node;
-//     }
-// }
 
-function makeFunctionName(node: CFunction): string {
-    return node.file + "/" + node.name;// + "/" + node.line;
-}
-
-
-
-// export function makeGraphNodePath(filter: Filter, settings: GraphSettings, func: CFunction, predicate: string, name: string): string {
-//     let pathParts: string[] = [];
-
-//     let fileBaseName: string = path.basename(func.fileInfo.relativePath);
-
-//     let addFile: boolean = !filter.file || (func.fileInfo.relativePath != filter.file.relativePath);
-//     let addFunction: boolean = !filter.cfunction || func.name != filter.cfunction.name;
-//     let addPredicate: boolean = predicate != filter.singlePredicate;
-
-//     if (settings.groupBy === GraphGrouppingOptions.file) {
-//         if (addFile) {
-//             pathParts.push(fileBaseName);
-//         }
-//         if (addFunction) {
-//             pathParts.push(func.name);
-//         }
-//         if (addPredicate) {
-//             pathParts.push(predicate);
-//         }
-//     } else {
-//         //same but different order
-//         if (addPredicate) {
-//             pathParts.push(predicate);
-//         }
-//         if (addFile) {
-//             pathParts.push(fileBaseName);
-//         }
-//         if (addFunction) {
-//             pathParts.push(func.name);
-//         }
-//     }
-
-//     pathParts.push(name);
-
-//     return pathParts.join(SPL);
-// }
-
-
-
-// export function cFunctionToNodeDef(func: CFunction): NodeDef {
-//     let nodeDef: NodeDef = {
-//         name: makeFunctionName(func),
-//         input: [],
-//         output: [],
-//         device: PoStates[3] + "-" + "rv",
-//         op: func.name,
-//         attr: {
-//             "label": (func.name + ":" + func.line),
-//             "predicate": "--",
-//             "state": PoStates[3],
-//             "location": func.funcLocation,
-//             "data": func
-//         }
-//     }
-//     return nodeDef;
-// }
-
-
-
-
-
-
-
-
-
-
-export function getLocationPath(node: NodeDef): string {
-    if (node) {
-        if (node.attr) {
-            //leaf node
-            return node.attr["locationPath"];
-        } else {
-            //meta group node
-            return node.name;
-        }
-    }
-    return "";
-}
