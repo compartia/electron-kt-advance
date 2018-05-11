@@ -16,7 +16,7 @@ export function buildGraph(filter: Filter, project: CProject): NodeDef[] {
 
     // const apis = project.filteredAssumptions;
     const pos = project.filteredProofObligations;
-
+     
 
     let g: { [key: string]: NodeDef } = {};
 
@@ -28,24 +28,28 @@ export function buildGraph(filter: Filter, project: CProject): NodeDef[] {
 
     project.filteredAssumptions.forEach(assumption => {
         const node: NodeDef = assumption.toNodeDef(filter, settings);
-        g[node.name] = node;  
+        g[node.name] = node;
 
         /*
          * Adding PPOs 
          */
         assumption.ppos.forEach(linked => {
-            const cnode: NodeDef = linked.toNodeDef(filter, settings);
-            g[cnode.name] = cnode;  
-            node.input.push(cnode.name);
+            if (filter.acceptIgnoreLocation(linked)) {
+                const cnode: NodeDef = linked.toNodeDef(filter, settings);
+                g[cnode.name] = cnode;
+                node.input.push(cnode.name);
+            }
         });
 
         /*
          * Adding SPOs 
          */
         assumption.spos.forEach(linked => {
-            const cnode: NodeDef = linked.toNodeDef(filter, settings);
-            g[cnode.name] = cnode; 
-            node.output.push(cnode.name);
+            if (filter.acceptIgnoreLocation(linked)) {
+                const cnode: NodeDef = linked.toNodeDef(filter, settings);
+                g[cnode.name] = cnode;
+                node.output.push(cnode.name);
+            }
         });
 
     });

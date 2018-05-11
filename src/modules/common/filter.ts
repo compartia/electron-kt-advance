@@ -130,7 +130,7 @@ export class Filter {
     set cfunction(_cfunction: CFunctionBase) {
         this._line = null;
         if (_cfunction) {
-            this.file.relativePath = _cfunction.relativePath;
+            this.file = _cfunction;
         }
         this._cfunction = _cfunction;
     }
