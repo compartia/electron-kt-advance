@@ -41,8 +41,8 @@ export interface HasPath {
     dir: boolean;
 }
 
-export interface FileInfo extends HasPath{
-    name: string;    
+export interface FileInfo extends HasPath {
+    name: string;
     icon: string;
     open: boolean;
     children: Array<FileInfo>;
@@ -61,8 +61,8 @@ export interface Symbol {
     pathLabel: String;
 }
 
-export interface HasLocation extends HasPath{
-    line: number;    
+export interface HasLocation extends HasPath {
+    line: number;
 }
 
 export interface HasCFunction {
@@ -75,7 +75,7 @@ export interface CApiAssumption extends HasCFunction, Graphable, HasLocation {
     file: string;
     functionName: string;
     location: POLocation;
-     
+
 
     predicate: string;
     expression: string;
@@ -85,8 +85,8 @@ export interface CApiAssumption extends HasCFunction, Graphable, HasLocation {
     spos: ProofObligation[];
     ppos: ProofObligation[];
 
-     
-     
+
+
 }
 
 export interface CApi {
@@ -114,10 +114,7 @@ export interface CFunction extends CFunctionBase {
 export interface Graphable {
     toNodeDef(filter: Filter, settings: GraphSettings): NodeDef;
     getGraphKey(filter: Filter, settings: GraphSettings): string;
-    // getLinkedNodes(filter: Filter): Graphable[];
 }
-
- 
 
 
 export interface Site extends Graphable, HasLocation {
@@ -130,7 +127,7 @@ export interface Returnsite extends Site {
 }
 
 export interface Callee extends Graphable, CFunctionBase {
-      
+
     loc: POLocation;
     type: string;
 }
@@ -168,7 +165,7 @@ export interface ProofObligation extends AbstractNode, Graphable, HasLocation {
 
     assumptionsIn: CApiAssumption[];
     assumptionsOut: CApiAssumption[];
- 
+
     isViolation(): boolean;
     isDischarged(): boolean;
 

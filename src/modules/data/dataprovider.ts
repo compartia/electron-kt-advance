@@ -228,13 +228,13 @@ class ApiAssumptionImpl extends AbstractLocatable implements CApiAssumption {
         };
 
 
-        this.ppos.forEach(po => {
-            nodeDef.input.push(po.getGraphKey(filter, settings));
-        });
+        // this.ppos.forEach(po => {
+        //     nodeDef.input.push(po.getGraphKey(filter, settings));
+        // });
 
-        this.spos.forEach(po => {
-            nodeDef.output.push(po.getGraphKey(filter, settings));
-        });
+        // this.spos.forEach(po => {
+        //     nodeDef.output.push(po.getGraphKey(filter, settings));
+        // });
 
 
         return nodeDef;
@@ -264,9 +264,7 @@ abstract class AbstractPO extends AbstractLocatable implements ProofObligation {
     abstract levelLabel: string;
     abstract location: POLocation;
 
-    get relativePath():string{
-        return this.location.file;
-    }
+    
 
     public constructor(ppo: json.JPPO, cfun: CFunction, indexer: CAnalysisImpl) {
         super();
@@ -339,17 +337,21 @@ abstract class AbstractPO extends AbstractLocatable implements ProofObligation {
         return this.cfunction.name;
     }
 
+    get relativePath():string{
+        return this.location.file;
+    }
+
 
     public getGraphKey(filter: Filter, settings: GraphSettings): string {
-        let nm = "po-" + this.levelLabel + "-" + this.id;
-
+        
         let pathParts: string[] = [];
         let addFunctionName = true;
-        const filePath = fileToGraphKey(this.location.file, this.functionName, filter, settings);
+        const filePath = fileToGraphKey(this.relativePath, this.functionName, filter, settings);
         if (filePath.length) {
             pathParts.push(filePath);
         }
 
+        let nm = "po-" + this.levelLabel + "-" + this.id;
         pathParts.push(nm);
 
         return encodeGraphKey(pathParts.join('/'));

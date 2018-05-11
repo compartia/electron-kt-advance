@@ -18,7 +18,6 @@ export function buildGraph(filter: Filter, project: CProject): NodeDef[] {
     const pos = project.filteredProofObligations;
 
 
-
     let g: { [key: string]: NodeDef } = {};
 
     let settings = new GraphSettings(); //XXX: provide real settings
@@ -29,17 +28,24 @@ export function buildGraph(filter: Filter, project: CProject): NodeDef[] {
 
     project.filteredAssumptions.forEach(assumption => {
         const node: NodeDef = assumption.toNodeDef(filter, settings);
-        g[node.name] = node; //XXX: make sure it is unique
+        g[node.name] = node;  
 
-
+        /*
+         * Adding PPOs 
+         */
         assumption.ppos.forEach(linked => {
             const cnode: NodeDef = linked.toNodeDef(filter, settings);
-            g[cnode.name] = cnode; //XXX: make sure it is unique
+            g[cnode.name] = cnode;  
+            node.input.push(cnode.name);
         });
 
+        /*
+         * Adding SPOs 
+         */
         assumption.spos.forEach(linked => {
             const cnode: NodeDef = linked.toNodeDef(filter, settings);
-            g[cnode.name] = cnode; //XXX: make sure it is unique
+            g[cnode.name] = cnode; 
+            node.output.push(cnode.name);
         });
 
     });
@@ -143,25 +149,25 @@ export function buildCallsGraph(filter: Filter, project: CProject): NodeDef[] {
         func.callsites.forEach(callsite => {
             // if (!callsite.isGlobal()) {
 
-                if (filter.acceptCFunction(func) || filter.acceptCFunction(callsite.callee)) {
+            if (filter.acceptCFunction(func) || filter.acceptCFunction(callsite.callee)) {
 
-                    const node = callsite.callee.toNodeDef(filter, settings);
-                    nodesMap[node.name] = node;
+                const node = callsite.callee.toNodeDef(filter, settings);
+                nodesMap[node.name] = node;
 
-                    callsite.getSPOs().forEach(linkedSpo => {
+                callsite.getSPOs().forEach(linkedSpo => {
 
-                        if (filter.acceptIgnoreLocation(linkedSpo)) {
-                            const cnode = linkedSpo.toNodeDef(filter, settings);
-                            nodesMap[cnode.name] = cnode;
+                    if (filter.acceptIgnoreLocation(linkedSpo)) {
+                        const cnode = linkedSpo.toNodeDef(filter, settings);
+                        nodesMap[cnode.name] = cnode;
 
-                            node.output.push(cnode.name);
-                            node.input.push(node.name);
-                        }
+                        node.output.push(cnode.name);
+                        node.input.push(node.name);
+                    }
 
-                    });
+                });
 
 
-                }
+            }
 
 
 
