@@ -1,4 +1,4 @@
-import { CFunction, FileInfo, ProofObligation, PoStates, PoStatesArr, PoDischargeTypesArr } from './xmltypes';
+import { CFunction, ProofObligation, PoStates, PoStatesArr, PoDischargeTypesArr, CFunctionBase, HasPath } from './xmltypes';
 import { StringSet, AnySet, isEmpty } from './collections';
 
 
@@ -23,8 +23,8 @@ export class Filter {
     private _dischargeTypes: StringSet = new StringSet([]);
 
 
-    private _cfunction: CFunction;
-    private _file: FileInfo;
+    private _cfunction: CFunctionBase;
+    private _file: HasPath;
     private _line: number = null;
 
 
@@ -57,7 +57,7 @@ export class Filter {
     }
 
 
-    get file(): FileInfo {
+    get file(): HasPath {
         return this._file;
     }
 
@@ -127,10 +127,10 @@ export class Filter {
         this._dischargeTypes.values = PoDischargeTypesArr;
     }
 
-    set cfunction(_cfunction: CFunction) {
+    set cfunction(_cfunction: CFunctionBase) {
         this._line = null;
         if (_cfunction) {
-            this.file = _cfunction.fileInfo;
+            this.file.relativePath = _cfunction.relativePath;
         }
         this._cfunction = _cfunction;
     }
@@ -150,7 +150,7 @@ export class Filter {
     }
 
 
-    set file(file: FileInfo) {
+    set file(file: HasPath) {
         if ((file && this._file) || (!file)) {
             if (file.relativePath != this._file.relativePath) {
                 this._cfunction = null;
@@ -167,10 +167,11 @@ export class Filter {
         return this.acceptCFunctionFile(po.cfunction);
     }
 
-    public acceptCFunctionFile(func: CFunction): boolean {
+    public acceptCFunctionFile(func: CFunctionBase): boolean {
         if (!this.fileName) {
             return true;
         } else {
+             
             if (!this._file.dir) {
                 return func.file == this.fileName;
             } else {
@@ -181,7 +182,7 @@ export class Filter {
     }
 
 
-    public acceptCFunction(func: CFunction): boolean {
+    public acceptCFunction(func: CFunctionBase): boolean {
         return (!this.cfunction || func.name == this.cfunction.name) && this.acceptCFunctionFile(func);
     }
 
@@ -243,7 +244,12 @@ export class Filter {
 
     public accept(po: ProofObligation): boolean {
         if(!po) return false;
-        return this.acceptState(po) && this.acceptLevel(po) && this.acceptFile(po) && this.acceptFunction(po) && this.acceptPredicate(po) && this.acceptDischargeType(po);
+        return this.acceptIgnoreLocation(po) && this.acceptFile(po) && this.acceptFunction(po);
+    }
+
+    public acceptIgnoreLocation(po: ProofObligation): boolean {
+        if(!po) return false;
+        return this.acceptState(po) && this.acceptLevel(po)  && this.acceptPredicate(po) && this.acceptDischargeType(po);
     }
 
     // public acceptApi(po: ApiNode): boolean {

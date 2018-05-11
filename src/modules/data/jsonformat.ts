@@ -19,8 +19,7 @@ export interface JPPO {
 
 
 export interface JLocation extends POLocation{
-    line: number;
-    file: string;
+     
 }
 
 export interface JVarInfo {
@@ -28,10 +27,18 @@ export interface JVarInfo {
     name: string;
 }
 
-export interface JCallsite {
-    spos: JSPO[];
-    callee: JVarInfo;
+export interface JSite {
+    spos: JSPO[];     
     type: string;
+    loc: JLocation;
+}
+
+export interface JCallsite extends JSite{     
+    callee: JVarInfo;    
+}
+
+export interface JReturnsite extends JSite{     
+      
 }
 
 export interface JSPO extends JPPO {
@@ -54,6 +61,7 @@ export interface JFunc {
     name: string;
     ppos: JPPO[];
     callsites: JCallsite[];
+    returnsites: JCallsite[];
     api: JApi;
     loc: JLocation;
 }

@@ -1,6 +1,6 @@
 import * as tools from './common/tools';
 
-import { CFunction, CApiAssumption, CApi } from './common/xmltypes';
+import { CFunction, CApiAssumption, CApi, SecondaryProofObligation } from './common/xmltypes';
 import { CProject, GraphSettings, GraphGrouppingOptions } from './common/globals'
 import { Filter } from './common/filter'
 import { ProofObligation, PoStates, sortNodes, POLocation } from './common/xmltypes'
@@ -32,15 +32,19 @@ export function buildGraph(filter: Filter, project: CProject): NodeDef[] {
         g[node.name] = node; //XXX: make sure it is unique
 
 
-        assumption.getLinkedNodes(filter).forEach(linked => {
+        assumption.ppos.forEach(linked => {
             const cnode: NodeDef = linked.toNodeDef(filter, settings);
             g[cnode.name] = cnode; //XXX: make sure it is unique
+        });
 
+        assumption.spos.forEach(linked => {
+            const cnode: NodeDef = linked.toNodeDef(filter, settings);
+            g[cnode.name] = cnode; //XXX: make sure it is unique
         });
 
     });
 
- 
+
     linkNodes2way(g);
 
     let ret: NodeDef[] = [];
@@ -113,29 +117,62 @@ export function buildCallsGraph(filter: Filter, project: CProject): NodeDef[] {
     // this.filter.acceptCFunction
     let nodesMap: { [key: string]: NodeDef } = {};
 
-
     let settings = new GraphSettings();
+
+    // project.proofObligations.forEach(
+    //     po => {
+    //         if ((<SecondaryProofObligation>po).callsite) {
+    //             if (filter.accept(po)) {
+
+    //                 const cnode = (<SecondaryProofObligation>po).callsite.toNodeDef(filter, settings);
+    //                 nodesMap[cnode.name] = cnode;
+
+    //                 const pnode = po.toNodeDef(filter, settings);
+    //                 nodesMap[pnode.name] = pnode;
+
+    //                 pnode.output.push[cnode.name];
+    //             }
+    //         }
+    //     }
+    // );
+
+
     project.forEachFunction(func => {
 
-        if (filter.acceptCFunction(func)) {
-            func.callsites.forEach(callsite => {
+        // if (filter.acceptCFunction(func)) {
+        func.callsites.forEach(callsite => {
+            // if (!callsite.isGlobal()) {
 
-                if (!callsite.isGlobal()) {
-                    const node = callsite.toNodeDef(filter, settings);
+                if (filter.acceptCFunction(func) || filter.acceptCFunction(callsite.callee)) {
+
+                    const node = callsite.callee.toNodeDef(filter, settings);
                     nodesMap[node.name] = node;
 
-                    callsite.getLinkedNodes(filter).forEach(linked => {
-                        const cnode = linked.toNodeDef(filter, settings);
-                        nodesMap[cnode.name] = cnode;
+                    callsite.getSPOs().forEach(linkedSpo => {
+
+                        if (filter.acceptIgnoreLocation(linkedSpo)) {
+                            const cnode = linkedSpo.toNodeDef(filter, settings);
+                            nodesMap[cnode.name] = cnode;
+
+                            node.output.push(cnode.name);
+                            node.input.push(node.name);
+                        }
+
                     });
+
+
                 }
 
 
-            });
-        }
+
+            // }
+
+
+        });
+        // }
     });
 
-   
+
 
     linkNodes2way(nodesMap);
 
@@ -168,42 +205,42 @@ function makeFunctionName(node: CFunction): string {
 
 
 
-export function makeGraphNodePath(filter: Filter, settings: GraphSettings, func: CFunction, predicate: string, name: string): string {
-    let pathParts: string[] = [];
+// export function makeGraphNodePath(filter: Filter, settings: GraphSettings, func: CFunction, predicate: string, name: string): string {
+//     let pathParts: string[] = [];
 
-    let fileBaseName: string = path.basename(func.fileInfo.relativePath);
+//     let fileBaseName: string = path.basename(func.fileInfo.relativePath);
 
-    let addFile: boolean = !filter.file || (func.fileInfo.relativePath != filter.file.relativePath);
-    let addFunction: boolean = !filter.cfunction || func.name != filter.cfunction.name;
-    let addPredicate: boolean = predicate != filter.singlePredicate;
+//     let addFile: boolean = !filter.file || (func.fileInfo.relativePath != filter.file.relativePath);
+//     let addFunction: boolean = !filter.cfunction || func.name != filter.cfunction.name;
+//     let addPredicate: boolean = predicate != filter.singlePredicate;
 
-    if (settings.groupBy === GraphGrouppingOptions.file) {
-        if (addFile) {
-            pathParts.push(fileBaseName);
-        }
-        if (addFunction) {
-            pathParts.push(func.name);
-        }
-        if (addPredicate) {
-            pathParts.push(predicate);
-        }
-    } else {
-        //same but different order
-        if (addPredicate) {
-            pathParts.push(predicate);
-        }
-        if (addFile) {
-            pathParts.push(fileBaseName);
-        }
-        if (addFunction) {
-            pathParts.push(func.name);
-        }
-    }
+//     if (settings.groupBy === GraphGrouppingOptions.file) {
+//         if (addFile) {
+//             pathParts.push(fileBaseName);
+//         }
+//         if (addFunction) {
+//             pathParts.push(func.name);
+//         }
+//         if (addPredicate) {
+//             pathParts.push(predicate);
+//         }
+//     } else {
+//         //same but different order
+//         if (addPredicate) {
+//             pathParts.push(predicate);
+//         }
+//         if (addFile) {
+//             pathParts.push(fileBaseName);
+//         }
+//         if (addFunction) {
+//             pathParts.push(func.name);
+//         }
+//     }
 
-    pathParts.push(name);
+//     pathParts.push(name);
 
-    return pathParts.join(SPL);
-}
+//     return pathParts.join(SPL);
+// }
 
 
 

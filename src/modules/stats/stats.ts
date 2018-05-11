@@ -1,7 +1,7 @@
 import * as _ from "lodash"
 
 // import *  as xml from 'xml-kt-advance/lib/xml/xml_types';
-import { FileInfo, CFunction, ProofObligation, PoLevels, PoStates } from '../common/xmltypes'
+import { FileInfo, CFunction, ProofObligation, PoLevels, PoStates, HasPath, HasLocation } from '../common/xmltypes'
 // import { ApiNode } from 'xml-kt-advance/lib/model/api_node';
 import { updateChart } from './chart';
 
@@ -39,7 +39,7 @@ export class Stats {
     byFunction: StatsTable<CFunction>;
 
     // complexityByFunction: StatsTable<CFunction>;
-    byFile: StatsTable<FileInfo>;
+    byFile: StatsTable<HasLocation>;
     byFileLine: StatsTable<string>;
 
     // predicateByComplexity: StatsTable<string>;
@@ -48,7 +48,7 @@ export class Stats {
     assumptionsByFunction: StatsTable<CFunction>;
     inAssumptionsByFunction: StatsTable<CFunction>;
 
-    dependenciesByFile: StatsTable<FileInfo>;
+    dependenciesByFile: StatsTable<HasPath>;
 
 
     private _primaryPredicatesCount: StatsTable<string>;
@@ -80,7 +80,7 @@ export class Stats {
         this.byDischargeType = new StatsTable<string>();
         this.byState = new StatsTable<string>();
         this.byFunction = new StatsTable<CFunction>();
-        this.byFile = new StatsTable<FileInfo>();
+        this.byFile = new StatsTable<HasLocation>();
         // this.complexityByFile = new StatsTable<FileInfo>();
 
         this.byFileLine = new StatsTable<string>();
@@ -154,7 +154,7 @@ export class Stats {
 
 
             this.assumptionsByFunction.bind(functionKey, po.cfunction);
-            this.dependenciesByFile.bind(po.file, po.cfunction.fileInfo);
+            this.dependenciesByFile.bind(po.file, po);
 
             // for (let cCode of CPG) {
             //     this.complexityByFunction.inc(functionKey, Complexitiy[Complexitiy[cCode]], po.complexity[Complexitiy[cCode]]);
@@ -169,8 +169,8 @@ export class Stats {
             // this.complexityByFunction.inc(functionKey, po.level, 1);
             // this.complexityByFunction.bind(functionKey, po.cfunction);
             //------------
-            this.byFile.inc(po.cfunction.fileInfo.relativePath, state, 1);
-            this.byFile.bind(po.cfunction.fileInfo.relativePath, po.cfunction.fileInfo);
+            this.byFile.inc(po.file , state, 1);
+            this.byFile.bind(po.file, po);
             //------------
             this.byState.inc(state, DEF_COL_NAME, 1);
             this.byState.bind(state, state);
@@ -288,14 +288,14 @@ export class Stats {
     public updateDependenciesByFileChart(maxRows: number, scene, container: d3.Selection<any>) {
         const table = this.dependenciesByFile;
         const columnNames = table.columnNames;
-        const data: Array<NamedArray<FileInfo>> = table.getTopRows(maxRows);
+        const data: Array<NamedArray<HasPath>> = table.getTopRows(maxRows);
 
         updateChart(scene, container,
             {
                 data: data,
                 colors: (x, index) => "var(--kt-state-assumption-" + columnNames[index] + "-bg)",
                 columnNames: columnNames,
-                label: (x: NamedArray<FileInfo>) => {
+                label: (x: NamedArray<HasPath>) => {
                     return x.object.relativePath;
                 },
                 max: null
@@ -315,7 +315,7 @@ export class Stats {
                 colors: (x, index) => "var(--kt-state-assumption-" + columnNames[index] + "-bg)",
                 columnNames: columnNames,
                 label: (x: NamedArray<CFunction>) => {
-                    return x.object.fileInfo.relativePath;
+                    return x.object.relativePath;
                 },
 
                 max: null
@@ -327,7 +327,7 @@ export class Stats {
     public updatePoByFileChart(scene, container: d3.Selection<any>) {
         const table = this.byFile;
         const columnNames = table.columnNames;
-        const data: Array<NamedArray<FileInfo>> = table.getTopRows(10);
+        const data: Array<NamedArray<HasPath>> = table.getTopRows(10);
 
 
 
@@ -336,7 +336,7 @@ export class Stats {
                 data: data,
                 colors: (x, index) => "var(--kt-state-" + columnNames[index] + "-default-bg)",
                 columnNames: columnNames,
-                label: (x: NamedArray<FileInfo>) => {
+                label: (x: NamedArray<HasPath>) => {
                     return x.object.relativePath;
                 },
                 max: null
