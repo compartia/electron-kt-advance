@@ -61,6 +61,7 @@ po-list {
     font-size: $font-size-sm;
 }
 
+c-entity-line,
 assumption-line,
 po-line {
     .row > span {
@@ -92,8 +93,9 @@ po-line {
             }
 
             .predicate-arg {
-                color      : $grey;
-                font-family: $monospaced;
+                font: $font-code;
+                font-size     : $font-smaler;
+                color: var(--kt-grey-dark);
             }
         }
 

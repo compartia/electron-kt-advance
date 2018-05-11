@@ -4,7 +4,7 @@ import {
     FileInfo, ProofObligation, AbstractNode,
     Symbol, PoStates, PODischarge, POLocation, Callsite,
     CApi, CApiAssumption,
-    CFunction, sortPoNodes, Graphable, SecondaryProofObligation, Site, Returnsite, Callee, CFunctionBase, HasPath
+    CFunction, sortPoNodes, Graphable, SecondaryProofObligation, Site, Returnsite, Callee, CFunctionBase, HasPath, RenderInfo
 } from '../common/xmltypes';
 
 
@@ -116,6 +116,7 @@ class CFunctionImpl extends AbstractLocatable implements CFunction {
 class ApiAssumptionImpl extends AbstractLocatable implements CApiAssumption {
     a: json.JAssumption;
     cfunction: CFunction;
+    renderInfo: RenderInfo;
 
     get file() {
         return this.cfunction.file;
@@ -256,7 +257,7 @@ function linkKey(link: json.JPoLink | ProofObligation): string {
 
 abstract class AbstractPO extends AbstractLocatable implements ProofObligation {
     links: json.JPoLink[];
-
+    renderInfo: RenderInfo;
     indexer: CAnalysisImpl;
 
     assumptionsIn: CApiAssumption[] = [];
@@ -292,7 +293,7 @@ abstract class AbstractPO extends AbstractLocatable implements ProofObligation {
 
 
     get label() {
-        return this.levelLabel + " [" + this.id + "] " + this.predicate;
+        return "[L" + this.line + "] " + this.predicate + (this.levelLabel == "II" ? " II" : "");
     }
 
 
@@ -524,21 +525,23 @@ abstract class AbstractSiteImpl extends AbstractLocatable implements Site, Graph
         this.spos.push(spo);
     }
 
-
-
-
-
     getSPOs(): SecondaryProofObligation[] {
         return this.spos;
     }
 }
 
 export class CalleeImpl extends AbstractLocatable implements Callee, CFunctionBase {
+    renderInfo: RenderInfo;
     relativePath: string;
 
     get name(): string {
         return this.varinfo.name;
     }
+
+    get functionName() {
+        return this.name;
+    }
+
     type: string;
     loc: POLocation;
 
@@ -548,6 +551,10 @@ export class CalleeImpl extends AbstractLocatable implements Callee, CFunctionBa
 
     get file() {
         return this.relativePath;
+    }
+
+    get arguments() {
+        return this.varinfo.type; 
     }
 
     private varinfo: json.JVarInfo;
@@ -720,7 +727,6 @@ export class ReturnsiteImpl extends AbstractSiteImpl implements Returnsite, Grap
 }
 
 export class CAnalysisJsonReaderImpl implements XmlReader {
-
     projectDir: string;
     cAnalysisResult: CAnalysisImpl;
 

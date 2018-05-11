@@ -1,4 +1,4 @@
-<dom-module id="po-line">
+<dom-module id="c-entity-line">
     <template>
 
         <div class$="po row [[item.renderInfo.clazz]]" title$="[[item.stateName]] id:[[item.id]] [[item.file]]/[[item.functionName]]:[[item.line]]">
@@ -12,24 +12,23 @@
 
 
             <span class='mid'>
-                <!-- <template is="dom-if" if="[[item.dischargeType]]">
-                     <span class="discharge">{{item.dischargeType}}</span>
-                </template> -->
 
                 <span class="predicate">
-                    <span class="predicate-name">
-                        [[item.predicate]]
-                    </span>
-                    <template is="dom-if" if="[[item.predicateArgument]]">
-                        (
-                        <span class="predicate-arg">[[item.predicateArgument]]</span>)
+                    <template is="dom-if" if="[[item.predicate]]">
+                        <span class="predicate-name">
+                            [[item.predicate]]
+                        </span>
+                    </template>
+                    <template is="dom-if" if="[[predicateArgument]]">
+                        <span class="predicate-arg">[[predicateArgument]]</span>
                     </template>
                 </span>
 
-
-                <span class='expression'>
-                    [[item.expression]]
-                </span>
+                <template is="dom-if" if="[[item.expression]]">
+                    <span class='expression'>
+                        [[item.expression]]
+                    </span>
+                </template>
 
 
                 <template is="dom-if" if="[[!hideDescription]]">
@@ -70,7 +69,7 @@
 
     <script>
         Polymer({
-            is: 'po-line',
+            is: 'c-entity-line',
 
             properties: {
                 item: Object,
@@ -79,14 +78,21 @@
                     value: false
                 },
                 linktosource: Boolean,
-                showassumptions: Boolean
+                showassumptions: Boolean,
+                predicateArgument: {
+                    type: Boolean,
+                    computed: "_getPredicateArgument(item)"
+                }
+            },
+
+            _getPredicateArgument: function (item) {
+                return item.predicateArgument ? "(" + item.predicateArgument + ")" : item.name + item.arguments;
             },
 
             jumpToSource: function (event) {
                 var item = event.currentTarget.data;
                 this.fire("jump-to-src", item);
             },
-
 
 
 

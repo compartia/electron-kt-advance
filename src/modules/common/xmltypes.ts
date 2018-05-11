@@ -28,6 +28,24 @@ export interface AssumptionNodeAttributes extends CommonNodeAttributes {
     data: CApiAssumption;
 }
 
+
+export class RenderInfo {
+    clazz: string;
+    icon: string;
+
+    get key(): string {
+        return RenderInfo.key(this.clazz, this.icon);
+    }
+
+    public static key(clazz: string, icon: string) {
+        return clazz + "@" + icon;
+    }
+}
+
+export interface HasRenderInfo {
+    renderInfo: RenderInfo;
+}
+
 export interface PONodeAttributes extends CommonNodeAttributes {
     data: ProofObligation;
     predicate: string;
@@ -71,7 +89,7 @@ export interface HasCFunction {
     functionName: string;
 }
 
-export interface CApiAssumption extends HasCFunction, Graphable, HasLocation {
+export interface CApiAssumption extends HasCFunction, Graphable, HasLocation, HasRenderInfo {
     file: string;
     functionName: string;
     location: POLocation;
@@ -84,9 +102,6 @@ export interface CApiAssumption extends HasCFunction, Graphable, HasLocation {
 
     spos: ProofObligation[];
     ppos: ProofObligation[];
-
-
-
 }
 
 export interface CApi {
@@ -126,10 +141,11 @@ export interface Site extends Graphable, HasLocation {
 export interface Returnsite extends Site {
 }
 
-export interface Callee extends Graphable, CFunctionBase {
-
+export interface Callee extends Graphable, CFunctionBase, HasRenderInfo {
+    functionName: String,
     loc: POLocation;
     type: string;
+    arguments: string;
 }
 
 export interface Callsite extends Site {
@@ -161,7 +177,7 @@ export interface AbstractNode extends POId {
 
 
 
-export interface ProofObligation extends AbstractNode, Graphable, HasLocation {
+export interface ProofObligation extends AbstractNode, Graphable, HasLocation, HasRenderInfo {
 
     assumptionsIn: CApiAssumption[];
     assumptionsOut: CApiAssumption[];
