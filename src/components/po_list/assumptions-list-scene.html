@@ -56,8 +56,8 @@
                 var posIn = [];
                 var posOut = [];
                 for (var i = 0; i < list.length; i++) {
-                    posIn = posIn.concat(list[i].inputs);
-                    posOut = posOut.concat(list[i].outputs);
+                    posIn = posIn.concat(list[i].ppos);
+                    posOut = posOut.concat(list[i].spos);
                 }
 
                 // pos = model.sortPoNodes(_.uniq(pos));

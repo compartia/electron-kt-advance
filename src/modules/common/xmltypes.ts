@@ -5,13 +5,14 @@ export enum PoDischargeTypes { a, f, x, i, s };
 export const PoLevels = ["primary", "secondary"];
 
 export const PoDischargeTypesArr: Array<string> = ["a", "f", "x", "i", "s"];
- 
+
 export const PoStatesArr: Array<PoStates> = [PoStates.violation, PoStates.open, PoStates.discharged, PoStates.deadcode];
 export enum PoStatesExt { violation, open, discharged, deadcode, global, invariants, ds, rv, api };
 
 import { NodeDef, NodeAttributes } from '../tf_graph_common/lib/proto'
 import { Filter } from './filter'
 import { GraphSettings } from './globals'
+import { JVarInfo } from "../data/jsonformat";
 
 
 export interface CommonNodeAttributes extends NodeAttributes {
@@ -20,7 +21,7 @@ export interface CommonNodeAttributes extends NodeAttributes {
 }
 
 export interface CallsiteNodeAttributes extends CommonNodeAttributes {
-    data: Callsite;
+    data: Site | JVarInfo;
 }
 
 export interface AssumptionNodeAttributes extends CommonNodeAttributes {
@@ -35,9 +36,13 @@ export interface PONodeAttributes extends CommonNodeAttributes {
     discharge: PODischarge;
 }
 
-export interface FileInfo {
-    name: string;
+export interface HasPath {
     relativePath: string;
+    dir: boolean;
+}
+
+export interface FileInfo extends HasPath {
+    name: string;
     icon: string;
     open: boolean;
     children: Array<FileInfo>;
@@ -56,54 +61,7 @@ export interface Symbol {
     pathLabel: String;
 }
 
-export interface CApiAssumption extends Graphable {
-
-}
-
-export interface CApi {
-    apiAssumptions: CApiAssumption[];
-}
-
-export interface CFunction {
-    name: string;
-    file: string;
-    fileInfo: FileInfo;
-    funcLocation: POLocation;
-    line: number;
-
-    api: CApi;
-    callsites: Callsite[];
-
-    getPPObyId(id: number): ProofObligation;
-    getSPObyId(id: number): ProofObligation;
-}
-
-export interface Graphable {
-    toNodeDef(filter: Filter, settings: GraphSettings): NodeDef;
-    getGraphKey(filter: Filter, settings: GraphSettings): string;
-    linkedNodes: Graphable[];
-}
-
-export interface Assumption extends AbstractNode {
-
-}
-
-
-export interface ApiAssumption extends Assumption, Graphable {
-
-}
-
-
-export interface Callsite extends Graphable {
-    // cfunction: CFunction;
-    name: String;
-    line: number;
-    isGlobal(): boolean;
-    cfunction: CFunction;
-
-}
-
-export interface POLocation {
+export interface HasLocation extends HasPath {
     line: number;
 }
 
@@ -113,13 +71,88 @@ export interface HasCFunction {
     functionName: string;
 }
 
+export interface CApiAssumption extends HasCFunction, Graphable, HasLocation {
+    file: string;
+    functionName: string;
+    location: POLocation;
+
+
+    predicate: string;
+    expression: string;
+
+    assumptionType: string;
+
+    spos: ProofObligation[];
+    ppos: ProofObligation[];
+
+
+
+}
+
+export interface CApi {
+    apiAssumptions: CApiAssumption[];
+}
+export interface CFunctionBase extends HasLocation {
+    name: string;
+    file: string;
+}
+
+export interface CFunction extends CFunctionBase {
+
+    loc: POLocation;
+
+
+    api: CApi;
+    callsites: Callsite[];
+
+    fullpath: string;
+
+    getPPObyId(id: number): ProofObligation;
+    getSPObyId(id: number): ProofObligation;
+}
+
+export interface Graphable {
+    toNodeDef(filter: Filter, settings: GraphSettings): NodeDef;
+    getGraphKey(filter: Filter, settings: GraphSettings): string;
+}
+
+
+export interface Site extends Graphable, HasLocation {
+    name: String;
+    location: POLocation;
+    getSPOs(): SecondaryProofObligation[];
+}
+
+export interface Returnsite extends Site {
+}
+
+export interface Callee extends Graphable, CFunctionBase {
+
+    loc: POLocation;
+    type: string;
+}
+
+export interface Callsite extends Site {
+    callee: Callee;
+    isGlobal(): boolean;
+}
+
+/**
+ * @deprecated
+ * create location info, merge it with ile info
+ */
+export interface POLocation {
+    line: number;
+    file: string;
+}
+
+
 export interface POId extends HasCFunction {
     id: string;
 }
 
 export interface AbstractNode extends POId {
-    // inputs: AbstractNode[];
-    // outputs: AbstractNode[];
+
     location: POLocation;
     symbol: Symbol;
 
@@ -128,7 +161,10 @@ export interface AbstractNode extends POId {
 
 
 
-export interface ProofObligation extends AbstractNode, Graphable {
+export interface ProofObligation extends AbstractNode, Graphable, HasLocation {
+
+    assumptionsIn: CApiAssumption[];
+    assumptionsOut: CApiAssumption[];
 
     isViolation(): boolean;
     isDischarged(): boolean;
@@ -151,6 +187,9 @@ export interface ProofObligation extends AbstractNode, Graphable {
     state: PoStates;
 }
 
+export interface SecondaryProofObligation extends ProofObligation {
+    callsite: Site;
+}
 
 export interface CApplication {
 
@@ -162,6 +201,7 @@ export interface CAnalysis {
     appByDirMap: { [key: string]: CApplication }
 
     functionByFile: { [key: string]: Array<CFunction> };
+    assumptions: Array<CApiAssumption>
 }
 
 

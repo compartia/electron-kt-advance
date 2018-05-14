@@ -1,8 +1,10 @@
-import { CFunction, CApiAssumption, CApi } from './common/xmltypes';
+import * as tools from './common/tools';
+
+import { CFunction, CApiAssumption, CApi, SecondaryProofObligation } from './common/xmltypes';
 import { CProject, GraphSettings, GraphGrouppingOptions } from './common/globals'
 import { Filter } from './common/filter'
 import { ProofObligation, PoStates, sortNodes, POLocation } from './common/xmltypes'
-import { NodeDef } from './tf_graph_common/lib/proto'
+import { NodeDef, NodeAttributes } from './tf_graph_common/lib/proto'
 
 const path = require('path');
 
@@ -14,10 +16,9 @@ export function buildGraph(filter: Filter, project: CProject): NodeDef[] {
 
     // const apis = project.filteredAssumptions;
     const pos = project.filteredProofObligations;
+     
 
-
-
-    let g: NodeDef[] = [];
+    let g: { [key: string]: NodeDef } = {};
 
     let settings = new GraphSettings(); //XXX: provide real settings
 
@@ -25,119 +26,176 @@ export function buildGraph(filter: Filter, project: CProject): NodeDef[] {
         adding assumptiosn to graph
     */
 
+    project.filteredAssumptions.forEach(assumption => {
+        const node: NodeDef = assumption.toNodeDef(filter, settings);
+        g[node.name] = node;
 
+        /*
+         * Adding PPOs 
+         */
+        assumption.ppos.forEach(linked => {
+            if (filter.acceptIgnoreLocation(linked)) {
+                const cnode: NodeDef = linked.toNodeDef(filter, settings);
+                g[cnode.name] = cnode;
+                node.input.push(cnode.name);
+            }
+        });
 
-    project.forEachFunction(func => {
+        /*
+         * Adding SPOs 
+         */
+        assumption.spos.forEach(linked => {
+            if (filter.acceptIgnoreLocation(linked)) {
+                const cnode: NodeDef = linked.toNodeDef(filter, settings);
+                g[cnode.name] = cnode;
+                node.output.push(cnode.name);
+            }
+        });
 
-        func.api.apiAssumptions &&
-            func.api.apiAssumptions.forEach(assumption => {
-                g.push(assumption.toNodeDef(filter, settings));
-
-                assumption.linkedNodes.forEach(linked => {
-                    g.push(linked.toNodeDef(filter, settings));
-                });
-
-            });
     });
 
-    /*
-        adding proo obligatoins to graph
-    */
-    for (let ppo of pos) {
-        if (ppo.isLinked()) {
-            let node: NodeDef = ppo.toNodeDef(filter, settings);
 
-            g.push(node);
+    linkNodes2way(g);
 
-            ppo.linkedNodes.forEach(linked => {
-                g.push(linked.toNodeDef(filter, settings));
-            });
-
-        }
+    let ret: NodeDef[] = [];
+    for (let key in g) {
+        ret.push(g[key]);
     }
 
-    // if (apis) {
-    //     for (var api of apis) {
-    //         if (api.isLinked()) {
-    //             let node: NodeDef = apiNodeToNodeDef(api, filter, settings);
-    //             g.push(node);
-    //         }
-    //     }
-    // }
+    console.info["NUMBER of nodes: " + ret.length];
 
-    console.info["NUMBER of nodes: " + g.length];
-    return g;
+    ret = removeOrphans(ret);
+
+    return ret;
+}
+
+
+function linkNodes2way(g: { [key: string]: NodeDef }) {
+    for (let key in g) {
+        let node = g[key];
+
+        node.output.forEach(linkedKey => {
+
+            if (!g[linkedKey]) {
+                // console.error(key + " lists key " + linkedKey + " in outputs, but this node is not in graph");
+                g[linkedKey] = makeMissingNode(linkedKey);
+            }
+
+            tools.pushUnique(g[linkedKey].input, key);
+
+        });
+    }
+
+    for (let key in g) {
+        let node = g[key];
+
+        node.input.forEach(linkedKey => {
+            if (!g[linkedKey]) {
+                // console.error(key + " lists key " + linkedKey + " in inputs, but this node is not in graph");
+                g[linkedKey] = makeMissingNode(linkedKey);
+            }
+
+            tools.pushUnique(g[linkedKey].output, key);
+
+        });
+    }
+}
+
+function makeMissingNode(linkedKey: String): NodeDef {
+    const ret = <NodeDef>{
+        name: linkedKey,
+        input: [],
+        output: [],
+        device: "missing",
+        op: "missing",
+        attr: <NodeAttributes>{
+            state: "missing",
+            // label:"MISSING"
+        }
+    }
+    return ret;
+}
+
+function removeOrphans(g: NodeDef[]): NodeDef[] {
+    return g.filter(n => (n.output.length > 0 || n.input.length > 0));
 }
 
 export function buildCallsGraph(filter: Filter, project: CProject): NodeDef[] {
     // const calls: FunctionCalls[] = project.calls;
+    // const pos = project.filteredProofObligations;
 
+    // this.filter.acceptCFunction
     let nodesMap: { [key: string]: NodeDef } = {};
 
-    let g: NodeDef[] = [];
     let settings = new GraphSettings();
+
+    // project.proofObligations.forEach(
+    //     po => {
+    //         if ((<SecondaryProofObligation>po).callsite) {
+    //             if (filter.accept(po)) {
+
+    //                 const cnode = (<SecondaryProofObligation>po).callsite.toNodeDef(filter, settings);
+    //                 nodesMap[cnode.name] = cnode;
+
+    //                 const pnode = po.toNodeDef(filter, settings);
+    //                 nodesMap[pnode.name] = pnode;
+
+    //                 pnode.output.push[cnode.name];
+    //             }
+    //         }
+    //     }
+    // );
+
+
     project.forEachFunction(func => {
 
+        // if (filter.acceptCFunction(func)) {
         func.callsites.forEach(callsite => {
-            // if (filter.acceptCFunction(func )) {
+            // if (!callsite.isGlobal()) {
 
-            if (!callsite.isGlobal()) {
-                g.push(callsite.toNodeDef(filter, settings));
+            if (filter.acceptCFunction(func) || filter.acceptCFunction(callsite.callee)) {
 
-                callsite.linkedNodes.forEach(linked => {
-                    g.push(linked.toNodeDef(filter, settings));
+                const node = callsite.callee.toNodeDef(filter, settings);
+                nodesMap[node.name] = node;
+
+                callsite.getSPOs().forEach(linkedSpo => {
+
+                    if (filter.acceptIgnoreLocation(linkedSpo)) {
+                        const cnode = linkedSpo.toNodeDef(filter, settings);
+                        nodesMap[cnode.name] = cnode;
+
+                        node.output.push(cnode.name);
+                        node.input.push(node.name);
+                    }
+
                 });
+
+
             }
 
 
+
+            // }
+
+
         });
+        // }
     });
 
 
-    // if (calls) {
-    //     for (let call of calls) {
-    //         if (call.callSites.length) {
-    //             if (filter.acceptCFunction(call.cfunction)) {
-    //                 const node = findOrBuildFuncNode(call.cfunction, nodesMap);
-    //                 for (let ref of call.callSites) {
-    //                     const refnode = findOrBuildFuncNode(ref, nodesMap);
-    //                     node.output.push(refnode.name);
-    //                     refnode.input.push(node.name);
-    //                 }
-    //             }
 
-    //         }
-    //     }
-    // }
+    linkNodes2way(nodesMap);
 
-    // const ret: NodeDef[] = [];
-    // const keys: string[] = [];
-    // for (let nm in nodesMap) {
-    //     ret.push(nodesMap[nm]);
-    //     keys.push(nm);
-    // }
+    let ret: NodeDef[] = [];
+    for (let key in nodesMap) {
+        ret.push(nodesMap[key]);
+    }
 
-    // let _sharedStart: string = sharedStart(keys);
-    // let _sharedStartLen = _sharedStart.length;
-    // if (_sharedStartLen) {
-    //     for (let node of ret) {
-    //         node.name = node.name.substr(_sharedStartLen);
-    //         let newInputs = [];
-    //         for (let ref of node.input) {
-    //             newInputs.push(ref.substr(_sharedStartLen));
-    //         }
-    //         node.input = newInputs;
+    console.info["NUMBER of nodes: " + ret.length];
 
-    //         let newOut = [];
-    //         for (let ref of node.output) {
-    //             newOut.push(ref.substr(_sharedStartLen));
-    //         }
-    //         node.output = newOut;
-    //     }
-    // }
+    ret = removeOrphans(ret);
 
-    // console.info["NUMBER of call nodes: " + ret.length];
-    return g;
+    return ret;
 }
 
 // function findOrBuildFuncNode(func: CFunction, nodesMap: { [key: string]: NodeDef }): NodeDef {
@@ -155,55 +213,44 @@ function makeFunctionName(node: CFunction): string {
     return node.file + "/" + node.name;// + "/" + node.line;
 }
 
-function sharedStart(array: string[]): string {
-    if (!array || !array.length) {
-        return '';
-    }
-    const A = array.concat().sort();
-    let a1 = A[0];
-    let a2 = A[A.length - 1];
-    let L = a1.length;
-    let i = 0;
-    while (i < L && a1.charAt(i) === a2.charAt(i)) i++;
-    return a1.substring(0, i);
-}
 
-export function makeGraphNodePath(filter: Filter, settings: GraphSettings, func: CFunction, predicate: string, name: string): string {
-    let pathParts: string[] = [];
 
-    let fileBaseName: string = path.basename(func.fileInfo.relativePath);
+// export function makeGraphNodePath(filter: Filter, settings: GraphSettings, func: CFunction, predicate: string, name: string): string {
+//     let pathParts: string[] = [];
 
-    let addFile: boolean = !filter.file || (func.fileInfo.relativePath != filter.file.relativePath);
-    let addFunction: boolean = !filter.cfunction || func.name != filter.cfunction.name;
-    let addPredicate: boolean = predicate != filter.singlePredicate;
+//     let fileBaseName: string = path.basename(func.fileInfo.relativePath);
 
-    if (settings.groupBy === GraphGrouppingOptions.file) {
-        if (addFile) {
-            pathParts.push(fileBaseName);
-        }
-        if (addFunction) {
-            pathParts.push(func.name);
-        }
-        if (addPredicate) {
-            pathParts.push(predicate);
-        }
-    } else {
-        //same but different order
-        if (addPredicate) {
-            pathParts.push(predicate);
-        }
-        if (addFile) {
-            pathParts.push(fileBaseName);
-        }
-        if (addFunction) {
-            pathParts.push(func.name);
-        }
-    }
+//     let addFile: boolean = !filter.file || (func.fileInfo.relativePath != filter.file.relativePath);
+//     let addFunction: boolean = !filter.cfunction || func.name != filter.cfunction.name;
+//     let addPredicate: boolean = predicate != filter.singlePredicate;
 
-    pathParts.push(name);
+//     if (settings.groupBy === GraphGrouppingOptions.file) {
+//         if (addFile) {
+//             pathParts.push(fileBaseName);
+//         }
+//         if (addFunction) {
+//             pathParts.push(func.name);
+//         }
+//         if (addPredicate) {
+//             pathParts.push(predicate);
+//         }
+//     } else {
+//         //same but different order
+//         if (addPredicate) {
+//             pathParts.push(predicate);
+//         }
+//         if (addFile) {
+//             pathParts.push(fileBaseName);
+//         }
+//         if (addFunction) {
+//             pathParts.push(func.name);
+//         }
+//     }
 
-    return pathParts.join(SPL);
-}
+//     pathParts.push(name);
+
+//     return pathParts.join(SPL);
+// }
 
 
 

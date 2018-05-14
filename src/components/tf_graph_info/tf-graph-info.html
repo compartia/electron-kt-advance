@@ -19,7 +19,7 @@
         </template>
     </template>
     <script>
-        (function() {
+        (function () {
             Polymer({
                 is: 'tf-graph-info',
 
@@ -44,18 +44,22 @@
                         notify: true
                     }
                 },
+                
                 listeners: {
                     'node-list-item-click': '_nodeListItemClicked',
                     'node-list-item-mouseover': '_nodeListItemMouseover',
                     'node-list-item-mouseout': '_nodeListItemMouseout'
                 },
-                _nodeListItemClicked: function(event) {
+
+                _nodeListItemClicked: function (event) {
                     this.selectedNode = event.detail.nodeName;
                 },
-                _nodeListItemMouseover: function(event) {
+
+                _nodeListItemMouseover: function (event) {
                     this.highlightedNode = event.detail.nodeName;
                 },
-                _nodeListItemMouseout: function() {
+
+                _nodeListItemMouseout: function () {
                     this.highlightedNode = null;
                 }
             });

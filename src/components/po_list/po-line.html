@@ -41,11 +41,11 @@
 
                 <template is="dom-if" if="[[showassumptions]]">
                     <span class='assumptions'>
-                        <template is="dom-if" if="[[item.outputs.length]]">
-                            <span title="api assumptions" class="outputs">[[item.outputs.length]]</span>
+                        <template is="dom-if" if="[[item.assumptionsOut.length]]">
+                            <span title="api assumptions" class="outputs">[[item.assumptionsOut.length]]</span>
                         </template>
-                        <template is="dom-if" if="[[item.inputs.length]]">
-                            <span title="depends on assumptions" class="inputs">[[item.inputs.length]]</span>
+                        <template is="dom-if" if="[[item.assumptionsIn.length]]">
+                            <span title="depends on assumptions" class="inputs">[[item.assumptionsIn.length]]</span>
                         </template>
                     </span>
                 </template>

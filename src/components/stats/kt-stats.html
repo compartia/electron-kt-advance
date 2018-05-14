@@ -26,50 +26,7 @@
 
             </div>
 
-            <div class$="container flex-hor [[_hiddenIfNoPrimaries]]">
-                <!-- C -->
-
-                <div class="container flex-ver flexchild">
-                    <paper-material elevation="1" class="card panel flexchild">
-                        <h3>Functions by (C-) complexity (top [[functionsByComplexityBMaxRows]])</h3>
-                        <h4>Total
-                            <b>control-flow-graph</b>-complexity of function-related
-                            <b>primary</b> proof obligations (PPO) divided by the number of PPO</h4>
-                        <div id="cComplexityByFunction" class="kt-chart"></div>
-                    </paper-material>
-
-                    <paper-material elevation="1" class="card panel flexchild">
-                        <h3>Files by (C-) complexity (top [[functionsByComplexityBMaxRows]])</h3>
-                        <h4>Total
-                            <b>control-flow-graph</b>-complexity of source file-related
-                            <b>primary</b> proof obligations (PPO) divided by the number of PPO</h4>
-                        <div id="cComplexityByFile" class="kt-chart"></div>
-                    </paper-material>
-
-                </div>
-
-                <!-- P -->
-                <div class="container flex-ver flexchild">
-
-                    <paper-material elevation="1" class="card panel flexchild">
-                        <h3>Functions by predicate (P-) complexity (top [[functionsByComplexityBMaxRows]])</h3>
-                        <h4>Total
-                            <b>predicate</b>-complexity of function-related
-                            <b>primary</b> proof obligations (PPO) divided by the number of PPO</h4>
-                        <div id="pComplexityByFunction" class="kt-chart"></div>
-                    </paper-material>
-
-                    <paper-material elevation="1" class="card panel flexchild">
-                        <h3>Files by predicate (P-) complexity (top [[functionsByComplexityBMaxRows]])</h3>
-                        <h4>Total
-                            <b>predicate</b>-complexity of source file-related
-                            <b>primary</b> proof obligations (PPO) divided by the number of PPO</h4>
-                        <div id="pComplexityByFile" class="kt-chart"></div>
-                    </paper-material>
-
-                </div>
-
-            </div>
+            
 
             <!-- ROW -->
             <div class="container flex-hor">
@@ -82,28 +39,18 @@
                     </paper-material>
                 </div>
 
-                <!-- COL -->
-                <div class$="container flex-ver flexchild [[_hiddenIfNoPrimaries]]">
-
-                    <paper-material elevation="1" class="card panel flexchild">
-                        <h3>Average complexity by predicate</h3>
-                        <h4>Total complexity divided by the number of
-                            <b>primary</b> proof obligations</h4>
-                        <div id="complexityByPredicate" class="kt-chart"></div>
-                    </paper-material>
-
-                </div>
+                 
             </div>
 
             <!-- ROW -->
             <div class="container flex-hor">
-                <paper-material elevation="1" class="card panel flexchild">
+                <paper-material elevation="1" class="card panel flexchild rtl">
                     <h3><b>Functions</b> by number of <b>PO dependencies</b> (top [[poByFunctionMaxRows]])</h3>
                     <div id="assumptionsByFunction" class="kt-chart"></div>
                 </paper-material>
 
 
-                <paper-material elevation="1" class="card panel flexchild">
+                <paper-material elevation="1" class="card panel flexchild rtl">
                     <h3><b>Files</b> by number of <b>PO dependencies</b> (top [[poByFunctionMaxRows]])</h3>
                     <div id="dependenciesByFileChart" class="kt-chart"></div>
                 </paper-material>
@@ -228,7 +175,7 @@
                     src == this.$.assumptionsByFunction) {
 
 
-                    this.filter.file = row.fileInfo;
+                    this.filter.file = row;
                     this.filter.cfunction = row;
 
 

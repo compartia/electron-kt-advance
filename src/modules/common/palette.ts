@@ -50,5 +50,12 @@ export function buildPalette() {
     ktColors["state-callsite-dc-bg"] = htmlStyles.getPropertyValue('--kt-state-callsite-dc-bg').trim();
     ktColors["state-callsite-rs-bg"] = htmlStyles.getPropertyValue('--kt-state-callsite-rs-bg').trim();
 
+
+    ktColors["state-missing-bg"] = htmlStyles.getPropertyValue('--kt-state-missing-bg').trim();
+
+
+    ktColors["state-assumption-api-bg"] = htmlStyles.getPropertyValue('--kt-state-assumption-api-bg').trim();
+    ktColors["state-assumption-global-bg"] = htmlStyles.getPropertyValue('--kt-state-assumption-global-bg').trim();
+    
     return ktColors;
 }

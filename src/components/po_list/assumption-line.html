@@ -31,11 +31,11 @@
             <span class='right'>
 
                 <span class='assumptions'>
-                    <template is="dom-if" if="[[item.outputs.length]]">
-                        <span title="depends on POs" class="outputs">[[item.outputs.length]]</span>
+                    <template is="dom-if" if="[[item.ppos.length]]">
+                        <span title="primary POs" class="outputs">[[item.ppos.length]]</span>
                     </template>
-                    <template is="dom-if" if="[[item.inputs.length]]">
-                        <span title="dependend POs " class="inputs">[[item.inputs.length]]</span>
+                    <template is="dom-if" if="[[item.spos.length]]">
+                        <span title="secondary POs" class="inputs">[[item.spos.length]]</span>
                     </template>
                 </span>
 
@@ -59,24 +59,26 @@
                 linktosource: Boolean
             },
 
-            jumpToSource: function(event) {
+            jumpToSource: function (event) {
                 var item = event.currentTarget.data;
                 this.fire("jump-to-src", item);
             },
 
-            _getStateName: function(item) {
+            _getStateName: function (item) {
                 return model.PoStates[item.state];
             },
 
-            _computeIcon: function(node) {                 
-                return ["kt:state-", this._getStateName(node), node.assumptionType].join('-').toLowerCase();                
+            _computeIcon: function (node) {
+                return ["kt:state", "assumption", node.assumptionType]
+                    .join('-').toLowerCase();
             },
 
             _getClass: function (node) {
-                return ["po", node.state, node.assumptionType].join('-').toLowerCase();                 
+                return ["po-assumption", node.assumptionType]
+                    .join('-').toLowerCase();
             },
 
-            _clickListener: function(e) {}
+            _clickListener: function (e) { }
 
         });
     </script>

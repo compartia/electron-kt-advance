@@ -1,12 +1,19 @@
-import { CFunction, FileInfo } from './xmltypes';
-// import { ApiNode } from 'xml-kt-advance/lib/model/api_node';
-import { ProofObligation, PoStates, PoStatesArr, PoDischargeTypesArr } from  './xmltypes';
+import { CFunction, ProofObligation, PoStates, PoStatesArr, PoDischargeTypesArr, CFunctionBase, HasPath } from './xmltypes';
 import { StringSet, AnySet, isEmpty } from './collections';
 
 
-
-// const model = require('xml-kt-advance/lib/model/po_node');
-
+export function sharedStart(array: string[]): string {
+    if (!array || !array.length) {
+        return '';
+    }
+    const A = array.concat().sort();
+    let a1 = A[0];
+    let a2 = A[A.length - 1];
+    let L = a1.length;
+    let i = 0;
+    while (i < L && a1.charAt(i) === a2.charAt(i)) i++;
+    return a1.substring(0, i);
+}
 
 export class Filter {
 
@@ -16,8 +23,8 @@ export class Filter {
     private _dischargeTypes: StringSet = new StringSet([]);
 
 
-    private _cfunction: CFunction;
-    private _file: FileInfo;
+    private _cfunction: CFunctionBase;
+    private _file: HasPath;
     private _line: number = null;
 
 
@@ -50,7 +57,7 @@ export class Filter {
     }
 
 
-    get file(): FileInfo {
+    get file(): HasPath {
         return this._file;
     }
 
@@ -120,10 +127,10 @@ export class Filter {
         this._dischargeTypes.values = PoDischargeTypesArr;
     }
 
-    set cfunction(_cfunction: CFunction) {
+    set cfunction(_cfunction: CFunctionBase) {
         this._line = null;
         if (_cfunction) {
-            this.file = _cfunction.fileInfo;
+            this.file = _cfunction;
         }
         this._cfunction = _cfunction;
     }
@@ -143,7 +150,7 @@ export class Filter {
     }
 
 
-    set file(file: FileInfo) {
+    set file(file: HasPath) {
         if ((file && this._file) || (!file)) {
             if (file.relativePath != this._file.relativePath) {
                 this._cfunction = null;
@@ -160,10 +167,11 @@ export class Filter {
         return this.acceptCFunctionFile(po.cfunction);
     }
 
-    public acceptCFunctionFile(func: CFunction): boolean {
+    public acceptCFunctionFile(func: CFunctionBase): boolean {
         if (!this.fileName) {
             return true;
         } else {
+             
             if (!this._file.dir) {
                 return func.file == this.fileName;
             } else {
@@ -174,7 +182,7 @@ export class Filter {
     }
 
 
-    public acceptCFunction(func: CFunction): boolean {
+    public acceptCFunction(func: CFunctionBase): boolean {
         return (!this.cfunction || func.name == this.cfunction.name) && this.acceptCFunctionFile(func);
     }
 
@@ -213,7 +221,16 @@ export class Filter {
         }
         return false;
     }
-
+    
+    public acceptPrd(predicate:string): boolean {
+        if (isEmpty(this._predicates)) {
+            return true;
+        }
+        if (this._predicates.contains(predicate)) {
+            return true;
+        }
+        return false;
+    }
 
     private acceptPredicate(po: ProofObligation): boolean {
         if (isEmpty(this._predicates)) {
@@ -226,7 +243,13 @@ export class Filter {
     }
 
     public accept(po: ProofObligation): boolean {
-        return this.acceptState(po) && this.acceptLevel(po) && this.acceptFile(po) && this.acceptFunction(po) && this.acceptPredicate(po) && this.acceptDischargeType(po);
+        if(!po) return false;
+        return this.acceptIgnoreLocation(po) && this.acceptFile(po) && this.acceptFunction(po);
+    }
+
+    public acceptIgnoreLocation(po: ProofObligation): boolean {
+        if(!po) return false;
+        return this.acceptState(po) && this.acceptLevel(po)  && this.acceptPredicate(po) && this.acceptDischargeType(po);
     }
 
     // public acceptApi(po: ApiNode): boolean {
