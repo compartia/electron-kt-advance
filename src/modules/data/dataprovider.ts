@@ -580,7 +580,7 @@ export class CalleeImpl extends AbstractLocatable implements Callee, CFunctionBa
 
         let nameAddon = "";
         if (this.loc) {
-            const filePath = fileToGraphKey(this.relativePath, this.name, filter, settings);
+            const filePath = fileToGraphKey(this.relativePath, null, filter, settings);
             if (filePath.length)
                 pathParts.push(filePath);
             nameAddon = "-L" + this.loc.line;
@@ -588,7 +588,7 @@ export class CalleeImpl extends AbstractLocatable implements Callee, CFunctionBa
             nameAddon = "-global";
         }
 
-        pathParts.push(this.name + nameAddon);
+        pathParts.push(this.name  );
 
         return encodeGraphKey(pathParts.join('/'));
     }
