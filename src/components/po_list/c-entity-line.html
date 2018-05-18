@@ -86,6 +86,7 @@
             },
 
             _getPredicateArgument: function (item) {
+                if(!item) return;                
                 return item.predicateArgument ? "(" + item.predicateArgument + ")" : item.name + item.arguments;
             },
 

@@ -48,12 +48,22 @@
                         <kt-list-selection show-select-all-box caption="Level" all-values="[[_allLevels]]" selected-values="{{filter.levels}}" styles="[[_getLevelStyles(filter)]]"></kt-list-selection>
                     </div>
 
+                    <!-- STATES -->
                     <div id="states" class="card panel">
-                        <kt-list-selection show-select-all-box caption="State" all-values="[[_allStates]]" item-names="[[_statesNames()]]" selected-values="{{filter.states}}" styles="[[_statesStyles]]"></kt-list-selection>
+                        <kt-list-selection show-select-all-box caption="State" 
+                            all-values="[[_allStates]]" 
+                            item-names="[[_statesNames()]]" 
+                            selected-values="{{filter.states}}" 
+                            styles="[[_statesStyles]]"></kt-list-selection>
                     </div>
 
+                    <!-- DISCHARGE TYPES -->
                     <div id="discharge-types" class="card panel">
-                        <kt-list-selection show-select-all-box caption="Discharge Type" all-values="[[_allDischargeTypes]]" selected-values="{{filter.dischargeTypes}}" styles="[[_dischargeTypesStyles]]"></kt-list-selection>
+                        <kt-list-selection show-select-all-box caption="Discharge Type" 
+                            all-values="[[_allDischargeTypes]]" 
+                            item-names="[[_allDischargeTypeNames()]]" 
+                            selected-values="{{filter.dischargeTypes}}" 
+                            styles="[[_dischargeTypesStyles]]"></kt-list-selection>
                     </div>
 
                     <div id="predicates" class="card panel">
@@ -104,6 +114,7 @@
                     type: Object,
                     computed: "_getDischargeTypesStyles(filter)"
                 },
+                
 
                 _allStates: {
                     type: Object,
@@ -127,6 +138,10 @@
 
             _statesNames: function() {
                 return model.PoStates;
+            },
+
+            _allDischargeTypeNames: function() {
+                return kt.lang.dischargeDescriptions;
             },
 
             _getDischargeTypesStyles: function(filter) {
