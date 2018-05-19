@@ -115,7 +115,7 @@ $base-bg-lighten: lighten($base-bg, 47%);
     $levels                               : ( primary: lighten($blue, 35%), secondary:lighten($ian_gillan, 50%));
 
     $callsitetypes                        : ( 
-        dc: hsl(50, $po-saturation, $po-brightness), 
+        dc: hsl(270, $po-saturation, $po-brightness), 
         ic: hsl(10, $po-saturation, $po-brightness), 
         rs: hsl(210, $po-saturation, $po-brightness));
 
@@ -130,6 +130,22 @@ $base-bg-lighten: lighten($base-bg, 47%);
         --kt-po-#{$level}-tx: #{ hsl( hue($lcolor), saturation($lcolor), 40) };
     }
 
+    @each $kind, $scolor in $callsitetypes   {
+
+    
+        --kt-state-callsite-#{$kind}-bg        : #{hsl( hue($scolor), saturation($scolor), 93)};
+        --kt-callee-#{$kind}-bg                : #{hsl( hue($scolor), saturation($scolor), 93)};
+
+
+        .callee-#{$kind} {
+            color      : #{$scolor};
+
+            &:hover {
+                background: hsl( hue($scolor), saturation($scolor), 93);
+            }
+
+        }
+    }
     @each $state, $scolor in $astates {
 
         // --kt-state-#{$state}-default-bg      : #{$scolor};
@@ -227,10 +243,7 @@ $base-bg-lighten: lighten($base-bg, 47%);
     --kt-complexity-c-bg                  : #{ desaturate(lighten($color-brand-2, 40%), 20%) };
     --kt-complexity-g-bg                  : #{ desaturate(lighten($color-brand-2, 50%), 20%) };
 
-    --kt-state-callsite-bg                : #{ desaturate(lighten($color-brand-2, 50%), 20%) };
-    --kt-state-callsite-dc-bg             : #{ desaturate(lighten($color-brand-2, 50%), 20%) };
-    --kt-state-callsite-ic-bg             : #{ $ian_gillan };
-    --kt-state-callsite-rs-bg             : white;
+    
     /* =========== */
 
     --kt-state-missing-bg: white;

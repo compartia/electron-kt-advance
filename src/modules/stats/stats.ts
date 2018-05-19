@@ -1,12 +1,10 @@
 import * as _ from "lodash"
 
-// import *  as xml from 'xml-kt-advance/lib/xml/xml_types';
-import { FileInfo, CFunction, ProofObligation, PoLevels, PoStates, HasPath, HasLocation } from '../common/xmltypes'
-// import { ApiNode } from 'xml-kt-advance/lib/model/api_node';
+
+import { FileInfo, CFunction, ProofObligation, PoLevels, PoStates, HasPath, HasLocation, DischargeDescriptions } from '../common/xmltypes'
 import { updateChart } from './chart';
 
 
-// import { CProject } from '../common/globals';
 import { StatsTable, NamedArray } from '../common/collections';
 
 
@@ -152,7 +150,6 @@ export class Stats {
 
 
 
-
             this.assumptionsByFunction.bind(functionKey, po.cfunction);
             this.dependenciesByFile.bind(po.file, po);
 
@@ -169,7 +166,7 @@ export class Stats {
             // this.complexityByFunction.inc(functionKey, po.level, 1);
             // this.complexityByFunction.bind(functionKey, po.cfunction);
             //------------
-            this.byFile.inc(po.file , state, 1);
+            this.byFile.inc(po.file, state, 1);
             this.byFile.bind(po.file, po);
             //------------
             this.byState.inc(state, DEF_COL_NAME, 1);
@@ -238,13 +235,12 @@ export class Stats {
         const columnNames = table.columnNames;
         const data: Array<NamedArray<string>> = table.asNamedRowsTable();
 
-
         updateChart(scene, container,
             {
                 data: data,
                 colors: (x, index) => "var(--kt-state-" + columnNames[index] + "-bg)",
                 columnNames: columnNames,
-                label: x => x.name,
+                label: x => DischargeDescriptions[x.name],
                 max: null
             }
         );
