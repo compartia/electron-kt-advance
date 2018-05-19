@@ -1,13 +1,10 @@
 import * as _ from "lodash"
- 
 
-// import *  as xml from 'xml-kt-advance/lib/xml/xml_types';
-import { FileInfo, CFunction, ProofObligation, PoLevels, PoStates, HasPath, HasLocation } from '../common/xmltypes'
-// import { ApiNode } from 'xml-kt-advance/lib/model/api_node';
+
+import { FileInfo, CFunction, ProofObligation, PoLevels, PoStates, HasPath, HasLocation, DischargeDescriptions } from '../common/xmltypes'
 import { updateChart } from './chart';
 
 
-// import { CProject } from '../common/globals';
 import { StatsTable, NamedArray } from '../common/collections';
 
 
@@ -21,7 +18,7 @@ const states = [
     "discharged",
     "deadcode"
 ];
- 
+
 
 // const CPG = ["C", "P", "G"];
 
@@ -232,7 +229,7 @@ export class Stats {
             }
         );
     }
- 
+
     public updatePoByDischargeChart(scene, container: d3.Selection<any>) {
         const table = this.byDischargeType;
         const columnNames = table.columnNames;
@@ -243,7 +240,7 @@ export class Stats {
                 data: data,
                 colors: (x, index) => "var(--kt-state-" + columnNames[index] + "-bg)",
                 columnNames: columnNames,
-                label: x => kt.lang.dischargeDescriptions[x.name],
+                label: x => DischargeDescriptions[x.name],
                 max: null
             }
         );

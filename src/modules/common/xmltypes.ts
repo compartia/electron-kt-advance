@@ -5,6 +5,13 @@ export enum PoDischargeTypes { a, f, x, i, s };
 export const PoLevels = ["primary", "secondary"];
 
 export const PoDischargeTypesArr: Array<string> = ["a", "f", "x", "i", "s"];
+export const DischargeDescriptions = { 
+    "a": "dependent on other functions", 
+    "f": "dependent on context", 
+    "x": "dead code", 
+    "i": "unknown", 
+    "s": "dependent on itself" 
+};
 
 export const PoStatesArr: Array<PoStates> = [PoStates.violation, PoStates.open, PoStates.discharged, PoStates.deadcode];
 export enum PoStatesExt { violation, open, discharged, deadcode, global, invariants, ds, rv, api };
