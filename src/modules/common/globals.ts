@@ -137,7 +137,7 @@ export class ProjectImpl implements CProject {
     }
 
 
-     
+
     constructor(baseDir: string, appPath: string) {
         // this.id=Math.random();
         this.appPath = appPath;
@@ -175,19 +175,24 @@ export class ProjectImpl implements CProject {
             }
         }
 
-        const mCAnalysis: CAnalysis = reader.readDir(
+        const pCAnalysis: Promise<CAnalysis> = reader.readDir(
             path.dirname(project.analysisDir),
             this.appPath,
             readFunctionsMapTracker
         );
 
 
-        project.functionByFile = mCAnalysis.functionByFile;
+        return pCAnalysis.then(mCAnalysis => {
+            project.functionByFile = mCAnalysis.functionByFile;
 
-        project.proofObligations = sortPoNodes(mCAnalysis.proofObligations);
-        project.assumptions = mCAnalysis.assumptions;
+            project.proofObligations = sortPoNodes(mCAnalysis.proofObligations);
+            project.assumptions = mCAnalysis.assumptions;
+            return project;
+        });
 
-        return Promise.resolve(project);
+
+
+        // return Promise.resolve(project);
 
         // new Promise((resolve, reject) => {
         //     resolve(project);
@@ -290,11 +295,11 @@ export class ProjectImpl implements CProject {
 
     private filterAssumptions(_filter: Filter): void {
 
-        const filter = (aa) => _filter.acceptCFunction(aa.cfunction) &&         
+        const filter = (aa) => _filter.acceptCFunction(aa.cfunction) &&
             _filter.acceptPrd(aa.predicate);
 
         this._filteredAssumptions = _.filter(this.assumptions, filter);
-        
+
     }
 
 
@@ -352,7 +357,7 @@ function selectDirectory(): any {
     });
     return dir;
 }
- 
+
 export function openNewProject(tracker: tf.ProgressTracker): CProject {
     let dir: string = selectDirectory();
     if (dir && dir.length > 0) {

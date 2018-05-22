@@ -736,27 +736,29 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
     projectDir: string;
     cAnalysisResult: CAnalysisImpl;
 
-    public readDir(dir: string, appPath: string, tracker: ProgressTracker): CAnalysis {
-
-        resolveJava()
-            .then(env => runJavaJar(env, appPath, dir))
-            .then(
-                x => {
-                    console.log("XML parsing completed; " + x);
-                }
-            );
-
+    public readDir(dir: string, appPath: string, tracker: ProgressTracker): Promise<CAnalysis> {
+         
         this.projectDir = dir;
-        let files: string[] = kt_fs.listFilesRecursively(dir, ".kt.analysis.json");
+        return resolveJava()
+            .then(env => runJavaJar(env, appPath, dir))
+            .then(jsonfiles => {
+
+                console.log("XML 2 JSON completed; " + jsonfiles[0]);
+                this.cAnalysisResult = this.readJsonFiles(jsonfiles, tracker);
+                return this.cAnalysisResult;
+            });
+
+        
+        //let files: string[] = kt_fs.listFilesRecursively(dir, ".kt.analysis.json");
 
 
 
-        this.cAnalysisResult = this.readJsonFiles(files, tracker);
-        return this.cAnalysisResult;
+        //this.cAnalysisResult = this.readJsonFiles(files, tracker);
+        //return this.cAnalysisResult;
     }
 
     private readJsonFiles(files: string[], tracker: ProgressTracker): CAnalysisImpl {
-        let cAnalysisResult = new CAnalysisImpl();
+        this.cAnalysisResult = new CAnalysisImpl();
         files.forEach(file => {
             console.log(file);
             try {
@@ -772,7 +774,7 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
 
         });
 
-        return cAnalysisResult;
+        return this.cAnalysisResult;
     }
 
     private mergeJsonData(data: json.KtJson): void {
@@ -931,44 +933,53 @@ export function getJarName(appPath: string) {
 }
 
 
-export function runJavaJar(javaEnv: JavaEnv, appPath: string, projectDir: string): Promise<String> {
+export function runJavaJar(javaEnv: JavaEnv, appPath: string, projectDir: string): Promise<string[]> {
 
     return new Promise((resolve, reject) => {
 
+        let jsonfiles: string[] = kt_fs.listFilesRecursively(projectDir, ".kt.analysis.json");
+        if (jsonfiles.length > 0) {
 
-        const javaExecutablePath = path.resolve(javaEnv.java_home + '/bin/java');
+            console.log("skipping parsing XML, because json files exist");
+            resolve(jsonfiles);
 
-        let fatJar = getJarName(appPath);
+        } else {
+            const javaExecutablePath = path.resolve(javaEnv.java_home + '/bin/java');
 
-        // Start the child java process
-        let options = { cwd: projectDir };
-        let process = ChildProcess.spawn(javaExecutablePath, [
-            '-jar', fatJar, projectDir
-        ], options);
+            let fatJar = getJarName(appPath);
 
-
-        process.on("error", e => {
-            console.error("KT  error:", e);
-            reject(e);
-        });
-
-        process.on("exit", (code, signal) => {
-            console.log("KT to JSON done, code:", code, signal);
-            if (code == 0) {
-                resolve(projectDir);
-            } else {
-                reject("XML parser exit code is " + code + " signal: " + signal);
-            }
-        });
+            // Start the child java process
+            let options = { cwd: projectDir };
+            let process = ChildProcess.spawn(javaExecutablePath, [
+                '-jar', fatJar, projectDir
+            ], options);
 
 
-        process.stdout.on('data', function (data) {
-            console.log('XML_PARSER: ' + data.toString());
-        });
+            process.on("error", e => {
+                console.error("KT  error:", e);
+                reject(e);
+            });
 
-        process.stderr.on('data', function (data) {
-            console.log('ERROR: ' + data.toString());
-        });
+            process.on("exit", (code, signal) => {
+                console.log("KT to JSON done, code:", code, signal);
+                if (code == 0) {
+                    resolve(kt_fs.listFilesRecursively(projectDir, ".kt.analysis.json"));
+                } else {
+                    reject("XML parser exit code is " + code + " signal: " + signal);
+                }
+            });
+
+
+            process.stdout.on('data', function (data) {
+                console.log('XML_PARSER: ' + data.toString());
+            });
+
+            process.stderr.on('data', function (data) {
+                console.log('ERROR: ' + data.toString());
+            });
+        }
+
+
 
 
     });
