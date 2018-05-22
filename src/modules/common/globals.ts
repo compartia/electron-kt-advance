@@ -88,7 +88,9 @@ export class JsonReadyProject {
     analysisDir: string;
     stats: Stats;
 }
-
+export interface CProjectProto {
+    baseDir: string;
+}
 export interface CProject {
     id: number;
     functionByFile: { [key: string]: Array<CFunction> };
@@ -192,6 +194,9 @@ export class ProjectImpl implements CProject {
 
 
     constructor(baseDir: string, appPath: string) {
+        if(!baseDir) throw "baseDir is required";
+        if(!appPath) throw "appPath is required";
+         
         this.appPath = appPath;
         this.baseDir = path.normalize(baseDir);
         this.open(this.baseDir);
@@ -236,7 +241,7 @@ export class ProjectImpl implements CProject {
 
 
         return pCAnalysis.then(mCAnalysis => {
-           
+
             project.functionByFile = mCAnalysis.functionByFile;
 
             project.proofObligations = sortPoNodes(mCAnalysis.proofObligations);
@@ -391,23 +396,11 @@ function selectDirectory(): any {
     return dir;
 }
 
-export function openNewProject(tracker: tf.ProgressTracker): CProject {
+export function openNewProject(tracker: tf.ProgressTracker): CProjectProto {
+    console.log("openNewProject");
     let dir: string = selectDirectory();
     if (dir && dir.length > 0) {
-        let project = new ProjectImpl(dir[0]);
-        return project;
-
-        // let projectDir = getChDir(dir[0]);
-        // if (projectDir) {
-        //     projectDir = path.dirname(projectDir);
-        //     let project = new Project(projectDir);
-        //     return project;
-
-        // } else {
-        //     const msg = CH_DIR + " dir not found";
-        //     tracker.reportError(msg, new Error(msg));
-        // }
-
+        return { baseDir: dir[0] };
     }
     return null;
 }

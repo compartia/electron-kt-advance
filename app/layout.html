@@ -377,7 +377,7 @@
 
 
             filterChanged: function(event) {
-                console.info("filterChanged: " + event.path);
+                // console.info("filterChanged: " + event.path);
 
                 if (event.path != "filter.line") {
                     if (this.currentProject) {
@@ -401,7 +401,7 @@
             },
 
             _applyFilterAsync: function(project, filter, tracker) {
-                console.info("applying filter..");
+                // console.info("applying filter..");
                 this.pendingFilterChanges = false;
 
                 if (project) {

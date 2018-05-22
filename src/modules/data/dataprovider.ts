@@ -751,14 +751,14 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
     }
 
     private readJsonFiles(files: string[], tracker: ProgressTracker): CAnalysisImpl {
-        const inc=100/files.length;
+        const inc = 100 / files.length;
         this.cAnalysisResult = new CAnalysisImpl();
         files.forEach(file => {
             tracker.setMessage("reading " + file);
             console.info("reading" + file);
             try {
                 const json = <json.KtJson>JSON.parse(fs.readFileSync(file));
-                 const jsonParsingTracker: ProgressTracker = tracker.getSubtaskTracker(inc, "parsing JSON data");
+                const jsonParsingTracker: ProgressTracker = tracker.getSubtaskTracker(inc, "parsing JSON data");
 
                 this.mergeJsonData(json, jsonParsingTracker);
             }
@@ -786,8 +786,8 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
             app.files.forEach(file => {
 
                 const cfunctions = this.toCFuncArray(file.functions, file, app.sourceDir);
-                
-                subTracker.setMessage ("parsing C-functions");
+
+                subTracker.setMessage("parsing C-functions");
                 cfunctions.forEach(cfun => {
                     /*
                      * make function by file map
@@ -813,7 +813,7 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
                 /*
                  * binding assumptions 
                  */
-                subTracker.setMessage ("binding assumptions");
+                subTracker.setMessage("binding assumptions");
                 this.cAnalysisResult.assumptions.forEach(
                     assumption => {
                         assumption.ppos.forEach(ppo => tools.pushUnique(ppo.assumptionsIn, assumption));
@@ -974,7 +974,7 @@ export function runJavaJar(javaEnv: JavaEnv, appPath: string, projectDir: string
                 if (parts[0] === 'PROGRESS') {
                     let prog = parseFloat(parts[1]);
                     tracker.updateProgress(prog - lastProg);
-                    tracker.setMessage("parsing XML files:" + prog + "%");
+                    tracker.setMessage("parsing XML files: " + Math.round(prog * 10) / 10 + "%");
                     lastProg = prog;
                 } else {
                     console.log('XML_PARSER: ' + data.toString());
