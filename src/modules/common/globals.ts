@@ -246,7 +246,7 @@ export class ProjectImpl implements CProject {
 
             project.proofObligations = sortPoNodes(mCAnalysis.proofObligations);
             project.assumptions = mCAnalysis.assumptions;
-
+            project.applyRenderInfos();
             this.reader = null;
             return project;
         });
