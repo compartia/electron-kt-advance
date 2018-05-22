@@ -18,12 +18,12 @@ import { GraphSettings } from '../common/globals'
 
 import { XmlReader } from './xmlreader';
 import { ProgressTracker } from '../tf_graph_common/lib/common';
- 
+
 import * as kt_fs from '../common/fstools';
 import { normalize } from 'path';
 
 import * as json from './jsonformat';
-import { JavaEnv, resolveJava } from './javaenv';
+import { JavaEnv, resolveJava, getJarName } from './javaenv';
 
 const path = require('path');
 const fs = require('fs');
@@ -558,7 +558,7 @@ export class CalleeImpl extends AbstractLocatable implements Callee, CFunctionBa
     }
 
     get arguments() {
-        return this.varinfo.type; 
+        return this.varinfo.type;
     }
 
     private varinfo: json.JVarInfo;
@@ -592,7 +592,7 @@ export class CalleeImpl extends AbstractLocatable implements Callee, CFunctionBa
             nameAddon = "-global";
         }
 
-        pathParts.push(this.name  );
+        pathParts.push(this.name);
 
         return encodeGraphKey(pathParts.join('/'));
     }
@@ -734,19 +734,20 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
     projectDir: string;
     cAnalysisResult: CAnalysisImpl;
 
-    public readDir(dir: string, appPath: string, tracker: ProgressTracker): Promise<CAnalysis> {
-         
+    public readDir(dir: string, appPath: string, _tracker: ProgressTracker): Promise<CAnalysis> {
+        let readingTracker:ProgressTracker = _tracker.getSubtaskTracker(70, "reading XML data");
+        let readingJsonTracker:ProgressTracker = _tracker.getSubtaskTracker(30, "reading JSON data");
         this.projectDir = dir;
         return resolveJava()
-            .then(env => runJavaJar(env, appPath, dir))
+            .then(env => runJavaJar(env, appPath, dir, readingTracker))
             .then(jsonfiles => {
 
                 console.log("XML 2 JSON completed; " + jsonfiles[0]);
-                this.cAnalysisResult = this.readJsonFiles(jsonfiles, tracker);
+                this.cAnalysisResult = this.readJsonFiles(jsonfiles, readingJsonTracker);
                 return this.cAnalysisResult;
             });
 
-        
+
         //let files: string[] = kt_fs.listFilesRecursively(dir, ".kt.analysis.json");
 
 
@@ -758,16 +759,21 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
     private readJsonFiles(files: string[], tracker: ProgressTracker): CAnalysisImpl {
         this.cAnalysisResult = new CAnalysisImpl();
         files.forEach(file => {
-            console.log(file);
+            console.log("reading" + file);
             try {
+                
+                
                 const json = <json.KtJson>JSON.parse(fs.readFileSync(file));
-                this.mergeJsonData(json);
+                tracker.updateProgress(40);
+                const jsonParsingTracker:ProgressTracker = tracker.getSubtaskTracker(60, "parsing JSON data");
+
+                this.mergeJsonData(json, jsonParsingTracker);
             }
             catch (e) {
-                console.error("cannot parse " + file);
-                console.error(e);
+                console.error("cannot parse " + file, e);
                 console.error("try removing it and re-opening project");
             }
+
             tracker.updateProgress(100);
 
         });
@@ -775,14 +781,18 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
         return this.cAnalysisResult;
     }
 
-    private mergeJsonData(data: json.KtJson): void {
+    private mergeJsonData(data: json.KtJson, tracker: ProgressTracker): void {
+        const trackerInc = 100/data.apps.length;
         data.apps.forEach(app => {
             console.log("source dir:" + app.sourceDir);
+            //tracker.updateProgress(trackerInc);
+            const fileTrackerInc = 100/app.files.length;
+            const subTracker:ProgressTracker = tracker.getSubtaskTracker(trackerInc, "parsing  data "+app.sourceDir);
 
             app.files.forEach(file => {
-
+                
                 const cfunctions = this.toCFuncArray(file.functions, file, app.sourceDir);
-
+                
                 cfunctions.forEach(cfun => {
                     /*
                      * make function by file map
@@ -814,6 +824,8 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
                         assumption.spos.forEach(spo => tools.pushUnique(spo.assumptionsOut, assumption));
                     }
                 );
+
+                subTracker.updateProgress(fileTrackerInc);
 
             });
         });
@@ -915,33 +927,22 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
     }
 }
 
-const JARNAME = "kt-advance-xml-2.3-jar-with-dependencies.jar";
-export function getJarName(appPath: string) {
 
-    console.log("appPath=\t" + appPath);
-    let jarname = path.join(path.dirname(appPath), "app.asar.unpacked", "java", JARNAME);
-
-    if (!pathExists.sync(jarname)) {
-        console.error(jarname + " does not exist");
-        jarname = path.join(appPath, "java", JARNAME);
-    }
-    // let jarname = path.resolve(appPath, "java/kt-advance-xml-2.3-jar-with-dependencies.jar");
-    console.log("jarname=\t" + jarname);
-    return jarname;
-}
-
-
-export function runJavaJar(javaEnv: JavaEnv, appPath: string, projectDir: string): Promise<string[]> {
+export function runJavaJar(javaEnv: JavaEnv, appPath: string, projectDir: string, tracker: ProgressTracker): Promise<string[]> {
 
     return new Promise((resolve, reject) => {
 
         let jsonfiles: string[] = kt_fs.listFilesRecursively(projectDir, ".kt.analysis.json");
+
         if (jsonfiles.length > 0) {
 
-            console.log("skipping parsing XML, because json files exist");
+            console.info("skipping parsing XML, because json files exist");
             resolve(jsonfiles);
+            tracker.updateProgress(100);
 
         } else {
+
+            tracker.updateProgress(50);
             const javaExecutablePath = path.resolve(javaEnv.java_home + '/bin/java');
 
             let fatJar = getJarName(appPath);
@@ -961,6 +962,7 @@ export function runJavaJar(javaEnv: JavaEnv, appPath: string, projectDir: string
             process.on("exit", (code, signal) => {
                 console.log("KT to JSON done, code:", code, signal);
                 if (code == 0) {
+                    tracker.updateProgress(50);
                     resolve(kt_fs.listFilesRecursively(projectDir, ".kt.analysis.json"));
                 } else {
                     reject("XML parser exit code is " + code + " signal: " + signal);

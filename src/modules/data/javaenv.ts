@@ -3,6 +3,7 @@ import * as findJavaHome from 'find-java-home';
 import * as pathExists from 'path-exists';
 import * as cp from 'child_process';
 
+const path = require('path');
 
 const isWindows = process.platform.indexOf('win') === 0;
 
@@ -94,4 +95,23 @@ export function parseMajorVersion(content: string): number {
         javaVersion = parseInt(match[0]);
     }
     return javaVersion;
+}
+
+const JARNAME = "kt-advance-xml-2.3-jar-with-dependencies.jar";
+
+export function getJarName(appPath: string) {
+
+    console.info("appPath=\t" + appPath);
+    let jarname = path.join(path.dirname(appPath), "app.asar.unpacked", "java", JARNAME);
+
+    if (!pathExists.sync(jarname)) {
+        //DEV MODE
+        console.info(jarname + " does not exist");
+        jarname = path.join(appPath, "java", JARNAME);
+    }
+    //PRODUCTION MODE (archived)
+    if (!pathExists.sync(jarname)) {
+        throw (jarname + " does not exist");
+    } 
+    return jarname;
 }
