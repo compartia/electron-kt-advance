@@ -108,6 +108,7 @@ export class ProjectImpl implements CProject {
 
     functionByFile: { [key: string]: Array<CFunction> } = {};
     baseDir: string;
+    appPath: string;
     analysisDir: string;
     stats: Stats;
     // calls: Array<FunctionCalls>;
@@ -137,8 +138,9 @@ export class ProjectImpl implements CProject {
 
 
      
-    constructor(baseDir: string) {
+    constructor(baseDir: string, appPath: string) {
         // this.id=Math.random();
+        this.appPath = appPath;
         this.baseDir = path.normalize(baseDir);
         this.open(this.baseDir);
     }
@@ -175,6 +177,7 @@ export class ProjectImpl implements CProject {
 
         const mCAnalysis: CAnalysis = reader.readDir(
             path.dirname(project.analysisDir),
+            this.appPath,
             readFunctionsMapTracker
         );
 
@@ -349,7 +352,7 @@ function selectDirectory(): any {
     });
     return dir;
 }
-
+ 
 export function openNewProject(tracker: tf.ProgressTracker): CProject {
     let dir: string = selectDirectory();
     if (dir && dir.length > 0) {

@@ -1,12 +1,8 @@
 {
   "name": "electron-kt-advance",
-  "version": "v0.13.3-unstable",
+  "version": "v0.2.0-alpha",
   "description": "no descr. by now",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/kestreltechnology/electron-kt-advance.git"
-  },
   "author": {
     "name": "Artem Zaborskii",
     "email": "artem@toptal.com",
@@ -66,14 +62,19 @@
     "async": "^1.4.2",
     "d3": "^3.5.12",
     "dagre": "^0.7.4",
+    "expand-home-dir": "0.0.3",
+    "find-java-home": "^0.2.0",
     "graphlib": "^1.0.7",
     "jquery": "^3.0.0",
     "lodash": "^3.10.1",
+    "path-exists": "^3.0.0",
     "vscode-languageserver-protocol": "^3.7.1"
   },
   "build": {
     "appId": "kt.advance.gui",
+    "asarUnpack": ["**/*.jar"],
     "files": [
+      "java/kt-advance-xml-2.3-jar-with-dependencies.jar",
       "app/**/*",
       "node_modules/**/*",
       "package.json"

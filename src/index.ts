@@ -28,7 +28,7 @@ function initApp(): void {
     console.info("init app");
 
     ipcRenderer.on('project-open', (event, prj) => {
-        let project = new globals.ProjectImpl(prj.baseDir);
+        let project = new globals.ProjectImpl(prj.baseDir, prj.appPath);
         (<any>document.getElementById("project-loader")).fire("project-selected", project);
     })
 

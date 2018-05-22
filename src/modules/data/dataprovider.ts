@@ -1,4 +1,14 @@
 import * as tools from '../common/tools';
+import * as pathExists from 'path-exists';
+
+
+
+// import * as path from 'path';
+import * as net from 'net';
+import * as glob from 'glob';
+// import * as PortFinder from "portfinder";
+import * as ChildProcess from "child_process";
+
 
 import {
     FileInfo, ProofObligation, AbstractNode,
@@ -20,11 +30,15 @@ import * as kt_fs from '../common/fstools';
 import { normalize } from 'path';
 
 import * as json from './jsonformat';
+import { JavaEnv, resolveJava } from './javaenv';
 
 const path = require('path');
 const fs = require('fs');
 
-abstract class AbstractLocatable implements HasPath{
+const app = require('electron');
+
+
+abstract class AbstractLocatable implements HasPath {
     dir: false;
     abstract relativePath: string;
 }
@@ -44,7 +58,7 @@ class CApiImpl implements CApi {
 class CFunctionImpl extends AbstractLocatable implements CFunction {
     name: string;
     // file: string;
-    
+
     loc: POLocation;
     line: number;
     callsites: Callsite[] = [];
@@ -59,9 +73,9 @@ class CFunctionImpl extends AbstractLocatable implements CFunction {
         super();
         this.name = jfun.name;
         this.line = jfun.loc.line;
-        this.relativePath=relativeFilePath;
+        this.relativePath = relativeFilePath;
 
-        
+
 
         this.loc = {
             line: this.line,
@@ -264,7 +278,7 @@ abstract class AbstractPO extends AbstractLocatable implements ProofObligation {
     abstract levelLabel: string;
     abstract location: POLocation;
 
-    
+
 
     public constructor(ppo: json.JPPO, cfun: CFunction, indexer: CAnalysisImpl) {
         super();
@@ -287,7 +301,7 @@ abstract class AbstractPO extends AbstractLocatable implements ProofObligation {
         this.links = ppo.links;
 
     }
- 
+
 
     get label() {
         return this.levelLabel + " [" + this.id + "] " + this.predicate;
@@ -337,13 +351,13 @@ abstract class AbstractPO extends AbstractLocatable implements ProofObligation {
         return this.cfunction.name;
     }
 
-    get relativePath():string{
+    get relativePath(): string {
         return this.location.file;
     }
 
 
     public getGraphKey(filter: Filter, settings: GraphSettings): string {
-        
+
         let pathParts: string[] = [];
         let addFunctionName = true;
         const filePath = fileToGraphKey(this.relativePath, this.functionName, filter, settings);
@@ -488,7 +502,7 @@ export class CAnalysisImpl implements CAnalysis {
 }
 
 
-abstract class AbstractSiteImpl extends AbstractLocatable  implements Site, Graphable {
+abstract class AbstractSiteImpl extends AbstractLocatable implements Site, Graphable {
 
     _jcallsite: json.JSite;
     spos: SecondaryProofObligation[] = [];
@@ -554,8 +568,8 @@ export class CalleeImpl extends AbstractLocatable implements Callee, CFunctionBa
         super();
         this.varinfo = varinfo;
         this.type = type;
-        this.relativePath=relativeFilePath;
-         
+        this.relativePath = relativeFilePath;
+
 
         this.loc = {
             line: varinfo.loc ? varinfo.loc.line : 0,
@@ -722,14 +736,27 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
     projectDir: string;
     cAnalysisResult: CAnalysisImpl;
 
-    public readDir(dir: string, tracker: ProgressTracker): CAnalysis {
+    public readDir(dir: string, appPath: string, tracker: ProgressTracker): CAnalysis {
+
+        resolveJava()
+            .then(env => runJavaJar(env, appPath, dir))
+            .then(
+                x => {
+                    console.log("XML parsing completed; " + x);
+                }
+            );
 
         this.projectDir = dir;
         let files: string[] = kt_fs.listFilesRecursively(dir, ".kt.analysis.json");
 
-        this.cAnalysisResult = new CAnalysisImpl();
 
 
+        this.cAnalysisResult = this.readJsonFiles(files, tracker);
+        return this.cAnalysisResult;
+    }
+
+    private readJsonFiles(files: string[], tracker: ProgressTracker): CAnalysisImpl {
+        let cAnalysisResult = new CAnalysisImpl();
         files.forEach(file => {
             console.log(file);
             try {
@@ -739,11 +766,13 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
             catch (e) {
                 console.error("cannot parse " + file);
                 console.error(e);
+                console.error("try removing it and re-opening project");
             }
             tracker.updateProgress(100);
 
         });
-        return this.cAnalysisResult;
+
+        return cAnalysisResult;
     }
 
     private mergeJsonData(data: json.KtJson): void {
@@ -884,4 +913,68 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
 
         return cFunctionsArray;
     }
+}
+
+const JARNAME = "kt-advance-xml-2.3-jar-with-dependencies.jar";
+export function getJarName(appPath: string) {
+
+    console.log("appPath=\t" + appPath);
+    let jarname = path.join(path.dirname(appPath), "app.asar.unpacked", "java", JARNAME);
+
+    if (!pathExists.sync(jarname)) {
+        console.error(jarname + " does not exist");
+        jarname = path.join(appPath, "java", JARNAME);
+    }
+    // let jarname = path.resolve(appPath, "java/kt-advance-xml-2.3-jar-with-dependencies.jar");
+    console.log("jarname=\t" + jarname);
+    return jarname;
+}
+
+
+export function runJavaJar(javaEnv: JavaEnv, appPath: string, projectDir: string): Promise<String> {
+
+    return new Promise((resolve, reject) => {
+
+
+        const javaExecutablePath = path.resolve(javaEnv.java_home + '/bin/java');
+
+        let fatJar = getJarName(appPath);
+
+        // Start the child java process
+        let options = { cwd: projectDir };
+        let process = ChildProcess.spawn(javaExecutablePath, [
+            '-jar', fatJar, projectDir
+        ], options);
+
+
+        process.on("error", e => {
+            console.error("KT  error:", e);
+            reject(e);
+        });
+
+        process.on("exit", (code, signal) => {
+            console.log("KT to JSON done, code:", code, signal);
+            if (code == 0) {
+                resolve(projectDir);
+            } else {
+                reject("XML parser exit code is " + code + " signal: " + signal);
+            }
+        });
+
+
+        process.stdout.on('data', function (data) {
+            console.log('XML_PARSER: ' + data.toString());
+        });
+
+        process.stderr.on('data', function (data) {
+            console.log('ERROR: ' + data.toString());
+        });
+
+
+    });
+
+
+
+
+
 }
