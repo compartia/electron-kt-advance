@@ -205,15 +205,18 @@ export class ProjectImpl implements CProject {
         return buildCallsGraph(filter, this);
     }
 
+    private reader: XmlReader;
     public readAndParse(tracker: tf.ProgressTracker): Promise<CProject> {
-
+        if (!!this.reader) {
+            throw ("cannot read 2 projects at the same time");
+        }
         const project: CProject = this;
 
-        let reader: XmlReader = new CAnalysisJsonReaderImpl();
+        this.reader = new CAnalysisJsonReaderImpl();
 
         tracker.setMessage("reading XML data");
 
-       
+
         /**
          * loading old stats
          */
@@ -225,7 +228,7 @@ export class ProjectImpl implements CProject {
             }
         }
 
-        const pCAnalysis: Promise<CAnalysis> = reader.readDir(
+        const pCAnalysis: Promise<CAnalysis> = this.reader.readDir(
             path.dirname(project.analysisDir),
             this.appPath,
             tracker
@@ -233,15 +236,18 @@ export class ProjectImpl implements CProject {
 
 
         return pCAnalysis.then(mCAnalysis => {
+           
             project.functionByFile = mCAnalysis.functionByFile;
 
             project.proofObligations = sortPoNodes(mCAnalysis.proofObligations);
             project.assumptions = mCAnalysis.assumptions;
+
+            this.reader = null;
             return project;
         });
 
 
- 
+
     }
 
     public save(): string {

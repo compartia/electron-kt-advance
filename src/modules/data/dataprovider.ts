@@ -735,8 +735,8 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
     cAnalysisResult: CAnalysisImpl;
 
     public readDir(dir: string, appPath: string, _tracker: ProgressTracker): Promise<CAnalysis> {
-        let readingXmlTracker:ProgressTracker = _tracker.getSubtaskTracker(80, "reading XML data");
-        let readingJsonTracker:ProgressTracker = _tracker.getSubtaskTracker(20, "reading JSON data");
+        let readingXmlTracker: ProgressTracker = _tracker.getSubtaskTracker(80, "reading XML data");
+        let readingJsonTracker: ProgressTracker = _tracker.getSubtaskTracker(20, "reading JSON data");
 
         this.projectDir = dir;
         return resolveJava()
@@ -748,23 +748,17 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
                 return this.cAnalysisResult;
             });
 
-
-        //let files: string[] = kt_fs.listFilesRecursively(dir, ".kt.analysis.json");
-
-
-
-        //this.cAnalysisResult = this.readJsonFiles(files, tracker);
-        //return this.cAnalysisResult;
     }
 
     private readJsonFiles(files: string[], tracker: ProgressTracker): CAnalysisImpl {
+        const inc=100/files.length;
         this.cAnalysisResult = new CAnalysisImpl();
         files.forEach(file => {
-            console.log("reading" + file);
-            try {                                
+            tracker.setMessage("reading " + file);
+            console.info("reading" + file);
+            try {
                 const json = <json.KtJson>JSON.parse(fs.readFileSync(file));
-                tracker.updateProgress(40);
-                const jsonParsingTracker:ProgressTracker = tracker.getSubtaskTracker(60, "parsing JSON data");
+                 const jsonParsingTracker: ProgressTracker = tracker.getSubtaskTracker(inc, "parsing JSON data");
 
                 this.mergeJsonData(json, jsonParsingTracker);
             }
@@ -781,17 +775,19 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
     }
 
     private mergeJsonData(data: json.KtJson, tracker: ProgressTracker): void {
-        const trackerInc = 100/data.apps.length;
+        const trackerInc = 100 / data.apps.length;
+
         data.apps.forEach(app => {
             console.log("source dir:" + app.sourceDir);
             //tracker.updateProgress(trackerInc);
-            const fileTrackerInc = 100/app.files.length;
-            const subTracker:ProgressTracker = tracker.getSubtaskTracker(trackerInc, "parsing  data "+app.sourceDir);
+            const fileTrackerInc = 100 / app.files.length;
+            const subTracker: ProgressTracker = tracker.getSubtaskTracker(trackerInc, "parsing data " + app.sourceDir);
 
             app.files.forEach(file => {
-                
+
                 const cfunctions = this.toCFuncArray(file.functions, file, app.sourceDir);
                 
+                subTracker.setMessage ("parsing C-functions");
                 cfunctions.forEach(cfun => {
                     /*
                      * make function by file map
@@ -817,6 +813,7 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
                 /*
                  * binding assumptions 
                  */
+                subTracker.setMessage ("binding assumptions");
                 this.cAnalysisResult.assumptions.forEach(
                     assumption => {
                         assumption.ppos.forEach(ppo => tools.pushUnique(ppo.assumptionsIn, assumption));
@@ -935,13 +932,14 @@ export function runJavaJar(javaEnv: JavaEnv, appPath: string, projectDir: string
 
         if (jsonfiles.length > 0) {
 
-            console.info("skipping parsing XML, because json files exist");
-            resolve(jsonfiles);
+            tracker.setMessage("skipping parsing XML, because json files exist");
             tracker.updateProgress(100);
+            resolve(jsonfiles);
+
 
         } else {
+            tracker.setMessage("parsing XML files");
 
-            // tracker.updateProgress(50);
             const javaExecutablePath = path.resolve(javaEnv.java_home + '/bin/java');
 
             let fatJar = getJarName(appPath);
@@ -969,16 +967,19 @@ export function runJavaJar(javaEnv: JavaEnv, appPath: string, projectDir: string
             });
 
 
-            let lastProg=0;
+            let lastProg = 0;
             process.stdout.on('data', function (data) {
-                let msg=data.toString();
-                let parts=msg.split(":");
-                if(parts[0]==='PROGRESS'){
-                    let prog=parseFloat(parts[1]);
-                    tracker.updateProgress(prog-lastProg);
-                    lastProg=prog;
+                let msg = data.toString();
+                let parts = msg.split(":");
+                if (parts[0] === 'PROGRESS') {
+                    let prog = parseFloat(parts[1]);
+                    tracker.updateProgress(prog - lastProg);
+                    tracker.setMessage("parsing XML files:" + prog + "%");
+                    lastProg = prog;
+                } else {
+                    console.log('XML_PARSER: ' + data.toString());
                 }
-                console.log('XML_PARSER: ' + data.toString());
+
             });
 
             process.stderr.on('data', function (data) {
