@@ -735,11 +735,12 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
     cAnalysisResult: CAnalysisImpl;
 
     public readDir(dir: string, appPath: string, _tracker: ProgressTracker): Promise<CAnalysis> {
-        let readingTracker:ProgressTracker = _tracker.getSubtaskTracker(70, "reading XML data");
-        let readingJsonTracker:ProgressTracker = _tracker.getSubtaskTracker(30, "reading JSON data");
+        let readingXmlTracker:ProgressTracker = _tracker.getSubtaskTracker(80, "reading XML data");
+        let readingJsonTracker:ProgressTracker = _tracker.getSubtaskTracker(20, "reading JSON data");
+
         this.projectDir = dir;
         return resolveJava()
-            .then(env => runJavaJar(env, appPath, dir, readingTracker))
+            .then(env => runJavaJar(env, appPath, dir, readingXmlTracker))
             .then(jsonfiles => {
 
                 console.log("XML 2 JSON completed; " + jsonfiles[0]);
@@ -760,9 +761,7 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
         this.cAnalysisResult = new CAnalysisImpl();
         files.forEach(file => {
             console.log("reading" + file);
-            try {
-                
-                
+            try {                                
                 const json = <json.KtJson>JSON.parse(fs.readFileSync(file));
                 tracker.updateProgress(40);
                 const jsonParsingTracker:ProgressTracker = tracker.getSubtaskTracker(60, "parsing JSON data");
@@ -942,7 +941,7 @@ export function runJavaJar(javaEnv: JavaEnv, appPath: string, projectDir: string
 
         } else {
 
-            tracker.updateProgress(50);
+            // tracker.updateProgress(50);
             const javaExecutablePath = path.resolve(javaEnv.java_home + '/bin/java');
 
             let fatJar = getJarName(appPath);
@@ -970,7 +969,15 @@ export function runJavaJar(javaEnv: JavaEnv, appPath: string, projectDir: string
             });
 
 
+            let lastProg=0;
             process.stdout.on('data', function (data) {
+                let msg=data.toString();
+                let parts=msg.split(":");
+                if(parts[0]==='PROGRESS'){
+                    let prog=parseFloat(parts[1]);
+                    tracker.updateProgress(prog-lastProg);
+                    lastProg=prog;
+                }
                 console.log('XML_PARSER: ' + data.toString());
             });
 

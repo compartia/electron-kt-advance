@@ -213,9 +213,7 @@ export class ProjectImpl implements CProject {
 
         tracker.setMessage("reading XML data");
 
-        const readFunctionsMapTracker = tracker.getSubtaskTracker(10, 'Reading functions map (*._cfile.xml)');
-        const readDirTracker = tracker.getSubtaskTracker(90, 'Reading Proof Obligations data');
-
+       
         /**
          * loading old stats
          */
@@ -230,7 +228,7 @@ export class ProjectImpl implements CProject {
         const pCAnalysis: Promise<CAnalysis> = reader.readDir(
             path.dirname(project.analysisDir),
             this.appPath,
-            readFunctionsMapTracker
+            tracker
         );
 
 
@@ -243,30 +241,7 @@ export class ProjectImpl implements CProject {
         });
 
 
-
-        // return Promise.resolve(project);
-
-        // new Promise((resolve, reject) => {
-        //     resolve(project);
-        // });
-
-        // return reader.readFunctionsMap(path.dirname(project.analysisDir), readFunctionsMapTracker)
-        //     .then((functions: CFunction[]) => {
-        //         let resultingMap = new xml.FunctionsMap(functions);
-        //         project.functionByFile = resultingMap.functionByFile;
-        //         let result: Promise<XmlAnalysis> = reader.readDir(project.analysisDir, resultingMap, readDirTracker);
-
-        //         return result;
-        //     })
-        //     .then((POs: XmlAnalysis) => {
-        //         project.proofObligations = sortPoNodes(POs.ppos.concat(POs.spos));
-
-        //         project.apis = POs.apis;
-        //         project.calls = POs.calls;
-        //         project.save();
-
-        //         return project;
-        //     });
+ 
     }
 
     public save(): string {
