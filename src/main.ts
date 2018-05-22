@@ -38,22 +38,22 @@ function createWindow() {
     }))
 
     mainWindow.webContents.on('did-finish-load', () => {
+        // console.log("app path is:" + app.getAppPath());
         // nothing
     });
 
     // Open the DevTools.
-    //mainWindow.webContents.openDevTools()
+    // mainWindow.webContents.openDevTools()
 
     // Emitted when the window is closed.
     mainWindow.on('closed', function () {
-        // Dereference the window object, usually you would store windows
-        // in an array if your app supports multi windows, this is the time
-        // when you should delete the corresponding element.
         mainWindow = null
     });
 
 
     ipcMain.on('project', (event, project) => {
+        console.log("ipcMain on project");
+        project.appPath = app.getAppPath();
         console.log(project);
         loadingScreen.hide();
         mainWindow.send('project-open', project);
@@ -61,6 +61,7 @@ function createWindow() {
     });
 
     ipcMain.on('open-project', (event, arg) => {
+        console.log("ipcMain on open-project" + event + "\t" + arg);
         if (!loadingScreen) {
             createSplashScreen();
         } else {
