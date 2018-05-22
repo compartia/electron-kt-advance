@@ -5,6 +5,8 @@
 <link rel="import" href="../../static/icons/icons.html">
 <link rel="import" href="node-icon.html">
 <link rel="import" href="tf-node-list-item.html">
+<link rel="import" href="../po_list/c-entity-line.html">
+
 
 <dom-module id="tf-node-info">
  
@@ -66,7 +68,7 @@
             </div>
 
             <template is="dom-if" if="[[_data]]">
-                <po-line item="[[_data]]" linktosource></po-line>
+                <c-entity-line item="[[_data]]" linktosource></c-entity-line>
             </template>
 
             <div class="po">

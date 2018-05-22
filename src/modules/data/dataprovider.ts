@@ -14,7 +14,7 @@ import {
     FileInfo, ProofObligation, AbstractNode,
     Symbol, PoStates, PODischarge, POLocation, Callsite,
     CApi, CApiAssumption,
-    CFunction, sortPoNodes, Graphable, SecondaryProofObligation, Site, Returnsite, Callee, CFunctionBase, HasPath
+    CFunction, sortPoNodes, Graphable, SecondaryProofObligation, Site, Returnsite, Callee, CFunctionBase, HasPath, RenderInfo
 } from '../common/xmltypes';
 
 
@@ -34,9 +34,6 @@ import { JavaEnv, resolveJava } from './javaenv';
 
 const path = require('path');
 const fs = require('fs');
-
-const app = require('electron');
-
 
 abstract class AbstractLocatable implements HasPath {
     dir: false;
@@ -130,6 +127,7 @@ class CFunctionImpl extends AbstractLocatable implements CFunction {
 class ApiAssumptionImpl extends AbstractLocatable implements CApiAssumption {
     a: json.JAssumption;
     cfunction: CFunction;
+    renderInfo: RenderInfo;
 
     get file() {
         return this.cfunction.file;
@@ -213,10 +211,12 @@ class ApiAssumptionImpl extends AbstractLocatable implements CApiAssumption {
 
         class AssumptionNodeAttributesImpl implements AssumptionNodeAttributes {
             public state = "assumption";
+            public assumptionType = "aa";
             private base: ApiAssumptionImpl;
             constructor(base: ApiAssumptionImpl) {
                 this.base = base;
             }
+
 
             get location() {
                 return this.base.location;
@@ -268,7 +268,7 @@ function linkKey(link: json.JPoLink | ProofObligation): string {
 
 abstract class AbstractPO extends AbstractLocatable implements ProofObligation {
     links: json.JPoLink[];
-
+    renderInfo: RenderInfo;
     indexer: CAnalysisImpl;
 
     assumptionsIn: CApiAssumption[] = [];
@@ -304,7 +304,7 @@ abstract class AbstractPO extends AbstractLocatable implements ProofObligation {
 
 
     get label() {
-        return this.levelLabel + " [" + this.id + "] " + this.predicate;
+        return "[L" + this.line + "] " + this.predicate + (this.levelLabel == "II" ? " II" : "");
     }
 
 
@@ -536,21 +536,23 @@ abstract class AbstractSiteImpl extends AbstractLocatable implements Site, Graph
         this.spos.push(spo);
     }
 
-
-
-
-
     getSPOs(): SecondaryProofObligation[] {
         return this.spos;
     }
 }
 
 export class CalleeImpl extends AbstractLocatable implements Callee, CFunctionBase {
+    renderInfo: RenderInfo;
     relativePath: string;
 
     get name(): string {
         return this.varinfo.name;
     }
+
+    get functionName() {
+        return this.name;
+    }
+
     type: string;
     loc: POLocation;
 
@@ -560,6 +562,10 @@ export class CalleeImpl extends AbstractLocatable implements Callee, CFunctionBa
 
     get file() {
         return this.relativePath;
+    }
+
+    get arguments() {
+        return this.varinfo.type; 
     }
 
     private varinfo: json.JVarInfo;
@@ -585,7 +591,7 @@ export class CalleeImpl extends AbstractLocatable implements Callee, CFunctionBa
 
         let nameAddon = "";
         if (this.loc) {
-            const filePath = fileToGraphKey(this.relativePath, this.name, filter, settings);
+            const filePath = fileToGraphKey(this.relativePath, null, filter, settings);
             if (filePath.length)
                 pathParts.push(filePath);
             nameAddon = "-L" + this.loc.line;
@@ -593,7 +599,7 @@ export class CalleeImpl extends AbstractLocatable implements Callee, CFunctionBa
             nameAddon = "-global";
         }
 
-        pathParts.push(this.name + nameAddon);
+        pathParts.push(this.name  );
 
         return encodeGraphKey(pathParts.join('/'));
     }
@@ -732,7 +738,6 @@ export class ReturnsiteImpl extends AbstractSiteImpl implements Returnsite, Grap
 }
 
 export class CAnalysisJsonReaderImpl implements XmlReader {
-
     projectDir: string;
     cAnalysisResult: CAnalysisImpl;
 

@@ -25,6 +25,7 @@ export interface JLocation extends POLocation{
 export interface JVarInfo {
     loc: JLocation;
     name: string;
+    type: string;
 }
 
 export interface JSite {

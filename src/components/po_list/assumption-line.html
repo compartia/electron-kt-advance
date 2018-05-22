@@ -1,9 +1,9 @@
 <dom-module id="assumption-line">
     <template>
 
-        <div class$="po row [[_getClass(item)]]" title$="[[item.id]] [[item.file]]/[[item.functionName]]:[[item.location.line]]">
+        <div class$="po row [[item.renderInfo.clazz]]" title$="[[item.id]] [[item.file]]/[[item.functionName]]:[[item.location.line]]">
             <span class="left">
-                <iron-icon class="po-icon" icon$="{{_computeIcon(item)}}" title$="{{item.type}}"></iron-icon>
+                <iron-icon class="po-icon" icon$="[[item.renderInfo.icon]]" title$="{{item.type}}"></iron-icon>
             </span>
 
             <span class="mid">
@@ -13,7 +13,8 @@
                         [[item.predicate]]
                     </span>
                     <template is="dom-if" if="[[item.predicateArgument]]">
-                        (<span class="predicate-arg">[[item.predicateArgument]]</span>)
+                        (
+                        <span class="predicate-arg">[[item.predicateArgument]]</span>)
                     </template>
                 </span>
 
@@ -64,19 +65,6 @@
                 this.fire("jump-to-src", item);
             },
 
-            _getStateName: function (item) {
-                return model.PoStates[item.state];
-            },
-
-            _computeIcon: function (node) {
-                return ["kt:state", "assumption", node.assumptionType]
-                    .join('-').toLowerCase();
-            },
-
-            _getClass: function (node) {
-                return ["po-assumption", node.assumptionType]
-                    .join('-').toLowerCase();
-            },
 
             _clickListener: function (e) { }
 
