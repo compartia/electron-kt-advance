@@ -5,5 +5,5 @@ import { CAnalysis } from '../common/xmltypes';
 
 
 export interface XmlReader {
-    readDir(dir: string, tracker: ProgressTracker): CAnalysis;
+    readDir(dir: string, appPath: string, tracker: ProgressTracker): Promise<CAnalysis>;
 }

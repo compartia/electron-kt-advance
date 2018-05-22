@@ -79,8 +79,7 @@
                     : "item";
             },
 
-            _selectedFunctionChanged: function(event) {
-                console.log(event);
+            _selectedFunctionChanged: function(event) {                 
                 this.ignoreOutsideEvent = true;
                 this.set("selectedFunction", event.detail.value);
                 this.ignoreOutsideEvent = false;

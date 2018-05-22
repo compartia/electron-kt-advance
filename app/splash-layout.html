@@ -4,88 +4,93 @@
     <template>
         <div style="margin-top: 250px">
 
-        <template is="dom-if" if="[[_isNotComplete(progress)]]">
-            <div id="progress-bar">
-                <paper-progress value="[[progress.value]]" style="width:100%"></paper-progress>
-            </div>
-            <div id="progress-msg" class="toast" class$="[[_getToastClass(progress)]]">[[progress.msg]]</div>
-        </template>
+            <template is="dom-if" if="[[_isNotComplete(progress)]]">
+                <div id="progress-bar">
+                    <paper-progress value="[[progress.value]]" style="width:100%"></paper-progress>
+                </div>
+                <div id="progress-msg" class="toast" class$="[[_getToastClass(progress)]]">[[progress.msg]]</div>
+            </template>
 
-    <div class="table">
-        <div class="row">
-            <div class="column">
-                <section>
-                    <h1 class="text-right">Resources</h1>
-                    <ul class="links" style="align-items: flex-end;">
+            <div class="table">
+                <div class="row">
+                    <div class="column">
+                        <section>
+                            <h1 class="text-right">Resources</h1>
+                            <ul class="links" style="align-items: flex-end;">
 
-                        <li on-tap="openLink" value="http://kestreltechnology.com/">Kestrel Technology
-                            <iron-icon icon="chevron-right"></iron-icon>
-                        </li>
-                        <li on-tap="openLink" value="https://github.com/kestreltechnology/electron-kt-advance/blob/master/README.md">Documentation
-                            <iron-icon icon="chevron-right"></iron-icon>
-                        </li>
-
-                        <li on-tap="openLink" value="https://github.com/kestreltechnology/electron-kt-advance/issues">Bug tracker
-                            <iron-icon icon="chevron-right"></iron-icon>
-                        </li>
-                        <li on-tap="openLink" value="https://github.com/kestreltechnology/electron-kt-advance">Contribute
-                            <iron-icon icon="chevron-right"></iron-icon>
-                        </li>
-                    </ul>
-
-                </section>
-            </div>
-
-            <div class="vr"></div>
-
-
-            <div class="column">
-                <section class="text-center">
-                    <h1>Start new project</h1>
-                    <label>Start by selecting a directory where your C files located</label>
-                    <paper-button raised on-tap="openProject">new..</paper-button>
-                </section>
-            </div>
-
-            <div class="vr"></div>
-
-            <div class="column">
-                <paper-material elevation="0" class="card panel flexchild">
-                    <h1>Open recent project</h1>
-
-                    <template is="dom-if" if="[[!recentProjects.length]]">
-                        <label><small>There were no recent projects</small></label>
-                    </template>
-                    <template is="dom-if" if="[[recentProjects.length]]">
-                        <ul class="links">
-                            <template is="dom-repeat" items="[[recentProjects]]">
-                                <li title="{{item.baseDir}}" on-tap="openRecentProject" data-item="{{index}}">
-                                    <iron-icon icon="chevron-right"></iron-icon> <span>{{item.name}} &nbsp;<small>{{item.baseDir}}</small></span>
+                                <li on-tap="openLink" value="http://kestreltechnology.com/">Kestrel Technology
+                                    <iron-icon icon="chevron-right"></iron-icon>
                                 </li>
+                                <li on-tap="openLink" value="https://github.com/kestreltechnology/electron-kt-advance/blob/master/README.md">Documentation
+                                    <iron-icon icon="chevron-right"></iron-icon>
+                                </li>
+
+                                <li on-tap="openLink" value="https://github.com/kestreltechnology/electron-kt-advance/issues">Bug tracker
+                                    <iron-icon icon="chevron-right"></iron-icon>
+                                </li>
+                                <li on-tap="openLink" value="https://github.com/kestreltechnology/electron-kt-advance">Contribute
+                                    <iron-icon icon="chevron-right"></iron-icon>
+                                </li>
+                            </ul>
+
+                        </section>
+                    </div>
+
+                    <div class="vr"></div>
+
+
+                    <div class="column">
+                        <section class="text-center">
+                            <h1>Start new project</h1>
+                            <label>Start by selecting a directory where your C files located</label>
+                            <paper-button raised on-tap="openProject">new..</paper-button>
+                        </section>
+                    </div>
+
+                    <div class="vr"></div>
+
+                    <div class="column">
+                        <paper-material elevation="0" class="card panel flexchild">
+                            <h1>Open recent project</h1>
+
+                            <template is="dom-if" if="[[!recentProjects.length]]">
+                                <label>
+                                    <small>There were no recent projects</small>
+                                </label>
                             </template>
-                        <ul>
-                    </template>
-                </paper-material>
+                            <template is="dom-if" if="[[recentProjects.length]]">
+                                <ul class="links">
+                                    <template is="dom-repeat" items="[[recentProjects]]">
+                                        <li title="{{item.baseDir}}" on-tap="openRecentProject" data-item="{{index}}">
+                                            <iron-icon icon="chevron-right"></iron-icon>
+                                            <span>{{item.name}} &nbsp;
+                                                <small>{{item.baseDir}}</small>
+                                            </span>
+                                        </li>
+                                    </template>
+                                    <ul>
+                            </template>
+                        </paper-material>
+                    </div>
+
+                </div>
+
             </div>
+
+            <div class="footer">
+                version [[kt_version]]
+                <br> Copyright (c) 2017 Kestrel Technology All Rights Reserved.
+            </div>
+
 
         </div>
-
-    </div>
-
-    <div class="footer">
-        version [[kt_version]]<br>
-        Copyright (c) 2017 Kestrel Technology All Rights Reserved.
-    </div>
-
-
-    </div>
 
     </template>
     <script>
         Polymer({
             is: "splash-layout",
             properties: {
-                recentProjects:{
+                recentProjects: {
                     type: Array,
                     notify: true
                 },
@@ -97,13 +102,13 @@
 
             },
 
-            openRecentProject: function(e ){
-                console.log( e.model.item);
+            openRecentProject: function (e) {
+                console.log(e.model.item);
                 const ipc = require('electron').ipcRenderer;
                 ipc.send("project", e.model.item);
             },
 
-            openLink: function(e) {
+            openLink: function (e) {
                 var url = e.currentTarget.attributes['value'].nodeValue;
                 const {
                     shell
@@ -111,32 +116,32 @@
                 shell.openExternal(url);
             },
 
-            _isNotComplete: function(progress) {
+            _isNotComplete: function (progress) {
                 return progress.value < 100;
             },
 
 
-            openProject: function() {
+            openProject: function () {
                 this._startProgress();
                 var tracker = trackutils.getTracker(this);
                 var newProject = ktproject.openNewProject(tracker);
 
                 const ipc = require('electron').ipcRenderer;
                 if (newProject) {
-                     ipc.send("project", newProject);
+                    ipc.send("project", newProject);
                     this._stopProgress();
                 }
 
             },
 
-            _startProgress: function() {
+            _startProgress: function () {
                 this.set('progress', {
                     value: 0,
                     msg: ''
                 });
             },
 
-            _stopProgress: function() {
+            _stopProgress: function () {
                 this.set('progress', {
                     value: 100,
                     msg: ''
@@ -144,11 +149,11 @@
             },
 
 
-            attached: function() {
+            attached: function () {
                 console.log("attached");
                 const storage = require('./modules/common/storage');
-                this.set("recentProjects",[]);
-                this.set("kt_version",storage.CONF.KT_VERSION);
+                this.set("recentProjects", []);
+                this.set("kt_version", storage.CONF.KT_VERSION);
                 this.set("recentProjects", storage.CONF.get("recentProjects"));
             }
 

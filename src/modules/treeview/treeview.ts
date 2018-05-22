@@ -11,11 +11,7 @@ export function splitPath(filePath: string): string[] {
 
 export function build(container, baseDir: string): void {
     let root = tree(baseDir);
-
     container.data = root;
-
-    console.info(container);
-    console.info(root);
 }
 
 

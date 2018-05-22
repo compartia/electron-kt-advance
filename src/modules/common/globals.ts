@@ -88,7 +88,9 @@ export class JsonReadyProject {
     analysisDir: string;
     stats: Stats;
 }
-
+export interface CProjectProto {
+    baseDir: string;
+}
 export interface CProject {
     id: number;
     functionByFile: { [key: string]: Array<CFunction> };
@@ -109,6 +111,7 @@ export class ProjectImpl implements CProject {
 
     functionByFile: { [key: string]: Array<CFunction> } = {};
     baseDir: string;
+    appPath: string;
     analysisDir: string;
     stats: Stats;
     // calls: Array<FunctionCalls>;
@@ -190,9 +193,11 @@ export class ProjectImpl implements CProject {
     }
 
 
-
-    constructor(baseDir: string) {
-        // this.id=Math.random();
+    constructor(baseDir: string, appPath: string) {
+        if(!baseDir) throw "baseDir is required";
+        if(!appPath) throw "appPath is required";
+         
+        this.appPath = appPath;
         this.baseDir = path.normalize(baseDir);
         this.open(this.baseDir);
     }
@@ -205,16 +210,17 @@ export class ProjectImpl implements CProject {
         return buildCallsGraph(filter, this);
     }
 
+    private reader: XmlReader;
     public readAndParse(tracker: tf.ProgressTracker): Promise<CProject> {
-
+        if (!!this.reader) {
+            throw ("cannot read 2 projects at the same time");
+        }
         const project: CProject = this;
 
-        let reader: XmlReader = new CAnalysisJsonReaderImpl();
+        this.reader = new CAnalysisJsonReaderImpl();
 
         tracker.setMessage("reading XML data");
 
-        const readFunctionsMapTracker = tracker.getSubtaskTracker(10, 'Reading functions map (*._cfile.xml)');
-        const readDirTracker = tracker.getSubtaskTracker(90, 'Reading Proof Obligations data');
 
         /**
          * loading old stats
@@ -227,41 +233,26 @@ export class ProjectImpl implements CProject {
             }
         }
 
-        const mCAnalysis: CAnalysis = reader.readDir(
+        const pCAnalysis: Promise<CAnalysis> = this.reader.readDir(
             path.dirname(project.analysisDir),
-            readFunctionsMapTracker
+            this.appPath,
+            tracker
         );
 
 
-        project.functionByFile = mCAnalysis.functionByFile;
-        project.proofObligations = sortPoNodes(mCAnalysis.proofObligations);
-        project.assumptions = mCAnalysis.assumptions;
+        return pCAnalysis.then(mCAnalysis => {
 
-        project.applyRenderInfos();
+            project.functionByFile = mCAnalysis.functionByFile;
 
-        return Promise.resolve(project);
+            project.proofObligations = sortPoNodes(mCAnalysis.proofObligations);
+            project.assumptions = mCAnalysis.assumptions;
 
-        // new Promise((resolve, reject) => {
-        //     resolve(project);
-        // });
+            this.reader = null;
+            return project;
+        });
 
-        // return reader.readFunctionsMap(path.dirname(project.analysisDir), readFunctionsMapTracker)
-        //     .then((functions: CFunction[]) => {
-        //         let resultingMap = new xml.FunctionsMap(functions);
-        //         project.functionByFile = resultingMap.functionByFile;
-        //         let result: Promise<XmlAnalysis> = reader.readDir(project.analysisDir, resultingMap, readDirTracker);
 
-        //         return result;
-        //     })
-        //     .then((POs: XmlAnalysis) => {
-        //         project.proofObligations = sortPoNodes(POs.ppos.concat(POs.spos));
 
-        //         project.apis = POs.apis;
-        //         project.calls = POs.calls;
-        //         project.save();
-
-        //         return project;
-        //     });
     }
 
     public save(): string {
@@ -405,23 +396,11 @@ function selectDirectory(): any {
     return dir;
 }
 
-export function openNewProject(tracker: tf.ProgressTracker): CProject {
+export function openNewProject(tracker: tf.ProgressTracker): CProjectProto {
+    console.log("openNewProject");
     let dir: string = selectDirectory();
     if (dir && dir.length > 0) {
-        let project = new ProjectImpl(dir[0]);
-        return project;
-
-        // let projectDir = getChDir(dir[0]);
-        // if (projectDir) {
-        //     projectDir = path.dirname(projectDir);
-        //     let project = new Project(projectDir);
-        //     return project;
-
-        // } else {
-        //     const msg = CH_DIR + " dir not found";
-        //     tracker.reportError(msg, new Error(msg));
-        // }
-
+        return { baseDir: dir[0] };
     }
     return null;
 }
