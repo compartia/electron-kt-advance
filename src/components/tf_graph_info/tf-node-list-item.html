@@ -15,27 +15,36 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 <link rel="import" href="node-icon.html">
+<link rel="import" href="../po_list/c-entity-line.html">
 
 <dom-module id="tf-node-list-item">
 
     <template>
         <div id="list-item" on-mouseover="_nodeListener" on-mouseout="_nodeListener" on-click="_nodeListener">
-            <div id="list-item-contents" class$="{{_fadedClass(itemRenderInfo)}}">
-                <node-icon 
-                    svg-id="[[svgId]]"
-                    class="node-icon" height="6" color-by="[[colorBy]]" color-by-params="[[colorByParams]]" node="[[itemNode]]" render-info="[[itemRenderInfo]]"></node-icon>
 
-                <template is="dom-if" if="[[itemNode.attr]]">
 
-                    <template is="dom-if" if="[[itemNode.attr.assumptionType]]">
-                        <div>[[itemNode.attr.assumptionType]] assumption [[itemNode.attr.apiId]]</div>
-                    </template>
+            <template is="dom-if" if="[[terminal(itemNode)]]">
 
-                </template>
+                <c-entity-line item="[[item]]" linktosource hide-description>
 
-                <span title$="[[name]]">[[name]]</span>
-                <span class="edge-label">[[edgeLabel]]</span>
-            </div>
+                </c-entity-line>
+                <!-- opNodeImpl -->
+                <!-- <template is="dom-if" if="[[itemNode.attr.assumptionType]]">
+                    <assumption-line item="[[item]]" linktosource></assumption-line>
+                </template> -->
+ 
+            </template>
+
+            <template is="dom-if" if="[[!terminal(itemNode)]]">
+                <div id="list-item-contents" class$="{{_fadedClass(itemRenderInfo)}}">
+                    <!-- seriesNodeImpl -->
+                    <node-icon svg-id="[[svgId]]" class="node-icon" height="6" color-by="[[colorBy]]" color-by-params="[[colorByParams]]" node="[[itemNode]]"
+                        render-info="[[itemRenderInfo]]"></node-icon>
+
+                    <span title$="[[name]]">[[name]]</span>
+                    <span class="edge-label">[[edgeLabel]]</span>
+                </div>
+            </template>
         </div>
     </template>
 
@@ -70,7 +79,19 @@ limitations under the License.
                         observer: '_itemTypeChanged'
                     },
                     colorBy: String,
-                    colorByParams: Object
+                    colorByParams: Object,
+                    item: {
+                        type: String,
+                        computed: '_getItem(itemNode)'
+                    },
+                },
+
+                _getItem: function (itemNode) {
+                    return itemNode.attr ? itemNode.attr.data : {};
+                },
+
+                terminal: function (itemNode) {
+                    return !!(itemNode.attr);
                 },
 
                 _itemTypeChanged: function () {

@@ -29,8 +29,8 @@ script:
 - npm test
 - npm run release
 branches:
-  except:
-  - "/^v\\d+\\.\\d+\\.\\d+$/"
+  - master
+  - dev-2018
 notifications:
   slack: kestreltechnology:QcOSfR0bHUi92kqkmioIsT4H
 env:

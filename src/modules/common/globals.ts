@@ -12,7 +12,7 @@ import { CAnalysisJsonReaderImpl } from '../data/dataprovider';
 
 import * as kt_fs from './fstools';
 
-import { CAnalysis, ProofObligation, AbstractNode, CFunction, sortPoNodes, CApiAssumption } from './xmltypes';
+import { CAnalysis, ProofObligation, AbstractNode, CFunction, sortPoNodes, CApiAssumption, RenderInfo, PoStates, Callee } from './xmltypes';
 import { Stats } from '../stats/stats';
 import { Filter, PO_FILTER } from './filter';
 import { buildGraph, buildCallsGraph } from '../graph_builder'
@@ -102,6 +102,7 @@ export interface CProject {
     proofObligations: Array<ProofObligation>;
 
     forEachFunction(callbackfn: (value: CFunction, index: number, array: CFunction[]) => void);
+    applyRenderInfos();
 }
 
 export class ProjectImpl implements CProject {
@@ -128,6 +129,59 @@ export class ProjectImpl implements CProject {
 
     allPredicates: Array<string>;
 
+    renderInfos: { [key: string]: RenderInfo } = {};
+
+    private getOrCreateRenderInfo(po: ProofObligation): RenderInfo {
+        const stateName = PoStates[po.state];
+        const icon = ["kt:state", stateName, po.dischargeType].join('-').toLowerCase();
+        const clazz = ["po", stateName, po.dischargeType].join('-').toLowerCase();
+        return this.addUniqueRI(clazz, icon);
+    }
+
+    private getOrCreateAssumptionRenderInfo(po: CApiAssumption): RenderInfo {
+        const icon = ["kt:state-assumption", po.assumptionType].join('-').toLowerCase();
+        const clazz = ["po-assumption", po.assumptionType].join('-').toLowerCase();
+        return this.addUniqueRI(clazz, icon);
+    }
+
+    private getOrCreateCalleeRenderInfo(po: Callee): RenderInfo {
+        const icon = "kt:arrow-forward";
+        const clazz = ["callee", po.type].join('-').toLowerCase();
+        return this.addUniqueRI(clazz, icon);
+    }
+
+    private addUniqueRI(clazz: string, icon: string): RenderInfo {
+        let ri: RenderInfo = new RenderInfo();
+        ri.clazz = clazz;
+        ri.icon = icon;
+        if (!this.renderInfos[ri.key]) {
+            this.renderInfos[ri.key] = ri;
+        }
+        return this.renderInfos[ri.key];
+    }
+
+
+    public applyRenderInfos() {
+        this._proofObligations.forEach(
+            po => {
+                po.renderInfo = this.getOrCreateRenderInfo(po);
+            }
+        );
+
+        this._assumptions.forEach(
+            aa => {
+                aa.renderInfo = this.getOrCreateAssumptionRenderInfo(aa);
+            }
+        );
+
+        this.forEachFunction(cfun => {
+            cfun.callsites.forEach(callsite => {
+                if (callsite.callee)
+                    callsite.callee.renderInfo = this.getOrCreateCalleeRenderInfo(callsite.callee);
+            });
+        });
+    }
+
 
     public forEachFunction(callbackfn: (value: CFunction, index: number, array: CFunction[]) => void) {
         for (let file in this.functionByFile) {
@@ -137,9 +191,7 @@ export class ProjectImpl implements CProject {
     }
 
 
-
     constructor(baseDir: string, appPath: string) {
-        // this.id=Math.random();
         this.appPath = appPath;
         this.baseDir = path.normalize(baseDir);
         this.open(this.baseDir);
