@@ -1,12 +1,5 @@
 import * as tools from '../common/tools';
 import * as pathExists from 'path-exists';
-
-
-
-// import * as path from 'path';
-import * as net from 'net';
-import * as glob from 'glob';
-// import * as PortFinder from "portfinder";
 import * as ChildProcess from "child_process";
 
 
@@ -14,7 +7,8 @@ import {
     FileInfo, ProofObligation, AbstractNode,
     Symbol, PoStates, PODischarge, POLocation, Callsite,
     CApi, CApiAssumption,
-    CFunction, sortPoNodes, Graphable, SecondaryProofObligation, Site, Returnsite, Callee, CFunctionBase, HasPath, RenderInfo
+    CFunction, sortPoNodes, Graphable, SecondaryProofObligation, Site, Returnsite, Callee, CFunctionBase, HasPath, RenderInfo,
+    CAnalysis, CApplication, PONodeAttributes, CallsiteNodeAttributes, AssumptionNodeAttributes
 } from '../common/xmltypes';
 
 
@@ -24,8 +18,7 @@ import { GraphSettings } from '../common/globals'
 
 import { XmlReader } from './xmlreader';
 import { ProgressTracker } from '../tf_graph_common/lib/common';
-import { CAnalysis, CApplication, PONodeAttributes, CallsiteNodeAttributes, AssumptionNodeAttributes } from '../common/xmltypes';
-
+ 
 import * as kt_fs from '../common/fstools';
 import { normalize } from 'path';
 
