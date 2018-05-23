@@ -36,7 +36,7 @@ export function allFilesSync(root: string, dir: string, fileList: Array<FileInfo
         const filePath = path.join(dir, file);
 
         let stats = fs.statSync(filePath);
-        let toAdd = file.endsWith(".c") | file.endsWith(".h") | file.endsWith(".cpp") | file.endsWith(".hpp");
+        let toAdd = file.endsWith(".c") || file.endsWith(".h") || file.endsWith(".cpp") || file.endsWith(".hpp");
         let icon = file.endsWith(".c") ? "check" : file.endsWith(".h") ? "check" : "space-bar"
         let isDirectory = stats.isDirectory();
         let relativePath = path.relative(root, filePath);
