@@ -171,7 +171,7 @@ export class Filter {
         if (!this.fileName) {
             return true;
         } else {
-             
+
             if (!this._file.dir) {
                 return func.file == this.fileName;
             } else {
@@ -221,8 +221,8 @@ export class Filter {
         }
         return false;
     }
-    
-    public acceptPrd(predicate:string): boolean {
+
+    public acceptPrd(predicate: string): boolean {
         if (isEmpty(this._predicates)) {
             return true;
         }
@@ -243,18 +243,16 @@ export class Filter {
     }
 
     public accept(po: ProofObligation): boolean {
-        if(!po) return false;
+        if (!po) return false;
         return this.acceptIgnoreLocation(po) && this.acceptFile(po) && this.acceptFunction(po);
     }
 
     public acceptIgnoreLocation(po: ProofObligation): boolean {
-        if(!po) return false;
-        return this.acceptState(po) && this.acceptLevel(po)  && this.acceptPredicate(po) && this.acceptDischargeType(po);
+        if (!po) return false;
+        return this.acceptState(po) && this.acceptLevel(po) && this.acceptPredicate(po) && this.acceptDischargeType(po);
     }
 
-    // public acceptApi(po: ApiNode): boolean {
-    //     return this.acceptFile(po) && this.acceptFunction(po);// && this.acceptPredicate(po) && this.acceptState(po) && this.acceptDischargeType(po);
-    // }
+
 
 }
 

@@ -47,8 +47,6 @@ class CApiImpl implements CApi {
 
 class CFunctionImpl extends AbstractLocatable implements CFunction {
     name: string;
-    // file: string;
-
     loc: POLocation;
     line: number;
     callsites: Callsite[] = [];
@@ -234,16 +232,6 @@ class ApiAssumptionImpl extends AbstractLocatable implements CApiAssumption {
             attr: new AssumptionNodeAttributesImpl(this)
         };
 
-
-        // this.ppos.forEach(po => {
-        //     nodeDef.input.push(po.getGraphKey(filter, settings));
-        // });
-
-        // this.spos.forEach(po => {
-        //     nodeDef.output.push(po.getGraphKey(filter, settings));
-        // });
-
-
         return nodeDef;
     }
 
@@ -260,7 +248,7 @@ function linkKey(link: json.JPoLink | ProofObligation): string {
 
 
 abstract class AbstractPO extends AbstractLocatable implements ProofObligation {
-    links: json.JPoLink[];
+    // links: json.JPoLink[];
     renderInfo: RenderInfo;
     indexer: CAnalysisImpl;
 
@@ -290,8 +278,7 @@ abstract class AbstractPO extends AbstractLocatable implements ProofObligation {
         };
 
         this.id = "" + ppo.id;
-        //
-        this.links = ppo.links;
+
 
     }
 
@@ -313,21 +300,14 @@ abstract class AbstractPO extends AbstractLocatable implements ProofObligation {
     name: string;
     predicate: string;
     expression: string;
-    // callsiteFname: string;
 
     dischargeType: string;
 
-    // label: string;
     discharge: PODischarge;
     apiId: string;
     state: PoStates;//XXX
-    // outputs: AbstractNode[];
 
     symbol: Symbol;
-
-    isLinked(): boolean {
-        return this.links && (this.links.length > 0);
-    }
 
     id: string;
     cfunction: CFunction;
@@ -396,7 +376,6 @@ abstract class AbstractPO extends AbstractLocatable implements ProofObligation {
 
 
 export function encodeGraphKey(key) {
-    // let encoded = key.split('/').join('_/');
     let encoded = key.trim().split('-').join('_');
     return encoded.split(' ').join('_');
 }
@@ -668,12 +647,6 @@ export class CallsiteImpl extends AbstractSiteImpl implements Callsite, Graphabl
 
         pathParts.push(this.name + nameAddon);
 
-
-        // pathParts.push(this._jcallsite.type);
-        // pathParts.push(this.name + nameAddon);
-
-
-        // pathParts.push(this._jcallsite.varInfo.loc.line+"");
         return encodeGraphKey(pathParts.join('/'));
     }
 
@@ -682,7 +655,6 @@ export class CallsiteImpl extends AbstractSiteImpl implements Callsite, Graphabl
 
 
     public toNodeDef(filter: Filter, settings: GraphSettings): NodeDef {
-        // console.log("callsite-"+this._jcallsite.type);
         let nodeDef: NodeDef = {
 
             name: this.getGraphKey(filter, settings),
@@ -692,8 +664,6 @@ export class CallsiteImpl extends AbstractSiteImpl implements Callsite, Graphabl
             op: this.name,
             attr: <CallsiteNodeAttributes>{
                 label: this._jcallsite.type + ":" + this.name,
-
-                // "predicate": "--",
                 state: "callsite",
                 location: this.callee.loc,
                 locationPath: this.relativePath + "/" + this.name,
@@ -829,15 +799,6 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
 
 
 
-    private normalizeLinks(links: json.JPoLink[], base: string): json.JPoLink[] {
-        if (links) {
-            for (let link of links) {
-                // link.file = this.normalizeSourcePath(base, link.file);
-            }
-        }
-        return links;
-    }
-
     private toCFuncArray(jfunctions: json.JFunc[], file: json.JFile, sourceDir: string): CFunction[] {
 
         const cFunctionsArray: CFunction[] = [];
@@ -852,7 +813,6 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
             jfun.ppos &&
                 jfun.ppos.forEach(ppo => {
                     const mPPOImpl: PPOImpl = new PPOImpl(ppo, cfun, this.cAnalysisResult);
-                    mPPOImpl.links = this.normalizeLinks(ppo.links, sourceDir);
                     this.cAnalysisResult.pushPo(mPPOImpl);
                     cfun._indexPpo(mPPOImpl);
                 });
@@ -870,7 +830,6 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
 
                     jReturnsite.spos && jReturnsite.spos.forEach(spo => {
                         const mSPOImpl: SPOImpl = new SPOImpl(spo, cfun, this.cAnalysisResult, returnsite);
-                        mSPOImpl.links = this.normalizeLinks(spo.links, sourceDir);
                         this.cAnalysisResult.pushPo(mSPOImpl);
                         returnsite.pushSPo(mSPOImpl);
                         cfun._indexSpo(mSPOImpl)
@@ -889,9 +848,6 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
                     let callsite = null;
                     if (jcallsite.callee) {
 
-                        // jcallsite.callee.loc.file =  
-                        //     tools.normalizeSourcePath(this.projectDir, sourceDir, jcallsite.callee.loc);
-
                         const calleeFileRelative =
                             tools.normalizeSourcePath(this.projectDir, sourceDir, jcallsite.callee.loc);
                         const callee = new CalleeImpl(jcallsite.callee, calleeFileRelative, jcallsite.type);
@@ -902,7 +858,6 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
 
                     jcallsite.spos && jcallsite.spos.forEach(spo => {
                         const mSPOImpl: SPOImpl = new SPOImpl(spo, cfun, this.cAnalysisResult, callsite);
-                        mSPOImpl.links = this.normalizeLinks(spo.links, sourceDir);
                         this.cAnalysisResult.pushPo(mSPOImpl);
                         callsite && callsite.pushSPo(mSPOImpl);
                         cfun._indexSpo(mSPOImpl)

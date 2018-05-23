@@ -3,7 +3,6 @@ const path = require('path');
 const fs = require('fs');
 
 export interface FileContents {
-    // src: string;
     lines: SourceLine[];
 }
 
@@ -72,7 +71,6 @@ function _allFilesSync(dir: string, suffixFilter: string, fileList = []) {
             let isDirectory = stats.isDirectory();
             if (!isDirectory) {
                 if (file.endsWith(suffixFilter)) {
-
                     fileList.push(filePath);
                 }
             } else {

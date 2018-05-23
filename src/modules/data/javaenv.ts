@@ -12,7 +12,7 @@ export interface JavaEnv {
     java_version: number;
 }
 
- 
+
 export async function resolveJava(): Promise<JavaEnv> {
     let java_home = await checkJavaRuntime();
     let javaVersion = await checkJavaVersion(java_home);
@@ -34,7 +34,7 @@ function checkJavaRuntime(): Promise<string> {
                 source = 'The JAVA_HOME environment variable';
             }
         }
-        
+
         if (javaHome) {
             javaHome = expandHomeDir(javaHome);
             if (!pathExists.sync(<string>javaHome)) {
@@ -112,6 +112,6 @@ export function getJarName(appPath: string) {
     //PRODUCTION MODE (archived)
     if (!pathExists.sync(jarname)) {
         throw (jarname + " does not exist");
-    } 
+    }
     return jarname;
 }
