@@ -1,6 +1,6 @@
 import * as _ from "lodash"
 import * as tools from "./tools"
-
+import * as kt_fs from './fstools';
 
 import * as tf from '../tf_graph_common/lib/common'
 import * as util from '../tf_graph_common/lib/util'
@@ -10,7 +10,7 @@ import { CONF, loadProjectMayBe } from './storage';
 import { XmlReader } from '../data/xmlreader';
 import { CAnalysisJsonReaderImpl } from '../data/dataprovider';
 
-import * as kt_fs from './fstools';
+
 
 import { CAnalysis, ProofObligation, AbstractNode, CFunction, sortPoNodes, CApiAssumption, RenderInfo, PoStates, Callee } from './xmltypes';
 import { Stats } from '../stats/stats';
@@ -56,11 +56,7 @@ export function groupProofObligationsByFileFunctions(pos: AbstractNode[]): { [ke
 export function unzipPoGroup(byFileFuncGroup: { [key: string]: { [key: string]: AbstractNode[] } }) {
     let ret = [];
     for (let filename in byFileFuncGroup) {
-        // ret.push({
-        //     value: filename,
-        //     type: "file",
-        //     group: true,
-        // });
+
         for (let funcname in byFileFuncGroup[filename]) {
 
             ret.push({
@@ -114,10 +110,10 @@ export class ProjectImpl implements CProject {
     appPath: string;
     analysisDir: string;
     stats: Stats;
-    // calls: Array<FunctionCalls>;
+
     /**
-     * previously saved statistics
-     */
+    * previously saved statistics
+    */
     oldstats: Stats;
     id: number = Math.random();
     _proofObligations: Array<ProofObligation> = [];
@@ -126,7 +122,6 @@ export class ProjectImpl implements CProject {
 
     _assumptions: Array<CApiAssumption> = [];
 
-    // _apis: { [key: string]: ApiNode } = null;
 
 
     allPredicates: Array<string>;
@@ -194,9 +189,9 @@ export class ProjectImpl implements CProject {
 
 
     constructor(baseDir: string, appPath: string) {
-        if(!baseDir) throw "baseDir is required";
-        if(!appPath) throw "appPath is required";
-         
+        if (!baseDir) throw "baseDir is required";
+        if (!appPath) throw "appPath is required";
+
         this.appPath = appPath;
         this.baseDir = path.normalize(baseDir);
         this.open(this.baseDir);
@@ -341,10 +336,6 @@ export class ProjectImpl implements CProject {
     }
 
 
-    // get filteredAssumptions(): Array<ApiNode> {
-    //     return this._filteredAssumptions;
-    // }
-
     get filteredProofObligations(): Array<ProofObligation> {
         return this._filteredProofObligations;
     }
@@ -356,7 +347,6 @@ export class ProjectImpl implements CProject {
     public open(baseDir: string): void {
         this.baseDir = baseDir;
         this.analysisDir = path.join(this.baseDir, CH_DIR);
-        // this._filteredAssumptions = null;
         this._filteredProofObligations = null;
 
         CONF.addRecentProject(path.basename(baseDir), baseDir);

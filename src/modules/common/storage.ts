@@ -8,9 +8,9 @@ import { KT_VERSION } from '../../version';
 export function loadProjectMayBe(baseDir: string): JsonReadyProject {
     const projectPath = path.join(baseDir, '.kt-gui.json');
     try {
-        console.log ("reading "+projectPath);
+        console.log("reading " + projectPath);
         const prjson = <JsonReadyProject>JSON.parse(fs.readFileSync(projectPath));
-        console.log ("OK");
+        console.log("OK");
         return prjson;
     } catch (error) {
         console.warn("cannot read existing kt project stats: " + error);
