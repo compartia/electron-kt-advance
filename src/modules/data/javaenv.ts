@@ -1,7 +1,7 @@
+import * as cp from 'child_process';
 import * as expandHomeDir from 'expand-home-dir';
 import * as findJavaHome from 'find-java-home';
 import * as pathExists from 'path-exists';
-import * as cp from 'child_process';
 
 const path = require('path');
 

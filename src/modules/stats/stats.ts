@@ -1,12 +1,7 @@
-import * as _ from "lodash"
-
-
-import { FileInfo, CFunction, ProofObligation, PoLevels, PoStates, HasPath, HasLocation, DischargeDescriptions } from '../common/xmltypes'
+import * as _ from "lodash";
+import { NamedArray, StatsTable } from '../common/collections';
+import { CFunction, DischargeDescriptions, FileInfo, HasLocation, HasPath, PoLevels, PoStates, ProofObligation } from '../common/xmltypes';
 import { updateChart } from './chart';
-
-
-import { StatsTable, NamedArray } from '../common/collections';
-
 
 
 /**
@@ -152,7 +147,7 @@ export class Stats {
 
             this.assumptionsByFunction.bind(functionKey, po.cfunction);
             this.dependenciesByFile.bind(po.file, po);
- 
+
             //------------
             this.byFile.inc(po.file, state, 1);
             this.byFile.bind(po.file, po);
@@ -173,7 +168,7 @@ export class Stats {
             }
         }
 
- 
+
         console.info("stats build o:" + this.countOpen + " v:" + this.countViolations + " d:" + this.countDischarged);
 
     }
@@ -322,10 +317,6 @@ export class Stats {
             }
         );
     }
-
- 
-
-
 
 
 

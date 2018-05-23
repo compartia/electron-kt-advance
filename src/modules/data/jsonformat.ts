@@ -14,13 +14,10 @@ export interface JPPO {
     line: number;
     prd: string;
     sts: string;
-    links: JPoLink[];
 }
 
 
-export interface JLocation extends POLocation {
-
-}
+export interface JLocation extends POLocation { }
 
 export interface JVarInfo {
     loc: JLocation;

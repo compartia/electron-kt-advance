@@ -1,4 +1,9 @@
-import * as _ from "lodash"
+import * as _ from "lodash";
+import { JVarInfo } from "../data/jsonformat";
+import { NodeAttributes, NodeDef } from '../tf_graph_common/lib/proto';
+import { Filter } from './filter';
+import { GraphSettings } from './globals';
+
 
 export enum PoStates { violation, open, discharged, deadcode, assumption, callsite };
 export enum PoDischargeTypes { a, f, x, i, s };
@@ -16,10 +21,6 @@ export const DischargeDescriptions = {
 export const PoStatesArr: Array<PoStates> = [PoStates.violation, PoStates.open, PoStates.discharged, PoStates.deadcode];
 export enum PoStatesExt { violation, open, discharged, deadcode, global, invariants, ds, rv, api };
 
-import { NodeDef, NodeAttributes } from '../tf_graph_common/lib/proto'
-import { Filter } from './filter'
-import { GraphSettings } from './globals'
-import { JVarInfo } from "../data/jsonformat";
 
 
 export interface CommonNodeAttributes extends NodeAttributes {
