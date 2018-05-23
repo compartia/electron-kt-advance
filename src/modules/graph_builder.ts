@@ -1,9 +1,9 @@
+import { Filter } from './common/filter';
+import { CProject, GraphSettings } from './common/globals';
 import * as tools from './common/tools';
+import { Graphable } from './common/xmltypes';
+import { NodeAttributes, NodeDef } from './tf_graph_common/lib/proto';
 
-import { CFunction, CApiAssumption, CApi, SecondaryProofObligation, Graphable } from './common/xmltypes';
-import { CProject, GraphSettings, GraphGrouppingOptions } from './common/globals'
-import { Filter } from './common/filter'
-import { NodeDef, NodeAttributes } from './tf_graph_common/lib/proto'
 
 const path = require('path');
 
@@ -106,15 +106,17 @@ function linkNodes2way(g: { [key: string]: NodeDef }) {
     }
 }
 
+const MISSING = "missing";
 function makeMissingNode(linkedKey: String): NodeDef {
+    
     const ret = <NodeDef>{
         name: linkedKey,
         input: [],
         output: [],
-        device: "missing",
-        op: "missing",
+        device: MISSING,
+        op: MISSING,
         attr: <NodeAttributes>{
-            state: "missing",
+            state: MISSING,
         }
     }
     return ret;
