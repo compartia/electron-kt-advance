@@ -1,10 +1,9 @@
+import { Filter } from './common/filter';
+import { CProject, GraphSettings } from './common/globals';
 import * as tools from './common/tools';
+import { Graphable } from './common/xmltypes';
+import { NodeAttributes, NodeDef } from './tf_graph_common/lib/proto';
 
-import { CFunction, CApiAssumption, CApi, SecondaryProofObligation, Graphable } from './common/xmltypes';
-import { CProject, GraphSettings, GraphGrouppingOptions } from './common/globals'
-import { Filter } from './common/filter'
-import { ProofObligation, PoStates, sortNodes, POLocation } from './common/xmltypes'
-import { NodeDef, NodeAttributes } from './tf_graph_common/lib/proto'
 
 const path = require('path');
 
@@ -25,7 +24,6 @@ export function findOrMakeNode(g: { [key: string]: NodeDef }, n: Graphable, filt
 
 export function buildGraph(filter: Filter, project: CProject): NodeDef[] {
 
-    // const apis = project.filteredAssumptions;
     const pos = project.filteredProofObligations;
 
 
@@ -34,9 +32,8 @@ export function buildGraph(filter: Filter, project: CProject): NodeDef[] {
     let settings = new GraphSettings(); //XXX: provide real settings
 
     /*
-        adding assumptiosn to graph
+        adding assumptions to graph
     */
-
     project.filteredAssumptions.forEach(assumption => {
         const node: NodeDef = assumption.toNodeDef(filter, settings);
         g[node.name] = node;
@@ -87,7 +84,6 @@ function linkNodes2way(g: { [key: string]: NodeDef }) {
         node.output.forEach(linkedKey => {
 
             if (!g[linkedKey]) {
-                // console.error(key + " lists key " + linkedKey + " in outputs, but this node is not in graph");
                 g[linkedKey] = makeMissingNode(linkedKey);
             }
 
@@ -101,7 +97,6 @@ function linkNodes2way(g: { [key: string]: NodeDef }) {
 
         node.input.forEach(linkedKey => {
             if (!g[linkedKey]) {
-                // console.error(key + " lists key " + linkedKey + " in inputs, but this node is not in graph");
                 g[linkedKey] = makeMissingNode(linkedKey);
             }
 
@@ -111,16 +106,17 @@ function linkNodes2way(g: { [key: string]: NodeDef }) {
     }
 }
 
+const MISSING = "missing";
 function makeMissingNode(linkedKey: String): NodeDef {
+    
     const ret = <NodeDef>{
         name: linkedKey,
         input: [],
         output: [],
-        device: "missing",
-        op: "missing",
+        device: MISSING,
+        op: MISSING,
         attr: <NodeAttributes>{
-            state: "missing",
-            // label:"MISSING"
+            state: MISSING,
         }
     }
     return ret;
@@ -131,30 +127,12 @@ function removeOrphans(g: NodeDef[]): NodeDef[] {
 }
 
 export function buildCallsGraph(filter: Filter, project: CProject): NodeDef[] {
-    // const calls: FunctionCalls[] = project.calls;
-    // const pos = project.filteredProofObligations;
 
-    // this.filter.acceptCFunction
     let nodesMap: { [key: string]: NodeDef } = {};
 
     let settings = new GraphSettings();
 
-    // project.proofObligations.forEach(
-    //     po => {
-    //         if ((<SecondaryProofObligation>po).callsite) {
-    //             if (filter.accept(po)) {
 
-    //                 const cnode = (<SecondaryProofObligation>po).callsite.toNodeDef(filter, settings);
-    //                 nodesMap[cnode.name] = cnode;
-
-    //                 const pnode = po.toNodeDef(filter, settings);
-    //                 nodesMap[pnode.name] = pnode;
-
-    //                 pnode.output.push[cnode.name];
-    //             }
-    //         }
-    //     }
-    // );
 
 
 
@@ -175,10 +153,6 @@ export function buildCallsGraph(filter: Filter, project: CProject): NodeDef[] {
                     if (filter.acceptIgnoreLocation(linkedSpo)) {
                         const cnode = linkedSpo.toNodeDef(filter, settings);
                         nodesMap[cnode.name] = cnode;
-
-                        // node.output.push(cnode.name);
-                        // cnode.input.push(node.name);
-
                         linkNodes(node, cnode);
                     }
 
@@ -186,8 +160,6 @@ export function buildCallsGraph(filter: Filter, project: CProject): NodeDef[] {
 
 
             }
-
-
 
             // }
 

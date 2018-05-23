@@ -2,8 +2,8 @@ const path = require('path');
 const electron = require('electron');
 const fs = require('fs');
 
-import { JsonReadyProject } from './globals';
 import { KT_VERSION } from '../../version';
+import { JsonReadyProject } from './globals';
 
 export function loadProjectMayBe(baseDir: string): JsonReadyProject {
     const projectPath = path.join(baseDir, '.kt-gui.json');

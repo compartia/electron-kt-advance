@@ -13,10 +13,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
  
-import {ProgressTracker} from './common';
-import * as util from './util';
-import {NodeDef, StepStats} from './proto';
+import { ProgressTracker } from './common';
 import * as hierarchy from './hierarchy';
+import { NodeDef, StepStats } from './proto';
+import * as util from './util';
 
 
 

@@ -1,34 +1,22 @@
-import * as _ from "lodash"
-import * as tools from "./tools"
-import * as kt_fs from './fstools';
-
-import * as tf from '../tf_graph_common/lib/common'
-import * as util from '../tf_graph_common/lib/util'
-
-
-import { CONF, loadProjectMayBe } from './storage';
-import { XmlReader } from '../data/xmlreader';
+import * as _ from "lodash";
 import { CAnalysisJsonReaderImpl } from '../data/dataprovider';
-
-
-
-import { CAnalysis, ProofObligation, AbstractNode, CFunction, sortPoNodes, CApiAssumption, RenderInfo, PoStates, Callee } from './xmltypes';
+import { XmlReader } from '../data/xmlreader';
+import { buildCallsGraph, buildGraph } from '../graph_builder';
 import { Stats } from '../stats/stats';
-import { Filter, PO_FILTER } from './filter';
-import { buildGraph, buildCallsGraph } from '../graph_builder'
+import * as tf from '../tf_graph_common/lib/common';
+import { NodeDef } from '../tf_graph_common/lib/proto';
+import { Filter } from './filter';
+import * as kt_fs from './fstools';
+import { CONF, loadProjectMayBe } from './storage';
+import { AbstractNode, CAnalysis, CApiAssumption, CFunction, Callee, PoStates, ProofObligation, RenderInfo, sortPoNodes } from './xmltypes';
 
 
-
-import { NodeDef } from '../tf_graph_common/lib/proto'
 
 
 const path = require('path');
 const fs = require('fs');
 const dialog = require('electron').remote.dialog;
 
-
-
-export const CH_DIR: string = "ch_analysis";
 
 export var TABS = [
     'summary', 'source', 'proof obligations', 'assumptions', 'graphs', 'calls', '?'
@@ -81,7 +69,6 @@ export function unzipPoGroup(byFileFuncGroup: { [key: string]: { [key: string]: 
 
 export class JsonReadyProject {
     baseDir: string;
-    analysisDir: string;
     stats: Stats;
 }
 export interface CProjectProto {
@@ -91,9 +78,7 @@ export interface CProject {
     id: number;
     functionByFile: { [key: string]: Array<CFunction> };
     baseDir: string;
-    analysisDir: string;
     stats: Stats;
-    // calls: Array<FunctionCalls>;
     filteredAssumptions: Array<CApiAssumption>;
     assumptions: Array<CApiAssumption>;
     filteredProofObligations: Array<ProofObligation>;
@@ -108,7 +93,6 @@ export class ProjectImpl implements CProject {
     functionByFile: { [key: string]: Array<CFunction> } = {};
     baseDir: string;
     appPath: string;
-    analysisDir: string;
     stats: Stats;
 
     /**
@@ -229,7 +213,7 @@ export class ProjectImpl implements CProject {
         }
 
         const pCAnalysis: Promise<CAnalysis> = this.reader.readDir(
-            path.dirname(project.analysisDir),
+            project.baseDir,
             this.appPath,
             tracker
         );
@@ -262,7 +246,6 @@ export class ProjectImpl implements CProject {
 
     public toJsonReadyProject(): JsonReadyProject {
         const ret = new JsonReadyProject();
-        ret.analysisDir = this.analysisDir;
         ret.baseDir = this.baseDir;
         ret.stats = this.stats;
         return ret;
@@ -346,7 +329,6 @@ export class ProjectImpl implements CProject {
 
     public open(baseDir: string): void {
         this.baseDir = baseDir;
-        this.analysisDir = path.join(this.baseDir, CH_DIR);
         this._filteredProofObligations = null;
 
         CONF.addRecentProject(path.basename(baseDir), baseDir);

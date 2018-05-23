@@ -1,10 +1,15 @@
-import * as _ from "lodash"
+import * as _ from "lodash";
+import { JVarInfo } from "../data/jsonformat";
+import { NodeAttributes, NodeDef } from '../tf_graph_common/lib/proto';
+import { Filter } from './filter';
+import { GraphSettings } from './globals';
+
 
 export enum PoStates { violation, open, discharged, deadcode, assumption, callsite };
 export enum PoDischargeTypes { a, f, x, i, s };
 export const PoLevels = ["primary", "secondary"];
 
-export const PoDischargeTypesArr: Array<string> = ["a", "f", "x", "i", "s"];
+
 export const DischargeDescriptions = {
     "a": "dependent on other functions",
     "f": "dependent on context",
@@ -12,14 +17,11 @@ export const DischargeDescriptions = {
     "i": "unknown",
     "s": "dependent on itself"
 };
+export const PoDischargeTypesArr: Array<string> = Object.keys(DischargeDescriptions);
 
 export const PoStatesArr: Array<PoStates> = [PoStates.violation, PoStates.open, PoStates.discharged, PoStates.deadcode];
-export enum PoStatesExt { violation, open, discharged, deadcode, global, invariants, ds, rv, api };
+export enum SortOrder { violation, open, discharged, deadcode, callsite, assumption, a, f, s, x, i, global, invariants, ds, rv, api };
 
-import { NodeDef, NodeAttributes } from '../tf_graph_common/lib/proto'
-import { Filter } from './filter'
-import { GraphSettings } from './globals'
-import { JVarInfo } from "../data/jsonformat";
 
 
 export interface CommonNodeAttributes extends NodeAttributes {
@@ -178,7 +180,7 @@ export interface AbstractNode extends POId {
 
     location: POLocation;
     symbol: Symbol;
- 
+
 }
 
 
@@ -236,12 +238,12 @@ export function sortPoNodes(nodes: ProofObligation[]): Array<ProofObligation> {
 }
 
 export function compareStates(stateA: string, stateB: string): number {
-    let stA: string[] = stateA.toLowerCase().split("-");
-    let stB: string[] = stateB.toLowerCase().split("-");
+    let stA: string[] = stateA.split("-");
+    let stB: string[] = stateB.split("-");
 
-    let delta1 = PoStatesExt[stA[0]] - PoStatesExt[stB[0]];
+    let delta1 = SortOrder[stA[0]] - SortOrder[stB[0]];
     if (delta1 == 0) {
-        return PoStatesExt[stA[1]] - PoStatesExt[stB[1]];
+        return SortOrder[stA[1]] - SortOrder[stB[1]];
     } else
         return delta1;
 }

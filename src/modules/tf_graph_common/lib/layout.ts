@@ -13,7 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
 
-import { NodeType, NAMESPACE_DELIM } from './graph';
+import { NAMESPACE_DELIM, NodeType } from './graph';
 import * as render from './render';
  
 var dagre=require("dagre");

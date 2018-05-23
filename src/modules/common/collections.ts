@@ -1,4 +1,4 @@
-import { contains, uniq, sortBy, sum } from "lodash";
+import { contains, sortBy, sum, uniq } from "lodash";
 
 export function isEmpty<T>(set_: AnySet<T>): boolean {
     return set_ === null || set_ === undefined || set_.isEmpty();

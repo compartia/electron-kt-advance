@@ -1,29 +1,16 @@
-import * as tools from '../common/tools';
-import * as pathExists from 'path-exists';
 import * as ChildProcess from "child_process";
-
-
-import {
-    FileInfo, ProofObligation, AbstractNode,
-    Symbol, PoStates, PODischarge, POLocation, Callsite,
-    CApi, CApiAssumption,
-    CFunction, sortPoNodes, Graphable, SecondaryProofObligation, Site, Returnsite, Callee, CFunctionBase, HasPath, RenderInfo,
-    CAnalysis, CApplication, PONodeAttributes, CallsiteNodeAttributes, AssumptionNodeAttributes
-} from '../common/xmltypes';
-
-
-import { NodeDef } from '../tf_graph_common/lib/proto'
-import { Filter, sharedStart } from '../common/filter'
-import { GraphSettings } from '../common/globals'
-
-import { XmlReader } from './xmlreader';
-import { ProgressTracker } from '../tf_graph_common/lib/common';
-
+import { Filter } from '../common/filter';
 import * as kt_fs from '../common/fstools';
-import { normalize } from 'path';
-
+import { GraphSettings } from '../common/globals';
+import * as tools from '../common/tools';
+import { AssumptionNodeAttributes, CAnalysis, CApi, CApiAssumption, CFunction, CFunctionBase, Callee, Callsite, CallsiteNodeAttributes, Graphable, HasPath, PODischarge, POLocation, PONodeAttributes, PoStates, ProofObligation, RenderInfo, Returnsite, SecondaryProofObligation, Site, Symbol } from '../common/xmltypes';
+import { ProgressTracker } from '../tf_graph_common/lib/common';
+import { NodeDef } from '../tf_graph_common/lib/proto';
+import { JavaEnv, getJarName, resolveJava } from './javaenv';
 import * as json from './jsonformat';
-import { JavaEnv, resolveJava, getJarName } from './javaenv';
+import { XmlReader } from './xmlreader';
+
+
 
 const path = require('path');
 const fs = require('fs');

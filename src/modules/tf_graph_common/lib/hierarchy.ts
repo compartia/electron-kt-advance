@@ -21,13 +21,12 @@ limitations under the License.
  * Class used as output for getPredecessors and getSuccessors methods
  */
 
-import {ROOT_NAME, Node, OpNode, InclusionType, GraphType, NodeType, 
-  BridgeNode, GroupNode, Metaedge, MetaedgeImpl, Metanode, BaseEdge,
-  SeriesGroupingType, SlimGraph, NodeStats, SeriesNode,
-  createGraph, createMetanode, createMetaedge, getSeriesNodeName, createSeriesNode, getHierarchicalPath} from './graph';
-import {ProgressTracker} from './common';
+import { ProgressTracker } from './common';
+import { GraphType, GroupNode, Metaedge, MetaedgeImpl, Metanode, Node, 
+  NodeStats, NodeType, OpNode, ROOT_NAME, SeriesGroupingType, SeriesNode, SlimGraph, 
+  createGraph, createMetaedge, createMetanode, createSeriesNode, getHierarchicalPath, getSeriesNodeName } from './graph';
+import { StepStats } from './proto';
 import * as util from './util';
-import {StepStats} from './proto';
 // import * as graphlib from './externs';
 const graphlib = require('./externs').graphlib;  
 

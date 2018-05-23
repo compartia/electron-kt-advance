@@ -1,5 +1,5 @@
-import { CFunction, ProofObligation, PoStates, PoStatesArr, PoDischargeTypesArr, CFunctionBase, HasPath } from './xmltypes';
-import { StringSet, AnySet, isEmpty } from './collections';
+import { AnySet, StringSet, isEmpty } from './collections';
+import { CFunctionBase, HasPath, PoDischargeTypesArr, PoStates, PoStatesArr, ProofObligation } from './xmltypes';
 
 
 export function sharedStart(array: string[]): string {

@@ -1,5 +1,4 @@
-import { FileInfo } from "../common/xmltypes"
-
+import { FileInfo } from "../common/xmltypes";
 
 const path = require('path');
 const fs = require('fs');

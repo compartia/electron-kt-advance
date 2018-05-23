@@ -1,5 +1,4 @@
-
-import { normalize, relative, join, isAbsolute } from 'path';
+import { isAbsolute, join, normalize, relative } from 'path';
 import * as json from '../data/jsonformat';
 
 
