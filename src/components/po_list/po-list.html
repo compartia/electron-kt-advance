@@ -23,7 +23,7 @@
                         </template>
 
                         <template is="dom-if" if="[[!line.group]]">
-                            <po-line showassumptions item="[[line.value]]" linktosource="[[linktosource]]"></po-line>
+                            <po-line showassumptions="[[showassumptions]]" item="[[line.value]]" linktosource="[[linktosource]]"></po-line>
                         </template>
                     </div>
 
@@ -40,6 +40,11 @@
                 linktosource: Boolean,
                 showgroups: Boolean,
                 small: Boolean,
+
+                showassumptions:{
+                    type: Boolean,
+                    value: false
+                },
 
                 selectedPo: {
                     type: Array,
@@ -83,12 +88,13 @@
                 this.set("selectedPo", pos);
             },
 
-            _getClass: function(line, selected, small) {
+            _getClass: function (line, selected, small) {
                 var clazz = selected ?
                     "selected" :
                     "";
-                if(this.small){
-                    clazz+=" small";
+
+                if (small) {
+                    clazz += " small";
                 }
                 return clazz;
             },

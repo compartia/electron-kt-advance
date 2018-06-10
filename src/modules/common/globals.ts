@@ -256,10 +256,10 @@ export class ProjectImpl implements CProject {
         for (let po of this.filteredProofObligations) {
             if (po.location.line == line && po.file == fileName) {
                 ret.push(po);
-            }
+            } 
         }
         return ret;
-    }
+    } 
 
     public loadFile(relativePath: string): Promise<kt_fs.FileContents> {
         return kt_fs.loadFile(this.baseDir, relativePath);

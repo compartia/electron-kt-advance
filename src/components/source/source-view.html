@@ -22,7 +22,11 @@
 
                             <template is="dom-if" if="{{showAtLinePos(item, selected)}}">
                                 <div style="max-height:300px; overflow: auto">
-                                    <po-list small on-tap="_toggleLine" filtered-proof-obligations="{{posByLine}}" selected-po="{{selectedPo}}"></po-list>
+                                    <po-list class="inline" 
+                                        small 
+                                        showassumptions
+                                        on-tap="_toggleLine" 
+                                        filtered-proof-obligations="{{posByLine}}" selected-po="{{selectedPo}}"></po-list>
                                 </div>
                             </template>
                         </div>
@@ -40,6 +44,14 @@
                     <h3>Depends on assumptions</h3>
                     <assumptions-list small filtered-assumptions="[[dependentAssumptionsOut]]" linktosource></assumptions-list>
                 </template>
+ 
+                <template is="dom-if" if="[[associatedPOs.length]]">
+                    <h3>Associated PO</h3>                    
+                    <po-list 
+                        small linktosource showgroups
+                        filtered-proof-obligations="[[associatedPOs]]"></po-list>
+                </template>
+
             </div>
 
 
@@ -85,7 +97,6 @@
                 '_selectedPoChanged(selectedPo)', '_selectedLineChanged(selectedLine, statistics)'
             ],
 
-
             getSplitterClass: function (dependentAssumptionsIn, dependentAssumptionsOut) {
                 return ((dependentAssumptionsIn && dependentAssumptionsIn.length) || (dependentAssumptionsOut && dependentAssumptionsOut.length)) ? "" : "collapsed";
             },
@@ -112,16 +123,23 @@
             _selectedPoChanged: function (list) {
                 var assumptionsOut = [];
                 var assumptionsIn = [];
+
+                var associatedPOs = [];
+
                 if (list) {
                     for (var i = 0; i < list.length; i++) {
                         assumptionsOut = assumptionsOut.concat(list[i].assumptionsOut);
                         assumptionsIn = assumptionsIn.concat(list[i].assumptionsIn);
+
+                        associatedPOs = associatedPOs.concat(list[i].associatedPOs);
                     }
                 }
 
                 //XXX: make list of unique! pos=this.filter.filterAssumptions(assumptions);
                 this.set("dependentAssumptionsIn", assumptionsIn);
                 this.set("dependentAssumptionsOut", assumptionsOut);
+
+                this.set("associatedPOs", associatedPOs);
                 //
 
                 var task = function () {

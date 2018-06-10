@@ -59,9 +59,10 @@ source-view {
     #listOfLines {
         padding-top: var(--filter-panel-height);
     }
+ 
 
-
-    po-list .scrollable{
+  
+    .inline{
         background: $selection-lt-bg;
         margin-left: $line-number-width;
     }

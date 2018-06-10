@@ -269,6 +269,28 @@ abstract class AbstractPO extends AbstractLocatable implements ProofObligation {
 
     }
 
+    get associatedPOs() {
+        let ret = [];
+        this.assumptionsIn.forEach(assumption => {
+            ret = ret.concat(assumption.ppos);
+            ret = ret.concat(assumption.spos);
+        });
+        this.assumptionsOut.forEach(assumption => {
+            ret = ret.concat(assumption.ppos);
+            ret = ret.concat(assumption.spos);
+        });
+
+
+        //removing self
+        var index = ret.indexOf(this, 0);
+        if (index > -1) {
+           ret.splice(index, 1);
+        }
+        return ret;
+     }
+
+ 
+
 
     get label() {
         return "[L" + this.line + "] " + this.predicate + (this.levelLabel == "II" ? " II" : "");

@@ -7,6 +7,7 @@
             <po-list
                 id="main-po-list"
                 class="main"
+                showassumptions
                 filtered-proof-obligations="[[filteredProofObligations]]"
                 linktosource showgroups selected-po="{{selectedPo}}"></po-list>
 
@@ -19,6 +20,14 @@
                     <h3>Depends on assumptions</h3>
                     <assumptions-list small filtered-assumptions="{{dependentAssumptionsOut}}" linktosource></assumptions-list>
                 </template>
+
+                <template is="dom-if" if="[[associatedPOs.length]]">
+                    <h3>Associated PO</h3>                    
+                    <po-list 
+                        small linktosource showgroups
+                        filtered-proof-obligations="[[associatedPOs]]"></po-list>
+                </template>
+
             </div>
 
         </vaadin-split-layout>
@@ -47,13 +56,18 @@
             _selectedPoChanged: function(list) {
                 var assumptionsOut = [];
                 var assumptionsIn = [];
+                var associatedPOs = [];
+
                 for (var i = 0; i < list.length; i++) {
                     assumptionsOut = assumptionsOut.concat(list[i].assumptionsOut);
                     assumptionsIn = assumptionsIn.concat(list[i].assumptionsIn);
+
+                     associatedPOs = associatedPOs.concat(list[i].associatedPOs);
                 }
                 //XXX: make list of unique! pos=this.filter.filterAssumptions(assumptions);
                 this.set("dependentAssumptionsIn", assumptionsIn);
                 this.set("dependentAssumptionsOut", assumptionsOut);
+                this.set("associatedPOs", associatedPOs);
 
                 var task = function() {
                     if (this.$.verticalPoSplitter) {

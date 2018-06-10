@@ -21,8 +21,7 @@
                         [[item.predicate]]
                     </span>
                     <template is="dom-if" if="[[item.predicateArgument]]">
-                        (
-                        <span class="predicate-arg">[[item.predicateArgument]]</span>)
+                        (<span class="predicate-arg">[[item.predicateArgument]]</span>)
                     </template>
                 </span>
 
@@ -43,11 +42,10 @@
 
             <span class='right'>
 
-
                 <template is="dom-if" if="[[showassumptions]]">
                     <span class='assumptions'>
                         <template is="dom-if" if="[[item.assumptionsOut.length]]">
-                            <span title="api assumptions" class="outputs">[[item.assumptionsOut.length]]</span>
+                            <span title="API assumptions" class="outputs">[[item.assumptionsOut.length]]</span>
                         </template>
                         <template is="dom-if" if="[[item.assumptionsIn.length]]">
                             <span title="depends on assumptions" class="inputs">[[item.assumptionsIn.length]]</span>
