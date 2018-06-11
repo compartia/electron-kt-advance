@@ -30,6 +30,8 @@ $po-icon-width: 16px;
 }
 
 po-list {
+    
+
     .headline {
         padding: $spacer*2 $spacer $spacer;
         color  : $grey-lighter;
@@ -48,7 +50,7 @@ po-list {
     }
 }
 
-.po-wrapper {
+.po-wrapper {    
     padding: 0;
     margin : 0;
 }
@@ -61,7 +63,7 @@ po-list {
     font-size: $font-size-sm;
 }
 
-.small >{
+.small {
     c-entity-line, tf-node-list-item {
         .row{
             font-size: 85%;
@@ -93,6 +95,7 @@ assumption-line {
         //border-bottom: 1px solid var(--kt-grey-lighter);
         box-sizing : border-box;
         border-left: $marker-line-width solid $transparent;
+        border-bottom: 1px solid var(--separator);
         display    : flex;
         align-items: center;
         flex-flow  : row;
