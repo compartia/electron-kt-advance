@@ -1,4 +1,6 @@
 const globals = require('./modules/common/globals');
+const sorting = require('./modules/common/sorting');
+
 const model = require('./modules/common/xmltypes');
 const palette = require('./modules/common/palette');
 const filter = require('./modules/common/filter');

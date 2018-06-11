@@ -2,7 +2,7 @@
     "compilerOptions": {
         "typeRoots": ["typings/globals"],
         "types": ["lodash", "node", "d3"],
-         
+        "module": "umd",
         "target": "es5",
         "lib": [
             "es5",

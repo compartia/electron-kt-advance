@@ -12,7 +12,6 @@ import { AbstractNode, CAnalysis, CApiAssumption, CFunction, Callee, PoStates, P
 
 
 
-
 const path = require('path');
 const fs = require('fs');
 const dialog = require('electron').remote.dialog;
@@ -30,41 +29,41 @@ export class GraphSettings {
     includeCallsites = true;
 }
 
-export function groupProofObligationsByFileFunctions(pos: AbstractNode[]): { [key: string]: { [key: string]: AbstractNode[] } } {
-    let byfile = _.groupBy(pos, "file");
-    let byFileFunc = {};
-    for (let filename in byfile) {
-        let subgroup = _.groupBy(byfile[filename], "functionName");
-        byFileFunc[filename] = subgroup;
-    }
+// export function groupProofObligationsByFileFunctions(pos: AbstractNode[]): { [key: string]: { [key: string]: AbstractNode[] } } {
+//     let byfile = _.groupBy(pos, "file");
+//     let byFileFunc = {};
+//     for (let filename in byfile) {
+//         let subgroup = _.groupBy(byfile[filename], "functionName");
+//         byFileFunc[filename] = subgroup;
+//     }
 
-    return byFileFunc;
-}
+//     return byFileFunc;
+// }
 
-export function unzipPoGroup(byFileFuncGroup: { [key: string]: { [key: string]: AbstractNode[] } }) {
-    let ret = [];
-    for (let filename in byFileFuncGroup) {
+// export function unzipPoGroup(byFileFuncGroup: { [key: string]: { [key: string]: AbstractNode[] } }) {
+//     let ret = [];
+//     for (let filename in byFileFuncGroup) {
 
-        for (let funcname in byFileFuncGroup[filename]) {
+//         for (let funcname in byFileFuncGroup[filename]) {
 
-            ret.push({
-                value: funcname,
-                parent: filename,
-                type: "function",
-                group: true,
-            });
+//             ret.push({
+//                 value: funcname,
+//                 parent: filename,
+//                 type: "function",
+//                 group: true,
+//             });
 
-            for (let po of byFileFuncGroup[filename][funcname]) {
-                ret.push({
-                    value: po,
-                    type: "po"
-                });
-            }
-        }
-    }
-    return ret;
+//             for (let po of byFileFuncGroup[filename][funcname]) {
+//                 ret.push({
+//                     value: po,
+//                     type: "po"
+//                 });
+//             }
+//         }
+//     }
+//     return ret;
 
-}
+// }
 
 
 export class JsonReadyProject {

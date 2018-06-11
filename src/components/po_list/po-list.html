@@ -22,8 +22,12 @@
                             </div>
                         </template>
 
-                        <template is="dom-if" if="[[!line.group]]">
-                            <po-line showassumptions="[[showassumptions]]" item="[[line.value]]" linktosource="[[linktosource]]"></po-line>
+                        <template is="dom-if" if="[[!line.group]]">                           
+                            <c-entity-line 
+                                item="[[line.value]]" 
+                                linktosource="[[linktosource]]" 
+                                showassumptions="[[showassumptions]]" 
+                                > </c-entity-line>
                         </template>
                     </div>
 
@@ -109,9 +113,17 @@
             },
 
             groupPOs: function(pos) {
-                var groups = globals.groupProofObligationsByFileFunctions(pos);
-                var unzipped = globals.unzipPoGroup(groups);
-                return unzipped;
+                if(sorting){
+                    var groups = sorting.groupProofObligationsByFileFunctions(pos);
+                    var unzipped = sorting.unzipPoGroup(groups);
+                    return unzipped;
+                }else{
+                    /**
+                     * just for unit tests
+                     * */
+                    return pos;
+                }
+                
             },
 
             _showFunctionName: function(fname) {
