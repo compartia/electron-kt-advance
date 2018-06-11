@@ -20,19 +20,11 @@ limitations under the License.
 <dom-module id="tf-node-list-item">
 
     <template>
-        <div id="list-item" on-mouseover="_nodeListener" on-mouseout="_nodeListener" on-click="_nodeListener">
-
+        <div id="list-item" on-mouseover="_nodeListener" on-mouseout="_nodeListener" on-click="_nodeListener" class="small">
 
             <template is="dom-if" if="[[terminal(itemNode)]]">
-
                 <c-entity-line item="[[item]]" linktosource hide-description>
-
                 </c-entity-line>
-                <!-- opNodeImpl -->
-                <!-- <template is="dom-if" if="[[itemNode.attr.assumptionType]]">
-                    <assumption-line item="[[item]]" linktosource></assumption-line>
-                </template> -->
- 
             </template>
 
             <template is="dom-if" if="[[!terminal(itemNode)]]">

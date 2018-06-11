@@ -1,5 +1,6 @@
 <link rel="import" href="../../../bower_components/iron-list/iron-list.html">
-<link rel="import" href="po-line.html">
+<link rel="import" href="c-entity-line.html">
+
 
 <dom-module id="po-list">
     <template>
@@ -13,7 +14,7 @@
                 selected-item="{{selectedItem}}">
 
                 <template>
-                    <div class$="po-wrapper [[_getClass(line, selected)]]">
+                    <div class$="po-wrapper [[_getClass(line, selected, small)]]">
                         <template is="dom-if" if="[[_showGroup(line, showgroups)]]">
                             <div class="headline">
                                 <span class="file">[[line.parent]]</span>
@@ -26,8 +27,7 @@
                             <c-entity-line 
                                 item="[[line.value]]" 
                                 linktosource="[[linktosource]]" 
-                                showassumptions="[[showassumptions]]" 
-                                > </c-entity-line>
+                                showassumptions="[[showassumptions]]"> </c-entity-line>
                         </template>
                     </div>
 

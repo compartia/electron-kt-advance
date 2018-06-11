@@ -1,7 +1,12 @@
+//import * as expandHomeDir from 'expand-home-dir';
+var expandHomeDir = require('expand-home-dir')
+var findJavaHome = require('find-java-home')
+
+
+// import * as findJavaHome from 'find-java-home';
 import * as cp from 'child_process';
-import * as expandHomeDir from 'expand-home-dir';
-import * as findJavaHome from 'find-java-home';
 import * as pathExists from 'path-exists';
+
 
 const path = require('path');
 

@@ -68,11 +68,14 @@
     "jquery": "^3.0.0",
     "lodash": "^3.10.1",
     "path-exists": "^3.0.0",
+    "typeface-roboto-mono": "0.0.54",
     "vscode-languageserver-protocol": "^3.7.1"
   },
   "build": {
     "appId": "kt.advance.gui",
-    "asarUnpack": ["**/*.jar"],
+    "asarUnpack": [
+      "**/*.jar"
+    ],
     "files": [
       "java/kt-advance-xml-2.3-jar-with-dependencies.jar",
       "app/**/*",

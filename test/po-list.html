@@ -1,6 +1,4 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
-<!-- <link rel="import" href="../bower_components/paper-toolbar/paper-toolbar.html"> -->
-<link rel="import" href="../bower_components/paper-material/paper-material.html">
 <link rel="import" href="../src/components/po_list/po-list.html">
 <link rel="import" href="../src/main-components.html">
 
@@ -45,6 +43,9 @@
                         file: "path/to/some/very/deep/file/name" + (f % 2) + ".c",
                         functionName: "functionName" + (f % 2),
                         line: 1 + f * 1000,
+                        discharge:{
+                            message:"comment "+f,
+                        },
                         attr: {
                             level: "primary",
                             locationPath: "path/to/some/very/deep/file/name.c/a_long_function_name"

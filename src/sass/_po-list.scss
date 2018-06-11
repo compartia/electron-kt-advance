@@ -61,9 +61,25 @@ po-list {
     font-size: $font-size-sm;
 }
 
+.small >{
+    c-entity-line, tf-node-list-item {
+        .row{
+            font-size: 85%;
+        
+            .expression{
+                font-size: 9px;
+            }
+        
+            .discharge-comment {
+                font-size: 9px;
+            }
+        }
+    }
+}
+ 
+
 c-entity-line,
-assumption-line,
-po-line {
+assumption-line {
     .row > span {
         display: inline-block;
     }
@@ -88,15 +104,8 @@ po-line {
             min-height: $po-icon-width;
         }
 
-        .small {
-            .predicate-name{
-                font-size: $font-size-sm;
-            }
-
-            .predicate-arg {
-                font-size: $font-size-sm;
-            }
-        }
+         
+        
 
         .predicate {
 
@@ -235,6 +244,8 @@ po-line {
             margin: $spacer/4;
             // padding-left: $po-icon-width+$spacer;
         }
+
+        
 
     }
 
