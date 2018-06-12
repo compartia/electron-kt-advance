@@ -4,25 +4,28 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-    
+
     <title>KT-Advance GUI</title>
+    <link rel="stylesheet" type="text/css" href="../../node_modules/typeface-ibm-plex-mono/index.css">
+    <link rel="stylesheet" type="text/css" href="../../node_modules/typeface-roboto/index.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.5/require.min.js"></script>
 
 
     <link rel="stylesheet" type="text/css" href="../app/css/styles.css">
-    
+
     <script>
+        let sorting;
+        require(["../app/modules/common/sorting"], m => { 
+            console.error("module loaded ");
+            console.error(m);
+            sorting = m; 
+        });
 
         window.Polymer = {
             lazyRegister: true,
             useNativeCSSProperties: true
-        };
-    </script>
-
-
-    <script>
-        require(["../app/modules/common/sorting"], sorting => { window.sorting = sorting });
+        };            
     </script>
 
     <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
