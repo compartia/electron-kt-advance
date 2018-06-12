@@ -1,51 +1,42 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-        <title>KT-Advance GUI</title>
 
-        <link rel="stylesheet" type="text/css" href="../app/css/styles.css">
-        <!-- <script>var exports = {};</script> -->
-        <script>
-            // var d3 = require("d3");
-            // var graphlib = require("graphlib");
-            // var _ = require("lodash");
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
 
-
-            window.Polymer = {
-                lazyRegister: true,
-                useNativeCSSProperties: true
-            };
-        </script>
-        <script src="../app/index.js"></script>
-        <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
-         
-        <link rel="import" href="../bower_components/polymer/polymer.html">
-
-        <!-- <script src="../app/modules/common/util.js"></script> -->
-        <script src="../app/modules/common/globals.js"></script>
-        <!-- <script src="../app/modules/common/parser.js"></script> -->
-        <!-- <script src="../app/modules/common/po_node.js"></script> -->
-        <!-- <script src="../app/modules/common/api_node.js"></script> -->
-        <script src="../app/modules/common/palette.js"></script>
-        <!-- <script src="../app/components/xml/xml_reader.js"></script> -->
-        <!-- <script src="../app/modules/xmltypes.js"></script> -->
-        <!-- <script src="../app/components/tree/treeview.js"></script> -->
-        <!-- <script src="../app/components/common/fs.js"></script> -->
+    <title>KT-Advance GUI</title>
+    <link rel="stylesheet" type="text/css" href="../../node_modules/typeface-ibm-plex-mono/index.css">
+    <link rel="stylesheet" type="text/css" href="../../node_modules/typeface-roboto/index.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.5/require.min.js"></script>
 
 
-        <!-- <script src="../app/components/stats/stats.js"></script> -->
-        <!-- <script src="../app/components/stats/chart.js"></script> -->
+    <link rel="stylesheet" type="text/css" href="../app/css/styles.css">
 
-       
+    <script>
+        let sorting;
+        require(["../app/modules/common/sorting"], m => { 
+            console.error("module loaded ");
+            console.error(m);
+            sorting = m; 
+        });
 
-        <link rel="import" href="layout.html">
+        window.Polymer = {
+            lazyRegister: true,
+            useNativeCSSProperties: true
+        };            
+    </script>
 
-    </head>
+    <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+    <link rel="import" href="../bower_components/polymer/polymer.html">
+    <link rel="import" href="po-list.html">
 
-    <body unresolved class="fullbleed layout vertical">
+</head>
+
+<body unresolved class="fullbleed layout vertical">
     <kt-layout>
     </kt-layout>
 </body>
+
 </html>

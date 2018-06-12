@@ -44,7 +44,7 @@ Shows C source code read-only, with analysis results applied.
 Each line of code is marked with a number of associated proof obligations. 
 ![Source code view](/docs/source.png)
 
-When line is selected, the list of assotiated roof obligations is expanded.
+When line is selected, the list of associated roof obligations is expanded.
 ![Source code view](/docs/source%20line%20selected.png)
 
 

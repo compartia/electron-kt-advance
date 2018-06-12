@@ -1,3 +1,5 @@
+
+
 $font-size-base: 14px;
 $font-size-m: $font-size-base;
 $font-size-lg: $font-size-base*1.1;
@@ -6,8 +8,10 @@ $font-size-xs: $font-size-sm*0.8;
 $font-size-xl: $font-size-lg*1.2;
 
 $font-smaler: 80%;
-$monospaced: 'Liberation Mono', Courier;
-$font-code: 300 80% $monospaced;
+$monospaced: 'IBM Plex Mono','Roboto Mono', 'Liberation Mono', Courier;
+$font-code: 400 80% $monospaced;
+
+
 
 h1,
 h2,

@@ -1,5 +1,6 @@
 <link rel="import" href="../../../bower_components/iron-list/iron-list.html">
-<link rel="import" href="po-line.html">
+<link rel="import" href="c-entity-line.html">
+
 
 <dom-module id="po-list">
     <template>
@@ -13,7 +14,7 @@
                 selected-item="{{selectedItem}}">
 
                 <template>
-                    <div class$="po-wrapper [[_getClass(line, selected)]]">
+                    <div class$="po-wrapper [[_getClass(line, selected, small)]]">
                         <template is="dom-if" if="[[_showGroup(line, showgroups)]]">
                             <div class="headline">
                                 <span class="file">[[line.parent]]</span>
@@ -22,8 +23,11 @@
                             </div>
                         </template>
 
-                        <template is="dom-if" if="[[!line.group]]">
-                            <po-line showassumptions item="[[line.value]]" linktosource="[[linktosource]]"></po-line>
+                        <template is="dom-if" if="[[!line.group]]">                           
+                            <c-entity-line 
+                                item="[[line.value]]" 
+                                linktosource="[[linktosource]]" 
+                                showassumptions="[[showassumptions]]"> </c-entity-line>
                         </template>
                     </div>
 
@@ -40,6 +44,11 @@
                 linktosource: Boolean,
                 showgroups: Boolean,
                 small: Boolean,
+
+                showassumptions:{
+                    type: Boolean,
+                    value: false
+                },
 
                 selectedPo: {
                     type: Array,
@@ -83,12 +92,13 @@
                 this.set("selectedPo", pos);
             },
 
-            _getClass: function(line, selected, small) {
+            _getClass: function (line, selected, small) {
                 var clazz = selected ?
                     "selected" :
                     "";
-                if(this.small){
-                    clazz+=" small";
+
+                if (small) {
+                    clazz += " small";
                 }
                 return clazz;
             },
@@ -103,9 +113,17 @@
             },
 
             groupPOs: function(pos) {
-                var groups = globals.groupProofObligationsByFileFunctions(pos);
-                var unzipped = globals.unzipPoGroup(groups);
-                return unzipped;
+                if(sorting){
+                    var groups = sorting.groupProofObligationsByFileFunctions(pos);
+                    var unzipped = sorting.unzipPoGroup(groups);
+                    return unzipped;
+                }else{
+                    /**
+                     * just for unit tests
+                     * */
+                    return pos;
+                }
+                
             },
 
             _showFunctionName: function(fname) {
