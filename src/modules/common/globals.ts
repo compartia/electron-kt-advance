@@ -12,7 +12,6 @@ import { AbstractNode, CAnalysis, CApiAssumption, CFunction, Callee, PoStates, P
 
 
 
-
 const path = require('path');
 const fs = require('fs');
 const dialog = require('electron').remote.dialog;
@@ -29,43 +28,6 @@ export class GraphSettings {
     groupBy: GraphGrouppingOptions = GraphGrouppingOptions.file;
     includeCallsites = true;
 }
-
-export function groupProofObligationsByFileFunctions(pos: AbstractNode[]): { [key: string]: { [key: string]: AbstractNode[] } } {
-    let byfile = _.groupBy(pos, "file");
-    let byFileFunc = {};
-    for (let filename in byfile) {
-        let subgroup = _.groupBy(byfile[filename], "functionName");
-        byFileFunc[filename] = subgroup;
-    }
-
-    return byFileFunc;
-}
-
-export function unzipPoGroup(byFileFuncGroup: { [key: string]: { [key: string]: AbstractNode[] } }) {
-    let ret = [];
-    for (let filename in byFileFuncGroup) {
-
-        for (let funcname in byFileFuncGroup[filename]) {
-
-            ret.push({
-                value: funcname,
-                parent: filename,
-                type: "function",
-                group: true,
-            });
-
-            for (let po of byFileFuncGroup[filename][funcname]) {
-                ret.push({
-                    value: po,
-                    type: "po"
-                });
-            }
-        }
-    }
-    return ret;
-
-}
-
 
 export class JsonReadyProject {
     baseDir: string;
@@ -256,10 +218,10 @@ export class ProjectImpl implements CProject {
         for (let po of this.filteredProofObligations) {
             if (po.location.line == line && po.file == fileName) {
                 ret.push(po);
-            }
+            } 
         }
         return ret;
-    }
+    } 
 
     public loadFile(relativePath: string): Promise<kt_fs.FileContents> {
         return kt_fs.loadFile(this.baseDir, relativePath);

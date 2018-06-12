@@ -43,6 +43,7 @@ $kt-in-edge: $blue;
 $base-bg-lighten: lighten($base-bg, 47%);
 
 :root {
+    --separator                           :rgba(0,0,0,0.05);
 
     --selection-lt-bg                     : #{ $selection-lt-bg};
     --selection-bg                        : #{ $selection-bg};

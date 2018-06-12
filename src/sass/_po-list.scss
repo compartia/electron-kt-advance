@@ -30,6 +30,8 @@ $po-icon-width: 16px;
 }
 
 po-list {
+    
+
     .headline {
         padding: $spacer*2 $spacer $spacer;
         color  : $grey-lighter;
@@ -48,7 +50,7 @@ po-list {
     }
 }
 
-.po-wrapper {
+.po-wrapper {    
     padding: 0;
     margin : 0;
 }
@@ -61,11 +63,31 @@ po-list {
     font-size: $font-size-sm;
 }
 
+.small {
+    c-entity-line, tf-node-list-item {
+        .row{
+            font-size: 85%;
+        
+            .expression{
+                font-size: 9px;
+            }
+        
+            .discharge-comment {
+                font-size: 9px;
+            }
+        }
+    }
+}
+ 
+
 c-entity-line,
-assumption-line,
-po-line {
+assumption-line {
     .row > span {
         display: inline-block;
+    }
+
+    small .row{
+        font-size: 80%;
     }
 
     .row {
@@ -73,6 +95,7 @@ po-line {
         //border-bottom: 1px solid var(--kt-grey-lighter);
         box-sizing : border-box;
         border-left: $marker-line-width solid $transparent;
+        border-bottom: 1px solid var(--separator);
         display    : flex;
         align-items: center;
         flex-flow  : row;
@@ -82,6 +105,24 @@ po-line {
             height    : $po-icon-width;
             min-width : $po-icon-width;
             min-height: $po-icon-width;
+        }
+
+         
+        
+
+        .predicate {
+
+            .predicate-name {
+                min-width     : 8rem;
+                font-weight   : 500;
+                text-transform: uppercase;
+            }
+
+            .predicate-arg {
+                font: $font-code;
+                font-size     : $font-smaler;
+                color: var(--kt-grey-dark);
+            }
         }
 
         .predicate {
@@ -206,6 +247,8 @@ po-line {
             margin: $spacer/4;
             // padding-left: $po-icon-width+$spacer;
         }
+
+        
 
     }
 
