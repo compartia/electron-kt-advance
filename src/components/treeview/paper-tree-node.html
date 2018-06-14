@@ -39,24 +39,32 @@ Custom property | Description | Default
         [hidden] {
             display: none;
         }
+
+        .node-container { 
+            white-space: nowrap;
+        }
+
+        .node-row {
+            display: flex;
+            align-items: stretch;
+            --po-count-min-width: 3em;
+        }
     </style>
 
     <template>
         <div class="node-container">
             <div class="node-row">
-
                 <iron-icon class="node-icon" icon$="{{_computeCollapseIcon(data.*)}}" on-click="toggleChildren"></iron-icon>
 
                 <template is="dom-if" if="{{!_showIcon(data)}}">
                     <node-decorator show-count="true" statistics="[[_getStatsByFile(data, statistics)]]"></node-decorator>
                 </template>
 
-                <template is="dom-if" if="{{_showIcon(data)}}">
+                <!-- <template is="dom-if" if="{{_showIcon(data)}}">
                     <iron-icon class="node-icon" icon$="{{_computeIcon(data.icon)}}" on-click="select"></iron-icon>
-                </template>
+                </template> -->
 
                 <span class="node-name" on-click="select">{{data.name}}</span>
-
             </div>
             <template is="dom-if" if="{{data.open}}">
                 <ul>
