@@ -3,37 +3,43 @@
 
 
 <dom-module id="po-list">
+    <style>
+        iron-list#main-po-list {
+            height: 100%;
+        }
+    </style>
+
     <template>
-        <div class="scrollable">
-            <iron-list
-                scroll-target="scrollable"
-                items="[[groupPOs(filteredProofObligations)]]"
-                as="line"
-                selection-enabled
-                selected-items="{{selectedItems}}"
-                selected-item="{{selectedItem}}">
+   
+        <iron-list
+            
+            items="[[groupPOs(filteredProofObligations)]]"
+            as="line"
+            selection-enabled
+            selected-items="{{selectedItems}}"
+            selected-item="{{selectedItem}}">
 
-                <template>
-                    <div class$="po-wrapper [[_getClass(line, selected, small)]]">
-                        <template is="dom-if" if="[[_showGroup(line, showgroups)]]">
-                            <div class="headline">
-                                <span class="file">[[line.parent]]</span>
-                                /
-                                <span class="function">[[line.value]]</span>
-                            </div>
-                        </template>
+            <template>
+                <div class$="po-wrapper [[_getClass(line, selected, small)]]">
+                    <template is="dom-if" if="[[_showGroup(line, showgroups)]]">
+                        <div class="headline">
+                            <span class="file">[[line.parent]]</span>
+                            /
+                            <span class="function">[[line.value]]</span>
+                        </div>
+                    </template>
 
-                        <template is="dom-if" if="[[!line.group]]">                           
-                            <c-entity-line 
-                                item="[[line.value]]" 
-                                linktosource="[[linktosource]]" 
-                                showassumptions="[[showassumptions]]"> </c-entity-line>
-                        </template>
-                    </div>
+                    <template is="dom-if" if="[[!line.group]]">                           
+                        <c-entity-line 
+                            item="[[line.value]]" 
+                            linktosource="[[linktosource]]" 
+                            showassumptions="[[showassumptions]]"> </c-entity-line>
+                    </template>
+                </div>
 
-                </template>
-            </iron-list>
-        </div>
+            </template>
+        </iron-list>
+     
     </template>
 
     <script>

@@ -2,15 +2,24 @@
 <link rel="import" href="assumption-line.html">
 
 <dom-module id="assumptions-list">
+    <style>
+        iron-list#assumptionsList {
+            height: 100%;
+        }
+    </style>
+
     <template>
-        <div class="scrollable">
-            <iron-list scroll-target="scrollable" items="[[filteredAssumptions]]" as="line" selection-enabled selected-item="{{selectedItem}}">
+        <!-- <div class="scrollable"> -->
+            <iron-list 
+                id="assumptionsList"
+                scroll-target="scrollable" 
+                items="[[filteredAssumptions]]" as="line" selection-enabled selected-item="{{selectedItem}}">
                 <template>
                     <div class$="po-wrapper [[_getClass(line, selected)]]">
                         <assumption-line item="[[line]]"></assumption-line>
                     </div>
                 </template>
-            </div>
+        <!-- </div> -->
         </iron-list>
 
     </template>
@@ -40,20 +49,20 @@
             observers: ['_selectedItemChanged(selectedItem)'],
 
 
-            _selectedItemChanged: function(item) {
+            _selectedItemChanged: function (item) {
                 var pos = [];
-                if(this.selectedItem){
+                if (this.selectedItem) {
                     pos.push(this.selectedItem);
                 }
 
                 this.set("selectedAssumptions", pos);
             },
 
-            _getClass: function(line, selected) {
+            _getClass: function (line, selected) {
                 var clazz = selected ?
                     "selected" :
                     "";
-                if(this.small){
+                if (this.small) {
                     clazz += " small";
                 }
                 return clazz;

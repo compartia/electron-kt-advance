@@ -28,22 +28,28 @@ node-decorator {
     #po-count {
         font-size  : 8px;
         padding    : 0 $spacer/2;
-        display    : flex;
-        align-items: center;
-
-        width  : var(--po-count-min-width, 1.5em);
+        align-self : center;
+        text-align : right;
+        width      : var(--po-count-min-width, 1.5em);
         color      : var(--kt-grey);
+        
     }
 
     .stats.violation {
         .state-marker {
             border-left-color: var(--kt-state-violation-default-bg);
         }
+        #po-count{
+            color: var(--kt-state-violation-default-tx)!important;
+        }
     }
 
     .stats.open {
         .state-marker {
             background-color: var(--kt-state-open-default-bg)!important;
+        }
+        #po-count{
+            color: var(--kt-state-open-default-tx);
         }
     }
 

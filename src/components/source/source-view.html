@@ -1,6 +1,11 @@
 <link rel="import" href="../common/node-decorator.html">
 
 <dom-module id="source-view">
+    <style>
+        iron-list#listOfLines{
+            height: 100%;
+        }
+    </style>
 
     <template>
 
@@ -15,7 +20,7 @@
                             <div class$="code-line [[_getClass(_loadedFile, index, statistics, selected)]]" on-tap="_onLineSelectedLine">
                                 <span class="info">
                                     <span id="line-number">[[item.index]]</span>
-                                    <node-decorator show-count="true" statistics="[[_getStatsByLine(_loadedFile, index, statistics)]]"></node-decorator>
+                                    <node-decorator show-color show-count="true" statistics="[[_getStatsByLine(_loadedFile, index, statistics)]]"></node-decorator>
                                 </span>
                                 <source-line code="[[item.text]]" lang="clike"></source-line>
                             </div>
