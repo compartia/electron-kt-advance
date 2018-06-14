@@ -1,18 +1,29 @@
 <link rel="import" href="../../../bower_components/iron-list/iron-list.html">
 <link rel="import" href="assumption-line.html">
+<link rel="import" href="c-entity-line.html">
 
 <dom-module id="assumptions-list">
-    <template>
-        <div class="scrollable">
-            <iron-list scroll-target="scrollable" items="[[filteredAssumptions]]" as="line" selection-enabled selected-item="{{selectedItem}}">
-                <template>
-                    <div class$="po-wrapper [[_getClass(line, selected)]]">
-                        <assumption-line item="[[line]]"></assumption-line>
-                    </div>
-                </template>
-            </div>
-        </iron-list>
 
+    <style>
+        /* :host{
+            height: auto;
+            border: 1px solid red;
+        } */
+        iron-list#assumptionsList {
+            height: var(--list-height);
+        }
+    </style>
+
+    <template>
+        <iron-list id="assumptionsList" 
+            items="[[filteredAssumptions]]" as="line" selection-enabled selected-item="{{selectedItem}}">
+            <template>
+                <div class$="po-wrapper [[_getClass(line, selected)]]">
+                    <assumption-line item="[[line]]"></assumption-line>
+                    <!-- <c-entity-line item="[[line]]" linktosource showassumptions></c-entity-line> -->
+                </div>
+            </template>
+        </iron-list>
     </template>
 
     <script>
@@ -40,20 +51,20 @@
             observers: ['_selectedItemChanged(selectedItem)'],
 
 
-            _selectedItemChanged: function(item) {
+            _selectedItemChanged: function (item) {
                 var pos = [];
-                if(this.selectedItem){
+                if (this.selectedItem) {
                     pos.push(this.selectedItem);
                 }
 
                 this.set("selectedAssumptions", pos);
             },
 
-            _getClass: function(line, selected) {
+            _getClass: function (line, selected) {
                 var clazz = selected ?
                     "selected" :
                     "";
-                if(this.small){
+                if (this.small) {
                     clazz += " small";
                 }
                 return clazz;

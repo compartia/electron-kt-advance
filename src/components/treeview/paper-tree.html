@@ -13,10 +13,18 @@ Example:
 <link rel="import" href="paper-tree-node.html">
 
 <dom-module id="paper-tree">
+    <style>
+        .tree-container{
+            overflow: unset;
+            width: max-content;
+            min-width: 100%;
+        } 
+    </style>
+
 
     <template>
-        <div class="container">
-            <paper-tree-node id="root" data="[[data]]" actions="[[actions]]" statistics = "[[statistics]]"></paper-tree-node>
+        <div class="tree-container">
+            <paper-tree-node id="root" data="[[data]]" actions="[[actions]]" statistics="[[statistics]]"></paper-tree-node>
         </div>
     </template>
 
@@ -41,7 +49,7 @@ Example:
                  */
                 data: {
                     type: Object,
-                    value: function() {
+                    value: function () {
                         return null;
                     },
                     observer: "_dataChanged"
@@ -72,7 +80,7 @@ Example:
                  */
                 actions: {
                     type: Array,
-                    value: function() {
+                    value: function () {
                         return null;
                     },
                     observer: "_actionsChanged"
@@ -84,7 +92,7 @@ Example:
                 "innserSelect": "_onInnerSelect"
             },
 
-            _selectedFileChanged: function(newFile, oldFile) {
+            _selectedFileChanged: function (newFile, oldFile) {
                 if (this.ignoreChange) {
                     return;
                 }
@@ -105,7 +113,7 @@ Example:
             /**
              * Called whenever the data is changed to notify the lower nodes.
              */
-            _dataChanged: function() {
+            _dataChanged: function () {
                 this.$.root.data = this.data;
             },
 
@@ -114,11 +122,11 @@ Example:
              *
              * @param {object} e An event object.
              */
-            _onNodeSelect: function(e) {
+            _onNodeSelect: function (e) {
                 this._selectNode(e.detail);
             },
 
-            _onInnerSelect: function(e) {
+            _onInnerSelect: function (e) {
                 if (e.detail.data != this.selected) {
                     this._clearSelection();
                     this.selected = e.detail;
@@ -126,13 +134,13 @@ Example:
                 }
             },
 
-            _clearSelection: function() {
+            _clearSelection: function () {
                 if (this.selected) {
                     this.toggleClass("selected", false, this.selected);
                 }
             },
 
-            _selectNode: function(detail) {
+            _selectNode: function (detail) {
                 this._clearSelection();
 
                 // Only selects `<paper-tree-node>`.

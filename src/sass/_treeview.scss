@@ -1,6 +1,6 @@
 @import "_fonts";
 
-$paper-tree-font-size: 11px;
+$paper-tree-font-size: 10px;
 
 $paper-tree-icon-width: 16px;
 $paper-tree-icon-space: $spacer/4;
@@ -16,21 +16,8 @@ $paper-tree-icon-space: $spacer/4;
         font-family: $monospaced;
         color      : var(--kt-text-color);
         font-size  : var(--paper-tree-font-size);
-
-        .node-container {
-            white-space: nowrap;
-        }
-
-        .node-row {
-            display             : flex;
-            align-items         : stretch;
-            --po-count-min-width: 3em;
-        }
-
-        .node-name {
-            cursor: pointer;
-            margin: $spacer/2 0;
-        }
+        
+        
 
         .node-icon {
             margin: $paper-tree-icon-space;
@@ -42,25 +29,19 @@ $paper-tree-icon-space: $spacer/4;
             min-height: var(--paper-tree-icon-width);
         }
 
-        ul {
-            margin      : 0;
-            padding-left: $paper-tree-icon-width + $spacer/2;
-        }
-
-        li {
-            list-style-type: none;
-        }
+        
 
     }
 
-    .container {
-        overflow: scroll;
-    }
+    // .container {
+    //     overflow: scroll;
+    // }
 }
 
 .functions-list {
     .container {
-        overflow: scroll;
+        overflow: auto;
+        width: max-content;
     }
 
     .item {

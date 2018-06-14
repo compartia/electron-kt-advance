@@ -22,7 +22,7 @@ const hierarchy  = require('./modules/tf_graph_common/lib/hierarchy');
 const PO_FILTER = filter.PO_FILTER;
 
 
-const {ipcRenderer} = require('electron')
+const {ipcRenderer} = require('electron');
 
 function initApp(): void {
     console.info("init app");

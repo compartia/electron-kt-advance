@@ -2,14 +2,25 @@
 <link rel="import" href="assumptions-list.html">
 
 <dom-module id="po-list-scene">
+    <style>
+         
+
+        po-list#main-po-list{
+            --list-height: 100%;
+        }
+        
+    </style>
+
     <template>
         <vaadin-split-layout id="verticalPoSplitter" class$="splitter-3 [[getSplitterClass(dependentAssumptionsIn, dependentAssumptionsOut)]]">
+            
             <po-list
                 id="main-po-list"
                 class="main"
                 showassumptions
                 filtered-proof-obligations="[[filteredProofObligations]]"
                 linktosource showgroups selected-po="{{selectedPo}}"></po-list>
+            
 
             <div id="right-panel" class="side">
                 <template is="dom-if" if="[[dependentAssumptionsIn.length]]">

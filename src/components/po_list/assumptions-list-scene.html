@@ -2,10 +2,17 @@
 <link rel="import" href="assumptions-list.html">
 
 <dom-module id="assumptions-list-scene">
+    <style>
+        
+        assumptions-list#main-assumptions-list{
+            --list-height: 100%;
+        }
+    </style>
+
     <template>
 
         <vaadin-split-layout id="verticalAssumptionsSplitter" class$="splitter-3 [[getSplitterClass(dependentProofObligationsIn, dependentProofObligationsOut)]]">
-
+            
             <assumptions-list
                 id="main-assumptions-list"
                 class="main"
@@ -13,6 +20,7 @@
                 selected-assumptions="{{selectedAssumptions}}"
                 linktosource></assumptions-list>
 
+            
             <div id="right-panel" class="side">
                 <template is="dom-if" if="[[dependentProofObligationsIn.length]]">
                     <h3>Dependent Proof obligations</h3>
@@ -47,12 +55,12 @@
                 '_selectedAssumptionsChanged(selectedAssumptions)'
             ],
 
-            getSplitterClass: function(dependentProofObligationsIn, dependentProofObligationsOut) {
+            getSplitterClass: function (dependentProofObligationsIn, dependentProofObligationsOut) {
                 return ((dependentProofObligationsIn && dependentProofObligationsIn.length) || (dependentProofObligationsOut && dependentProofObligationsOut.length)) ? "" : "collapsed";
             },
 
 
-            _selectedAssumptionsChanged: function(list) {
+            _selectedAssumptionsChanged: function (list) {
                 var posIn = [];
                 var posOut = [];
                 for (var i = 0; i < list.length; i++) {
@@ -65,7 +73,7 @@
                 this.set("dependentProofObligationsIn", posIn);
                 this.set("dependentProofObligationsOut", posOut);
 
-                var task = function() {
+                var task = function () {
                     if (this.$.verticalAssumptionsSplitter) {
                         this.$.verticalAssumptionsSplitter.notifyResize();
                     }

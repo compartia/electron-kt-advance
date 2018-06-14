@@ -1,12 +1,22 @@
 <link rel="import" href="../common/node-decorator.html">
 <dom-module id="functions-list">
 
+    <style>
+        node-decorator {            
+            position: absolute;
+            right: 10px;
+            bottom: 0;
+            top: 0;             
+        }
+    </style>
+
     <template>
-        <iron-list id="functionslist" items="[[functions]]" index-as="name" selection-enabled on-selected-item-changed="_selectedFunctionChanged" selected-item="{{_selectedItem}}">
+        <iron-list id="functionslist" items="[[functions]]" index-as="name" selection-enabled on-selected-item-changed="_selectedFunctionChanged"
+            selected-item="{{_selectedItem}}">
             <template>
                 <div class$="[[_computedClass(selected)]]">
-                    <node-decorator show-count="true" statistics="[[_getStatsByFunction(item, statistics)]]"></node-decorator>
                     <span id="fname">{{item.name}}</span>
+                    <node-decorator show-count="true" statistics="[[_getStatsByFunction(item, statistics)]]"></node-decorator>
                 </div>
             </template>
         </iron-list>
@@ -40,11 +50,11 @@
 
             },
 
-            isEmpty:function(){
-                    return !this.functions || !this.functions.length;
+            isEmpty: function () {
+                return !this.functions || !this.functions.length;
             },
 
-            _selectedFileChanged: function(e) {
+            _selectedFileChanged: function (e) {
                 if (this._selected) {
                     this.toggleClass("selected", false, this._selected);
                     this._selected = null;
@@ -54,12 +64,12 @@
                 this._selected = null;
             },
 
-            _getStatsByFunction: function(item, statistics){
+            _getStatsByFunction: function (item, statistics) {
                 var stats = statistics.getStatsByFunction(item);
                 return stats;
             },
 
-            _getFunctionsByFile: function(project, file) {
+            _getFunctionsByFile: function (project, file) {
                 if (file && file.relativePath) {
                     var list = project.functionByFile[file.relativePath];
                     if (list) {
@@ -73,19 +83,19 @@
 
             },
 
-            _computedClass: function(selected) {
+            _computedClass: function (selected) {
                 return selected
                     ? "item selected"
                     : "item";
             },
 
-            _selectedFunctionChanged: function(event) {                 
+            _selectedFunctionChanged: function (event) {
                 this.ignoreOutsideEvent = true;
                 this.set("selectedFunction", event.detail.value);
                 this.ignoreOutsideEvent = false;
             },
 
-            indexOf: function(itemName) {
+            indexOf: function (itemName) {
                 if (!this.functions) {
                     return -1;
                 }
@@ -97,7 +107,7 @@
                 return -1;
             },
 
-            _selectedFunctionChangedOutside: function(newval, oldFunc) {
+            _selectedFunctionChangedOutside: function (newval, oldFunc) {
                 if (this.ignoreOutsideEvent) {
                     return;
                 }
