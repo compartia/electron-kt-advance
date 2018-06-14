@@ -4,15 +4,17 @@
 
 <dom-module id="po-list">
     <style>
+         
         iron-list#main-po-list {
-            height: 100%;
+            height: var(--list-height);
         }
+ 
     </style>
 
     <template>
    
         <iron-list
-            
+            id="main-po-list"
             items="[[groupPOs(filteredProofObligations)]]"
             as="line"
             selection-enabled
@@ -33,7 +35,7 @@
                         <c-entity-line 
                             item="[[line.value]]" 
                             linktosource="[[linktosource]]" 
-                            showassumptions="[[showassumptions]]"> </c-entity-line>
+                            showassumptions="[[showassumptions]]"></c-entity-line>
                     </template>
                 </div>
 
@@ -49,7 +51,11 @@
             properties: {
                 linktosource: Boolean,
                 showgroups: Boolean,
-                small: Boolean,
+                 
+                small:{
+                    type: Boolean,
+                    value: false
+                },
 
                 showassumptions:{
                     type: Boolean,
@@ -99,11 +105,12 @@
             },
 
             _getClass: function (line, selected, small) {
-                var clazz = selected ?
-                    "selected" :
-                    "";
+                let clazz = "";
+                if (!!selected){
+                    clazz = "selected" ;
+                }
 
-                if (small) {
+                if (!!small) {
                     clazz += " small";
                 }
                 return clazz;
