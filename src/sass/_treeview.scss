@@ -17,10 +17,7 @@ $paper-tree-icon-space: $spacer/4;
         color      : var(--kt-text-color);
         font-size  : var(--paper-tree-font-size);
         
-        .node-name {
-            cursor: pointer;
-            margin: $spacer/2 0;
-        }
+        
 
         .node-icon {
             margin: $paper-tree-icon-space;
@@ -32,14 +29,7 @@ $paper-tree-icon-space: $spacer/4;
             min-height: var(--paper-tree-icon-width);
         }
 
-        ul {
-            margin      : 0;
-            padding-left: $paper-tree-icon-width + $spacer/2;
-        }
-
-        li {
-            list-style-type: none;
-        }
+        
 
     }
 

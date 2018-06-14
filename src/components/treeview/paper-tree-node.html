@@ -41,36 +41,66 @@ Custom property | Description | Default
         }
 
         .node-container { 
-            white-space: nowrap;
+            white-space: nowrap;                     
         }
-
+    
         .node-row {
+            position: relative;
             display: flex;
             align-items: stretch;
-            --po-count-min-width: 3em;
+            --po-count-min-width: 3em;             
+        }
+
+        .node-name {
+            cursor: pointer;
+            margin: var(--spacer-2) 0; 
+            flex: 1;
+        }
+
+        node-decorator{            
+            /* min-width: 42px; */
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            top: 0;
+            /* background:var(--side-bg-t); */
+        }
+
+        ul {
+            margin      : 0;
+            padding-left: 0;
+            /* // $paper-tree-icon-width + $spacer/2; */
+        }
+
+        li {
+            list-style-type: none;
         }
     </style>
 
     <template>
         <div class="node-container">
-            <div class="node-row">
+            <div class="node-row" style$="padding-left: [[offset]]px">
                 <iron-icon class="node-icon" icon$="{{_computeCollapseIcon(data.*)}}" on-click="toggleChildren"></iron-icon>
 
+                <span class="node-name" on-click="select">{{data.name}}</span>
+
                 <template is="dom-if" if="{{!_showIcon(data)}}">
-                    <node-decorator show-count="true" statistics="[[_getStatsByFile(data, statistics)]]"></node-decorator>
+                    <node-decorator 
+                        right show-count="true" 
+                        statistics="[[_getStatsByFile(data, statistics)]]"></node-decorator>
                 </template>
 
                 <!-- <template is="dom-if" if="{{_showIcon(data)}}">
                     <iron-icon class="node-icon" icon$="{{_computeIcon(data.icon)}}" on-click="select"></iron-icon>
                 </template> -->
 
-                <span class="node-name" on-click="select">{{data.name}}</span>
+                
             </div>
             <template is="dom-if" if="{{data.open}}">
                 <ul>
                     <template is="dom-repeat" items="{{data.children}}">
                         <li>
-                            <paper-tree-node data="{{item}}" actions="{{actions}}" statistics="[[statistics]]"></paper-tree-node>
+                            <paper-tree-node offset="[[_getChildOffset(offset)]]" data="{{item}}" actions="{{actions}}" statistics="[[statistics]]"></paper-tree-node>
                         </li>
                     </template>
                 </ul>
@@ -81,10 +111,16 @@ Custom property | Description | Default
     <script>
 
         Polymer({
+            
+
 
             is: 'paper-tree-node',
 
             properties: {
+                offset: {
+                    type: Number,
+                    value: 0
+                },
                 statistics: Object,
 
                 /**
@@ -123,6 +159,10 @@ Custom property | Description | Default
 
             listeners: {
                 "toggle": "_onNodeToggle"
+            },
+
+            _getChildOffset: function(offset){
+                return this.offset+21;
             },
 
             _computeCollapseIcon: function (change) {

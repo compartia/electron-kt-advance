@@ -22,7 +22,9 @@ $po-assumption: hsl(hue($ian_gillan), 25, 85);
 
 $main-bg: lighten($base-bg, 50%);
 $side-bg: mix($base-bg, $main-bg, 5%);
+$side-bg-t: transparentize($side-bg, 0.7);
 $side-bg-2: mix($side-bg, $base-bg, 85%);
+
 
 $selection-bg: $side-bg-2;
 $selection-border: darken($selection-bg, 20%);
@@ -248,6 +250,9 @@ $base-bg-lighten: lighten($base-bg, 47%);
     /* =========== */
 
     --kt-state-missing-bg: white;
+
+
+    --side-bg-t: #{$side-bg-t};
 }
 
 
