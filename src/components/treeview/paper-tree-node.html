@@ -31,8 +31,7 @@ Custom property | Description | Default
 <dom-module id="paper-tree-node">
 
     <style>
-
-        :host(.selected) > .node-container > .node-row {
+        :host(.selected)>.node-container>.node-row {
             background-color: var(--paper-tree-selected-background-color, rgba(200, 200, 200, 0.5));
             color: var(--paper-tree-selected-color, inherit);
         }
@@ -40,7 +39,6 @@ Custom property | Description | Default
         [hidden] {
             display: none;
         }
-
     </style>
 
     <template>
@@ -93,7 +91,7 @@ Custom property | Description | Default
              */
                 data: {
                     type: Object,
-                    value: function() {
+                    value: function () {
                         return null;
                     }
                 },
@@ -107,7 +105,7 @@ Custom property | Description | Default
              */
                 actions: {
                     type: Array,
-                    value: function() {
+                    value: function () {
                         return null;
                     }
                 },
@@ -119,7 +117,7 @@ Custom property | Description | Default
                 "toggle": "_onNodeToggle"
             },
 
-            _computeCollapseIcon: function(change) {
+            _computeCollapseIcon: function (change) {
                 var open = change && change.base && change.base.open;
                 var children = change && change.base && change.base.children;
                 return ((open && children && children.length)
@@ -129,13 +127,13 @@ Custom property | Description | Default
                         : '');
             },
 
-            _showIcon: function(data) {
+            _showIcon: function (data) {
                 if (data)
                     return data.dir;
                 return false;
             },
 
-            _getStatsByFile: function(dataitem, statistics) {
+            _getStatsByFile: function (dataitem, statistics) {
                 var stats = statistics.getStatsByFile(dataitem);
                 return stats;
             },
@@ -146,27 +144,27 @@ Custom property | Description | Default
          * @param {string=folder} an icon name.
          * @return {string} the computed icon name.
          */
-            _computeIcon: function(icon) {
+            _computeIcon: function (icon) {
                 return icon
                     ? icon
                     : 'folder';
             },
 
-            _actionClicked: function(event) {
+            _actionClicked: function (event) {
                 this.fire(event.model.item.event, this);
             },
 
             /**
          * Highlights node as the selected node.
          */
-            select: function() {
+            select: function () {
                 this.fire("select", this);
             },
 
             /**
          * Returns the parent tree node. Returns `null` if root.
          */
-            getParent: function() {
+            getParent: function () {
                 return this.domHost.tagName === 'PAPER-TREE-NODE'
                     ? this.domHost
                     : null;
@@ -175,11 +173,11 @@ Custom property | Description | Default
             /**
          * Returns the children tree nodes.
          */
-            getChildren: function() {
+            getChildren: function () {
                 return Polymer.dom(this.root).querySelectorAll('paper-tree-node');
             },
 
-            findChild: function(nodename) {
+            findChild: function (nodename) {
                 var childElements = this.getChildren();
                 for (var i = 0; i < childElements.length; i++) {
                     if (childElements[i].data.name == nodename) {
@@ -192,17 +190,17 @@ Custom property | Description | Default
             /**
          * Display/Hide the children nodes.
          */
-            toggleChildren: function() {
+            toggleChildren: function () {
                 this.set("data.open", !this.data.open && this.data.children && this.data.children.length);
                 setTimeout(this.fire.bind(this, "toggle", this));
             },
 
-            openChildren: function() {
+            openChildren: function () {
                 this.set("data.open", true);
                 setTimeout(this.fire.bind(this, "toggle", this));
             },
 
-            selectPath: function(split) {
+            selectPath: function (split) {
                 if (split.length) {
                     if (this.data.name == split[0]) {
                         if (this.data.children && this.data.children.length) {
@@ -215,14 +213,13 @@ Custom property | Description | Default
                         } else {
                             setTimeout(this.fire.bind(this, "innserSelect", this));
                         }
-
                     }
 
                 }
 
             },
 
-            _onNodeToggle: function(event) {
+            _onNodeToggle: function (event) {
 
                 if (event.detail.data === this.data && this.data.open) {
                     if (this._pathToOpen) {

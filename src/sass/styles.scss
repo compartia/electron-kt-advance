@@ -9,12 +9,16 @@
 @import "_code";
 @import "_graph";
 
+
 body,
 html {
     font   : 300 $font-size-base "RobotoDraft","Roboto",sans-serif;
     margin : 0;
     padding: 0;
     height : 100%;
+
+    --spacer :   #{$spacer};
+    --spacer-2 : #{$spacer/2};
 }
 
 table,
@@ -195,4 +199,9 @@ splash-layout {
         color     : var(--selection-tx)!important;
         background: $highlight-hover;
     }
+}
+
+
+.padding-right{
+    padding-right: $spacer;
 }
