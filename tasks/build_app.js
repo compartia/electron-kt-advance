@@ -36,13 +36,20 @@ gulp.task('clean:dist', () => {
     // ]);
 });
 
-
-gulp.task('ts', () => {
-
+gulp.task('version', (cb) => {
     var appManifest = jetpack.read('./package.json', 'json');
     console.error(appManifest.version);
     var versionString = "export const KT_VERSION='" + appManifest.version + "';"
     jetpack.write(srcDir.path("version.ts"), versionString);
+    cb();
+});
+
+gulp.task('_ts', () => {
+
+    // var appManifest = jetpack.read('./package.json', 'json');
+    // console.error(appManifest.version);
+    // var versionString = "export const KT_VERSION='" + appManifest.version + "';"
+    // jetpack.write(srcDir.path("version.ts"), versionString);
 
     // gulp.src(['src/**/*.html']).pipe(gulp.dest(tempDir));
 
@@ -50,6 +57,8 @@ gulp.task('ts', () => {
     const tsResult = gulp.src(['src/**/*.ts', '!src/**/*.spec.ts']).pipe(tsProject());
     return tsResult.js.pipe(gulp.dest(tempDir));
 });
+
+gulp.task('ts', gulp.series("version", "_ts"));
 
 
 gulp.task('_bundle', () => {
@@ -75,12 +84,12 @@ gulp.task('environment', () => {
 });
 
 gulp.task('watch', () => {
-    
+
 
     gulp.watch([tsPaths, '!./src/version.ts'], gulp.series('vulcanize', 'bundle'));
     gulp.watch('./src/**/*.scss', gulp.series('scss'));
-    
- 
+
+
 });
 
 
