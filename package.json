@@ -19,6 +19,7 @@
     "build": "gulp build",
     "prerelease": "gulp build --env=production",
     "release": "build",
+    "pretest": "gulp version",
     "test": "node_modules/.bin/electron-mocha --renderer --require ts-node/register ./src/modules/**/*.spec.ts"
   },
   "devDependencies": {
