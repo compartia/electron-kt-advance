@@ -1,8 +1,9 @@
 const gulp = require('gulp');
 const del = require('del');
-const scss = require('gulp-sass');
+//const scss = require('gulp-sass');
+const scss = require('gulp-dart-sass');
+
 const watch = require('gulp-watch');
-const batch = require('gulp-batch');
 const ts = require('gulp-typescript');
 const rename = require('gulp-rename');
 const plumber = require('gulp-plumber');
