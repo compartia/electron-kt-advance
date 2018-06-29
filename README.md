@@ -71,9 +71,12 @@ Orphan nodes are hidden.
 
 # Contributing.
 ## Building the project.
-1. Install node.js, for details see  https://nodejs.org/en/download/
+1. Install node.js, for details see https://github.com/creationix/nvm/blob/master/README.md#installation 
 2. $ `git clone https://github.com/kestreltechnology/electron-kt-advance.git`
 3. $ `cd electron-kt-advance`
 4. $ `npm install`
+
+## To run in develpment mode
+1. `npm run gulp startt`
 
 TODO:

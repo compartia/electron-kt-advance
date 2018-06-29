@@ -4,6 +4,7 @@ const scss = require('gulp-sass');
 const watch = require('gulp-watch');
 const batch = require('gulp-batch');
 const ts = require('gulp-typescript');
+const rename = require('gulp-rename');
 const plumber = require('gulp-plumber');
 const jetpack = require('fs-jetpack');
 const runsequence = require('run-sequence');
@@ -20,6 +21,9 @@ const tsProject = ts.createProject('tsconfig.json');
 
 
 const tempDir = 'temp.js';
+
+let tsPaths = require("../tsconfig.json").files[0];
+
 
 
 gulp.task('clean:dist', () => {
@@ -48,10 +52,12 @@ gulp.task('ts', () => {
 });
 
 
-gulp.task('bundle', ['ts'], () => {
+gulp.task('_bundle', () => {
     var scripts = [tempDir + '/**/*.js', '!' + tempDir + '/components/**'];
     return gulp.src(scripts).pipe(gulp.dest('app'));
 });
+
+gulp.task('bundle', gulp.series('ts', '_bundle'));
 
 
 
@@ -63,33 +69,24 @@ gulp.task('scss', () => {
 });
 
 gulp.task('environment', () => {
-    const configFile = 'config/env_' + utils.getEnvName() + '.json';
-    projectDir.copy(configFile, destDir.path('env.json'), {
-        overwrite: true
-    });
+    let configFile = 'config/env_' + utils.getEnvName() + '.json';
+    console.log("configFile=" + configFile);
+    return gulp.src([configFile]).pipe(rename('env.json')).pipe(gulp.dest('./app'));
 });
 
 gulp.task('watch', () => {
-    const beepOnError = (done) => {
-        return (err) => {
-            if (err) {
-                utils.beepSound();
-            }
-            done(err);
-        };
-    };
+    
 
-    watch(['./src/**/*.ts', '!./src/version.ts'], batch((events, done) => {
-        // runsequence('ts', 'bundle', done);
-        gulp.start('vulcanize', beepOnError(done));
-        gulp.start('bundle', beepOnError(done));
-    }));
-    watch('src/**/*.scss', batch((events, done) => {
-        gulp.start('scss', beepOnError(done));
-    }));
+    gulp.watch([tsPaths, '!./src/version.ts'], gulp.series('vulcanize', 'bundle'));
+    gulp.watch('./src/**/*.scss', gulp.series('scss'));
+    
+ 
 });
 
-gulp.task('vulcanize', ['ts'], () => {
+
+
+gulp.task('_vulcanize', () => {
+    console.log("vulcanize");
     return gulp.src([tempDir + '/main-components.html', tempDir + '/splash-screen-components.html'])
         .pipe(vulcanize({
             stripComments: true,
@@ -101,5 +98,10 @@ gulp.task('vulcanize', ['ts'], () => {
 });
 
 
+gulp.task('vulcanize', gulp.series('ts', '_vulcanize'));
+
+
+
+
 // gulp.task('clean', runsequence('clean:dist'));
-gulp.task('build', runsequence('scss', 'vulcanize', 'bundle', 'environment'));
+gulp.task('build', gulp.series('scss', 'vulcanize', 'bundle', 'environment'));
