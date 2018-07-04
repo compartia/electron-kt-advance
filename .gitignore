@@ -35,3 +35,4 @@ test_resources/dnsmasq/.kt-gui.json
 
 src/version.ts
 *.log
+notes.txt

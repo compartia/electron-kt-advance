@@ -112,7 +112,22 @@ $base-bg-lighten: lighten($base-bg, 47%);
         i: $grey-80);
 
     $astates                               : ( assumption: $po-assumption);        
-    $assumption_types                      : ( api: lighten($blue, 35%), global:lighten($ian_gillan, 50%));        
+    // $assumption_types                      : ( api: lighten($blue, 35%), global:lighten($ian_gillan, 50%));        
+
+    // public enum AssumptionTypeCode {
+        /** ATApiAssumptionType */
+        // aa,
+
+        /** ATPostconditionType */
+        // pc,
+
+        /** ATUserAssumptionType */
+        // ua,
+
+        /** Global Assumption */
+        // ga
+    // }
+    $assumption_types                      : ( aa: lighten($blue, 35%), pc:lighten($ian_gillan, 50%), ga:#ff0000, ua:#33ff00);        
 
     $states                               : ( violation: $po-violation, discharged:$po-discharged , open: $po-open );
     $levels                               : ( primary: lighten($blue, 35%), secondary:lighten($ian_gillan, 50%));

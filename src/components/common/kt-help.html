@@ -111,11 +111,6 @@
                 if (state == "open" && discharge != "default")
                     return "undefined";
 
-                if (state == "assumption") {
-                    if (discharge != "api" && discharge != "ds" && discharge != "global" && discharge != "rv") {
-                        return "undefined";
-                    }
-                }
                 return discharge;
             },
 

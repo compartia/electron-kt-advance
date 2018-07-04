@@ -137,13 +137,19 @@ export class Stats {
             // this.byFunction.inc(functionKey, DEF_COL_NAME, 1);
             this.byFunction.bind(functionKey, po.cfunction);
 
-            po.assumptionsIn && this.assumptionsByFunction.inc(functionKey, "api", po.assumptionsIn.length);
-            po.assumptionsOut && this.assumptionsByFunction.inc(functionKey, "api", po.assumptionsOut.length);
+            for (const type of ['aa', 'ga']) {
+                if (po.assumptionsOut) {
+                    let cntOut = po.assumptionsOut.filter(x => x.assumptionType === type).length;
+                    this.assumptionsByFunction.inc(functionKey, type, cntOut);
+                    this.dependenciesByFile.inc(po.file, type, cntOut);
+                }
 
-            po.assumptionsIn && this.dependenciesByFile.inc(po.file, "api", po.assumptionsIn.length);
-            po.assumptionsOut && this.dependenciesByFile.inc(po.file, "api", po.assumptionsOut.length);
-
-
+                if (po.assumptionsIn) {
+                    let cntIn = po.assumptionsIn.filter(x => x.assumptionType === type).length;
+                    this.assumptionsByFunction.inc(functionKey, type, cntIn);
+                    this.dependenciesByFile.inc(po.file, type, cntIn);
+                }
+            }
 
             this.assumptionsByFunction.bind(functionKey, po.cfunction);
             this.dependenciesByFile.bind(po.file, po);

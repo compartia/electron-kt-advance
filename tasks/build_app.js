@@ -20,12 +20,24 @@ const destDir = jetpack.cwd('./app');
 const vulcanize = require('gulp-vulcanize');
 const tsProject = ts.createProject('tsconfig.json');
 
+var unzip = require('gulp-decompress')
+var minimatch = require('minimatch')
 
 const tempDir = 'temp.js';
 
 let tsPaths = require("../tsconfig.json").files[0];
 
+gulp.task('unzip_schema',  (cp)=> {
+    gulp.src(["./java/*.jar"])
+    .pipe(unzip({
+        filter : function(entry){
+          return minimatch(entry.path, "kt-json.d.ts");
+        }
+      }))
+    .pipe(gulp.dest('./src/generated'))
 
+    cp();
+});
 
 gulp.task('clean:dist', () => {
     // return del([
@@ -59,7 +71,7 @@ gulp.task('_ts', () => {
     return tsResult.js.pipe(gulp.dest(tempDir));
 });
 
-gulp.task('ts', gulp.series("version", "_ts"));
+gulp.task('ts', gulp.series("version", "unzip_schema", "_ts"));
 
 
 gulp.task('_bundle', () => {
@@ -85,14 +97,9 @@ gulp.task('environment', () => {
 });
 
 gulp.task('watch', () => {
-
-
-    gulp.watch([tsPaths, '!./src/version.ts'], gulp.series('vulcanize', 'bundle'));
+    gulp.watch([tsPaths, '!./src/version.ts', '!./src/generated/*'], gulp.series('vulcanize', 'bundle'));
     gulp.watch('./src/**/*.scss', gulp.series('scss'));
-
-
 });
-
 
 
 gulp.task('_vulcanize', () => {

@@ -1,8 +1,8 @@
 import * as _ from "lodash";
-import { JVarInfo } from "../data/jsonformat";
 import { NodeAttributes, NodeDef } from '../tf_graph_common/lib/proto';
 import { Filter } from './filter';
 import { GraphSettings } from './globals';
+import { JVarInfo } from "../../generated/kt-json";
 
 
 export enum PoStates { violation, open, discharged, deadcode, assumption, callsite };
@@ -20,7 +20,7 @@ export const DischargeDescriptions = {
 export const PoDischargeTypesArr: Array<string> = Object.keys(DischargeDescriptions);
 
 export const PoStatesArr: Array<PoStates> = [PoStates.violation, PoStates.open, PoStates.discharged, PoStates.deadcode];
-export enum SortOrder { violation, open, discharged, deadcode, callsite, assumption, a, f, s, x, i, global, invariants, ds, rv, api };
+export enum SortOrder { violation, open, discharged, deadcode, callsite, assumption, a, f, s, x, i, invariants, ds, rv, api, aa, ua, ga,pc };
 
 
 
