@@ -54,8 +54,23 @@ export function buildPalette() {
     ktColors["state-missing-bg"] = htmlStyles.getPropertyValue('--kt-state-missing-bg').trim();
 
 
-    ktColors["state-assumption-api-bg"] = htmlStyles.getPropertyValue('--kt-state-assumption-api-bg').trim();
-    ktColors["state-assumption-global-bg"] = htmlStyles.getPropertyValue('--kt-state-assumption-global-bg').trim();
+  
+        // /** ATApiAssumptionType */
+        // aa,
+
+        // /** ATPostconditionType */
+        // pc,
+
+        // /** ATUserAssumptionType */
+        // ua,
+
+        // /** Global Assumption */
+        // ga
+  
+    ktColors["state-assumption-aa-bg"] = htmlStyles.getPropertyValue('--kt-state-assumption-aa-bg').trim();
+    ktColors["state-assumption-ga-bg"] = htmlStyles.getPropertyValue('--kt-state-assumption-ga-bg').trim();
+    ktColors["state-assumption-ua-bg"] = htmlStyles.getPropertyValue('--kt-state-assumption-ua-bg').trim();
+    ktColors["state-assumption-pc-bg"] = htmlStyles.getPropertyValue('--kt-state-assumption-pc-bg').trim();
     
     return ktColors;
 }

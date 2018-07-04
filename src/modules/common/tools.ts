@@ -1,5 +1,6 @@
 import { isAbsolute, join, normalize, relative } from 'path';
-import * as json from '../data/jsonformat';
+import { JLocation } from '../../generated/kt-json';
+ 
 
 
 export function pushUnique<X>(arr: Array<X>, el: X) {
@@ -8,7 +9,7 @@ export function pushUnique<X>(arr: Array<X>, el: X) {
 }
 
 
-export function normalizeSourcePath(projectDir: string, sourceBase: string, loc: json.JLocation): string {
+export function normalizeSourcePath(projectDir: string, sourceBase: string, loc: JLocation): string {
     //todo: xxx: this is called too often for large projects
 
     /*

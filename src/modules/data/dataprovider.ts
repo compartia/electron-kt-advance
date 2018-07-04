@@ -7,7 +7,7 @@ import { AssumptionNodeAttributes, CAnalysis, CApi, CApiAssumption, CFunction, C
 import { ProgressTracker } from '../tf_graph_common/lib/common';
 import { NodeDef } from '../tf_graph_common/lib/proto';
 import { JavaEnv, getJarName, resolveJava } from './javaenv';
-import * as json from './jsonformat';
+import * as json from '../../generated/kt-json';
 import { XmlReader } from './xmlreader';
 
 
@@ -103,7 +103,7 @@ class CFunctionImpl extends AbstractLocatable implements CFunction {
 }
 
 class ApiAssumptionImpl extends AbstractLocatable implements CApiAssumption {
-    a: json.JAssumption;
+    a: json.JApiAssumption;
     cfunction: CFunction;
     renderInfo: RenderInfo;
 
@@ -116,7 +116,7 @@ class ApiAssumptionImpl extends AbstractLocatable implements CApiAssumption {
     }
 
     get assumptionType() {
-        return "api";
+        return this.a.type;
     }
 
     get predicate() {
@@ -163,7 +163,7 @@ class ApiAssumptionImpl extends AbstractLocatable implements CApiAssumption {
         return ret;
     }
 
-    public constructor(a: json.JAssumption, cfunc: CFunction) {
+    public constructor(a: json.JApiAssumption, cfunc: CFunction) {
         super();
         this.a = a;
         this.cfunction = cfunc;
@@ -189,7 +189,7 @@ class ApiAssumptionImpl extends AbstractLocatable implements CApiAssumption {
 
         class AssumptionNodeAttributesImpl implements AssumptionNodeAttributes {
             public state = "assumption";
-            public assumptionType = "aa";
+            // public assumptionType = "aa";
             private base: ApiAssumptionImpl;
             constructor(base: ApiAssumptionImpl) {
                 this.base = base;
@@ -214,7 +214,7 @@ class ApiAssumptionImpl extends AbstractLocatable implements CApiAssumption {
             name: this.getGraphKey(filter, settings),
             input: [],
             output: [],
-            device: "assumption-api",
+            device: "assumption-"+this.a.type,//lkklkkllklk
             op: this.cfunction.name,
             attr: new AssumptionNodeAttributesImpl(this)
         };
@@ -226,7 +226,7 @@ class ApiAssumptionImpl extends AbstractLocatable implements CApiAssumption {
 }
 
 
-function linkKey(link: json.JPoLink | ProofObligation): string {
+function linkKey(link: ProofObligation): string {
     return link.file + "/" + link.functionName + "/" + link.id;
 }
 
@@ -248,7 +248,7 @@ abstract class AbstractPO extends AbstractLocatable implements ProofObligation {
 
 
 
-    public constructor(ppo: json.JPPO, cfun: CFunction, indexer: CAnalysisImpl) {
+    public constructor(ppo: json.JPO, cfun: CFunction, indexer: CAnalysisImpl) {
         super();
         this.indexer = indexer;
 
@@ -421,7 +421,7 @@ class SPOImpl extends AbstractPO implements SecondaryProofObligation {
         return this.callsite.location;
     }
 
-    public constructor(ppo: json.JSPO, cfun: CFunction, indexer: CAnalysisImpl, site: Site) {
+    public constructor(ppo: json.JPO, cfun: CFunction, indexer: CAnalysisImpl, site: Site) {
         super(ppo, cfun, indexer);
         this.callsite = site;
     }
@@ -441,7 +441,7 @@ class PPOImpl extends AbstractPO {
 
     public location: POLocation;
 
-    public constructor(ppo: json.JPPO, cfun: CFunction, indexer: CAnalysisImpl) {
+    public constructor(ppo: json.JPO, cfun: CFunction, indexer: CAnalysisImpl) {
         super(ppo, cfun, indexer);
 
         this.location = {
@@ -485,7 +485,7 @@ export class CAnalysisImpl implements CAnalysis {
 
 abstract class AbstractSiteImpl extends AbstractLocatable implements Site, Graphable {
 
-    _jcallsite: json.JSite;
+    _jcallsite: json.JCallsite;
     spos: SecondaryProofObligation[] = [];
     abstract name: string;
 
@@ -497,7 +497,7 @@ abstract class AbstractSiteImpl extends AbstractLocatable implements Site, Graph
         return this._jcallsite.loc.file;
     }
 
-    public constructor(jcallsite: json.JSite) {
+    public constructor(jcallsite: json.JCallsite) {
         super();
         this._jcallsite = jcallsite;
     }
@@ -692,7 +692,7 @@ export class CallsiteImpl extends AbstractSiteImpl implements Callsite, Graphabl
 
 }
 export class ReturnsiteImpl extends AbstractSiteImpl implements Returnsite, Graphable {
-    public constructor(jcallsite: json.JReturnsite) {
+    public constructor(jcallsite: json.JCallsite) {
         super(jcallsite);
     }
     public toNodeDef(filter: Filter, settings: GraphSettings): NodeDef {
@@ -736,7 +736,7 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
             tracker.setMessage("reading " + file);
             console.info("reading" + file);
             try {
-                const json = <json.KtJson>JSON.parse(fs.readFileSync(file));
+                const json = <json.JAnalysis>JSON.parse(fs.readFileSync(file));
                 const jsonParsingTracker: ProgressTracker = tracker.getSubtaskTracker(inc, "parsing JSON data");
 
                 this.mergeJsonData(json, jsonParsingTracker);
@@ -753,7 +753,7 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
         return this.cAnalysisResult;
     }
 
-    private mergeJsonData(data: json.KtJson, tracker: ProgressTracker): void {
+    private mergeJsonData(data: json.JAnalysis, tracker: ProgressTracker): void {
         const trackerInc = 100 / data.apps.length;
 
         data.apps.forEach(app => {
