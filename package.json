@@ -46,7 +46,6 @@
     "gulp-vulcanize": "^7.0.0",
     "gulp-watch": "^5.0.0",
     "hoek": "^5.0.3",
-    "json-schema-to-typescript": "^5.5.0",
     "minimist": "^1.2.0",
     "mocha": "^5.2.0",
     "mocha-typescript": "^1.1.4",
@@ -58,7 +57,8 @@
     "source-map-support": "^0.5.6",
     "ts-node": "^3.3.0",
     "typescript": "^2.2.1",
-    "typings": "1.4.0"
+    "typings": "1.4.0",
+    "xml2js": "^0.4.19"
   },
   "dependencies": {
     "async": "^1.4.2",
