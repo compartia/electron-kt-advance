@@ -1,3 +1,4 @@
+
 import * as xml2js from 'xml2js';
 import * as fs from 'fs';
 import * as _ from 'lodash';
@@ -95,7 +96,7 @@ export class CFileContractImpl implements CFileContract {
     // private _functionsByName
 
     public addFuctionContract(fc: CFunctionContract) {
-        if (this.functions.includes(fc)) {
+        if (this.functions && this.functions.indexOf(fc)>=0) {
             throw "Function contract is already there";
         }
         this.functions.push(fc);
@@ -123,7 +124,8 @@ export class CFileContractImpl implements CFileContract {
         this.functions = jfile.functions[0].function && jfile.functions[0].function.map(
             fn => new CFunctionContractImpl(fn));
 
-        if (jfile["global-variables"][0].gvar) {
+        const _gv=jfile["global-variables"];
+        if (_gv && _gv[0].gvar) {
             this.globalVariables = jfile["global-variables"][0].gvar.map(x => <GVar>x.$);
         }
 

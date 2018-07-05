@@ -11,9 +11,9 @@ import * as json from '../../generated/kt-json';
 import { XmlReader } from './xmlreader';
 
 
-
-const path = require('path');
-const fs = require('fs');
+import * as fs from 'fs';
+import * as path from 'path';
+import { CFileContractImpl } from "../contracts/contracts";
 
 abstract class AbstractLocatable implements HasPath {
     dir: false;
@@ -214,7 +214,7 @@ class ApiAssumptionImpl extends AbstractLocatable implements CApiAssumption {
             name: this.getGraphKey(filter, settings),
             input: [],
             output: [],
-            device: "assumption-"+this.a.type,//lkklkkllklk
+            device: "assumption-" + this.a.type,//lkklkkllklk
             op: this.cfunction.name,
             attr: new AssumptionNodeAttributesImpl(this)
         };
@@ -284,12 +284,12 @@ abstract class AbstractPO extends AbstractLocatable implements ProofObligation {
         //removing self
         var index = ret.indexOf(this, 0);
         if (index > -1) {
-           ret.splice(index, 1);
+            ret.splice(index, 1);
         }
         return ret;
-     }
+    }
 
- 
+
 
 
     get label() {
@@ -716,6 +716,7 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
     public readDir(dir: string, appPath: string, _tracker: ProgressTracker): Promise<CAnalysis> {
         let readingXmlTracker: ProgressTracker = _tracker.getSubtaskTracker(80, "reading XML data");
         let readingJsonTracker: ProgressTracker = _tracker.getSubtaskTracker(20, "reading JSON data");
+        let readingContractsTracker: ProgressTracker = _tracker.getSubtaskTracker(10, "reading Contracts XMLs");
 
         this.projectDir = dir;
         return resolveJava()
@@ -725,8 +726,34 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
                 console.log("XML 2 JSON completed; " + jsonfiles[0]);
                 this.cAnalysisResult = this.readJsonFiles(jsonfiles, readingJsonTracker);
                 return this.cAnalysisResult;
+            })
+            .then(cAnalysisResult => {
+                this.readContractsXmls(dir, readingContractsTracker);
+                return cAnalysisResult;
             });
 
+    }
+
+    private readContractsXmls(dir: string, tracker: ProgressTracker) {
+        const contractsPath = path.join(dir, "semantics", "ktacontracts");
+        console.error("reading contracts XMLs is not implemented yet; dir:" + contractsPath);
+
+        const files: string[] = [];
+        fs.readdirSync(contractsPath).forEach(file => {
+            if (file.endsWith("_c.xml")) {
+                files.push(path.join(contractsPath, file));
+            }
+        });
+
+        let cnt: number = 0;
+        for (const file of files) {
+            const c: CFileContractImpl = new CFileContractImpl();
+            c.fromXml(file);
+            console.log(c);
+            cnt++;
+            tracker.updateProgress(files.length / cnt);
+        }
+        tracker.updateProgress(100);
     }
 
     private readJsonFiles(files: string[], tracker: ProgressTracker): CAnalysisImpl {
@@ -736,7 +763,7 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
             tracker.setMessage("reading " + file);
             console.info("reading" + file);
             try {
-                const json = <json.JAnalysis>JSON.parse(fs.readFileSync(file));
+                const json = <json.JAnalysis>JSON.parse(fs.readFileSync(file).toString());
                 const jsonParsingTracker: ProgressTracker = tracker.getSubtaskTracker(inc, "parsing JSON data");
 
                 this.mergeJsonData(json, jsonParsingTracker);
