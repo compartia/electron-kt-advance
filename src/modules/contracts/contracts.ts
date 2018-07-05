@@ -17,6 +17,16 @@ export interface CFunctionContract {
     preconditions: Math[];
 }
 
+export interface GVar {
+    name: string;
+    const?: string;
+    lib?: number;
+    static?: string;
+    value?: number;
+    ub?: number;
+    lb?: number;
+}
+
 
 export interface CFileContract {
     functions: CFunctionContract[];
@@ -80,7 +90,7 @@ export class CFileContractImpl implements CFileContract {
     functions: CFunctionContract[];
     name: string;
     dataStructures: any[];
-    globalVariables: any[];
+    globalVariables: GVar[];
 
     // private _functionsByName
 
@@ -113,14 +123,21 @@ export class CFileContractImpl implements CFileContract {
         this.functions = jfile.functions[0].function && jfile.functions[0].function.map(
             fn => new CFunctionContractImpl(fn));
 
+        if (jfile["global-variables"][0].gvar) {
+            this.globalVariables = jfile["global-variables"][0].gvar.map(x => <GVar>x.$);
+        }
+
+        this.dataStructures= jfile["data-structures"][0];
+
+
     }
 
 
 }
 
-const contract: CFileContract = new CFileContractImpl();
-contract.fromXml('/Users/artem/work/KT/electron-kt-advance/docs/contracts/contract_sample.xml');
+// const contract: CFileContract = new CFileContractImpl();
+// contract.fromXml('/Users/artem/work/KT/electron-kt-advance/docs/contracts/contract_sample.xml');
 
-console.log("===========================");
-console.log(JSON.stringify(contract, null, ' '));
-// contract.fromXml('/Users/artem/work/KT/electron-kt-advance/docs/contracts/sample_contract_1.xml');
+// console.log("===========================");
+// console.log(JSON.stringify(contract, null, ' '));
+// // contract.fromXml('/Users/artem/work/KT/electron-kt-advance/docs/contracts/sample_contract_1.xml');
