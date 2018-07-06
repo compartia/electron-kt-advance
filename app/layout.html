@@ -93,7 +93,7 @@
                             <assumptions-list-scene filtered-assumptions="[[filteredAssumptions]]" selected-assumptions="{{selectedAssumptions}}" linktosource></assumptions-list-scene>
 
                             <!-- tab CONTRACTS -->
-                            <contracts-list-scene> coming soon </contracts-list-scene>
+                            <contracts-scene contracts="[[filteredContracts]]"></contracts-scene>
 
                             <!-- tab GRAPH -->
                             <tf-graph-board id="graphboard" palette="[[palette]]" inputs-title="Dependent" outputs-title="Depends on" svg-id='svg-assumptions'
@@ -301,6 +301,11 @@
                     notify: true
                 },
 
+                filteredContracts: {
+                    type: Object,
+                    notify: true
+                },
+
                 filter: {
                     type: Object,
                     value: PO_FILTER,
@@ -396,6 +401,7 @@
                                 _self.set("statistics", ret);
                                 _self.set("filteredProofObligations", project.filteredProofObligations);
                                 _self.set("filteredAssumptions", project.filteredAssumptions);
+                                _self.set("filteredContracts", project.filteredContracts);
 
                                 _self.$.sourceview.maybeLoadFile(filter.file, aftereffect);
                             }

@@ -1,0 +1,56 @@
+<dom-module id="function-contracts-list">
+     
+    <template>
+
+
+        <iron-list id="functioncontracts" items="[[contracts]]" as="func" selection-enabled selected-item="{{selectedFuction}}">
+            <template>
+                <div class="row">
+                    <span class='mid'>
+                        <div class="function-name">
+                            [[func.name]] ([[func.parameters]])
+                        </div>
+                        <br>
+                        <div class="conditions">[[func.preconditionsString]]</div>
+                        <div class="conditions">[[func.postconditionsString]]</div>
+
+                    </span>
+
+                    <span class='right'>
+                        <template is="dom-if" if="[[func.ignore]]">
+                            ignored
+                        </template>
+                    </span>
+
+                </div>
+            </template>
+        </iron-list>
+
+
+    </template>
+
+
+
+    <script>
+        Polymer({
+            is: 'function-contracts-list',
+            properties: {
+                contracts: {
+                    type: Array
+                },
+
+                selectedFuction: {
+                    type: Object,
+                    observer: '_onSelected'
+                }
+            },
+
+            _onSelected: function (e) {
+                this.fire("contract-function-selected", this.selectedFuction);
+            }
+
+        });
+    </script>
+
+
+</dom-module>

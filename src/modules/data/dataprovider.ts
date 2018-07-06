@@ -14,7 +14,7 @@ import { NodeDef } from '../tf_graph_common/lib/proto';
 import { getJarName, JavaEnv, resolveJava } from './javaenv';
 import { XmlReader } from './xmlreader';
 
-
+ 
 
 abstract class AbstractLocatable implements HasPath {
     dir: false;
@@ -459,7 +459,7 @@ export class CAnalysisImpl implements CAnalysis {
     _proofObligations = [];
     appByDirMap = {};
     functionByFile = {};
-    contracts: contracts.ContractsCollection = new contracts.ContractsCollection();
+    contracts: contracts.ContractsCollection = new contracts.ContractsCollection(null);
 
     poIndex: { [key: string]: ProofObligation } = {};
     functionByPath: { [key: string]: CFunction } = {};
@@ -738,25 +738,27 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
     }
 
     private readContractsXmls(dir: string, tracker: ProgressTracker): contracts.ContractsCollection | null {
-        const contractsPath = path.join(dir, "semantics", "ktacontracts");
+        let contractsPath =  path.join(dir, "semantics", "ktacontracts");
         console.error("reading contracts XMLs is not implemented yet; dir:" + contractsPath);
-
+        
         if (!fs.existsSync(contractsPath)) {
             console.warn(contractsPath + " does not exist");
-            return null;
-        }
-        const files: string[] = [];
+            contractsPath = dir;// return null;
+        } 
+        const files: string[] = kt_fs.walkSync(contractsPath, "_c.xml")
         fs.readdirSync(contractsPath).forEach(file => {
             if (file.endsWith("_c.xml")) {
                 files.push(path.join(contractsPath, file));
             }
         });
 
-        const cc: contracts.ContractsCollection = new contracts.ContractsCollection();
+        const cc: contracts.ContractsCollection = new contracts.ContractsCollection(dir);
         let cnt: number = 0;
         for (const file of files) {
-            cc.readXml(file);
-            // console.log(c);
+            const contract:contracts.CFileContract = cc.readXml(file);
+            // let relativizedFile = path.relative(dir, file);
+            // contract.name=relativizedFile;
+             
             cnt++;
             tracker.updateProgress(files.length / cnt);
         }

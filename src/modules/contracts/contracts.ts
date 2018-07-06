@@ -5,11 +5,14 @@ import * as _ from 'lodash';
 
 export module contracts {
 
+    export interface Apply {
 
+    }
     export interface Math {
+        apply?: Apply;
     }
 
-    export interface CFunctionContract {
+    export class CFunctionContract {
         ignore?: boolean;
         name: string;
         src: string;
@@ -17,6 +20,37 @@ export module contracts {
         parameters: string[];
         postconditions: contracts.Math[];
         preconditions: contracts.Math[];
+
+        get preconditionsString(): string {
+
+
+            if (this.preconditions) {
+                let ret = "preconditions:";
+                for (let pc of this.preconditions) {
+                    ret += JSON.stringify(pc);
+                }
+                return ret;
+            }
+
+
+
+        }
+
+        get postconditionsString(): string {
+
+            if (this.postconditions) {
+                let ret = "postconditions:";
+
+                for (let pc of this.postconditions) {
+                    ret += JSON.stringify(pc);
+                }
+                return ret;
+            }
+
+
+
+        }
+
     }
 
     export interface GVar {
@@ -38,6 +72,8 @@ export module contracts {
         dataStructures: any[];
         globalVariables: any[];
         fromXml(filename: string): void;
+
+        getFunctionContractByName(name: string): CFunctionContract | undefined;
     }
 
 
@@ -51,7 +87,12 @@ export module contracts {
         dataStructures: any[];
         globalVariables: GVar[];
 
-        // private _functionsByName
+
+        getFunctionContractByName(name: string): CFunctionContract | undefined {
+            return this._functionsByName[name];
+        }
+
+        private _functionsByName = {};
 
         constructor(xmlfile: string) {
             this.fromXml(xmlfile);
@@ -78,11 +119,17 @@ export module contracts {
                 const jfile = result["c-analysis"]["cfile"][0];
                 Object.assign(this, this.flatten(jfile));
 
-                this.functions.forEach(fn => {
+                this.functions = this.functions.map(fn => {
+                    let fnObj = new CFunctionContract();
+
                     if (fn.parameters) {
                         fn.parameters = _.sortBy(fn.parameters, v => v["nr"]);
                         fn.parameters = fn.parameters.map(x => x["name"]);
                     }
+                    Object.assign(fnObj, fn);
+
+                    this._functionsByName[fnObj.name] = fnObj;//XXX: mind overloaded!!
+                    return fnObj;
                 });
 
             });
@@ -95,14 +142,11 @@ export module contracts {
             "functions": "function",
             "parameters": "par",
             "global-variables": "gvar"
-            // "math":true,
-
         };
 
         private flatten(_xml): any {
             if (isPrimitive(_xml)) return _xml;
-            if (_xml.__visited) throw "already visited";
-            _xml.__visited = true;
+
 
             const dest = {};
 
@@ -154,9 +198,14 @@ export module contracts {
 
     export class ContractsCollection {
         contractsByFile: { [key: string]: CFileContract } = {};
-        public readXml(file: string) {
+        private baseDir: string;
+        constructor(baseDir: string) {
+            this.baseDir = baseDir;
+        }
+        public readXml(file: string):CFileContract {
             const c: CFileContract = new CFileContractImpl(file);
             this.contractsByFile[c.name] = c;
+            return c;
         }
     }
 

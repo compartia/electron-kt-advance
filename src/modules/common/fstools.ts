@@ -81,3 +81,18 @@ function _allFilesSync(dir: string, suffixFilter: string, fileList = []) {
     }
     return fileList
 }
+
+
+export function walkSync(d: string, suffix, filelist: string[] = []) {
+    if (fs.statSync(d).isDirectory()) {
+        let files = fs.readdirSync(d);
+        for (const file of files) {
+            walkSync(path.join(d, file), suffix, filelist);
+        }
+    } else {
+        if (d.lastIndexOf(suffix) === (d.length - suffix.length)) {
+            filelist.push(d);
+        }
+    }
+    return filelist;
+}

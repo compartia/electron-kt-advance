@@ -64,7 +64,7 @@ po-list {
 }
 
 .small {
-    c-entity-line, tf-node-list-item {
+    c-entity-line, tf-node-list-item, .function-contract-line {
         .row{
             font-size: 85%;
         
@@ -79,7 +79,8 @@ po-list {
     }
 }
  
-
+.file-contract-line,
+.function-contract-line,
 c-entity-line,
 assumption-line {
     .row > span {
@@ -107,6 +108,7 @@ assumption-line {
             min-height: $po-icon-width;
         }
 
+
          
         
 
@@ -125,19 +127,9 @@ assumption-line {
             }
         }
 
-        .predicate {
-
-            .predicate-name {
-                min-width     : 8rem;
-                font-weight   : 500;
-                text-transform: uppercase;
-            }
-
-            .predicate-arg {
-                font: $font-code;
-                font-size     : $font-smaler;
-                color: var(--kt-grey-dark);
-            }
+        .conditions{
+            font-size     : $font-smaler;
+            color: var(--kt-grey-dark);
         }
 
         .left,
@@ -164,6 +156,23 @@ assumption-line {
             flex-flow  : row;
         }
 
+        .tag{
+            text-align   : center;
+            margin       : $spacer/3;
+            min-width    : 1em;
+            color        : $color-brand-2;
+            border-radius: $spacer*2;
+            font-size    : 80%;
+            padding      : $spacer/4 $spacer/2;
+            background: var(--kt-out-edge-bg);
+
+            background: var(--kt-in-edge-bg);
+
+            &:hover {
+                background: var(--kt-in-edge-bg-hover);
+            }
+        }
+        
         .assumptions {
             display    : flex;
             align-items: center;
@@ -227,6 +236,7 @@ assumption-line {
             font-family: $monospaced;
         }
 
+        
         .expression {
             color        : $grey;
             font-size    : $font-size-xs;
