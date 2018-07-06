@@ -1,19 +1,19 @@
 import * as ChildProcess from "child_process";
+import * as fs from 'fs';
+import * as path from 'path';
+import * as json from '../../generated/kt-json';
 import { Filter } from '../common/filter';
 import * as kt_fs from '../common/fstools';
 import { GraphSettings } from '../common/globals';
 import * as tools from '../common/tools';
-import { AssumptionNodeAttributes, CAnalysis, CApi, CApiAssumption, CFunction, CFunctionBase, Callee, Callsite, CallsiteNodeAttributes, Graphable, HasPath, PODischarge, POLocation, PONodeAttributes, PoStates, ProofObligation, RenderInfo, Returnsite, SecondaryProofObligation, Site, Symbol } from '../common/xmltypes';
+import { AssumptionNodeAttributes, Callee, Callsite, CallsiteNodeAttributes, CAnalysis, CApi, CApiAssumption, CFunction, CFunctionBase, Graphable, HasPath, PODischarge, POLocation, PONodeAttributes, PoStates, ProofObligation, RenderInfo, Returnsite, SecondaryProofObligation, Site, Symbol } from '../common/xmltypes';
+import { ContractsCollection } from "../contracts/contracts";
 import { ProgressTracker } from '../tf_graph_common/lib/common';
 import { NodeDef } from '../tf_graph_common/lib/proto';
-import { JavaEnv, getJarName, resolveJava } from './javaenv';
-import * as json from '../../generated/kt-json';
+import { getJarName, JavaEnv, resolveJava } from './javaenv';
 import { XmlReader } from './xmlreader';
 
 
-import * as fs from 'fs';
-import * as path from 'path';
-import { CFileContractImpl } from "../contracts/contracts";
 
 abstract class AbstractLocatable implements HasPath {
     dir: false;
@@ -458,6 +458,7 @@ export class CAnalysisImpl implements CAnalysis {
     _proofObligations = [];
     appByDirMap = {};
     functionByFile = {};
+    contracts: ContractsCollection = new ContractsCollection();
 
     poIndex: { [key: string]: ProofObligation } = {};
     functionByPath: { [key: string]: CFunction } = {};
@@ -728,16 +729,21 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
                 return this.cAnalysisResult;
             })
             .then(cAnalysisResult => {
-                this.readContractsXmls(dir, readingContractsTracker);
+                let cc = this.readContractsXmls(dir, readingContractsTracker);
+                cAnalysisResult.contracts = cc;
                 return cAnalysisResult;
             });
 
     }
 
-    private readContractsXmls(dir: string, tracker: ProgressTracker) {
+    private readContractsXmls(dir: string, tracker: ProgressTracker): ContractsCollection | null {
         const contractsPath = path.join(dir, "semantics", "ktacontracts");
         console.error("reading contracts XMLs is not implemented yet; dir:" + contractsPath);
 
+        if (!fs.existsSync(contractsPath)) {
+            console.warn(contractsPath + " does not exist");
+            return null;
+        }
         const files: string[] = [];
         fs.readdirSync(contractsPath).forEach(file => {
             if (file.endsWith("_c.xml")) {
@@ -745,15 +751,16 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
             }
         });
 
+        const cc: ContractsCollection = new ContractsCollection();
         let cnt: number = 0;
         for (const file of files) {
-            const c: CFileContractImpl = new CFileContractImpl();
-            c.fromXml(file);
-            console.log(c);
+            cc.readXml(file);
+            // console.log(c);
             cnt++;
             tracker.updateProgress(files.length / cnt);
         }
         tracker.updateProgress(100);
+        return cc;
     }
 
     private readJsonFiles(files: string[], tracker: ProgressTracker): CAnalysisImpl {

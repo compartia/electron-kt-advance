@@ -39,50 +39,7 @@ export interface CFileContract {
     fromXml(filename: string): void;
 }
 
-export class Math {
-    apply: any;
-    constructor(_math) {
 
-        Object.assign(this, _math.$);
-        this.apply = {};
-        let _applyNode = _math.math[0].apply[0];
-        Object.keys(_applyNode).forEach(p => {
-            this.apply[p] = _applyNode[p][0];
-        });
-    }
-}
-
-export class CFunctionContractImpl implements CFunctionContract {
-    ignore?: boolean;
-    name: string;
-    src: string;
-
-    parameters: CFunctionParameter[];
-    postconditions: Math[];
-    preconditions: Math[];
-
-    constructor(fn: any) {
-
-        Object.assign(this, fn.$);
-        this.ignore = (fn.$.ignore === 'yes');
-
-
-        if (fn.parameters && fn.parameters[0].par) {
-            let _params = fn.parameters[0].par.map(jpar => jpar.$);
-            _params = _.sortBy(_params, v => v["nr"]);
-            _params = _params.map(x => x["name"]);
-            this.parameters = _params;
-        }
-
-        this.postconditions = fn.postconditions && fn.postconditions[0].post &&
-            fn.postconditions[0].post.map(p => new Math(p));
-
-        this.preconditions = fn.preconditions && fn.preconditions[0].post &&
-            fn.preconditions[0].post.map(p => new Math(p));
-
-
-    }
-}
 
 /////////////////
 
@@ -96,7 +53,7 @@ export class CFileContractImpl implements CFileContract {
     // private _functionsByName
 
     public addFuctionContract(fc: CFunctionContract) {
-        if (this.functions && this.functions.indexOf(fc)>=0) {
+        if (this.functions && this.functions.indexOf(fc) >= 0) {
             throw "Function contract is already there";
         }
         this.functions.push(fc);
@@ -114,32 +71,98 @@ export class CFileContractImpl implements CFileContract {
 
         parser.parseString(data, (err, result) => {
             const jfile = result["c-analysis"]["cfile"][0];
-            console.debug(JSON.stringify(jfile, null, ' '));//TODO: remove it!!
-            this.parseJFile(jfile);
+            // console.debug(JSON.stringify(jfile, null, ' '));//TODO: remove it!!
+
+            Object.assign(this, this.flatten(jfile));
         });
     }
 
-    private parseJFile(jfile) {
-        Object.assign(this, jfile.$);
-        this.functions = jfile.functions[0].function && jfile.functions[0].function.map(
-            fn => new CFunctionContractImpl(fn));
 
-        const _gv=jfile["global-variables"];
-        if (_gv && _gv[0].gvar) {
-            this.globalVariables = jfile["global-variables"][0].gvar.map(x => <GVar>x.$);
+    static ARRAYS = {
+        "postconditions": true,
+        "preconditions": true,
+        "functions": true,
+        "parameters": true,
+        "global-variables": true
+        // "math":true,
+
+    };
+
+    private flatten(_xml): any {
+        if (isPrimitive(_xml)) return _xml;
+        if (_xml.__visited) return;
+        _xml.__visited = true;
+
+        let dest = {};
+        if (_xml.$) {
+            Object.assign(dest, _xml.$);
         }
 
-        this.dataStructures= jfile["data-structures"][0];
+        for (const prop of Object.keys(_xml)) {
+            var val = _xml[prop];
+
+            if (prop != "$") {
+                if (CFileContractImpl.ARRAYS[prop]) {
+                    // property is array
+                    val = val[0];
+                    if(isPrimitive(val)){
+                        // empty Array
+                        dest[prop] = [];
+                        return;
+                    }
+                    
+                    let k = Object.keys(val)[0];
+                    if(k){
+                        try {
+                            dest[prop] = [];
+                            for (const el of val[k]) {
+                                dest[prop].push(this.flatten(el));
+                            }
+                        } catch (e) {
+                            console.error(k);
+                            console.error(val);
+                            console.error(e);
+                        }
+                    }else{
+                        console.error(prop+"="+val);
+                    }
+                    
 
 
+                } else {
+                    //flatten
+                    dest[prop] = this.flatten(val[0]);
+                }
+            }
+        }
+
+        return dest;
     }
+
+
 
 
 }
 
-// const contract: CFileContract = new CFileContractImpl();
+export class ContractsCollection {
+    contractsByFile: { [key: string]: CFileContract } = {};
+    public readXml(file: string) {
+        const c: CFileContract = new CFileContractImpl();
+        c.fromXml(file);
+        this.contractsByFile[c.name] = c;
+    }
+}
+
+
+function isPrimitive(test) {
+    return (test !== Object(test));
+};
+
+
+
+const contract: CFileContract = new CFileContractImpl();
 // contract.fromXml('/Users/artem/work/KT/electron-kt-advance/docs/contracts/contract_sample.xml');
 
-// console.log("===========================");
-// console.log(JSON.stringify(contract, null, ' '));
-// // contract.fromXml('/Users/artem/work/KT/electron-kt-advance/docs/contracts/sample_contract_1.xml');
+console.log("===========================");
+contract.fromXml('/Users/artem/work/KT/electron-kt-advance/docs/contracts/sample_contract_1.xml');
+console.log(JSON.stringify(contract, null, ' '));

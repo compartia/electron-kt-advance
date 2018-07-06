@@ -27,14 +27,14 @@ const tempDir = 'temp.js';
 
 let tsPaths = require("../tsconfig.json").files[0];
 
-gulp.task('unzip_schema',  (cp)=> {
+gulp.task('unzip_schema', (cp) => {
     gulp.src(["./java/*.jar"])
-    .pipe(unzip({
-        filter : function(entry){
-          return minimatch(entry.path, "kt-json.d.ts");
-        }
-      }))
-    .pipe(gulp.dest('./src/generated'))
+        .pipe(unzip({
+            filter: function (entry) {
+                return minimatch(entry.path, "kt-json.d.ts");
+            }
+        }))
+        .pipe(gulp.dest('./src/generated'))
 
     cp();
 });
