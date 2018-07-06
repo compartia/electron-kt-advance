@@ -18,7 +18,7 @@ const dialog = require('electron').remote.dialog;
 
 
 export var TABS = [
-    'summary', 'source', 'proof obligations', 'assumptions', 'graphs', 'calls', '?'
+    'summary', 'source', 'proof obligations', 'assumptions', 'contracts', 'graphs', 'calls', '?'
 ];
 
 

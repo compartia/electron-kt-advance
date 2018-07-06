@@ -159,10 +159,3 @@ function isPrimitive(test) {
 };
 
 
-
-const contract: CFileContract = new CFileContractImpl();
-// contract.fromXml('/Users/artem/work/KT/electron-kt-advance/docs/contracts/contract_sample.xml');
-
-console.log("===========================");
-contract.fromXml('/Users/artem/work/KT/electron-kt-advance/docs/contracts/sample_contract_1.xml');
-console.log(JSON.stringify(contract, null, ' '));
