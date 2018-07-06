@@ -3,7 +3,8 @@ import { JVarInfo } from "../../generated/kt-json";
 import { NodeAttributes, NodeDef } from '../tf_graph_common/lib/proto';
 import { Filter } from './filter';
 import { GraphSettings } from './globals';
-import { ContractsCollection } from "../contracts/contracts";
+import { contracts } from "../contracts/contracts";
+
 
 
 export enum PoStates { violation, open, discharged, deadcode, assumption, callsite };
@@ -227,7 +228,7 @@ export interface CAnalysis {
 
     functionByFile: { [key: string]: Array<CFunction> };
     assumptions: Array<CApiAssumption>
-    contracts: ContractsCollection;
+    contracts: contracts.ContractsCollection;
 }
 
 

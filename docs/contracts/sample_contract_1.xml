@@ -5,7 +5,13 @@
 	<cfile name="src/main/common/streambuf">
 		<data-structures />
 		<functions>
-		 
+			<function name="sbufAdvance">
+				<parameters>
+					<par name="buf" nr="1" />
+					<par name="size" nr="2" />
+				</parameters>
+				<postconditions />
+			</function>
 			<function name="sbufBytesRemaining">
 				<parameters>
 					<par name="buf" nr="1" />
@@ -21,7 +27,20 @@
 					</post>
 				</postconditions>
 			</function>
-		  
+			<function name="sbufConstPtr">
+				<parameters>
+					<par name="buf" nr="1" />
+				</parameters>
+				<postconditions />
+			</function>
+			<function name="sbufFill">
+				<parameters>
+					<par name="dst" nr="1" />
+					<par name="data" nr="2" />
+					<par name="len" nr="3" />
+				</parameters>
+				<postconditions />
+			</function>
 			<function name="sbufInit">
 				<parameters>
 					<par name="sbuf" nr="1" />
@@ -71,6 +90,111 @@
 						</math>
 					</post>
 				</postconditions>
+			</function>
+			<function name="sbufPtr">
+				<parameters>
+					<par name="buf" nr="1" />
+				</parameters>
+				<postconditions>
+					<post>
+						<math>
+							<apply>
+								<not-null />
+								<return />
+							</apply>
+						</math>
+					</post>
+				</postconditions>
+			</function>
+			<function name="sbufReadData">
+				<parameters>
+					<par name="src" nr="1" />
+					<par name="data" nr="2" />
+					<par name="len" nr="3" />
+				</parameters>
+				<postconditions />
+			</function>
+			<function name="sbufReadU16">
+				<parameters>
+					<par name="src" nr="1" />
+				</parameters>
+				<postconditions />
+			</function>
+			<function name="sbufReadU32">
+				<parameters>
+					<par name="src" nr="1" />
+				</parameters>
+				<postconditions />
+			</function>
+			<function name="sbufReadU8">
+				<parameters>
+					<par name="src" nr="1" />
+				</parameters>
+				<postconditions />
+			</function>
+			<function name="sbufSwitchToReader">
+				<parameters>
+					<par name="buf" nr="1" />
+					<par name="base" nr="2" />
+				</parameters>
+				<postconditions />
+			</function>
+			<function name="sbufWriteData">
+				<parameters>
+					<par name="dst" nr="1" />
+					<par name="data" nr="2" />
+					<par name="len" nr="3" />
+				</parameters>
+				<postconditions />
+			</function>
+			<function name="sbufWriteString">
+				<parameters>
+					<par name="dst" nr="1" />
+					<par name="string" nr="2" />
+				</parameters>
+				<postconditions />
+			</function>
+			<function name="sbufWriteStringWithZeroTerminator">
+				<parameters>
+					<par name="dst" nr="1" />
+					<par name="string" nr="2" />
+				</parameters>
+				<postconditions />
+			</function>
+			<function name="sbufWriteU16">
+				<parameters>
+					<par name="dst" nr="1" />
+					<par name="val" nr="2" />
+				</parameters>
+				<postconditions />
+			</function>
+			<function name="sbufWriteU16BigEndian">
+				<parameters>
+					<par name="dst" nr="1" />
+					<par name="val" nr="2" />
+				</parameters>
+				<postconditions />
+			</function>
+			<function name="sbufWriteU32">
+				<parameters>
+					<par name="dst" nr="1" />
+					<par name="val" nr="2" />
+				</parameters>
+				<postconditions />
+			</function>
+			<function name="sbufWriteU32BigEndian">
+				<parameters>
+					<par name="dst" nr="1" />
+					<par name="val" nr="2" />
+				</parameters>
+				<postconditions />
+			</function>
+			<function name="sbufWriteU8">
+				<parameters>
+					<par name="dst" nr="1" />
+					<par name="val" nr="2" />
+				</parameters>
+				<postconditions />
 			</function>
 		</functions>
 	</cfile>

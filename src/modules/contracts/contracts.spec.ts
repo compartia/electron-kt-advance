@@ -2,7 +2,8 @@ import * as path from 'path';
 const assert = require('assert');
 
 import { suite, test } from "mocha-typescript";
-import { CFileContract, CFileContractImpl } from './contracts';
+import './contracts';
+import { contracts } from './contracts';
 
 
 Error.stackTraceLimit = 30;
@@ -12,10 +13,25 @@ Error.stackTraceLimit = 30;
 
     @test testReadContract() {
 
-        const contract: CFileContract = new CFileContractImpl();
+        const contract: contracts.CFileContract = new contracts.CFileContractImpl(this.testDir);
+        // contract.fromXml(this.testDir);
 
-        contract.fromXml(this.testDir);
-        console.log(JSON.stringify(contract, null, ' '));
+        assert.equal(contract.functions.length, 19, "number of functions must be 19, was " + contract.functions.length);
+
+        for (const fn of contract.functions) {
+            // console.error("FNL:"+fn);
+            assert(fn, "function is not Ok:" + fn);
+            assert(fn.name, "function name is not Ok:" + fn);
+
+            if(fn.name==="sbufInit"){
+                assert.equal(fn.parameters.length, 3, "number of params must be 3");
+                assert.equal(fn.parameters[2], 'end' );
+            }
+            
+        }
+        
+
+        // console.log(JSON.stringify(contract, null, ' '));
 
     }
 }

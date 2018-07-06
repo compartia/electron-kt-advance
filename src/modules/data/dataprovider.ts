@@ -7,7 +7,8 @@ import * as kt_fs from '../common/fstools';
 import { GraphSettings } from '../common/globals';
 import * as tools from '../common/tools';
 import { AssumptionNodeAttributes, Callee, Callsite, CallsiteNodeAttributes, CAnalysis, CApi, CApiAssumption, CFunction, CFunctionBase, Graphable, HasPath, PODischarge, POLocation, PONodeAttributes, PoStates, ProofObligation, RenderInfo, Returnsite, SecondaryProofObligation, Site, Symbol } from '../common/xmltypes';
-import { ContractsCollection } from "../contracts/contracts";
+import { contracts } from "../contracts/contracts";
+
 import { ProgressTracker } from '../tf_graph_common/lib/common';
 import { NodeDef } from '../tf_graph_common/lib/proto';
 import { getJarName, JavaEnv, resolveJava } from './javaenv';
@@ -458,7 +459,7 @@ export class CAnalysisImpl implements CAnalysis {
     _proofObligations = [];
     appByDirMap = {};
     functionByFile = {};
-    contracts: ContractsCollection = new ContractsCollection();
+    contracts: contracts.ContractsCollection = new contracts.ContractsCollection();
 
     poIndex: { [key: string]: ProofObligation } = {};
     functionByPath: { [key: string]: CFunction } = {};
@@ -736,7 +737,7 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
 
     }
 
-    private readContractsXmls(dir: string, tracker: ProgressTracker): ContractsCollection | null {
+    private readContractsXmls(dir: string, tracker: ProgressTracker): contracts.ContractsCollection | null {
         const contractsPath = path.join(dir, "semantics", "ktacontracts");
         console.error("reading contracts XMLs is not implemented yet; dir:" + contractsPath);
 
@@ -751,7 +752,7 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
             }
         });
 
-        const cc: ContractsCollection = new ContractsCollection();
+        const cc: contracts.ContractsCollection = new contracts.ContractsCollection();
         let cnt: number = 0;
         for (const file of files) {
             cc.readXml(file);
