@@ -1,27 +1,39 @@
 <dom-module id="function-contracts-list">
+    <style>
+        .functioncontracts{
+
+        }
+
+        .functioncontracts .po-wrapper.selected{
+            background-color: var(--selection-bg);
+        }
+
      
+    </style>
+
     <template>
 
 
-        <iron-list id="functioncontracts" items="[[contracts]]" as="func" selection-enabled selected-item="{{selectedFuction}}">
+        <iron-list id="functioncontracts" class="functioncontracts" items="[[contracts]]" as="func" selected-item="{{selectedFuction}}" selection-enabled>
             <template>
-                <div class="row">
-                    <span class='mid'>
-                        <div class="function-name">
-                            [[func.name]] ([[func.parameters]])
-                        </div>
-                        <br>
-                        <div class="conditions">[[func.preconditionsString]]</div>
-                        <div class="conditions">[[func.postconditionsString]]</div>
+                <div class$="po-wrapper [[_rowClass(selected)]]">
+                    <div class="row">
+                        <span class='mid'>
+                            <div class="function-name">
+                                [[func.name]] ([[func.parameters]])
+                            </div>
+                            <br>
+                            <div class="conditions">[[func.preconditionsString]]</div>
+                            <div class="conditions">[[func.postconditionsString]]</div>
+                        </span>
 
-                    </span>
+                        <span class='right'>
+                            <template is="dom-if" if="[[func.ignore]]">
+                                ignored
+                            </template>
+                        </span>
 
-                    <span class='right'>
-                        <template is="dom-if" if="[[func.ignore]]">
-                            ignored
-                        </template>
-                    </span>
-
+                    </div>
                 </div>
             </template>
         </iron-list>
@@ -41,11 +53,15 @@
 
                 selectedFuction: {
                     type: Object,
-                    observer: '_onSelected'
+                    observer: '_onFunctionContractSelected'
                 }
             },
 
-            _onSelected: function (e) {
+            _rowClass: function (selected) {
+                return selected ? "selected" : ""
+            },
+
+            _onFunctionContractSelected: function (e) {
                 this.fire("contract-function-selected", this.selectedFuction);
             }
 

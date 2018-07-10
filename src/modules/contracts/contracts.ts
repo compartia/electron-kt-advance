@@ -1,13 +1,20 @@
 
-import * as xml2js from 'xml2js';
-import * as fs from 'fs';
-import * as _ from 'lodash';
+
+
 
 export module contracts {
 
-    export interface Apply {
+    export const UNARY_RELATIONS = ['false', 'initialized', 'preserves-all-memory', 'tainted', 'not-zero', 'not-null'];
+    export const BINARY_RELATIONS = ['eq', 'neq', 'gt', 'lt', 'geq', 'leq'];
 
+    export const RELATIONS = [].concat(UNARY_RELATIONS).concat(BINARY_RELATIONS);
+    export const RELATIONS_NAMES = {
+        'eq': "==", 'neq': "!=", 'gt': ">", 'lt': "<", 'geq': ">=", 'leq': "<="
     }
+
+    export interface Apply {
+    }
+
     export interface Math {
         apply?: Apply;
     }
@@ -21,9 +28,11 @@ export module contracts {
         postconditions: contracts.Math[];
         preconditions: contracts.Math[];
 
+        get hasContracts(): boolean {
+            return (this.postconditions && this.postconditions.length > 0) || (this.preconditions && this.preconditions.length > 0);
+        }
+
         get preconditionsString(): string {
-
-
             if (this.preconditions) {
                 let ret = "preconditions:";
                 for (let pc of this.preconditions) {
@@ -31,9 +40,6 @@ export module contracts {
                 }
                 return ret;
             }
-
-
-
         }
 
         get postconditionsString(): string {
@@ -71,9 +77,11 @@ export module contracts {
 
         dataStructures: any[];
         globalVariables: any[];
-        fromXml(filename: string): void;
+
 
         getFunctionContractByName(name: string): CFunctionContract | undefined;
+
+        hasContracts: boolean;
     }
 
 
@@ -92,136 +100,54 @@ export module contracts {
             return this._functionsByName[name];
         }
 
-        private _functionsByName = {};
+        _functionsByName = {};
 
-        constructor(xmlfile: string) {
-            this.fromXml(xmlfile);
-        }
+
 
         public addFuctionContract(fc: CFunctionContract) {
             if (this.functions && this.functions.indexOf(fc) >= 0) {
                 throw "Function contract is already there";
             }
             this.functions.push(fc);
-            // this._functionsByName[fc.name]=fc;
         }
 
-        public fromXml(filename) {
-            this.functions = [];
-            const parser = new xml2js.Parser({
-                trim: true,
-                emptyTag: true
-            });
-
-            const data = fs.readFileSync(filename);
-
-            parser.parseString(data, (err, result) => {
-                const jfile = result["c-analysis"]["cfile"][0];
-                Object.assign(this, this.flatten(jfile));
-
-                this.functions = this.functions.map(fn => {
-                    let fnObj = new CFunctionContract();
-
-                    if (fn.parameters) {
-                        fn.parameters = _.sortBy(fn.parameters, v => v["nr"]);
-                        fn.parameters = fn.parameters.map(x => x["name"]);
-                    }
-                    Object.assign(fnObj, fn);
-
-                    this._functionsByName[fnObj.name] = fnObj;//XXX: mind overloaded!!
-                    return fnObj;
-                });
-
-            });
-        }
-
-
-        static ARRAYS = {
-            "postconditions": "post",
-            "preconditions": "pre",
-            "functions": "function",
-            "parameters": "par",
-            "global-variables": "gvar"
-        };
-
-        private flatten(_xml): any {
-            if (isPrimitive(_xml)) return _xml;
-
-
-            const dest = {};
-
-            if (_xml.$) {
-                Object.assign(dest, _xml.$);
+        get hasContracts(): boolean {
+            for (const fun of this.functions) {
+                if (fun.hasContracts) return true;
             }
-
-            for (const prop of Object.keys(_xml)) {
-                var val = _xml[prop];
-
-                if (prop != "$") {
-                    if (CFileContractImpl.ARRAYS[prop]) {
-                        // property is array
-                        val = val[0];
-                        if (isPrimitive(val)) {
-                            // empty Array
-                            dest[prop] = [];
-                            return dest;
-                        }
-
-                        let arrayElementName = CFileContractImpl.ARRAYS[prop];
-
-                        try {
-                            dest[prop] = [];
-                            for (const el of val[arrayElementName]) {
-                                const flattened = this.flatten(el);
-                                if (!flattened) {
-                                    console.error("cannot flatten " + arrayElementName);
-                                    console.error(el);
-                                } else {
-                                    dest[prop].push(flattened);
-                                }
-                            }
-                        } catch (e) {
-                            console.error(e);
-                        }
-
-                    } else {
-                        //flatten
-                        dest[prop] = this.flatten(val[0]);
-                    }
-                }
-            }
-
-            return dest;
+            return false;
         }
+
+
 
     }
 
     export class ContractsCollection {
         contractsByFile: { [key: string]: CFileContract } = {};
+        public fileContracts: CFileContract[] = [];
         private baseDir: string;
         constructor(baseDir: string) {
             this.baseDir = baseDir;
         }
-        public readXml(file: string):CFileContract {
-            const c: CFileContract = new CFileContractImpl(file);
+
+        public addContract(c: CFileContract) {
             this.contractsByFile[c.name] = c;
-            return c;
+            this.fileContracts.push(c);
         }
+
     }
 
 
-    function isPrimitive(test) {
-        return (test !== Object(test));
-    };
+
 
 
 }
 
 
 
-const contract: contracts.CFileContract = new contracts.CFileContractImpl('/Users/artem/work/KT/electron-kt-advance/docs/contracts/sample_contract_1.xml');
-// contract.fromXml('/Users/artem/work/KT/electron-kt-advance/docs/contracts/contract_sample.xml');
+// const contract: contracts.CFileContract = new contracts.CFileContractImpl('/Users/artem/work/KT/electron-kt-advance/docs/contracts/sample_contract_1.xml');
+// // contract.fromXml('/Users/artem/work/KT/electron-kt-advance/docs/contracts/contract_sample.xml');
 
-console.log("===========================");
-// contract.fromXml('/Users/artem/work/KT/electron-kt-advance/docs/contracts/sample_contract_1.xml');
-console.log(JSON.stringify(contract, null, ' '));
+// console.log("===========================");
+// // contract.fromXml('/Users/artem/work/KT/electron-kt-advance/docs/contracts/sample_contract_1.xml');
+// console.log(JSON.stringify(contract, null, ' '));

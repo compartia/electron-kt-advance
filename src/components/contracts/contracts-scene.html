@@ -1,9 +1,18 @@
 <link rel="import" href="function-contracts-list.html">
+<link rel="import" href="contract-info.html">
 
 <dom-module id="contracts-scene">
     <style>
         .offseted {
             margin-left: 30px;
+        }
+ 
+        .filecontracts{
+
+        }
+
+        .filecontracts .po-wrapper.selected{
+            background-color: var(--selection-md-bg);
         }
     </style>
 
@@ -11,9 +20,9 @@
 
         <vaadin-split-layout id="verticalContractsSplitter" class$="splitter-3 [[getSplitterClass(selectedItem)]]">
 
-            <iron-list id="filecontracts" items="[[contracts]]" as="file" selection-enabled selected-item="{{selectedItem}}">
+            <iron-list id="filecontracts" class="filecontracts" items="[[contracts]]" as="file" selection-enabled selected-item="{{selectedItem}}">
                 <template>
-                    <div class="po-wrapper file-contract-line">
+                    <div class$="po-wrapper file-contract-line [[_rowClass(selected)]]">
                         <div class="row">
                             <div class="mid">
                                 [[file.name]]
@@ -25,7 +34,10 @@
 
                         <template is="dom-if" if="[[showAtLinePos(file, selected)]]">
                             <div class="offseted">
-                                <function-contracts-list on-contract-function-selected='_onContractFunctionSelected' contracts="[[selectedItem.functions]]"></function-contracts-list>
+                                <function-contracts-list 
+                                    on-tap="_toggleLine"
+                                    on-contract-function-selected='_onContractFunctionSelected' 
+                                    contracts="[[functions]]"></function-contracts-list>
                             </div>
                         </template>
 
@@ -35,7 +47,8 @@
             </iron-list>
 
             <div id="right-panel" class="side">
-                contract parameters [[selectedFunc.name]]
+                <contract-info contract="[[selectedFunc]]"></contract-info>
+                <!-- contract parameters [[selectedFunc.name]] -->
             </div>
         </vaadin-split-layout>
 
@@ -50,6 +63,9 @@
                 contracts: {
                     type: Object
                 },
+                functions: {
+                    type: Array
+                },
                 selectedFunc: Object,
                 selectedItem: {
                     type: Object,
@@ -57,12 +73,25 @@
                 }
             },
 
+            _rowClass:function(selected){
+                return selected?"selected":""
+            },
+            _toggleLine: function (e) {
+                e.stopPropagation();
+            },
             _onFileContractSelected: function (e) {
-                console.log(e);
+                let funcs = [];
+                if (this.selectedItem && this.selectedItem.functions) {
+                    for (let fun of this.selectedItem.functions) {
+                        // if (fun.hasContracts){
+                            funcs.push(fun);
+                        // }
+                    }
+                }
+                this.set("functions", funcs);                 
             },
 
-            _onContractFunctionSelected: function (e) {
-                console.log(e);
+            _onContractFunctionSelected: function (e) {              
                 this.selectedFunc = e.detail;
             },
 
@@ -78,6 +107,11 @@
     </script>
 
     <style>
+
+        .side{
+            padding: 10px;
+        }
+        
         .splitter-3 {
             --vaadin-split-layout-splitter: {
                 min-width: 1px;

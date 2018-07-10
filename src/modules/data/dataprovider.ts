@@ -13,6 +13,7 @@ import { ProgressTracker } from '../tf_graph_common/lib/common';
 import { NodeDef } from '../tf_graph_common/lib/proto';
 import { getJarName, JavaEnv, resolveJava } from './javaenv';
 import { XmlReader } from './xmlreader';
+import { CFileContractXml } from "../contracts/xml";
 
  
 
@@ -755,7 +756,9 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
         const cc: contracts.ContractsCollection = new contracts.ContractsCollection(dir);
         let cnt: number = 0;
         for (const file of files) {
-            const contract:contracts.CFileContract = cc.readXml(file);
+            const c: CFileContractXml = new CFileContractXml(file);
+            cc.addContract(c);
+             
             // let relativizedFile = path.relative(dir, file);
             // contract.name=relativizedFile;
              

@@ -1,0 +1,45 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../src/components/contracts/contracts-scene.html">
+<link rel="import" href="../src/main-components.html">
+
+<!-- <link rel="import" href="contracts.js"> -->
+<script src="test-contracts.js"></script>
+
+<dom-module id="kt-layout">
+    <template>
+        contracts-scene.html
+        <contracts-scene contracts="[[contracts]]"></contracts-scene>
+    </template>
+    <script>
+
+        Polymer({
+            is: "kt-layout",
+            properties: {
+
+            },
+
+
+            ready: function () {
+
+
+                let ap = [];
+
+
+                for (var f = 0; f < 10; f++) {
+                    let c = {};
+                    Object.assign(c, ___test_contract);
+                    c.name = c.name + "_" + f;
+                    ap.push(c);
+                };
+
+
+                this.contracts = ap;
+
+                const node = this.node;
+
+            }
+
+        });
+    </script>
+
+</dom-module>

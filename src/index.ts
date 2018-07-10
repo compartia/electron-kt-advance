@@ -18,6 +18,8 @@ const sceneedge = require('./modules/tf_graph_common/lib/scene/edge');
 
 const hierarchy  = require('./modules/tf_graph_common/lib/hierarchy');
 
+const _contr = require('./modules/contracts/contracts');
+const Contracts=_contr.contracts;
 
 const PO_FILTER = filter.PO_FILTER;
 
