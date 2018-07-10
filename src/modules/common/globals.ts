@@ -287,7 +287,7 @@ export class ProjectImpl implements CProject {
         this.filterProofObligations(filter);
         this.filterAssumptions(filter);
 
-        this.filteredContracts = _.values(this.contracts.contractsByFile); //XXX: filter properly
+        this.filteredContracts = _.filter(this.contracts.fileContracts, x => x.hasContracts)
     }
 
     private filterProofObligations(_filter: Filter): void {
