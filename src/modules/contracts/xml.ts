@@ -4,10 +4,11 @@ import * as _ from 'lodash';
 
 import { contracts } from './contracts'
 
+const ______DEBUG = false;
 
 function isPrimitive(test) {
     return (test !== Object(test));
-};
+}
 
 
 export class CFileContractXml extends contracts.CFileContractImpl {
@@ -15,8 +16,10 @@ export class CFileContractXml extends contracts.CFileContractImpl {
         super();
         this.fromXml(xmlfile);
     }
+
     public fromXml(filename) {
         this.functions = [];
+
         const parser = new xml2js.Parser({
             trim: true,
             emptyTag: true
@@ -25,19 +28,46 @@ export class CFileContractXml extends contracts.CFileContractImpl {
         const data = fs.readFileSync(filename);
 
         parser.parseString(data, (err, result) => {
+
+            if (err) {
+                console.error(err);
+                return;
+            }
+
             const jfile = result["c-analysis"]["cfile"][0];
-            Object.assign(this, this.flatten(jfile));
+
+            const flattened = this._flatten(jfile);
+
+            if (______DEBUG) this.log(0, JSON.stringify(flattened, null, ' '));
+
+            (<any>Object).assign(this, flattened);
 
             this.functions = this.functions.map(fn => {
+
                 let fnObj = new contracts.CFunctionContract();
 
                 if (fn.parameters) {
                     fn.parameters = _.sortBy(fn.parameters, v => v["nr"]);
                     fn.parameters = fn.parameters.map(x => x["name"]);
                 }
-                Object.assign(fnObj, fn);
+
+                (<any>Object).assign(fnObj, fn);
+                this.log(1, fnObj.name);
 
                 this._functionsByName[fnObj.name] = fnObj;//XXX: mind overloaded!!
+
+                if (fnObj.postconditions) {
+                    fnObj.postconditions = fnObj.postconditions.map(
+                        pc => new contracts.Math((pc as any).math.apply)
+                    );
+                }
+
+                if (fnObj.preconditions) {
+                    fnObj.preconditions = fnObj.preconditions.map(
+                        pc => new contracts.Math((pc as any).math.apply)
+                    );
+                }
+
                 return fnObj;
             });
 
@@ -53,49 +83,69 @@ export class CFileContractXml extends contracts.CFileContractImpl {
         "global-variables": "gvar"
     };
 
-    private flatten(_xml): any {
+    private tabs(n) {
+        let t = '';
+        for (let i = 0; i < n; i++) {
+            t += "\t\t";
+        }
+        return t;
+    }
+
+    private log(n, str) {
+        if (______DEBUG)
+            console.log("FFF:" + this.tabs(n) + str);
+    }
+
+    private _flatten(_xml, tabs?): any {
+        if (!tabs) tabs = 0; //just for debug logging
         if (isPrimitive(_xml)) return _xml;
 
 
         const dest = {};
 
         if (_xml.$) {
-            Object.assign(dest, _xml.$);
+            (<any>Object).assign(dest, _xml.$);
         }
 
-        for (const prop of Object.keys(_xml)) {
-            var val = _xml[prop];
+        const props = Object.keys(_xml);
+        this.log(tabs, "properties:" + props);
 
-            if (prop != "$") {
+        for (const prop of props) {
+
+            this.log(tabs, "---------------->>" + prop)
+
+            if (prop !== "$") {
+                let val = _xml[prop];
                 if (CFileContractXml.ARRAYS[prop]) {
-                    // property is array
-                    val = val[0];
-                    if (isPrimitive(val)) {
-                        // empty Array
-                        dest[prop] = [];
-                        return dest;
+
+                    // property is an array
+                    if (Array.isArray(val)) {
+                        val = val[0];
                     }
 
-                    let arrayElementName = CFileContractXml.ARRAYS[prop];
+                    if (isPrimitive(val)) {
+                        this.log(tabs, val + " is primitive")
+                        // empty Array
+                        dest[prop] = [];
 
-                    try {
+                    } else {
+                        let arrayElementName = CFileContractXml.ARRAYS[prop];
+
                         dest[prop] = [];
                         for (const el of val[arrayElementName]) {
-                            const flattened = this.flatten(el);
-                            if (!flattened) {
-                                console.error("cannot flatten " + arrayElementName);
-                                console.error(el);
-                            } else {
+                            const flattened = this._flatten(el, tabs + 1);
+                            if (flattened) {
                                 dest[prop].push(flattened);
+                            } else {
+                                this.log(tabs, "cannot flatten " + arrayElementName);
+                                console.error(el);
                             }
                         }
-                    } catch (e) {
-                        console.error(e);
                     }
 
                 } else {
                     //flatten
-                    dest[prop] = this.flatten(val[0]);
+                    dest[prop] = this._flatten(val[0], tabs + 1);
                 }
             }
         }

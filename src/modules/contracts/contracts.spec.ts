@@ -4,7 +4,7 @@ const assert = require('assert');
 import { suite, test } from "mocha-typescript";
 import './contracts';
 import { contracts } from './contracts';
-
+import { CFileContractXml } from './xml';
 
 Error.stackTraceLimit = 30;
 
@@ -13,7 +13,7 @@ Error.stackTraceLimit = 30;
 
     @test testReadContract() {
 
-        const contract: contracts.CFileContract = new contracts.CFileContractImpl(this.testDir);
+        const contract: contracts.CFileContract = new CFileContractXml(this.testDir);
         // contract.fromXml(this.testDir);
 
         assert.equal(contract.functions.length, 19, "number of functions must be 19, was " + contract.functions.length);
