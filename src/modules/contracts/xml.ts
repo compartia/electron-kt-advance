@@ -42,35 +42,39 @@ export class CFileContractXml extends contracts.CFileContractImpl {
 
             (<any>Object).assign(this, flattened);
 
-            this.functions = this.functions.map(fn => {
+            this.convertToObjects();
 
-                let fnObj = new contracts.CFunctionContract();
+        });
+    }
 
-                if (fn.parameters) {
-                    fn.parameters = _.sortBy(fn.parameters, v => v["nr"]);
-                    fn.parameters = fn.parameters.map(x => x["name"]);
-                }
+    private convertToObjects() {
+        this.functions = this.functions.map(fn => {
 
-                (<any>Object).assign(fnObj, fn);
-                this.log(1, fnObj.name);
+            let fnObj = new contracts.CFunctionContract();
 
-                this._functionsByName[fnObj.name] = fnObj;//XXX: mind overloaded!!
+            if (fn.parameters) {
+                fn.parameters = _.sortBy(fn.parameters, v => v["nr"]);
+                fn.parameters = fn.parameters.map(x => x["name"]);
+            }
 
-                if (fnObj.postconditions) {
-                    fnObj.postconditions = fnObj.postconditions.map(
-                        pc => new contracts.Math((pc as any).math.apply)
-                    );
-                }
+            (<any>Object).assign(fnObj, fn);
+            this.log(1, fnObj.name);
 
-                if (fnObj.preconditions) {
-                    fnObj.preconditions = fnObj.preconditions.map(
-                        pc => new contracts.Math((pc as any).math.apply)
-                    );
-                }
+            this._functionsByName[fnObj.name] = fnObj;//XXX: mind overloaded!!
 
-                return fnObj;
-            });
+            if (fnObj.postconditions) {
+                fnObj.postconditions = fnObj.postconditions.map(
+                    pc => new contracts.Math((pc as any).math.apply)
+                );
+            }
 
+            if (fnObj.preconditions) {
+                fnObj.preconditions = fnObj.preconditions.map(
+                    pc => new contracts.Math((pc as any).math.apply)
+                );
+            }
+
+            return fnObj;
         });
     }
 

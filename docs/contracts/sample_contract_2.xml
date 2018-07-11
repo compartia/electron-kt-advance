@@ -11,17 +11,17 @@
 	  				<post><math><apply><leq/><return/><cn>8</cn></apply></math></post>
 
 					   <post>
-	    <math>
-	      <apply>
-		<initialized/>
-		<apply>
-		  <addressed-value/>
-		  <return/>
-		  <field fname="rxDMAChannel"/>
-		</apply>
-	      </apply>
-	    </math>
-	  </post>
+							<math>
+								<apply>
+									<initialized/>
+									<apply>
+										<addressed-value/>
+										<return/>
+										<field fname="rxDMAChannel"/>
+									</apply>
+								</apply>
+							</math>
+						</post>
 
 				</postconditions>
       		</function>
