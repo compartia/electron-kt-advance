@@ -4,13 +4,25 @@
 
 export module contracts {
 
-    export const UNARY_RELATIONS = ['false', 'initialized', 'preserves-all-memory', 'tainted', 'not-zero', 'not-null', 'addressed-value', 'non-negative'];
+    export const UNARY_RELATIONS = ['false', 'initialized', 'preserves-all-memory', 'tainted', 'not-zero', 'not-null', 'non-negative'];
     export const BINARY_RELATIONS = ['eq', 'neq', 'gt', 'lt', 'geq', 'leq'];
 
     export const RELATIONS = [].concat(UNARY_RELATIONS).concat(BINARY_RELATIONS);
     export const RELATIONS_NAMES = {
         'eq': "==", 'neq': "!=", 'gt': ">", 'lt': "<", 'geq': ">=", 'leq': "<="
     }
+
+
+    export const ARGUMENT_TYPES = ['ci', 'cn', 'field', 'return', 'apply'];
+    export const ARGUMENT_TYPES_NAMES = {
+        'ci': 'api reference',
+        'cn': 'constant',
+        'field': 'field',
+        'return': 'return value',
+        'apply': 'addressed value'
+    };
+
+
 
     export interface Apply {
     }
@@ -157,18 +169,29 @@ export module contracts {
     }
 
     // *****************************
+
+
+
     export interface XPredicate {
-        displayString: string
+        displayString: string;
+        kind: string;
     }
 
     export class XReturnPredicate implements XPredicate {
         get displayString(): string {
             return "return_value";
         }
+
+        get kind(): string {
+            return "return";
+        }
+
     }
 
     export class XApiPredicate implements XPredicate {
         ref: string;
+
+
         constructor(ref: string) {
             this.ref = ref;
 
@@ -194,16 +217,22 @@ export module contracts {
         get displayString(): string {
             return this.ref;
         }
+
+        get kind(): string {
+            return "api";
+        }
     }
 
 
 
-    
+
 
 
     export class XUnaryExpr implements XPredicate {
-        op: string; 
+
+        op: string;
         argument1: XPredicate;
+
         constructor(op: string, argument1: XPredicate) {
 
             if (!argument1) {
@@ -211,11 +240,19 @@ export module contracts {
             }
 
             this.op = op;
-            this.argument1 = argument1;            
+            this.argument1 = argument1;
         }
 
         get displayString(): string {
             return `${this.op}(${this.argument1.displayString})`;
+        }
+
+        get kind(): string {
+            return this.op;
+        }
+
+        get displayName(): string {
+            return RELATIONS_NAMES[this.op] ? RELATIONS_NAMES[this.op] : this.op;
         }
     }
 
@@ -238,23 +275,36 @@ export module contracts {
             // let a=this.a;
             return `(${this.argument1.displayString} ${RELATIONS_NAMES[this.op]} ${this.argument2.displayString})`;
         }
+
+        get binary() {
+            return true;
+        }
     }
 
     export class XArgAddressedValue extends XRelationalExpr {
-        
+
         constructor(op: string, a: XPredicate, b: XPredicate) {
-            super(op, a, b)            
+            super(op, a, b)
         }
 
         get displayString(): string {
             // let a=this.a;
             return `(${this.argument1.displayString} --> ${this.argument2.displayString})`;
         }
+
+        get addressed(): boolean {
+            return true;
+        }
+
+        get kind(): string {
+            return "apply";
+        }
     }
 
 
     export class XFieldExpr implements XPredicate {
         field: string;
+
         constructor(value: any) {
             this.field = value.fname;
         }
@@ -262,10 +312,20 @@ export module contracts {
         get displayString(): string {
             return `${this.field}`;
         }
+
+        get kind(): string {
+            return "field";
+        }
+
+        get isField(): boolean {
+            return true;
+        }
+
     }
 
     export class XConstantExpr implements XPredicate {
         value: string;
+
         constructor(value: string) {
             this.value = value;
         }
@@ -273,9 +333,18 @@ export module contracts {
         get displayString(): string {
             return `'${this.value}'`;
         }
+
+        get kind(): string {
+            return "cn";
+        }
+
+        get isConst(): boolean {
+            return true
+        }
+
     }
 
-    
+
 
     function isBinaryConstraint(op: string): boolean {
         return BINARY_RELATIONS.indexOf(op) >= 0;
@@ -304,6 +373,51 @@ export module contracts {
 
         }
     }
+
+    export function changeArgumentType(term: string): XPredicate {
+        switch (term) {
+            case 'ci':
+                return new XApiPredicate('');
+            case 'cn':
+                return new XConstantExpr('0');
+            case 'field':
+                return new XFieldExpr({ fname: null });
+            case 'return':
+                return new XReturnPredicate();
+            case 'apply':
+                return new XArgAddressedValue('addressed-value', new XReturnPredicate(), new XConstantExpr('0'));
+            default:
+                throw "unknwn term " + term;
+
+        }
+    }
+
+    export function changeRelationType(old: XPredicate, op: string): XPredicate {
+        if (op === old.kind) {
+            return old;
+        }
+        else {
+
+            let term1: XPredicate = (old as XRelationalExpr).argument1;
+            let term2: XPredicate = (old as XRelationalExpr).argument2;
+
+            if (!term1) {
+                term1 = new XReturnPredicate();
+            }
+            if (!term2) {
+                term2 = new XConstantExpr('0');
+            }
+
+            if (op == "addressed-value") {
+                return new XArgAddressedValue(op, term1, term2);
+            } else if (isBinaryConstraint(op)) {
+                return new XRelationalExpr(op, term1, term2);
+            } else if (isUnaryConstraint(op)) {
+                return new XUnaryExpr(op, term1);
+            } else throw "unknown constraint " + op;
+        }
+    }
+
     export function parse_mathml_xpredicate(anode: Apply): XPredicate {
         if (!anode) {
             throw "wring parameter";
@@ -329,6 +443,12 @@ export module contracts {
             // console.error(`UNARY: ${op} ${term1} `);
             return new XUnaryExpr(op, parse_term(term1, anode[term1]));
         } else throw "unknown constraint " + op;
+
+
+        //XXX: support  'preserves-all-mem' && 'false'
+
+
+
 
         // def pt(t): return self.parse_mathml_term(t,pars,gvars=gvars)
         // (op,terms) = (anode[0].tag,anode[1:])

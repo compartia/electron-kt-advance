@@ -3,6 +3,119 @@
 <link rel="import" href="../../../bower_components/paper-menu-button/paper-menu-button.html" />
 <link rel="import" href="../../../bower_components/paper-listbox/paper-listbox.html" />
 
+<dom-module id="c-argument">
+
+    <style>
+        :host {
+            --button-padding: 8px;
+            --button-margin: 0.29em;
+
+            @apply --layout-horizontal;
+            @apply --layout-center;
+        }
+
+        .nested-expression-bg {
+            background: rgba(100, 120, 255, 0.15);
+        }
+
+        .nested-expression {
+            margin: calc( var(--button-margin) + 8px);
+            margin-top: - var(--button-margin);
+            border: 1px solid gainsboro;
+            padding-top: 10px;
+        }
+    </style>
+
+    <template>
+
+        <paper-menu-button class="button-padding" id="rel_btn" no-animations close-on-activate>
+            <paper-button raised slot="dropdown-trigger" class$="[[_getOperandBtnClass(arg.kind)]]">
+                [[_getOperandDisplayName(arg.kind)]]</paper-button>
+            <paper-listbox slot="dropdown-content" selected="{{selectedType}}">
+                <template is="dom-repeat" items="[[operandTypes]]">
+                    <paper-item>[[_getOperandDisplayName(item)]]</paper-item>
+                </template>
+            </paper-listbox>
+        </paper-menu-button>
+
+
+        <template is="dom-if" if="[[arg.isField]]">
+            <paper-input class="button-padding" label="Field name" value="{{arg.field}}"></paper-input>
+        </template>
+
+        <template is="dom-if" if="[[arg.isConst]]">
+            <paper-input class="button-padding" label="Numeric constant" value="{{arg.value}}"></paper-input>
+        </template>
+
+        <!-- addressed -->
+        <template is="dom-if" if="[[arg.addressed]]">
+            <div class="nested-expression nested-expression-bg">
+                <h4>Addressed Value:</h4>
+                <c-apply apply="[[arg]]"></c-apply>
+            </div>
+        </template>
+
+
+    </template>
+
+
+    <script>
+
+
+
+        Polymer({
+            is: 'c-argument',
+            properties: {
+                arg: {
+                    type: Object,
+                    observer: '_onArgChanged',
+                    notify: true
+                },
+
+                operandTypes: {
+                    type: Array,
+                    value: () => Contracts.ARGUMENT_TYPES
+                },
+
+                selectedType: {
+                    type: Number,
+                    observer: "_onSelectedTypeIndexChanged"
+                },
+
+            },
+
+            _onSelectedTypeIndexChanged(idx) {
+                const type = this.operandTypes[idx];
+                let newArg = Contracts.changeArgumentType(type);
+
+                this.set("arg", newArg);
+            },
+
+            _getOperandBtnClass(kind) {
+                if (kind == 'addressed-value') {
+                    return "nested-expression-bg"
+                }
+                return "";
+            },
+
+            _getOperandDisplayName: function (kind) {
+                return Contracts.ARGUMENT_TYPES_NAMES[kind];
+            },
+
+            _onArgChanged: function (c) {
+                // console.log(c);
+            },
+
+
+
+
+        });
+
+
+    </script>
+
+</dom-module>
+
 <dom-module id="c-apply">
     <style>
         :host {
@@ -26,76 +139,63 @@
         .nested-expression {
             margin: calc( var(--button-margin) + 8px);
             margin-top: - var(--button-margin);
-            border: 1px solid gainsboro;
+            border: 1px solid var(--kt-grey-light);
             padding-top: 10px;
+        }
+
+        .verb {
+            font-weight: 100;
+            padding: var(--button-padding);
+            color: var(--selection-tx);
+        }
+
+        small {
+            color: var(--kt-grey);
+            padding-left: var(--button-padding);
         }
     </style>
 
     <template>
-        <!-- <small>
-            <pre>[[_debug]]</pre>
-        </small> -->
+
 
 
         <div class="group">
-            <div>
-                <paper-menu-button class="button-padding" id="rel_btn" no-animations close-on-activate>
-                    <paper-button raised slot="dropdown-trigger" class$="[[_getOperandBtnClass(selectedOperandIndex1)]]">[[_getOperandDisplayName(selectedOperandIndex1)]]</paper-button>
-                    <paper-listbox slot="dropdown-content" selected="{{selectedOperandIndex1}}">
-                        <template is="dom-repeat" items="[[operandTypes]]">
-                            <paper-item>[[_getOperandDisplayName(index)]]</paper-item>
-                        </template>
-                    </paper-listbox>
-                </paper-menu-button>
 
-                <template is="dom-if" if="[[apply.field]]">
-                    <paper-input class="button-padding" label="Field name" value="{{apply.field.fname}}"></paper-input>
-                </template>
 
-                <template is="dom-if" if="[[apply.apply]]">
-                    <div class="nested-expression nested-expression-bg">
-                        <h3>Addressed Value:</h3>
-                        <c-apply apply="[[apply.apply]]"></c-apply>
-                    </div>
-                </template>
-            </div>
+            <c-argument arg="{{apply.argument1}}"></c-argument>
 
 
             <!-- RELATION -->
-
-            <template is="dom-if" if="[[not(binary)]]">
-                <paper-button>is</paper-button>
+            <template is="dom-if" if="[[apply.addressed]]">
+                <div class="verb">--&gt;</div>
             </template>
 
-            <paper-menu-button class="flex" id="rel_btn" no-animations close-on-activate>
-                <paper-button raised slot="dropdown-trigger">[[_relationDisplayName(_computedRelation)]]</paper-button>
-                <paper-listbox slot="dropdown-content" selected="{{selectedRelation}}">
-                    <template is="dom-repeat" items="[[relations]]">
-                        <paper-item>[[_relationDisplayName(index)]]</paper-item>
-                    </template>
-                </paper-listbox>
-            </paper-menu-button>
+            <template is="dom-if" if="[[not(apply.addressed)]]">
 
+                <template is="dom-if" if="[[not(apply.binary)]]">
+                    <div class="verb">is</div>
+                </template>
+
+                <paper-menu-button class="flex" id="rel_btn" no-animations close-on-activate>
+                    <paper-button raised slot="dropdown-trigger">[[apply.displayName]]</paper-button>
+                    <paper-listbox slot="dropdown-content" selected="{{selectedRelation}}">
+                        <template is="dom-repeat" items="[[relations]]">
+                            <paper-item>[[_relationDisplayName(index)]]</paper-item>
+                        </template>
+                    </paper-listbox>
+                </paper-menu-button>
+            </template>
 
 
             <!-- Operand 2 -->
-            <template is="dom-if" if="[[binary]]">
-                <paper-input class="flex" label="Numeric constant" value="{{apply.cn}}"></paper-input>
+            <template is="dom-if" if="[[apply.argument2]]">
+                <c-argument arg="{{apply.argument2}}"></c-argument>
             </template>
 
         </div>
-
-
-
-        <!-- <paper-checkbox checked="{{apply.field}}">Field Value</paper-checkbox> -->
-
-
-
-
-
-
-
-
+        <small class="code">
+            [[displayString]]
+        </small>
 
 
 
@@ -108,135 +208,61 @@
             is: 'c-apply',
 
             observers: [
-                'formulaChanged(apply.*)'
+                'formulaArgsChanged(apply.*)'
             ],
-
-            _getOperandBtnClass(selectedOperandIndex1) {
-                if (selectedOperandIndex1 == 2) {
-                    return "nested-expression-bg"
-                }
-                return "";
-            },
-
-            _getOperandDisplayName: function (idx) {
-                if (idx === 0) {
-                    let ret = "field";
-                    if (this.apply.field && this.apply.field.fname) {
-                        return "field :" + this.apply.field.fname + "";
-                    } else {
-                        return "Field.."
-                    }
-                } else if (idx === 1) {
-                    return "Return Value"
-                }
-                else if (idx === 2) {
-                    return "Addressed Value.."
-                }
-            },
-
             properties: {
-
-
-
-                operandTypes: {
-                    type: Array,
-                    value: ["field", "return", "expression"]
-                },
 
                 relations: {
                     type: Array,
-                    value: () => Contracts.RELATIONS
+                    value: () => Contracts.RELATIONS,
+                    readonly: true
                 },
 
-                _binaryRelations: {
-                    type: Array,
-                    value: () => Contracts.BINARY_RELATIONS
+                holder: {
+                    type: Object,
+                    notify: true,
                 },
 
                 apply: {
                     type: Object,
-                    // observer: '_onFormulaChanged',
                     notify: true
                 },
 
                 selectedRelation: {
                     type: Number,
-                    // value: -1,
                     observer: "_onSelectedRelation"
                 },
 
-                selectedOperandIndex1: {
-                    type: Number,
-                    // value: -1,
-                    observer: "_onSelectedOperandIndex1"
-                },
-
-                _computedRelation: {
-                    type: Number
-                },
-
-
-
-                binary: {
-                    type: Boolean,
-                    value: false,
-                    computed: '_isBinary(_computedRelation)'
-                },
-
-                arg1: String,
-                arg2: String,
-                condition: String,
-
-                initialized: Boolean,
-                addressedValue: Boolean
-
+                displayString: {
+                    type: String,
+                    notify: true,
+                    value: () => { this.apply ? this.apply.displayString : " ?? " }
+                }
             },
 
-            _onSelectedOperandIndex1: function (e) {
-                if (e == 0) {
-                    //field
-                    if (!this.apply.field) {
-                        if (!this.apply.field)
-                            this.set('apply.field', {});
-                    }
-                    this.set('apply.return', null);
-                    this.set('apply.apply', null);
-                } else if (e == 1) {
-                    //return value
-                    this.set('apply.field', null);
-                    this.set('apply.return', true);
-                    this.set('apply.apply', null);
-                }
-                else if (e == 2) {
-                    // //return
-                    if (!this.apply.apply)
-                        this.set('apply.apply', {});
-                    this.set('apply.return', null);
-                    this.set('apply.field', null);
-                }
-
+            formulaArgsChanged: function (a) {
+                if (this.apply)
+                    this.set("displayString", "" + this.apply.displayString);
             },
 
-            _isBinary(_computedRelation) {
-                let name = this._relationName(_computedRelation);
-                return this._binaryRelations.indexOf(name) >= 0;
+            not: function (e) {
+                return !(e);
             },
 
             _onSelectedRelation: function (e) {
                 console.error("_onSelectedRelation:" + e);
-                for (let idx = 0; idx < this.relations.length; idx++) {
-                    let r = this.relations[idx];
-                    // delete this.apply[r];
-                    if (idx === e) {
-                        this.apply[r] = true;
-                    } else {
-                        delete this.apply[r];
-                    }
-                }
+                const op = this.relations[e];
+                const newObj = Contracts.changeRelationType(this.apply, op);
+                this.holder.apply = newObj;
+                this.apply = newObj;
 
-                this.notifyPath("apply." + this.relations[e]);
+
+                this.notifyPath("holder");
+                this.notifyPath("apply");
 
             },
+
+
 
             _relationDisplayName: function (index) {
                 let name = this._relationName(index);
@@ -245,11 +271,6 @@
 
             _relationName: function (index) {
                 return index >= 0 && index < this.relations.length && this.relations[index];
-                // if (index && index >= 0 && index < this.relations.length) {
-                //     return this.relations[index];
-                //     //return this._relationNameByKey(this.relations[index]);
-                // }
-                // return undefined;
             },
 
             _relationNameByKey: function (key) {
@@ -265,20 +286,7 @@
             },
 
             _findRelationIndex(apply) {
-                let idx = 0;
-                for (let idx = 0; idx < Contracts.RELATIONS.length; idx++) {
-                    let r = Contracts.RELATIONS[idx];
-                    if (apply[r]) {
-                        return idx;
-                    }
-                }
-                // Contracts.RELATIONS.forEach(r=>{
-                //     if(apply[r]){
-                //         return idx;
-                //     }
-                //     idx++;
-                // });
-                return -1;
+                return Contracts.RELATIONS.indexOf(apply.op);
             },
 
 
@@ -288,7 +296,7 @@
                 if (a) {
                     this._debug = JSON.stringify(a, null, ' ');
                     this._computedRelation = this._findRelationIndex(a);
-                    console.log(this._computedRelation);
+                    // console.log(this._computedRelation);
 
                     if (a.field) {
                         this.selectedOperandIndex1 = 0;
@@ -298,7 +306,7 @@
                         this.selectedOperandIndex1 = 2;
                     }
 
-                     
+
                 } else {
                     this._computedRelation = -1;
                 }
@@ -308,20 +316,7 @@
 
 
 
-            // _getPredicates: function (apply) {
-            //     let predicates = [];
-            //     Object.keys(apply).forEach(key => {
-            //         if (apply[key] === true) {
-            //             if (key === 'lt')
-            //                 predicates.push('<');
-            //             else if (key === 'gt')
-            //                 predicates.push('>');
-            //             else
-            //                 predicates.push(key);
-            //         }
-            //     });
-            //     return predicates;
-            // },
+
 
 
         });
@@ -371,7 +366,7 @@
             <h3>Preconditions: ([[contract.preconditions.length]])</h3>
             <template is="dom-repeat" items="[[contract.preconditions]]">
                 <div class="postcondition">
-                    <c-apply apply="[[item.math.apply]]"></c-apply>
+                    <c-apply holder="[[item]]" apply="[[item.apply]]"></c-apply>
                 </div>
             </template>
             <paper-button raised on-tap="addPreCondition" class="btn-add">+</paper-button>
@@ -379,7 +374,7 @@
             <h3>Postconditions: ([[contract.postconditions.length]])</h3>
             <template is="dom-repeat" items="[[contract.postconditions]]">
                 <div class="postcondition">
-                    <c-apply apply="[[item.math.apply]]"></c-apply>
+                    <c-apply holder="[[item]]" apply="[[item.apply]]"></c-apply>
                 </div>
             </template>
             <paper-button raised on-tap="addPostCondition" class="btn-add">+</paper-button>
