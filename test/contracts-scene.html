@@ -19,8 +19,9 @@
             },
 
             convertToObjects: function (c) {
-                
-                c.functions = c.functions.map(fn => {
+                const obj=new Contracts.CFileContractImpl();
+                Object.assign(obj, c);
+                obj.functions = c.functions.map(fn => {
 
                     let fnObj = new Contracts.CFunctionContract();
                 
@@ -45,7 +46,7 @@
                     return fnObj;
                 });
 
-                return c;
+                return obj;
 
             },
 

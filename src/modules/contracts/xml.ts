@@ -48,6 +48,9 @@ export class CFileContractXml extends contracts.CFileContractImpl {
     }
 
     private convertToObjects() {
+        this.globalVariables = this['global-variables'];
+        delete this['global-variables'];
+
         this.functions = this.functions.map(fn => {
 
             let fnObj = new contracts.CFunctionContract();
@@ -108,6 +111,7 @@ export class CFileContractXml extends contracts.CFileContractImpl {
         const dest = {};
 
         if (_xml.$) {
+            this.log(tabs, "attributes:" + Object.keys(_xml.$));
             (<any>Object).assign(dest, _xml.$);
         }
 

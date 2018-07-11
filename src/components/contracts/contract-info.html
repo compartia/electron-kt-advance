@@ -24,6 +24,9 @@
             border: 1px solid gainsboro;
             padding-top: 10px;
         }
+        .btn-api-ref{
+            text-transform: initial!important;
+        }
     </style>
 
     <template>
@@ -41,6 +44,18 @@
 
         <template is="dom-if" if="[[arg.isField]]">
             <paper-input class="button-padding" label="Field name" value="{{arg.field}}"></paper-input>
+        </template>
+
+        <template is="dom-if" if="[[arg.isApiRef]]">
+            <paper-menu-button class="button-padding" no-animations close-on-activate>
+                <paper-button raised slot="dropdown-trigger" class="btn-api-ref">
+                    [[arg.ref]]</paper-button>
+                <paper-listbox slot="dropdown-content"  attr-for-selected="item-name" selected="{{arg.ref}}">
+                    <template is="dom-repeat" items="[[globalVariables]]">
+                        <paper-item item-name="[[item.name]]">[[item.name]]</paper-item>
+                    </template>
+                </paper-listbox>
+            </paper-menu-button>
         </template>
 
         <template is="dom-if" if="[[arg.isConst]]">
@@ -70,6 +85,10 @@
                     type: Object,
                     observer: '_onArgChanged',
                     notify: true
+                },
+
+                globalVariables: {
+                    type: Array
                 },
 
                 operandTypes: {
@@ -162,7 +181,7 @@
         <div class="group">
 
 
-            <c-argument arg="{{apply.argument1}}"></c-argument>
+            <c-argument arg="{{apply.argument1}}" global-variables="[[globalVariables]]"></c-argument>
 
 
             <!-- RELATION -->
@@ -189,7 +208,7 @@
 
             <!-- Operand 2 -->
             <template is="dom-if" if="[[apply.argument2]]">
-                <c-argument arg="{{apply.argument2}}"></c-argument>
+                <c-argument arg="{{apply.argument2}}" global-variables="[[globalVariables]]"></c-argument>
             </template>
 
         </div>
@@ -216,6 +235,10 @@
                     type: Array,
                     value: () => Contracts.RELATIONS,
                     readonly: true
+                },
+
+                globalVariables: {
+                    type: Array
                 },
 
                 holder: {
@@ -366,7 +389,7 @@
             <h3>Preconditions: ([[contract.preconditions.length]])</h3>
             <template is="dom-repeat" items="[[contract.preconditions]]">
                 <div class="postcondition">
-                    <c-apply holder="[[item]]" apply="[[item.apply]]"></c-apply>
+                    <c-apply holder="[[item]]" apply="[[item.apply]]" global-variables="[[globalVariables]]"></c-apply>
                 </div>
             </template>
             <paper-button raised on-tap="addPreCondition" class="btn-add">+</paper-button>
@@ -374,11 +397,12 @@
             <h3>Postconditions: ([[contract.postconditions.length]])</h3>
             <template is="dom-repeat" items="[[contract.postconditions]]">
                 <div class="postcondition">
-                    <c-apply holder="[[item]]" apply="[[item.apply]]"></c-apply>
+                    <c-apply holder="[[item]]" apply="[[item.apply]]" global-variables="[[globalVariables]]"></c-apply>
                 </div>
             </template>
             <paper-button raised on-tap="addPostCondition" class="btn-add">+</paper-button>
         </template>
+
 
 
 
@@ -397,6 +421,10 @@
                     type: Object,
                     observer: '_onContractChanged'
                 },
+
+                globalVariables: {
+                    type: Array
+                }
 
             },
 

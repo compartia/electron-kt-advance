@@ -44,6 +44,9 @@ Error.stackTraceLimit = 30;
 
         assert.equal(contract.functions.length, 1, "number of functions must be 1, was " + contract.functions.length);
 
+
+        assert.equal(contract.globalVariables.length, 1);
+        assert.equal(contract.globalVariables[0].name, 'currentPidProfile');
         for (const fn of contract.functions) {
 
             assert(fn, "function is not Ok:" + fn);
@@ -52,6 +55,8 @@ Error.stackTraceLimit = 30;
             if (fn.name === "getMotorCount") {
                 assert.equal(fn.parameters.length, 0, "number of params must be 3");
                 assert.equal(fn.postconditions.length, 2);
+
+
             }
         }
     }

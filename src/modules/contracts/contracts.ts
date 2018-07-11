@@ -106,7 +106,7 @@ export module contracts {
         name: string;
 
         dataStructures: any[];
-        globalVariables: any[];
+        globalVariables: GVar[];
 
 
         getFunctionContractByName(name: string): CFunctionContract | undefined;
@@ -125,6 +125,9 @@ export module contracts {
         dataStructures: any[];
         globalVariables: GVar[];
 
+        get globalVariablesNames(): string[] {
+            return this.globalVariables.map(x => x.name);
+        }
 
         getFunctionContractByName(name: string): CFunctionContract | undefined {
             return this._functionsByName[name];
@@ -219,7 +222,11 @@ export module contracts {
         }
 
         get kind(): string {
-            return "api";
+            return "ci";
+        }
+
+        get isApiRef(): boolean {
+            return true;
         }
     }
 

@@ -1,5 +1,9 @@
 var ___test_contract = {
- 
+  "globalVariables": [
+    {
+     "name": "currentPidProfile"
+    }
+   ],
 
   "functions": [
     {

@@ -4,28 +4,55 @@
 		time="2018-06-05 16:14:16.514567" />
 	<cfile name="src/main/common/streambuf">
 		<data-structures />
+
+		<global-variables>
+			<gvar name="currentPidProfile" />
+		</global-variables>
+
 		<functions>
 			<function name="getMotorCount">
-        		<parameters/>
-        		<postconditions>
-	  				<post><math><apply><leq/><return/><cn>8</cn></apply></math></post>
+				<parameters />
+				
+				<preconditions>
+					<pre>
+						<math>
+							<apply>
+								<not-null />
+								<ci>currentPidProfile</ci>
+							</apply>
+						</math>
+					</pre>
+				</preconditions>
 
-					   <post>
-							<math>
+
+				<postconditions>
+
+					<post>
+						<math>
+							<apply>
+								<leq />
+								<return />
+								<cn>8</cn>
+							</apply>
+						</math>
+					</post>
+
+					<post>
+						<math>
+							<apply>
+								<initialized />
 								<apply>
-									<initialized/>
-									<apply>
-										<addressed-value/>
-										<return/>
-										<field fname="rxDMAChannel"/>
-									</apply>
+									<addressed-value />
+									<return />
+									<field fname="rxDMAChannel" />
 								</apply>
-							</math>
-						</post>
+							</apply>
+						</math>
+					</post>
 
 				</postconditions>
-      		</function>
-			       
+			</function>
+
 		</functions>
 	</cfile>
 </c-analysis>
