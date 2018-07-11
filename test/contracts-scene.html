@@ -1,0 +1,76 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../src/components/contracts/contracts-scene.html">
+<link rel="import" href="../src/main-components.html">
+
+<!-- <link rel="import" href="contracts.js"> -->
+<script src="test-contracts.js"></script>
+
+<dom-module id="kt-layout">
+    <template>
+        contracts-scene.html
+        <contracts-scene contracts="[[contracts]]"></contracts-scene>
+    </template>
+    <script>
+
+        Polymer({
+            is: "kt-layout",
+            properties: {
+
+            },
+
+            convertToObjects: function (c) {
+                const obj=new Contracts.CFileContractImpl();
+                Object.assign(obj, c);
+                obj.functions = c.functions.map(fn => {
+
+                    let fnObj = new Contracts.CFunctionContract();
+                
+                    Object.assign(fnObj, fn);
+
+                    
+
+                    // c._functionsByName[fnObj.name] = fnObj;//XXX: mind overloaded!!
+
+                    if (fnObj.postconditions) {
+                        fnObj.postconditions = fnObj.postconditions.map(
+                            pc => new Contracts.Math(pc.math.apply)
+                        );
+                    }
+
+                    if (fnObj.preconditions) {
+                        fnObj.preconditions = fnObj.preconditions.map(
+                            pc => new Contracts.Math(pc.math.apply)
+                        );
+                    }
+
+                    return fnObj;
+                });
+
+                return obj;
+
+            },
+
+            ready: function () {
+
+                let ap = [];
+
+
+                for (var f = 0; f < 10; f++) {
+                    let c = {};
+                    Object.assign(c, ___test_contract);
+                    c.name = c.name + "_" + f;
+                    ap.push(this.convertToObjects(c));
+                };
+
+                console.log(ap);
+
+                this.contracts = ap;
+
+                // const node = this.node;
+
+            }
+
+        });
+    </script>
+
+</dom-module>

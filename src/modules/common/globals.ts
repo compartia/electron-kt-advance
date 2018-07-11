@@ -9,6 +9,7 @@ import { Filter } from './filter';
 import * as kt_fs from './fstools';
 import { CONF, loadProjectMayBe } from './storage';
 import { AbstractNode, CAnalysis, CApiAssumption, CFunction, Callee, PoStates, ProofObligation, RenderInfo, sortPoNodes } from './xmltypes';
+import { contracts } from "../contracts/contracts";
 
 
 
@@ -18,7 +19,7 @@ const dialog = require('electron').remote.dialog;
 
 
 export var TABS = [
-    'summary', 'source', 'proof obligations', 'assumptions', 'graphs', 'calls', '?'
+    'summary', 'source', 'proof obligations', 'assumptions', 'contracts', 'graphs', 'calls', '?'
 ];
 
 
@@ -43,6 +44,8 @@ export interface CProject {
     stats: Stats;
     filteredAssumptions: Array<CApiAssumption>;
     assumptions: Array<CApiAssumption>;
+    filteredContracts: Array<contracts.CFileContract>;
+    contracts: contracts.ContractsCollection;
     filteredProofObligations: Array<ProofObligation>;
     proofObligations: Array<ProofObligation>;
 
@@ -56,7 +59,8 @@ export class ProjectImpl implements CProject {
     baseDir: string;
     appPath: string;
     stats: Stats;
-
+    contracts: contracts.ContractsCollection;
+    filteredContracts: Array<contracts.CFileContract>;
     /**
     * previously saved statistics
     */
@@ -67,8 +71,6 @@ export class ProjectImpl implements CProject {
     _filteredAssumptions: Array<CApiAssumption> = null;
 
     _assumptions: Array<CApiAssumption> = [];
-
-
 
     allPredicates: Array<string>;
 
@@ -187,7 +189,9 @@ export class ProjectImpl implements CProject {
 
             project.proofObligations = sortPoNodes(mCAnalysis.proofObligations);
             project.assumptions = mCAnalysis.assumptions;
+            project.contracts = mCAnalysis.contracts;
             project.applyRenderInfos();
+
             this.reader = null;
             return project;
         });
@@ -218,10 +222,29 @@ export class ProjectImpl implements CProject {
         for (let po of this.filteredProofObligations) {
             if (po.location.line == line && po.file == fileName) {
                 ret.push(po);
-            } 
+            }
         }
         return ret;
-    } 
+    }
+
+
+    public hasContractsAtLine(fileName: string, line: number) {
+        let fileContract: contracts.CFileContract = this.contracts.contractsByFile[fileName];
+        if (fileContract) {
+
+
+            let funcs = this.functionByFile[fileName];
+            if (funcs) {
+                for (let fun of funcs) {
+                    if (fun.line === line) {
+                        return fileContract.getFunctionContractByName(fun.name);
+                    }
+                }
+            }
+
+        }
+    }
+
 
     public loadFile(relativePath: string): Promise<kt_fs.FileContents> {
         return kt_fs.loadFile(this.baseDir, relativePath);
@@ -247,7 +270,6 @@ export class ProjectImpl implements CProject {
         this._assumptions = _assumptions;
     }
 
-
     private hasIntersection(inputs: AbstractNode[], base: AbstractNode[]): boolean {
         for (let input of inputs) {
             if (_.contains(base, input)) {
@@ -264,6 +286,8 @@ export class ProjectImpl implements CProject {
 
         this.filterProofObligations(filter);
         this.filterAssumptions(filter);
+
+        this.filteredContracts = _.filter(this.contracts.fileContracts, x => x.hasContracts)
     }
 
     private filterProofObligations(_filter: Filter): void {

@@ -17,6 +17,11 @@
 
                     <template>
                         <div class$="code-line-wrapper [[_getRowClass(_loadedFile, index, statistics, selected)]]">
+                            
+                            <template is="dom-if" if="[[hasContracts(item)]]">
+                                <inline-function-contracts func="[[item]]"></inline-function-contracts>
+                            </template>
+
                             <div class$="code-line [[_getClass(_loadedFile, index, statistics, selected)]]" on-tap="_onLineSelectedLine">
                                 <span class="info">
                                     <span id="line-number">[[item.index]]</span>
@@ -235,7 +240,7 @@
                     aftereffect();
                 }
 
-            },
+            },           
 
             _shouldLoad: function (newFile) {
                 if (newFile && !newFile.dir) {
@@ -246,6 +251,10 @@
                     }
                 }
                 return false;
+            },
+
+            hasContracts: function(line){
+                return this.currentProject.hasContractsAtLine(this._loadedFile.relativePath, line);
             }
         });
     </script>

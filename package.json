@@ -28,6 +28,7 @@
     "@types/lodash": "^3.10.1",
     "@types/mocha": "^2.2.41",
     "@types/node": "^7.0.7",
+    "@types/xml2js": "^0.4.3",
     "bower": "1.8.4",
     "chai": "^4.0.2",
     "del": "^3.0.0",
@@ -46,7 +47,6 @@
     "gulp-vulcanize": "^7.0.0",
     "gulp-watch": "^5.0.0",
     "hoek": "^5.0.3",
-    "json-schema-to-typescript": "^5.5.0",
     "minimist": "^1.2.0",
     "mocha": "^5.2.0",
     "mocha-typescript": "^1.1.4",
@@ -61,6 +61,7 @@
     "typings": "1.4.0"
   },
   "dependencies": {
+    "xml2js": "^0.4.19",
     "async": "^1.4.2",
     "d3": "^3.5.12",
     "dagre": "^0.8.2",
