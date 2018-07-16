@@ -10,6 +10,57 @@ function isPrimitive(test) {
     return (test !== Object(test));
 }
 
+export function toXml(fileContract: contracts.CFileContract): string {
+    var x_cfile = {
+        $: { name: fileContract.name },
+        "data-structures": dataStructuresToXml(fileContract.dataStructures),
+        "global-variables": globalVariablesToXml(fileContract.globalVariables),
+        "functions": functionsToXml(fileContract.functions),
+    };
+
+    let obj = {};
+    obj["header"] = {};
+    obj["cfile"] = x_cfile;
+
+    var builder = new xml2js.Builder({
+        rootName: "c-analysis",
+        preserveChildrenOrder: true
+    });
+
+    var xml = builder.buildObject(obj);
+    return xml;
+}
+
+function dataStructuresToXml(dataStructures: any) {
+    return {};
+}
+
+
+function globalVariablesToXml(globalVariables: contracts.GVar[]) {
+    let r = {
+        gvar: globalVariables.map(gv => {
+            return { "$": gv };
+        })
+    };
+
+    return r;
+}
+
+function functionsToXml(funcs: contracts.CFunctionContract[]) {
+    let r = {
+        "function":
+            funcs.map(fun => {
+                let xfun = { "$": { name: fun.name } };
+                xfun["parameters"] = {};
+                xfun["preconditions"] = {};
+                xfun["postconditions"] = {};
+                return xfun;
+            })
+    };
+ 
+    return r;
+}
+
 
 export class CFileContractXml extends contracts.CFileContractImpl {
     constructor(xmlfile: string) {
