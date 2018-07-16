@@ -10,6 +10,8 @@ function isPrimitive(test) {
     return (test !== Object(test));
 }
 
+
+
 export function toXml(fileContract: contracts.CFileContract): string {
     var x_cfile = {
         $: { name: fileContract.name },
@@ -24,7 +26,8 @@ export function toXml(fileContract: contracts.CFileContract): string {
 
     var builder = new xml2js.Builder({
         rootName: "c-analysis",
-        preserveChildrenOrder: true
+        preserveChildrenOrder: true,
+        explicitChildren: true
     });
 
     var xml = builder.buildObject(obj);
@@ -46,23 +49,64 @@ function globalVariablesToXml(globalVariables: contracts.GVar[]) {
     return r;
 }
 
+function nonEmpty(arr: any[] | null | undefined): boolean {
+    if (arr) {
+        return arr.length > 0;
+    }
+    return false;
+}
+
 function functionsToXml(funcs: contracts.CFunctionContract[]) {
     let r = {
         "function":
             funcs.map(fun => {
                 let xfun = { "$": { name: fun.name } };
-                xfun["parameters"] = {};
-                xfun["preconditions"] = {};
-                xfun["postconditions"] = {};
+
+                if (nonEmpty(fun.parameters))
+                    xfun["parameters"] = { param: parameters2Xml(fun.parameters) };
+                if (nonEmpty(fun.preconditions))
+                    xfun["preconditions"] = { pre: conditions2Xml(fun.preconditions) };
+                if (nonEmpty(fun.postconditions))
+                    xfun["postconditions"] = { post: conditions2Xml(fun.postconditions) };
                 return xfun;
             })
     };
- 
+
     return r;
+}
+
+function parameters2Xml(parameters: string[]): any {
+    if (!parameters || parameters.length == 0) return {};
+    return parameters.map((c, i) => {
+        return { $: { name: c, nr: (i + 1) } }
+    });
+}
+
+function conditions2Xml(conditions: contracts.Math[]): any {
+    if (!conditions || conditions.length == 0) return {};
+    return conditions.map(c => {
+        return condition2Xml(c);
+    });
+}
+
+function condition2Xml(condition: contracts.Math): any {
+    return { math: { "apply": condition.apply.toXmlObj() } };
 }
 
 
 export class CFileContractXml extends contracts.CFileContractImpl {
+
+
+
+    static SCHEMA = {
+        "postconditions": "post",
+        "preconditions": "pre",
+        "functions": "function",
+        "parameters": "par",
+        "global-variables": "gvar"
+    };
+
+
     constructor(xmlfile: string) {
         super();
         this.fromXml(xmlfile);
@@ -133,13 +177,6 @@ export class CFileContractXml extends contracts.CFileContractImpl {
     }
 
 
-    static ARRAYS = {
-        "postconditions": "post",
-        "preconditions": "pre",
-        "functions": "function",
-        "parameters": "par",
-        "global-variables": "gvar"
-    };
 
     private tabs(n) {
         let t = '';
@@ -175,7 +212,7 @@ export class CFileContractXml extends contracts.CFileContractImpl {
 
             if (prop !== "$") {
                 let val = _xml[prop];
-                if (CFileContractXml.ARRAYS[prop]) {
+                if (CFileContractXml.SCHEMA[prop]) {
 
                     // property is an array
                     if (Array.isArray(val)) {
@@ -188,7 +225,7 @@ export class CFileContractXml extends contracts.CFileContractImpl {
                         dest[prop] = [];
 
                     } else {
-                        let arrayElementName = CFileContractXml.ARRAYS[prop];
+                        let arrayElementName = CFileContractXml.SCHEMA[prop];
 
                         dest[prop] = [];
                         for (const el of val[arrayElementName]) {

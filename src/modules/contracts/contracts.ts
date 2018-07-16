@@ -178,6 +178,7 @@ export module contracts {
     export interface XPredicate {
         displayString: string;
         kind: string;
+        toXmlObj(): string;
     }
 
     export class XReturnPredicate implements XPredicate {
@@ -189,11 +190,17 @@ export module contracts {
             return "return";
         }
 
+        public toXmlObj(): any {
+            return {};
+        }
     }
 
     export class XApiPredicate implements XPredicate {
         ref: string;
 
+        public toXmlObj(): any {
+            return this.ref;
+        }
 
         constructor(ref: string) {
             this.ref = ref;
@@ -240,6 +247,13 @@ export module contracts {
         op: string;
         argument1: XPredicate;
 
+        public toXmlObj(): any {
+            const ret = {};
+            ret[this.op] = null;
+            ret[this.argument1.kind] = this.argument1.toXmlObj();
+            return ret;
+        }
+
         constructor(op: string, argument1: XPredicate) {
 
             if (!argument1) {
@@ -269,17 +283,24 @@ export module contracts {
         // argument1: XPredicate; 
         argument2: XPredicate;
 
+        public toXmlObj(): any {
+            const ret = {};
+            ret[this.op] = null;
+            ret[this.argument1.kind] = this.argument1.toXmlObj();
+            ret[this.argument2.kind] = this.argument2.toXmlObj();            
+            return ret;
+        }
+
         constructor(op: string, argument1: XPredicate, argument2: XPredicate) {
             super(op, argument1)
             this.op = op;
             this.argument1 = argument1;
             this.argument2 = argument2;
 
-            // console.log(this.displayString)
         }
 
         get displayString(): string {
-            // let a=this.a;
+
             return `(${this.argument1.displayString} ${RELATIONS_NAMES[this.op]} ${this.argument2.displayString})`;
         }
 
@@ -295,7 +316,6 @@ export module contracts {
         }
 
         get displayString(): string {
-            // let a=this.a;
             return `(${this.argument1.displayString} --> ${this.argument2.displayString})`;
         }
 
@@ -328,6 +348,10 @@ export module contracts {
             return true;
         }
 
+        public toXmlObj(): any {
+            return { $: { fname: this.field } };
+        }
+
     }
 
     export class XConstantExpr implements XPredicate {
@@ -347,6 +371,10 @@ export module contracts {
 
         get isConst(): boolean {
             return true
+        }
+
+        public toXmlObj(): any {
+            return this.value;
         }
 
     }
@@ -512,4 +540,4 @@ export module contracts {
 
 }
 
- 
+
