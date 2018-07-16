@@ -29,6 +29,12 @@ export module contracts {
 
     export class Math {
         apply?: XPredicate;
+
+        public static makeDefault(): Math {
+            const ret = new Math({ "not-null": true, "return": true });
+            return ret;
+        }
+
         constructor(apply?: Apply) {
             if (apply) {
                 // console.log("app: " + apply)
@@ -55,8 +61,8 @@ export module contracts {
         src: string;
 
         parameters: string[];
-        postconditions: contracts.Math[];
-        preconditions: contracts.Math[];
+        postconditions: contracts.Math[] = [];
+        preconditions: contracts.Math[] = [];
 
         get hasContracts(): boolean {
             return (this.postconditions && this.postconditions.length > 0) || (this.preconditions && this.preconditions.length > 0);
@@ -82,8 +88,6 @@ export module contracts {
                 }
                 return ret;
             }
-
-
 
         }
 
@@ -112,6 +116,8 @@ export module contracts {
         getFunctionContractByName(name: string): CFunctionContract | undefined;
 
         hasContracts: boolean;
+
+        save(xmlPath?: string);
     }
 
 
@@ -136,6 +142,9 @@ export module contracts {
         _functionsByName = {};
 
 
+        public save(xmlPath?: string) {
+            throw "not implemented";
+        }
 
         public addFuctionContract(fc: CFunctionContract) {
             if (this.functions && this.functions.indexOf(fc) >= 0) {

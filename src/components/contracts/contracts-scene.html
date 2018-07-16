@@ -47,8 +47,11 @@
             </iron-list>
 
             <div id="right-panel" class="side">
-                <contract-info contract="[[selectedFunc]]" global-variables="[[selectedItem.globalVariables]]"></contract-info>
+                <paper-button raised on-tap="saveContracts">save</paper-button>
+                <contract-info contract="[[_selectedFunc]]" global-variables="[[selectedItem.globalVariables]]"></contract-info>
+
                 <!-- contract parameters [[selectedFunc.name]] -->
+
             </div>
         </vaadin-split-layout>
 
@@ -66,13 +69,16 @@
                 functions: {
                     type: Array
                 },
-                selectedFunc: Object,
+                _selectedFunc: Object,
                 selectedItem: {
                     type: Object,
                     observer: "_onFileContractSelected"
                 }
             },
 
+            saveContracts:function(){
+                this.selectedItem.save();
+            },
             _rowClass:function(selected){
                 return selected?"selected":""
             },
@@ -92,7 +98,7 @@
             },
 
             _onContractFunctionSelected: function (e) {              
-                this.selectedFunc = e.detail;
+                this._selectedFunc = e.detail;
             },
 
             showAtLinePos: function (item, selected) {
