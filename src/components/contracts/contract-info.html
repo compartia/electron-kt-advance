@@ -7,41 +7,59 @@
 
     <style>
         :host {
+            --nested-color: rgba(100, 120, 255, 0.15);
             --button-padding: 8px;
             --button-margin: 0.29em;
 
             @apply --layout-horizontal;
             @apply --layout-center;
+
+            /* background: var(--nested-color); */
+            margin: var(--spacer-2);
+            padding: var(--spacer-2);
+        }
+
+        .vertical {
+            @apply --layout-vertical;
         }
 
         .nested-expression-bg {
-            background: rgba(100, 120, 255, 0.15);
+            background: var(--nested-color);
         }
 
         .nested-expression {
             margin: calc( var(--button-margin) + 8px);
             margin-top: - var(--button-margin);
-            border: 1px solid gainsboro;
-            padding-top: 10px;
+            /* border: 1px solid var(--nested-color); */
+            padding-top: var(--spacer);
         }
-        .btn-api-ref{
-            text-transform: initial!important;
+
+        .btn-api-ref {
+            text-transform: initial !important;
         }
     </style>
 
     <template>
+        <div class="vertical">
+            <paper-menu-button class="button-padding" id="rel_btn" no-animations close-on-activate>
+                <paper-button raised slot="dropdown-trigger" class$="[[_getOperandBtnClass(arg.kind)]]">
+                    [[_getOperandDisplayName(arg.kind)]]</paper-button>
+                <paper-listbox slot="dropdown-content" selected="{{selectedType}}">
+                    <template is="dom-repeat" items="[[operandTypes]]">
+                        <paper-item>[[_getOperandDisplayName(item)]]</paper-item>
+                    </template>
+                </paper-listbox>
+            </paper-menu-button>
 
-        <paper-menu-button class="button-padding" id="rel_btn" no-animations close-on-activate>
-            <paper-button raised slot="dropdown-trigger" class$="[[_getOperandBtnClass(arg.kind)]]">
-                [[_getOperandDisplayName(arg.kind)]]</paper-button>
-            <paper-listbox slot="dropdown-content" selected="{{selectedType}}">
-                <template is="dom-repeat" items="[[operandTypes]]">
-                    <paper-item>[[_getOperandDisplayName(item)]]</paper-item>
-                </template>
-            </paper-listbox>
-        </paper-menu-button>
+            <!-- addressed -->
+            <template is="dom-if" if="[[arg.addressed]]">
+                <div class="nested-expression nested-expression-bg">
+                    <h4>Addressed Value:</h4>
+                    <c-apply apply="[[arg]]" global-variables="[[globalVariables]]"></c-apply>
+                </div>
+            </template>
 
-
+        </div>
         <template is="dom-if" if="[[arg.isField]]">
             <paper-input class="button-padding" label="Field name" value="{{arg.field}}"></paper-input>
         </template>
@@ -50,7 +68,7 @@
             <paper-menu-button class="button-padding" no-animations close-on-activate>
                 <paper-button raised slot="dropdown-trigger" class="btn-api-ref">
                     [[arg.ref]]</paper-button>
-                <paper-listbox slot="dropdown-content"  attr-for-selected="item-name" selected="{{arg.ref}}">
+                <paper-listbox slot="dropdown-content" attr-for-selected="item-name" selected="{{arg.ref}}">
                     <template is="dom-repeat" items="[[globalVariables]]">
                         <paper-item item-name="[[item.name]]">[[item.name]]</paper-item>
                     </template>
@@ -62,13 +80,7 @@
             <paper-input class="button-padding" label="Numeric constant" value="{{arg.value}}"></paper-input>
         </template>
 
-        <!-- addressed -->
-        <template is="dom-if" if="[[arg.addressed]]">
-            <div class="nested-expression nested-expression-bg">
-                <h4>Addressed Value:</h4>
-                <c-apply apply="[[arg]]"></c-apply>
-            </div>
-        </template>
+
 
 
     </template>
@@ -166,6 +178,7 @@
             font-weight: 100;
             padding: var(--button-padding);
             color: var(--selection-tx);
+            white-space: nowrap;
         }
 
         small {
