@@ -394,7 +394,7 @@
 
     <template>
 
-        <template is="dom-if" if="[[contract]]">
+        <template is="dom-if" if="[[contract.name]]">
 
             <h2 class="code">[[contract.name]]([[contract.parameters]])</h2>
 
@@ -416,16 +416,11 @@
             <paper-button raised on-tap="addPostCondition" class="btn-add">+</paper-button>
         </template>
 
-
-
-
     </template>
 
 
 
     <script>
-
-
 
         Polymer({
             is: 'contract-info',
@@ -446,11 +441,11 @@
             },
 
             addPostCondition: function () {
-                this.push("contract.postconditions", { math: { apply: { return: true } } });
+                this.push("contract.postconditions", Contracts.Math.makeDefault());
             },
 
             addPreCondition: function () {
-                this.push("contract.preconditions", { math: { apply: {} } });
+                this.push("contract.preconditions", Contracts.Math.makeDefault());
             }
         });
 
