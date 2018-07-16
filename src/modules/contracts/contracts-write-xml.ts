@@ -8,7 +8,7 @@ import * as xml from './xml';
 
 Error.stackTraceLimit = 30;
 
-let testDir = path.normalize(__dirname + '/../../../docs/contracts/sample_contract_1.xml');
+// let testDir = path.normalize(__dirname + '/../../../docs/contracts/sample_contract_1.xml');
 let testDir2 = path.normalize(__dirname + '/../../../docs/contracts/sample_contract_2.xml');
 
 
@@ -18,7 +18,7 @@ let testDir2 = path.normalize(__dirname + '/../../../docs/contracts/sample_contr
 
 function testWriteContract() {
 
-    const contract: contracts.CFileContract = new xml.CFileContractXml(testDir2);
+    const contract: contracts.CFileContract = xml.CFileContractXml.fromXml(testDir2);
 
     let xmlStr = xml.toXml(contract);
     console.log(xmlStr);
@@ -33,21 +33,18 @@ function testXmlExport() {
         explicitChildren: true
     });
 
-    let obj ={
-        math:{
-            
-            $:{
-                a:"d"
+    let obj = {
+        math: {
+
+            $: {
+                a: "d"
             },
-            apply:{
-                "cn":8,
-                "leq":null,
-                "not-null" :null,
-                "return" :null,
-                
+            apply: {
+                "cn": 8,
+                "leq": null,
+                "not-null": null,
+                "return": null,
             }
-               
-            
         }
     }
     var xmlStr = builder.buildObject(obj);

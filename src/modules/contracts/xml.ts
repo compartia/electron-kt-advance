@@ -62,8 +62,7 @@ function functionsToXml(funcs: contracts.CFunctionContract[]) {
             funcs.map(fun => {
                 let xfun = { "$": { name: fun.name } };
 
-                if (nonEmpty(fun.parameters))
-                    xfun["parameters"] = { param: parameters2Xml(fun.parameters) };
+                xfun["parameters"] = { param: parameters2Xml(fun.parameters) };
                 if (nonEmpty(fun.preconditions))
                     xfun["preconditions"] = { pre: conditions2Xml(fun.preconditions) };
                 if (nonEmpty(fun.postconditions))
@@ -106,21 +105,30 @@ export class CFileContractXml extends contracts.CFileContractImpl {
         "global-variables": "gvar"
     };
 
-
-    constructor(xmlfile: string) {
-        super();
-        this.fromXml(xmlfile);
+    static fromXmlStr(data: string): CFileContractXml {
+        let ret = new CFileContractXml();
+        ret.loadXmlData(data);
+        return ret;
     }
 
-    public fromXml(filename) {
+    constructor() {
+        super();
+    }
+
+    public static fromXml(filename): CFileContractXml {
+        const data = fs.readFileSync(filename);
+        let ret = new CFileContractXml();
+        ret.loadXmlData(data);
+        return ret;
+    }
+
+    private loadXmlData(data: Buffer | string) {
         this.functions = [];
 
         const parser = new xml2js.Parser({
             trim: true,
             emptyTag: true
         });
-
-        const data = fs.readFileSync(filename);
 
         parser.parseString(data, (err, result) => {
 
@@ -228,15 +236,19 @@ export class CFileContractXml extends contracts.CFileContractImpl {
                         let arrayElementName = CFileContractXml.SCHEMA[prop];
 
                         dest[prop] = [];
-                        for (const el of val[arrayElementName]) {
-                            const flattened = this._flatten(el, tabs + 1);
-                            if (flattened) {
-                                dest[prop].push(flattened);
-                            } else {
-                                this.log(tabs, "cannot flatten " + arrayElementName);
-                                console.error(el);
+                        const array = val[arrayElementName];
+                        if(nonEmpty(array)){
+                            for (const el of array) {
+                                const flattened = this._flatten(el, tabs + 1);
+                                if (flattened) {
+                                    dest[prop].push(flattened);
+                                } else {
+                                    this.log(tabs, "cannot flatten " + arrayElementName);
+                                    console.error(el);
+                                }
                             }
                         }
+                        
                     }
 
                 } else {

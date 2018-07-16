@@ -15,7 +15,7 @@ import { getJarName, JavaEnv, resolveJava } from './javaenv';
 import { XmlReader } from './xmlreader';
 import { CFileContractXml } from "../contracts/xml";
 
- 
+
 
 abstract class AbstractLocatable implements HasPath {
     dir: false;
@@ -739,13 +739,13 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
     }
 
     private readContractsXmls(dir: string, tracker: ProgressTracker): contracts.ContractsCollection | null {
-        let contractsPath =  path.join(dir, "semantics", "ktacontracts");
+        let contractsPath = path.join(dir, "semantics", "ktacontracts");
         console.error("reading contracts XMLs is not implemented yet; dir:" + contractsPath);
-        
+
         if (!fs.existsSync(contractsPath)) {
             console.warn(contractsPath + " does not exist");
             contractsPath = dir;// return null;
-        } 
+        }
         const files: string[] = kt_fs.walkSync(contractsPath, "_c.xml")
         fs.readdirSync(contractsPath).forEach(file => {
             if (file.endsWith("_c.xml")) {
@@ -756,12 +756,12 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
         const cc: contracts.ContractsCollection = new contracts.ContractsCollection(dir);
         let cnt: number = 0;
         for (const file of files) {
-            const c: CFileContractXml = new CFileContractXml(file);
+            const c: CFileContractXml = CFileContractXml.fromXml(file);
             cc.addContract(c);
-             
+
             // let relativizedFile = path.relative(dir, file);
             // contract.name=relativizedFile;
-             
+
             cnt++;
             tracker.updateProgress(files.length / cnt);
         }

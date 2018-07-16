@@ -79,4 +79,8 @@ Orphan nodes are hidden.
 ## To run in develpment mode
 1. `npm run gulp start`
 
+### Testing components in browser
+1. `polymer serve`
+2. `http://localhost:8081/test/index.html`
+
 TODO:
