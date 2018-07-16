@@ -168,7 +168,7 @@ export module contracts {
     export class ContractsCollection {
         contractsByFile: { [key: string]: CFileContract } = {};
         public fileContracts: CFileContract[] = [];
-        private baseDir: string;
+        public baseDir: string;
         constructor(baseDir: string) {
             this.baseDir = baseDir;
         }

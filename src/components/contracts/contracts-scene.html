@@ -17,6 +17,8 @@
     </style>
 
     <template>
+        <paper-toast id="toast" text="done" horizontal-align="right" duration="6000"></paper-toast>
+
 
         <vaadin-split-layout id="verticalContractsSplitter" class$="splitter-3 [[getSplitterClass(selectedItem)]]">
 
@@ -66,6 +68,11 @@
                 contracts: {
                     type: Object
                 },
+
+                controller:{
+                    type: Object
+                },
+
                 functions: {
                     type: Array
                 },
@@ -76,9 +83,14 @@
                 }
             },
 
-            saveContracts:function(){
-                this.selectedItem.save();
+            saveContracts: function () {
+                const cb = (x) => {
+                    this.$.toast.text="Contract saved: "+x;
+                    this.$.toast.open();
+                }
+                this.controller.saveContract(this.selectedItem, cb);
             },
+
             _rowClass:function(selected){
                 return selected?"selected":""
             },

@@ -1,6 +1,7 @@
 import * as _ from "lodash";
 import { CAnalysisJsonReaderImpl } from '../data/dataprovider';
 import { XmlReader } from '../data/xmlreader';
+import * as XmlWriter from '../contracts/xml';
 import { buildCallsGraph, buildGraph } from '../graph_builder';
 import { Stats } from '../stats/stats';
 import * as tf from '../tf_graph_common/lib/common';
@@ -9,12 +10,14 @@ import { Filter } from './filter';
 import * as kt_fs from './fstools';
 import { CONF, loadProjectMayBe } from './storage';
 import { AbstractNode, CAnalysis, CApiAssumption, CFunction, Callee, PoStates, ProofObligation, RenderInfo, sortPoNodes } from './xmltypes';
-import { contracts } from "../contracts/contracts";
+import { contracts as Contracts } from "../contracts/contracts";
 
 
 
-const path = require('path');
-const fs = require('fs');
+import * as path from 'path';
+import * as fs from 'fs';
+// const path = require('path');
+// const fs = require('fs');
 const dialog = require('electron').remote.dialog;
 
 
@@ -37,6 +40,12 @@ export class JsonReadyProject {
 export interface CProjectProto {
     baseDir: string;
 }
+
+
+export interface ContractsController {
+    saveContract(c: Contracts.CFileContract, callbackfn: Function);
+}
+
 export interface CProject {
     id: number;
     functionByFile: { [key: string]: Array<CFunction> };
@@ -44,23 +53,25 @@ export interface CProject {
     stats: Stats;
     filteredAssumptions: Array<CApiAssumption>;
     assumptions: Array<CApiAssumption>;
-    filteredContracts: Array<contracts.CFileContract>;
-    contracts: contracts.ContractsCollection;
+    filteredContracts: Array<Contracts.CFileContract>;
+    contracts: Contracts.ContractsCollection;
     filteredProofObligations: Array<ProofObligation>;
     proofObligations: Array<ProofObligation>;
 
     forEachFunction(callbackfn: (value: CFunction, index: number, array: CFunction[]) => void);
     applyRenderInfos();
+
+    contractsController: ContractsController;
 }
 
-export class ProjectImpl implements CProject {
+export class ProjectImpl implements CProject, ContractsController {
 
     functionByFile: { [key: string]: Array<CFunction> } = {};
     baseDir: string;
     appPath: string;
     stats: Stats;
-    contracts: contracts.ContractsCollection;
-    filteredContracts: Array<contracts.CFileContract>;
+    contracts: Contracts.ContractsCollection;
+    filteredContracts: Array<Contracts.CFileContract>;
     /**
     * previously saved statistics
     */
@@ -75,6 +86,20 @@ export class ProjectImpl implements CProject {
     allPredicates: Array<string>;
 
     renderInfos: { [key: string]: RenderInfo } = {};
+
+    get contractsController(): ContractsController {
+        return this;
+    }
+
+    public saveContract(c: Contracts.CFileContract, callbackfn: Function) {
+        const dirToSave = path.join(this.contracts.baseDir, c.name + "_c.xml");
+        const data = XmlWriter.toXml(c);
+        console.log(data);
+        console.log(`saving contract to ${dirToSave}`);
+        fs.writeFileSync(dirToSave, data);
+        callbackfn("saved to " + dirToSave);
+        throw "saveContract is not implemented"
+    }
 
     private getOrCreateRenderInfo(po: ProofObligation): RenderInfo {
         const stateName = PoStates[po.state];
@@ -229,7 +254,7 @@ export class ProjectImpl implements CProject {
 
 
     public hasContractsAtLine(fileName: string, line: number) {
-        let fileContract: contracts.CFileContract = this.contracts.contractsByFile[fileName];
+        let fileContract: Contracts.CFileContract = this.contracts.contractsByFile[fileName];
         if (fileContract) {
 
 

@@ -40,6 +40,9 @@ function dataStructuresToXml(dataStructures: any) {
 
 
 function globalVariablesToXml(globalVariables: contracts.GVar[]) {
+    if(!globalVariables){
+        return null;
+    }
     let r = {
         gvar: globalVariables.map(gv => {
             return { "$": gv };

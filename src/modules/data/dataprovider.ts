@@ -16,6 +16,9 @@ import { XmlReader } from './xmlreader';
 import { CFileContractXml } from "../contracts/xml";
 
 
+export const SEMANTICS_DIR = "semantics";
+export const CONTRACTS_DIR = "ktacontracts";
+
 
 abstract class AbstractLocatable implements HasPath {
     dir: false;
@@ -738,9 +741,11 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
 
     }
 
+
+
     private readContractsXmls(dir: string, tracker: ProgressTracker): contracts.ContractsCollection | null {
-        let contractsPath = path.join(dir, "semantics", "ktacontracts");
-        console.error("reading contracts XMLs is not implemented yet; dir:" + contractsPath);
+        let contractsPath = path.join(dir,  CONTRACTS_DIR);
+        // console.error("reading contracts XMLs is not implemented yet; dir:" + contractsPath);
 
         if (!fs.existsSync(contractsPath)) {
             console.warn(contractsPath + " does not exist");
@@ -753,7 +758,7 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
             }
         });
 
-        const cc: contracts.ContractsCollection = new contracts.ContractsCollection(dir);
+        const cc: contracts.ContractsCollection = new contracts.ContractsCollection(contractsPath);
         let cnt: number = 0;
         for (const file of files) {
             const c: CFileContractXml = CFileContractXml.fromXml(file);

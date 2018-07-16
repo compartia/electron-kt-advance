@@ -23,7 +23,8 @@
     "iron-flex-layout": "PolymerElements/iron-flex-layout#^2.0.3",
     "paper-input": "PolymerElements/paper-input#^2.2.3",
     "paper-menu-button": "PolymerElements/paper-menu-button#^2.1.1",
-    "paper-listbox": "PolymerElements/paper-listbox#^2.1.1"
+    "paper-listbox": "PolymerElements/paper-listbox#^2.1.1",
+    "paper-toast": "PolymerElements/paper-toast#^2.1.2"
   },
   "resolutions": {
     "webcomponentsjs": "0.7.24",
