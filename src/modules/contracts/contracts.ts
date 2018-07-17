@@ -1,3 +1,4 @@
+import { ENGINE_METHOD_DIGESTS } from "constants";
 
 
 
@@ -188,9 +189,31 @@ export module contracts {
         displayString: string;
         kind: string;
         toXmlObj(): string;
+
+        error: string;
     }
 
-    export class XReturnPredicate implements XPredicate {
+    abstract class XPredicateBase implements XPredicate {
+        private _error: string;
+        get error(): string {
+            return this._error;
+        }
+        set error(err: string) {
+            this._error = err;
+        }
+        get displayString(): string {
+            throw "not implemented";
+        }
+
+        get kind(): string {
+            throw "not implemented";
+        }
+
+        toXmlObj(): string {
+            throw "not implemented";
+        }
+    }
+    export class XReturnPredicate extends XPredicateBase implements XPredicate {
         get displayString(): string {
             return "return_value";
         }
@@ -204,7 +227,7 @@ export module contracts {
         }
     }
 
-    export class XApiPredicate implements XPredicate {
+    export class XApiPredicate extends XPredicateBase implements XPredicate {
         ref: string;
 
         public toXmlObj(): any {
@@ -212,6 +235,7 @@ export module contracts {
         }
 
         constructor(ref: string) {
+            super();
             this.ref = ref;
 
 
@@ -251,10 +275,10 @@ export module contracts {
 
 
 
-    export class XUnaryExpr implements XPredicate {
+    export class XUnaryExpr extends XPredicateBase implements XPredicate {
 
         op: string;
-        argument1: XPredicate;
+        private _argument1: XPredicate;
 
         public toXmlObj(): any {
             const ret = {};
@@ -264,7 +288,7 @@ export module contracts {
         }
 
         constructor(op: string, argument1: XPredicate) {
-
+            super();
             if (!argument1) {
                 throw "wrong argument 2";
             }
@@ -272,6 +296,24 @@ export module contracts {
             this.op = op;
             this.argument1 = argument1;
         }
+
+        set argument1(a1: XPredicate) {
+            this._argument1 = a1;
+            this.validate();
+        }
+
+        get argument1() {
+            return this._argument1;
+        }
+
+
+        public validate(): boolean {
+            if (!this._argument1) {
+                this.error = "First term is mandatory";
+            }
+            return true;
+        }
+
 
         get displayString(): string {
             return `${this.op}(${this.argument1.displayString})`;
@@ -288,34 +330,56 @@ export module contracts {
 
 
     export class XRelationalExpr extends XUnaryExpr {
-        // op: string; 
-        // argument1: XPredicate; 
-        argument2: XPredicate;
 
-        public toXmlObj(): any {
-            const ret = {};
-            ret[this.op] = null;
-            ret[this.argument1.kind] = this.argument1.toXmlObj();
-            ret[this.argument2.kind] = this.argument2.toXmlObj();            
-            return ret;
-        }
+        private _argument2: XPredicate;
 
         constructor(op: string, argument1: XPredicate, argument2: XPredicate) {
             super(op, argument1)
             this.op = op;
             this.argument1 = argument1;
             this.argument2 = argument2;
+        }
 
+        set argument2(a2: XPredicate) {
+            this._argument2 = a2;
+            this.validate();
+        }
+
+        get argument2() {
+            return this._argument2;
+        }
+
+        public validate(): boolean {
+            if (super.validate()) {
+                if (!this._argument2) {
+                    this.error = "Second term is mandatory";
+                    return false;
+                }
+
+                if (this.argument2.constructor == this.argument1.constructor) {
+                    this.error = "Second term must be of differend kind";
+                    return false;
+                }
+            }
+            return true;
         }
 
         get displayString(): string {
-
             return `(${this.argument1.displayString} ${RELATIONS_NAMES[this.op]} ${this.argument2.displayString})`;
         }
 
         get binary() {
             return true;
         }
+
+        public toXmlObj(): any {
+            const ret = {};
+            ret[this.op] = null;
+            ret[this.argument1.kind] = this.argument1.toXmlObj();
+            ret[this.argument2.kind] = this.argument2.toXmlObj();
+            return ret;
+        }
+
     }
 
     export class XArgAddressedValue extends XRelationalExpr {
@@ -338,10 +402,11 @@ export module contracts {
     }
 
 
-    export class XFieldExpr implements XPredicate {
+    export class XFieldExpr extends XPredicateBase implements XPredicate {
         field: string;
 
         constructor(value: any) {
+            super();
             this.field = value.fname;
         }
 
@@ -363,10 +428,11 @@ export module contracts {
 
     }
 
-    export class XConstantExpr implements XPredicate {
+    export class XConstantExpr extends XPredicateBase implements XPredicate {
         value: string;
 
         constructor(value: string) {
+            super();
             this.value = value;
         }
 
@@ -413,6 +479,7 @@ export module contracts {
             case 'apply':
                 return parse_mathml_xpredicate(value);
             default:
+                console.error("unknwn term " + term);
                 throw "unknwn term " + term;
 
         }
@@ -473,13 +540,28 @@ export module contracts {
         if (op == "addressed-value") {
             const term1 = pairs[1];
             const term2 = pairs[2];
+            let error = null;
+            if (!term2) {
+                console.error(`error parsing ${op}, no second term found`);
+            }
 
-            return new XArgAddressedValue(op, parse_term(term1, anode[term1]), parse_term(term2, anode[term2]));
+            const prd1: XPredicate = term1 ? parse_term(term1, anode[term1]) : new XReturnPredicate();
+            const prd2: XPredicate = term2 ? parse_term(term2, anode[term2]) : new XReturnPredicate();
+
+            return new XArgAddressedValue(op, prd1, prd2);
         } else if (isBinaryConstraint(op)) {
+
             const term1 = pairs[1];
             const term2 = pairs[2];
 
-            return new XRelationalExpr(op, parse_term(term1, anode[term1]), parse_term(term2, anode[term2]));
+            if (!term2) {
+                console.error(`error parsing ${op}, no second term found`);
+            }
+
+            const prd1: XPredicate = term1 ? parse_term(term1, anode[term1]) : new XReturnPredicate();
+            const prd2: XPredicate = term2 ? parse_term(term2, anode[term2]) : new XReturnPredicate();
+
+            return new XRelationalExpr(op, prd1, prd2);
 
         } else if (isUnaryConstraint(op)) {
 
