@@ -11,40 +11,155 @@ function isPrimitive(test) {
 }
 
 
+
+export function toXml(fileContract: contracts.CFileContract): string {
+    var x_cfile = {
+        $: { name: fileContract.name },
+        "data-structures": dataStructuresToXml(fileContract.dataStructures),
+        "global-variables": globalVariablesToXml(fileContract.globalVariables),
+        "functions": functionsToXml(fileContract.functions),
+    };
+
+    let obj = {};
+    obj["header"] = {};
+    obj["cfile"] = x_cfile;
+
+    var builder = new xml2js.Builder({
+        rootName: "c-analysis",
+        preserveChildrenOrder: true,
+        explicitChildren: true
+    });
+
+    var xml = builder.buildObject(obj);
+    return xml;
+}
+
+function dataStructuresToXml(dataStructures: any) {
+    return {};
+}
+
+
+function globalVariablesToXml(globalVariables: contracts.GVar[]) {
+    if (!globalVariables) {
+        return null;
+    }
+    let r = {
+        gvar: globalVariables.map(gv => {
+            return { "$": gv };
+        })
+    };
+
+    return r;
+}
+
+function nonEmpty(arr: any[] | null | undefined): boolean {
+    if (arr) {
+        return arr.length > 0;
+    }
+    return false;
+}
+
+function functionsToXml(funcs: contracts.CFunctionContract[]) {
+    let r = {
+        "function":
+            funcs.map(fun => {
+                let xfun = { "$": { name: fun.name } };
+
+                xfun["parameters"] = { param: parameters2Xml(fun.parameters) };
+                if (nonEmpty(fun.preconditions))
+                    xfun["preconditions"] = { pre: conditions2Xml(fun.preconditions) };
+                if (nonEmpty(fun.postconditions))
+                    xfun["postconditions"] = { post: conditions2Xml(fun.postconditions) };
+                return xfun;
+            })
+    };
+
+    return r;
+}
+
+function parameters2Xml(parameters: string[]): any {
+    if (!parameters || parameters.length == 0) return {};
+    return parameters.map((c, i) => {
+        return { $: { name: c, nr: (i + 1) } }
+    });
+}
+
+function conditions2Xml(conditions: contracts.Math[]): any {
+    if (!conditions || conditions.length == 0) return {};
+    return conditions.map(c => {
+        return condition2Xml(c);
+    });
+}
+
+function condition2Xml(condition: contracts.Math): any {
+    return { math: { "apply": condition.apply.toXmlObj() } };
+}
+
+
 export class CFileContractXml extends contracts.CFileContractImpl {
-    constructor(xmlfile: string) {
-        super();
-        this.fromXml(xmlfile);
+
+
+
+    static SCHEMA = {
+        "postconditions": "post",
+        "preconditions": "pre",
+        "functions": "function",
+        "parameters": "par",
+        "global-variables": "gvar"
+    };
+
+    static fromXmlStr(data: string): CFileContractXml {
+        let ret = new CFileContractXml();
+        ret.loadXmlData(data);
+        return ret;
     }
 
-    public fromXml(filename) {
+    constructor() {
+        super();
+    }
+
+    public static fromXml(filename): CFileContractXml {
+        const data = fs.readFileSync(filename);
+        let ret = new CFileContractXml();
+        ret.loadXmlData(data, filename);
+        return ret;
+    }
+
+    private loadXmlData(data: Buffer | string, filename?: string) {
         this.functions = [];
 
         const parser = new xml2js.Parser({
             trim: true,
             emptyTag: true
         });
+        try {
+            parser.parseString(data, (err, result) => {
 
-        const data = fs.readFileSync(filename);
+                if (err) {
+                    console.error(err);
+                    return;
+                }
+                try {
+                    const jfile = result["c-analysis"]["cfile"][0];
 
-        parser.parseString(data, (err, result) => {
+                    const flattened = this._flatten(jfile);
 
-            if (err) {
-                console.error(err);
-                return;
-            }
+                    if (______DEBUG) this.log(0, JSON.stringify(flattened, null, ' '));
 
-            const jfile = result["c-analysis"]["cfile"][0];
+                    (<any>Object).assign(this, flattened);
 
-            const flattened = this._flatten(jfile);
+                    this.convertToObjects();
+                } catch (e) {
+                    console.error("Error reading " + filename);
+                    console.error(e);
+                }
 
-            if (______DEBUG) this.log(0, JSON.stringify(flattened, null, ' '));
+            });
+        } catch (e) {
+            console.error("Error reading " + filename);
+            console.error(e);
+        }
 
-            (<any>Object).assign(this, flattened);
-
-            this.convertToObjects();
-
-        });
     }
 
     private convertToObjects() {
@@ -82,13 +197,6 @@ export class CFileContractXml extends contracts.CFileContractImpl {
     }
 
 
-    static ARRAYS = {
-        "postconditions": "post",
-        "preconditions": "pre",
-        "functions": "function",
-        "parameters": "par",
-        "global-variables": "gvar"
-    };
 
     private tabs(n) {
         let t = '';
@@ -124,7 +232,7 @@ export class CFileContractXml extends contracts.CFileContractImpl {
 
             if (prop !== "$") {
                 let val = _xml[prop];
-                if (CFileContractXml.ARRAYS[prop]) {
+                if (CFileContractXml.SCHEMA[prop]) {
 
                     // property is an array
                     if (Array.isArray(val)) {
@@ -137,18 +245,22 @@ export class CFileContractXml extends contracts.CFileContractImpl {
                         dest[prop] = [];
 
                     } else {
-                        let arrayElementName = CFileContractXml.ARRAYS[prop];
+                        let arrayElementName = CFileContractXml.SCHEMA[prop];
 
                         dest[prop] = [];
-                        for (const el of val[arrayElementName]) {
-                            const flattened = this._flatten(el, tabs + 1);
-                            if (flattened) {
-                                dest[prop].push(flattened);
-                            } else {
-                                this.log(tabs, "cannot flatten " + arrayElementName);
-                                console.error(el);
+                        const array = val[arrayElementName];
+                        if (nonEmpty(array)) {
+                            for (const el of array) {
+                                const flattened = this._flatten(el, tabs + 1);
+                                if (flattened) {
+                                    dest[prop].push(flattened);
+                                } else {
+                                    this.log(tabs, "cannot flatten " + arrayElementName);
+                                    console.error(el);
+                                }
                             }
                         }
+
                     }
 
                 } else {

@@ -205,3 +205,15 @@ splash-layout {
 .padding-right{
     padding-right: $spacer;
 }
+
+.control-panel{
+    text-align: right;
+    @apply --layout-horizontal;
+    @apply --layout-end-justified;
+    
+    padding:var(--spacer-2);
+}
+
+.separated-top{
+    border-top: 2px solid var(--separator); 
+}
