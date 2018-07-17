@@ -13,10 +13,11 @@ import { contracts as Contracts } from "../contracts/contracts";
 
 
 
-import * as fs from 'fs'; 
-import * as path from 'path'; 
+import * as fs from 'fs';
+import * as path from 'path';
 import { FileSystem } from "./filesystem";
 import { FileContents } from "./source";
+import { runAsyncPromiseTask } from "../tf_graph_common/lib/util";
 
 const dialog = require('electron').remote.dialog;
 
@@ -66,7 +67,7 @@ export class ProjectImpl implements CProject, ContractsController {
 
     functionByFile: { [key: string]: Array<CFunction> } = {};
     fs: FileSystem;
-     
+
     stats: Stats;
     contracts: Contracts.ContractsCollection;
     filteredContracts: Array<Contracts.CFileContract>;
@@ -160,7 +161,7 @@ export class ProjectImpl implements CProject, ContractsController {
 
 
     constructor(fs: FileSystem, appPath: string) {
-        if (!fs) throw "param is required";              
+        if (!fs) throw "param is required";
         this.open(fs);
     }
 
@@ -196,11 +197,14 @@ export class ProjectImpl implements CProject, ContractsController {
             }
         }
 
-        const pCAnalysis: Promise<CAnalysis> = this.reader.readDir(
-            project.fs,
-            tracker
-        );
+        // const pCAnalysis: Promise<CAnalysis> = this.reader.readDir(
+        //     project.fs,
+        //     tracker
+        // );
 
+        const pCAnalysis: Promise<CAnalysis> = runAsyncPromiseTask("reading", 0,
+            () => this.reader.readDir(project.fs, tracker),
+            tracker);
 
         return pCAnalysis.then(mCAnalysis => {
 
@@ -373,7 +377,7 @@ function selectDirectory(): any {
     return dir;
 }
 
- 
+
 export function openNewProject(tracker: tf.ProgressTracker): any {
     console.log("openNewProject");
     let dir: string = selectDirectory();

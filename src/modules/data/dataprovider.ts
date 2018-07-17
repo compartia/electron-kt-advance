@@ -731,7 +731,7 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
         return resolveJava()
             .then(env => runJavaJar(env, projectFs, readingXmlTracker))
             .then(jsonfiles =>
-                runTask("reading JSON data", 0, () => this.readJsonFiles(jsonfiles, readingJsonTracker), _tracker)
+                runAsyncTask("reading JSON data", 0, () => this.readJsonFiles(jsonfiles, readingJsonTracker), _tracker)
             )
             .then(cAnalysisResult => {
                 let cc = runTask("reading Contracts XMLs", 0, () => this.readContractsXmls(projectFs, readingContractsTracker), _tracker);
@@ -797,7 +797,8 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
         try {
             const contents = runTask("reading " + file, 5, () => fs.readFileSync(file).toString(), tracker);
             const json = runTask("parsing " + file, 15, () => <json.JAnalysis>JSON.parse(contents), tracker);
-            runTask("processing " + file, 80, () => this.mergeJsonData(json), tracker);
+            let subtracker = tracker.getSubtaskTracker(80, "processing");
+            runTask("processing " + file, 0, () => this.mergeJsonData(json, subtracker), tracker);
 
         }
         catch (e) {
@@ -808,7 +809,7 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
         return this.cAnalysisResult;
     }
 
-    private mergeJsonData(data: json.JAnalysis): void {
+    private mergeJsonData(data: json.JAnalysis, tracker: ProgressTracker): void {
 
 
         data.apps.forEach(app => {
@@ -817,8 +818,8 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
             const fileTrackerInc = 100 / app.files.length;
 
             app.files.forEach(file => {
-
-
+                setTimeout(()=>tracker.updateProgress(fileTrackerInc), 100);
+                
 
                 const cfunctions = this.toCFuncArray(file.functions, file, app);
 
