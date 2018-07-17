@@ -1,0 +1,162 @@
+<link rel="import" href="function-contracts-list.html">
+<link rel="import" href="contract-info.html">
+
+<dom-module id="contracts-scene">
+    <style>
+        .offseted {
+            margin-left: 30px;
+        }
+ 
+        .filecontracts{
+
+        }
+
+        .filecontracts .po-wrapper.selected{
+            background-color: var(--selection-md-bg);
+        }
+
+        .btn-save{
+            background-color: var(--brand-color);
+            color: white;
+        }
+
+      
+        
+
+    </style>
+
+    <template>
+        <paper-toast id="toast" text="done" horizontal-align="right" duration="6000"></paper-toast>
+
+
+        <vaadin-split-layout id="verticalContractsSplitter" class$="splitter-3 [[getSplitterClass(selectedItem)]]">
+
+            <iron-list id="filecontracts" class="filecontracts" items="[[contracts]]" as="file" selection-enabled selected-item="{{selectedItem}}">
+                <template>
+                    <div class$="po-wrapper file-contract-line [[_rowClass(selected)]]">
+                        <div class="row">
+                            <div class="mid">
+                                [[file.name]]
+                            </div>
+                            <div class="right">
+                                <span class="tag">[[file.functions.length]]</span>
+                            </div>
+                        </div>
+
+                        <template is="dom-if" if="[[showAtLinePos(file, selected)]]">
+                            <div class="offseted">
+                                <function-contracts-list 
+                                    on-tap="_toggleLine"
+                                    on-contract-function-selected='_onContractFunctionSelected' 
+                                    contracts="[[functions]]"></function-contracts-list>
+                            </div>
+                        </template>
+
+                    </div>
+
+                </template>
+            </iron-list>
+
+            <div id="right-panel" class="side">
+                <contract-info contract="[[_selectedFunc]]" global-variables="[[selectedItem.globalVariables]]"></contract-info>
+                <div class="control-panel separated-top">
+                    <paper-button class="btn-save" raised on-tap="saveContracts">save</paper-button>
+                </div>        
+            </div>
+        </vaadin-split-layout>
+
+    </template>
+
+
+
+    <script>
+        Polymer({
+            is: 'contracts-scene',
+            properties: {
+                contracts: {
+                    type: Object
+                },
+
+                controller:{
+                    type: Object
+                },
+
+                functions: {
+                    type: Array
+                },
+                _selectedFunc: Object,
+                selectedItem: {
+                    type: Object,
+                    observer: "_onFileContractSelected"
+                }
+            },
+
+            saveContracts: function () {
+                const cb = (x) => {
+                    this.$.toast.text="Contract saved: "+x;
+                    this.$.toast.open();
+                }
+                this.controller.saveContract(this.selectedItem, cb);
+            },
+
+            _rowClass:function(selected){
+                return selected?"selected":""
+            },
+            _toggleLine: function (e) {
+                e.stopPropagation();
+            },
+            _onFileContractSelected: function (e) {
+                let funcs = [];
+                if (this.selectedItem && this.selectedItem.functions) {
+                    for (let fun of this.selectedItem.functions) {
+                        // if (fun.hasContracts){
+                            funcs.push(fun);
+                        // }
+                    }
+                }
+                this.set("functions", funcs);                 
+            },
+
+            _onContractFunctionSelected: function (e) {              
+                this._selectedFunc = e.detail;
+            },
+
+            showAtLinePos: function (item, selected) {
+                return selected;
+            },
+
+            getSplitterClass: function (selectedItem) {
+                return (selectedItem) ? "" : "collapsed";
+            },
+
+        });
+    </script>
+
+    <style>
+
+        .side{
+            padding: 10px;
+        }
+        
+        .splitter-3 {
+            --vaadin-split-layout-splitter: {
+                min-width: 1px;
+                min-height: 1px;
+                border: solid 4px none;
+                background-clip: content-box;
+            }
+        }
+
+        .splitter-3 {
+            --vaadin-split-layout-splitter: {
+                background: var(--paper-tree-selected-background-color);
+                fill: var(--paper-tree-selected-background-color);
+            }
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+        }
+    </style>
+</dom-module>

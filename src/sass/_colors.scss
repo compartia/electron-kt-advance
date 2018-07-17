@@ -45,10 +45,14 @@ $kt-in-edge: $blue;
 $base-bg-lighten: lighten($base-bg, 47%);
 
 :root {
+    --brand-color: #{$color-brand-2};
+
+
     --separator                           :rgba(0,0,0,0.05);
 
     --selection-lt-bg                     : #{ $selection-lt-bg};
     --selection-bg                        : #{ $selection-bg};
+    --selection-md-bg                     : #{ $selection-md-bg};
     --selection-tx                        : #{ $base-bg};
 
     --kt-po-primary-tx                    : #{ darken($ian_gillan, 1%) };

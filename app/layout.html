@@ -87,21 +87,37 @@
                             <source-view id="sourceview" current-project="[[currentProject]]" statistics="[[statistics]]"></source-view>
 
                             <!-- tab PROOF OBLIGTIONS -->
-                            <po-list-scene id="main-po-list" filtered-proof-obligations="[[filteredProofObligations]]" linktosource showgroups selected-po="{{selectedPo}}"></po-list-scene>
+                            <po-list-scene id="main-po-list"
+                                 filtered-proof-obligations="[[filteredProofObligations]]" 
+                                 linktosource showgroups 
+                                 selected-po="{{selectedPo}}"></po-list-scene>
 
                             <!-- tab ASSUMPTIONS -->
                             <assumptions-list-scene filtered-assumptions="[[filteredAssumptions]]" selected-assumptions="{{selectedAssumptions}}" linktosource></assumptions-list-scene>
 
+                            <!-- tab CONTRACTS -->
+                            <contracts-scene 
+                                contracts="[[filteredContracts]]" 
+                                controller="[[currentProject.contractsController]]"
+                                ></contracts-scene>
+
                             <!-- tab GRAPH -->
-                            <tf-graph-board id="graphboard" palette="[[palette]]" inputs-title="Dependent" outputs-title="Depends on" svg-id='svg-assumptions'
-                                , color-by="STATE" color-by-params="{{colorByParams}}" devices-for-stats="[[_devicesForStats]]"
-                                graph-hierarchy="[[graphHierarchy]]" graph="[[graph]]" progress="{{progress}}" hierarchy-params="[[_hierarchyParams]]"
+                            <tf-graph-board id="graphboard" palette="[[palette]]" inputs-title="Dependent" 
+                                outputs-title="Depends on" 
+                                svg-id='svg-assumptions'
+                                color-by="STATE" 
+                                color-by-params="{{colorByParams}}" 
+                                devices-for-stats="[[_devicesForStats]]"
+                                graph-hierarchy="[[graphHierarchy]]" 
+                                graph="[[graph]]" 
+                                progress="{{progress}}" hierarchy-params="[[_hierarchyParams]]"
                                 render-hierarchy="{{_renderHierarchy}}"></tf-graph-board>
 
                             <!-- tab CALLS-->
                             <tf-graph-board id="graphboard2" palette="[[palette]]" inputs-title="Calls" outputs-title="Called from" svg-id='svg-calls'
                                 , color-by="STATE" color-by-params="{{colorByParams}}" devices-for-stats="[[_devicesForStats]]"
-                                graph-hierarchy="[[graphHierarchy2]]" graph="[[graph2]]" progress="{{progress}}" hierarchy-params="[[_hierarchyParams]]"
+                                graph-hierarchy="[[graphHierarchy2]]" graph="[[graph2]]" 
+                                progress="{{progress}}" hierarchy-params="[[_hierarchyParams]]"
                                 render-hierarchy="{{_renderHierarchy2}}"></tf-graph-board>
 
 
@@ -298,6 +314,11 @@
                     notify: true
                 },
 
+                filteredContracts: {
+                    type: Object,
+                    notify: true
+                },
+
                 filter: {
                     type: Object,
                     value: PO_FILTER,
@@ -308,7 +329,7 @@
                     type: Object,
                     notify: true
                 },
-
+            
 
                 disabledTabs: String
             },
@@ -393,6 +414,7 @@
                                 _self.set("statistics", ret);
                                 _self.set("filteredProofObligations", project.filteredProofObligations);
                                 _self.set("filteredAssumptions", project.filteredAssumptions);
+                                _self.set("filteredContracts", project.filteredContracts);
 
                                 _self.$.sourceview.maybeLoadFile(filter.file, aftereffect);
                             }
@@ -411,6 +433,7 @@
                 this.set("filter.levels", new collections.StringSet(model.PoLevels));
                 this.set("filter.states", new collections.StringSet(model.PoStatesArr));
                 this.set("filter.dischargeTypes", new collections.StringSet(model.PoDischargeTypesArr));
+                
                 this.notifyPath("currentProject.allPredicates");
             },
 

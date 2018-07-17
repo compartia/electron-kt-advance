@@ -79,7 +79,7 @@ source-view {
         padding    : 0 !important;
         line-height: 1;
         line-height: 2em;
-        margin-left: $spacer !important;
+        margin-left: $spacer !important; 
     }
 
     .code-line-wrapper.selected{
@@ -137,4 +137,8 @@ source-view {
         }
 
     }
+}
+
+.code{
+    font-family   : $monospaced;
 }

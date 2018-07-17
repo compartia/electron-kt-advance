@@ -1,0 +1,98 @@
+<dom-module id="function-contracts-list">
+    <style>
+        .functioncontracts {}
+
+        .functioncontracts .po-wrapper.selected {
+            background-color: var(--selection-bg);
+        }
+
+        .conditions {
+            margin-bottom: 5px;
+            padding-left: 5px;
+        }
+        .conditions > pre{
+            margin: 0;
+            padding: 0;
+            
+        }
+    </style>
+
+    <template>
+
+
+        <iron-list id="functioncontracts" class="functioncontracts" items="[[contracts]]" as="func" selected-item="{{selectedFuction}}"
+            selection-enabled>
+            <template>
+                <div class$="po-wrapper [[_rowClass(selected)]]">
+                    <div class="row">
+                        <span class='mid'>
+                            <div class="function-name">
+                                [[func.name]] ([[func.parameters]])
+                            </div>
+
+                            <template is="dom-if" if="[[func.preconditions.length]]">
+                                <div class="conditions">
+                                    <h4>Preconditions:</h4>
+                                    <template is="dom-repeat" items="[[func.preconditions]]" as="pc">
+                                        <pre>-[[pc.displayString]]</pre>
+                                    </template>
+                                </div>
+                            </template>
+
+                            <template is="dom-if" if="[[func.postconditions.length]]">
+                                <div class="conditions">
+                                    <h4>Postconditions:</h4>
+                                    <template is="dom-repeat" items="[[func.postconditions]]" as="pc">
+                                        <pre>[[pc.displayString]]</pre>
+                                    </template>
+                                </div>
+                            </template>
+                            <!-- <div class="conditions"><pre>[[func.preconditionsString]]</pre></div>
+                            <div class="conditions">
+                                <pre>[[func.postconditionsString]]</pre>
+                            </div> -->
+                        </span>
+
+                        <span class='right'>
+                            <template is="dom-if" if="[[func.ignore]]">
+                                ignored
+                            </template>
+                        </span>
+
+                    </div>
+                </div>
+            </template>
+        </iron-list>
+
+
+    </template>
+
+
+
+    <script>
+        Polymer({
+            is: 'function-contracts-list',
+            properties: {
+                contracts: {
+                    type: Array
+                },
+
+                selectedFuction: {
+                    type: Object,
+                    observer: '_onFunctionContractSelected'
+                }
+            },
+
+            _rowClass: function (selected) {
+                return selected ? "selected" : ""
+            },
+
+            _onFunctionContractSelected: function (e) {
+                this.fire("contract-function-selected", this.selectedFuction);
+            }
+
+        });
+    </script>
+
+
+</dom-module>
