@@ -40,7 +40,7 @@ function dataStructuresToXml(dataStructures: any) {
 
 
 function globalVariablesToXml(globalVariables: contracts.GVar[]) {
-    if(!globalVariables){
+    if (!globalVariables) {
         return null;
     }
     let r = {
@@ -121,36 +121,45 @@ export class CFileContractXml extends contracts.CFileContractImpl {
     public static fromXml(filename): CFileContractXml {
         const data = fs.readFileSync(filename);
         let ret = new CFileContractXml();
-        ret.loadXmlData(data);
+        ret.loadXmlData(data, filename);
         return ret;
     }
 
-    private loadXmlData(data: Buffer | string) {
+    private loadXmlData(data: Buffer | string, filename?: string) {
         this.functions = [];
 
         const parser = new xml2js.Parser({
             trim: true,
             emptyTag: true
         });
+        try {
+            parser.parseString(data, (err, result) => {
 
-        parser.parseString(data, (err, result) => {
+                if (err) {
+                    console.error(err);
+                    return;
+                }
+                try {
+                    const jfile = result["c-analysis"]["cfile"][0];
 
-            if (err) {
-                console.error(err);
-                return;
-            }
+                    const flattened = this._flatten(jfile);
 
-            const jfile = result["c-analysis"]["cfile"][0];
+                    if (______DEBUG) this.log(0, JSON.stringify(flattened, null, ' '));
 
-            const flattened = this._flatten(jfile);
+                    (<any>Object).assign(this, flattened);
 
-            if (______DEBUG) this.log(0, JSON.stringify(flattened, null, ' '));
+                    this.convertToObjects();
+                } catch (e) {
+                    console.error("Error reading " + filename);
+                    console.error(e);
+                }
 
-            (<any>Object).assign(this, flattened);
+            });
+        } catch (e) {
+            console.error("Error reading " + filename);
+            console.error(e);
+        }
 
-            this.convertToObjects();
-
-        });
     }
 
     private convertToObjects() {
@@ -240,7 +249,7 @@ export class CFileContractXml extends contracts.CFileContractImpl {
 
                         dest[prop] = [];
                         const array = val[arrayElementName];
-                        if(nonEmpty(array)){
+                        if (nonEmpty(array)) {
                             for (const el of array) {
                                 const flattened = this._flatten(el, tabs + 1);
                                 if (flattened) {
@@ -251,7 +260,7 @@ export class CFileContractXml extends contracts.CFileContractImpl {
                                 }
                             }
                         }
-                        
+
                     }
 
                 } else {
