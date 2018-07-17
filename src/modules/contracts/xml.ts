@@ -65,7 +65,12 @@ function functionsToXml(funcs: contracts.CFunctionContract[]) {
             funcs.map(fun => {
                 let xfun = { "$": { name: fun.name } };
 
-                xfun["parameters"] = { param: parameters2Xml(fun.parameters) };
+                if (nonEmpty(fun.parameters)) {
+                    xfun["parameters"] = { par: parameters2Xml(fun.parameters) };
+                } else {
+                    xfun["parameters"] = {};
+                }
+
                 if (nonEmpty(fun.preconditions))
                     xfun["preconditions"] = { pre: conditions2Xml(fun.preconditions) };
                 if (nonEmpty(fun.postconditions))
