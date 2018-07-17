@@ -1,5 +1,5 @@
 import * as _ from "lodash";
-import { JVarInfo } from "../../generated/kt-json";
+import { JVarInfo, JApp } from "../../generated/kt-json";
 import { NodeAttributes, NodeDef } from '../tf_graph_common/lib/proto';
 import { Filter } from './filter';
 import { GraphSettings } from './globals';
@@ -217,15 +217,14 @@ export interface SecondaryProofObligation extends ProofObligation {
     callsite: Site;
 }
 
-export interface CApplication {
-
+export interface CApp   {
+    sourceDir: string;
 }
 
 export interface CAnalysis {
     proofObligations: Array<ProofObligation>;
-    apps: Array<CApplication>;
-    appByDirMap: { [key: string]: CApplication }
-
+    apps: Array<CApp>;
+ 
     functionByFile: { [key: string]: Array<CFunction> };
     assumptions: Array<CApiAssumption>
     contracts: contracts.ContractsCollection;
