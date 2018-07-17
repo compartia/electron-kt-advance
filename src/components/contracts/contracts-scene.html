@@ -14,6 +14,15 @@
         .filecontracts .po-wrapper.selected{
             background-color: var(--selection-md-bg);
         }
+
+        .btn-save{
+            background-color: var(--brand-color);
+            color: white;
+        }
+
+      
+        
+
     </style>
 
     <template>
@@ -49,11 +58,10 @@
             </iron-list>
 
             <div id="right-panel" class="side">
-                <paper-button raised on-tap="saveContracts">save</paper-button>
                 <contract-info contract="[[_selectedFunc]]" global-variables="[[selectedItem.globalVariables]]"></contract-info>
-
-                <!-- contract parameters [[selectedFunc.name]] -->
-
+                <div class="control-panel separated-top">
+                    <paper-button class="btn-save" raised on-tap="saveContracts">save</paper-button>
+                </div>        
             </div>
         </vaadin-split-layout>
 

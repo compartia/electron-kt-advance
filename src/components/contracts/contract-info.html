@@ -390,6 +390,26 @@
             max-height: var(--bth-add-size);
             font-size: 20px;
         }
+
+        .collapsible {
+            --paper-expansion-panel-header: {
+                font-size: 12px;
+                cursor: pointer;
+                border-top: 1px solid var(--selection-lt-bg);
+                text-transform: uppercase;
+                padding-left: var(--spacer);
+                /* border-bottom: 1px solid var(--separator-color); */
+            }
+
+
+            --paper-expansion-panel-content: {
+                padding: var(--spacer-2);
+                padding-bottom: var(--spacer);
+            }
+        }
+        h2{
+            margin-bottom: var(--spacer);
+        }
     </style>
 
     <template>
@@ -398,22 +418,30 @@
 
             <h2 class="code">[[contract.name]]([[contract.parameters]])</h2>
 
-
-            <h3>Preconditions: ([[contract.preconditions.length]])</h3>
-            <template is="dom-repeat" items="[[contract.preconditions]]">
-                <div class="postcondition">
-                    <c-apply holder="[[item]]" apply="[[item.apply]]" global-variables="[[globalVariables]]"></c-apply>
+            <paper-expansion-panel class="collapsible" header="Preconditions: ([[contract.preconditions.length]])" opened>
+                <!-- <h3>Preconditions: ([[contract.preconditions.length]])</h3> -->
+                <template is="dom-repeat" items="[[contract.preconditions]]">
+                    <div class="postcondition">
+                        <c-apply holder="[[item]]" apply="[[item.apply]]" global-variables="[[globalVariables]]"></c-apply>
+                    </div>
+                </template>
+                <div class="control-panel">
+                    <paper-button raised on-tap="addPreCondition" class="btn-add">+</paper-button>
                 </div>
-            </template>
-            <paper-button raised on-tap="addPreCondition" class="btn-add">+</paper-button>
+            </paper-expansion-panel>
 
-            <h3>Postconditions: ([[contract.postconditions.length]])</h3>
-            <template is="dom-repeat" items="[[contract.postconditions]]">
-                <div class="postcondition">
-                    <c-apply holder="[[item]]" apply="[[item.apply]]" global-variables="[[globalVariables]]"></c-apply>
+            <paper-expansion-panel class="collapsible" header="Postconditions: ([[contract.postconditions.length]])" opened>
+                <!-- <h3>Postconditions: ([[contract.postconditions.length]])</h3> -->
+                <template is="dom-repeat" items="[[contract.postconditions]]">
+                    <div class="postcondition">
+                        <c-apply holder="[[item]]" apply="[[item.apply]]" global-variables="[[globalVariables]]"></c-apply>
+                    </div>
+                </template>
+                <div class="control-panel">
+                    <paper-button raised on-tap="addPostCondition" class="btn-add">+</paper-button>
                 </div>
-            </template>
-            <paper-button raised on-tap="addPostCondition" class="btn-add">+</paper-button>
+            </paper-expansion-panel>
+
         </template>
 
     </template>
