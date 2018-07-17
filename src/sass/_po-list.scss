@@ -108,10 +108,6 @@ assumption-line {
             min-height: $po-icon-width;
         }
 
-
-         
-        
-
         .predicate {
 
             .predicate-name {
@@ -171,6 +167,22 @@ assumption-line {
             &:hover {
                 background: var(--kt-in-edge-bg-hover);
             }
+        }
+
+        .tag-in{
+            background: var(--kt-in-edge-bg);
+
+                &:hover {
+                    background: var(--kt-in-edge-bg-hover);
+                }
+        }
+
+        .tag-out{
+            background: var(--kt-out-edge-bg);
+
+                &:hover {
+                    background: var(--kt-out-edge-bg-hover);
+                }
         }
         
         .assumptions {
