@@ -194,13 +194,11 @@ export module contracts {
     }
 
     abstract class XPredicateBase implements XPredicate {
-        private _error: string;
+
         get error(): string {
-            return this._error;
+            return null;
         }
-        set error(err: string) {
-            this._error = err;
-        }
+
         get displayString(): string {
             throw "not implemented";
         }
@@ -240,18 +238,14 @@ export module contracts {
 
         set ref(ref: string) {
             this._ref = ref;
-            this.validate();
         }
 
 
-        public validate(): boolean {
+        get error(): string {
             if (!this.ref) {
-                this.error = "API reference is mandatory"
-                return false;
+                return "API reference is mandatory";
             }
-
-            this.error = null;
-            return true;
+            return null;
         }
 
         constructor(ref: string) {
@@ -315,7 +309,6 @@ export module contracts {
 
         set argument1(a1: XPredicate) {
             this._argument1 = a1;
-            this.validate();
         }
 
         get argument1() {
@@ -323,16 +316,15 @@ export module contracts {
         }
 
 
-        public validate(): boolean {
+        get error(): string {
             if (!this._argument1) {
-                this.error = "First term is mandatory";
-                return false;
+                return "First term is mandatory";
+
             } else if (this._argument1.error) {
-                this.error = this._argument1.error;
-                return false;
+                return this._argument1.error;
             }
-            this.error = null;
-            return true;
+
+            return null;
         }
 
 
@@ -363,30 +355,26 @@ export module contracts {
 
         set argument2(a2: XPredicate) {
             this._argument2 = a2;
-            this.validate();
         }
 
         get argument2() {
             return this._argument2;
         }
 
-        public validate(): boolean {
-            if (super.validate()) {
+        get error(): string {
+            if (!super.error) {
                 if (!this.argument2) {
-                    this.error = "Second term is mandatory";
-                    return false;
+                    return "Second term is mandatory";
                 } else if (this.argument2.error) {
-                    this.error = this.argument2.error;
-                    return false;
+                    return this.argument2.error;
                 }
 
                 if (this.argument2.constructor == this.argument1.constructor) {
-                    this.error = "Second term must be of a differend kind";
-                    return false;
+                    return "Second term must be of a differend kind";
                 }
             }
-            this.error = null;
-            return true;
+
+            return null;
         }
 
         get displayString(): string {
