@@ -29,13 +29,17 @@
 
         .nested-expression {
             margin: calc( var(--button-margin) + 8px);
-            margin-top: - var(--button-margin);
+            /* margin-top: - var(--button-margin); */
             /* border: 1px solid var(--nested-color); */
-            padding-top: var(--spacer);
+            padding: var(--spacer-2);
         }
 
         .btn-api-ref {
             text-transform: initial !important;
+        }
+
+        h4{
+            /* margin-left: var(--spacer-2); */
         }
     </style>
 
@@ -92,6 +96,11 @@
 
         Polymer({
             is: 'c-argument',
+
+            observers: [
+                'argsParamsChanged(arg.*)'
+            ],
+
             properties: {
                 arg: {
                     type: Object,
@@ -127,6 +136,10 @@
                     return "nested-expression-bg"
                 }
                 return "";
+            },
+
+            argsParamsChanged:function(event){
+                this.notifyPath("arg");
             },
 
             _getOperandDisplayName: function (kind) {
@@ -185,12 +198,23 @@
             color: var(--kt-grey);
             padding-left: var(--button-padding);
         }
+
+        .error{
+            color: var(--kt-red);
+            padding: var(--spacer);
+        }
     </style>
 
     <template>
 
+        <template is="dom-if" if="[[apply.error]]">
+             <div class="error">[[apply.error]]</div>
+        </template>
 
-[[apply.error]]
+        <small class="code">
+                [[apply.displayString]]
+            </small>
+            
         <div class="group">
 
 
@@ -208,7 +232,7 @@
                     <div class="verb">is</div>
                 </template>
 
-                <paper-menu-button class="flex" id="rel_btn" no-animations close-on-activate>
+                <paper-menu-button id="rel_btn" no-animations close-on-activate>
                     <paper-button raised slot="dropdown-trigger">[[apply.displayName]]</paper-button>
                     <paper-listbox slot="dropdown-content" selected="{{selectedRelation}}">
                         <template is="dom-repeat" items="[[relations]]">
@@ -224,10 +248,10 @@
                 <c-argument arg="{{apply.argument2}}" global-variables="[[globalVariables]]"></c-argument>
             </template>
 
+            
+
         </div>
-        <small class="code">
-            [[displayString]]
-        </small>
+       
 
 
 
@@ -269,16 +293,19 @@
                     observer: "_onSelectedRelation"
                 },
 
-                displayString: {
-                    type: String,
-                    notify: true,
-                    value: () => { this.apply ? this.apply.displayString : " ?? " }
-                }
+                // displayString: {
+                //     type: String,
+                //     notify: true,
+                //     value: () => { this.apply ? this.apply.displayString : " ?? " }
+                // }
             },
 
             formulaArgsChanged: function (a) {
-                if (this.apply)
-                    this.set("displayString", "" + this.apply.displayString);
+                // if (this.apply){
+                //     this.set("displayString", "" + this.apply.displayString);
+                // }
+                this.notifyPath("apply.displayString");                    
+                this.notifyPath("apply.error");
             },
 
             not: function (e) {

@@ -16,11 +16,11 @@ export module contracts {
 
     export const ARGUMENT_TYPES = ['ci', 'cn', 'field', 'return', 'apply'];
     export const ARGUMENT_TYPES_NAMES = {
-        'ci': 'api reference',
-        'cn': 'constant',
-        'field': 'field',
-        'return': 'return value',
-        'apply': 'addressed value'
+        'ci': 'API reference',
+        'cn': 'Constant',
+        'field': 'Field',
+        'return': 'Return value',
+        'apply': 'Addressed value'
     };
 
 
@@ -228,10 +228,30 @@ export module contracts {
     }
 
     export class XApiPredicate extends XPredicateBase implements XPredicate {
-        ref: string;
+        private _ref: string;
 
         public toXmlObj(): any {
             return this.ref;
+        }
+
+        get ref(): string {
+            return this._ref;
+        }
+
+        set ref(ref: string) {
+            this._ref = ref;
+            this.validate();
+        }
+
+
+        public validate(): boolean {
+            if (!this.ref) {
+                this.error = "API reference is mandatory"
+                return false;
+            }
+
+            this.error = null;
+            return true;
         }
 
         constructor(ref: string) {
@@ -289,10 +309,6 @@ export module contracts {
 
         constructor(op: string, argument1: XPredicate) {
             super();
-            if (!argument1) {
-                throw "wrong argument 2";
-            }
-
             this.op = op;
             this.argument1 = argument1;
         }
@@ -310,7 +326,12 @@ export module contracts {
         public validate(): boolean {
             if (!this._argument1) {
                 this.error = "First term is mandatory";
+                return false;
+            } else if (this._argument1.error) {
+                this.error = this._argument1.error;
+                return false;
             }
+            this.error = null;
             return true;
         }
 
@@ -351,16 +372,20 @@ export module contracts {
 
         public validate(): boolean {
             if (super.validate()) {
-                if (!this._argument2) {
+                if (!this.argument2) {
                     this.error = "Second term is mandatory";
+                    return false;
+                } else if (this.argument2.error) {
+                    this.error = this.argument2.error;
                     return false;
                 }
 
                 if (this.argument2.constructor == this.argument1.constructor) {
-                    this.error = "Second term must be of differend kind";
+                    this.error = "Second term must be of a differend kind";
                     return false;
                 }
             }
+            this.error = null;
             return true;
         }
 
