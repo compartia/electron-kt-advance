@@ -7,9 +7,18 @@
 
 		<global-variables>
 			<gvar name="currentPidProfile" />
+			<gvar name="currentPidProfile2" />
 		</global-variables>
 
 		<functions>
+			<function name="sbufAdvance">
+				<parameters>
+					<par name="buf" nr="1" />
+					<par name="size" nr="2" />
+				</parameters>
+				<postconditions />
+			</function>
+
 			<function name="getMotorCount">
 				<parameters />
 				

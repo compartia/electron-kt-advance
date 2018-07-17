@@ -4,7 +4,7 @@ const assert = require('assert');
 import { suite, test } from "mocha-typescript";
 import './contracts';
 import { contracts } from './contracts';
-import { CFileContractXml } from './xml';
+import { CFileContractXml, toXml } from './xml';
 
 Error.stackTraceLimit = 30;
 
@@ -14,7 +14,7 @@ Error.stackTraceLimit = 30;
 
     @test testReadContract() {
 
-        const contract: contracts.CFileContract = new CFileContractXml(this.testDir);
+        const contract: contracts.CFileContract =  CFileContractXml.fromXml(this.testDir);
         // contract.fromXml(this.testDir);
 
         assert.equal(contract.functions.length, 19, "number of functions must be 19, was " + contract.functions.length);
@@ -40,12 +40,16 @@ Error.stackTraceLimit = 30;
 
     @test testReadContract2() {
 
-        const contract: contracts.CFileContract = new CFileContractXml(this.testDir2);
+        const contract: contracts.CFileContract =   CFileContractXml.fromXml(this.testDir2);
+        this.validateContract(contract);
+        
+    }
 
-        assert.equal(contract.functions.length, 1, "number of functions must be 1, was " + contract.functions.length);
+    private validateContract(contract: contracts.CFileContract){
+        assert.equal(contract.functions.length, 2, "number of functions must be 2, was " + contract.functions.length);
 
 
-        assert.equal(contract.globalVariables.length, 1);
+        assert.equal(contract.globalVariables.length, 2);
         assert.equal(contract.globalVariables[0].name, 'currentPidProfile');
         for (const fn of contract.functions) {
 
@@ -53,12 +57,25 @@ Error.stackTraceLimit = 30;
             assert(fn.name, "function name is not Ok:" + fn);
 
             if (fn.name === "getMotorCount") {
-                assert.equal(fn.parameters.length, 0, "number of params must be 3");
+                assert.equal(fn.parameters.length, 0, "number of params must be 0");
                 assert.equal(fn.postconditions.length, 2);
-
-
+                assert.equal(fn.preconditions.length, 1);
             }
+
+           
         }
+    }
+
+    @test 
+    testWriteContract() {
+
+        let contract: contracts.CFileContract =   CFileContractXml.fromXml (this.testDir2);    
+        let xmlStr = toXml(contract);
+
+        const contractRestored: contracts.CFileContract =   CFileContractXml.fromXmlStr (xmlStr);
+        this.validateContract(contractRestored);
+        // console.log(xmlStr);
+    
     }
 }
 
