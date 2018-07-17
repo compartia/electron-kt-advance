@@ -15,6 +15,7 @@ import { getJarName, JavaEnv, resolveJava } from './javaenv';
 import { XmlReader } from './xmlreader';
 import { CFileContractXml } from "../contracts/xml";
 import { FileSystem, CONTRACTS_DIR } from "../common/filesystem";
+import { runAsyncTask, runTask } from "../tf_graph_common/lib/util";
 
 
 
@@ -721,20 +722,20 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
     public readDir(projectFs: FileSystem, _tracker: ProgressTracker): Promise<CAnalysis> {
 
         let readingXmlTracker: ProgressTracker = _tracker.getSubtaskTracker(70, "reading XML data");
+
         let readingJsonTracker: ProgressTracker = _tracker.getSubtaskTracker(20, "reading JSON data");
+
         let readingContractsTracker: ProgressTracker = _tracker.getSubtaskTracker(10, "reading Contracts XMLs");
 
         this.fs = projectFs;
         return resolveJava()
             .then(env => runJavaJar(env, projectFs, readingXmlTracker))
-            .then(jsonfiles => {
-
-                console.log("XML 2 JSON completed; " + jsonfiles[0]);
-                this.cAnalysisResult = this.readJsonFiles(jsonfiles, readingJsonTracker);
-                return this.cAnalysisResult;
-            })
+            .then(jsonfiles =>
+                runTask("reading JSON data", 0, () => this.readJsonFiles(jsonfiles, readingJsonTracker), _tracker)
+            )
             .then(cAnalysisResult => {
-                let cc = this.readContractsXmls(projectFs, readingContractsTracker);
+                let cc = runTask("reading Contracts XMLs", 0, () => this.readContractsXmls(projectFs, readingContractsTracker), _tracker);
+                // let cc = this.readContractsXmls(projectFs, readingContractsTracker);
                 cAnalysisResult.contracts = cc;
                 return cAnalysisResult;
             });
@@ -764,7 +765,7 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
             if (xmldir.endsWith(cdir)) {
                 appDir = xmldir.substr(0, xmldir.indexOf(cdir))
             }
-             
+
 
             cc.addContract(c);
 
@@ -779,43 +780,49 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
     }
 
     private readJsonFiles(files: string[], tracker: ProgressTracker): CAnalysisImpl {
+
         const inc = 100 / files.length;
         this.cAnalysisResult = new CAnalysisImpl();
         files.forEach(file => {
-            tracker.setMessage("reading " + file);
-            console.info("reading" + file);
-            try {
-                const json = <json.JAnalysis>JSON.parse(fs.readFileSync(file).toString());
-                const jsonParsingTracker: ProgressTracker = tracker.getSubtaskTracker(inc, "parsing JSON data");
-
-                this.mergeJsonData(json, jsonParsingTracker);
-            }
-            catch (e) {
-                console.error("cannot parse " + file, e);
-                console.error("try removing it and re-opening project");
-            }
-
-            tracker.updateProgress(100);
-
+            const jsonParsingTracker: ProgressTracker = tracker.getSubtaskTracker(inc, "parsing JSON data");
+            this.readJsonFile(file, jsonParsingTracker);
         });
 
         return this.cAnalysisResult;
     }
 
-    private mergeJsonData(data: json.JAnalysis, tracker: ProgressTracker): void {
-        const trackerInc = 100 / data.apps.length;
+
+    private readJsonFile(file: string, tracker: ProgressTracker): CAnalysisImpl {
+
+        try {
+            const contents = runTask("reading " + file, 5, () => fs.readFileSync(file).toString(), tracker);
+            const json = runTask("parsing " + file, 15, () => <json.JAnalysis>JSON.parse(contents), tracker);
+            runTask("processing " + file, 80, () => this.mergeJsonData(json), tracker);
+
+        }
+        catch (e) {
+            console.error("cannot parse " + file, e);
+            console.error("try removing it and re-opening project");
+        }
+
+        return this.cAnalysisResult;
+    }
+
+    private mergeJsonData(data: json.JAnalysis): void {
+
 
         data.apps.forEach(app => {
             console.log("source dir:" + app.sourceDir);
             //tracker.updateProgress(trackerInc);
             const fileTrackerInc = 100 / app.files.length;
-            const subTracker: ProgressTracker = tracker.getSubtaskTracker(trackerInc, "parsing data " + app.sourceDir);
 
             app.files.forEach(file => {
 
+
+
                 const cfunctions = this.toCFuncArray(file.functions, file, app);
 
-                subTracker.setMessage("parsing C-functions");
+
                 cfunctions.forEach(cfun => {
                     /*
                      * make function by file map
@@ -841,7 +848,7 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
                 /*
                  * binding assumptions 
                  */
-                subTracker.setMessage("binding assumptions");
+
                 this.cAnalysisResult.assumptions.forEach(
                     assumption => {
                         assumption.ppos.forEach(ppo => tools.pushUnique(ppo.assumptionsIn, assumption));
@@ -849,7 +856,7 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
                     }
                 );
 
-                subTracker.updateProgress(fileTrackerInc);
+
 
             });
         });
@@ -936,18 +943,16 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
 }
 
 
-export function runJavaJar(javaEnv: JavaEnv, projectFs: FileSystem, tracker: ProgressTracker): Promise<string[]> {
+function runJavaJar(javaEnv: JavaEnv, projectFs: FileSystem, tracker: ProgressTracker): Promise<string[]> {
 
     return new Promise((resolve, reject) => {
 
         let jsonfiles: string[] = projectFs.listFilesRecursively(".kt.analysis.json");
 
         if (jsonfiles.length > 0) {
-
-            tracker.setMessage("skipping parsing XML, because json files exist");
             tracker.updateProgress(100);
+            tracker.setMessage("skipping parsing XML, because json files exist");
             resolve(jsonfiles);
-
 
         } else {
             tracker.setMessage("parsing XML files");
@@ -971,7 +976,6 @@ export function runJavaJar(javaEnv: JavaEnv, projectFs: FileSystem, tracker: Pro
             process.on("exit", (code, signal) => {
                 console.log("KT to JSON done, code:", code, signal);
                 if (code == 0) {
-                    tracker.updateProgress(50);
                     resolve(projectFs.listFilesRecursively(".kt.analysis.json"));
                 } else {
                     reject("XML parser exit code is " + code + " signal: " + signal);

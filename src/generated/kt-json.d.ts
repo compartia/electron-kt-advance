@@ -1,4 +1,4 @@
-// Generated using typescript-generator version 2.0.400 on 2018-07-17 23:33:16.
+// Generated using typescript-generator version 2.0.400 on 2018-07-18 00:08:43.
 
 export interface JAnalysis extends Jsonable {
     apps: JApp[];
