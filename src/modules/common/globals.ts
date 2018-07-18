@@ -7,17 +7,18 @@ import { Stats } from '../stats/stats';
 import * as tf from '../tf_graph_common/lib/common';
 import { NodeDef } from '../tf_graph_common/lib/proto';
 import { Filter } from './filter';
-import * as kt_fs from './fstools';
 import { CONF, loadProjectMayBe } from './storage';
 import { AbstractNode, CAnalysis, CApiAssumption, CFunction, Callee, PoStates, ProofObligation, RenderInfo, sortPoNodes } from './xmltypes';
 import { contracts as Contracts } from "../contracts/contracts";
 
 
 
-import * as path from 'path';
 import * as fs from 'fs';
-// const path = require('path');
-// const fs = require('fs');
+import * as path from 'path';
+import { FileSystem } from "./filesystem";
+import { FileContents } from "./source";
+import { runAsyncPromiseTask } from "../tf_graph_common/lib/util";
+
 const dialog = require('electron').remote.dialog;
 
 
@@ -37,9 +38,7 @@ export class JsonReadyProject {
     baseDir: string;
     stats: Stats;
 }
-export interface CProjectProto {
-    baseDir: string;
-}
+
 
 
 export interface ContractsController {
@@ -49,7 +48,7 @@ export interface ContractsController {
 export interface CProject {
     id: number;
     functionByFile: { [key: string]: Array<CFunction> };
-    baseDir: string;
+    fs: FileSystem;
     stats: Stats;
     filteredAssumptions: Array<CApiAssumption>;
     assumptions: Array<CApiAssumption>;
@@ -67,8 +66,8 @@ export interface CProject {
 export class ProjectImpl implements CProject, ContractsController {
 
     functionByFile: { [key: string]: Array<CFunction> } = {};
-    baseDir: string;
-    appPath: string;
+    fs: FileSystem;
+
     stats: Stats;
     contracts: Contracts.ContractsCollection;
     filteredContracts: Array<Contracts.CFileContract>;
@@ -92,7 +91,7 @@ export class ProjectImpl implements CProject, ContractsController {
     }
 
     public saveContract(c: Contracts.CFileContract, callbackfn: Function) {
-        const dirToSave = path.join(this.contracts.baseDir, c.name + "_c.xml");
+        const dirToSave = path.join(this.fs.contractsDir, c.name + "_c.xml");
         const data = XmlWriter.toXml(c);
         console.log(data);
         console.log(`saving contract to ${dirToSave}`);
@@ -161,13 +160,9 @@ export class ProjectImpl implements CProject, ContractsController {
     }
 
 
-    constructor(baseDir: string, appPath: string) {
-        if (!baseDir) throw "baseDir is required";
-        if (!appPath) throw "appPath is required";
-
-        this.appPath = appPath;
-        this.baseDir = path.normalize(baseDir);
-        this.open(this.baseDir);
+    constructor(fs: FileSystem) {
+        if (!fs) throw "param is required";
+        this.open(fs);
     }
 
     public buildGraph(filter: Filter): NodeDef[] {
@@ -193,7 +188,8 @@ export class ProjectImpl implements CProject, ContractsController {
         /**
          * loading old stats
          */
-        const previouslySavedData: JsonReadyProject = loadProjectMayBe(this.baseDir);
+        const previouslySavedData: JsonReadyProject = loadProjectMayBe(this.fs);
+
         if (previouslySavedData) {
             this.oldstats = previouslySavedData.stats;
             if (this.oldstats) {
@@ -201,12 +197,10 @@ export class ProjectImpl implements CProject, ContractsController {
             }
         }
 
-        const pCAnalysis: Promise<CAnalysis> = this.reader.readDir(
-            project.baseDir,
-            this.appPath,
-            tracker
-        );
-
+    
+        const pCAnalysis: Promise<CAnalysis> = runAsyncPromiseTask("reading", 0,
+            () => this.reader.readDir(project.fs, tracker),
+            tracker);
 
         return pCAnalysis.then(mCAnalysis => {
 
@@ -237,7 +231,7 @@ export class ProjectImpl implements CProject, ContractsController {
 
     public toJsonReadyProject(): JsonReadyProject {
         const ret = new JsonReadyProject();
-        ret.baseDir = this.baseDir;
+        ret.baseDir = this.fs.baseDir;
         ret.stats = this.stats;
         return ret;
     }
@@ -271,8 +265,8 @@ export class ProjectImpl implements CProject, ContractsController {
     }
 
 
-    public loadFile(relativePath: string): Promise<kt_fs.FileContents> {
-        return kt_fs.loadFile(this.baseDir, relativePath);
+    public loadFile(relativePath: string): Promise<FileContents> {
+        return this.fs.loadFile(relativePath);
     }
 
 
@@ -338,11 +332,11 @@ export class ProjectImpl implements CProject, ContractsController {
         return this._filteredAssumptions;
     }
 
-    public open(baseDir: string): void {
-        this.baseDir = baseDir;
+    public open(fs: FileSystem): void {
+        this.fs = fs;
         this._filteredProofObligations = null;
 
-        CONF.addRecentProject(path.basename(baseDir), baseDir);
+        CONF.addRecentProject(fs.projectName, fs.baseDir);
         //XXX: reset all data
     }
 
@@ -379,7 +373,8 @@ function selectDirectory(): any {
     return dir;
 }
 
-export function openNewProject(tracker: tf.ProgressTracker): CProjectProto {
+
+export function openNewProject(tracker: tf.ProgressTracker): any {
     console.log("openNewProject");
     let dir: string = selectDirectory();
     if (dir && dir.length > 0) {

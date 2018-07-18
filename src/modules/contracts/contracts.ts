@@ -65,6 +65,14 @@ export module contracts {
         postconditions: contracts.Math[] = [];
         preconditions: contracts.Math[] = [];
 
+        get preconditionsCount(){
+            return this.preconditions.length;
+        }
+
+        get postconditionsCount(){
+            return this.postconditions.length;
+        }
+
         get hasContracts(): boolean {
             return (this.postconditions && this.postconditions.length > 0) || (this.preconditions && this.preconditions.length > 0);
         }
@@ -119,6 +127,8 @@ export module contracts {
         hasContracts: boolean;
 
         save(xmlPath?: string);
+
+        
     }
 
 
@@ -127,10 +137,27 @@ export module contracts {
 
 
     export class CFileContractImpl implements CFileContract {
-        functions: CFunctionContract[];
+        functions: CFunctionContract[]=[];
         name: string;
         dataStructures: any[];
         globalVariables: GVar[];
+
+
+        get preconditionsCount(){
+            let cnt=0;
+            for(let func of this.functions){
+                cnt+=func.preconditionsCount;
+            }
+            return cnt;
+        }
+
+        get postconditionsCount(){
+            let cnt=0;
+            for(let func of this.functions){
+                cnt+=func.postconditionsCount;
+            }
+            return cnt;
+        }
 
         get globalVariablesNames(): string[] {
             return this.globalVariables.map(x => x.name);
@@ -370,7 +397,7 @@ export module contracts {
                 }
 
                 if (this.argument2.constructor == this.argument1.constructor) {
-                    return "Second term must be of a differend kind";
+                    return "Second term must be of a different kind";
                 }
             }
 

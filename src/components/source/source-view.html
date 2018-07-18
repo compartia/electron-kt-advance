@@ -18,7 +18,7 @@
                     <template>
                         <div class$="code-line-wrapper [[_getRowClass(_loadedFile, index, statistics, selected)]]">
                             
-                            <template is="dom-if" if="[[hasContracts(item)]]">
+                            <template is="dom-if" if="[[hasContracts(item)]]">                                
                                 <inline-function-contracts func="[[item]]"></inline-function-contracts>
                             </template>
 

@@ -1,19 +1,19 @@
+import * as fs from 'fs';
+import * as path from 'path';
 import { FileInfo } from "../common/xmltypes";
 
-const path = require('path');
-const fs = require('fs');
 
 export function splitPath(filePath: string): string[] {
     return filePath.split(path.sep);
 }
 
 
-export function build(container, baseDir: string): void {
-    let root = tree(baseDir);
+export function build(container, dir: string): void {
+    let root = tree(dir);
     container.data = root;
 }
 
-
+ 
 export function tree(dir) {
     console.info("iterating  " + dir);
     let tree: FileInfo = {

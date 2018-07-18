@@ -8,11 +8,12 @@
         }
  
         .filecontracts{
-
+            margin-top: 30px;
         }
 
         .filecontracts .po-wrapper.selected{
             background-color: var(--selection-md-bg);
+           
         }
 
         .btn-save{
@@ -31,15 +32,19 @@
 
         <vaadin-split-layout id="verticalContractsSplitter" class$="splitter-3 [[getSplitterClass(selectedItem)]]">
 
-            <iron-list id="filecontracts" class="filecontracts" items="[[contracts]]" as="file" selection-enabled selected-item="{{selectedItem}}">
+            <iron-list 
+                id="filecontracts" 
+                class="filecontracts" items="[[contracts]]" as="file" selection-enabled selected-item="{{selectedItem}}">
                 <template>
                     <div class$="po-wrapper file-contract-line [[_rowClass(selected)]]">
                         <div class="row">
-                            <div class="mid">
+                            <div class="mid code">
                                 [[file.name]]
                             </div>
                             <div class="right">
-                                <span class="tag">[[file.functions.length]]</span>
+                                <!-- <span class="tag"  title="number of preconditions>[[file.functions.length]]</span> -->
+                                <span class="tag tag-in" title="number of preconditions">[[file.preconditionsCount]]</span>
+                                <span class="tag tag-out" title="number of postconditions">[[file.postconditionsCount]]</span>
                             </div>
                         </div>
 
@@ -58,7 +63,10 @@
             </iron-list>
 
             <div id="right-panel" class="side">
-                <contract-info contract="[[_selectedFunc]]" global-variables="[[selectedItem.globalVariables]]"></contract-info>
+                <contract-info 
+                    file="[[selectedItem]]"
+                    contract="[[_selectedFunc]]" 
+                    global-variables="[[selectedItem.globalVariables]]"></contract-info>
                 <div class="control-panel separated-top">
                     <paper-button class="btn-save" raised on-tap="saveContracts">save</paper-button>
                 </div>        

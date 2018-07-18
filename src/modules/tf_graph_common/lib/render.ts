@@ -16,7 +16,10 @@ limitations under the License.
  * Package for the Render Hierarchy for TensorFlow graph.
  */
 
-import { BridgeNode, EllipsisNode, EllipsisNodeImpl, GraphType, GroupNode, InclusionType, Metaedge, Metanode, Node, NodeType, OpNode, createGraph, getHierarchicalPath } from './graph';
+import { BridgeNode, EllipsisNode, EllipsisNodeImpl, 
+  GraphType, GroupNode, InclusionType, Metaedge, Metanode, 
+  Node, NodeType, OpNode, createGraph, getHierarchicalPath } from './graph';
+  
 import * as hierarchy from './hierarchy';
 import * as edge from './scene/edge';
 import * as util from './util';

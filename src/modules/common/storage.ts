@@ -4,12 +4,13 @@ const fs = require('fs');
 
 import { KT_VERSION } from '../../version';
 import { JsonReadyProject } from './globals';
+import { FileSystem } from './filesystem';
 
-export function loadProjectMayBe(baseDir: string): JsonReadyProject {
-    const projectPath = path.join(baseDir, '.kt-gui.json');
+export function loadProjectMayBe(projectFs: FileSystem): JsonReadyProject {
+
     try {
-        console.log("reading " + projectPath);
-        const prjson = <JsonReadyProject>JSON.parse(fs.readFileSync(projectPath));
+        console.log("reading " + projectFs.guiJson);
+        const prjson = <JsonReadyProject>JSON.parse(fs.readFileSync(projectFs.guiJson));
         console.log("OK");
         return prjson;
     } catch (error) {
