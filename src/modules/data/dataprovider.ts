@@ -948,7 +948,10 @@ function runJavaJar(javaEnv: JavaEnv, projectFs: FileSystem, tracker: ProgressTr
 
     return new Promise((resolve, reject) => {
 
-        let jsonfiles: string[] = projectFs.listFilesRecursively(".kt.analysis.json");
+        let targetfiles: string[] = projectFs.listFilesRecursively("target_files.xml");
+        console.log(targetfiles);
+
+        let jsonfiles: string[] =[];//projectFs.listFilesRecursively(".kt.analysis.json");//XXX
 
         if (jsonfiles.length > 0) {
             tracker.updateProgress(100);

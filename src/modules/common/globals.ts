@@ -197,11 +197,7 @@ export class ProjectImpl implements CProject, ContractsController {
             }
         }
 
-        // const pCAnalysis: Promise<CAnalysis> = this.reader.readDir(
-        //     project.fs,
-        //     tracker
-        // );
-
+    
         const pCAnalysis: Promise<CAnalysis> = runAsyncPromiseTask("reading", 0,
             () => this.reader.readDir(project.fs, tracker),
             tracker);
