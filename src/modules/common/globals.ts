@@ -160,7 +160,7 @@ export class ProjectImpl implements CProject, ContractsController {
     }
 
 
-    constructor(fs: FileSystem, appPath: string) {
+    constructor(fs: FileSystem) {
         if (!fs) throw "param is required";
         this.open(fs);
     }
