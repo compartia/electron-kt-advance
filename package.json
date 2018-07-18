@@ -83,7 +83,7 @@
       "**/*.jar"
     ],
     "files": [
-      "java/kt-advance-xml-2.3-jar-with-dependencies.jar",
+      "java/*.jar",
       "app/**/*",
       "node_modules/**/*",
       "package.json"
