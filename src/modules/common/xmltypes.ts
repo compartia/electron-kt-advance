@@ -32,7 +32,7 @@ export interface CommonNodeAttributes extends NodeAttributes {
 }
 
 export interface CallsiteNodeAttributes extends CommonNodeAttributes {
-    data: Site | JVarInfo;
+    data: Site | JVarInfo | Callee;
 }
 
 export interface AssumptionNodeAttributes extends CommonNodeAttributes {
@@ -164,13 +164,21 @@ export interface Callsite extends Site {
     isGlobal(): boolean;
 }
 
+export interface CFile {
+    app: CApp;
+    /**
+     * project-relative filepath
+     */
+    file: string;
+    absFile: string;
+}
 /**
  * @deprecated
  * create location info, merge it with ile info
  */
 export interface POLocation {
     line: number;
-    file: string;
+    cfile: CFile;
 }
 
 
@@ -217,14 +225,23 @@ export interface SecondaryProofObligation extends ProofObligation {
     callsite: Site;
 }
 
-export interface CApp   {
+export interface CApp {
+    /**
+     * abs path
+     */
     sourceDir: string;
+    /*
+    typically it is "semantics/sourcefiles"
+    */
+    sourceBaseRelative: string;
+
+    getCFile(name: string): CFile;
 }
 
 export interface CAnalysis {
     proofObligations: Array<ProofObligation>;
     apps: Array<CApp>;
- 
+
     functionByFile: { [key: string]: Array<CFunction> };
     assumptions: Array<CApiAssumption>
     contracts: contracts.ContractsCollection;

@@ -6,16 +6,70 @@ import * as fs from 'fs';
 import { JLocation } from '../../generated/kt-json';
 import { FileContents, parseSourceFile } from './source';
 import * as fstools from './fstools';
-import { CApp } from './xmltypes';
- 
+import { CApp, CFile } from './xmltypes';
+
 
 export const SEMANTICS_DIR = "semantics";
 export const CONTRACTS_DIR = "ktacontracts";
 
 
+class CFileImpl implements CFile {
+    app: CApp;
+    private name: string
+    constructor(capp: CApp, name: string) {
+        this.app = capp;
+        this.name = name;
+    }
+
+    get file(): string {
+        return path.normalize(path.join(this.app.sourceBaseRelative, this.name));
+    }
+    get absFile(): string {
+        return path.join(this.app.sourceDir, this.name);
+    }
+}
+
+class CAppImpl implements CApp {
+    private files = {};
+    /**
+    * abs path
+    */
+    sourceDir: string;
+    /*
+    typically it is "semantics/sourcefiles"
+    */
+    sourceBaseRelative: string;
+
+    constructor(sourceDir: string, sourceBaseRelative: string) {
+        this.sourceBaseRelative = sourceBaseRelative;
+        this.sourceDir = sourceDir;
+    }
+
+    getCFile(name: string): CFile {
+        let file = this.files[name];
+        if (!file) {
+            file = new CFileImpl(this, name);
+            this.files[name] = file;
+        }
+        return file;
+    }
+}
+
+
+
 export class FileSystem {
 
-    
+    private apps = {};
+
+    public getCApp(absSourceDir): CApp {
+        let app = this.apps[absSourceDir];
+        if (!app) {
+            app = new CAppImpl(absSourceDir, path.relative(this.baseDir, absSourceDir));
+            this.apps[absSourceDir] = app;
+        }
+        return app;
+    }
+
     private _baseDir: string;
     // sources: string;
     contractsDir: string;
@@ -26,6 +80,19 @@ export class FileSystem {
         /** application installation path */
         this.appPath = appPath;;
     }
+
+
+    // /** a project may have many source directories (like Kendra). Each considered as an app */
+    // public getAppDir(file) {
+
+    //     const xmldir = path.dirname(file);
+    //     let appDir = xmldir; d
+    //     const cdir = path.dirname(c.name);
+    //     if (xmldir.endsWith(cdir)) {
+    //         appDir = xmldir.substr(0, xmldir.indexOf(cdir))
+    //     }
+
+    // }
 
     get baseDir() {
         return this._baseDir;
@@ -39,7 +106,7 @@ export class FileSystem {
         return path.join(this.baseDir, '.kt-gui.json');
     }
 
-    public normalizeSourcePath(app:CApp, loc: JLocation): string {
+    public normalizeSourcePath(app: CApp, loc: JLocation): string {
         //todo: xxx: this is called too often for large projects
 
         /*
@@ -58,15 +125,15 @@ export class FileSystem {
         return path.normalize(path.join(sourceBaseRelative, "_unknown_"));
     }
 
-    public listFilesRecursively(  suffixFilter: string): Array<string> {
-        return fstools.listFilesRecursively(this.baseDir, suffixFilter);        
+    public listFilesRecursively(suffixFilter: string): Array<string> {
+        return fstools.listFilesRecursively(this.baseDir, suffixFilter);
     }
 
     public loadFile(relativePath: string): Promise<FileContents> {
 
         let filename = path.join(this.baseDir, relativePath);
         console.info("reading " + filename);
-    
+
         return new Promise((resolve, reject) => {
             fs.readFile(filename, 'utf8', (err, data: string) => {
                 if (err) {

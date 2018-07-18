@@ -6,7 +6,7 @@ import { Filter } from '../common/filter';
 import * as kt_fs from '../common/fstools';
 import { GraphSettings } from '../common/globals';
 import * as tools from '../common/tools';
-import { AssumptionNodeAttributes, Callee, Callsite, CallsiteNodeAttributes, CAnalysis, CApi, CApiAssumption, CFunction, CFunctionBase, Graphable, HasPath, PODischarge, POLocation, PONodeAttributes, PoStates, ProofObligation, RenderInfo, Returnsite, SecondaryProofObligation, Site, Symbol, CApp } from '../common/xmltypes';
+import { AssumptionNodeAttributes, Callee, Callsite, CallsiteNodeAttributes, CAnalysis, CApi, CApiAssumption, CFunction, CFunctionBase, Graphable, HasPath, PODischarge, POLocation, PONodeAttributes, PoStates, ProofObligation, RenderInfo, Returnsite, SecondaryProofObligation, Site, Symbol, CApp, CFile } from '../common/xmltypes';
 import { contracts } from "../contracts/contracts";
 
 import { ProgressTracker } from '../tf_graph_common/lib/common';
@@ -26,6 +26,8 @@ abstract class AbstractLocatable implements HasPath {
     abstract relativePath: string;
 }
 
+
+
 class CApiImpl implements CApi {
     private _apiAssumptions: CApiAssumption[] = [];
 
@@ -38,32 +40,34 @@ class CApiImpl implements CApi {
     }
 }
 
+
+
 class CFunctionImpl extends AbstractLocatable implements CFunction {
     name: string;
     loc: POLocation;
     line: number;
     callsites: Callsite[] = [];
-    relativePath: string;
+
     private _api = new CApiImpl();
 
     get fullpath() {
         return this.file + "/" + this.name;
     }
 
-    public constructor(jfun: json.JFunc, relativeFilePath: string) {
+    get relativePath() {
+        return this.loc.cfile.file;
+    }
+
+    public constructor(jfun: json.JFunc, cfile: CFile) {
         super();
         this.name = jfun.name;
         this.line = jfun.loc.line;
-        this.relativePath = relativeFilePath;
-
 
 
         this.loc = {
             line: this.line,
-            file: relativeFilePath,
+            cfile: cfile,
         };
-
-
     }
 
     get file() {
@@ -328,7 +332,7 @@ abstract class AbstractPO extends AbstractLocatable implements ProofObligation {
     cfunction: CFunction;
 
     get file() {
-        return this.location.file;
+        return this.location.cfile.file;
     }
 
     get line(): number {
@@ -340,7 +344,7 @@ abstract class AbstractPO extends AbstractLocatable implements ProofObligation {
     }
 
     get relativePath(): string {
-        return this.location.file;
+        return this.location.cfile.file;
     }
 
 
@@ -452,7 +456,7 @@ class PPOImpl extends AbstractPO {
 
         this.location = {
             line: ppo.line,
-            file: cfun.file
+            cfile: cfun.loc.cfile
         }
     }
 
@@ -495,6 +499,8 @@ abstract class AbstractSiteImpl extends AbstractLocatable implements Site, Graph
     spos: SecondaryProofObligation[] = [];
     abstract name: string;
 
+    loc: POLocation;
+
     public abstract toNodeDef(filter: Filter, settings: GraphSettings): NodeDef;
     public abstract getGraphKey(filter: Filter, settings: GraphSettings): string;
 
@@ -503,15 +509,18 @@ abstract class AbstractSiteImpl extends AbstractLocatable implements Site, Graph
         return this._jcallsite.loc.file;
     }
 
-    public constructor(jcallsite: json.JCallsite) {
+    public constructor(jcallsite: json.JCallsite, cfile: CFile) {
         super();
         this._jcallsite = jcallsite;
+        this.loc = {
+            line: jcallsite.loc.line,
+            cfile: cfile
+        }
     }
 
 
-
-    get location() {
-        return this._jcallsite.loc;
+    get location(): POLocation {
+        return this.loc;
     }
 
     get line(): number {
@@ -530,7 +539,8 @@ abstract class AbstractSiteImpl extends AbstractLocatable implements Site, Graph
 
 export class CalleeImpl extends AbstractLocatable implements Callee, CFunctionBase {
     renderInfo: RenderInfo;
-    relativePath: string;
+    type: string;
+    loc: POLocation;
 
     get name(): string {
         return this.varinfo.name;
@@ -540,15 +550,17 @@ export class CalleeImpl extends AbstractLocatable implements Callee, CFunctionBa
         return this.name;
     }
 
-    type: string;
-    loc: POLocation;
 
     get line(): number {
         return this.varinfo.loc ? this.varinfo.loc.line : 0;
     }
 
     get file() {
-        return this.relativePath;
+        return this.loc.cfile.file;
+    }
+
+    get relativePath() {
+        return this.loc.cfile.file;
     }
 
     get arguments() {
@@ -557,19 +569,16 @@ export class CalleeImpl extends AbstractLocatable implements Callee, CFunctionBa
 
     private varinfo: json.JVarInfo;
 
-    public constructor(varinfo: json.JVarInfo, relativeFilePath: string, type: string) {
+    public constructor(varinfo: json.JVarInfo, cfile: CFile, type: string) {
         super();
         this.varinfo = varinfo;
         this.type = type;
-        this.relativePath = relativeFilePath;
 
 
         this.loc = {
             line: varinfo.loc ? varinfo.loc.line : 0,
-            file: relativeFilePath
+            cfile: cfile
         }
-
-
     }
 
 
@@ -629,9 +638,8 @@ export class CallsiteImpl extends AbstractSiteImpl implements Callsite, Graphabl
     }
 
 
-    public constructor(jcallsite: json.JCallsite, callee: Callee) {
-        super(jcallsite);
-
+    public constructor(jcallsite: json.JCallsite, callee: Callee, cfile: CFile) {
+        super(jcallsite, cfile);
 
         this.callee = callee;
     }
@@ -698,8 +706,8 @@ export class CallsiteImpl extends AbstractSiteImpl implements Callsite, Graphabl
 
 }
 export class ReturnsiteImpl extends AbstractSiteImpl implements Returnsite, Graphable {
-    public constructor(jcallsite: json.JCallsite) {
-        super(jcallsite);
+    public constructor(jcallsite: json.JCallsite, cfile: CFile) {
+        super(jcallsite, cfile);
     }
     public toNodeDef(filter: Filter, settings: GraphSettings): NodeDef {
         console.error("x");
@@ -731,7 +739,7 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
         return resolveJava()
             .then(env => runJavaJar(env, projectFs, readingXmlTracker))
             .then(jsonfiles =>
-                runAsyncTask("reading JSON data", 0, () => this.readJsonFiles(jsonfiles, readingJsonTracker), _tracker)
+                runAsyncTask("reading JSON data", 0, () => this.readJsonFiles(jsonfiles, projectFs, readingJsonTracker), _tracker)
             )
             .then(cAnalysisResult => {
                 let cc = runTask("reading Contracts XMLs", 0, () => this.readContractsXmls(projectFs, readingContractsTracker), _tracker);
@@ -779,26 +787,26 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
         return cc;
     }
 
-    private readJsonFiles(files: string[], tracker: ProgressTracker): CAnalysisImpl {
+    private readJsonFiles(files: string[], projectFs: FileSystem, tracker: ProgressTracker): CAnalysisImpl {
 
         const inc = 100 / files.length;
         this.cAnalysisResult = new CAnalysisImpl();
         files.forEach(file => {
             const jsonParsingTracker: ProgressTracker = tracker.getSubtaskTracker(inc, "parsing JSON data");
-            this.readJsonFile(file, jsonParsingTracker);
+            this.readJsonFile(file, projectFs, jsonParsingTracker);
         });
 
         return this.cAnalysisResult;
     }
 
 
-    private readJsonFile(file: string, tracker: ProgressTracker): CAnalysisImpl {
+    private readJsonFile(file: string, projectFs: FileSystem, tracker: ProgressTracker): CAnalysisImpl {
 
         try {
             const contents = runTask("reading " + file, 5, () => fs.readFileSync(file).toString(), tracker);
             const json = runTask("parsing " + file, 15, () => <json.JAnalysis>JSON.parse(contents), tracker);
             let subtracker = tracker.getSubtaskTracker(80, "processing");
-            runTask("processing " + file, 0, () => this.mergeJsonData(json, subtracker), tracker);
+            runTask("processing " + file, 0, () => this.mergeJsonData(json, projectFs, subtracker), tracker);
 
         }
         catch (e) {
@@ -809,19 +817,25 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
         return this.cAnalysisResult;
     }
 
-    private mergeJsonData(data: json.JAnalysis, tracker: ProgressTracker): void {
+    private mergeJsonData(data: json.JAnalysis, projectFs: FileSystem, tracker: ProgressTracker): void {
 
 
         data.apps.forEach(app => {
             console.log("source dir:" + app.sourceDir);
+
+            let capp: CApp = projectFs.getCApp(app.sourceDir);
+
             //tracker.updateProgress(trackerInc);
             const fileTrackerInc = 100 / app.files.length;
 
             app.files.forEach(file => {
-                setTimeout(()=>tracker.updateProgress(fileTrackerInc), 100);
-                
 
-                const cfunctions = this.toCFuncArray(file.functions, file, app);
+                const cfile = capp.getCFile(file.name);
+
+                setTimeout(() => tracker.updateProgress(fileTrackerInc), 100);
+
+
+                const cfunctions = this.toCFuncArray(file.functions, cfile);
 
 
                 cfunctions.forEach(cfun => {
@@ -865,15 +879,14 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
 
 
 
-    private toCFuncArray(jfunctions: json.JFunc[], file: json.JFile, app: CApp): CFunction[] {
+    private toCFuncArray(jfunctions: json.JFunc[], cfile: CFile): CFunction[] {
 
         const cFunctionsArray: CFunction[] = [];
 
 
         jfunctions && jfunctions.forEach(jfun => {
 
-            const funcftionFileRelative = this.fs.normalizeSourcePath(app, jfun.loc);
-            const cfun = new CFunctionImpl(jfun, funcftionFileRelative);
+            const cfun = new CFunctionImpl(jfun, cfile);
             cFunctionsArray.push(cfun);
 
             jfun.ppos &&
@@ -888,11 +901,12 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
                 jfun.returnsites.forEach(jReturnsite => {
 
 
-                    const returnsite = new ReturnsiteImpl(jReturnsite);
+                    const crfile = cfile.app.getCFile(jReturnsite.loc.file);
+                    const returnsite = new ReturnsiteImpl(jReturnsite, crfile);
 
 
                     jReturnsite.loc.file =
-                        this.fs.normalizeSourcePath(app, jReturnsite.loc);
+                        this.fs.normalizeSourcePath(cfile.app, jReturnsite.loc);
 
                     jReturnsite.spos && jReturnsite.spos.forEach(spo => {
                         const mSPOImpl: SPOImpl = new SPOImpl(spo, cfun, returnsite);
@@ -908,15 +922,22 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
             jfun.callsites &&
                 jfun.callsites.forEach(jcallsite => {
 
-                    jcallsite.loc.file = this.fs.normalizeSourcePath(app, jcallsite.loc);
+                    //hack
+                    // jcallsite.loc.file = this.fs.normalizeSourcePath(app, jcallsite.loc);
 
                     let callsite = null;
                     if (jcallsite.callee) {
 
-                        const calleeFileRelative =
-                            this.fs.normalizeSourcePath(app, jcallsite.callee.loc);
-                        const callee = new CalleeImpl(jcallsite.callee, calleeFileRelative, jcallsite.type);
-                        callsite = new CallsiteImpl(jcallsite, callee);
+                        // const calleeFileRelative =
+                        //     this.fs.normalizeSourcePath(app, jcallsite.callee.loc);
+
+                        const callsiteFile = cfile.app.getCFile(jcallsite.loc.file);
+                        let calleeFile = callsiteFile;//
+                        if (jcallsite.callee.loc)
+                            calleeFile = cfile.app.getCFile(jcallsite.callee.loc.file);
+
+                        const callee = new CalleeImpl(jcallsite.callee, calleeFile, jcallsite.type);
+                        callsite = new CallsiteImpl(jcallsite, callee, callsiteFile);
                         cfun.callsites.push(callsite);
                     }
 
@@ -951,7 +972,7 @@ function runJavaJar(javaEnv: JavaEnv, projectFs: FileSystem, tracker: ProgressTr
         let targetfiles: string[] = projectFs.listFilesRecursively("target_files.xml");
         console.log(targetfiles);
 
-        let jsonfiles: string[] =[];//projectFs.listFilesRecursively(".kt.analysis.json");//XXX
+        let jsonfiles: string[] = [];//projectFs.listFilesRecursively(".kt.analysis.json");//XXX
 
         if (jsonfiles.length > 0) {
             tracker.updateProgress(100);
