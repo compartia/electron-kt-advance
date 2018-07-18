@@ -230,7 +230,7 @@
                 if (this._shouldLoad(newFile)) {
                     this._loadedFile = newFile;
                     //XXX: handle errors;
-                    this.currentProject.loadFile(newFile.relativePath).then(function (fileContents) {
+                    this.currentProject.loadFile(newFile).then(function (fileContents) {
                         this.set("posByLine", []);
                         this.set("lines", fileContents.lines);
                         aftereffect();

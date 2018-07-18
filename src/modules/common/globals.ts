@@ -8,7 +8,7 @@ import * as tf from '../tf_graph_common/lib/common';
 import { NodeDef } from '../tf_graph_common/lib/proto';
 import { Filter } from './filter';
 import { CONF, loadProjectMayBe } from './storage';
-import { AbstractNode, CAnalysis, CApiAssumption, CFunction, Callee, PoStates, ProofObligation, RenderInfo, sortPoNodes } from './xmltypes';
+import { AbstractNode, CAnalysis, CApiAssumption, CFunction, Callee, PoStates, ProofObligation, RenderInfo, sortPoNodes, CFile } from './xmltypes';
 import { contracts as Contracts } from "../contracts/contracts";
 
 
@@ -265,8 +265,8 @@ export class ProjectImpl implements CProject, ContractsController {
     }
 
 
-    public loadFile(relativePath: string): Promise<FileContents> {
-        return this.fs.loadFile(relativePath);
+    public loadFile(file: CFile): Promise<FileContents> {
+        return this.fs.loadFile(file);
     }
 
 

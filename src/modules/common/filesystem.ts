@@ -39,7 +39,8 @@ class CFileImpl implements CFile {
 }
 
 class CAppImpl implements CApp {
-    private files = {};
+    private _filesMap = {};
+    files: CFile[]=[];
     /**
     * abs path
     */
@@ -55,10 +56,11 @@ class CAppImpl implements CApp {
     }
 
     getCFile(name: string): CFile {
-        let file = this.files[name];
+        let file = this._filesMap[name];
         if (!file) {
             file = new CFileImpl(this, name);
-            this.files[name] = file;
+            this._filesMap[name] = file;
+            this.files.push(file);
         }
         return file;
     }
@@ -68,13 +70,25 @@ class CAppImpl implements CApp {
 
 export class FileSystem {
 
-    private apps = {};
+    private appsMap: { [key: string]: CApp } = {};
+    apps: CApp[]=[];
+
+    public reduce() {
+        // let dirs = Object.keys(this.apps);
+        // if (dirs.length == 1) {
+        //     let dir = dirs[0];
+        //     this.apps[dir].sourceBaseRelative = "";
+        // }
+    }
+
+    
 
     public getCApp(absSourceDir): CApp {
-        let app = this.apps[absSourceDir];
+        let app = this.appsMap[absSourceDir];
         if (!app) {
             app = new CAppImpl(absSourceDir, path.relative(this.baseDir, absSourceDir));
-            this.apps[absSourceDir] = app;
+            this.appsMap[absSourceDir] = app;
+            this.apps.push(app);
         }
         return app;
     }
@@ -138,13 +152,13 @@ export class FileSystem {
         return fstools.listFilesRecursively(this.baseDir, suffixFilter);
     }
 
-    public loadFile(relativePath: string): Promise<FileContents> {
+    public loadFile(file: CFile): Promise<FileContents> {
 
-        let filename = path.join(this.baseDir, relativePath);
-        console.info("reading " + filename);
+         
+        console.info("reading " + file.absFile);
 
         return new Promise((resolve, reject) => {
-            fs.readFile(filename, 'utf8', (err, data: string) => {
+            fs.readFile(file.absFile, 'utf8', (err, data: string) => {
                 if (err) {
                     console.log(err);
                     reject(null);

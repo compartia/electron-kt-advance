@@ -126,7 +126,7 @@ export interface CFunctionBase extends HasLocation {
 export interface CFunction extends CFunctionBase {
 
     loc: POLocation;
-
+    absFile: string;
 
     api: CApi;
     callsites: Callsite[];
@@ -154,7 +154,7 @@ export interface Returnsite extends Site {
 
 export interface Callee extends Graphable, CFunctionBase, HasRenderInfo {
     functionName: String,
-    loc: POLocation;
+    location: POLocation;
     type: string;
     arguments: string;
 }
@@ -236,6 +236,8 @@ export interface CApp {
     sourceBaseRelative: string;
 
     getCFile(name: string): CFile;
+
+    files: CFile[];
 }
 
 export interface CAnalysis {

@@ -23,6 +23,7 @@ import { runAsyncTask, runTask } from "../tf_graph_common/lib/util";
 
 abstract class AbstractLocatable implements HasPath {
     dir: false;
+    abstract absFile: string;
     abstract relativePath: string;
 }
 
@@ -49,6 +50,12 @@ class CFunctionImpl extends AbstractLocatable implements CFunction {
     callsites: Callsite[] = [];
 
     private _api = new CApiImpl();
+
+    get absFile():string{
+        return this.loc.cfile.absFile;
+    }
+
+    
 
     get fullpath() {
         return this.file + "/" + this.name;
@@ -117,6 +124,9 @@ class ApiAssumptionImpl extends AbstractLocatable implements CApiAssumption {
     cfunction: CFunction;
     renderInfo: RenderInfo;
 
+    get absFile():string{
+        return this.cfunction.absFile;
+    }
     get file() {
         return this.cfunction.file;
     }
@@ -257,6 +267,9 @@ abstract class AbstractPO extends AbstractLocatable implements ProofObligation {
     abstract location: POLocation;
 
 
+    get absFile():string{
+        return this.location.cfile.absFile;
+    }
 
     public constructor(ppo: json.JPO, cfun: CFunction) {
         super();
@@ -431,6 +444,8 @@ class SPOImpl extends AbstractPO implements SecondaryProofObligation {
         return this.callsite.location;
     }
 
+    
+
     public constructor(ppo: json.JPO, cfun: CFunction, site: Site) {
         super(ppo, cfun);
         this.callsite = site;
@@ -496,10 +511,15 @@ export class CAnalysisImpl implements CAnalysis {
 abstract class AbstractSiteImpl extends AbstractLocatable implements Site, Graphable {
 
     _jcallsite: json.JCallsite;
+    
     spos: SecondaryProofObligation[] = [];
     abstract name: string;
 
-    loc: POLocation;
+    private _loc: POLocation;
+
+    get absFile():string{
+        return this.location.cfile.absFile;
+    }
 
     public abstract toNodeDef(filter: Filter, settings: GraphSettings): NodeDef;
     public abstract getGraphKey(filter: Filter, settings: GraphSettings): string;
@@ -512,7 +532,7 @@ abstract class AbstractSiteImpl extends AbstractLocatable implements Site, Graph
     public constructor(jcallsite: json.JCallsite, cfile: CFile) {
         super();
         this._jcallsite = jcallsite;
-        this.loc = {
+        this._loc = {
             line: jcallsite.loc.line,
             cfile: cfile
         }
@@ -520,7 +540,7 @@ abstract class AbstractSiteImpl extends AbstractLocatable implements Site, Graph
 
 
     get location(): POLocation {
-        return this.loc;
+        return this._loc;
     }
 
     get line(): number {
@@ -540,7 +560,15 @@ abstract class AbstractSiteImpl extends AbstractLocatable implements Site, Graph
 export class CalleeImpl extends AbstractLocatable implements Callee, CFunctionBase {
     renderInfo: RenderInfo;
     type: string;
-    loc: POLocation;
+    private _loc: POLocation;
+
+    get absFile():string{
+        return this.location.cfile.absFile;
+    }
+
+    get location(){
+        return this._loc;
+    }
 
     get name(): string {
         return this.varinfo.name;
@@ -556,11 +584,11 @@ export class CalleeImpl extends AbstractLocatable implements Callee, CFunctionBa
     }
 
     get file() {
-        return this.loc.cfile.file;
+        return this.location.cfile.file;
     }
 
     get relativePath() {
-        return this.loc.cfile.file;
+        return this.location.cfile.file;
     }
 
     get arguments() {
@@ -575,7 +603,7 @@ export class CalleeImpl extends AbstractLocatable implements Callee, CFunctionBa
         this.type = type;
 
 
-        this.loc = {
+        this._loc = {
             line: varinfo.loc ? varinfo.loc.line : 0,
             cfile: cfile
         }
@@ -586,11 +614,11 @@ export class CalleeImpl extends AbstractLocatable implements Callee, CFunctionBa
         let pathParts: string[] = [];
 
         let nameAddon = "";
-        if (this.loc) {
+        if (this.location) {
             const filePath = fileToGraphKey(this.relativePath, null, filter, settings);
             if (filePath.length)
                 pathParts.push(filePath);
-            nameAddon = "-L" + this.loc.line;
+            nameAddon = "-L" + this.location.line;
         } else {
             nameAddon = "-global";
         }
@@ -614,7 +642,7 @@ export class CalleeImpl extends AbstractLocatable implements Callee, CFunctionBa
 
                 // "predicate": "--",
                 state: "callsite",
-                location: this.loc,
+                location: this.location,
                 locationPath: this.relativePath + "/" + this.name,
                 data: this,
 
@@ -661,11 +689,11 @@ export class CallsiteImpl extends AbstractSiteImpl implements Callsite, Graphabl
 
         // pathParts.push("callsites");//TODO: remove it         
         let nameAddon = "";
-        if (this.callee.loc) {
+        if (this.callee.location) {
             const filePath = fileToGraphKey(this.relativePath, this.name, filter, settings);
             if (filePath.length)
                 pathParts.push(filePath);
-            nameAddon = "-L" + this.callee.loc.line;
+            nameAddon = "-L" + this.callee.location.line;
         }
 
         pathParts.push(this.name + nameAddon);
@@ -688,7 +716,7 @@ export class CallsiteImpl extends AbstractSiteImpl implements Callsite, Graphabl
             attr: <CallsiteNodeAttributes>{
                 label: this._jcallsite.type + ":" + this.name,
                 state: "callsite",
-                location: this.callee.loc,
+                location: this.callee.location,
                 locationPath: this.relativePath + "/" + this.name,
                 data: this,
 
@@ -875,6 +903,8 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
 
             });
         });
+
+        projectFs.reduce();
     }
 
 
