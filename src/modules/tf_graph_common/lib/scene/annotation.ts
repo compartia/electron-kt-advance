@@ -197,7 +197,7 @@ function addInteraction(selection, d: render.RenderNodeInfo,
  */
 function update(aGroup, d: render.RenderNodeInfo, a: render.Annotation,
     sceneElement) {
-      var svgId = sceneElement.$.root.parentNode.id;
+  const svgId = sceneElement.$.root.parentNode.id;
   let cx = layout.computeCXPositionOfNodeShape(d);
   // Annotations that point to embedded nodes (constants,summary)
   // don't have a render information attached so we don't stylize these.
