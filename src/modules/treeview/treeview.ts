@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { FileInfo } from "../common/xmltypes";
+import { FileSystem } from '../common/filesystem';
 
 
 export function splitPath(filePath: string): string[] {
@@ -8,8 +9,8 @@ export function splitPath(filePath: string): string[] {
 }
 
 
-export function build(container, dir: string): void {
-    let root = tree(dir);
+export function build(container, projectFs: FileSystem): void {
+    let root = tree(projectFs.baseDir);
     container.data = root;
 }
 
@@ -29,7 +30,7 @@ export function tree(dir) {
 }
 
 
-export function allFilesSync(root: string, dir: string, fileList: Array<FileInfo> = []): Array<FileInfo> {
+function allFilesSync(root: string, dir: string, fileList: Array<FileInfo> = []): Array<FileInfo> {
     let files = fs.readdirSync(dir);
 
     files.forEach(file => {

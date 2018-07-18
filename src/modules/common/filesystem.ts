@@ -15,17 +15,26 @@ export const CONTRACTS_DIR = "ktacontracts";
 
 class CFileImpl implements CFile {
     app: CApp;
-    private name: string
+    private name: string;
+    private _abs;
+
     constructor(capp: CApp, name: string) {
         this.app = capp;
         this.name = name;
+        this._abs = path.isAbsolute(name);
     }
 
     get file(): string {
-        return path.normalize(path.join(this.app.sourceBaseRelative, this.name));
+        if (this._abs) {
+            return this.name;
+        } else
+            return path.normalize(path.join(this.app.sourceBaseRelative, this.name));
     }
     get absFile(): string {
-        return path.join(this.app.sourceDir, this.name);
+        if (this._abs) {
+            return this.name;
+        } else
+            return path.join(this.app.sourceDir, this.name);
     }
 }
 
