@@ -149,7 +149,7 @@ export class Filter {
         return null;
     }
 
-
+ 
     set file(file: HasPath) {
         if ((file && this._file) || (!file)) {
             if (file.relativePath != this._file.relativePath) {

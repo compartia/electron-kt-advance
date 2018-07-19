@@ -212,8 +212,8 @@
         </template>
 
         <small class="code">
-                [[apply.displayString]]
-            </small>
+            [[apply.displayString]]
+        </small>
             
         <div class="group">
 
@@ -240,6 +240,7 @@
                         </template>
                     </paper-listbox>
                 </paper-menu-button>
+
             </template>
 
 
@@ -434,12 +435,18 @@
                 padding-bottom: var(--spacer);
             }
         }
-        h2{
-            margin-bottom: var(--spacer);
+        h1, h2, h3{
+            margin: var(--spacer) 0 !important;
+            padding: 0!important;
+            /* margin-bottom: var(--spacer); */
         }
     </style>
 
     <template>
+        <template is="dom-if" if="[[not(contract.name)]]">
+            <h1>[[file.name]]</h1>
+            <h3>no function selected</h3>
+        </template>
 
         <template is="dom-if" if="[[contract.name]]">
 
@@ -485,6 +492,10 @@
                     observer: '_onContractChanged'
                 },
 
+                file: {
+                    type: Object
+                },
+
                 globalVariables: {
                     type: Array
                 }
@@ -501,6 +512,10 @@
 
             addPreCondition: function () {
                 this.push("contract.preconditions", Contracts.Math.makeDefault());
+            },
+
+            not: function (e) {
+                return !e;
             }
         });
 

@@ -428,7 +428,7 @@
 
             _onProjectLoaded(event) {
                 console.info("_onProjectLoaded: " + event);
-                treeview.build(this.$$("#treeview"), this.currentProject.baseDir);
+                treeview.build(this.$$("#treeview"), this.currentProject.fs.baseDir);
                 this.set("filter.predicates", new collections.StringSet(this.currentProject.allPredicates));
                 this.set("filter.levels", new collections.StringSet(model.PoLevels));
                 this.set("filter.states", new collections.StringSet(model.PoStatesArr));
