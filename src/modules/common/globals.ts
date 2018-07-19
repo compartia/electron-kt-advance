@@ -239,7 +239,7 @@ export class ProjectImpl implements CProject, ContractsController {
     public getPosAtLine(fileName: string, line: number): Array<ProofObligation> {
         let ret = new Array<ProofObligation>();
         for (let po of this.filteredProofObligations) {
-            if (po.location.line == line && po.file == fileName) {
+            if (po.location.line == line && po.relativePath == fileName) {
                 ret.push(po);
             }
         }
@@ -353,7 +353,7 @@ export function onBigArray<X>(array: Array<X>, op: (x: Array<X>) => Array<X>, tr
     const chunkSize = 1000;
     const numberOfChunks = len / chunkSize;
 
-    var ret: Array<X> = [];
+    let ret: Array<X> = [];
     for (let i = 0; i <= len; i += chunkSize) {
         let part = array.slice(i, i + chunkSize);
         let processed = op(part);

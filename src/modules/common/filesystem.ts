@@ -16,7 +16,12 @@ export const CONTRACTS_DIR = "ktacontracts";
 class CFileImpl implements CFile {
     app: CApp;
     private name: string;
+
     private _abs;
+
+    public isAbs():boolean{
+        return this._abs;
+    }
 
     constructor(capp: CApp, name: string) {
         this.app = capp;
@@ -24,7 +29,11 @@ class CFileImpl implements CFile {
         this._abs = path.isAbsolute(name);
     }
 
-    get file(): string {
+    get shortName(): string {
+        return path.basename(this.name);
+    }
+
+    get relativePath(): string {
         if (this._abs) {
             return this.name;
         } else
@@ -40,7 +49,7 @@ class CFileImpl implements CFile {
 
 class CAppImpl implements CApp {
     private _filesMap = {};
-    files: CFile[]=[];
+    files: CFile[] = [];
     /**
     * abs path
     */
@@ -71,7 +80,7 @@ class CAppImpl implements CApp {
 export class FileSystem {
 
     private appsMap: { [key: string]: CApp } = {};
-    apps: CApp[]=[];
+    apps: CApp[] = [];
 
     public reduce() {
         // let dirs = Object.keys(this.apps);
@@ -81,7 +90,7 @@ export class FileSystem {
         // }
     }
 
-    
+
 
     public getCApp(absSourceDir): CApp {
         let app = this.appsMap[absSourceDir];
@@ -129,24 +138,24 @@ export class FileSystem {
         return path.join(this.baseDir, '.kt-gui.json');
     }
 
-    public normalizeSourcePath(app: CApp, loc: JLocation): string {
-        //todo: xxx: this is called too often for large projects
+    // public normalizeSourcePath(app: CApp, loc: JLocation): string {
+    //     //todo: xxx: this is called too often for large projects
 
-        /*
-            typically it is "semantics/sourcefiles"
-        */
-        const sourceBaseRelative = path.relative(this.baseDir, app.sourceDir);
+    //     /*
+    //         typically it is "semantics/sourcefiles"
+    //     */
+    //     const sourceBaseRelative = path.relative(this.baseDir, app.sourceDir);
 
-        if (!!loc) {
-            if (path.isAbsolute(loc.file)) {
-                return path.normalize(loc.file);
-            } else {
-                return path.normalize(path.join(sourceBaseRelative, loc.file));
-            }
+    //     if (!!loc) {
+    //         if (path.isAbsolute(loc.file)) {
+    //             return path.normalize(loc.file);
+    //         } else {
+    //             return path.normalize(path.join(sourceBaseRelative, loc.file));
+    //         }
 
-        }
-        return path.normalize(path.join(sourceBaseRelative, "_unknown_"));
-    }
+    //     }
+    //     return path.normalize(path.join(sourceBaseRelative, "_unknown_"));
+    // }
 
     public listFilesRecursively(suffixFilter: string): Array<string> {
         return fstools.listFilesRecursively(this.baseDir, suffixFilter);
@@ -154,22 +163,31 @@ export class FileSystem {
 
     public loadFile(file: CFile): Promise<FileContents> {
 
-         
+
         console.info("reading " + file.absFile);
 
         return new Promise((resolve, reject) => {
-            fs.readFile(file.absFile, 'utf8', (err, data: string) => {
-                if (err) {
-                    console.log(err);
-                    reject(null);
-                } else {
-                    let fileContents: FileContents = {
-                        lines: parseSourceFile(data)
+
+            if (!fs.existsSync(file.absFile)) {
+                reject(`${file.absFile} does not exist`);
+            } else {
+                fs.readFile(file.absFile, 'utf8', (err, data: string) => {
+                    if (err) {
+
+                        console.log(err);
+                        reject(err);
+
+                    } else {
+                        let fileContents: FileContents = {
+                            lines: parseSourceFile(data)
+                        }
+                        resolve(fileContents);
                     }
-                    resolve(fileContents);
-                }
-                // data is the contents of the text file we just read
-            });
+                    // data is the contents of the text file we just read
+                });
+            }
+
+
         });
     }
 }

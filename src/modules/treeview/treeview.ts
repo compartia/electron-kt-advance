@@ -1,11 +1,11 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { FileInfo } from "../common/xmltypes";
+import { FileInfo, CFile } from "../common/xmltypes";
 import { FileSystem } from '../common/filesystem';
 
 
 export function splitPath(filePath: string): string[] {
-    return filePath.split(path.sep);
+    return filePath.split(path.sep).filter(x => x.length);
 }
 
 
@@ -17,66 +17,123 @@ export function build(container, projectFs: FileSystem): void {
 }
 
 
+// class FileTreeItem implements FileInfo {
+//     static nothing = [];
+
+//     cfile: CFile;
+//     icon: string;
+
+//     constructor(cfile: CFile) {
+//         this.cfile = cfile;
+//     }
+
+//     get name() {
+//         return this.cfile.shortName;
+//     }
+
+//     get relativePath() {
+//         return this.cfile.file;
+//     }
+
+//     get children() {
+//         return FileTreeItem.nothing;
+//     }
+
+//     get dir(): boolean {
+//         return false;
+//     }
+
+//     get open(): boolean {
+//         return true;
+//     }
+
+//     get absFile() {
+//         return this.cfile.absFile;
+//     }
+// }
+
+class DirTreeItem implements FileInfo {
+    children = [];
+
+    shortName: string;
+    relativePath: string;
+
+    constructor(name: string, relativePath: string) {
+        this.shortName = path.basename(name);
+        this.relativePath = relativePath;
+    }
+
+    icon: string;
+    open: boolean;
+
+    get dir(): boolean {
+        return true;
+    }
+}
+
+
+
 class TreeBuilder {
-    
-    private projectFs: FileSystem;
+
+    private fs: FileSystem;
+    private root: DirTreeItem;
 
     constructor(projectFs: FileSystem) {
-        this.projectFs = projectFs;
+        this.fs = projectFs;
+        this.root = new DirTreeItem(path.basename(this.fs.baseDir), '.');
+        this.root.open = true;
+        this.index[this.fs.baseDir] = this.root;
+    }
+
+    private index = {};
+    private getDirItem(dir: string, abs?: boolean): DirTreeItem {
+
+        if (!dir || dir === '.' || dir === '/') {
+            return this.root;
+        }
+
+        let dirItem = this.index[dir];
+        if (!dirItem) {
+            //create and index it;
+            let relativePath = abs ? dir : path.relative(this.fs.baseDir, dir);
+            dirItem = new DirTreeItem(dir, relativePath);
+            this.index[dir] = dirItem;
+
+            let parent = this.getDirItem(path.dirname(dir), abs);
+            parent.children.push(dirItem);
+        }
+        return dirItem;
     }
 
 
+
+
     public buildTree(): FileInfo {
-        const dir = this.projectFs.baseDir;
+        const dir = this.fs.baseDir;
         console.info("iterating  " + dir);
-        let tree: FileInfo = {
-            children: new Array<FileInfo>(),
-            name: <string>path.basename(dir),
-            open: true,
-            icon: "",
-            relativePath: ".",
-            dir: true
+
+
+        for (const app of this.fs.apps) {
+            for (const file of app.files) {
+                const filedir = path.dirname(file.absFile);
+                let dirItem: DirTreeItem = this.getDirItem(filedir, file.isAbs());
+                // dirItem.children.push(new FileTreeItem(file));
+                dirItem.children.push(file);
+            }
         }
-        this.allFilesSync(dir, dir, tree.children);
-        return tree;
+        // this.allFilesSync(dir, dir, root.children);
+        return this.root;
     }
 
 
     private allFilesSync(root: string, dir: string, fileList: Array<FileInfo> = []): Array<FileInfo> {
         let files = fs.readdirSync(dir);
 
-        files.forEach(file => {
-            const filePath = path.join(dir, file);
 
-            let stats = fs.statSync(filePath);
-            let toAdd = file.endsWith(".c") || file.endsWith(".h") || file.endsWith(".cpp") || file.endsWith(".hpp");
-            let icon = file.endsWith(".c") ? "check" : file.endsWith(".h") ? "check" : "space-bar"
-            let isDirectory = stats.isDirectory();
-            let relativePath = path.relative(root, filePath);
-
-            if (isDirectory || toAdd) {
-                let fileInfo: FileInfo = {
-                    children: new Array<FileInfo>(),
-                    name: file,
-                    open: false,
-                    relativePath: relativePath,
-                    icon: icon,
-                    dir: false
-                };
-
-                if (isDirectory) {
-                    fileInfo.icon = "folder-open";
-                    fileInfo.children = this.allFilesSync(root, filePath); //recursion
-                    fileInfo.dir = true
-                }
-
-                fileList.push(fileInfo);
-            }
-        });
 
         fileList.sort((a, b) => {
             if (a.dir == b.dir) {
-                return a.name.localeCompare(b.name);
+                return a.shortName.localeCompare(b.shortName);
             } else {
                 if (a.dir) return 1;
                 return -1;
