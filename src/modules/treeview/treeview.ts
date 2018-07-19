@@ -9,10 +9,10 @@ export function splitPath(filePath: string): string[] {
 
 
 export function build(container, projectFs: FileSystem): void {
-
     let tb = new TreeBuilder(projectFs);
     let root = tb.buildTree();
     container.data = root;
+    container.notifyPath("data");
 }
 
  

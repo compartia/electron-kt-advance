@@ -89,7 +89,7 @@ class CFunctionImpl extends AbstractLocatable implements CFunction {
     getPPObyId(id: number): ProofObligation {
         const ppo = this.__indexPpo[id];
         if (!ppo) {
-            console.error("cannot find PPO with ID: " + id + " in function  " + this.file + "/" + this.name);
+            console.error(`cannot find PPO with ID: ${id} in function  ${this.file} /  ${this.name}`);
         }
         return ppo;
     }
@@ -97,7 +97,7 @@ class CFunctionImpl extends AbstractLocatable implements CFunction {
     getSPObyId(id: number): ProofObligation {
         const spo = this.__indexSpo[id];
         if (!spo) {
-            console.error("cannot find SPO with ID: " + id + " in function  " + this.file + "/" + this.name);
+            console.error(`cannot find SPO with ID: ${id} in function  ${this.file} /  ${this.name}`);
         }
         return spo;
     }
