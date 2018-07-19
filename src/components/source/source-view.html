@@ -5,13 +5,23 @@
         iron-list#listOfLines{
             height: 100%;
         }
+        .error{
+            margin-top: 40px;
+        }
     </style>
 
     <template>
+       
 
+                     
         <vaadin-split-layout id="verticalSplitter" class$="splitter-3 [[getSplitterClass(dependentAssumptionsIn, dependentAssumptionsOut)]]">
 
             <div id="scrollable" class="main">
+
+                <template is="dom-if" if="[[error]]">                                
+                    <div class="error">[[error]]</div>
+                </template>
+                            
                 <iron-list id="listOfLines" scroll-target="scrollable" items="[[lines]]" max-physical-count="[[lines.length]]" selection-enabled
                     selected-item="{{selectedLine}}" as="item">
 
@@ -54,7 +64,7 @@
                     <h3>Depends on assumptions</h3>
                     <assumptions-list small filtered-assumptions="[[dependentAssumptionsOut]]" linktosource></assumptions-list>
                 </template>
- 
+
                 <template is="dom-if" if="[[associatedPOs.length]]">
                     <h3>Associated PO</h3>                    
                     <po-list 
@@ -66,7 +76,7 @@
 
 
         </vaadin-split-layout>
-
+  
 
 
     </template>
@@ -196,29 +206,34 @@
             },
 
             jumpToLine: function (line) {
+                
+                if (!(this.$.listOfLines && this.$.listOfLines.items && this.$.listOfLines.items.length)) {
+                    return;
+                }
 
                 if (!line) {
                     line = 1;
                 }
-                var jump = line;
+                let jump = line;
                 if (line > 4) {
                     jump = line - 4;
                 }
 
-                var task2 = function () {
-                    if (this.$.listOfLines.items) {
+                let task2 = () => {
+                    if (this.$.listOfLines && this.$.listOfLines.items) {
                         this.$.listOfLines.selectItem(this.lines[line - 1]);
                     }
                 }
 
-                var task = function () {
-                    if (this.$.listOfLines.items) {
+                let task = () => {
+                    if (this.$.listOfLines && this.$.listOfLines.items) {
                         this.$.listOfLines.scrollToIndex(jump);
                         // this.$.listOfLines.selectItem(this.lines[line - 1]);
-                        setTimeout(task2.bind(this), 50);
+                        setTimeout(task2, 150);
                     }
                 }
-                setTimeout(task.bind(this), 50);
+
+                setTimeout(task, 150);
 
             },
 
@@ -228,13 +243,22 @@
 
             maybeLoadFile: function (newFile, aftereffect) {
                 if (this._shouldLoad(newFile)) {
+
                     this._loadedFile = newFile;
                     //XXX: handle errors;
-                    this.currentProject.loadFile(newFile.relativePath).then(function (fileContents) {
-                        this.set("posByLine", []);
-                        this.set("lines", fileContents.lines);
-                        aftereffect();
-                    }.bind(this));
+                    this.currentProject.loadFile(newFile)
+                        .then(fileContents => {
+                            this.set("error", null);
+                            this.set("posByLine", []);
+                            this.set("lines", fileContents.lines);
+                            aftereffect();
+                        })
+                        .catch(error=>{
+                            this.set("error", error);
+                            this.set("posByLine", []);
+                            this.set("lines", []);
+                        }); 
+                        
 
                 } else {
                     aftereffect();

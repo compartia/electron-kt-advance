@@ -27,7 +27,7 @@ function testWriteContract() {
 
 function testXmlExport() {
 
-    var builder = new xml2js.Builder({
+    let builder = new xml2js.Builder({
         rootName: "c-analysis",
         preserveChildrenOrder: true,
         explicitChildren: true
@@ -47,7 +47,7 @@ function testXmlExport() {
             }
         }
     }
-    var xmlStr = builder.buildObject(obj);
+    let xmlStr = builder.buildObject(obj);
     console.log(xmlStr);
 
 }

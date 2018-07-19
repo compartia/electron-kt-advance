@@ -82,7 +82,7 @@ Custom property | Description | Default
             <div class="node-row" style$="padding-left: [[offset]]px">
                 <iron-icon class="node-icon" icon$="{{_computeCollapseIcon(data.*)}}" on-click="toggleChildren"></iron-icon>
 
-                <span class="node-name" on-click="select">{{data.name}}</span>
+                <span class="node-name" on-click="select">{{data.shortName}}</span>
 
                 <template is="dom-if" if="{{!_showIcon(data)}}">
                     <node-decorator 
@@ -98,7 +98,7 @@ Custom property | Description | Default
             </div>
             <template is="dom-if" if="{{data.open}}">
                 <ul>
-                    <template is="dom-repeat" items="{{data.children}}">
+                    <template is="dom-repeat" items="{{sort(data.children)}}">
                         <li>
                             <paper-tree-node offset="[[_getChildOffset(offset)]]" data="{{item}}" actions="{{actions}}" statistics="[[statistics]]"></paper-tree-node>
                         </li>
@@ -128,7 +128,7 @@ Custom property | Description | Default
              *
              * Specific data:
              *
-             * - `data.name`: string representing the node name.
+             * - `data.shortName`: string representing the node name.
              * - `data.icon`: string telling which icon to use (default to 'folder' icon).
              * - `data.open`: boolean telling whether the node is expanded or not.
              * - `data.children` array containing the children of the node.
@@ -228,7 +228,7 @@ Custom property | Description | Default
             findChild: function (nodename) {
                 var childElements = this.getChildren();
                 for (var i = 0; i < childElements.length; i++) {
-                    if (childElements[i].data.name == nodename) {
+                    if (childElements[i].data.shortName == nodename) {
                         return childElements[i];
                     }
                 }
@@ -250,7 +250,7 @@ Custom property | Description | Default
 
             selectPath: function (split) {
                 if (split.length) {
-                    if (this.data.name == split[0]) {
+                    if (this.data.shortName == split[0]) {
                         if (this.data.children && this.data.children.length) {
                             var subpath = split.splice(1);
                             if (subpath.length) {
@@ -281,7 +281,21 @@ Custom property | Description | Default
                         }
                     }
                 }
+            },
+
+
+            sort: function (children) {
+                return children.sort((a, b) => {
+                    if (a.dir == b.dir) {
+                        return a.shortName.localeCompare(b.shortName);
+                    } else {
+                        if (a.dir) return -1;
+                         return 1;
+                    }
+                });
             }
+
+
         });
     </script>
 </dom-module>

@@ -13,7 +13,7 @@ function isPrimitive(test) {
 
 
 export function toXml(fileContract: contracts.CFileContract): string {
-    var x_cfile = {
+    let x_cfile = {
         $: { name: fileContract.name },
         "data-structures": dataStructuresToXml(fileContract.dataStructures),
         "global-variables": globalVariablesToXml(fileContract.globalVariables),
@@ -24,13 +24,13 @@ export function toXml(fileContract: contracts.CFileContract): string {
     obj["header"] = {};
     obj["cfile"] = x_cfile;
 
-    var builder = new xml2js.Builder({
+    let builder = new xml2js.Builder({
         rootName: "c-analysis",
         preserveChildrenOrder: true,
         explicitChildren: true
     });
 
-    var xml = builder.buildObject(obj);
+    let xml = builder.buildObject(obj);
     return xml;
 }
 

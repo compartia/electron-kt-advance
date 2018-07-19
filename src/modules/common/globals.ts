@@ -8,7 +8,7 @@ import * as tf from '../tf_graph_common/lib/common';
 import { NodeDef } from '../tf_graph_common/lib/proto';
 import { Filter } from './filter';
 import { CONF, loadProjectMayBe } from './storage';
-import { AbstractNode, CAnalysis, CApiAssumption, CFunction, Callee, PoStates, ProofObligation, RenderInfo, sortPoNodes } from './xmltypes';
+import { AbstractNode, CAnalysis, CApiAssumption, CFunction, Callee, PoStates, ProofObligation, RenderInfo, sortPoNodes, CFile } from './xmltypes';
 import { contracts as Contracts } from "../contracts/contracts";
 
 
@@ -239,7 +239,7 @@ export class ProjectImpl implements CProject, ContractsController {
     public getPosAtLine(fileName: string, line: number): Array<ProofObligation> {
         let ret = new Array<ProofObligation>();
         for (let po of this.filteredProofObligations) {
-            if (po.location.line == line && po.file == fileName) {
+            if (po.location.line == line && po.relativePath == fileName) {
                 ret.push(po);
             }
         }
@@ -265,8 +265,8 @@ export class ProjectImpl implements CProject, ContractsController {
     }
 
 
-    public loadFile(relativePath: string): Promise<FileContents> {
-        return this.fs.loadFile(relativePath);
+    public loadFile(file: CFile): Promise<FileContents> {
+        return this.fs.loadFile(file);
     }
 
 
@@ -306,9 +306,16 @@ export class ProjectImpl implements CProject, ContractsController {
         this.filterProofObligations(filter);
         this.filterAssumptions(filter);
 
-        this.filteredContracts = _.filter(this.contracts.fileContracts, x => x.hasContracts)
+        this.filterConracts(filter);
+        // this.filteredContracts = _.filter(this.contracts.fileContracts, x => x.hasContracts);
     }
 
+    private filterConracts(_filter: Filter){
+        // this.filteredContracts = _.filter(this.contracts.fileContracts, x => x.hasContracts)
+
+        let filter = ( x:Contracts.CFileContract) => _filter.acceptCFunctionFile(x.file);
+        this.filteredContracts = _.filter(this.contracts.fileContracts, filter);
+    }
     private filterProofObligations(_filter: Filter): void {
         let filter = (x) => _filter.accept(x);
         this._filteredProofObligations = sortPoNodes(_.filter(this.proofObligations, filter));
@@ -353,7 +360,7 @@ export function onBigArray<X>(array: Array<X>, op: (x: Array<X>) => Array<X>, tr
     const chunkSize = 1000;
     const numberOfChunks = len / chunkSize;
 
-    var ret: Array<X> = [];
+    let ret: Array<X> = [];
     for (let i = 0; i <= len; i += chunkSize) {
         let part = array.slice(i, i + chunkSize);
         let processed = op(part);
