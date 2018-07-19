@@ -126,9 +126,7 @@ export module contracts {
 
         hasContracts: boolean;
 
-        save(xmlPath?: string);
-
-        
+        save(xmlPath?: string);        
     }
 
 

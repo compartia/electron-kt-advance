@@ -18,9 +18,9 @@ export function updateChart<X>(
     const data = chartData.data;
 
 
-    var max: number = chartData.max;
+    let max: number = chartData.max;
     if (!max) {
-        var summs = _.map(data, (x) => _.sum(x.values));
+        let summs = _.map(data, (x) => _.sum(x.values));
         max = _.max(summs);
     }
 
