@@ -15,42 +15,7 @@ export function build(container, projectFs: FileSystem): void {
     container.data = root;
 }
 
-
-// class FileTreeItem implements FileInfo {
-//     static nothing = [];
-
-//     cfile: CFile;
-//     icon: string;
-
-//     constructor(cfile: CFile) {
-//         this.cfile = cfile;
-//     }
-
-//     get name() {
-//         return this.cfile.shortName;
-//     }
-
-//     get relativePath() {
-//         return this.cfile.file;
-//     }
-
-//     get children() {
-//         return FileTreeItem.nothing;
-//     }
-
-//     get dir(): boolean {
-//         return false;
-//     }
-
-//     get open(): boolean {
-//         return true;
-//     }
-
-//     get absFile() {
-//         return this.cfile.absFile;
-//     }
-// }
-
+ 
 class DirTreeItem implements FileInfo {
     children = [];
 
@@ -120,7 +85,7 @@ class TreeBuilder {
                 dirItem.children.push(file);
             }
         }
-        // this.allFilesSync(dir, dir, root.children);
+ 
         return this.root;
     }
 

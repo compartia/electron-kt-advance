@@ -119,15 +119,6 @@ export class FileSystem {
     private appsMap: { [key: string]: CApp } = {};
     apps: CApp[] = [];
 
-    public reduce() {
-        // let dirs = Object.keys(this.apps);
-        // if (dirs.length == 1) {
-        //     let dir = dirs[0];
-        //     this.apps[dir].sourceBaseRelative = "";
-        // }
-    }
-
-
     public getCApp(absSourceDir: string, actualSourceDir?: string): CApp {
 
         if (!absSourceDir.endsWith('/'))
@@ -143,7 +134,7 @@ export class FileSystem {
     }
 
     private _baseDir: string;
-    // sources: string;
+
     contractsDir: string;
     appPath: string;
 

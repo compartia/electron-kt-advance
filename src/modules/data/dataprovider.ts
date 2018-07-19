@@ -896,8 +896,7 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
 
             });
         });
-
-        projectFs.reduce();
+ 
     }
 
 
