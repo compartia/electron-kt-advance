@@ -252,8 +252,7 @@
             
 
         </div>
-       
-
+               
 
 
     </template>
@@ -403,6 +402,9 @@
 
             margin-bottom: 10px;
             border-radius: 5px;
+
+            @apply --layout-horizontal;
+            @apply --layout-justified;
         }
 
         .btn-add {
@@ -426,7 +428,6 @@
                 border-top: 1px solid var(--selection-lt-bg);
                 text-transform: uppercase;
                 padding-left: var(--spacer);
-                /* border-bottom: 1px solid var(--separator-color); */
             }
 
 
@@ -438,7 +439,10 @@
         h1, h2, h3{
             margin: var(--spacer) 0 !important;
             padding: 0!important;
-            /* margin-bottom: var(--spacer); */
+        }
+
+        paper-icon-button{
+            color: var(--brand-color);
         }
     </style>
 
@@ -452,27 +456,30 @@
 
             <h2 class="code">[[contract.name]]([[contract.parameters]])</h2>
 
+            <!-- PRE -->
             <paper-expansion-panel class="collapsible" header="Preconditions: ([[contract.preconditions.length]])" opened>
-                <!-- <h3>Preconditions: ([[contract.preconditions.length]])</h3> -->
                 <template is="dom-repeat" items="[[contract.preconditions]]">
                     <div class="postcondition">
                         <c-apply holder="[[item]]" apply="[[item.apply]]" global-variables="[[globalVariables]]"></c-apply>
+                        <paper-icon-button name="[[index]]" raised icon="delete" on-tap="deletePreCondition"></paper-icon-button>
                     </div>
                 </template>
                 <div class="control-panel">
-                    <paper-button raised on-tap="addPreCondition" class="btn-add">+</paper-button>
+                    <paper-button title="Add precondition" raised on-tap="addPreCondition" class="btn-add">+</paper-button>                    
                 </div>
             </paper-expansion-panel>
 
+
+            <!-- POST -->
             <paper-expansion-panel class="collapsible" header="Postconditions: ([[contract.postconditions.length]])" opened>
-                <!-- <h3>Postconditions: ([[contract.postconditions.length]])</h3> -->
                 <template is="dom-repeat" items="[[contract.postconditions]]">
                     <div class="postcondition">
                         <c-apply holder="[[item]]" apply="[[item.apply]]" global-variables="[[globalVariables]]"></c-apply>
+                        <paper-icon-button name="[[index]]" raised icon="delete" on-tap="deletePostCondition"></paper-icon-button>
                     </div>
                 </template>
                 <div class="control-panel">
-                    <paper-button raised on-tap="addPostCondition" class="btn-add">+</paper-button>
+                    <paper-button title="Add postcondition" raised on-tap="addPostCondition" class="btn-add">+</paper-button>
                 </div>
             </paper-expansion-panel>
 
@@ -489,7 +496,8 @@
             properties: {
                 contract: {
                     type: Object,
-                    observer: '_onContractChanged'
+                    observer: '_onContractChanged',
+                    notify: true
                 },
 
                 file: {
@@ -513,6 +521,18 @@
             addPreCondition: function () {
                 this.push("contract.preconditions", Contracts.Math.makeDefault());
             },
+ 
+
+            deletePreCondition: function (event) {               
+                this.splice("contract.preconditions", event.model.index, 1);
+                this.notifyPath("contract");
+            },
+
+            deletePostCondition: function (event) {                
+                this.splice("contract.postconditions", event.model.index, 1);
+                this.notifyPath("contract");
+            },
+
 
             not: function (e) {
                 return !e;
