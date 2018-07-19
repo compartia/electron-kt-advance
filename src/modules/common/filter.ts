@@ -1,5 +1,5 @@
 import { AnySet, StringSet, isEmpty } from './collections';
-import { CFunctionBase, HasPath, PoDischargeTypesArr, PoStates, PoStatesArr, ProofObligation } from './xmltypes';
+import { CFunctionBase, HasPath, PoDischargeTypesArr, PoStates, PoStatesArr, ProofObligation, CFile } from './xmltypes';
 
 
 export function sharedStart(array: string[]): string {
@@ -167,19 +167,21 @@ export class Filter {
         return this.acceptCFunctionFile(po.cfunction);
     }
 
-    public acceptCFunctionFile(func: CFunctionBase): boolean {
+    public acceptCFunctionFile(func: HasPath): boolean {
         if (!this.fileName) {
             return true;
         } else {
 
             if (!this._file.dir) {
-                return func.file == this.fileName;
+                return func.relativePath == this.fileName;
             } else {
-                return func.file.startsWith(this.fileName) || this.fileName == ".";
+                return func.relativePath.startsWith(this.fileName) || this.fileName == ".";
             }
 
         }
     }
+
+     
 
 
     public acceptCFunction(func: CFunctionBase): boolean {

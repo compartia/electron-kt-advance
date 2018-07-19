@@ -156,7 +156,7 @@ $base-bg-lighten: lighten($base-bg, 47%);
 
     
         --kt-state-callsite-#{$kind}-bg        : #{hsl( hue($scolor), saturation($scolor), 93)};
-        --kt-callee-#{$kind}-bg                : #{hsl( hue($scolor), saturation($scolor), 93)};
+        --kt-state-callee-#{$kind}-bg                : #{hsl( hue($scolor), saturation($scolor)/2, 90)};
 
 
         .callee-#{$kind} {

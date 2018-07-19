@@ -1,4 +1,4 @@
-// Generated using typescript-generator version 2.0.400 on 2018-07-18 00:08:43.
+// Generated using typescript-generator version 2.0.400 on 2018-07-19 23:31:15.
 
 export interface JAnalysis extends Jsonable {
     apps: JApp[];
@@ -6,7 +6,8 @@ export interface JAnalysis extends Jsonable {
 
 export interface JApp extends Jsonable {
     files: JFile[];
-    sourceDir: string;
+    actualSourceDir: string;
+    baseDir: string;
 }
 
 export interface Jsonable {
