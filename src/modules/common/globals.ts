@@ -91,13 +91,22 @@ export class ProjectImpl implements CProject, ContractsController {
     }
 
     public saveContract(c: Contracts.CFileContract, callbackfn: Function) {
-        const dirToSave = path.join(this.fs.contractsDir, c.name + "_c.xml");
-        const data = XmlWriter.toXml(c);
-        console.log(data);
-        console.log(`saving contract to ${dirToSave}`);
-        fs.writeFileSync(dirToSave, data);
-        callbackfn("saved to " + dirToSave);
-        throw "saveContract is not implemented"
+        try {
+            const _dirToSave = path.join(c.file.app.baseDir, "ktacontracts");
+            if(!fs.existsSync(_dirToSave)){
+                fs.mkdirSync(_dirToSave);
+            } 
+            const fileToSave = path.join(_dirToSave, c.name + "_c.xml");
+            const data = XmlWriter.toXml(c);
+            console.log(data);
+            console.log(`saving contract to ${fileToSave}`);
+            fs.writeFileSync(fileToSave, data);
+            callbackfn("saved to " + fileToSave);
+        } catch (e) {
+            callbackfn("Failed saving:" + e);
+        }
+
+
     }
 
     private getOrCreateRenderInfo(po: ProofObligation): RenderInfo {
@@ -197,7 +206,7 @@ export class ProjectImpl implements CProject, ContractsController {
             }
         }
 
-    
+
         const pCAnalysis: Promise<CAnalysis> = runAsyncPromiseTask("reading", 0,
             () => this.reader.readDir(project.fs, tracker),
             tracker);
@@ -310,10 +319,10 @@ export class ProjectImpl implements CProject, ContractsController {
         // this.filteredContracts = _.filter(this.contracts.fileContracts, x => x.hasContracts);
     }
 
-    private filterConracts(_filter: Filter){
+    private filterConracts(_filter: Filter) {
         // this.filteredContracts = _.filter(this.contracts.fileContracts, x => x.hasContracts)
 
-        let filter = ( x:Contracts.CFileContract) => _filter.acceptCFunctionFile(x.file);
+        let filter = (x: Contracts.CFileContract) => _filter.acceptCFunctionFile(x.file);
         this.filteredContracts = _.filter(this.contracts.fileContracts, filter);
     }
     private filterProofObligations(_filter: Filter): void {
