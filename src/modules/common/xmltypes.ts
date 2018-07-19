@@ -164,7 +164,7 @@ export interface Callsite extends Site {
     isGlobal(): boolean;
 }
 
-export interface CFile {
+export interface CFile extends HasPath{
     app: CApp;
     shortName: string;
     /**
@@ -172,7 +172,9 @@ export interface CFile {
      */
     relativePath: string;
     absFile: string;
+    actualFile: string;
     isAbs():boolean;
+    exists:boolean;
 }
 /**
  * @deprecated
@@ -231,7 +233,8 @@ export interface CApp {
     /**
      * abs path
      */
-    sourceDir: string;
+    baseDir: string;
+    actualSourceDir:string;
     /*
     typically it is "semantics/sourcefiles"
     */

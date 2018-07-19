@@ -1,6 +1,5 @@
-import * as fs from 'fs';
 import * as path from 'path';
-import { FileInfo, CFile } from "../common/xmltypes";
+import { FileInfo } from "../common/xmltypes";
 import { FileSystem } from '../common/filesystem';
 
 
@@ -127,10 +126,7 @@ class TreeBuilder {
 
 
     private allFilesSync(root: string, dir: string, fileList: Array<FileInfo> = []): Array<FileInfo> {
-        let files = fs.readdirSync(dir);
-
-
-
+      
         fileList.sort((a, b) => {
             if (a.dir == b.dir) {
                 return a.shortName.localeCompare(b.shortName);

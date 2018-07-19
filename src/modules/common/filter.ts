@@ -1,5 +1,5 @@
 import { AnySet, StringSet, isEmpty } from './collections';
-import { CFunctionBase, HasPath, PoDischargeTypesArr, PoStates, PoStatesArr, ProofObligation } from './xmltypes';
+import { CFunctionBase, HasPath, PoDischargeTypesArr, PoStates, PoStatesArr, ProofObligation, CFile } from './xmltypes';
 
 
 export function sharedStart(array: string[]): string {
@@ -167,7 +167,7 @@ export class Filter {
         return this.acceptCFunctionFile(po.cfunction);
     }
 
-    public acceptCFunctionFile(func: CFunctionBase): boolean {
+    public acceptCFunctionFile(func: HasPath): boolean {
         if (!this.fileName) {
             return true;
         } else {
@@ -180,6 +180,8 @@ export class Filter {
 
         }
     }
+
+     
 
 
     public acceptCFunction(func: CFunctionBase): boolean {

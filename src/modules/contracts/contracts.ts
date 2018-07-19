@@ -1,4 +1,5 @@
 import { ENGINE_METHOD_DIGESTS } from "constants";
+import { CFile } from "../common/xmltypes";
 
 
 
@@ -65,11 +66,11 @@ export module contracts {
         postconditions: contracts.Math[] = [];
         preconditions: contracts.Math[] = [];
 
-        get preconditionsCount(){
+        get preconditionsCount() {
             return this.preconditions.length;
         }
 
-        get postconditionsCount(){
+        get postconditionsCount() {
             return this.postconditions.length;
         }
 
@@ -126,7 +127,9 @@ export module contracts {
 
         hasContracts: boolean;
 
-        save(xmlPath?: string);        
+        save(xmlPath?: string);
+
+        file: CFile;
     }
 
 
@@ -135,24 +138,27 @@ export module contracts {
 
 
     export class CFileContractImpl implements CFileContract {
-        functions: CFunctionContract[]=[];
+        functions: CFunctionContract[] = [];
         name: string;
         dataStructures: any[];
         globalVariables: GVar[];
 
+        file: CFile;
 
-        get preconditionsCount(){
-            let cnt=0;
-            for(let func of this.functions){
-                cnt+=func.preconditionsCount;
+        _functionsByName = {};
+
+        get preconditionsCount() {
+            let cnt = 0;
+            for (let func of this.functions) {
+                cnt += func.preconditionsCount;
             }
             return cnt;
         }
 
-        get postconditionsCount(){
-            let cnt=0;
-            for(let func of this.functions){
-                cnt+=func.postconditionsCount;
+        get postconditionsCount() {
+            let cnt = 0;
+            for (let func of this.functions) {
+                cnt += func.postconditionsCount;
             }
             return cnt;
         }
@@ -164,8 +170,6 @@ export module contracts {
         getFunctionContractByName(name: string): CFunctionContract | undefined {
             return this._functionsByName[name];
         }
-
-        _functionsByName = {};
 
 
         public save(xmlPath?: string) {

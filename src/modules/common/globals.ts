@@ -306,9 +306,16 @@ export class ProjectImpl implements CProject, ContractsController {
         this.filterProofObligations(filter);
         this.filterAssumptions(filter);
 
-        this.filteredContracts = _.filter(this.contracts.fileContracts, x => x.hasContracts)
+        this.filterConracts(filter);
+        // this.filteredContracts = _.filter(this.contracts.fileContracts, x => x.hasContracts);
     }
 
+    private filterConracts(_filter: Filter){
+        // this.filteredContracts = _.filter(this.contracts.fileContracts, x => x.hasContracts)
+
+        let filter = ( x:Contracts.CFileContract) => _filter.acceptCFunctionFile(x.file);
+        this.filteredContracts = _.filter(this.contracts.fileContracts, filter);
+    }
     private filterProofObligations(_filter: Filter): void {
         let filter = (x) => _filter.accept(x);
         this._filteredProofObligations = sortPoNodes(_.filter(this.proofObligations, filter));

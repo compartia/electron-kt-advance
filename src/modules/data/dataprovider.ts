@@ -51,11 +51,11 @@ class CFunctionImpl extends AbstractLocatable implements CFunction {
 
     private _api = new CApiImpl();
 
-    get absFile():string{
+    get absFile(): string {
         return this.loc.cfile.absFile;
     }
 
-    
+
 
     get fullpath() {
         return this.file + "/" + this.name;
@@ -124,9 +124,9 @@ class ApiAssumptionImpl extends AbstractLocatable implements CApiAssumption {
     cfunction: CFunction;
     renderInfo: RenderInfo;
 
-    get absFile():string{
+    get absFile(): string {
         return this.cfunction.absFile;
-    }    
+    }
 
     get relativePath() {
         return this.cfunction.relativePath;
@@ -264,7 +264,7 @@ abstract class AbstractPO extends AbstractLocatable implements ProofObligation {
     abstract location: POLocation;
 
 
-    get absFile():string{
+    get absFile(): string {
         return this.location.cfile.absFile;
     }
 
@@ -341,7 +341,7 @@ abstract class AbstractPO extends AbstractLocatable implements ProofObligation {
     id: string;
     cfunction: CFunction;
 
-     
+
 
     get line(): number {
         return this.location.line;
@@ -439,7 +439,7 @@ class SPOImpl extends AbstractPO implements SecondaryProofObligation {
         return this.callsite.location;
     }
 
-    
+
 
     public constructor(ppo: json.JPO, cfun: CFunction, site: Site) {
         super(ppo, cfun);
@@ -506,13 +506,13 @@ export class CAnalysisImpl implements CAnalysis {
 abstract class AbstractSiteImpl extends AbstractLocatable implements Site, Graphable {
 
     // _jcallsite: json.JCallsite;
-    jcallsitetype:string;
+    jcallsitetype: string;
     spos: SecondaryProofObligation[] = [];
     abstract name: string;
 
     private _loc: POLocation;
 
-    get absFile():string{
+    get absFile(): string {
         return this.location.cfile.absFile;
     }
 
@@ -526,7 +526,7 @@ abstract class AbstractSiteImpl extends AbstractLocatable implements Site, Graph
 
     public constructor(jcallsite: json.JCallsite, cfile: CFile) {
         super();
-        this.jcallsitetype=jcallsite.type;
+        this.jcallsitetype = jcallsite.type;
         // this._jcallsite = jcallsite;
         this._loc = {
             line: jcallsite.loc.line,
@@ -558,11 +558,11 @@ export class CalleeImpl extends AbstractLocatable implements Callee, CFunctionBa
     type: string;
     private _loc: POLocation;
 
-    get absFile():string{
+    get absFile(): string {
         return this.location.cfile.absFile;
     }
 
-    get location(){
+    get location() {
         return this._loc;
     }
 
@@ -577,7 +577,7 @@ export class CalleeImpl extends AbstractLocatable implements Callee, CFunctionBa
 
     get line(): number {
         return this.varinfo.loc ? this.varinfo.loc.line : 0;
-    }   
+    }
 
     get relativePath() {
         return this.location.cfile.relativePath;
@@ -615,7 +615,7 @@ export class CalleeImpl extends AbstractLocatable implements Callee, CFunctionBa
             nameAddon = "-global";
         }
 
-        pathParts.push(this.name+nameAddon);
+        pathParts.push(this.name + nameAddon);
 
         return encodeGraphKey(pathParts.join('/'));
     }
@@ -653,7 +653,7 @@ export class CallsiteImpl extends AbstractSiteImpl implements Callsite, Graphabl
     public callee: Callee;// json.JVarInfo;
 
     public isGlobal(): boolean {
-        return !this.callee ;//|| !this._jcallsite.loc;
+        return !this.callee;//|| !this._jcallsite.loc;
         //TODO varInfo must not be null (probably)
     }
 
@@ -729,7 +729,7 @@ export class ReturnsiteImpl extends AbstractSiteImpl implements Returnsite, Grap
     public constructor(jcallsite: json.JCallsite, cfile: CFile) {
         super(jcallsite, cfile);
     }
-    
+
     public toNodeDef(filter: Filter, settings: GraphSettings): NodeDef {
         console.error("x");
         throw "ReturnsiteImpl: toNodeDef: not implemented";
@@ -787,24 +787,24 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
         let cnt: number = 0;
         for (const file of files) {
 
-            const c: CFileContractXml = CFileContractXml.fromXml(file);
-            const xmldir = path.dirname(file);
-            let appDir = xmldir;
-            const cdir = path.dirname(c.name);
-            if (xmldir.endsWith(cdir)) {
-                appDir = xmldir.substr(0, xmldir.indexOf(cdir))
+            const idx = file.lastIndexOf(CONTRACTS_DIR);
+            if (idx > 0) {
+                const absSourceDir = file.substr(0, idx);
+                const capp: CApp = projectFs.getCApp(absSourceDir);
+
+
+                const c: CFileContractXml = CFileContractXml.fromXml(file);
+                const cFile = capp.getCFile(c.name + ".c");
+                c.file = cFile;
+                cc.addContract(c);
             }
 
 
-            cc.addContract(c);
-
-            // let relativizedFile = path.relative(dir, file);
-            // contract.name=relativizedFile;
 
             cnt++;
             tracker.updateProgress(files.length / cnt);
         }
-        tracker.updateProgress(100);
+        tracker.updateProgress(1);
         return cc;
     }
 
@@ -842,9 +842,9 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
 
 
         data.apps.forEach(app => {
-            console.log("source dir:" + app.sourceDir);
+            // console.log("source dir:" + app.sourceDir);
 
-            let capp: CApp = projectFs.getCApp(app.sourceDir);
+            let capp: CApp = projectFs.getCApp(app.baseDir, app.actualSourceDir);
 
             //tracker.updateProgress(trackerInc);
             const fileTrackerInc = 100 / app.files.length;
@@ -927,7 +927,7 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
                     const crfile = cfile.app.getCFile(jReturnsite.loc.file);
                     const returnsite = new ReturnsiteImpl(jReturnsite, crfile);
 
- 
+
 
                     jReturnsite.spos && jReturnsite.spos.forEach(spo => {
                         const mSPOImpl: SPOImpl = new SPOImpl(spo, cfun, returnsite);
@@ -943,12 +943,12 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
             jfun.callsites &&
                 jfun.callsites.forEach(jcallsite => {
 
-                   
+
 
                     let callsite = null;
                     if (jcallsite.callee) {
 
-                        
+
 
                         const callsiteFile = cfile.app.getCFile(jcallsite.loc.file);
                         let calleeFile = callsiteFile;//
@@ -999,6 +999,7 @@ function runJavaJar(javaEnv: JavaEnv, projectFs: FileSystem, tracker: ProgressTr
             resolve(jsonfiles);
 
         } else {
+            const resulting_jsons: string[] = [];
             tracker.setMessage("parsing XML files");
 
             const javaExecutablePath = path.resolve(javaEnv.java_home + '/bin/java');
@@ -1018,9 +1019,16 @@ function runJavaJar(javaEnv: JavaEnv, projectFs: FileSystem, tracker: ProgressTr
             });
 
             process.on("exit", (code, signal) => {
-                console.log("KT to JSON done, code:", code, signal);
+                console.log(`KT to JSON done, code:, ${code}, ${signal} `);
                 if (code == 0) {
-                    resolve(projectFs.listFilesRecursively(".kt.analysis.json"));
+                    console.log(resulting_jsons);
+                    if (resulting_jsons.length == 0) {
+                        console.error("no JSON file known");
+                        reject("no JSON files produced");
+                    } else {
+                        resolve(resulting_jsons);
+                    }
+
                 } else {
                     reject("XML parser exit code is " + code + " signal: " + signal);
                 }
@@ -1028,16 +1036,22 @@ function runJavaJar(javaEnv: JavaEnv, projectFs: FileSystem, tracker: ProgressTr
 
 
             let lastProg = 0;
-            process.stdout.on('data', function (data) {
+            process.stdout.on('data', (data) => {
                 let msg = data.toString();
                 let parts = msg.split(":");
+
                 if (parts[0] === 'PROGRESS') {
                     let prog = parseFloat(parts[1]);
                     tracker.updateProgress(prog - lastProg);
                     tracker.setMessage("parsing XML files: " + Math.round(prog * 10) / 10 + "%");
                     lastProg = prog;
+                }
+                else if (parts[0] == 'RESULT_JSON') {
+                    resulting_jsons.push(parts[1].trim())
+                    console.log(parts[1]);
+                    tracker.setMessage("about to read " + parts[1]);
                 } else {
-                    console.log('XML_PARSER: ' + data.toString());
+                    console.log('XML_PARSER: ' + msg);
                 }
 
             });
