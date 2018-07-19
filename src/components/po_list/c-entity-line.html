@@ -1,7 +1,7 @@
 <dom-module id="c-entity-line">
     <template>
 
-        <div class$="po row [[item.renderInfo.clazz]]" title$="[[item.stateName]] id:[[item.id]] [[item.file]]/[[item.functionName]]:[[item.line]]">
+        <div class$="po row [[item.renderInfo.clazz]]" title$="[[item.stateName]] id:[[item.id]] [[item.relativePath]]/[[item.functionName]]:[[item.line]]">
 
             <span class='left'>
                 <iron-icon class="po-icon" icon$="[[item.renderInfo.icon]]" on-click="select"></iron-icon>
@@ -56,7 +56,7 @@
                 <template is="dom-if" if="[[linktosource]]">
                     <span class="location" on-tap="jumpToSource" data=[[item]]>
                         <iron-icon class="po-icon" icon="link"></iron-icon>
-                        <span class="line" title$="[[item.file]]/[[item.functionName]]">L[[item.line]]</span>
+                        <span class="line" title$="[[item.relativePath]]/[[item.functionName]]">L[[item.line]]</span>
                     </span>
                 </template>
 

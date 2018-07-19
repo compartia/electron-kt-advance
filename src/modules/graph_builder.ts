@@ -24,7 +24,7 @@ export function findOrMakeNode(g: { [key: string]: NodeDef }, n: Graphable, filt
 
 export function buildGraph(filter: Filter, project: CProject): NodeDef[] {
 
-    const pos = project.filteredProofObligations;
+    // const pos = project.filteredProofObligations;
 
 
     let g: { [key: string]: NodeDef } = {};
@@ -144,9 +144,15 @@ export function buildCallsGraph(filter: Filter, project: CProject): NodeDef[] {
 
 
             if (filter.acceptCFunction(func) || filter.acceptCFunction(callsite.callee)) {
-
+                
                 const node = callsite.callee.toNodeDef(filter, settings);
                 nodesMap[node.name] = node;
+
+                if(true){ 
+                    const node1 = callsite.toNodeDef(filter, settings);
+                    nodesMap[node1.name] = node1;
+                    linkNodes(node, node1);
+                }
 
                 callsite.getSPOs().forEach(linkedSpo => {
 

@@ -58,7 +58,7 @@ export class Stats {
     }
 
     public getStatsByFunction(func: CFunction): { [key: string]: number } {
-        let functionKey = func.file + "/" + func.name;
+        let functionKey = func.relativePath + "/" + func.name;
         return this.byFunction.getRow(functionKey);
     }
 
@@ -116,10 +116,10 @@ export class Stats {
 
 
         for (let po of filteredProofObligations) {
-            let functionKey = po.file + "/" + po.functionName;
+            let functionKey = po.relativePath + "/" + po.functionName;
             let state: string = PoStates[po.state].toLowerCase();
 
-            let fileLineKey = po.file + "//" + po.location.line;
+            let fileLineKey = po.relativePath + "//" + po.location.line;
             this.byFileLine.inc(fileLineKey, state, 1);
             this.byFileLine.inc(fileLineKey, DEF_COL_NAME, 1);
 
@@ -141,22 +141,22 @@ export class Stats {
                 if (po.assumptionsOut) {
                     let cntOut = po.assumptionsOut.filter(x => x.assumptionType === type).length;
                     this.assumptionsByFunction.inc(functionKey, type, cntOut);
-                    this.dependenciesByFile.inc(po.file, type, cntOut);
+                    this.dependenciesByFile.inc(po.relativePath, type, cntOut);
                 }
 
                 if (po.assumptionsIn) {
                     let cntIn = po.assumptionsIn.filter(x => x.assumptionType === type).length;
                     this.assumptionsByFunction.inc(functionKey, type, cntIn);
-                    this.dependenciesByFile.inc(po.file, type, cntIn);
+                    this.dependenciesByFile.inc(po.relativePath, type, cntIn);
                 }
             }
 
             this.assumptionsByFunction.bind(functionKey, po.cfunction);
-            this.dependenciesByFile.bind(po.file, po);
+            this.dependenciesByFile.bind(po.relativePath, po);
 
             //------------
-            this.byFile.inc(po.file, state, 1);
-            this.byFile.bind(po.file, po);
+            this.byFile.inc(po.relativePath, state, 1);
+            this.byFile.bind(po.relativePath, po);
             //------------
             this.byState.inc(state, DEF_COL_NAME, 1);
             this.byState.bind(state, state);
@@ -242,7 +242,7 @@ export class Stats {
                 data: data,
                 colors: (x, index) => "var(--kt-state-" + columnNames[index] + "-default-bg)",
                 columnNames: columnNames,
-                label: x => x.object.file + "/" + x.object.name,
+                label: x => x.object.relativePath + "/" + x.object.name,
                 max: null
             }
         );
@@ -258,7 +258,7 @@ export class Stats {
                 data: data,
                 colors: (x, index) => "var(--kt-state-assumption-" + columnNames[index] + "-bg)",
                 columnNames: columnNames,
-                label: x => x.object.file + "/" + x.object.name,
+                label: x => x.object.relativePath + "/" + x.object.name,
                 max: null
             }
         );

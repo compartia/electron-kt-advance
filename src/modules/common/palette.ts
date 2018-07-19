@@ -51,6 +51,12 @@ export function buildPalette() {
     ktColors["state-callsite-rs-bg"] = htmlStyles.getPropertyValue('--kt-state-callsite-rs-bg').trim();
 
 
+    ktColors["state-callee-bg"] = htmlStyles.getPropertyValue('--kt-state-callee-bg').trim();
+    ktColors["state-callee-ic-bg"] = htmlStyles.getPropertyValue('--kt-state-callee-ic-bg').trim();
+    ktColors["state-callee-dc-bg"] = htmlStyles.getPropertyValue('--kt-state-callee-dc-bg').trim();
+    ktColors["state-callee-rs-bg"] = htmlStyles.getPropertyValue('--kt-state-callee-rs-bg').trim();
+
+
     ktColors["state-missing-bg"] = htmlStyles.getPropertyValue('--kt-state-missing-bg').trim();
 
 

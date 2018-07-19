@@ -42,7 +42,7 @@ Example:
                  *
                  * Specific data:
                  *
-                 * - `data.name`: string representing the node name.
+                 * - `data.shortName`: string representing the node name.
                  * - `data.icon`: string telling which icon to use (default to 'folder' icon).
                  * - `data.open`: boolean telling whether the node is expanded or not.
                  * - `data.children` array containing the children of the node.
@@ -99,6 +99,7 @@ Example:
                 if (newFile) {
                     var split = treeview.splitPath(newFile.relativePath);
                     var root = this.$.root;
+                    root.data.open=true;
                     root.openChildren();
                     var child = root.findChild(split[0]);
                     if (child) {

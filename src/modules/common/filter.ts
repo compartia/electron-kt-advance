@@ -173,9 +173,9 @@ export class Filter {
         } else {
 
             if (!this._file.dir) {
-                return func.file == this.fileName;
+                return func.relativePath == this.fileName;
             } else {
-                return func.file.startsWith(this.fileName) || this.fileName == ".";
+                return func.relativePath.startsWith(this.fileName) || this.fileName == ".";
             }
 
         }

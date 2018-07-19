@@ -32,7 +32,7 @@ export interface CommonNodeAttributes extends NodeAttributes {
 }
 
 export interface CallsiteNodeAttributes extends CommonNodeAttributes {
-    data: Site | JVarInfo;
+    data: Site | JVarInfo | Callee;
 }
 
 export interface AssumptionNodeAttributes extends CommonNodeAttributes {
@@ -71,11 +71,11 @@ export interface HasPath {
 }
 
 export interface FileInfo extends HasPath {
-    name: string;
+    shortName: string;
     icon: string;
     open: boolean;
     children: Array<FileInfo>;
-    dir: boolean;
+     
 }
 
 export interface PODischarge extends POId {
@@ -96,12 +96,12 @@ export interface HasLocation extends HasPath {
 
 export interface HasCFunction {
     cfunction: CFunction;
-    file: string;
+    // file: string;
     functionName: string;
 }
 
 export interface CApiAssumption extends HasCFunction, Graphable, HasLocation, HasRenderInfo {
-    file: string;
+    // file: string;
     functionName: string;
     location: POLocation;
 
@@ -120,13 +120,13 @@ export interface CApi {
 }
 export interface CFunctionBase extends HasLocation {
     name: string;
-    file: string;
+    // file: string;
 }
 
 export interface CFunction extends CFunctionBase {
 
     loc: POLocation;
-
+    absFile: string;
 
     api: CApi;
     callsites: Callsite[];
@@ -154,7 +154,7 @@ export interface Returnsite extends Site {
 
 export interface Callee extends Graphable, CFunctionBase, HasRenderInfo {
     functionName: String,
-    loc: POLocation;
+    location: POLocation;
     type: string;
     arguments: string;
 }
@@ -164,13 +164,23 @@ export interface Callsite extends Site {
     isGlobal(): boolean;
 }
 
+export interface CFile {
+    app: CApp;
+    shortName: string;
+    /**
+     * project-relative filepath
+     */
+    relativePath: string;
+    absFile: string;
+    isAbs():boolean;
+}
 /**
  * @deprecated
  * create location info, merge it with ile info
  */
 export interface POLocation {
     line: number;
-    file: string;
+    cfile: CFile;
 }
 
 
@@ -217,14 +227,25 @@ export interface SecondaryProofObligation extends ProofObligation {
     callsite: Site;
 }
 
-export interface CApp   {
+export interface CApp {
+    /**
+     * abs path
+     */
     sourceDir: string;
+    /*
+    typically it is "semantics/sourcefiles"
+    */
+    sourceBaseRelative: string;
+
+    getCFile(name: string): CFile;
+
+    files: CFile[];
 }
 
 export interface CAnalysis {
     proofObligations: Array<ProofObligation>;
     apps: Array<CApp>;
- 
+
     functionByFile: { [key: string]: Array<CFunction> };
     assumptions: Array<CApiAssumption>
     contracts: contracts.ContractsCollection;
