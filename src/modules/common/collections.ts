@@ -18,45 +18,6 @@ export class StatsTable<T> {
     columnNames: Array<string> = new Array();
 
 
-    // public divideColumnsByColumn(columns: string[], dividerTable: StatsTable<any>, dividerColumn: string) {
-
-    //     for (let rowName in this.data) {
-    //         let row = this.data[rowName];
-    //         let divider: number = dividerTable.getAt(rowName, dividerColumn);
-
-    //         for (let colKey in row) {
-    //             let val;
-    //             if (contains(columns, colKey))
-    //                 val = row[colKey];
-
-    //             if (divider) {
-    //                 row[colKey] = val / divider;
-    //             } else {
-    //                 row[colKey] = 0;
-    //             }
-    //         }
-    //     }
-    // }
-
-
-
-    // public foreach(func: (row: string, col: string, val: number) => void, columns?: string[]): void {
-
-    //     for (let rowName in this.data) {
-    //         let row = this.data[rowName];
-
-    //         for (let colKey in row) {
-    //             if (contains(columns, colKey)){
-    //                 let val = row[colKey];
-    //                 func(rowName, colKey, val);
-    //             }
-                
-    //         }
-    //     }
-    // }
-
-
-
     public getAt(row: string, column: string): number {
         if (this.data[row])
             return this.data[row][column];
