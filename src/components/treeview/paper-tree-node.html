@@ -98,7 +98,7 @@ Custom property | Description | Default
             </div>
             <template is="dom-if" if="{{data.open}}">
                 <ul>
-                    <template is="dom-repeat" items="{{data.children}}">
+                    <template is="dom-repeat" items="{{sort(data.children)}}">
                         <li>
                             <paper-tree-node offset="[[_getChildOffset(offset)]]" data="{{item}}" actions="{{actions}}" statistics="[[statistics]]"></paper-tree-node>
                         </li>
@@ -281,7 +281,21 @@ Custom property | Description | Default
                         }
                     }
                 }
+            },
+
+
+            sort: function (children) {
+                return children.sort((a, b) => {
+                    if (a.dir == b.dir) {
+                        return a.shortName.localeCompare(b.shortName);
+                    } else {
+                        if (a.dir) return -1;
+                         return 1;
+                    }
+                });
             }
+
+
         });
     </script>
 </dom-module>

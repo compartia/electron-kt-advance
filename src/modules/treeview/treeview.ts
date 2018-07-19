@@ -81,7 +81,6 @@ class TreeBuilder {
             for (const file of app.files) {
                 const filedir = path.dirname(file.absFile);
                 let dirItem: DirTreeItem = this.getDirItem(filedir, file.isAbs());
-                // dirItem.children.push(new FileTreeItem(file));
                 dirItem.children.push(file);
             }
         }
@@ -90,19 +89,7 @@ class TreeBuilder {
     }
 
 
-    private allFilesSync(root: string, dir: string, fileList: Array<FileInfo> = []): Array<FileInfo> {
-      
-        fileList.sort((a, b) => {
-            if (a.dir == b.dir) {
-                return a.shortName.localeCompare(b.shortName);
-            } else {
-                if (a.dir) return 1;
-                return -1;
-            }
-        });
-
-        return fileList
-    }
+    
 }
 
 
