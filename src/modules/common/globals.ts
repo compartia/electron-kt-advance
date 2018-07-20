@@ -8,7 +8,7 @@ import * as tf from '../tf_graph_common/lib/common';
 import { NodeDef } from '../tf_graph_common/lib/proto';
 import { Filter } from './filter';
 import { CONF, loadProjectMayBe } from './storage';
-import { AbstractNode, CAnalysis, CApiAssumption, CFunction, Callee, PoStates, ProofObligation, RenderInfo, sortPoNodes, CFile } from './xmltypes';
+import { AbstractNode, CAnalysis, CApiAssumption, CFunction, Callee, PoStates, ProofObligation, RenderInfo, sortPoNodes, CFile, HasPath } from './xmltypes';
 import { contracts as Contracts } from "../contracts/contracts";
 
 
@@ -43,6 +43,8 @@ export class JsonReadyProject {
 
 export interface ContractsController {
     saveContract(c: Contracts.CFileContract, callbackfn: Function);
+    getFileContracts(file: HasPath): Contracts.CFileContract;
+    getFunctionContracts(fun: CFunction): Contracts.CFunctionContract;
 }
 
 export interface CProject {
@@ -70,6 +72,8 @@ export class ProjectImpl implements CProject, ContractsController {
 
     stats: Stats;
     contracts: Contracts.ContractsCollection;
+
+    /* deprecated */
     filteredContracts: Array<Contracts.CFileContract>;
     /**
     * previously saved statistics
@@ -90,12 +94,35 @@ export class ProjectImpl implements CProject, ContractsController {
         return this;
     }
 
+    getFunctionContracts(fun: CFunction): Contracts.CFunctionContract {
+        if (!fun) return null;
+        let cfile = fun.loc.cfile;
+        let fileContract = this.getFileContracts(cfile);
+        let funC = fileContract.getFunctionContractByName(fun.name);
+        if (!funC) {
+            funC = Contracts.CFunctionContract.makeByCFunction(fun);
+            fileContract.addFunctionContract(funC);
+        }
+        return funC;
+    }
+
+    getFileContracts(file: HasPath): Contracts.CFileContract {
+        if (!file) return null;
+        let c = this.contracts.contractsByFile[file.relativePath];
+        if (!c) {
+            c = new Contracts.CFileContractImpl();
+            c.file = <CFile>file;
+            this.contracts.addContract(c);
+        }
+        return c;
+    }
+
     public saveContract(c: Contracts.CFileContract, callbackfn: Function) {
         try {
             const _dirToSave = path.join(c.file.app.baseDir, "ktacontracts");
-            if(!fs.existsSync(_dirToSave)){
+            if (!fs.existsSync(_dirToSave)) {
                 fs.mkdirSync(_dirToSave);
-            } 
+            }
             const fileToSave = path.join(_dirToSave, c.name + "_c.xml");
             const data = XmlWriter.toXml(c);
             console.log(data);
@@ -103,6 +130,7 @@ export class ProjectImpl implements CProject, ContractsController {
             fs.writeFileSync(fileToSave, data);
             callbackfn("saved to " + fileToSave);
         } catch (e) {
+            console.log(e);
             callbackfn("Failed saving:" + e);
         }
 

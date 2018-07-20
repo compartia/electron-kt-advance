@@ -986,10 +986,7 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
 function runJavaJar(javaEnv: JavaEnv, projectFs: FileSystem, tracker: ProgressTracker): Promise<string[]> {
 
     return new Promise((resolve, reject) => {
-
-        let targetfiles: string[] = projectFs.listFilesRecursively("target_files.xml");
-        console.log(targetfiles);
-
+       
         let jsonfiles: string[] = [];//projectFs.listFilesRecursively(".kt.analysis.json");//XXX
 
         if (jsonfiles.length > 0) {

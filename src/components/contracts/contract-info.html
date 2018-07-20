@@ -44,6 +44,7 @@
     </style>
 
     <template>
+          
         <div class="vertical">
             <paper-menu-button class="button-padding" id="rel_btn" no-animations close-on-activate>
                 <paper-button raised slot="dropdown-trigger" class$="[[_getOperandBtnClass(arg.kind)]]">
@@ -441,20 +442,34 @@
             padding: 0!important;
         }
 
+        .headline{
+            padding-left: var(--spacer);
+        }
+
         paper-icon-button{
             color: var(--brand-color);
         }
     </style>
 
     <template>
-        <template is="dom-if" if="[[not(contract.name)]]">
-            <h1>[[file.name]]</h1>
-            <h3>no function selected</h3>
-        </template>
+
+        <div class="headline">
+            
+            <h1 class="code">[[file.file.relativePath]]<strong>[[file.file.shotName]]</strong></h1>
+            
+            <template is="dom-if" if="[[not(contract.name)]]">           
+                <h3>no function selected</h3>
+            </template>
+
+            <template is="dom-if" if="[[contract.name]]">
+                <h2 class="code">[[contract.name]]([[contract.parameters]])</h2>
+            </template>
+
+        </div>
 
         <template is="dom-if" if="[[contract.name]]">
 
-            <h2 class="code">[[contract.name]]([[contract.parameters]])</h2>
+           
 
             <!-- PRE -->
             <paper-expansion-panel class="collapsible" header="Preconditions: ([[contract.preconditions.length]])" opened>
