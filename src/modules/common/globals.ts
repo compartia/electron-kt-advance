@@ -1,23 +1,24 @@
+import * as fs from 'fs';
 import * as _ from "lodash";
+import * as path from 'path';
+import { contracts as Contracts } from "../contracts/contracts";
+import * as XmlWriter from '../contracts/xml';
 import { CAnalysisJsonReaderImpl } from '../data/dataprovider';
 import { XmlReader } from '../data/xmlreader';
-import * as XmlWriter from '../contracts/xml';
 import { buildCallsGraph, buildGraph } from '../graph_builder';
 import { Stats } from '../stats/stats';
 import * as tf from '../tf_graph_common/lib/common';
 import { NodeDef } from '../tf_graph_common/lib/proto';
-import { Filter } from './filter';
-import { CONF, loadProjectMayBe } from './storage';
-import { AbstractNode, CAnalysis, CApiAssumption, CFunction, Callee, PoStates, ProofObligation, RenderInfo, sortPoNodes, CFile, HasPath } from './xmltypes';
-import { contracts as Contracts } from "../contracts/contracts";
-
-
-
-import * as fs from 'fs';
-import * as path from 'path';
-import { FileSystem } from "./filesystem";
-import { FileContents } from "./source";
 import { runAsyncPromiseTask } from "../tf_graph_common/lib/util";
+import { CONTRACTS_DIR, FileSystem } from "./filesystem";
+import { Filter } from './filter';
+import { FileContents } from "./source";
+import { CONF, loadProjectMayBe } from './storage';
+import { AbstractNode, Callee, CAnalysis, CApiAssumption, CFile, CFunction, HasPath, PoStates, ProofObligation, RenderInfo, sortPoNodes } from './xmltypes';
+
+
+
+ 
 
 const dialog = require('electron').remote.dialog;
 
@@ -42,7 +43,7 @@ export class JsonReadyProject {
 
 
 export interface ContractsController {
-    saveContract(c: Contracts.CFileContract, callbackfn: Function);
+    saveContract(c: Contracts.CFileContract, callbackfn?: Function): boolean;
     getFileContracts(file: HasPath): Contracts.CFileContract;
     getFunctionContracts(fun: CFunction): Contracts.CFunctionContract;
 }
@@ -90,6 +91,12 @@ export class ProjectImpl implements CProject, ContractsController {
 
     renderInfos: { [key: string]: RenderInfo } = {};
 
+    constructor(fs: FileSystem) {
+        this.contracts = new Contracts.ContractsCollection();
+        if (!fs) throw "param is required";
+        this.open(fs);
+    }
+
     get contractsController(): ContractsController {
         return this;
     }
@@ -111,33 +118,45 @@ export class ProjectImpl implements CProject, ContractsController {
         if (!file) return null;
         let c = this.contracts.contractsByFile[file.relativePath];
         if (!c) {
-            c = new Contracts.CFileContractImpl();
-            c.file = <CFile>file;
+            c = Contracts.makeContractByCFile(<CFile>file);
             this.contracts.addContract(c);
         }
         return c;
     }
 
-    public saveContract(c: Contracts.CFileContract, callbackfn: Function) {
+    public saveContract(c: Contracts.CFileContract, callbackfn?: Function): boolean {
         try {
-            const _dirToSave = path.join(c.file.app.baseDir, "ktacontracts");
-            if (!fs.existsSync(_dirToSave)) {
-                fs.mkdirSync(_dirToSave);
-            }
-
+            const _dirToSave = path.join(c.file.app.baseDir, CONTRACTS_DIR);
             const fileToSave = path.join(_dirToSave, c.name + "_c.xml");
+            const dir=path.dirname(fileToSave);
+
+            if (!fs.existsSync(dir)) {
+                console.log("making "+dir);
+                let mkdirp = require('mkdirp');
+                mkdirp.sync(dir);
+            }
+          
+           
+
+             
             const data = XmlWriter.toXml(c);
             console.log(data);
             console.log(`saving contract to ${fileToSave}`);
             fs.writeFileSync(fileToSave, data);
-            callbackfn("saved to " + fileToSave);
+            if (callbackfn) {
+                callbackfn("saved to " + fileToSave);
+            }
+            return true;
         } catch (e) {
             console.log(e);
-            callbackfn("Failed saving:" + e);
+            if (callbackfn) {
+                callbackfn("Failed saving:" + e);
+            }
+            return false;
         }
     }
 
-    
+
 
     private getOrCreateRenderInfo(po: ProofObligation): RenderInfo {
         const stateName = PoStates[po.state];
@@ -199,10 +218,7 @@ export class ProjectImpl implements CProject, ContractsController {
     }
 
 
-    constructor(fs: FileSystem) {
-        if (!fs) throw "param is required";
-        this.open(fs);
-    }
+
 
     public buildGraph(filter: Filter): NodeDef[] {
         return buildGraph(filter, this);

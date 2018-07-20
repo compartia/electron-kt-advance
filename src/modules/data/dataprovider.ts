@@ -477,7 +477,7 @@ export class CAnalysisImpl implements CAnalysis {
     apps = [];
     private _proofObligations = [];
     functionByFile = {};
-    contracts: contracts.ContractsCollection = new contracts.ContractsCollection(null);
+    contracts: contracts.ContractsCollection = new contracts.ContractsCollection();
 
     poIndex: { [key: string]: ProofObligation } = {};
     functionByPath: { [key: string]: CFunction } = {};
@@ -774,16 +774,10 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
 
 
     private readContractsXmls(projectFs: FileSystem, tracker: ProgressTracker): contracts.ContractsCollection | null {
-        let contractsPath = path.join(projectFs.baseDir, CONTRACTS_DIR);
-        // console.error("reading contracts XMLs is not implemented yet; dir:" + contractsPath);
-
-        if (!fs.existsSync(contractsPath)) {
-            console.warn(contractsPath + " does not exist");
-            contractsPath = projectFs.baseDir;// return null;
-        }
+        
 
         const files: string[] = kt_fs.walkSync(projectFs.baseDir, "_c.xml")
-        const cc: contracts.ContractsCollection = new contracts.ContractsCollection(contractsPath);
+        const cc: contracts.ContractsCollection = new contracts.ContractsCollection();
         let cnt: number = 0;
         for (const file of files) {
 
