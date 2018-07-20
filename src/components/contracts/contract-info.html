@@ -1,7 +1,4 @@
-<link rel="import" href="../../../bower_components/paper-checkbox/paper-checkbox.html" />
-<link rel="import" href="../../../bower_components/paper-input/paper-input.html" />
-<link rel="import" href="../../../bower_components/paper-menu-button/paper-menu-button.html" />
-<link rel="import" href="../../../bower_components/paper-listbox/paper-listbox.html" />
+
 
 <dom-module id="c-argument">
 
@@ -218,7 +215,6 @@
             
         <div class="group">
 
-
             <c-argument arg="{{apply.argument1}}" global-variables="[[globalVariables]]"></c-argument>
 
 
@@ -251,7 +247,6 @@
             </template>
 
             
-
         </div>
                
 
@@ -396,16 +391,25 @@
             --bth-add-size: 32px;
         }
 
+      
+
+        .row{
+            @apply --layout-horizontal;    
+            @apply --layout-center;     
+        }
+
         .postcondition {
+            margin: 0 var(--spacer) var(--spacer) var(--spacer);
             background-color: var(--selection-md-bg);
-            padding: 2px;
+            
+            border-radius: 5px;                
+            position: relative;
+        }
 
-
-            margin-bottom: 10px;
-            border-radius: 5px;
-
-            @apply --layout-horizontal;
-            @apply --layout-justified;
+        .btn-del{
+            position: absolute;
+            right: 0;
+            top:0;
         }
 
         .btn-add {
@@ -440,23 +444,35 @@
         h1, h2, h3{
             margin: var(--spacer) 0 !important;
             padding: 0!important;
+            text-transform: unset;
         }
 
         .headline{
-            padding-left: var(--spacer);
+            margin: 0 var(--spacer);
         }
 
         paper-icon-button{
             color: var(--brand-color);
         }
+
+        .strong{
+            font-weight: 300;
+        }
+
+
     </style>
 
     <template>
 
         <div class="headline">
-            
-            <h1 class="code">[[file.file.relativePath]]<strong>[[file.file.shotName]]</strong></h1>
-            
+            <div class="row">
+                <h1 class="code flex">[[file.file.dirName]]/<span class="strong">[[file.file.shortName]]</span></h1>
+                <div>
+                    <span class="tag tag-in" title="number of preconditions">[[file.preconditionsCount]]</span>
+                    <span class="tag tag-out" title="number of postconditions">[[file.postconditionsCount]]</span>
+                </div>
+            </div>
+
             <template is="dom-if" if="[[not(contract.name)]]">           
                 <h3>no function selected</h3>
             </template>
@@ -469,14 +485,13 @@
 
         <template is="dom-if" if="[[contract.name]]">
 
-           
 
             <!-- PRE -->
             <paper-expansion-panel class="collapsible" header="Preconditions: ([[contract.preconditions.length]])" opened>
                 <template is="dom-repeat" items="[[contract.preconditions]]">
                     <div class="postcondition">
                         <c-apply holder="[[item]]" apply="[[item.apply]]" global-variables="[[globalVariables]]"></c-apply>
-                        <paper-icon-button name="[[index]]" raised icon="delete" on-tap="deletePreCondition"></paper-icon-button>
+                        <paper-icon-button name="[[index]]" raised icon="delete"  class="btn-del" on-tap="deletePreCondition"></paper-icon-button>
                     </div>
                 </template>
                 <div class="control-panel">
@@ -490,7 +505,7 @@
                 <template is="dom-repeat" items="[[contract.postconditions]]">
                     <div class="postcondition">
                         <c-apply holder="[[item]]" apply="[[item.apply]]" global-variables="[[globalVariables]]"></c-apply>
-                        <paper-icon-button name="[[index]]" raised icon="delete" on-tap="deletePostCondition"></paper-icon-button>
+                        <paper-icon-button name="[[index]]" raised icon="delete" class="btn-del" on-tap="deletePostCondition"></paper-icon-button>
                     </div>
                 </template>
                 <div class="control-panel">
@@ -531,10 +546,12 @@
 
             addPostCondition: function () {
                 this.push("contract.postconditions", Contracts.Math.makeDefault());
+                this.notifyPath("file.postconditionsCount");
             },
 
             addPreCondition: function () {
-                this.push("contract.preconditions", Contracts.Math.makeDefault());
+                this.push("contract.preconditions", Contracts.Math.makeDefault());                
+                this.notifyPath("file.preconditionsCount");
             },
  
 

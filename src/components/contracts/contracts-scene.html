@@ -3,8 +3,6 @@
 
 <dom-module id="contracts-scene">
     <style>
- 
-
         .btn-save {
             background-color: var(--brand-color);
             color: white;
@@ -22,23 +20,10 @@
 
         <div class="container">
 
-            <div class="po-wrapper file-contract-line">
-                <div class="row">
-                    <div class="mid code">
-                        [[_selectedFile.name]]
-                    </div>
-                    <div class="right">
-                        <!-- <span class="tag"  title="number of preconditions>[[file.functions.length]]</span> -->
-                        <span class="tag tag-in" title="number of preconditions">[[_selectedFile.preconditionsCount]]</span>
-                        <span class="tag tag-out" title="number of postconditions">[[_selectedFile.postconditionsCount]]</span>
-                    </div>
-                </div>
-            </div>
-
             <contract-info 
-                file="[[_selectedFile]]" 
-                contract="[[_selectedFunc]]" 
-                global-variables="[[_selectedFile.globalVariables]]"></contract-info>
+                file="[[selectedFileContract]]" 
+                contract="[[selectedFunctionContract]]" 
+                global-variables="[[selectedFileContract.globalVariables]]"></contract-info>
 
             <div class="control-panel separated-top">
                 <paper-button class="btn-save" raised on-tap="saveContracts">save</paper-button>
@@ -70,8 +55,8 @@
                     type: Object
                 },
 
-                _selectedFunc: Object,
-                _selectedFile: Object,
+                selectedFunctionContract: Object,
+                selectedFileContract: Object,
             },
 
             saveContracts: function () {
@@ -79,29 +64,26 @@
                     this.$.toast.text = "Contract saved: " + x;
                     this.$.toast.open();
                 }
-                this.controller.saveContract(this._selectedFile, cb);
+                this.controller.saveContract(this.selectedFileContract, cb);
             },
 
             _rowClass: function (selected) {
                 return selected ? "selected" : ""
             },
-             
+
             _onContractFunctionSelected: function (e) {
-                this._selectedFunc = e.detail;
+                this.selectedFunctionContract = e.detail;
             },
 
 
             _selectedFileChanged: function (e) {
                 let fileContract = this.controller.getFileContracts(e);
-                this._selectedFile = fileContract;
-                // console.error(e)
+                this.selectedFileContract = fileContract;
             },
 
             _selectedFunctionChanged: function (cfun) {
-
                 let functionContract = this.controller.getFunctionContracts(cfun);
-                this._selectedFunc = functionContract;
-                // console.error(functionContract);
+                this.selectedFunctionContract = functionContract;
             },
 
         });

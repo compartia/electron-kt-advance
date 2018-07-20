@@ -96,6 +96,7 @@ export class ProjectImpl implements CProject, ContractsController {
 
     getFunctionContracts(fun: CFunction): Contracts.CFunctionContract {
         if (!fun) return null;
+
         let cfile = fun.loc.cfile;
         let fileContract = this.getFileContracts(cfile);
         let funC = fileContract.getFunctionContractByName(fun.name);
@@ -123,6 +124,7 @@ export class ProjectImpl implements CProject, ContractsController {
             if (!fs.existsSync(_dirToSave)) {
                 fs.mkdirSync(_dirToSave);
             }
+
             const fileToSave = path.join(_dirToSave, c.name + "_c.xml");
             const data = XmlWriter.toXml(c);
             console.log(data);
@@ -133,9 +135,9 @@ export class ProjectImpl implements CProject, ContractsController {
             console.log(e);
             callbackfn("Failed saving:" + e);
         }
-
-
     }
+
+    
 
     private getOrCreateRenderInfo(po: ProofObligation): RenderInfo {
         const stateName = PoStates[po.state];

@@ -172,7 +172,13 @@ export module contracts {
 
         set file(file: CFile) {
             this._file = file;
-            this.name = file.relativePath;
+            this.name = this.removeExtension(file.relativePath);
+        }
+
+        private removeExtension(x:string){
+            if(x.endsWith('.c'))
+                return x.replace(/\.[^/.]+$/, "");
+            return x;
         }
 
 

@@ -8,14 +8,40 @@
 <dom-module id="kt-layout">
     <template>
         contracts-scene.html
-        <contracts-scene contracts="[[contracts]]"></contracts-scene>
+        <!-- <contracts-scene contracts="[[contracts]]"></contracts-scene> -->
+
+        <contracts-scene 
+            contracts="[[contracts]]" 
+            controller="[[contractsController]]"
+
+            selected-file-contract="[[selectedFile]]"  
+            selected-function-contract="[[selectedFunc]]"
+
+            ></contracts-scene>
     </template>
     <script>
 
         Polymer({
             is: "kt-layout",
-            properties: {
 
+            _getSelectedFile:function(contracts){
+                return this.contracts[0];
+            },
+
+            _getSelectedFunc:function(selectedFile){
+                return this.contracts[0].functions[0];
+            },
+
+            properties: {
+                selectedFile:{
+                    type: Object,
+                    computed: 'getSelectedFile(contracts)'
+                },
+
+                selectedFunc:{
+                    type: Object,
+                    computed: '_getSelectedFunc(contracts)'
+                }
             },
 
             convertToObjects: function (c) {
