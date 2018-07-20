@@ -152,38 +152,7 @@ assumption-line {
             flex-flow  : row;
         }
 
-        .tag{
-            text-align   : center;
-            margin       : $spacer/3;
-            min-width    : 1em;
-            color        : $color-brand-2;
-            border-radius: $spacer*2;
-            font-size    : 80%;
-            padding      : $spacer/4 $spacer/2;
-            background: var(--kt-out-edge-bg);
-
-            background: var(--kt-in-edge-bg);
-
-            &:hover {
-                background: var(--kt-in-edge-bg-hover);
-            }
-        }
-
-        .tag-in{
-            background: var(--kt-in-edge-bg);
-
-                &:hover {
-                    background: var(--kt-in-edge-bg-hover);
-                }
-        }
-
-        .tag-out{
-            background: var(--kt-out-edge-bg);
-
-                &:hover {
-                    background: var(--kt-out-edge-bg-hover);
-                }
-        }
+        
         
         .assumptions {
             display    : flex;
@@ -274,4 +243,38 @@ assumption-line {
 
     }
 
+}
+
+
+
+.tag{
+    text-align   : center;
+    margin       : $spacer/3;
+    min-width    : 1em;
+    color        : $color-brand-2;
+    border-radius: $spacer*2;
+    font-size    : 80%;
+    padding      : $spacer/4 $spacer/2;
+    background: var(--kt-out-edge-bg);
+    background: var(--kt-in-edge-bg);
+
+    &:hover {
+        background: var(--kt-in-edge-bg-hover);
+    }
+}
+
+.tag-in{
+    background: var(--kt-in-edge-bg);
+
+        &:hover {
+            background: var(--kt-in-edge-bg-hover);
+        }
+}
+
+.tag-out{
+    background: var(--kt-out-edge-bg);
+
+        &:hover {
+            background: var(--kt-out-edge-bg-hover);
+        }
 }

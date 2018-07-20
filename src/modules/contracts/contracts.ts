@@ -1,5 +1,5 @@
 import { ENGINE_METHOD_DIGESTS } from "constants";
-import { CFile } from "../common/xmltypes";
+import { CFile, HasPath, CFunction } from "../common/xmltypes";
 
 
 
@@ -66,6 +66,24 @@ export module contracts {
         postconditions: contracts.Math[] = [];
         preconditions: contracts.Math[] = [];
 
+        _cfunction?: CFunction;
+
+        public static makeByCFunction(f: CFunction): CFunctionContract {
+            let fc = new CFunctionContract();
+            fc.cfunction = f;
+            //XXX: mind parameters!!
+            return fc;
+        }
+
+        get cfunction() {
+            return this._cfunction;
+        }
+
+        set cfunction(f) {
+            this._cfunction = f;
+            this.name = f.name;
+        }
+
         get preconditionsCount() {
             return this.preconditions.length;
         }
@@ -130,6 +148,8 @@ export module contracts {
         save(xmlPath?: string);
 
         file: CFile;
+
+        addFunctionContract(cfun: CFunctionContract);
     }
 
 
@@ -143,9 +163,33 @@ export module contracts {
         dataStructures: any[];
         globalVariables: GVar[];
 
-        file: CFile;
-
+        _file: CFile;
         _functionsByName = {};
+
+        get file(): CFile {
+            return this._file;
+        }
+
+        set file(file: CFile) {
+            this._file = file;
+            this.name = this.removeExtension(file.relativePath);
+        }
+
+        private removeExtension(x:string){
+            if(x.endsWith('.c'))
+                return x.replace(/\.[^/.]+$/, "");
+            return x;
+        }
+
+
+
+        public addFunctionContract(cfun: CFunctionContract) {
+            if (this._functionsByName[cfun.name]) {
+                throw "Function Contract already exists";
+            }
+            this._functionsByName[cfun.name] = cfun;
+            this.functions.push(cfun);
+        }
 
         get preconditionsCount() {
             let cnt = 0;
@@ -167,7 +211,7 @@ export module contracts {
             return this.globalVariables.map(x => x.name);
         }
 
-        getFunctionContractByName(name: string): CFunctionContract | undefined {
+        public getFunctionContractByName(name: string): CFunctionContract | undefined {
             return this._functionsByName[name];
         }
 
@@ -204,7 +248,7 @@ export module contracts {
         }
 
         public addContract(c: CFileContract) {
-            this.contractsByFile[c.name] = c;
+            this.contractsByFile[c.file.relativePath] = c;
             this.fileContracts.push(c);
         }
 

@@ -45,9 +45,11 @@
                 <vaadin-split-layout class="splitter-2">
 
                     <paper-header-panel style$="[[_computeFunctionListStyle(filter.file)]]" mode="waterfall" class="panel-functions">
-                        <paper-toolbar></paper-toolbar>
-                        <functions-list id="functions" selected-file="[[filter.file]]" statistics="[[statistics]]" selected-function="{{filter.cfunction}}"
-                            project="[[currentProject]]"></functions-list>
+                        <paper-toolbar>sort by..</paper-toolbar>
+                        <functions-list id="functions" 
+                            selected-file="[[filter.file]]"  
+                            selected-function="{{filter.cfunction}}"
+                            project="[[currentProject]]" statistics="[[statistics]]"></functions-list>
                     </paper-header-panel>
 
                     <paper-header-panel style="width:80%" mode="standard">
@@ -76,7 +78,7 @@
                             out-graph="{{graph2}}" filter="{{filter}}" progress="{{progress}}" tab-visible="[[callsGraphTabSelected(mode)]]"
                             current-project="[[currentProject]]" out-hierarchy-params="{{_hierarchyParams}}"></tf-graph-loader>
 
-                        <tf-graph-defs></tf-graph-defs>
+                        <tf-graph-defs></tf-graph-defs> 
 
                         <iron-pages class="content fit" id="contents" selected="{{modeIndex}}">
 
@@ -99,6 +101,10 @@
                             <contracts-scene 
                                 contracts="[[filteredContracts]]" 
                                 controller="[[currentProject.contractsController]]"
+
+                                selected-file="[[filter.file]]"  
+                                selected-function="{{filter.cfunction}}"
+
                                 ></contracts-scene>
 
                             <!-- tab GRAPH -->
