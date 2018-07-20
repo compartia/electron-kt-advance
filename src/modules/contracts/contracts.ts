@@ -68,7 +68,7 @@ export module contracts {
 
         _cfunction?: CFunction;
 
-        public static makeByCFunction(f: CFunction): CFunctionContract {
+        static makeByCFunction(f: CFunction): CFunctionContract {
             let fc = new CFunctionContract();
             fc.cfunction = f;
             //XXX: mind parameters!!
@@ -157,6 +157,12 @@ export module contracts {
     /////////////////
 
 
+    export function makeContractByCFile(cfile: CFile): CFileContractImpl {
+        const _c = new CFileContractImpl();
+        _c.file = cfile;
+        return _c;
+    }
+
     export class CFileContractImpl implements CFileContract {
         functions: CFunctionContract[] = [];
         name: string;
@@ -166,18 +172,21 @@ export module contracts {
         _file: CFile;
         _functionsByName = {};
 
+        
+
         get file(): CFile {
             return this._file;
         }
 
-        set file(file: CFile) {
-            this._file = file;
-            this.name = this.removeExtension(file.relativePath);
+        set file(cfile: CFile) {
+            this._file = cfile;
+            this.name = this.removeExtension(cfile.relativePath);
         }
 
-        private removeExtension(x:string){
-            if(x.endsWith('.c'))
-                return x.replace(/\.[^/.]+$/, "");
+        private removeExtension(x: string) {
+
+            if (x.endsWith('.c'))
+                return x.substring(0, x.length - 2);
             return x;
         }
 
@@ -242,9 +251,9 @@ export module contracts {
     export class ContractsCollection {
         contractsByFile: { [key: string]: CFileContract } = {};
         public fileContracts: CFileContract[] = [];
-        public baseDir: string;
-        constructor(baseDir: string) {
-            this.baseDir = baseDir;
+
+        constructor() {
+
         }
 
         public addContract(c: CFileContract) {
