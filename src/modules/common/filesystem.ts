@@ -7,8 +7,6 @@ import { FileContents, parseSourceFile } from './source';
 import * as fstools from './fstools';
 import { CApp, CFile } from './xmltypes';
 
-
-export const SEMANTICS_DIR = "semantics";
 export const CONTRACTS_DIR = "ktacontracts";
 
 
@@ -25,7 +23,7 @@ class CFileImpl implements CFile {
         this._abs = path.isAbsolute(name);
     }
 
-    get dirName(){
+    get dirName() {
         return path.dirname(this.relativePath);
     }
 
@@ -123,14 +121,26 @@ export class FileSystem {
     private appsMap: { [key: string]: CApp } = {};
     apps: CApp[] = [];
 
+    public static normalizeDirPath(dir: string): string {
+        if (!dir) return dir;
+
+        if (!dir.endsWith('/'))
+            return dir + '/';
+        else return dir;
+
+    }
+
     public getCApp(absSourceDir: string, actualSourceDir?: string): CApp {
 
-        if (!absSourceDir.endsWith('/'))
-            absSourceDir = absSourceDir + '/';
+        absSourceDir = FileSystem.normalizeDirPath(absSourceDir);
 
         let app = this.appsMap[absSourceDir];
         if (!app) {
-            app = new CAppImpl(absSourceDir, path.relative(this.baseDir, absSourceDir), actualSourceDir);
+            app = new CAppImpl(
+                absSourceDir,
+                FileSystem.normalizeDirPath(path.relative(this.baseDir, absSourceDir)),
+                FileSystem.normalizeDirPath(actualSourceDir));
+
             this.appsMap[absSourceDir] = app;
             this.apps.push(app);
         }
