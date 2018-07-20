@@ -5,7 +5,7 @@
         iron-list#listOfLines{
             height: 100%;
         }
-        .error{
+        .source-error{
             margin-top: 40px;
         }
     </style>
@@ -19,7 +19,7 @@
             <div id="scrollable" class="main">
 
                 <template is="dom-if" if="[[error]]">                                
-                    <div class="error">[[error]]</div>
+                    <div class="error source-error">[[error]]</div>
                 </template>
                             
                 <iron-list id="listOfLines" scroll-target="scrollable" items="[[lines]]" max-physical-count="[[lines.length]]" selection-enabled

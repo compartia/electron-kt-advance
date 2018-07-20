@@ -25,6 +25,10 @@ class CFileImpl implements CFile {
         this._abs = path.isAbsolute(name);
     }
 
+    get dirName(){
+        return path.dirname(this.relativePath);
+    }
+
     get exists(): boolean {
         if (this._existsOverride === false) {
             return false;
