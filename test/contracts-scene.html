@@ -10,50 +10,46 @@
         contracts-scene.html
         <!-- <contracts-scene contracts="[[contracts]]"></contracts-scene> -->
 
-        <contracts-scene 
-            contracts="[[contracts]]" 
-            controller="[[contractsController]]"
-
-            selected-file-contract="[[selectedFile]]"  
-            selected-function-contract="[[selectedFunc]]"
-
-            ></contracts-scene>
+        <contracts-scene contracts="[[contracts]]" controller="[[contractsController]]" selected-file-contract="[[selectedFile]]"
+            selected-function-contract="[[selectedFunc]]"></contracts-scene>
     </template>
     <script>
 
         Polymer({
             is: "kt-layout",
 
-            _getSelectedFile:function(contracts){
+            _getSelectedFile: function (contracts) {
                 return this.contracts[0];
             },
 
-            _getSelectedFunc:function(selectedFile){
+            _getSelectedFunc: function (selectedFile) {
                 return this.contracts[0].functions[0];
             },
 
             properties: {
-                selectedFile:{
+                selectedFile: {
                     type: Object,
-                    computed: 'getSelectedFile(contracts)'
+                    computed: '_getSelectedFile(contracts)'
                 },
 
-                selectedFunc:{
+                selectedFunc: {
                     type: Object,
                     computed: '_getSelectedFunc(contracts)'
                 }
             },
 
             convertToObjects: function (c) {
-                const obj=new Contracts.CFileContractImpl();
+                const obj = new Contracts.CFileContractImpl();
+                
                 Object.assign(obj, c);
+
                 obj.functions = c.functions.map(fn => {
 
                     let fnObj = new Contracts.CFunctionContract();
-                
+
                     Object.assign(fnObj, fn);
 
-                    
+
 
                     // c._functionsByName[fnObj.name] = fnObj;//XXX: mind overloaded!!
 
@@ -86,10 +82,9 @@
                     Object.assign(c, ___test_contract);
                     c.name = c.name + "_" + f;
                     ap.push(this.convertToObjects(c));
-                };
+                }
 
-                console.log(ap);
-
+   
                 this.contracts = ap;
 
                 // const node = this.node;
