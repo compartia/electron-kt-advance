@@ -546,7 +546,8 @@
             _getApiRefs: function (file, contract) {
                 console.log("_getApiRefs");
                 let gv = [];
-                gv = gv.concat(file.globalVariables.map(x => x.name)).concat(contract.parameters);
+                if(file && file.globalVariables && contract && contract.parameters)
+                    gv = gv.concat(file.globalVariables.map(x => x.name)).concat(contract.parameters);
                 return gv;
             },
 
