@@ -285,6 +285,9 @@ Custom property | Description | Default
 
 
             sort: function (children) {
+                if(!children){
+                    return children;
+                }
                 return children.sort((a, b) => {
                     if (a.dir == b.dir) {
                         return a.shortName.localeCompare(b.shortName);

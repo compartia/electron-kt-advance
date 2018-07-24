@@ -49,6 +49,35 @@
 					<post>
 						<math>
 							<apply>
+								<buffer/>
+								<return/>
+								<cn>100</cn>
+							</apply>
+						</math>
+					</post>
+
+					<post>
+						<math>
+							<apply>
+								<allocation-base/>
+								<return/>
+							</apply>
+						</math>
+					</post>
+
+					<post>
+						<math>
+							<apply>
+								<initializes-range/>
+								<return/>
+								<cn>50</cn>
+							</apply>
+						</math>
+					</post>
+
+					<post>
+						<math>
+							<apply>
 								<initialized />
 								<apply>
 									<addressed-value />

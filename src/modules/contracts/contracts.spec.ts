@@ -61,7 +61,7 @@ Error.stackTraceLimit = 30;
 
             if (fn.name === "getMotorCount") {
                 assert.equal(fn.parameters.length, 0, "number of params must be 0");
-                assert.equal(fn.postconditions.length, 2);
+                assert.equal(fn.postconditions.length, 5);
                 assert.equal(fn.preconditions.length, 1);
             }
 
