@@ -8,13 +8,15 @@
             bottom: 0;
             top: 0;             
         }
+
+        
     </style>
 
     <template>
         <iron-list id="functionslist" items="[[functions]]" index-as="name" selection-enabled on-selected-item-changed="_selectedFunctionChanged"
             selected-item="{{_selectedItem}}">
             <template>
-                <div class$="[[_computedClass(selected)]]">
+                <div class$="[[_computedClass(selected, item)]]">
                     <span id="fname">{{item.name}}</span>
                     <node-decorator show-count="true" statistics="[[_getStatsByFunction(item, statistics)]]"></node-decorator>
                 </div>
@@ -83,10 +85,16 @@
 
             },
 
-            _computedClass: function (selected) {
-                return selected
-                    ? "item selected"
-                    : "item";
+            _computedClass: function (selected, item) {
+                let ret = "item";
+                if (selected) {
+                    ret += " selected";
+                }
+
+                if (item.missing) {
+                    ret += " missing";
+                }
+                return ret;
             },
 
             _selectedFunctionChanged: function (event) {

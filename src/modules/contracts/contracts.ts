@@ -17,7 +17,7 @@ export module contracts {
         'lt': "<", 
         'geq': ">=", 
         'leq': "<=",
-        'buffer': 'Buffer',
+        'buffer': 'Is buffer',
         'initializes-range': 'Initializes range'
     }
 
