@@ -1,17 +1,24 @@
-import { ENGINE_METHOD_DIGESTS } from "constants";
-import { CFile, HasPath, CFunction } from "../common/xmltypes";
-
+import { CFile, CFunction } from "../common/xmltypes";
 
 
 
 export module contracts {
 
-    export const UNARY_RELATIONS = ['false', 'initialized', 'preserves-all-memory', 'tainted', 'not-zero', 'not-null', 'non-negative'];
-    export const BINARY_RELATIONS = ['eq', 'neq', 'gt', 'lt', 'geq', 'leq'];
+    export const UNARY_RELATIONS = ['false', 'initialized', 'preserves-all-memory', 'tainted',
+        'allocation-base',
+        'not-zero', 'not-null', 'non-negative'];
+    export const BINARY_RELATIONS = ['eq', 'neq', 'gt', 'lt', 'geq', 'leq', 'buffer', 'initializes-range'];
 
     export const RELATIONS = [].concat(UNARY_RELATIONS).concat(BINARY_RELATIONS);
     export const RELATIONS_NAMES = {
-        'eq': "==", 'neq': "!=", 'gt': ">", 'lt': "<", 'geq': ">=", 'leq': "<="
+        'eq': "==", 
+        'neq': "!=", 
+        'gt': ">", 
+        'lt': "<", 
+        'geq': ">=", 
+        'leq': "<=",
+        'buffer': 'Is buffer',
+        'initializes-range': 'Initializes range'
     }
 
 
@@ -172,7 +179,7 @@ export module contracts {
         _file: CFile;
         _functionsByName = {};
 
-        
+
 
         get file(): CFile {
             return this._file;

@@ -72,7 +72,7 @@
                     [[arg.ref]]</paper-button>
                 <paper-listbox slot="dropdown-content" attr-for-selected="item-name" selected="{{arg.ref}}">
                     <template is="dom-repeat" items="[[globalVariables]]">
-                        <paper-item item-name="[[item.name]]">[[item.name]]</paper-item>
+                        <paper-item item-name="[[item]]">[[item]]</paper-item>
                     </template>
                 </paper-listbox>
             </paper-menu-button>
@@ -81,8 +81,6 @@
         <template is="dom-if" if="[[arg.isConst]]">
             <paper-input class="button-padding" label="Numeric constant" value="{{arg.value}}"></paper-input>
         </template>
-
-
 
 
     </template>
@@ -157,6 +155,9 @@
     </script>
 
 </dom-module>
+
+
+
 
 <dom-module id="c-apply">
     <style>
@@ -526,22 +527,28 @@
             properties: {
                 contract: {
                     type: Object,
-                    observer: '_onContractChanged',
                     notify: true
                 },
 
                 file: {
-                    type: Object
+                    type: Object,
+                    notify: true
                 },
 
                 globalVariables: {
-                    type: Array
+                    type: Array,
+                    computed: '_getApiRefs(file, contract)',
+                    notify: true
                 }
 
             },
 
-            _onContractChanged: function (c) {
-                // console.log(c);
+            _getApiRefs: function (file, contract) {
+                console.log("_getApiRefs");
+                let gv = [];
+                if(file && file.globalVariables && contract && contract.parameters)
+                    gv = gv.concat(file.globalVariables.map(x => x.name)).concat(contract.parameters);
+                return gv;
             },
 
             addPostCondition: function () {

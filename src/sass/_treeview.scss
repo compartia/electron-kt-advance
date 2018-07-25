@@ -44,6 +44,10 @@ $paper-tree-icon-space: $spacer/4;
         width: max-content;
     }
 
+    .missing{
+        color: var(--kt-red)!important;
+    }
+
     .item {
         display       : flex;
         flex-direction: row;
@@ -54,7 +58,7 @@ $paper-tree-icon-space: $spacer/4;
             padding    : ($paper-tree-icon-width - $paper-tree-font-size);
             margin-left: $spacer/2;
             font-family: $monospaced;
-            color      : var(--kt-text-color);
+            // color      : var(--kt-text-color);
             font-size  : var(--paper-tree-font-size);
         }
     }

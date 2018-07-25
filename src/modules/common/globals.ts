@@ -18,7 +18,7 @@ import { AbstractNode, Callee, CAnalysis, CApiAssumption, CFile, CFunction, HasP
 
 
 
- 
+
 
 const dialog = require('electron').remote.dialog;
 
@@ -72,7 +72,7 @@ export class ProjectImpl implements CProject, ContractsController {
     fs: FileSystem;
 
     stats: Stats;
-    contracts: Contracts.ContractsCollection;
+    private _contracts: Contracts.ContractsCollection;
 
     /* deprecated */
     filteredContracts: Array<Contracts.CFileContract>;
@@ -92,9 +92,17 @@ export class ProjectImpl implements CProject, ContractsController {
     renderInfos: { [key: string]: RenderInfo } = {};
 
     constructor(fs: FileSystem) {
-        this.contracts = new Contracts.ContractsCollection();
+        this._contracts = new Contracts.ContractsCollection()
         if (!fs) throw "param is required";
         this.open(fs);
+    }
+
+    get contracts(): Contracts.ContractsCollection {
+        return this._contracts;
+    }
+
+    set contracts(contracts: Contracts.ContractsCollection) {
+        this._contracts = contracts;
     }
 
     get contractsController(): ContractsController {
@@ -128,17 +136,15 @@ export class ProjectImpl implements CProject, ContractsController {
         try {
             const _dirToSave = path.join(c.file.app.baseDir, CONTRACTS_DIR);
             const fileToSave = path.join(_dirToSave, c.name + "_c.xml");
-            const dir=path.dirname(fileToSave);
+            const dir = path.dirname(fileToSave);
 
             if (!fs.existsSync(dir)) {
-                console.log("making "+dir);
+                console.log("making " + dir);
                 let mkdirp = require('mkdirp');
                 mkdirp.sync(dir);
             }
-          
-           
 
-             
+
             const data = XmlWriter.toXml(c);
             console.log(data);
             console.log(`saving contract to ${fileToSave}`);
@@ -155,7 +161,6 @@ export class ProjectImpl implements CProject, ContractsController {
             return false;
         }
     }
-
 
 
     private getOrCreateRenderInfo(po: ProofObligation): RenderInfo {
@@ -369,7 +374,13 @@ export class ProjectImpl implements CProject, ContractsController {
         // this.filteredContracts = _.filter(this.contracts.fileContracts, x => x.hasContracts)
 
         let filter = (x: Contracts.CFileContract) => _filter.acceptCFunctionFile(x.file);
-        this.filteredContracts = _.filter(this.contracts.fileContracts, filter);
+        if (this.contracts) {
+            this.filteredContracts = _.filter(this.contracts.fileContracts, filter);
+        } else {
+            //happens when opening new project
+            this.filteredContracts = [];
+        }
+
     }
     private filterProofObligations(_filter: Filter): void {
         let filter = (x) => _filter.accept(x);
