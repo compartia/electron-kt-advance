@@ -14,6 +14,7 @@ Error.stackTraceLimit = 30;
 @suite class TestContracts {
     testDir = path.normalize(__dirname + '/../../../docs/contracts/sample_contract_1.xml');
     testDir2 = path.normalize(__dirname + '/../../../docs/contracts/sample_contract_2.xml');
+    testDir3 = path.normalize(__dirname + '/../../../docs/contracts/x42_c.xml');
 
     testDir1 = path.normalize(__dirname + '/../../../docs');
 
@@ -48,8 +49,17 @@ Error.stackTraceLimit = 30;
 
     }
 
+    @test testReadContract3() {
+
+        const contract: contracts.CFileContract = CFileContractXml.fromXml(this.testDir3);
+        assert.equal(contract.functions.length, 7);
+        let fc: contracts.CFunctionContract = contract.getFunctionContractByName("goodG2BSource");
+        assert.equal(fc.postconditions.length, 1);
+
+    }
+
     private validateContract(contract: contracts.CFileContract) {
-        assert.equal(contract.functions.length, 2, "number of functions must be 2, was " + contract.functions.length);
+        assert.equal(contract.functions.length, 3, "number of functions must be 2, was " + contract.functions.length);
 
 
         assert.equal(contract.globalVariables.length, 2);
@@ -61,7 +71,7 @@ Error.stackTraceLimit = 30;
 
             if (fn.name === "getMotorCount") {
                 assert.equal(fn.parameters.length, 0, "number of params must be 0");
-                assert.equal(fn.postconditions.length, 2);
+                assert.equal(fn.postconditions.length, 5);
                 assert.equal(fn.preconditions.length, 1);
             }
 

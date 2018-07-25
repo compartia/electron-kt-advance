@@ -49,6 +49,8 @@ class CFunctionImpl extends AbstractLocatable implements CFunction {
     line: number;
     callsites: Callsite[] = [];
 
+    missing: boolean = false;
+
     private _api = new CApiImpl();
 
     get absFile(): string {
@@ -65,10 +67,10 @@ class CFunctionImpl extends AbstractLocatable implements CFunction {
         return this.loc.cfile.relativePath;
     }
 
-    public constructor(jfun: json.JFunc, cfile: CFile) {
+    public constructor(_name, line, cfile: CFile) {
         super();
-        this.name = jfun.name;
-        this.line = jfun.loc.line;
+        this.name = _name;
+        this.line = line;
 
 
         this.loc = {
@@ -475,14 +477,37 @@ class PPOImpl extends AbstractPO {
 
 export class CAnalysisImpl implements CAnalysis {
     apps = [];
+    functionByFile: { [key: string]: CFunction[] } = {};
+
     private _proofObligations = [];
-    functionByFile = {};
-    contracts: contracts.ContractsCollection = new contracts.ContractsCollection();
+    private _contracts: contracts.ContractsCollection = new contracts.ContractsCollection();
 
     poIndex: { [key: string]: ProofObligation } = {};
-    functionByPath: { [key: string]: CFunction } = {};
 
     assumptions: Array<CApiAssumption> = [];
+
+    set contracts(contracts: contracts.ContractsCollection) {
+        this._contracts = contracts;
+        for (let fileContract of contracts.fileContracts) {
+            let funcs = this.functionByFile[fileContract.file.relativePath];
+            if (!funcs) {
+                funcs = [];
+                this.functionByFile[fileContract.file.relativePath] = funcs;
+
+                for (let funContract of fileContract.functions) {
+                    const cfun = new CFunctionImpl(funContract.name, 0, fileContract.file);
+                    cfun.missing = true;
+                    funcs.push(cfun);
+                }
+            }
+
+        }
+
+    }
+
+    get contracts() {
+        return this._contracts;
+    }
 
     public pushPo(po: ProofObligation): string {
         this.proofObligations.push(po);
@@ -774,7 +799,7 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
 
 
     private readContractsXmls(projectFs: FileSystem, tracker: ProgressTracker): contracts.ContractsCollection | null {
-        
+
 
         const files: string[] = kt_fs.walkSync(projectFs.baseDir, "_c.xml")
         const cc: contracts.ContractsCollection = new contracts.ContractsCollection();
@@ -785,7 +810,6 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
             if (idx > 0) {
                 const absSourceDir = file.substr(0, idx);
                 const capp: CApp = projectFs.getCApp(absSourceDir);
-
 
                 const c: CFileContractXml = CFileContractXml.fromXml(file);
                 const cFile = capp.getCFile(c.name + ".c");
@@ -862,8 +886,6 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
                     }
                     this.cAnalysisResult.functionByFile[cfun.relativePath].push(cfun);
 
-                    this.cAnalysisResult.functionByPath[cfun.fullpath] = cfun;
-
 
                     /*
                      * make assumptions plain array
@@ -890,7 +912,7 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
 
             });
         });
- 
+
     }
 
 
@@ -902,7 +924,7 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
 
         jfunctions && jfunctions.forEach(jfun => {
 
-            const cfun = new CFunctionImpl(jfun, cfile);
+            const cfun = new CFunctionImpl(jfun.name, jfun.loc.line, cfile);
             cFunctionsArray.push(cfun);
 
             jfun.ppos &&
@@ -980,7 +1002,7 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
 function runJavaJar(javaEnv: JavaEnv, projectFs: FileSystem, tracker: ProgressTracker): Promise<string[]> {
 
     return new Promise((resolve, reject) => {
-       
+
         let jsonfiles: string[] = [];//projectFs.listFilesRecursively(".kt.analysis.json");//XXX
 
         if (jsonfiles.length > 0) {

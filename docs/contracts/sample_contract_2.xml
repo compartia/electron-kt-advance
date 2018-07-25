@@ -19,6 +19,15 @@
 				<postconditions />
 			</function>
 
+			<function name="goodG2BSource">
+				<parameters>
+					<par name="data" nr="1"/>
+				</parameters>
+				<postconditions>
+					<post><math><apply><eq/><return/><cn>7</cn></apply></math></post>
+				</postconditions>
+			</function>
+
 			<function name="getMotorCount">
 				<parameters />
 				
@@ -42,6 +51,35 @@
 								<leq />
 								<return />
 								<cn>8</cn>
+							</apply>
+						</math>
+					</post>
+
+					<post>
+						<math>
+							<apply>
+								<buffer/>
+								<return/>
+								<cn>100</cn>
+							</apply>
+						</math>
+					</post>
+
+					<post>
+						<math>
+							<apply>
+								<allocation-base/>
+								<return/>
+							</apply>
+						</math>
+					</post>
+
+					<post>
+						<math>
+							<apply>
+								<initializes-range/>
+								<return/>
+								<cn>50</cn>
 							</apply>
 						</math>
 					</post>
