@@ -67,6 +67,7 @@ export interface PONodeAttributes extends CommonNodeAttributes {
 
 export interface HasPath {
     relativePath: string;
+    actualFile: string;
     dir: boolean;
 }
 

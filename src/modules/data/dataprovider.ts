@@ -25,6 +25,7 @@ abstract class AbstractLocatable implements HasPath {
     dir: false;
     abstract absFile: string;
     abstract relativePath: string;
+    abstract actualFile;
 }
 
 
@@ -65,6 +66,10 @@ class CFunctionImpl extends AbstractLocatable implements CFunction {
 
     get relativePath() {
         return this.loc.cfile.relativePath;
+    }
+
+    get actualFile(){
+        return this.loc.cfile.actualFile; 
     }
 
     public constructor(_name, line, cfile: CFile) {
@@ -132,6 +137,10 @@ class ApiAssumptionImpl extends AbstractLocatable implements CApiAssumption {
 
     get relativePath() {
         return this.cfunction.relativePath;
+    }
+
+    get actualFile(){
+        return this.cfunction.actualFile; 
     }
 
     get assumptionType() {
@@ -256,7 +265,7 @@ function linkKey(link: ProofObligation): string {
 abstract class AbstractPO extends AbstractLocatable implements ProofObligation {
     // links: json.JPoLink[];
     renderInfo: RenderInfo;
-
+ 
 
     assumptionsIn: CApiAssumption[] = [];
     assumptionsOut: CApiAssumption[] = [];
@@ -269,6 +278,11 @@ abstract class AbstractPO extends AbstractLocatable implements ProofObligation {
     get absFile(): string {
         return this.location.cfile.absFile;
     }
+
+    get actualFile(){
+        return this.location.cfile.actualFile; 
+    }
+    
 
     public constructor(ppo: json.JPO, cfun: CFunction) {
         super();
@@ -537,6 +551,10 @@ abstract class AbstractSiteImpl extends AbstractLocatable implements Site, Graph
 
     private _loc: POLocation;
 
+    get actualFile(){
+        return this.location.cfile.actualFile; 
+    }
+
     get absFile(): string {
         return this.location.cfile.absFile;
     }
@@ -585,6 +603,10 @@ export class CalleeImpl extends AbstractLocatable implements Callee, CFunctionBa
 
     get absFile(): string {
         return this.location.cfile.absFile;
+    }
+
+    get actualFile(){
+        return this.location.cfile.actualFile; 
     }
 
     get location() {
@@ -1049,22 +1071,27 @@ function runJavaJar(javaEnv: JavaEnv, projectFs: FileSystem, tracker: ProgressTr
 
             let lastProg = 0;
             process.stdout.on('data', (data) => {
-                let msg = data.toString();
-                let parts = msg.split(":");
+                let _msg = data.toString();
+                let lines=_msg.split(/\r?\n/);
+                
+                for(let msg of lines){
+                    let parts = msg.split(":");
 
-                if (parts[0] === 'PROGRESS') {
-                    let prog = parseFloat(parts[1]);
-                    tracker.updateProgress(prog - lastProg);
-                    tracker.setMessage("parsing XML files: " + Math.round(prog * 10) / 10 + "%");
-                    lastProg = prog;
+                    if (parts[0] === 'PROGRESS') {
+                        let prog = parseFloat(parts[1]);
+                        tracker.updateProgress(prog - lastProg);
+                        tracker.setMessage("parsing XML files: " + Math.round(prog * 10) / 10 + "%");
+                        lastProg = prog;
+                    }
+                    else if (parts[0] == 'RESULT_JSON') {
+                        resulting_jsons.push(parts[1].trim())
+                        console.log(parts[1]);
+                        tracker.setMessage("about to read " + parts[1]);
+                    } else {
+                        console.log('XML_PARSER: ' + msg);
+                    }
                 }
-                else if (parts[0] == 'RESULT_JSON') {
-                    resulting_jsons.push(parts[1].trim())
-                    console.log(parts[1]);
-                    tracker.setMessage("about to read " + parts[1]);
-                } else {
-                    console.log('XML_PARSER: ' + msg);
-                }
+                
 
             });
 
