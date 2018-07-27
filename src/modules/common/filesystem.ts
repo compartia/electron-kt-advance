@@ -183,9 +183,10 @@ export class FileSystem {
         console.info("reading " + file.actualFile);
 
         return new Promise((resolve, reject) => {
-            if (!file.exists) {
-                reject(`${file.relativePath} :location is not known`);
-            } else if (!fs.existsSync(file.actualFile)) {
+            // if (!file.exists) {
+            //     reject(`${file.relativePath} :location is not known`);
+            // } else 
+            if (!fs.existsSync(file.actualFile)) {
                 file.exists = false;
                 reject(`${file.actualFile} does not exist`);
             } else {

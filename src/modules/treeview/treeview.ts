@@ -33,6 +33,10 @@ class DirTreeItem implements FileInfo {
     get dir(): boolean {
         return true;
     }
+
+    get actualFile(){
+        return null;
+    }
 }
 
 

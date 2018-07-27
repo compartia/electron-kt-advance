@@ -101,7 +101,7 @@ export function parseMajorVersion(content: string): number {
     return javaVersion;
 }
 
-const JARNAME = "kt-advance-xml-2.6-jar-with-dependencies.jar";
+const JARNAME = "kt-advance-xml-2.6.1-jar-with-dependencies.jar";
 
 export function getJarName(appPath: string) {
 
