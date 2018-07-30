@@ -218,7 +218,6 @@
 
             <c-argument arg="{{apply.argument1}}" global-variables="[[globalVariables]]"></c-argument>
 
-
             <!-- RELATION -->
             <template is="dom-if" if="[[apply.addressed]]">
                 <div class="verb">--&gt;</div>
@@ -288,20 +287,14 @@
                 selectedRelation: {
                     type: Number,
                     observer: "_onSelectedRelation"
-                },
+                }
 
-                // displayString: {
-                //     type: String,
-                //     notify: true,
-                //     value: () => { this.apply ? this.apply.displayString : " ?? " }
-                // }
+              
             },
 
             formulaArgsChanged: function (a) {
-                // if (this.apply){
-                //     this.set("displayString", "" + this.apply.displayString);
-                // }
-                this.notifyPath("apply.displayString");                    
+
+                this.notifyPath("apply.displayString");
                 this.notifyPath("apply.error");
             },
 
@@ -310,7 +303,6 @@
             },
 
             _onSelectedRelation: function (e) {
-                console.error("_onSelectedRelation:" + e);
                 const op = this.relations[e];
                 const newObj = Contracts.changeRelationType(this.apply, op);
                 this.holder.apply = newObj;
@@ -321,8 +313,6 @@
                 this.notifyPath("apply");
 
             },
-
-
 
             _relationDisplayName: function (index) {
                 let name = this._relationName(index);
@@ -349,15 +339,12 @@
                 return Contracts.RELATIONS.indexOf(apply.op);
             },
 
-
-
             formulaChanged: function (e) {
                 const a = this.apply;
                 if (a) {
                     this._debug = JSON.stringify(a, null, ' ');
                     this._computedRelation = this._findRelationIndex(a);
-                    // console.log(this._computedRelation);
-
+ 
                     if (a.field) {
                         this.selectedOperandIndex1 = 0;
                     } else if (a.return) {
@@ -371,10 +358,9 @@
                     this._computedRelation = -1;
                 }
 
-                // this.predicates = predicates;
-            },
+             },
 
-
+            
 
 
 

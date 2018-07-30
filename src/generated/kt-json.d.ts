@@ -1,4 +1,4 @@
-// Generated using typescript-generator version 2.0.400 on 2018-07-27 19:58:47.
+// Generated using typescript-generator version 2.0.400 on 2018-07-28 02:22:37.
 
 export interface JAnalysis extends Jsonable {
     apps: JApp[];
@@ -76,4 +76,4 @@ export interface JLink extends Jsonable {
     id: number;
 }
 
-export type AssumptionTypeCode = "aa" | "pc" | "ua" | "ga";
+export type AssumptionTypeCode = "aa" | "pc" | "ua" | "ga" | "ca";

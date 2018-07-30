@@ -1088,7 +1088,8 @@ function runJavaJar(javaEnv: JavaEnv, projectFs: FileSystem, tracker: ProgressTr
                         console.log(parts[1]);
                         tracker.setMessage("about to read " + parts[1]);
                     } else {
-                        console.log('XML_PARSER: ' + msg);
+                        if(msg.trim().length)
+                            console.log('XML_PARSER: ' + msg);
                     }
                 }
                 
