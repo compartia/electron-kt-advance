@@ -1,6 +1,6 @@
 {
   "name": "electron-kt-advance",
-  "version": "v0.3.9-alpha-contracts",
+  "version": "v0.3.10-beta",
   "description": "no descr. by now",
   "license": "MIT",
   "author": {
@@ -20,7 +20,8 @@
     "prerelease": "gulp build --env=production",
     "release": "build",
     "pretest": "gulp version",
-    "test": "node_modules/.bin/electron-mocha --renderer --require ts-node/register ./src/modules/**/*.spec.ts"
+    "test": "node_modules/.bin/electron-mocha --renderer --require ts-node/register ./src/modules/**/*.spec.ts",
+    "start": "npm run gulp start"
   },
   "devDependencies": {
     "@types/es6-promise": "0.0.32",

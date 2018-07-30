@@ -4,34 +4,41 @@ import { CFile, CFunction } from "../common/xmltypes";
 
 export module contracts {
 
-    export const UNARY_RELATIONS = ['false', 'initialized', 'preserves-all-memory', 'tainted',
+    export const ZEROARY_RELATIONS = ['preserves-all-memory', 'false'];
+    export const UNARY_RELATIONS = [
+        'initialized',
+        'tainted',
         'allocation-base',
-        'not-zero', 'not-null', 'non-negative'];
+        'not-zero',
+        'not-null',
+        'non-negative'];
+
     export const BINARY_RELATIONS = ['eq', 'neq', 'gt', 'lt', 'geq', 'leq', 'buffer', 'initializes-range'];
 
-    export const RELATIONS = [].concat(UNARY_RELATIONS).concat(BINARY_RELATIONS);
+    export const RELATIONS = [].concat(UNARY_RELATIONS).concat(BINARY_RELATIONS).concat(ZEROARY_RELATIONS);
     export const RELATIONS_NAMES = {
-        'eq': "==", 
-        'neq': "!=", 
-        'gt': ">", 
-        'lt': "<", 
-        'geq': ">=", 
+        'eq': "==",
+        'neq': "!=",
+        'gt': ">",
+        'lt': "<",
+        'geq': ">=",
         'leq': "<=",
         'buffer': 'Is buffer',
-        'initializes-range': 'Initializes range'
+        'initializes-range': 'Initializes range',
+        'preserves-all-memory': 'Preserves all memory',
+        'false': 'False'
     }
 
-
-    export const ARGUMENT_TYPES = ['ci', 'cn', 'field', 'return', 'apply'];
     export const ARGUMENT_TYPES_NAMES = {
+        'return': 'Return value',
         'ci': 'API reference',
         'cn': 'Constant',
         'field': 'Field',
-        'return': 'Return value',
-        'apply': 'Addressed value'
+        'apply': 'Addressed value',
+        'func': 'Function'
     };
 
-
+    export const ARGUMENT_TYPES = Object.keys(ARGUMENT_TYPES_NAMES);
 
     export interface Apply {
     }
@@ -300,6 +307,7 @@ export module contracts {
             throw "not implemented";
         }
     }
+
     export class XReturnPredicate extends XPredicateBase implements XPredicate {
         get displayString(): string {
             return "return_value";
@@ -312,6 +320,51 @@ export module contracts {
         public toXmlObj(): any {
             return {};
         }
+    }
+
+    export class XDummiePredicate extends XPredicateBase implements XPredicate {
+        get displayString(): string {
+            return "";
+        }
+
+        get kind(): string {
+            return "func";
+        }
+
+        public toXmlObj(): any {
+            return {};
+        }
+    }
+
+    export class XZeroaryPredicate extends XPredicateBase implements XPredicate {
+        public static XDummiePredicateInstance = new XDummiePredicate();
+        argument1 = XZeroaryPredicate.XDummiePredicateInstance;
+        private _kind: string;
+
+        constructor(kind) {
+            super();
+            this._kind = kind;
+        }
+
+        get displayString(): string {
+            return this.kind;
+        }
+
+        get kind(): string {
+            return this._kind;
+        }
+
+        public toXmlObj(): any {
+            const ret = {};
+            ret[this._kind] = null;
+            return ret;
+        }
+
+        get displayName(): string {
+            return RELATIONS_NAMES[this.kind] ? RELATIONS_NAMES[this.kind] : this.kind;
+        }
+
+
     }
 
     export class XApiPredicate extends XPredicateBase implements XPredicate {
@@ -340,24 +393,6 @@ export module contracts {
         constructor(ref: string) {
             super();
             this.ref = ref;
-
-
-
-            // def parse_mathml_api_parameter(self,name,pars,gvars=[]):
-            // if (not name in pars) and (not name in gvars):
-            //     print('Error in reading user data: ' + name)
-            // if name in pars:
-            //     tags = [ 'pf' ]
-            //     args = [ pars[name] ]
-            //     def f(index,key): return AP.APFormal(self,index,tags,args)
-            //     return self.api_parameter_table.add(IT.get_key(tags,args),f)
-            // if name in gvars:
-            //     tags = ['pg', name ]
-            //     args = []
-            //     def f(index,key): return AP.APGlobal(self,index,tags,args)
-            //     return self.api_parameter_table.add(IT.get_key(tags,args),f)
-            // print('Api parameter name ' + name + ' not found in parameters or global variables')
-            // exit(1)
         }
 
         get displayString(): string {
@@ -383,6 +418,13 @@ export module contracts {
         op: string;
         private _argument1: XPredicate;
 
+        constructor(op: string, argument1: XPredicate) {
+            super();
+            this.op = op;
+            this.argument1 = argument1;
+        }
+
+
         public toXmlObj(): any {
             const ret = {};
             ret[this.op] = null;
@@ -390,11 +432,6 @@ export module contracts {
             return ret;
         }
 
-        constructor(op: string, argument1: XPredicate) {
-            super();
-            this.op = op;
-            this.argument1 = argument1;
-        }
 
         set argument1(a1: XPredicate) {
             this._argument1 = a1;
@@ -566,6 +603,10 @@ export module contracts {
         return UNARY_RELATIONS.indexOf(op) >= 0;
     }
 
+    function isZeroaryConstraint(op: string): boolean {
+        return ZEROARY_RELATIONS.indexOf(op) >= 0;
+    }
+
 
 
     export function parse_term(term: string, value: any): XPredicate {
@@ -578,6 +619,8 @@ export module contracts {
                 return new XFieldExpr(value);
             case 'return':
                 return new XReturnPredicate();
+            case 'func':
+                return new XDummiePredicate();
             case 'apply':
                 return parse_mathml_xpredicate(value);
             default:
@@ -599,6 +642,9 @@ export module contracts {
                 return new XReturnPredicate();
             case 'apply':
                 return new XArgAddressedValue('addressed-value', new XReturnPredicate(), new XConstantExpr('0'));
+            case 'func': {
+                return new XDummiePredicate();
+            }
             default:
                 throw "unknwn term " + term;
 
@@ -612,22 +658,30 @@ export module contracts {
         else {
 
             let term1: XPredicate = (old as XRelationalExpr).argument1;
-            let term2: XPredicate = (old as XRelationalExpr).argument2;
 
             if (!term1) {
                 term1 = new XReturnPredicate();
             }
-            if (!term2) {
-                term2 = new XConstantExpr('0');
-            }
 
             if (op == "addressed-value") {
+                let term2: XPredicate = (old as XRelationalExpr).argument2;
+                if (!term2) {
+                    term2 = new XConstantExpr('0');
+                }
                 return new XArgAddressedValue(op, term1, term2);
             } else if (isBinaryConstraint(op)) {
+                let term2: XPredicate = (old as XRelationalExpr).argument2;
+                if (!term2) {
+                    term2 = new XConstantExpr('0');
+                }
                 return new XRelationalExpr(op, term1, term2);
             } else if (isUnaryConstraint(op)) {
                 return new XUnaryExpr(op, term1);
+            } else if (isZeroaryConstraint(op)) {
+                return new XZeroaryPredicate(op);
             } else throw "unknown constraint " + op;
+
+
         }
     }
 
@@ -635,14 +689,13 @@ export module contracts {
         if (!anode) {
             throw "wring parameter";
         }
-        // delete anode["addressed-value"];
         const pairs = Object.keys(anode);
         const op = pairs[0];
 
         if (op == "addressed-value") {
             const term1 = pairs[1];
             const term2 = pairs[2];
-            let error = null;
+
             if (!term2) {
                 console.error(`error parsing ${op}, no second term found`);
             }
@@ -665,67 +718,17 @@ export module contracts {
 
             return new XRelationalExpr(op, prd1, prd2);
 
-        } else if (isUnaryConstraint(op)) {
+        }
+        else if (isZeroaryConstraint(op)) {
+            return new XZeroaryPredicate(op);
+        }
+        else if (isUnaryConstraint(op)) {
 
             const term1 = pairs[1];
             // console.error(`UNARY: ${op} ${term1} `);
             return new XUnaryExpr(op, parse_term(term1, anode[term1]));
         } else throw "unknown constraint " + op;
 
-
-        //XXX: support  'preserves-all-mem' && 'false'
-
-
-
-
-        // def pt(t): return self.parse_mathml_term(t,pars,gvars=gvars)
-        // (op,terms) = (anode[0].tag,anode[1:])
-        // optransformer = { 'eq':'eq', 'neq':'ne', 'gt':'gt', 'lt':'lt',
-        //                       'geq':'ge', 'leq':'le' }
-        // if op in ['eq','neq','gt','lt','geq','leq']:
-        //     args = [ pt(t) for t in terms ]
-        //     op = optransformer[op]
-        //     tags = [ 'x', op ]
-        //     def f(index,key): return XP.XRelationalExpr(self,index,tags,args)
-        //     return self.xpredicate_table.add(IT.get_key(tags,args),f)
-        // if op == 'not-null':
-        //     args = [ pt(terms[0]) ]
-        //     tags = [ 'nn' ]
-        //     def f(index,key): return XP.XNotNull(self,index,tags,args)
-        //     return self.xpredicate_table.add(IT.get_key(tags,args),f)
-        // if op == 'not-zero':
-        //     args = [ pt(terms[0]) ]
-        //     tags = [ 'nz' ]
-        //     def f(index,key): return XP.XNotZero(self,index,tags,args)
-        //     return self.xpredicate_table.add(IT.get_key(tags,args),f)
-        // if op == 'non-negative':
-        //     args = [ pt(terms[0]) ]
-        //     tags = [ 'nng' ]
-        //     def f(index,key): return XP.XNonNegative(self,index,tags,args)
-        //     return self.xpredicate_table.add(IT.get_key(tags,args),f)
-        // if op == 'preserves-all-memory':
-        //     args = []
-        //     tags = [ 'prm' ]
-        //     def f(index,key): return XP.XPreservesAllMemory(self,index,tags,args)
-        //     return self.xpredicate_table.add(IT.get_key(tags,args),f)
-        // if op == 'false':
-        //     args = []
-        //     tags = [ 'f' ]
-        //     def f(index,key): return XP.XFalse(self,index,tags,args)
-        //     return self.xpredicate_table.add(IT.get_key(tags,args),f)
-        // if op == 'initialized':
-        //     args = [ pt(terms[0]) ]
-        //     tags = [ 'i' ]
-        //     def f(index,key): return XP.XInitialized(self,index,tags,args)
-        //     return self.xpredicate_table.add(IT.get_key(tags,args),f)
-        // if op == 'tainted':
-        //     args = [ pt(terms[0]) ]
-        //     tags = [ 'tt' ]
-        //     def f(index,key): return XP.XTainted(self,index,tags,args)
-        //     return self.xpredicate_table.add(IT.get_key(tags,args),f)
-        // else:
-        //     print('Parse mathml xpredicate not found for ' + op)
-        //     exit(1)
     }
 
 
