@@ -24,7 +24,7 @@ cache:
   - $HOME/.npm/_prebuilds
   
 script:
-- sudo security dump-keychain  /Library/Keychains/System.keychain
+- sudo security delete-certificate -c "Apple Worldwide Developer Relations Certification Authority" /Library/Keychains/System.keychain
 - npm test
 - npm run release
 
