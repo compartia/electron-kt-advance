@@ -20,7 +20,7 @@ cache:
   - $HOME/.npm/_prebuilds
   
 script:
-# - sudo security dump-keychain /Library/Keychains/System.keychain
+- sudo security dump-keychain /Library/Keychains/System.keychain
 - npm test
 - npm run release
 
