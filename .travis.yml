@@ -2,33 +2,28 @@ osx_image: xcode9.3
 dist: trusty
 sudo: required
 language: node_js
-node_js: "8"
-
+node_js: '8'
 env:
   global:
-    - ELECTRON_CACHE=$HOME/.cache/electron
-    - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
-
+  - ELECTRON_CACHE=$HOME/.cache/electron
+  - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
+  - secure: bEwFtnNh/FkySVo2Alj258yGrYUXFRA14P8sZ9Nu+QBKlfrtYAQm/zleaFlIp3K1oqkp5rJ2YvD3G0RrtTJSnS8tizAclJZbumZuIDGIQtHOZFiQhx548FRcOLj/TQQBmekYltu8SOxK9UGrJlnV1Q4wXgj6NXLmKhPyBqc+BPYRLs6WCAZvRJyyBfcdL/up3jwPX9UN+rdB4Sk2QVJSsFzIyn5glQ702HAIxvcmm2ePRv4F45hKDK4lCIBbuXRqjb7OZa57G//k+EDDxNRvE2272O0UqJV3/TCZ2uQiElNPD9Iq31h+nkS7McVaqoyGBt2irOOn4tYyGfhLpgA9BQMxxOxnlN9eAlY/lr66oPk4nJtrZKhdXz/pWJztgCRFrQM1/ZteRNQYJCCRIevVbXrptiWKQ2+V9GDUZX5k17Pv3UlMzef3BEgpA+6DMheG05xhv3YEruAYirvqFRIUtDTy6joG7PzMr+WYp614QEiFlsWKJ4SHZ6Xj+4mS/BtYQzSwuWRQN2aMhpEffypyw7eCm0Lla3AJDSFwPI0lfJxEQgsyVAWD7pLH6E2/e4qWnLBg32+Kax/El42fL/SEPYUmB/d94ZSl5pbVDMuSFulVK5tRKMK5VMixsFuLdbXHRQpwCzXbNkZdpRATT6tlFwRfnHzaRMHU2ODO6r0LlCM=
+  - secure: LQxLQCCVD/+giLidUclqVjbTBycPRn3QeiXgMwlSF/0dwTL2IrEhpBR8TOCenDPD0OOJJ/xw3s9gjvX/lljFvn3GCMfbjYmLxHIwu4QmpBULIxmsz+2hiTosW+wkMO7VukzTVFJpUNl++O6O857JKGd2yifTKaZHopugSkl8s0HpfTl+6Zbgx3BIyEAWPma3DKgmxUbooaLUGAIPwaDXdKOojU+se0Y53RvgOQv1cQxznqp9M2D1B/0GjJoR2xrnLDBmQwy0eeZj1uwsUBUkOqBlTo7n7x41aKcgxU9BzOB8Fy5pa20csVJuTglv6JAYPCqL+1M6AfbAIVDcAgI82Mc5e5M5sPdlespH9hpFJ/jYlrY/lM7Jb+0qsWvIC3OIPZcYqoQmLEohtQv9x2FAtQCesViUW75aJd674lavwe8ALS61Vkf2+hBWzNE7zb+xmts0zXjUMMt2B4y3kxF0K60g6S1eHdL46FwxuGCtnYxO/ING7DbAdzi21fycWNoADmeYTL0Ljq6+1OFZYs3vHvrDGF0hl3+RNzdNGxfreyKhe3qxO9AFUjvyos0ZCpepLTzFGOOEnQGTQnzGvwqnTvjen+YIQf6EOsaElOZGO5l9jqldOjzhZt4tiHUyzROsKhcSdW3YEteVb7iElTCmPYVPlAH997Pdsilxkxr5Vw8=
 os:
-  - osx
-  
+- osx
 cache:
   directories:
   - node_modules
-  - $HOME/.cache/electron
-  - $HOME/.cache/electron-builder
-  - $HOME/.npm/_prebuilds
-  
+  - "$HOME/.cache/electron"
+  - "$HOME/.cache/electron-builder"
+  - "$HOME/.npm/_prebuilds"
 script:
 - sudo security dump-keychain /Library/Keychains/System.keychain
 - npm test
-- npm run release
-
+- sudo npm run release
 branches:
-  - master
-  - dev-2018
-  - certificates
-  
+- master
+- dev-2018
+- certificates
 notifications:
   slack: kestreltechnology:QcOSfR0bHUi92kqkmioIsT4H
-  
