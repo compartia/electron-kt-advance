@@ -1,6 +1,6 @@
 osx_image: xcode9.4
 dist: trusty
-sudo: false
+sudo: required
 language: node_js
 node_js: "8"
 
@@ -24,6 +24,7 @@ cache:
   - $HOME/.npm/_prebuilds
   
 script:
+- security delete-certificate -c "Apple Worldwide Developer Relations Certification Authority" /Library/Keychains/System.keychain
 - npm test
 - npm run release
 
