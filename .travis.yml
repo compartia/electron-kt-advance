@@ -20,8 +20,7 @@ cache:
   - "$HOME/.cache/electron-builder"
   - "$HOME/.npm/_prebuilds"
 script:
-- sudo security dump-keychain /Library/Keychains/System.keychain
-- sh mk_keychain.sh
+- echo CSC_LINK=$CSC_LINK
 - npm test
 - sudo npm run release
 branches:
