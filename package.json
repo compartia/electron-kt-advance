@@ -1,8 +1,9 @@
 {
   "name": "electron-kt-advance",
-  "version": "v0.3.10-beta-certificates",
+  "version": "v0.3.11-beta",
   "description": "no descr. by now",
   "license": "MIT",
+  "repository": "github:kestreltechnology/electron-kt-advance",
   "author": {
     "name": "Artem Zaborskii",
     "email": "artem@toptal.com",
@@ -80,16 +81,14 @@
     "typeface-roboto": "0.0.54",
     "xml2js": "^0.4.19"
   },
-  "build": {
-    "afterPack": "./electron-builder-afterPack.js",
+  "build": {    
     "appId": "kt.advance.gui",
     "asarUnpack": [
       "**/*.jar"
     ],
     "files": [
       "java/*.jar",
-      "app/**/*",
-      "node_modules/**/*",
+      "app/**/*",      
       "package.json"
     ],
     "mac": {
