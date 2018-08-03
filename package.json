@@ -19,7 +19,7 @@
     "__dist": "npm run compile && build",
     "build": "gulp build",
     "prerelease": "gulp build --env=production",
-    "release": "export CSC_LINK=${CSC_LINK} && export CSC_KEY_PASSWORD=${CSC_KEY_PASSWORD} && export __TEST='TEST' && build",
+    "release": "export CSC_LINK=${CSC_LINK} && export CSC_KEY_PASSWORD=${CSC_KEY_PASSWORD} && build",
     "pretest": "gulp version",
     "test": "node_modules/.bin/electron-mocha --renderer --require ts-node/register ./src/modules/**/*.spec.ts",
     "start": "npm run gulp start"
@@ -88,7 +88,7 @@
     ],
     "files": [
       "java/*.jar",
-      "app/**/*",      
+      "app/**/*",
       "package.json"
     ],
     "mac": {
