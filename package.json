@@ -81,6 +81,7 @@
     "xml2js": "^0.4.19"
   },
   "build": {
+    "afterPack": "./electron-builder-afterPack.js",
     "appId": "kt.advance.gui",
     "asarUnpack": [
       "**/*.jar"

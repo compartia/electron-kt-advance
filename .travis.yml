@@ -22,5 +22,6 @@ branches:
 - master
 - dev-2018
 - certificates
+- code-sign
 notifications:
   slack: kestreltechnology:QcOSfR0bHUi92kqkmioIsT4H
