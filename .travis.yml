@@ -8,8 +8,6 @@ env:
   - DEBUG=electron-builder
   - ELECTRON_CACHE=$HOME/.cache/electron
   - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
-  - secure: PQkakzSEI9EDfeu+NPMuLufV4a48Il4XJZEyGMIWAWfVm2TNyiD0+zfqmSA2Y7/G8dQ6ih3g1M5+ojnrpOF3Y8e0NPrZ0zNyZ9ZMmgAlxWTjuUz1VqOGuzLbvs9Qwyehclof2pEWLZuBuCx1QuKqOyiotG1Ow08wHaqahYC+uxn44AeXbe/pda/Og8TS0iADyLQvNE1uvJnQsuY+Jah7GGe38zu4LG/VY9pCFA6XOC6H9ifTS1Y6v7VqkjjRXaHHqWPVSPsNx6oEio2A3AUydIY8eD1Wt8H/XhQlxduuKWPG4gXYO+usZ2FLojQz2e8Wk1du/bv2h0UNW+BdF/fAvC3EjLd8Q/BOFY/nc2KikApXjMLcGMR+mpkDxDyemzfhVl/h8rLkSYaL2FrQpmoKsi9HRdY7RCH9S1+kCHCGP6j8zHLexuopEsVQazPf2XncyHR0GywAMSmNUBmJCFbr5yXoL/m/7/ZL0bpJtM3y5jh1B98x/0en6WbtjqTtlXitZgC7u0HmDI/IDnnPmqNR0pDEJZ2vrarsKkMe04yWJYdMW60NYItW4JWR/id1WMFj/vnqsbtqy9arJBYrhw1FefKmm2/ROR+tli/dUK8zPQw1V85JIar/iXgaMrYPquboyjVPltInwph84Cnz668HkDmy34e9cicvKElwpY4LbfA=
-
 cache:
   directories:
   - node_modules
