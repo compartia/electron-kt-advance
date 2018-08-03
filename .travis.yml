@@ -15,12 +15,12 @@ cache:
   - "$HOME/.cache/electron-builder"
   - "$HOME/.npm/_prebuilds"
 script:
-- sudo security list-keychains
 - npm test
 - npm run release
 branches:
 - master
 - dev-2018
 - certificates
+- code-sign
 notifications:
   slack: kestreltechnology:QcOSfR0bHUi92kqkmioIsT4H

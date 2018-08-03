@@ -1,8 +1,9 @@
 {
   "name": "electron-kt-advance",
-  "version": "v0.3.10-beta-certificates",
+  "version": "v0.3.11-beta",
   "description": "no descr. by now",
   "license": "MIT",
+  "repository": "github:kestreltechnology/electron-kt-advance",
   "author": {
     "name": "Artem Zaborskii",
     "email": "artem@toptal.com",
@@ -18,7 +19,7 @@
     "__dist": "npm run compile && build",
     "build": "gulp build",
     "prerelease": "gulp build --env=production",
-    "release": "build",
+    "release": "export CSC_LINK=${CSC_LINK} && export CSC_KEY_PASSWORD=${CSC_KEY_PASSWORD} && build",
     "pretest": "gulp version",
     "test": "node_modules/.bin/electron-mocha --renderer --require ts-node/register ./src/modules/**/*.spec.ts",
     "start": "npm run gulp start"
@@ -80,7 +81,7 @@
     "typeface-roboto": "0.0.54",
     "xml2js": "^0.4.19"
   },
-  "build": {
+  "build": {    
     "appId": "kt.advance.gui",
     "asarUnpack": [
       "**/*.jar"
@@ -88,7 +89,6 @@
     "files": [
       "java/*.jar",
       "app/**/*",
-      "node_modules/**/*",
       "package.json"
     ],
     "mac": {
