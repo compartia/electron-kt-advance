@@ -1,41 +1,28 @@
-osx_image: xcode8.3
-sudo: required
-dist: trusty
-language: c
-matrix:
-  include:
-  - os: osx
-    env: CC=clang CXX=clang++ npm_config_clang=1
-    compiler: clang
+os: osx
+osx_image: xcode9.0
+
+language: node_js
+node_js: '8'
+env:
+  global:
+  - DEBUG=electron-builder
+  - ELECTRON_CACHE=$HOME/.cache/electron
+  - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
+  - secure: PQkakzSEI9EDfeu+NPMuLufV4a48Il4XJZEyGMIWAWfVm2TNyiD0+zfqmSA2Y7/G8dQ6ih3g1M5+ojnrpOF3Y8e0NPrZ0zNyZ9ZMmgAlxWTjuUz1VqOGuzLbvs9Qwyehclof2pEWLZuBuCx1QuKqOyiotG1Ow08wHaqahYC+uxn44AeXbe/pda/Og8TS0iADyLQvNE1uvJnQsuY+Jah7GGe38zu4LG/VY9pCFA6XOC6H9ifTS1Y6v7VqkjjRXaHHqWPVSPsNx6oEio2A3AUydIY8eD1Wt8H/XhQlxduuKWPG4gXYO+usZ2FLojQz2e8Wk1du/bv2h0UNW+BdF/fAvC3EjLd8Q/BOFY/nc2KikApXjMLcGMR+mpkDxDyemzfhVl/h8rLkSYaL2FrQpmoKsi9HRdY7RCH9S1+kCHCGP6j8zHLexuopEsVQazPf2XncyHR0GywAMSmNUBmJCFbr5yXoL/m/7/ZL0bpJtM3y5jh1B98x/0en6WbtjqTtlXitZgC7u0HmDI/IDnnPmqNR0pDEJZ2vrarsKkMe04yWJYdMW60NYItW4JWR/id1WMFj/vnqsbtqy9arJBYrhw1FefKmm2/ROR+tli/dUK8zPQw1V85JIar/iXgaMrYPquboyjVPltInwph84Cnz668HkDmy34e9cicvKElwpY4LbfA=
+
 cache:
   directories:
   - node_modules
-  - bower_components
-  - "$HOME/.electron"
-  - "$HOME/.cache"
-addons:
-  apt:
-    packages:
-    - libgnome-keyring-dev
-    - icnsutils
-    - xvfb
-install:
-- export DISPLAY=':99.0'
-- Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
-- nvm install 10
-- npm install
-- npm prune
+  - "$HOME/.cache/electron"
+  - "$HOME/.cache/electron-builder"
+  - "$HOME/.npm/_prebuilds"
 script:
+- sudo security list-keychains
 - npm test
 - npm run release
 branches:
-  - master
-  - dev-2018
+- master
+- dev-2018
+- certificates
 notifications:
   slack: kestreltechnology:QcOSfR0bHUi92kqkmioIsT4H
-env:
-  global:
-  - secure: jpDoUXW+wc6AwzfCtLuUrinGEls65gw3htOq/pngjtwSg+jj0rjjSpThTJ1ATTHKwyN2FlusqwYp5LCMuyjagnrXdWgSZNqhZoyyabAKujO1Wfj9h//iwFJnPSkGUycfZOY2a5LJQLvpPYemMnIHO2TyZW1X3vstClJ+pktoKrMle5xrdsrA4z+WtAZIxV2ZFZiVxZufpDgBkcsnvvRTCnKUnaFM1uQRnsvfyUF5v1pOkeIcOZA8q/FQ1WWcF7S1DFFVAOYHRnrax4UmzyX+jLYc4r3jQuT+ygGiP1w5MfArvsaTBqpobjGO1MWm6lmEc4AK4pDFIZYPi8TfmsxakTwP6YyibAhtzwXzaua5z/CIjzOAFLEa40hpseb6OoiYane6izVJA9RKC9aWK12IBRowFmTHIkB3RzW5UtrNL4zajSWDnPB8y4HvJjuahveE2WfMy+fkJNsVSyJizykoQAVWb9JgCQS2e1nNNcIFZvb8aEJ0HxEyAQBxN+8n5BOGMr9uVpVkjIhmLE7rfZmT/IIzBS95NGG7QNuGYxyouaGdW6KP+fpPKdbNe6DLeluO9CVRld7uZHw/zA7gqPDl9y9gwzZ/lJsco1gyHjiOC8M2lvaSoObxJH38eatUiQrkVgxLxNWG1LfLpGvdh+Xs8QfMxRr+4kq8/mSCylKp8+Q=
-  - secure: PQkakzSEI9EDfeu+NPMuLufV4a48Il4XJZEyGMIWAWfVm2TNyiD0+zfqmSA2Y7/G8dQ6ih3g1M5+ojnrpOF3Y8e0NPrZ0zNyZ9ZMmgAlxWTjuUz1VqOGuzLbvs9Qwyehclof2pEWLZuBuCx1QuKqOyiotG1Ow08wHaqahYC+uxn44AeXbe/pda/Og8TS0iADyLQvNE1uvJnQsuY+Jah7GGe38zu4LG/VY9pCFA6XOC6H9ifTS1Y6v7VqkjjRXaHHqWPVSPsNx6oEio2A3AUydIY8eD1Wt8H/XhQlxduuKWPG4gXYO+usZ2FLojQz2e8Wk1du/bv2h0UNW+BdF/fAvC3EjLd8Q/BOFY/nc2KikApXjMLcGMR+mpkDxDyemzfhVl/h8rLkSYaL2FrQpmoKsi9HRdY7RCH9S1+kCHCGP6j8zHLexuopEsVQazPf2XncyHR0GywAMSmNUBmJCFbr5yXoL/m/7/ZL0bpJtM3y5jh1B98x/0en6WbtjqTtlXitZgC7u0HmDI/IDnnPmqNR0pDEJZ2vrarsKkMe04yWJYdMW60NYItW4JWR/id1WMFj/vnqsbtqy9arJBYrhw1FefKmm2/ROR+tli/dUK8zPQw1V85JIar/iXgaMrYPquboyjVPltInwph84Cnz668HkDmy34e9cicvKElwpY4LbfA=
-  - secure: twN06jys9P3ds1LqGaaS9FnuzmGN87hzoTEYHWvINxrlLr4JH4dh7O/VyfkfJoCc2Jipai2iRnBzZJKvDqtSnt3nOQHVmCkuLm5t9PurPVgwm6xdi87ucdScG1FWa08ZK1mEBH5+9zc8AOUJygw8briVt9CRH4SJuzr2tNSKf9SeRwgvDeLAk0b6GmQgcYNQE7c5ScuxIBmKJX3lq7HhufSdgn1JjkcD9vbrTnPEYl/TNwHks3fYlceTRRo447YTMyNBIpu4GIxf2l+KKPJ/PzrqtGyI0OuWHZHihGyQ0VegILZbO5hOBRRi7Caot7L1DjwoqkGHEdOwPwn1ArI1+7cdRu+Vt1HNVyjqKfiM/3A/NDiCs1imx6RoBbJR4U9RIuV1HrcYldkEr6Z1AXQWQxiQlyPAntZtZr4yk23oiZLVSty4W6IPP9H1vGRbQuC8DsIBW80RxAmtLgxpE6/f2C4ZS1jWhN67TdwTL20B9F0f/1bJ9AAvGA1/G4erWrSGYNHJ81yn31rPL4BDsS29rRhmJtho+xIH4ipilAFwVZ8Gfjvio0Grx7igv4ljrbqjjF3NAdUyyx4KooPKpvfVhn9FVyTpL3GYGBh+lSwswdeiWCzJ5BVcIrNUzCkhsMWkXF0tK0JDEoVZIhXVPYA+DZjATzlVAiYzdDyE8W99/g4=
-  - secure: KzESJ69GbyvB8/U2q1H2B3DJFTYyHxtnlaXqLyhO0JxkaH8gWj8zgJVo9W4rcgN1hqIUAvsyhnJ0nga21XUMvA6he3sik5pHPCkhhJknbhotZTTnJ0FoR5YSBFdcnzdVJIm2gZZNaxXCL+rfzcVMWGAPywKDa4eJ1bMAEZVUXFzWggghu6phxoj6kT1XJiaLTjygENcOeQZR43gqlgZ8+cpnPb4KiPHaoyow7VeU42IUuSvxYhccOzube8EfigeDdWZ/C+Y/tKnGrOb1Id2xOkGjrpPgE1HYg9k047ePKq89DzIXEOoYUC1nTWvkGUuKwO8FmZC6vlYwr+uYxOE058Zi/Onx3Qfa9/7+8NSgNyJdx6Mj6H281Hr4iddELf9MGc8UXSerUBfO7vhDdBoKPIx2IwlcLdtpQfQ4efmevTYX67YS5VG8p8lCAuxV7HMcwOXHBwfOrseecn8HseBMbSx3n6dfIltmDd5yS/scON+aoGkI+XAax45hn2Nh2RMHflTI+s+1iNfop24CjL9SPd4UPLzWRviXOA51QOnw2xfTRSPUSGIETu1M0dOs8JIoTTfpVEH51v6tnrLyiaMvAnltM2Nh3Z6LYDdr0xzd6RZgr+fYoyp9JSe5UDBBCvEaLB6y7cy/saB/z8vMIaZcGaebCJUoq8f1iiw8bBG+wXQ=
