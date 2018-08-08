@@ -59,13 +59,6 @@ gulp.task('version', (cb) => {
 
 gulp.task('_ts', () => {
 
-    // var appManifest = jetpack.read('./package.json', 'json');
-    // console.error(appManifest.version);
-    // var versionString = "export const KT_VERSION='" + appManifest.version + "';"
-    // jetpack.write(srcDir.path("version.ts"), versionString);
-
-    // gulp.src(['src/**/*.html']).pipe(gulp.dest(tempDir));
-
     gulp.src(srcDir.path('**/*.html')).pipe(gulp.dest(tempDir));
     const tsResult = gulp.src(['src/**/*.ts', '!src/**/*.spec.ts']).pipe(tsProject());
     return tsResult.js.pipe(gulp.dest(tempDir));
