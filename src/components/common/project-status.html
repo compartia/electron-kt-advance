@@ -1,0 +1,67 @@
+<dom-module id="project-status">
+    <style is="project-status">
+        label::after {
+            content: ":"
+        }
+    </style>
+
+    <template>
+        <div>
+
+            <template is="dom-if" if="[[projectStatus.assumptions]]">
+                <div>
+                    <label>Assumptions</label> [[projectStatus.assumptions]]</div>
+            </template>
+
+            <template is="dom-if" if="[[projectStatus.po]]">
+                <div>
+                    <label>Proof obligations</label> [[projectStatus.po]]</div>
+            </template>
+
+            <template is="dom-if" if="[[projectStatus.contractFiles]]">
+                <div>
+                    <label>Contract files</label> [[projectStatus.contractFiles]]</div>
+            </template>
+
+
+            <template is="dom-if" if="[[not(projectStatus.assumptions)]]">
+                <div class="error-color">No assumptions</div>
+            </template>
+
+            <template is="dom-if" if="[[not(projectStatus.po)]]">
+                <div class="error-color">No proof obligations</div>
+            </template>
+
+            <template is="dom-if" if="[[not(projectStatus.contractFiles)]]">
+                <div class="error-color">No contracts</div>
+            </template>
+
+        </div>
+
+    </template>
+
+    <style is="project-status">
+    </style>
+
+    <script>
+        Polymer({
+            is: 'project-status',
+
+            properties: {
+
+                projectStatus: {
+                    type: Object
+                }
+            },
+
+
+
+            not: function (e) {
+                return !(!!e);
+            }
+
+
+        });
+    </script>
+
+</dom-module>

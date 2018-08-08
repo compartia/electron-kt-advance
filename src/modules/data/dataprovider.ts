@@ -4,7 +4,7 @@ import * as path from 'path';
 import * as json from '../../generated/kt-json';
 import { Filter } from '../common/filter';
 import * as kt_fs from '../common/fstools';
-import { GraphSettings } from '../common/globals';
+import { GraphSettings, CProject } from '../common/globals';
 import * as tools from '../common/tools';
 import { AssumptionNodeAttributes, Callee, Callsite, CallsiteNodeAttributes, CAnalysis, CApi, CApiAssumption, CFunction, CFunctionBase, Graphable, HasPath, PODischarge, POLocation, PONodeAttributes, PoStates, ProofObligation, RenderInfo, Returnsite, SecondaryProofObligation, Site, Symbol, CApp, CFile } from '../common/xmltypes';
 import { contracts } from "../contracts/contracts";
@@ -68,8 +68,8 @@ class CFunctionImpl extends AbstractLocatable implements CFunction {
         return this.loc.cfile.relativePath;
     }
 
-    get actualFile(){
-        return this.loc.cfile.actualFile; 
+    get actualFile() {
+        return this.loc.cfile.actualFile;
     }
 
     public constructor(_name, line, cfile: CFile) {
@@ -139,8 +139,8 @@ class ApiAssumptionImpl extends AbstractLocatable implements CApiAssumption {
         return this.cfunction.relativePath;
     }
 
-    get actualFile(){
-        return this.cfunction.actualFile; 
+    get actualFile() {
+        return this.cfunction.actualFile;
     }
 
     get assumptionType() {
@@ -265,7 +265,7 @@ function linkKey(link: ProofObligation): string {
 abstract class AbstractPO extends AbstractLocatable implements ProofObligation {
     // links: json.JPoLink[];
     renderInfo: RenderInfo;
- 
+
 
     assumptionsIn: CApiAssumption[] = [];
     assumptionsOut: CApiAssumption[] = [];
@@ -279,10 +279,10 @@ abstract class AbstractPO extends AbstractLocatable implements ProofObligation {
         return this.location.cfile.absFile;
     }
 
-    get actualFile(){
-        return this.location.cfile.actualFile; 
+    get actualFile() {
+        return this.location.cfile.actualFile;
     }
-    
+
 
     public constructor(ppo: json.JPO, cfun: CFunction) {
         super();
@@ -490,7 +490,7 @@ class PPOImpl extends AbstractPO {
 }
 
 export class CAnalysisImpl implements CAnalysis {
-    apps = [];
+   
     functionByFile: { [key: string]: CFunction[] } = {};
 
     private _proofObligations = [];
@@ -514,9 +514,7 @@ export class CAnalysisImpl implements CAnalysis {
                     funcs.push(cfun);
                 }
             }
-
         }
-
     }
 
     get contracts() {
@@ -544,15 +542,14 @@ export class CAnalysisImpl implements CAnalysis {
 
 abstract class AbstractSiteImpl extends AbstractLocatable implements Site, Graphable {
 
-    // _jcallsite: json.JCallsite;
     jcallsitetype: string;
     spos: SecondaryProofObligation[] = [];
     abstract name: string;
 
     private _loc: POLocation;
 
-    get actualFile(){
-        return this.location.cfile.actualFile; 
+    get actualFile() {
+        return this.location.cfile.actualFile;
     }
 
     get absFile(): string {
@@ -605,8 +602,8 @@ export class CalleeImpl extends AbstractLocatable implements Callee, CFunctionBa
         return this.location.cfile.absFile;
     }
 
-    get actualFile(){
-        return this.location.cfile.actualFile; 
+    get actualFile() {
+        return this.location.cfile.actualFile;
     }
 
     get location() {
@@ -792,10 +789,10 @@ export class ReturnsiteImpl extends AbstractSiteImpl implements Returnsite, Grap
 }
 
 export class CAnalysisJsonReaderImpl implements XmlReader {
-    fs: FileSystem;
+    // fs: FileSystem;
     cAnalysisResult: CAnalysisImpl;
 
-    public readDir(projectFs: FileSystem, _tracker: ProgressTracker): Promise<CAnalysis> {
+    public readDir(project: CProject, _tracker: ProgressTracker): Promise<CAnalysis> {
 
         let readingXmlTracker: ProgressTracker = _tracker.getSubtaskTracker(70, "reading XML data");
 
@@ -803,14 +800,15 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
 
         let readingContractsTracker: ProgressTracker = _tracker.getSubtaskTracker(10, "reading Contracts XMLs");
 
-        this.fs = projectFs;
+        // this.fs = projectFs;
         return resolveJava()
-            .then(env => runJavaJar(env, projectFs, readingXmlTracker))
+            .then(env => runJavaJar(env, project.fs, readingXmlTracker))
             .then(jsonfiles =>
-                runAsyncTask("reading JSON data", 0, () => this.readJsonFiles(jsonfiles, projectFs, readingJsonTracker), _tracker)
+                runAsyncTask("reading JSON data", 0, () => this.readJsonFiles(jsonfiles, project.fs, readingJsonTracker), _tracker)
             )
             .then(cAnalysisResult => {
-                let cc = runTask("reading Contracts XMLs", 0, () => this.readContractsXmls(projectFs, readingContractsTracker), _tracker);
+                let cc = runTask("reading Contracts XMLs", 0,
+                    () => this.readContractsXmls(project, readingContractsTracker), _tracker);
                 // let cc = this.readContractsXmls(projectFs, readingContractsTracker);
                 cAnalysisResult.contracts = cc;
                 return cAnalysisResult;
@@ -820,32 +818,33 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
 
 
 
-    private readContractsXmls(projectFs: FileSystem, tracker: ProgressTracker): contracts.ContractsCollection | null {
+    private readContractsXmls(project: CProject, tracker: ProgressTracker): contracts.ContractsCollection | null {
 
+        const files: string[] = kt_fs.walkSync(project.fs.baseDir, "_c.xml")
 
-        const files: string[] = kt_fs.walkSync(projectFs.baseDir, "_c.xml")
-        const cc: contracts.ContractsCollection = new contracts.ContractsCollection();
-        let cnt: number = 0;
+        const contractsCollection: contracts.ContractsCollection = new contracts.ContractsCollection();
+
+        let trackerInc = 100 / files.length;
         for (const file of files) {
 
             const idx = file.lastIndexOf(CONTRACTS_DIR);
             if (idx > 0) {
                 const absSourceDir = file.substr(0, idx);
-                const capp: CApp = projectFs.getCApp(absSourceDir);
+                const capp: CApp = project.fs.getCApp(absSourceDir);
 
-                const c: CFileContractXml = CFileContractXml.fromXml(file);
-                const cFile = capp.getCFile(c.name + ".c");
-                c.file = cFile;
-                cc.addContract(c);
+                const mCFileContractXml: CFileContractXml = CFileContractXml.fromXml(file);
+                const cFile = capp.getCFile(mCFileContractXml.name + ".c");
+                mCFileContractXml.file = cFile;
+                contractsCollection.addContract(mCFileContractXml);                
+            }else{
+                // XXX: add error to status;
             }
 
 
-
-            cnt++;
-            tracker.updateProgress(files.length / cnt);
+            tracker.updateProgress(trackerInc);
         }
-        tracker.updateProgress(1);
-        return cc;
+
+        return contractsCollection;
     }
 
     private readJsonFiles(files: string[], projectFs: FileSystem, tracker: ProgressTracker): CAnalysisImpl {
@@ -886,14 +885,13 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
 
             let capp: CApp = projectFs.getCApp(app.baseDir, app.actualSourceDir);
 
-            //tracker.updateProgress(trackerInc);
             const fileTrackerInc = 100 / app.files.length;
 
             app.files.forEach(file => {
 
                 const cfile = capp.getCFile(file.name);
 
-                setTimeout(() => tracker.updateProgress(fileTrackerInc), 100);
+                setTimeout(() => tracker.updateProgress(fileTrackerInc), 50);
 
 
                 const cfunctions = this.toCFuncArray(file.functions, cfile);
@@ -1072,9 +1070,9 @@ function runJavaJar(javaEnv: JavaEnv, projectFs: FileSystem, tracker: ProgressTr
             let lastProg = 0;
             process.stdout.on('data', (data) => {
                 let _msg = data.toString();
-                let lines=_msg.split(/\r?\n/);
-                
-                for(let msg of lines){
+                let lines = _msg.split(/\r?\n/);
+
+                for (let msg of lines) {
                     let parts = msg.split(":");
 
                     if (parts[0] === 'PROGRESS') {
@@ -1088,11 +1086,11 @@ function runJavaJar(javaEnv: JavaEnv, projectFs: FileSystem, tracker: ProgressTr
                         console.log(parts[1]);
                         tracker.setMessage("about to read " + parts[1]);
                     } else {
-                        if(msg.trim().length)
+                        if (msg.trim().length)
                             console.log('XML_PARSER: ' + msg);
                     }
                 }
-                
+
 
             });
 

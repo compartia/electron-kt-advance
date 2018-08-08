@@ -15,6 +15,7 @@ import { Filter } from './filter';
 import { FileContents } from "./source";
 import { CONF, loadProjectMayBe } from './storage';
 import { AbstractNode, Callee, CAnalysis, CApiAssumption, CFile, CFunction, HasPath, PoStates, ProofObligation, RenderInfo, sortPoNodes } from './xmltypes';
+import { ProjectStatus, ProjectStatusImpl } from './status';
 
 
 
@@ -52,6 +53,7 @@ export interface CProject {
     id: number;
     functionByFile: { [key: string]: Array<CFunction> };
     fs: FileSystem;
+    status: ProjectStatus;
     stats: Stats;
     filteredAssumptions: Array<CApiAssumption>;
     assumptions: Array<CApiAssumption>;
@@ -70,6 +72,7 @@ export class ProjectImpl implements CProject, ContractsController {
 
     functionByFile: { [key: string]: Array<CFunction> } = {};
     fs: FileSystem;
+    status: ProjectStatus;
 
     stats: Stats;
     private _contracts: Contracts.ContractsCollection;
@@ -92,6 +95,7 @@ export class ProjectImpl implements CProject, ContractsController {
     renderInfos: { [key: string]: RenderInfo } = {};
 
     constructor(fs: FileSystem) {
+        this.status = new ProjectStatusImpl(this);
         this._contracts = new Contracts.ContractsCollection()
         if (!fs) throw "param is required";
         this.open(fs);
@@ -259,7 +263,7 @@ export class ProjectImpl implements CProject, ContractsController {
 
 
         const pCAnalysis: Promise<CAnalysis> = runAsyncPromiseTask("reading", 0,
-            () => this.reader.readDir(project.fs, tracker),
+            () => this.reader.readDir(project, tracker),
             tracker);
 
         return pCAnalysis.then(mCAnalysis => {

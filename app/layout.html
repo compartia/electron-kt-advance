@@ -49,7 +49,8 @@
                         <functions-list id="functions" 
                             selected-file="[[filter.file]]"  
                             selected-function="{{filter.cfunction}}"
-                            project="[[currentProject]]" statistics="[[statistics]]"></functions-list>
+                            project="[[currentProject]]" 
+                            statistics="[[statistics]]"></functions-list>
                     </paper-header-panel>
 
                     <paper-header-panel style="width:80%" mode="standard">
@@ -83,7 +84,11 @@
                         <iron-pages class="content fit" id="contents" selected="{{modeIndex}}">
 
                             <!-- tab SUMMARY -->
-                            <kt-stats progress="{{progress}}" statistics="[[statistics]]" filter="{{filter}}"></kt-stats>
+                            <kt-stats 
+                                progress="{{progress}}" 
+                                statistics="[[statistics]]" 
+                                project-status="[[projectStatus]]"
+                                filter="{{filter}}"></kt-stats>
 
                             <!-- tab SOURCE -->
                             <source-view id="sourceview" current-project="[[currentProject]]" statistics="[[statistics]]"></source-view>
@@ -335,8 +340,13 @@
                     type: Object,
                     notify: true
                 },
-            
 
+                projectStatus: {
+                    type: Object,
+                    notify: true
+                },
+                
+  
                 disabledTabs: String
             },
 
@@ -441,6 +451,7 @@
                 this.set("filter.dischargeTypes", new collections.StringSet(model.PoDischargeTypesArr));
                 
                 this.notifyPath("currentProject.allPredicates");
+                this.set("projectStatus", this.currentProject.status);
             },
 
             _onProjectSelected: function (event) {
