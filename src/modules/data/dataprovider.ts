@@ -490,7 +490,7 @@ class PPOImpl extends AbstractPO {
 }
 
 export class CAnalysisImpl implements CAnalysis {
-   
+
     functionByFile: { [key: string]: CFunction[] } = {};
 
     private _proofObligations = [];
@@ -794,18 +794,22 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
 
     public readDir(project: CProject, _tracker: ProgressTracker): Promise<CAnalysis> {
 
-        let readingXmlTracker: ProgressTracker = _tracker.getSubtaskTracker(70, "reading XML data");
-
-        let readingJsonTracker: ProgressTracker = _tracker.getSubtaskTracker(20, "reading JSON data");
-
-        let readingContractsTracker: ProgressTracker = _tracker.getSubtaskTracker(10, "reading Contracts XMLs");
+        /*(1)*/ let readingXmlTracker: ProgressTracker = _tracker.getSubtaskTracker(70, "reading XML data");
+          /*(2)*/let readingJsonTracker: ProgressTracker = _tracker.getSubtaskTracker(20, "reading JSON data");
+          /*(3)*/let readingContractsTracker: ProgressTracker = _tracker.getSubtaskTracker(10, "reading Contracts XMLs");
 
         // this.fs = projectFs;
         return resolveJava()
             .then(env => runJavaJar(env, project.fs, readingXmlTracker))
-            .then(jsonfiles =>
-                runAsyncTask("reading JSON data", 0, () => this.readJsonFiles(jsonfiles, project.fs, readingJsonTracker), _tracker)
-            )
+            .then(mXmlParsingState => {
+
+                project.status.errors = mXmlParsingState.errors;
+
+                return runAsyncTask("reading JSON data", 0, () => this.readJsonFiles(
+                    mXmlParsingState.jsonFiles,
+                    project.fs,
+                    readingJsonTracker), _tracker);
+            })
             .then(cAnalysisResult => {
                 let cc = runTask("reading Contracts XMLs", 0,
                     () => this.readContractsXmls(project, readingContractsTracker), _tracker);
@@ -835,8 +839,8 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
                 const mCFileContractXml: CFileContractXml = CFileContractXml.fromXml(file);
                 const cFile = capp.getCFile(mCFileContractXml.name + ".c");
                 mCFileContractXml.file = cFile;
-                contractsCollection.addContract(mCFileContractXml);                
-            }else{
+                contractsCollection.addContract(mCFileContractXml);
+            } else {
                 // XXX: add error to status;
             }
 
@@ -1019,7 +1023,12 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
 }
 
 
-function runJavaJar(javaEnv: JavaEnv, projectFs: FileSystem, tracker: ProgressTracker): Promise<string[]> {
+interface XmlParsingState {
+    jsonFiles: string[];
+    errors: string[];
+}
+
+function runJavaJar(javaEnv: JavaEnv, projectFs: FileSystem, tracker: ProgressTracker): Promise<XmlParsingState> {
 
     return new Promise((resolve, reject) => {
 
@@ -1028,10 +1037,12 @@ function runJavaJar(javaEnv: JavaEnv, projectFs: FileSystem, tracker: ProgressTr
         if (jsonfiles.length > 0) {
             tracker.updateProgress(100);
             tracker.setMessage("skipping parsing XML, because json files exist");
-            resolve(jsonfiles);
+            resolve({ jsonFiles: jsonfiles, errors: [] });
 
         } else {
             const resulting_jsons: string[] = [];
+            const errors: string[] = [];
+
             tracker.setMessage("parsing XML files");
 
             const javaExecutablePath = path.resolve(javaEnv.java_home + '/bin/java');
@@ -1058,7 +1069,7 @@ function runJavaJar(javaEnv: JavaEnv, projectFs: FileSystem, tracker: ProgressTr
                         console.error("no JSON file known");
                         reject("no JSON files produced");
                     } else {
-                        resolve(resulting_jsons);
+                        resolve({ jsonFiles: resulting_jsons, errors: errors });
                     }
 
                 } else {
@@ -1068,6 +1079,7 @@ function runJavaJar(javaEnv: JavaEnv, projectFs: FileSystem, tracker: ProgressTr
 
 
             let lastProg = 0;
+
             process.stdout.on('data', (data) => {
                 let _msg = data.toString();
                 let lines = _msg.split(/\r?\n/);
@@ -1084,10 +1096,18 @@ function runJavaJar(javaEnv: JavaEnv, projectFs: FileSystem, tracker: ProgressTr
                     else if (parts[0] == 'RESULT_JSON') {
                         resulting_jsons.push(parts[1].trim())
                         console.log(parts[1]);
-                        tracker.setMessage("about to read " + parts[1]);
+                        tracker.setMessage("About to read " + parts[1]);
                     } else {
-                        if (msg.trim().length)
-                            console.log('XML_PARSER: ' + msg);
+                        const mTrimmed = msg.trim();
+                        if (mTrimmed.length) {
+                            if (mTrimmed.startsWith("ERROR")) {
+                                console.error('XML_PARSER: ' + mTrimmed);
+                                errors.push(mTrimmed);
+                            } else {
+                                console.info('XML_PARSER: ' + mTrimmed);
+                            }
+                        }
+
                     }
                 }
 

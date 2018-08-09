@@ -12,13 +12,24 @@
 
         <div class="summary-container">
 
-            <paper-material elevation="1" class$="card panel flexchild [[_hiddenIfNoDischarged]]">
-                <h3>Analysis state</h3>
-                <project-status project-status="[[projectStatus]]"></project-status>
-            </paper-material>
-
+           
             <div class="container flex-hor">
                 <div class="container flex-ver flexchild">
+
+                    <paper-material elevation="1" class="flexchild panel-exp">
+                        <paper-expansion-panel opened="[[projectStatus.hasWarning]]" id="project-status-panel" class="expansion-panel">
+                    
+                            <h3 slot="header">
+                                <template is="dom-if" if="[[projectStatus.hasWarning]]">
+                                    <iron-icon slot="header" icon="warning" style="color:var(--kt-yellow); margin-right: var(--spacer-2)"></iron-icon>
+                                </template>
+                                Analysis state</h3>
+                    
+                    
+                            <project-status project-status="[[projectStatus]]"></project-status>
+                    
+                        </paper-expansion-panel>
+                    </paper-material>
 
                     <paper-material elevation="1" class$="card panel flexchild [[_hiddenIfNoDischarged]]">
                         <h3>Proof obligations by type of discharge</h3>
@@ -97,13 +108,16 @@
             @apply --layout-flex;
         }
 
-        .panel {
-            min-width: 350px;
+        .panel, .panel-exp {
+            min-width: 350px;            
+            margin: var(--spacer);            
+        }
+        
+        .panel{
             padding: var(--spacer);
-            margin: var(--spacer);
             background-color: var(--kt-panel-bg);
         }
-
+        
         .kt-chart {
             width: 100%;
         }
@@ -111,6 +125,25 @@
         .hidden {
             display: none;
         }
+
+        .expansion-panel {
+           
+            --paper-expansion-panel-header: {
+                font-size: var(--font-size-sm);
+                background: var(--selection-lt-bg);
+                text-transform: uppercase;
+                padding-left: var(--spacer);            
+                cursor: pointer;
+            }
+        
+        
+            --paper-expansion-panel-content: {                
+                padding: var(--spacer);                
+            }
+        
+        }
+
+      
     </style>
 
     <script>

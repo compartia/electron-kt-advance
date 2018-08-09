@@ -12,6 +12,11 @@ $monospaced: 'IBM Plex Mono','Roboto Mono', 'Liberation Mono', Courier;
 $font-code: 400 80% $monospaced;
 
 
+:root {
+    --font-size-l: #{$font-size-lg};
+    --font-size-m: #{$font-size-m};
+    --font-size-sm: #{$font-size-sm};
+}
 
 h1,
 h2,

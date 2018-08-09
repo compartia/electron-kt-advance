@@ -25,7 +25,7 @@
     "paper-menu-button": "PolymerElements/paper-menu-button#^2.1.1",
     "paper-listbox": "PolymerElements/paper-listbox#^2.1.1",
     "paper-toast": "PolymerElements/paper-toast#^2.1.2",
-    "paper-expansion-panel": "Collaborne/paper-expansion-panel#1.1.0"
+    "paper-expansion-panel": "^1.0.6"
   },
   "resolutions": {
     "webcomponentsjs": "^0.7.24",

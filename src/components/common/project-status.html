@@ -3,10 +3,27 @@
         label::after {
             content: ":"
         }
+
+        paper-expansion-panel#errors {             
+           
+            --paper-expansion-panel-header: {
+                color: var(--kt-red);
+                background: var(--selection-lt-bg);
+                padding-left: var(--spacer);
+                cursor: pointer;
+            }
+        }
+
+        .expansion-panel-contents {
+            display: block;
+            max-height: 300px;
+            max-width: 100%;
+            overflow: auto;
+        }
     </style>
 
     <template>
-        <div>
+        <div style="padding-bottom: var(--spacer)">
 
             <template is="dom-if" if="[[projectStatus.assumptions]]">
                 <div>
@@ -23,25 +40,40 @@
                     <label>Contract files</label> [[projectStatus.contractFiles]]</div>
             </template>
 
-
             <template is="dom-if" if="[[not(projectStatus.assumptions)]]">
-                <div class="error-color">No assumptions</div>
+                <div class="error-color">No assumptions found</div>
             </template>
 
             <template is="dom-if" if="[[not(projectStatus.po)]]">
-                <div class="error-color">No proof obligations</div>
+                <div class="error-color">No proof obligations found </div>
             </template>
 
             <template is="dom-if" if="[[not(projectStatus.contractFiles)]]">
-                <div class="error-color">No contracts</div>
+                <div class="error-color">No contracts found</div>
             </template>
+
+            <!-- ERRORS -->
+            <template is="dom-if" if="[[projectStatus.errors.length]]">
+                <paper-expansion-panel class="expansion-panel" id="errors" style="margin: 0 -var(--spacer)">
+                    <h3 slot="header" class="error-color">
+                        <iron-icon slot="header" icon="warning" style="color:var(--kt-red); margin-right: var(--spacer-2)"></iron-icon>
+                        Errors</h3>
+                    <div class="expansion-panel-contents">
+                        <template is="dom-repeat" items="[[projectStatus.errors]]">
+                            <div class="error-color">[[item]]</div>
+                        </template>
+                    </div>
+                </paper-expansion-panel>
+            </template>
+
+
+
 
         </div>
 
     </template>
 
-    <style is="project-status">
-    </style>
+
 
     <script>
         Polymer({
@@ -53,8 +85,6 @@
                     type: Object
                 }
             },
-
-
 
             not: function (e) {
                 return !(!!e);
