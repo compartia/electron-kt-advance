@@ -25,6 +25,12 @@
     <template>
         <div style="padding-bottom: var(--spacer)">
 
+            <template is="dom-if" if="[[projectStatus.apps]]">
+                <div>
+                    <label>Semantics directories/files found</label> [[format(projectStatus.apps)]]</div>
+            </template>
+
+
             <template is="dom-if" if="[[projectStatus.assumptions]]">
                 <div>
                     <label>Assumptions</label> [[format(projectStatus.assumptions)]]</div>
@@ -38,6 +44,12 @@
             <template is="dom-if" if="[[projectStatus.contractFiles]]">
                 <div>
                     <label>Contract files</label> [[format(projectStatus.contractFiles)]]</div>
+            </template>
+
+            <!-- ERRORS -->
+
+            <template is="dom-if" if="[[not(projectStatus.apps)]]">
+                <div class="error-color">Semantics not found </div>
             </template>
 
             <template is="dom-if" if="[[not(projectStatus.assumptions)]]">

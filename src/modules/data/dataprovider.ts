@@ -187,7 +187,7 @@ class ApiAssumptionImpl extends AbstractLocatable implements CApiAssumption {
                 if (spo) {
                     this.spos.push(spo)
                 } else {
-                    tools.pushUnique(errors, `assumption ${this.jAssumption.id} of function ${this.functionName} refers missing PPO by ID "${spoId}"`);
+                    tools.pushUnique(errors, `assumption ${this.jAssumption.id} of function ${this.functionName} refers missing SPO by ID "${spoId}"`);
                 }
             }
         );

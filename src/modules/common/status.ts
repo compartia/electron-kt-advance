@@ -10,6 +10,7 @@ export interface ProjectStatus {
     contractFiles: number;
     assumptions: number;
     po: number;
+    apps: number;
     errors: string[];
     hasWarning: boolean;
 }
@@ -31,6 +32,10 @@ export class ProjectStatusImpl implements ProjectStatus {
         return this._project.contracts &&
             this._project.contracts.fileContracts &&
             this._project.contracts.fileContracts.length;
+    }
+
+    get apps(): number {
+        return this._project.fs.apps.length;            
     }
 
     get assumptions(): number {
