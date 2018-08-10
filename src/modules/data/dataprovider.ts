@@ -95,17 +95,17 @@ class CFunctionImpl extends AbstractLocatable implements CFunction {
 
     getPPObyId(id: number): ProofObligation {
         const ppo = this.__indexPpo[id];
-        if (!ppo) {
-            console.error(`cannot find PPO with ID: ${id} in function  ${this.file} /  ${this.name}`);
-        }
+        // if (!ppo) {
+        //     console.error(`cannot find PPO with ID: ${id} in function  ${this.file} /  ${this.name}`);
+        // }
         return ppo;
     }
 
     getSPObyId(id: number): ProofObligation {
         const spo = this.__indexSpo[id];
-        if (!spo) {
-            console.error(`cannot find SPO with ID: ${id} in function  ${this.file} /  ${this.name}`);
-        }
+        // if (!spo) {
+        //     console.error(`cannot find SPO with ID: ${id} in function  ${this.file} /  ${this.name}`);
+        // }
         return spo;
     }
 
@@ -121,13 +121,10 @@ class CFunctionImpl extends AbstractLocatable implements CFunction {
     __indexPpo = {};
 
 
-
-
-
 }
 
 class ApiAssumptionImpl extends AbstractLocatable implements CApiAssumption {
-    a: json.JApiAssumption;
+    private jAssumption: json.JApiAssumption;
     cfunction: CFunction;
     renderInfo: RenderInfo;
 
@@ -144,15 +141,15 @@ class ApiAssumptionImpl extends AbstractLocatable implements CApiAssumption {
     }
 
     get assumptionType() {
-        return this.a.type;
+        return this.jAssumption.type;
     }
 
     get predicate() {
-        return this.a.prd;
+        return this.jAssumption.prd;
     }
 
     get expression() {
-        return this.a.exp;
+        return this.jAssumption.exp;
     }
 
     get line() {
@@ -167,38 +164,56 @@ class ApiAssumptionImpl extends AbstractLocatable implements CApiAssumption {
         return this.cfunction.loc;
     }
 
-    get ppos(): ProofObligation[] {
-        let ret = [];
-        this.a.ppos && this.a.ppos.forEach(
+    private bindPpos(errors: string[]) {
+        this.ppos = [];
+        this.jAssumption.ppos && this.jAssumption.ppos.forEach(
             ppoId => {
                 let ppo = this.cfunction.getPPObyId(ppoId);
-                ppo && ret.push(ppo);
+                if (ppo) {
+                    this.ppos.push(ppo)
+                } else {
+                    tools.pushUnique(errors, `assumption ${this.jAssumption.id} of function ${this.functionName} refers missing PPO by ID "${ppoId}"`);
+                }                
             }
         );
-
-        return ret;
     }
 
-    get spos(): ProofObligation[] {
-        let ret = [];
-        this.a.spos && this.a.spos.forEach(
+    private bindSpos(errors: string[]) {
+        this.spos = [];
+        this.jAssumption.spos && this.jAssumption.spos.forEach(
             spoId => {
                 let spo = this.cfunction.getSPObyId(spoId);
-                spo && ret.push(spo);
+
+                if (spo) {
+                    this.spos.push(spo)
+                } else {
+                    tools.pushUnique(errors, `assumption ${this.jAssumption.id} of function ${this.functionName} refers missing PPO by ID "${spoId}"`);
+                }
             }
         );
-
-        return ret;
     }
 
-    public constructor(a: json.JApiAssumption, cfunc: CFunction) {
+    ppos: ProofObligation[];
+    spos: ProofObligation[];
+
+    bindPOs(errors: string[]) {
+        this.bindPpos(errors);
+        this.bindSpos(errors);
+        this.ppos.forEach(ppo => tools.pushUnique(ppo.assumptionsIn, this));
+        this.spos.forEach(spo => tools.pushUnique(spo.assumptionsOut, this));
+
+    }
+
+
+
+    public constructor(jAssumption: json.JApiAssumption, cfunc: CFunction) {
         super();
-        this.a = a;
+        this.jAssumption = jAssumption;
         this.cfunction = cfunc;
     }
 
     public getGraphKey(filter: Filter, settings: GraphSettings): string {
-        let nm = "assumption_" + this.a.prd + "[" + this.a.id + "]";
+        let nm = "assumption_" + this.predicate + "[" + this.jAssumption.id + "]";
 
         let pathParts: string[] = [];
 
@@ -234,7 +249,7 @@ class ApiAssumptionImpl extends AbstractLocatable implements CApiAssumption {
                 return this.base.relativePath + "/" + this.base.cfunction.name;
             }
             get label() {
-                return this.base.a.prd + "[" + this.base.a.id + "]"
+                return this.base.predicate + "[" + this.base.jAssumption.id + "]"
             }
         }
 
@@ -242,7 +257,7 @@ class ApiAssumptionImpl extends AbstractLocatable implements CApiAssumption {
             name: this.getGraphKey(filter, settings),
             input: [],
             output: [],
-            device: "assumption-" + this.a.type,//lkklkkllklk
+            device: "assumption-" + this.assumptionType,//lkklkkllklk
             op: this.cfunction.name,
             attr: new AssumptionNodeAttributesImpl(this)
         };
@@ -287,7 +302,6 @@ abstract class AbstractPO extends AbstractLocatable implements ProofObligation {
     public constructor(ppo: json.JPO, cfun: CFunction) {
         super();
 
-
         const state = ppo.sts == "safe" ? "discharged" : ppo.sts;
 
         this.cfunction = cfun;
@@ -301,8 +315,6 @@ abstract class AbstractPO extends AbstractLocatable implements ProofObligation {
         };
 
         this.id = "" + ppo.id;
-
-
     }
 
     get associatedPOs() {
@@ -498,7 +510,7 @@ export class CAnalysisImpl implements CAnalysis {
 
     poIndex: { [key: string]: ProofObligation } = {};
 
-    assumptions: Array<CApiAssumption> = [];
+    assumptions: Array<ApiAssumptionImpl> = [];
 
     set contracts(contracts: contracts.ContractsCollection) {
         this._contracts = contracts;
@@ -807,7 +819,7 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
 
                 return runAsyncTask("reading JSON data", 0, () => this.readJsonFiles(
                     mXmlParsingState.jsonFiles,
-                    project.fs,
+                    project,
                     readingJsonTracker), _tracker);
             })
             .then(cAnalysisResult => {
@@ -851,26 +863,26 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
         return contractsCollection;
     }
 
-    private readJsonFiles(files: string[], projectFs: FileSystem, tracker: ProgressTracker): CAnalysisImpl {
+    private readJsonFiles(files: string[], project: CProject, tracker: ProgressTracker): CAnalysisImpl {
 
         const inc = 100 / files.length;
         this.cAnalysisResult = new CAnalysisImpl();
         files.forEach(file => {
             const jsonParsingTracker: ProgressTracker = tracker.getSubtaskTracker(inc, "parsing JSON data");
-            this.readJsonFile(file, projectFs, jsonParsingTracker);
+            this.readJsonFile(file, project, jsonParsingTracker);
         });
 
         return this.cAnalysisResult;
     }
 
 
-    private readJsonFile(file: string, projectFs: FileSystem, tracker: ProgressTracker): CAnalysisImpl {
+    private readJsonFile(file: string, project: CProject, tracker: ProgressTracker): CAnalysisImpl {
 
         try {
             const contents = runTask("reading " + file, 5, () => fs.readFileSync(file).toString(), tracker);
             const json = runTask("parsing " + file, 15, () => <json.JAnalysis>JSON.parse(contents), tracker);
             let subtracker = tracker.getSubtaskTracker(80, "processing");
-            runTask("processing " + file, 0, () => this.mergeJsonData(json, projectFs, subtracker), tracker);
+            runTask("processing " + file, 0, () => this.mergeJsonData(json, project, subtracker), tracker);
 
         }
         catch (e) {
@@ -881,13 +893,13 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
         return this.cAnalysisResult;
     }
 
-    private mergeJsonData(data: json.JAnalysis, projectFs: FileSystem, tracker: ProgressTracker): void {
+    private mergeJsonData(data: json.JAnalysis, project: CProject, tracker: ProgressTracker): void {
 
 
         data.apps.forEach(app => {
             // console.log("source dir:" + app.sourceDir);
 
-            let capp: CApp = projectFs.getCApp(app.baseDir, app.actualSourceDir);
+            let capp: CApp = project.fs.getCApp(app.baseDir, app.actualSourceDir);
 
             const fileTrackerInc = 100 / app.files.length;
 
@@ -916,7 +928,7 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
                      */
                     cfun.api && cfun.api.apiAssumptions &&
                         cfun.api.apiAssumptions.forEach(aa => {
-                            this.cAnalysisResult.assumptions.push(aa);
+                            this.cAnalysisResult.assumptions.push(aa as ApiAssumptionImpl);
                         });
 
                 });
@@ -925,11 +937,9 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
                  * binding assumptions 
                  */
 
+                // let errors: string[] = [];
                 this.cAnalysisResult.assumptions.forEach(
-                    assumption => {
-                        assumption.ppos.forEach(ppo => tools.pushUnique(ppo.assumptionsIn, assumption));
-                        assumption.spos.forEach(spo => tools.pushUnique(spo.assumptionsOut, assumption));
-                    }
+                    assumption => assumption.bindPOs(project.status.errors)
                 );
 
 

@@ -26,6 +26,7 @@ export class ProjectStatusImpl implements ProjectStatus {
         this._project = project;
     }
 
+
     get contractFiles(): number {
         return this._project.contracts &&
             this._project.contracts.fileContracts &&
