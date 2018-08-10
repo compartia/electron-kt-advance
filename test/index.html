@@ -18,15 +18,11 @@
         let sorting;
         let Contracts;
         require(["../app/modules/common/sorting"], m => {
-            // console.error("module loaded ");
-            // console.error(m);
             sorting = m;
         });
 
        
          require(["../app/modules/contracts/contracts"], m => {
-            // console.error("module loaded ");
-            // console.error(m);
             Contracts = m.contracts;
             console.error( Contracts.RELATIONS);
            

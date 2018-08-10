@@ -247,9 +247,7 @@ export interface CApp {
 }
 
 export interface CAnalysis {
-    proofObligations: Array<ProofObligation>;
-    apps: Array<CApp>;
-
+    proofObligations: Array<ProofObligation>;   
     functionByFile: { [key: string]: Array<CFunction> };
     assumptions: Array<CApiAssumption>
     contracts: contracts.ContractsCollection;

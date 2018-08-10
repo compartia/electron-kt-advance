@@ -267,14 +267,12 @@ export module contracts {
         public fileContracts: CFileContract[] = [];
 
         constructor() {
-
         }
 
         public addContract(c: CFileContract) {
             this.contractsByFile[c.file.relativePath] = c;
             this.fileContracts.push(c);
         }
-
     }
 
     // *****************************

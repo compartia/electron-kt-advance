@@ -309,8 +309,6 @@ export class Stats {
         const columnNames = table.columnNames;
         const data: Array<NamedArray<HasPath>> = table.getTopRows(10);
 
-
-
         updateChart(scene, container,
             {
                 data: data,
