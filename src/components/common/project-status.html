@@ -4,8 +4,8 @@
             content: ":"
         }
 
-        paper-expansion-panel#errors {             
-           
+        paper-expansion-panel#errors {
+
             --paper-expansion-panel-header: {
                 color: var(--kt-red);
                 background: var(--selection-lt-bg);
@@ -27,17 +27,17 @@
 
             <template is="dom-if" if="[[projectStatus.assumptions]]">
                 <div>
-                    <label>Assumptions</label> [[projectStatus.assumptions]]</div>
+                    <label>Assumptions</label> [[format(projectStatus.assumptions)]]</div>
             </template>
 
             <template is="dom-if" if="[[projectStatus.po]]">
                 <div>
-                    <label>Proof obligations</label> [[projectStatus.po]]</div>
+                    <label>Proof obligations</label> [[format(projectStatus.po)]]</div>
             </template>
 
             <template is="dom-if" if="[[projectStatus.contractFiles]]">
                 <div>
-                    <label>Contract files</label> [[projectStatus.contractFiles]]</div>
+                    <label>Contract files</label> [[format(projectStatus.contractFiles)]]</div>
             </template>
 
             <template is="dom-if" if="[[not(projectStatus.assumptions)]]">
@@ -88,8 +88,12 @@
 
             not: function (e) {
                 return !(!!e);
-            }
+            },
 
+
+            format: function (n) {
+                return n.toLocaleString("en-US");
+            }
 
         });
     </script>
