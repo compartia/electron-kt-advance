@@ -1,4 +1,6 @@
 import { CProject } from "./globals";
+import { JError } from "../../generated/kt-json";
+import { pushUnique } from "./tools";
 
 
 /**
@@ -11,8 +13,10 @@ export interface ProjectStatus {
     assumptions: number;
     po: number;
     apps: number;
-    errors: string[];
+    errors: JError[];
     hasWarning: boolean;
+
+    addError(file: string, message: string)
 }
 
 
@@ -20,13 +24,32 @@ export interface ProjectStatus {
 export class ProjectStatusImpl implements ProjectStatus {
     private _project: CProject;
 
-    errors: string[];
+    errors: JError[] = [];
+
 
 
     constructor(project: CProject) {
         this._project = project;
     }
 
+    public addError(file: string, message: string) {
+        let found: JError = null;
+        for (let e of this.errors) {
+            if (e.file == file) {
+                found = e;
+            }
+        }
+        if (found === null) {
+            found = {
+                file: file,
+                messages: []
+            };
+            this.errors.push(found);
+        }
+
+        pushUnique(found.messages, message);
+
+    }
 
     get contractFiles(): number {
         return this._project.contracts &&
@@ -35,7 +58,8 @@ export class ProjectStatusImpl implements ProjectStatus {
     }
 
     get apps(): number {
-        return this._project.fs.apps.length;            
+        return this._project.fs.apps.length;
+
     }
 
     get assumptions(): number {
