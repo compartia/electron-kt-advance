@@ -16,6 +16,7 @@ import { XmlReader } from './xmlreader';
 import { CFileContractXml } from "../contracts/xml";
 import { FileSystem, CONTRACTS_DIR } from "../common/filesystem";
 import { runAsyncTask, runTask } from "../tf_graph_common/lib/util";
+import { ProjectStatus } from "../common/status";
 
 
 
@@ -164,7 +165,7 @@ class ApiAssumptionImpl extends AbstractLocatable implements CApiAssumption {
         return this.cfunction.loc;
     }
 
-    private bindPpos(errors: string[]) {
+    private bindPpos(pstatus: ProjectStatus) {
         this.ppos = [];
         this.jAssumption.ppos && this.jAssumption.ppos.forEach(
             ppoId => {
@@ -172,13 +173,14 @@ class ApiAssumptionImpl extends AbstractLocatable implements CApiAssumption {
                 if (ppo) {
                     this.ppos.push(ppo)
                 } else {
-                    tools.pushUnique(errors, `assumption ${this.jAssumption.id} of function ${this.functionName} refers missing PPO by ID "${ppoId}"`);
-                }                
+                    pstatus.addError(this.relativePath,
+                        `assumption ${this.jAssumption.id} of function ${this.functionName} refers missing PPO by ID "${ppoId}"`);
+                }
             }
         );
     }
 
-    private bindSpos(errors: string[]) {
+    private bindSpos(pstatus: ProjectStatus) {
         this.spos = [];
         this.jAssumption.spos && this.jAssumption.spos.forEach(
             spoId => {
@@ -187,7 +189,8 @@ class ApiAssumptionImpl extends AbstractLocatable implements CApiAssumption {
                 if (spo) {
                     this.spos.push(spo)
                 } else {
-                    tools.pushUnique(errors, `assumption ${this.jAssumption.id} of function ${this.functionName} refers missing SPO by ID "${spoId}"`);
+                    pstatus.addError(this.relativePath,
+                        `assumption ${this.jAssumption.id} of function ${this.functionName} refers missing SPO by ID "${spoId}"`);
                 }
             }
         );
@@ -196,9 +199,9 @@ class ApiAssumptionImpl extends AbstractLocatable implements CApiAssumption {
     ppos: ProofObligation[];
     spos: ProofObligation[];
 
-    bindPOs(errors: string[]) {
-        this.bindPpos(errors);
-        this.bindSpos(errors);
+    bindPOs(pstatus: ProjectStatus) {
+        this.bindPpos(pstatus);
+        this.bindSpos(pstatus);
         this.ppos.forEach(ppo => tools.pushUnique(ppo.assumptionsIn, this));
         this.spos.forEach(spo => tools.pushUnique(spo.assumptionsOut, this));
 
@@ -815,7 +818,7 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
             .then(env => runJavaJar(env, project.fs, readingXmlTracker))
             .then(mXmlParsingState => {
 
-                project.status.errors = mXmlParsingState.errors;
+                // project.status.errors = mXmlParsingState.errors;//TODO
 
                 return runAsyncTask("reading JSON data", 0, () => this.readJsonFiles(
                     mXmlParsingState.jsonFiles,
@@ -880,7 +883,7 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
 
         try {
             const contents = runTask("reading " + file, 5, () => fs.readFileSync(file).toString(), tracker);
-            const json = runTask("parsing " + file, 15, () => <json.JAnalysis>JSON.parse(contents), tracker);
+            const json: json.JAnalysis = runTask("parsing " + file, 15, () => <json.JAnalysis>JSON.parse(contents), tracker);
             let subtracker = tracker.getSubtaskTracker(80, "processing");
             runTask("processing " + file, 0, () => this.mergeJsonData(json, project, subtracker), tracker);
 
@@ -894,7 +897,7 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
     }
 
     private mergeJsonData(data: json.JAnalysis, project: CProject, tracker: ProgressTracker): void {
-
+        project.status.errors = data.errors;
 
         data.apps.forEach(app => {
             // console.log("source dir:" + app.sourceDir);
@@ -939,9 +942,8 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
 
                 // let errors: string[] = [];
                 this.cAnalysisResult.assumptions.forEach(
-                    assumption => assumption.bindPOs(project.status.errors)
+                    assumption => assumption.bindPOs(project.status)
                 );
-
 
 
             });
@@ -1062,7 +1064,7 @@ function runJavaJar(javaEnv: JavaEnv, projectFs: FileSystem, tracker: ProgressTr
             // Start the child java process
             let options = { cwd: projectFs.baseDir };
             let process = ChildProcess.spawn(javaExecutablePath, [
-                '-jar', fatJar, projectFs.baseDir
+                '-jar', fatJar, '-i', projectFs.baseDir, '-p', '-ne'
             ], options);
 
 

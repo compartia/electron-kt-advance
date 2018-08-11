@@ -71,8 +71,12 @@
                         <iron-icon slot="header" icon="warning" style="color:var(--kt-red); margin-right: var(--spacer-2)"></iron-icon>
                         Errors</h3>
                     <div class="expansion-panel-contents">
-                        <template is="dom-repeat" items="[[projectStatus.errors]]">
-                            <div class="error-color">[[item]]</div>
+                        <template is="dom-repeat" items="[[projectStatus.errors]]" as="file">
+                            <div>[[file.file]]</div>
+                            <template is="dom-repeat" items="[[file.messages]]">
+                                <div class="error-color">[[item]]</div>
+                            </template>
+
                         </template>
                     </div>
                 </paper-expansion-panel>
