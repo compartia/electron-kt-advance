@@ -851,7 +851,8 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
                 const absSourceDir = file.substr(0, idx);
                 const capp: CApp = project.fs.getCApp(absSourceDir);
 
-                const mCFileContractXml: CFileContractXml = CFileContractXml.fromXml(file);
+                const mCFileContractXml: CFileContractXml = CFileContractXml.fromXml(file, project.status);
+
                 const cFile = capp.getCFile(mCFileContractXml.name + ".c");
                 mCFileContractXml.file = cFile;
                 contractsCollection.addContract(mCFileContractXml);
