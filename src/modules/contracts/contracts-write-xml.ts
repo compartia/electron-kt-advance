@@ -5,6 +5,7 @@ import * as xml2js from 'xml2js';
 import './contracts';
 import { contracts } from './contracts';
 import * as xml from './xml';
+import { ProjectStatusImpl } from '../common/status';
 
 Error.stackTraceLimit = 30;
 
@@ -18,7 +19,7 @@ let testDir2 = path.normalize(__dirname + '/../../../docs/contracts/sample_contr
 
 function testWriteContract() {
 
-    const contract: contracts.CFileContract = xml.CFileContractXml.fromXml(testDir2);
+    const contract: contracts.CFileContract = xml.CFileContractXml.fromXml(testDir2, new ProjectStatusImpl(null));
 
     let xmlStr = xml.toXml(contract);
     console.log(xmlStr);
