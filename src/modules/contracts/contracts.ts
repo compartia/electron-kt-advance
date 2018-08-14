@@ -25,7 +25,7 @@ export module contracts {
         'geq': ">=",
         'leq': "<=",
         'buffer': 'Is buffer',
-        'initializes-range': 'Initializes range',
+        'initialized-range': 'Initialized range',
         'preserves-all-memory': 'Preserves all memory',
         'false': 'False'
     }
