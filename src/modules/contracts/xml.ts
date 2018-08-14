@@ -4,6 +4,7 @@ import * as _ from 'lodash';
 
 import { contracts } from './contracts'
 
+
 const ______DEBUG = false;
 
 function isPrimitive(test) {
@@ -21,7 +22,14 @@ export function toXml(fileContract: contracts.CFileContract): string {
     };
 
     let obj = {};
-    obj["header"] = {};
+    let now = new Date().toISOString();
+    obj["header"] = {
+        $: {
+            info: "cfile",
+            name: "cfile",
+            time: now
+        }
+    };
     obj["cfile"] = x_cfile;
 
     let builder = new xml2js.Builder({
