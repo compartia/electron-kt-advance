@@ -9,11 +9,12 @@ export module contracts {
         'initialized',
         'tainted',
         'allocation-base',
+        'new-memory',
         'not-zero',
         'not-null',
         'non-negative'];
 
-    export const BINARY_RELATIONS = ['eq', 'neq', 'gt', 'lt', 'geq', 'leq', 'buffer', 'initializes-range'];
+    export const BINARY_RELATIONS = ['eq', 'neq', 'gt', 'lt', 'geq', 'leq', 'buffer', 'initialized-range'];
 
     export const RELATIONS = [].concat(UNARY_RELATIONS).concat(BINARY_RELATIONS).concat(ZEROARY_RELATIONS);
     export const RELATIONS_NAMES = {
@@ -24,7 +25,7 @@ export module contracts {
         'geq': ">=",
         'leq': "<=",
         'buffer': 'Is buffer',
-        'initializes-range': 'Initializes range',
+        'initialized-range': 'Initialized range',
         'preserves-all-memory': 'Preserves all memory',
         'false': 'False'
     }

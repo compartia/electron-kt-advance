@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <c-analysis>
-  <header/>
+  <header info="cfile" name="cfile" time="2018-08-14T16:42:19.873Z"/>
   <cfile name="dir1/dir2/sampleFile.ext">
     <data-structures/>
     <global-variables/>

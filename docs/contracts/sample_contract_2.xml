@@ -77,7 +77,7 @@
 					<post>
 						<math>
 							<apply>
-								<initializes-range/>
+								<initialized-range/>
 								<return/>
 								<cn>50</cn>
 							</apply>
