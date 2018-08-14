@@ -1,13 +1,19 @@
-// Generated using typescript-generator version 2.0.400 on 2018-07-28 02:22:37.
+// Generated using typescript-generator version 2.0.400 on 2018-08-10 21:00:57.
 
 export interface JAnalysis extends Jsonable {
     apps: JApp[];
+    errors: JError[];
 }
 
 export interface JApp extends Jsonable {
     files: JFile[];
     actualSourceDir: string;
     baseDir: string;
+}
+
+export interface JError extends Jsonable {
+    file: string;
+    messages: string[];
 }
 
 export interface Jsonable {

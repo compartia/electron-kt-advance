@@ -18,19 +18,12 @@
         let sorting;
         let Contracts;
         require(["../app/modules/common/sorting"], m => {
-            // console.error("module loaded ");
-            // console.error(m);
             sorting = m;
         });
-
        
-         require(["../app/modules/contracts/contracts"], m => {
-            // console.error("module loaded ");
-            // console.error(m);
-            Contracts = m.contracts;
-            console.error( Contracts.RELATIONS);
-           
-        });
+        // require(["../app/modules/contracts/contracts"], m => {
+        //     Contracts = m.contracts;           
+        // });
 
         window.Polymer = {
             lazyRegister: true,
@@ -40,11 +33,12 @@
 
     <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
     <link rel="import" href="../bower_components/polymer/polymer.html">
-    <link rel="import" href="contracts-scene.html">
+    <link rel="import" href="po-list.html">
 
 </head>
 
 <body unresolved class="fullbleed layout vertical">
+    PO-list:
     <kt-layout>
     </kt-layout>
 </body>

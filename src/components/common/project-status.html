@@ -1,0 +1,117 @@
+<dom-module id="project-status">
+    <style is="project-status">
+        label::after {
+            content: ":"
+        }
+
+        paper-expansion-panel#errors {
+
+            --paper-expansion-panel-header: {
+                color: var(--kt-red);
+                background: var(--selection-lt-bg);
+                padding-left: var(--spacer);
+                cursor: pointer;
+            }
+        }
+
+        .expansion-panel-contents {
+            display: block;
+            max-height: 300px;
+            max-width: 100%;
+            overflow: auto;
+        }
+    </style>
+
+    <template>
+        <div style="padding-bottom: var(--spacer)">
+
+            <template is="dom-if" if="[[projectStatus.apps]]">
+                <div>
+                    <label>Semantics directories/files found</label> [[format(projectStatus.apps)]]</div>
+            </template>
+
+
+            <template is="dom-if" if="[[projectStatus.assumptions]]">
+                <div>
+                    <label>Assumptions</label> [[format(projectStatus.assumptions)]]</div>
+            </template>
+
+            <template is="dom-if" if="[[projectStatus.po]]">
+                <div>
+                    <label>Proof obligations</label> [[format(projectStatus.po)]]</div>
+            </template>
+
+            <template is="dom-if" if="[[projectStatus.contractFiles]]">
+                <div>
+                    <label>Contract files</label> [[format(projectStatus.contractFiles)]]</div>
+            </template>
+
+            <!-- ERRORS -->
+
+            <template is="dom-if" if="[[not(projectStatus.apps)]]">
+                <div class="error-color">Semantics not found </div>
+            </template>
+
+            <template is="dom-if" if="[[not(projectStatus.assumptions)]]">
+                <div class="error-color">No assumptions found</div>
+            </template>
+
+            <template is="dom-if" if="[[not(projectStatus.po)]]">
+                <div class="error-color">No proof obligations found </div>
+            </template>
+
+            <template is="dom-if" if="[[not(projectStatus.contractFiles)]]">
+                <div class="error-color">No contracts found</div>
+            </template>
+
+            <!-- ERRORS -->
+            <template is="dom-if" if="[[projectStatus.errors.length]]">
+                <paper-expansion-panel class="expansion-panel" id="errors" style="margin: 0 -var(--spacer)">
+                    <h3 slot="header" class="error-color">
+                        <iron-icon slot="header" icon="warning" style="color:var(--kt-red); margin-right: var(--spacer-2)"></iron-icon>
+                        Errors</h3>
+                    <div class="expansion-panel-contents">
+                        <template is="dom-repeat" items="[[projectStatus.errors]]" as="file">
+                            <div>[[file.file]]</div>
+                            <template is="dom-repeat" items="[[file.messages]]">
+                                <div class="error-color">[[item]]</div>
+                            </template>
+
+                        </template>
+                    </div>
+                </paper-expansion-panel>
+            </template>
+
+
+
+
+        </div>
+
+    </template>
+
+
+
+    <script>
+        Polymer({
+            is: 'project-status',
+
+            properties: {
+
+                projectStatus: {
+                    type: Object
+                }
+            },
+
+            not: function (e) {
+                return !(!!e);
+            },
+
+
+            format: function (n) {
+                return n.toLocaleString("en-US");
+            }
+
+        });
+    </script>
+
+</dom-module>

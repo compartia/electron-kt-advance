@@ -8,6 +8,7 @@ import { CFileContractXml, toXml } from './xml';
 import { ProjectImpl } from '../common/globals';
 import { FileSystem } from '../common/filesystem';
 import { CFunction } from '../common/xmltypes';
+import { ProjectStatusImpl } from '../common/status';
 
 Error.stackTraceLimit = 30;
 
@@ -20,7 +21,7 @@ Error.stackTraceLimit = 30;
 
     @test testReadContract() {
 
-        const contract: contracts.CFileContract = CFileContractXml.fromXml(this.testDir);
+        const contract: contracts.CFileContract = CFileContractXml.fromXml(this.testDir, new ProjectStatusImpl(null));
         // contract.fromXml(this.testDir);
 
         assert.equal(contract.functions.length, 19, "number of functions must be 19, was " + contract.functions.length);
@@ -44,14 +45,14 @@ Error.stackTraceLimit = 30;
 
     @test testReadContract2() {
 
-        const contract: contracts.CFileContract = CFileContractXml.fromXml(this.testDir2);
+        const contract: contracts.CFileContract = CFileContractXml.fromXml(this.testDir2, new ProjectStatusImpl(null));
         this.validateContract(contract);
 
     }
 
     @test testReadContract3() {
 
-        const contract: contracts.CFileContract = CFileContractXml.fromXml(this.testDir3);
+        const contract: contracts.CFileContract = CFileContractXml.fromXml(this.testDir3, new ProjectStatusImpl(null));
         assert.equal(contract.functions.length, 7);
         let fc: contracts.CFunctionContract = contract.getFunctionContractByName("goodG2BSource");
         assert.equal(fc.postconditions.length, 1);
@@ -82,10 +83,10 @@ Error.stackTraceLimit = 30;
     @test
     testSerialize2Xml() {
 
-        let contract: contracts.CFileContract = CFileContractXml.fromXml(this.testDir2);
+        let contract: contracts.CFileContract = CFileContractXml.fromXml(this.testDir2, new ProjectStatusImpl(null));
         let xmlStr = toXml(contract);
 
-        const contractRestored: contracts.CFileContract = CFileContractXml.fromXmlStr(xmlStr);
+        const contractRestored: contracts.CFileContract = CFileContractXml.fromXmlStr(xmlStr, new ProjectStatusImpl(null));
         this.validateContract(contractRestored);
         // console.log(xmlStr);
 

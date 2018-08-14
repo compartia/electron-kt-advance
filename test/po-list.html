@@ -1,8 +1,11 @@
 
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../src/main-components.html">
+
 <dom-module id="kt-layout">
     <template>
-
-        <paper-material elevation="1" class="card panel">
+           
+        <paper-material elevation="1" class="card panel">  
             <po-list small linktosource showgroups filtered-proof-obligations="[[associatedPOs]]"></po-list>
         </paper-material>
 
@@ -36,12 +39,12 @@
                         state: "violation",
                         predicateArgument: "predicateArgument",
                         predicate: "predicate",
-                        expression: "expression " + f,
+                        expression:(f % 2)==0 ?   "expression " + f : "very very very very long expression XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
                         file: "path/to/some/very/deep/file/name" + (f % 2) + ".c",
                         functionName: "functionName" + (f % 2),
                         line: 1 + f * 1000,
                         discharge:{
-                            message:"comment "+f,
+                            message:(f % 2)==0 ?   "comment " + f : "very very very very long comment XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
                         },
                         attr: {
                             level: "primary",

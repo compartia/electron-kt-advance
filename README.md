@@ -77,7 +77,7 @@ Orphan nodes are hidden.
 4. $ `npm install`
 
 ## To run in develpment mode
-1. `npm run gulp start`
+1. `npm start`
 
 ### Testing components in browser
 1. `polymer serve`

@@ -3,6 +3,8 @@ import * as fs from 'fs';
 import * as _ from 'lodash';
 
 import { contracts } from './contracts'
+import { ProjectStatus } from '../common/status';
+
 
 const ______DEBUG = false;
 
@@ -21,7 +23,14 @@ export function toXml(fileContract: contracts.CFileContract): string {
     };
 
     let obj = {};
-    obj["header"] = {};
+    let now = new Date().toISOString();
+    obj["header"] = {
+        $: {
+            info: "cfile",
+            name: "cfile",
+            time: now
+        }
+    };
     obj["cfile"] = x_cfile;
 
     let builder = new xml2js.Builder({
@@ -113,9 +122,9 @@ export class CFileContractXml extends contracts.CFileContractImpl {
         "global-variables": "gvar"
     };
 
-    static fromXmlStr(data: string): CFileContractXml {
+    static fromXmlStr(data: string, status: ProjectStatus): CFileContractXml {
         let ret = new CFileContractXml();
-        ret.loadXmlData(data);
+        ret.loadXmlData(data, status);
         return ret;
     }
 
@@ -123,14 +132,14 @@ export class CFileContractXml extends contracts.CFileContractImpl {
         super();
     }
 
-    public static fromXml(filename): CFileContractXml {
+    public static fromXml(filename:string, status: ProjectStatus): CFileContractXml {
         const data = fs.readFileSync(filename);
         let ret = new CFileContractXml();
-        ret.loadXmlData(data, filename);
+        ret.loadXmlData(data, status, filename);
         return ret;
     }
 
-    private loadXmlData(data: Buffer | string, filename?: string) {
+    private loadXmlData(data: Buffer | string, status: ProjectStatus, filename?: string) {
         this.functions = [];
 
         const parser = new xml2js.Parser({
@@ -141,6 +150,7 @@ export class CFileContractXml extends contracts.CFileContractImpl {
             parser.parseString(data, (err, result) => {
 
                 if (err) {
+                    status.addError(filename, err.toString());
                     console.error(err);
                     return;
                 }
@@ -155,12 +165,14 @@ export class CFileContractXml extends contracts.CFileContractImpl {
 
                     this.convertToObjects();
                 } catch (e) {
+                    status.addError(filename, e.toString());
                     console.error("Error reading " + filename);
                     console.error(e);
                 }
 
             });
         } catch (e) {
+            status.addError(filename, e.toString());
             console.error("Error reading " + filename);
             console.error(e);
         }

@@ -4,7 +4,7 @@ import * as path from 'path';
 import * as json from '../../generated/kt-json';
 import { Filter } from '../common/filter';
 import * as kt_fs from '../common/fstools';
-import { GraphSettings } from '../common/globals';
+import { GraphSettings, CProject } from '../common/globals';
 import * as tools from '../common/tools';
 import { AssumptionNodeAttributes, Callee, Callsite, CallsiteNodeAttributes, CAnalysis, CApi, CApiAssumption, CFunction, CFunctionBase, Graphable, HasPath, PODischarge, POLocation, PONodeAttributes, PoStates, ProofObligation, RenderInfo, Returnsite, SecondaryProofObligation, Site, Symbol, CApp, CFile } from '../common/xmltypes';
 import { contracts } from "../contracts/contracts";
@@ -16,6 +16,7 @@ import { XmlReader } from './xmlreader';
 import { CFileContractXml } from "../contracts/xml";
 import { FileSystem, CONTRACTS_DIR } from "../common/filesystem";
 import { runAsyncTask, runTask } from "../tf_graph_common/lib/util";
+import { ProjectStatus } from "../common/status";
 
 
 
@@ -68,8 +69,8 @@ class CFunctionImpl extends AbstractLocatable implements CFunction {
         return this.loc.cfile.relativePath;
     }
 
-    get actualFile(){
-        return this.loc.cfile.actualFile; 
+    get actualFile() {
+        return this.loc.cfile.actualFile;
     }
 
     public constructor(_name, line, cfile: CFile) {
@@ -95,17 +96,17 @@ class CFunctionImpl extends AbstractLocatable implements CFunction {
 
     getPPObyId(id: number): ProofObligation {
         const ppo = this.__indexPpo[id];
-        if (!ppo) {
-            console.error(`cannot find PPO with ID: ${id} in function  ${this.file} /  ${this.name}`);
-        }
+        // if (!ppo) {
+        //     console.error(`cannot find PPO with ID: ${id} in function  ${this.file} /  ${this.name}`);
+        // }
         return ppo;
     }
 
     getSPObyId(id: number): ProofObligation {
         const spo = this.__indexSpo[id];
-        if (!spo) {
-            console.error(`cannot find SPO with ID: ${id} in function  ${this.file} /  ${this.name}`);
-        }
+        // if (!spo) {
+        //     console.error(`cannot find SPO with ID: ${id} in function  ${this.file} /  ${this.name}`);
+        // }
         return spo;
     }
 
@@ -121,13 +122,10 @@ class CFunctionImpl extends AbstractLocatable implements CFunction {
     __indexPpo = {};
 
 
-
-
-
 }
 
 class ApiAssumptionImpl extends AbstractLocatable implements CApiAssumption {
-    a: json.JApiAssumption;
+    private jAssumption: json.JApiAssumption;
     cfunction: CFunction;
     renderInfo: RenderInfo;
 
@@ -139,20 +137,20 @@ class ApiAssumptionImpl extends AbstractLocatable implements CApiAssumption {
         return this.cfunction.relativePath;
     }
 
-    get actualFile(){
-        return this.cfunction.actualFile; 
+    get actualFile() {
+        return this.cfunction.actualFile;
     }
 
     get assumptionType() {
-        return this.a.type;
+        return this.jAssumption.type;
     }
 
     get predicate() {
-        return this.a.prd;
+        return this.jAssumption.prd;
     }
 
     get expression() {
-        return this.a.exp;
+        return this.jAssumption.exp;
     }
 
     get line() {
@@ -167,38 +165,58 @@ class ApiAssumptionImpl extends AbstractLocatable implements CApiAssumption {
         return this.cfunction.loc;
     }
 
-    get ppos(): ProofObligation[] {
-        let ret = [];
-        this.a.ppos && this.a.ppos.forEach(
+    private bindPpos(pstatus: ProjectStatus) {
+        this.ppos = [];
+        this.jAssumption.ppos && this.jAssumption.ppos.forEach(
             ppoId => {
                 let ppo = this.cfunction.getPPObyId(ppoId);
-                ppo && ret.push(ppo);
+                if (ppo) {
+                    this.ppos.push(ppo)
+                } else {
+                    pstatus.addError(this.relativePath,
+                        `assumption ${this.jAssumption.id} of function ${this.functionName} refers missing PPO by ID "${ppoId}"`);
+                }
             }
         );
-
-        return ret;
     }
 
-    get spos(): ProofObligation[] {
-        let ret = [];
-        this.a.spos && this.a.spos.forEach(
+    private bindSpos(pstatus: ProjectStatus) {
+        this.spos = [];
+        this.jAssumption.spos && this.jAssumption.spos.forEach(
             spoId => {
                 let spo = this.cfunction.getSPObyId(spoId);
-                spo && ret.push(spo);
+
+                if (spo) {
+                    this.spos.push(spo)
+                } else {
+                    pstatus.addError(this.relativePath,
+                        `assumption ${this.jAssumption.id} of function ${this.functionName} refers missing SPO by ID "${spoId}"`);
+                }
             }
         );
-
-        return ret;
     }
 
-    public constructor(a: json.JApiAssumption, cfunc: CFunction) {
+    ppos: ProofObligation[];
+    spos: ProofObligation[];
+
+    bindPOs(pstatus: ProjectStatus) {
+        this.bindPpos(pstatus);
+        this.bindSpos(pstatus);
+        this.ppos.forEach(ppo => tools.pushUnique(ppo.assumptionsIn, this));
+        this.spos.forEach(spo => tools.pushUnique(spo.assumptionsOut, this));
+
+    }
+
+
+
+    public constructor(jAssumption: json.JApiAssumption, cfunc: CFunction) {
         super();
-        this.a = a;
+        this.jAssumption = jAssumption;
         this.cfunction = cfunc;
     }
 
     public getGraphKey(filter: Filter, settings: GraphSettings): string {
-        let nm = "assumption_" + this.a.prd + "[" + this.a.id + "]";
+        let nm = "assumption_" + this.predicate + "[" + this.jAssumption.id + "]";
 
         let pathParts: string[] = [];
 
@@ -234,7 +252,7 @@ class ApiAssumptionImpl extends AbstractLocatable implements CApiAssumption {
                 return this.base.relativePath + "/" + this.base.cfunction.name;
             }
             get label() {
-                return this.base.a.prd + "[" + this.base.a.id + "]"
+                return this.base.predicate + "[" + this.base.jAssumption.id + "]"
             }
         }
 
@@ -242,7 +260,7 @@ class ApiAssumptionImpl extends AbstractLocatable implements CApiAssumption {
             name: this.getGraphKey(filter, settings),
             input: [],
             output: [],
-            device: "assumption-" + this.a.type,//lkklkkllklk
+            device: "assumption-" + this.assumptionType,//lkklkkllklk
             op: this.cfunction.name,
             attr: new AssumptionNodeAttributesImpl(this)
         };
@@ -265,7 +283,7 @@ function linkKey(link: ProofObligation): string {
 abstract class AbstractPO extends AbstractLocatable implements ProofObligation {
     // links: json.JPoLink[];
     renderInfo: RenderInfo;
- 
+
 
     assumptionsIn: CApiAssumption[] = [];
     assumptionsOut: CApiAssumption[] = [];
@@ -279,14 +297,13 @@ abstract class AbstractPO extends AbstractLocatable implements ProofObligation {
         return this.location.cfile.absFile;
     }
 
-    get actualFile(){
-        return this.location.cfile.actualFile; 
+    get actualFile() {
+        return this.location.cfile.actualFile;
     }
-    
+
 
     public constructor(ppo: json.JPO, cfun: CFunction) {
         super();
-
 
         const state = ppo.sts == "safe" ? "discharged" : ppo.sts;
 
@@ -301,8 +318,6 @@ abstract class AbstractPO extends AbstractLocatable implements ProofObligation {
         };
 
         this.id = "" + ppo.id;
-
-
     }
 
     get associatedPOs() {
@@ -490,7 +505,7 @@ class PPOImpl extends AbstractPO {
 }
 
 export class CAnalysisImpl implements CAnalysis {
-    apps = [];
+
     functionByFile: { [key: string]: CFunction[] } = {};
 
     private _proofObligations = [];
@@ -498,7 +513,7 @@ export class CAnalysisImpl implements CAnalysis {
 
     poIndex: { [key: string]: ProofObligation } = {};
 
-    assumptions: Array<CApiAssumption> = [];
+    assumptions: Array<ApiAssumptionImpl> = [];
 
     set contracts(contracts: contracts.ContractsCollection) {
         this._contracts = contracts;
@@ -514,9 +529,7 @@ export class CAnalysisImpl implements CAnalysis {
                     funcs.push(cfun);
                 }
             }
-
         }
-
     }
 
     get contracts() {
@@ -544,15 +557,14 @@ export class CAnalysisImpl implements CAnalysis {
 
 abstract class AbstractSiteImpl extends AbstractLocatable implements Site, Graphable {
 
-    // _jcallsite: json.JCallsite;
     jcallsitetype: string;
     spos: SecondaryProofObligation[] = [];
     abstract name: string;
 
     private _loc: POLocation;
 
-    get actualFile(){
-        return this.location.cfile.actualFile; 
+    get actualFile() {
+        return this.location.cfile.actualFile;
     }
 
     get absFile(): string {
@@ -605,8 +617,8 @@ export class CalleeImpl extends AbstractLocatable implements Callee, CFunctionBa
         return this.location.cfile.absFile;
     }
 
-    get actualFile(){
-        return this.location.cfile.actualFile; 
+    get actualFile() {
+        return this.location.cfile.actualFile;
     }
 
     get location() {
@@ -792,25 +804,30 @@ export class ReturnsiteImpl extends AbstractSiteImpl implements Returnsite, Grap
 }
 
 export class CAnalysisJsonReaderImpl implements XmlReader {
-    fs: FileSystem;
+    // fs: FileSystem;
     cAnalysisResult: CAnalysisImpl;
 
-    public readDir(projectFs: FileSystem, _tracker: ProgressTracker): Promise<CAnalysis> {
+    public readDir(project: CProject, _tracker: ProgressTracker): Promise<CAnalysis> {
 
-        let readingXmlTracker: ProgressTracker = _tracker.getSubtaskTracker(70, "reading XML data");
+        /*(1)*/ let readingXmlTracker: ProgressTracker = _tracker.getSubtaskTracker(70, "reading XML data");
+          /*(2)*/let readingJsonTracker: ProgressTracker = _tracker.getSubtaskTracker(20, "reading JSON data");
+          /*(3)*/let readingContractsTracker: ProgressTracker = _tracker.getSubtaskTracker(10, "reading Contracts XMLs");
 
-        let readingJsonTracker: ProgressTracker = _tracker.getSubtaskTracker(20, "reading JSON data");
-
-        let readingContractsTracker: ProgressTracker = _tracker.getSubtaskTracker(10, "reading Contracts XMLs");
-
-        this.fs = projectFs;
+        // this.fs = projectFs;
         return resolveJava()
-            .then(env => runJavaJar(env, projectFs, readingXmlTracker))
-            .then(jsonfiles =>
-                runAsyncTask("reading JSON data", 0, () => this.readJsonFiles(jsonfiles, projectFs, readingJsonTracker), _tracker)
-            )
+            .then(env => runJavaJar(env, project.fs, readingXmlTracker))
+            .then(mXmlParsingState => {
+
+                // project.status.errors = mXmlParsingState.errors;//TODO
+
+                return runAsyncTask("reading JSON data", 0, () => this.readJsonFiles(
+                    mXmlParsingState.jsonFiles,
+                    project,
+                    readingJsonTracker), _tracker);
+            })
             .then(cAnalysisResult => {
-                let cc = runTask("reading Contracts XMLs", 0, () => this.readContractsXmls(projectFs, readingContractsTracker), _tracker);
+                let cc = runTask("reading Contracts XMLs", 0,
+                    () => this.readContractsXmls(project, readingContractsTracker), _tracker);
                 // let cc = this.readContractsXmls(projectFs, readingContractsTracker);
                 cAnalysisResult.contracts = cc;
                 return cAnalysisResult;
@@ -820,54 +837,56 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
 
 
 
-    private readContractsXmls(projectFs: FileSystem, tracker: ProgressTracker): contracts.ContractsCollection | null {
+    private readContractsXmls(project: CProject, tracker: ProgressTracker): contracts.ContractsCollection | null {
 
+        const files: string[] = kt_fs.walkSync(project.fs.baseDir, "_c.xml")
 
-        const files: string[] = kt_fs.walkSync(projectFs.baseDir, "_c.xml")
-        const cc: contracts.ContractsCollection = new contracts.ContractsCollection();
-        let cnt: number = 0;
+        const contractsCollection: contracts.ContractsCollection = new contracts.ContractsCollection();
+
+        let trackerInc = 100 / files.length;
         for (const file of files) {
 
             const idx = file.lastIndexOf(CONTRACTS_DIR);
             if (idx > 0) {
                 const absSourceDir = file.substr(0, idx);
-                const capp: CApp = projectFs.getCApp(absSourceDir);
+                const capp: CApp = project.fs.getCApp(absSourceDir);
 
-                const c: CFileContractXml = CFileContractXml.fromXml(file);
-                const cFile = capp.getCFile(c.name + ".c");
-                c.file = cFile;
-                cc.addContract(c);
+                const mCFileContractXml: CFileContractXml = CFileContractXml.fromXml(file, project.status);
+
+                const cFile = capp.getCFile(mCFileContractXml.name + ".c");
+                mCFileContractXml.file = cFile;
+                contractsCollection.addContract(mCFileContractXml);
+            } else {
+                // XXX: add error to status;
             }
 
 
-
-            cnt++;
-            tracker.updateProgress(files.length / cnt);
+            tracker.updateProgress(trackerInc);
         }
-        tracker.updateProgress(1);
-        return cc;
+
+        return contractsCollection;
     }
 
-    private readJsonFiles(files: string[], projectFs: FileSystem, tracker: ProgressTracker): CAnalysisImpl {
+    private readJsonFiles(files: string[], project: CProject, tracker: ProgressTracker): CAnalysisImpl {
 
         const inc = 100 / files.length;
         this.cAnalysisResult = new CAnalysisImpl();
         files.forEach(file => {
             const jsonParsingTracker: ProgressTracker = tracker.getSubtaskTracker(inc, "parsing JSON data");
-            this.readJsonFile(file, projectFs, jsonParsingTracker);
+            this.readJsonFile(file, project, jsonParsingTracker);
         });
 
         return this.cAnalysisResult;
     }
 
 
-    private readJsonFile(file: string, projectFs: FileSystem, tracker: ProgressTracker): CAnalysisImpl {
+    private readJsonFile(file: string, project: CProject, tracker: ProgressTracker): CAnalysisImpl {
 
         try {
             const contents = runTask("reading " + file, 5, () => fs.readFileSync(file).toString(), tracker);
-            const json = runTask("parsing " + file, 15, () => <json.JAnalysis>JSON.parse(contents), tracker);
+            const json: json.JAnalysis = runTask("parsing " + file, 15, () => <json.JAnalysis>JSON.parse(contents), tracker);
             let subtracker = tracker.getSubtaskTracker(80, "processing");
-            runTask("processing " + file, 0, () => this.mergeJsonData(json, projectFs, subtracker), tracker);
+            runTask("processing " + file, 0, () => this.mergeJsonData(json, project, subtracker), tracker);
 
         }
         catch (e) {
@@ -878,22 +897,21 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
         return this.cAnalysisResult;
     }
 
-    private mergeJsonData(data: json.JAnalysis, projectFs: FileSystem, tracker: ProgressTracker): void {
-
+    private mergeJsonData(data: json.JAnalysis, project: CProject, tracker: ProgressTracker): void {
+        project.status.errors = data.errors;
 
         data.apps.forEach(app => {
             // console.log("source dir:" + app.sourceDir);
 
-            let capp: CApp = projectFs.getCApp(app.baseDir, app.actualSourceDir);
+            let capp: CApp = project.fs.getCApp(app.baseDir, app.actualSourceDir);
 
-            //tracker.updateProgress(trackerInc);
             const fileTrackerInc = 100 / app.files.length;
 
             app.files.forEach(file => {
 
                 const cfile = capp.getCFile(file.name);
 
-                setTimeout(() => tracker.updateProgress(fileTrackerInc), 100);
+                setTimeout(() => tracker.updateProgress(fileTrackerInc), 50);
 
 
                 const cfunctions = this.toCFuncArray(file.functions, cfile);
@@ -914,7 +932,7 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
                      */
                     cfun.api && cfun.api.apiAssumptions &&
                         cfun.api.apiAssumptions.forEach(aa => {
-                            this.cAnalysisResult.assumptions.push(aa);
+                            this.cAnalysisResult.assumptions.push(aa as ApiAssumptionImpl);
                         });
 
                 });
@@ -923,13 +941,10 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
                  * binding assumptions 
                  */
 
+                // let errors: string[] = [];
                 this.cAnalysisResult.assumptions.forEach(
-                    assumption => {
-                        assumption.ppos.forEach(ppo => tools.pushUnique(ppo.assumptionsIn, assumption));
-                        assumption.spos.forEach(spo => tools.pushUnique(spo.assumptionsOut, assumption));
-                    }
+                    assumption => assumption.bindPOs(project.status)
                 );
-
 
 
             });
@@ -1021,7 +1036,12 @@ export class CAnalysisJsonReaderImpl implements XmlReader {
 }
 
 
-function runJavaJar(javaEnv: JavaEnv, projectFs: FileSystem, tracker: ProgressTracker): Promise<string[]> {
+interface XmlParsingState {
+    jsonFiles: string[];
+    errors: string[];
+}
+
+function runJavaJar(javaEnv: JavaEnv, projectFs: FileSystem, tracker: ProgressTracker): Promise<XmlParsingState> {
 
     return new Promise((resolve, reject) => {
 
@@ -1030,10 +1050,12 @@ function runJavaJar(javaEnv: JavaEnv, projectFs: FileSystem, tracker: ProgressTr
         if (jsonfiles.length > 0) {
             tracker.updateProgress(100);
             tracker.setMessage("skipping parsing XML, because json files exist");
-            resolve(jsonfiles);
+            resolve({ jsonFiles: jsonfiles, errors: [] });
 
         } else {
             const resulting_jsons: string[] = [];
+            const errors: string[] = [];
+
             tracker.setMessage("parsing XML files");
 
             const javaExecutablePath = path.resolve(javaEnv.java_home + '/bin/java');
@@ -1043,7 +1065,7 @@ function runJavaJar(javaEnv: JavaEnv, projectFs: FileSystem, tracker: ProgressTr
             // Start the child java process
             let options = { cwd: projectFs.baseDir };
             let process = ChildProcess.spawn(javaExecutablePath, [
-                '-jar', fatJar, projectFs.baseDir
+                '-jar', fatJar, '-i', projectFs.baseDir, '-p', '-ne'
             ], options);
 
 
@@ -1060,7 +1082,7 @@ function runJavaJar(javaEnv: JavaEnv, projectFs: FileSystem, tracker: ProgressTr
                         console.error("no JSON file known");
                         reject("no JSON files produced");
                     } else {
-                        resolve(resulting_jsons);
+                        resolve({ jsonFiles: resulting_jsons, errors: errors });
                     }
 
                 } else {
@@ -1070,11 +1092,12 @@ function runJavaJar(javaEnv: JavaEnv, projectFs: FileSystem, tracker: ProgressTr
 
 
             let lastProg = 0;
+
             process.stdout.on('data', (data) => {
                 let _msg = data.toString();
-                let lines=_msg.split(/\r?\n/);
-                
-                for(let msg of lines){
+                let lines = _msg.split(/\r?\n/);
+
+                for (let msg of lines) {
                     let parts = msg.split(":");
 
                     if (parts[0] === 'PROGRESS') {
@@ -1086,13 +1109,21 @@ function runJavaJar(javaEnv: JavaEnv, projectFs: FileSystem, tracker: ProgressTr
                     else if (parts[0] == 'RESULT_JSON') {
                         resulting_jsons.push(parts[1].trim())
                         console.log(parts[1]);
-                        tracker.setMessage("about to read " + parts[1]);
+                        tracker.setMessage("About to read " + parts[1]);
                     } else {
-                        if(msg.trim().length)
-                            console.log('XML_PARSER: ' + msg);
+                        const mTrimmed = msg.trim();
+                        if (mTrimmed.length) {
+                            if (mTrimmed.startsWith("ERROR")) {
+                                console.error('XML_PARSER: ' + mTrimmed);
+                                errors.push(mTrimmed);
+                            } else {
+                                console.info('XML_PARSER: ' + mTrimmed);
+                            }
+                        }
+
                     }
                 }
-                
+
 
             });
 
