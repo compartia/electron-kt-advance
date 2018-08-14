@@ -228,6 +228,8 @@ assumption-line {
             border-radius: $spacer;
 
             margin: $spacer/4;
+
+            word-break: break-all;
         }
 
         .discharge-comment {
@@ -235,8 +237,8 @@ assumption-line {
             color    : $grey;
             width    : 100%;
 
-            margin: $spacer/4;
-            // padding-left: $po-icon-width+$spacer;
+            margin: $spacer/4;   
+            word-break: break-all;         
         }
 
         
