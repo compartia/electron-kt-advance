@@ -1064,8 +1064,13 @@ function runJavaJar(javaEnv: JavaEnv, projectFs: FileSystem, tracker: ProgressTr
 
             // Start the child java process
             let options = { cwd: projectFs.baseDir };
+
+
+            //  ("ne", "no-errors", false, "do not print parsing errors to console/log");
+            //  ("p", "progress", false, "print progress to console");
+            //  ("x", "extract-semantics", false, "extract semantics file");
             let process = ChildProcess.spawn(javaExecutablePath, [
-                '-jar', fatJar, '-i', projectFs.baseDir, '-p', '-ne'
+                '-jar', fatJar, '-i', projectFs.baseDir, '-p', '-ne', '-x'
             ], options);
 
 

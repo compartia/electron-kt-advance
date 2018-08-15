@@ -5,9 +5,12 @@ const pathExists = require('path-exists')
 
 import * as cp from 'child_process';
 
-
-
 const path = require('path');
+
+
+const JARNAME = "kt-advance-xml-2.7-jar-with-dependencies.jar";
+
+
 
 const isWindows = process.platform.indexOf('win') === 0;
 
@@ -101,7 +104,7 @@ export function parseMajorVersion(content: string): number {
     return javaVersion;
 }
 
-const JARNAME = "kt-advance-xml-2.6.2-jar-with-dependencies.jar";
+
 
 export function getJarName(appPath: string) {
 
