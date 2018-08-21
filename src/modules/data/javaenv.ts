@@ -8,7 +8,7 @@ import * as cp from 'child_process';
 const path = require('path');
 
 
-const JARNAME = "kt-advance-xml-2.7-jar-with-dependencies.jar";
+const JARNAME = "kt-advance-xml-2.7.2-jar-with-dependencies.jar";
 
 
 
