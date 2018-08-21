@@ -28,7 +28,8 @@
                     <template>
                         <div class$="code-line-wrapper [[_getRowClass(_loadedFile, index, statistics, selected)]]">
                             
-                            <template is="dom-if" if="[[hasContracts(item)]]">                                
+                            <template is="dom-if" if="[[hasContracts(item)]]">     
+                                    [[getContractsByLine(item)]]                           
                                 <inline-function-contracts func="[[item]]"></inline-function-contracts>
                             </template>
 
@@ -89,11 +90,18 @@
 
             properties: {
                 currentProject: Object,
-                _loadedFile: Object,
+                _loadedFile: {
+                    type: Object,
+                    observer:'onFileChanged'
+                },
 
                 lines: {
                     type: Array,
                     notify: true
+                },
+
+                contractsByLine: {
+                    type: Object 
                 },
 
                 statistics: {
@@ -132,7 +140,7 @@
             _selectedLineChanged: function (selectedLine, statistics) {
                 if (selectedLine != null) {
                     var posByLine = this.currentProject.getPosAtLine(this._loadedFile.relativePath, selectedLine.index);
-                    this.set("posByLine", posByLine);
+                    this.set("posByLine", posByLine); 
                 }
             },
 
@@ -244,8 +252,7 @@
             maybeLoadFile: function (newFile, aftereffect) {
                 if (this._shouldLoad(newFile)) {
 
-                    this._loadedFile = newFile;
-                    //XXX: handle errors;
+                    this._loadedFile = newFile;                     
                     this.currentProject.loadFile(newFile)
                         .then(fileContents => {
                             this.set("error", null);
@@ -277,8 +284,19 @@
                 return false;
             },
 
+            onFileChanged: function(fold, fnew){
+                this.contractsByLine=
+                    this.currentProject.makeContractsByLineMap(this._loadedFile.relativePath);
+            },
+
             hasContracts: function(line){
-                return this.currentProject.hasContractsAtLine(this._loadedFile.relativePath, line);
+                return this.contractsByLine[line.index] && this.contractsByLine[line.index][0].hasContracts;
+            },
+
+            getContractsByLine: function(line){
+                if(this.contractsByLine[line.index]){
+                    return this.contractsByLine[line.index][0].postconditionsString;
+                }
             }
         });
     </script>
