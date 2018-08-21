@@ -310,9 +310,9 @@ export class ProjectImpl implements CProject, ContractsController {
         return ret;
     }
 
- 
+
     public makeContractsByLineMap(fileName: string) {
-        let map = {};        
+        let map = {};
 
         let fileContract: Contracts.CFileContract = this.contracts.contractsByFile[fileName];
         if (fileContract) {
@@ -323,8 +323,16 @@ export class ProjectImpl implements CProject, ContractsController {
                     if (!map[line]) {
                         map[line] = [];
                     }
-                    map[line].push(fileContract.getFunctionContractByName(fun.name));
-                     
+                    
+                    let functionContract = fileContract.getFunctionContractByName(fun.name);
+
+                    if (functionContract) {
+                        map[line].push(functionContract);
+                    } else {
+                        console.warn("no function contracts for name " + fun.name);
+                    }
+
+
                 }
             }
 

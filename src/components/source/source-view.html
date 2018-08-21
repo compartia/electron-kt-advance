@@ -1,5 +1,66 @@
 <link rel="import" href="../common/node-decorator.html">
 
+
+<dom-module id="inline-function-contracts">
+        <style>            
+            .contracts{
+                font-size: var(--font-size-xs);
+                background: var(--kt-state-assumption-ua-bg);
+                padding: var(--spacer-2);
+            }
+        </style>
+    
+        <template>
+            <div class="contracts layout horizontal center justified">
+                <div class="contracts">
+                     
+                    <template is="dom-if" if="[[functionContract.postconditions.length]]">
+                        <h3>Postconditions:</h3>
+                        <div>
+                        <template is="dom-repeat" items="[[functionContract.postconditions]]">
+                            <div class="postcondition code">
+                                [[item.displayString]]
+                            </div>
+                        </template></div>
+                    </template>
+                
+                
+                    <template is="dom-if" if="[[functionContract.preconditions.length]]">
+                        <h3>Preconditions:</h3>
+                        <div>
+                        <template is="dom-repeat" items="[[functionContract.preconditions]]">
+                            <div class="precondition code">
+                                [[item.displayString]]
+                            </div>
+                        </template></div>
+                    </template>
+                
+                
+                </div>
+                <div on-tap="jumpToContracts" class="highlightable">
+                    contracts <iron-icon icon="chevron-right"></iron-icon> 
+                </div>
+            </div>
+        </template>
+
+        <script>
+                Polymer({
+                    is: 'inline-function-contracts',
+        
+                    properties: {
+                        functionContract: Object,
+                    }, 
+
+
+                    jumpToContracts: function (event) {
+                        this.fire("jump-to-contracts", {});
+                    },
+                    
+                });
+        </script>
+</dom-module>
+
+
 <dom-module id="source-view">
     <style>
         iron-list#listOfLines{
@@ -28,9 +89,8 @@
                     <template>
                         <div class$="code-line-wrapper [[_getRowClass(_loadedFile, index, statistics, selected)]]">
                             
-                            <template is="dom-if" if="[[hasContracts(item)]]">     
-                                    [[getContractsByLine(item)]]                           
-                                <inline-function-contracts func="[[item]]"></inline-function-contracts>
+                            <template is="dom-if" if="[[hasContracts(item)]]">                             
+                                <inline-function-contracts function-contract="[[getContractsByLine(item)]]"></inline-function-contracts>
                             </template>
 
                             <div class$="code-line [[_getClass(_loadedFile, index, statistics, selected)]]" on-tap="_onLineSelectedLine">
@@ -290,12 +350,14 @@
             },
 
             hasContracts: function(line){
-                return this.contractsByLine[line.index] && this.contractsByLine[line.index][0].hasContracts;
+                return this.contractsByLine[line.index] && 
+                    this.contractsByLine[line.index][0] && 
+                    this.contractsByLine[line.index][0].hasContracts;
             },
 
             getContractsByLine: function(line){
                 if(this.contractsByLine[line.index]){
-                    return this.contractsByLine[line.index][0].postconditionsString;
+                    return this.contractsByLine[line.index][0];
                 }
             }
         });

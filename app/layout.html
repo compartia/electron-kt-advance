@@ -353,7 +353,8 @@
             listeners: {
                 "project-loaded": "_onProjectLoaded",
                 "project-selected": "_onProjectSelected",
-                "jump-to-src": "_onJumpToSrc"
+                "jump-to-src": "_onJumpToSrc",
+                "jump-to-contracts": "_onJumpToContracts"
             },
 
             observers: [
@@ -366,6 +367,10 @@
 
             callsGraphTabSelected: function (mode) {
                 return "calls" === mode;
+            },
+
+            _onJumpToContracts: function (event) {
+                this.modeIndex = 4;                  
             },
 
             _onJumpToSrc: function (event) {
