@@ -48,8 +48,17 @@ When line is selected, the list of associated roof obligations is expanded.
 ![Source code view](/docs/source%20line%20selected.png)
 
 
+![Contracts](/docs/source-contracts.png)
+
+
+### Contracts
+
+![Contracts](/docs/contracts.png)
+
 
 ### Proof Obligations List
+
+
 TODO:
 Listing proof obligation by file/function in correspondence with the applied filter.
 ### Assumptions List

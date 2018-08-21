@@ -311,21 +311,33 @@ export class ProjectImpl implements CProject, ContractsController {
     }
 
 
-    public hasContractsAtLine(fileName: string, line: number) {
+    public makeContractsByLineMap(fileName: string) {
+        let map = {};
+
         let fileContract: Contracts.CFileContract = this.contracts.contractsByFile[fileName];
         if (fileContract) {
-
-
             let funcs = this.functionByFile[fileName];
             if (funcs) {
                 for (let fun of funcs) {
-                    if (fun.line === line) {
-                        return fileContract.getFunctionContractByName(fun.name);
+                    let line = fun.line;
+                    if (!map[line]) {
+                        map[line] = [];
                     }
+                    
+                    let functionContract = fileContract.getFunctionContractByName(fun.name);
+
+                    if (functionContract) {
+                        map[line].push(functionContract);
+                    } else {
+                        console.warn("no function contracts for name " + fun.name);
+                    }
+
+
                 }
             }
 
         }
+        return map;
     }
 
 

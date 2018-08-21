@@ -1,5 +1,66 @@
 <link rel="import" href="../common/node-decorator.html">
 
+
+<dom-module id="inline-function-contracts">
+        <style>            
+            .contracts{
+                font-size: var(--font-size-xs);
+                background: var(--kt-state-assumption-ua-bg);
+                padding: var(--spacer-2);
+            }
+        </style>
+    
+        <template>
+            <div class="contracts layout horizontal center justified">
+                <div class="contracts">
+                     
+                    <template is="dom-if" if="[[functionContract.postconditions.length]]">
+                        <h3>Postconditions:</h3>
+                        <div>
+                        <template is="dom-repeat" items="[[functionContract.postconditions]]">
+                            <div class="postcondition code">
+                                [[item.displayString]]
+                            </div>
+                        </template></div>
+                    </template>
+                
+                
+                    <template is="dom-if" if="[[functionContract.preconditions.length]]">
+                        <h3>Preconditions:</h3>
+                        <div>
+                        <template is="dom-repeat" items="[[functionContract.preconditions]]">
+                            <div class="precondition code">
+                                [[item.displayString]]
+                            </div>
+                        </template></div>
+                    </template>
+                
+                
+                </div>
+                <div on-tap="jumpToContracts" class="highlightable">
+                    contracts <iron-icon icon="chevron-right"></iron-icon> 
+                </div>
+            </div>
+        </template>
+
+        <script>
+                Polymer({
+                    is: 'inline-function-contracts',
+        
+                    properties: {
+                        functionContract: Object,
+                    }, 
+
+
+                    jumpToContracts: function (event) {
+                        this.fire("jump-to-contracts", {});
+                    },
+                    
+                });
+        </script>
+</dom-module>
+
+
 <dom-module id="source-view">
     <style>
         iron-list#listOfLines{
@@ -28,8 +89,8 @@
                     <template>
                         <div class$="code-line-wrapper [[_getRowClass(_loadedFile, index, statistics, selected)]]">
                             
-                            <template is="dom-if" if="[[hasContracts(item)]]">                                
-                                <inline-function-contracts func="[[item]]"></inline-function-contracts>
+                            <template is="dom-if" if="[[hasContracts(item)]]">                             
+                                <inline-function-contracts function-contract="[[getContractsByLine(item)]]"></inline-function-contracts>
                             </template>
 
                             <div class$="code-line [[_getClass(_loadedFile, index, statistics, selected)]]" on-tap="_onLineSelectedLine">
@@ -89,11 +150,18 @@
 
             properties: {
                 currentProject: Object,
-                _loadedFile: Object,
+                _loadedFile: {
+                    type: Object,
+                    observer:'onFileChanged'
+                },
 
                 lines: {
                     type: Array,
                     notify: true
+                },
+
+                contractsByLine: {
+                    type: Object 
                 },
 
                 statistics: {
@@ -132,7 +200,7 @@
             _selectedLineChanged: function (selectedLine, statistics) {
                 if (selectedLine != null) {
                     var posByLine = this.currentProject.getPosAtLine(this._loadedFile.relativePath, selectedLine.index);
-                    this.set("posByLine", posByLine);
+                    this.set("posByLine", posByLine); 
                 }
             },
 
@@ -244,8 +312,7 @@
             maybeLoadFile: function (newFile, aftereffect) {
                 if (this._shouldLoad(newFile)) {
 
-                    this._loadedFile = newFile;
-                    //XXX: handle errors;
+                    this._loadedFile = newFile;                     
                     this.currentProject.loadFile(newFile)
                         .then(fileContents => {
                             this.set("error", null);
@@ -277,8 +344,21 @@
                 return false;
             },
 
+            onFileChanged: function(fold, fnew){
+                this.contractsByLine=
+                    this.currentProject.makeContractsByLineMap(this._loadedFile.relativePath);
+            },
+
             hasContracts: function(line){
-                return this.currentProject.hasContractsAtLine(this._loadedFile.relativePath, line);
+                return this.contractsByLine[line.index] && 
+                    this.contractsByLine[line.index][0] && 
+                    this.contractsByLine[line.index][0].hasContracts;
+            },
+
+            getContractsByLine: function(line){
+                if(this.contractsByLine[line.index]){
+                    return this.contractsByLine[line.index][0];
+                }
             }
         });
     </script>
